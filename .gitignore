@@ -1,8 +1,13 @@
+
+
+
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+moc*
+ui*
 
 # Precompiled Headers
 *.gch
@@ -26,3 +31,22 @@
 *.exe
 *.out
 *.app
+
+# IDE files
+domusEngine/.cproject
+domusEngine/.project
+domusEngine/.idea
+domusEngine/.settings
+*.iml
+build
+
+.cproject
+.project
+.idea
+.settings
+
+#cmake files
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
