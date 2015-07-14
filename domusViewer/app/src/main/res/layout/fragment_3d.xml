@@ -107,6 +107,11 @@
                     android:id="@+id/downButton"/>
             </LinearLayout>
 
+            <it.achdjian.domusviewer.customew.view.button2.Button2
+                android:layout_width="115dp"
+                android:layout_height="70dp"
+                android:id="@+id/view"/>
+
         </LinearLayout>
 
         <FrameLayout
