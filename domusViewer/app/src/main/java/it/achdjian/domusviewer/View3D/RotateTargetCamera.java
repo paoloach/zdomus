@@ -6,8 +6,6 @@ import android.widget.TextView;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.math.Vector3;
 
-import org.w3c.dom.Text;
-
 import it.achdjian.domusviewer.R;
 
 /**

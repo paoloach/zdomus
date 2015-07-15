@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Button2">
+        <attr name="textInc" format="string"></attr>
+        <attr name="textDec" format="string"></attr>
+    </declare-styleable>
+</resources>

@@ -1,6 +1,5 @@
 package it.achdjian.domusviewer.View3D;
 
-import android.view.View;
 import android.widget.TextView;
 
 import com.badlogic.gdx.math.Vector3;

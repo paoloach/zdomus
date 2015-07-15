@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/fragment3D">
 
@@ -14,13 +14,15 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:id="@+id/buttons">
+            android:id="@+id/buttons"
+            android:layout_weight="0.19">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -68,7 +70,7 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <Button
@@ -89,7 +91,7 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <Button
@@ -97,7 +99,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Up"
-                    android:id="@+id/upButton"/>
+                    android:id="@+id/upButton"
+                    android:foregroundGravity="left"
+                    />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
@@ -108,8 +112,11 @@
             </LinearLayout>
 
             <it.achdjian.domusviewer.customew.view.button2.Button2
-                android:layout_width="115dp"
-                android:layout_height="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:textInc="UP"
+                app:textDec="DOWN"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/view"/>
 
         </LinearLayout>
