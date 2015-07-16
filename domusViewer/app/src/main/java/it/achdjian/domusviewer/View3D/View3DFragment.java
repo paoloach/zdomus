@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import it.achdjian.domusviewer.R;
+import it.achdjian.domusviewer.customew.view.buttondouble.ButtonDouble;
 
 /**
  * Created by Paolo Achdjian on 04/07/15.
@@ -53,17 +54,16 @@ public class View3DFragment extends AndroidFragmentApplication implements Notify
 		LinearLayout parentLayout = (LinearLayout) inflater.inflate(R.layout.fragment_3d, container, false);
 		TextView textArc = (TextView)parentLayout.findViewById(R.id.angle);
 
-
 		gdxListener = new DomusGDXListener(startingTarget, this);
 		rotateTargetCamera = new RotateTargetCamera(gdxListener, textArc);
-		upDownCamera = new UpDownCamera(gdxListener);
-		frontBackCamera = new FrontBackCamera(gdxListener);
+
 		parentLayout.findViewById(R.id.leftRotate).setOnClickListener(rotateTargetCamera);
 		parentLayout.findViewById(R.id.rightRotate).setOnClickListener(rotateTargetCamera);
-		parentLayout.findViewById(R.id.upButton).setOnClickListener(upDownCamera);
-		parentLayout.findViewById(R.id.downButton).setOnClickListener(upDownCamera);
-		parentLayout.findViewById(R.id.onButton).setOnClickListener(frontBackCamera);
-		parentLayout.findViewById(R.id.backButton).setOnClickListener(frontBackCamera);
+
+		ButtonDouble upDown = (ButtonDouble) parentLayout.findViewById(R.id.upDownCamera);
+		upDown.setOnSlideOperator(new UpDownCamera(gdxListener));
+		ButtonDouble frontBack = (ButtonDouble) parentLayout.findViewById(R.id.frontBack);
+		frontBack.setOnSlideOperator(new FrontBackCamera(gdxListener));
 
 
 		directionUpdate = new DirectionUpdate((TextView) parentLayout.findViewById(R.id.direction), gdxListener);

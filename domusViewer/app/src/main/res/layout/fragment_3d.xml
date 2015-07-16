@@ -73,42 +73,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="On"
-                    android:id="@+id/onButton"/>
-
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Back"
-                    android:id="@+id/backButton"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Up"
-                    android:id="@+id/upButton"
-                    android:foregroundGravity="left"
-                    />
-
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Down"
-                    android:id="@+id/downButton"/>
             </LinearLayout>
 
             <it.achdjian.domusviewer.customew.view.buttondouble.ButtonDouble
@@ -117,7 +81,15 @@
                 app:textInc="UP"
                 app:textDec="DOWN"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/view"/>
+                android:id="@+id/upDownCamera"/>
+
+            <it.achdjian.domusviewer.customew.view.buttondouble.ButtonDouble
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/frontBack"
+                app:textInc="FRONT"
+                app:textDec="BACK"/>
 
         </LinearLayout>
 

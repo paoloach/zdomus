@@ -1,35 +1,37 @@
 package it.achdjian.domusviewer.View3D;
 
-import android.view.View;
+import android.support.annotation.NonNull;
 
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 
-import it.achdjian.domusviewer.R;
+import it.achdjian.domusviewer.customew.view.buttondouble.SlideOperator;
 
 /**
  * Created by Paolo Achdjian on 11/07/15.
  * Copyright Paolo Achdjian
  */
-public class UpDownCamera implements View.OnClickListener {
-	private DomusGDXListener gdxListener;
+public class UpDownCamera implements SlideOperator {
+	private final DomusGDXListener gdxListener;
 
-	public UpDownCamera(DomusGDXListener gdxListener) {
-
+	public UpDownCamera(@NonNull DomusGDXListener gdxListener) {
 		this.gdxListener = gdxListener;
 	}
 
+
 	@Override
-	public void onClick(View view) {
+	public void operatorInc() {
 		PerspectiveCamera camera = gdxListener.getCamera();
-		if (camera != null) {
-			switch (view.getId()) {
-				case R.id.upButton:
-					camera.position.add(0,0.1f,0);
-					break;
-				case R.id.downButton:
-					camera.position.add(0,-0.1f,0);
-					break;
-			}
+		if (camera != null){
+			camera.position.add(0,0.1f, 0);
 		}
+	}
+
+	@Override
+	public void operatorDec() {
+		PerspectiveCamera camera = gdxListener.getCamera();
+		if (camera != null){
+			camera.position.add(0,-0.1f, 0);
+		}
+
 	}
 }

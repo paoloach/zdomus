@@ -17,15 +17,17 @@ import it.achdjian.domusviewer.R;
  */
 public class ButtonDouble extends LinearLayout implements View.OnClickListener, View.OnLongClickListener, Runnable{
 	private final static String TAG = ButtonDouble.class.getName();
-	private static final long REPEAT_DELAY = 400;
+	private static final long REPEAT_DELAY = 50;
 	private String textInc;
 	private String textDec;
 	private Button buttonInc;
 	private Button buttonDec;
 	private View continuosClicked=null;
+	private SlideOperator slideOperator;
 
 	public ButtonDouble(Context context) {
 		super(context);
+		this.slideOperator = slideOperator;
 	}
 
 	public ButtonDouble(Context context, AttributeSet attrs) {
@@ -36,6 +38,10 @@ public class ButtonDouble extends LinearLayout implements View.OnClickListener, 
 	public ButtonDouble(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs);
+	}
+
+	public void setOnSlideOperator(SlideOperator slideOperator){
+		this.slideOperator = slideOperator;
 	}
 
 	private void init(AttributeSet attrs){
@@ -84,6 +90,17 @@ public class ButtonDouble extends LinearLayout implements View.OnClickListener, 
 			continuosClicked = null;
 		}
 		Log.d(TAG, "click");
+		callSlideOperator(v);
+	}
+
+	private void callSlideOperator(View v) {
+		if (slideOperator != null) {
+			if (v == buttonDec) {
+				slideOperator.operatorDec();
+			} else if (v == buttonInc) {
+				slideOperator.operatorInc();
+			}
+		}
 	}
 
 	@Override
@@ -91,6 +108,7 @@ public class ButtonDouble extends LinearLayout implements View.OnClickListener, 
 		Log.d(TAG, "long click");
 		continuosClicked = v;
 		postDelayed(this, REPEAT_DELAY);
+		callSlideOperator(v);
 		return false;
 	}
 
@@ -98,6 +116,7 @@ public class ButtonDouble extends LinearLayout implements View.OnClickListener, 
 	public void run() {
 		if (continuosClicked != null){
 			Log.d(TAG,"continuos click");
+			callSlideOperator(continuosClicked);
 			postDelayed(this, REPEAT_DELAY);
 		}
 	}
