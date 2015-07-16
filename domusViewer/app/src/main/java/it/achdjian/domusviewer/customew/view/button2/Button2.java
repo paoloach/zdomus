@@ -1,6 +1,7 @@
 package it.achdjian.domusviewer.customew.view.button2;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -25,12 +26,14 @@ import it.achdjian.domusviewer.R;
  * Created by Paolo Achdjian on 13/07/15.
  * Copyright Paolo Achdjian
  */
-public class Button2 extends LinearLayout implements View.OnTouchListener{
+public class Button2 extends LinearLayout implements View.OnClickListener, View.OnLongClickListener, Runnable{
 	private final static String TAG = Button2.class.getName();
+	private static final long REPEAT_DELAY = 400;
 	private String textInc;
 	private String textDec;
 	private Button buttonInc;
 	private Button buttonDec;
+	private View continuosClicked=null;
 
 	public Button2(Context context) {
 		super(context);
@@ -63,8 +66,14 @@ public class Button2 extends LinearLayout implements View.OnTouchListener{
 		addView(buttonInc);
 		addView(buttonDec);
 
-		buttonDec.setOnTouchListener(this);
-		buttonInc.setOnTouchListener(this);
+		buttonDec.setOnClickListener(this);
+		buttonInc.setOnClickListener(this);
+
+		buttonInc.setOnLongClickListener(this);
+		buttonDec.setOnLongClickListener(this);
+
+		buttonDec.setLongClickable(true);
+		buttonInc.setLongClickable(true);
 	}
 
 	@Override
@@ -81,10 +90,26 @@ public class Button2 extends LinearLayout implements View.OnTouchListener{
 
 
 	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		if (v == buttonDec){
-			return true;
+	public void onClick(View v) {
+		if (continuosClicked == v){
+			continuosClicked = null;
 		}
+		Log.d(TAG, "click");
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		Log.d(TAG, "long click");
+		continuosClicked = v;
+		postDelayed(this, REPEAT_DELAY);
 		return false;
+	}
+
+	@Override
+	public void run() {
+		if (continuosClicked != null){
+			Log.d(TAG,"continuos click");
+			postDelayed(this, REPEAT_DELAY);
+		}
 	}
 }
