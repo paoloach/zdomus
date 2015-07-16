@@ -111,7 +111,7 @@
                     android:id="@+id/downButton"/>
             </LinearLayout>
 
-            <it.achdjian.domusviewer.customew.view.button2.Button2
+            <it.achdjian.domusviewer.customew.view.buttondouble.ButtonDouble
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:textInc="UP"
