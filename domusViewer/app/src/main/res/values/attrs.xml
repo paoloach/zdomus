@@ -3,5 +3,6 @@
     <declare-styleable name="ButtonDouble">
         <attr name="textInc" format="string"></attr>
         <attr name="textDec" format="string"></attr>
+        <attr name="value" format="boolean"></attr>
     </declare-styleable>
 </resources>

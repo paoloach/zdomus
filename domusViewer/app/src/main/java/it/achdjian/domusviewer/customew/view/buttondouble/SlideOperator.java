@@ -7,4 +7,6 @@ package it.achdjian.domusviewer.customew.view.buttondouble;
 public interface SlideOperator {
 	void operatorInc();
 	void operatorDec();
+
+	String getText();
 }

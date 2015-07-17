@@ -34,4 +34,9 @@ public class UpDownCamera implements SlideOperator {
 		}
 
 	}
+
+	@Override
+	public String getText() {
+		return null;
+	}
 }

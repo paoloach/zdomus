@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import it.achdjian.domusviewer.R;
 
@@ -15,14 +16,16 @@ import it.achdjian.domusviewer.R;
  * Created by Paolo Achdjian on 13/07/15.
  * Copyright Paolo Achdjian
  */
-public class ButtonDouble extends LinearLayout implements View.OnClickListener, View.OnLongClickListener, Runnable{
+public class ButtonDouble extends LinearLayout implements View.OnClickListener, View.OnLongClickListener, Runnable {
 	private final static String TAG = ButtonDouble.class.getName();
 	private static final long REPEAT_DELAY = 50;
 	private String textInc;
 	private String textDec;
+	private boolean value;
 	private Button buttonInc;
 	private Button buttonDec;
-	private View continuosClicked=null;
+	private TextView textView;
+	private View continuosClicked = null;
 	private SlideOperator slideOperator;
 
 	public ButtonDouble(Context context) {
@@ -40,22 +43,28 @@ public class ButtonDouble extends LinearLayout implements View.OnClickListener, 
 		init(attrs);
 	}
 
-	public void setOnSlideOperator(SlideOperator slideOperator){
+	public void setOnSlideOperator(SlideOperator slideOperator) {
 		this.slideOperator = slideOperator;
 	}
 
-	private void init(AttributeSet attrs){
+	private void init(AttributeSet attrs) {
 		TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ButtonDouble);
 
 		textInc = a.getString(R.styleable.ButtonDouble_textInc);
 		textDec = a.getString(R.styleable.ButtonDouble_textDec);
+		value = a.getBoolean(R.styleable.ButtonDouble_value, false);
 
 		a.recycle();
 
 		setOrientation(HORIZONTAL);
 
-		buttonInc = new Button(getContext(),attrs);
-		buttonDec = new Button(getContext(),attrs);
+		buttonInc = new Button(getContext(), attrs);
+		buttonDec = new Button(getContext(), attrs);
+		if (value) {
+			textView = new TextView(getContext(), attrs);
+
+			addView(textView);
+		}
 		buttonInc.setText(textInc);
 		buttonDec.setText(textDec);
 		addView(buttonInc);
@@ -69,13 +78,40 @@ public class ButtonDouble extends LinearLayout implements View.OnClickListener, 
 
 		buttonDec.setLongClickable(true);
 		buttonInc.setLongClickable(true);
+
+		if (value) {
+			if (slideOperator != null) {
+				textView.setText(slideOperator.getText());
+				textView.setGravity(0x10 | 0x05);
+			} else {
+				textView.setText("10");
+				textView.setGravity(0x10 | 0x05);
+			}
+		}
 	}
 
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-		int width = right-left;
-		buttonInc.layout(left,0, left+width/2, bottom-top);
-		buttonDec.layout(left+width/2, 0, right, bottom-top);
+		int height = bottom - top;
+		if (!value) {
+			int width = right - left;
+			buttonInc.layout(left, 0, left + width / 2, height);
+			buttonDec.layout(left + width / 2, 0, right, height);
+		} else {
+			int tvWidth = textView.getWidth();
+			if (tvWidth == 0) {
+				tvWidth = (right - left) / 3;
+			}
+			int width = (right - left) - tvWidth;
+			int a = left + width / 2;
+			int b = a + tvWidth;
+			int c = b + width / 2;
+
+			buttonInc.layout(left, 0, a, height);
+			textView.layout(a, 0, b, height);
+			buttonDec.layout(b, 0, right, height);
+
+		}
 	}
 
 	@Override
@@ -86,7 +122,7 @@ public class ButtonDouble extends LinearLayout implements View.OnClickListener, 
 
 	@Override
 	public void onClick(View v) {
-		if (continuosClicked == v){
+		if (continuosClicked == v) {
 			continuosClicked = null;
 		}
 		Log.d(TAG, "click");
@@ -99,6 +135,10 @@ public class ButtonDouble extends LinearLayout implements View.OnClickListener, 
 				slideOperator.operatorDec();
 			} else if (v == buttonInc) {
 				slideOperator.operatorInc();
+			}
+			if (value) {
+				textView.setGravity(0x10 | 0x05);
+				textView.setText(slideOperator.getText());
 			}
 		}
 	}
@@ -114,8 +154,8 @@ public class ButtonDouble extends LinearLayout implements View.OnClickListener, 
 
 	@Override
 	public void run() {
-		if (continuosClicked != null){
-			Log.d(TAG,"continuos click");
+		if (continuosClicked != null) {
+			Log.d(TAG, "continuos click");
 			callSlideOperator(continuosClicked);
 			postDelayed(this, REPEAT_DELAY);
 		}

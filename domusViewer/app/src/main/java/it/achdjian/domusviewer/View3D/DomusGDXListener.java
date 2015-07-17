@@ -36,23 +36,16 @@ public class DomusGDXListener implements ApplicationListener {
 	private int screenHeight;
 	private float posZ = 1.7f;
 	private CameraInputController cameraController;
-	private Vector3 target;
+	private final Vector3 target;
+	private final Vector3 position;
 	private NotifyCreation notifyCreation;
 
-	public DomusGDXListener(Vector3 startingTarget, NotifyCreation notifyCreation) {
+	public DomusGDXListener(Vector3 startingTarget, Vector3 startingPosition, NotifyCreation notifyCreation) {
 		target = startingTarget;
+		position = startingPosition;
 		this.notifyCreation = notifyCreation;
 	}
 
-	public Vector3 getTarget() {
-		return target;
-	}
-
-	public void setTarget(Vector3 target) {
-		this.target = target;
-		camera.lookAt(target);
-		camera.update();
-	}
 
 	@Override
 	public void create() {
@@ -64,7 +57,7 @@ public class DomusGDXListener implements ApplicationListener {
 
 		// Move the camera 5 units back along the z-axis and look at the origin
 		camera = new PerspectiveCamera(70, screenWidth, screenHeight);
-		camera.position.set(-1f,0f,posZ);
+		camera.position.set(position);
 		camera.direction.set(Vector3.X);
 		camera.up.set(Vector3.Y);
 

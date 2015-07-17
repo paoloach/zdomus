@@ -26,8 +26,11 @@ import it.achdjian.domusviewer.customew.view.buttondouble.ButtonDouble;
  * Copyright Paolo Achdjian
  */
 public class View3DFragment extends AndroidFragmentApplication implements NotifyCreation {
+	private int startingAngle = 264;
+	private Vector3 startingPosition = new Vector3(0.7f, 1.0f, -2.34f);
+	private Vector3 startingTarget = new Vector3(0,1.0f,0);
+
 	private DomusGDXListener gdxListener;
-	private Vector3 startingTarget = new Vector3(0,0,0);
 	private DirectionUpdate directionUpdate;
 	private PositionUpdate positionUpdate;
 	private RotateTargetCamera rotateTargetCamera;
@@ -52,18 +55,16 @@ public class View3DFragment extends AndroidFragmentApplication implements Notify
 		super.onCreateView(inflater, container, savedInstanceState);
 		AndroidApplicationConfiguration config = getGDXConfiguration();
 		LinearLayout parentLayout = (LinearLayout) inflater.inflate(R.layout.fragment_3d, container, false);
-		TextView textArc = (TextView)parentLayout.findViewById(R.id.angle);
 
-		gdxListener = new DomusGDXListener(startingTarget, this);
-		rotateTargetCamera = new RotateTargetCamera(gdxListener, textArc);
-
-		parentLayout.findViewById(R.id.leftRotate).setOnClickListener(rotateTargetCamera);
-		parentLayout.findViewById(R.id.rightRotate).setOnClickListener(rotateTargetCamera);
+		gdxListener = new DomusGDXListener(startingTarget, startingPosition, this);
 
 		ButtonDouble upDown = (ButtonDouble) parentLayout.findViewById(R.id.upDownCamera);
 		upDown.setOnSlideOperator(new UpDownCamera(gdxListener));
 		ButtonDouble frontBack = (ButtonDouble) parentLayout.findViewById(R.id.frontBack);
 		frontBack.setOnSlideOperator(new FrontBackCamera(gdxListener));
+		ButtonDouble rotateCamera = (ButtonDouble) parentLayout.findViewById(R.id.rotateCamera);
+		rotateTargetCamera = new RotateTargetCamera(gdxListener);
+		rotateCamera.setOnSlideOperator(rotateTargetCamera);
 
 
 		directionUpdate = new DirectionUpdate((TextView) parentLayout.findViewById(R.id.direction), gdxListener);
@@ -94,7 +95,7 @@ public class View3DFragment extends AndroidFragmentApplication implements Notify
 		getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				rotateTargetCamera.setAngle(135);
+				rotateTargetCamera.setAngle(startingAngle);
 			}
 		});
 	}
