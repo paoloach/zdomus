@@ -23,7 +23,7 @@ public class DirectionUpdate implements Runnable {
 	public void run() {
 		Vector3 vectorDirection = domusGDXListener.getDirection();
 		String format = String.format("%1$5.3f,%2$5.3f,%3$5.3f", vectorDirection.x, vectorDirection.y, vectorDirection.z);
-		text.setText("Position: " + format);
+		text.setText("Direction: " + format);
 		text.postDelayed(this, 1000);
 	}
 }
