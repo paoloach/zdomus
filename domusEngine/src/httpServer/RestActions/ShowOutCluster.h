@@ -21,7 +21,7 @@ class PlaceHolders;
 class ShowOutCluster : public ActionHandler {
 public:
 	ShowOutCluster(SingletonObjects & singletons) noexcept : singletons(singletons){};
-	void operator()(const PlaceHolders && placeHolder, Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
+	void operator() (const PlaceHolders && placeHolder, Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
 private:
 	SingletonObjects & singletons;
 };

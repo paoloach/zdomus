@@ -21,6 +21,7 @@
 #include "RestActions/ExecuteCmd.h"
 #include "RestActions/ResponseFile.h"
 #include "RestActions/ShowHello.h"
+#include "RestActions/ShowWhoAreYou.h"
 
 namespace zigbee {
 namespace http {
@@ -32,6 +33,7 @@ DeviceBrowserHandler::DeviceBrowserHandler(SingletonObjects & singletons) :
 		singletons(singletons) {
 
 	restGetActions.addActions(RestPath { "/hello" }, ShowHello{});
+	restGetActions.addActions(RestPath { "/who_are_you" }, ShowWhoAreYou{singletons});
 	restGetActions.addActions(RestPath { "/devices" }, ShowDevices{singletons});
 	restGetActions.addActions(RestPath { "/devices/{device}"}, ShowDevice{singletons});
 	restGetActions.addActions(RestPath { "/devices/{device}/endpoint/{endpoint}"}, ShowEndpoint{singletons});
