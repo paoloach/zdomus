@@ -136,11 +136,19 @@ public class DomusGDXListener implements ApplicationListener {
 	}
 
 	public Vector3 getDirection() {
-		return camera.direction;
+		if (camera != null)
+			return camera.direction;
+		else
+			return new Vector3();
 	}
 
 	public Vector3 getPosition() {
-		return camera.position;
+		if (camera != null) {
+			return camera.position;
+		} else{
+			return position;
+		}
+
 	}
 
 	public PerspectiveCamera getCamera() {

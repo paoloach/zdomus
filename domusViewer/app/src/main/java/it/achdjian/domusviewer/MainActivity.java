@@ -1,5 +1,6 @@
 package it.achdjian.domusviewer;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
+
+import it.achdjian.domusviewer.ScanningActivity.ScanningActivity;
 
 public class MainActivity extends FragmentActivity implements AndroidFragmentApplication.Callbacks {
 
@@ -33,6 +36,9 @@ public class MainActivity extends FragmentActivity implements AndroidFragmentApp
         setContentView(R.layout.activity_main);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new DomusPagerAdapter(getSupportFragmentManager()));
+
+        Intent scanningIntent = new Intent(this, ScanningActivity.class);
+        this.startActivity(scanningIntent);
 
     }
 
