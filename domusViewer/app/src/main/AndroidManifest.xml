@@ -25,5 +25,5 @@
                 android:value="it.achdjian.domusviewer.MainActivity" />
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>
