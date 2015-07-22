@@ -1,8 +1,8 @@
 package it.achdjian.domusviewer;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
