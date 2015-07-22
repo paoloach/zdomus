@@ -30,11 +30,18 @@ android {
 
         instrumentTest.setRoot('tests')
     }
+
+    packagingOptions {
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M1'
+    //compile 'com.fasterxml.jackson.core:jackson-databind:2.6.0'
 }
 
 // called every time gradle gets executed, takes the native dependencies of
