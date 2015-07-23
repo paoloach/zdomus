@@ -2,6 +2,7 @@ package it.achdjian.domusviewer.ScanningActivity;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.ProgressBar;
 
@@ -30,11 +31,13 @@ public class ScanningRunnable implements Runnable {
 	private final Handler uiHandler;
 	private final ProgressBar progressBar;
 	private final SharedPreferences sharedPreferences;
+	private final ScanningActivityFragment parent;
 
-	public ScanningRunnable(Handler uiHandler, ProgressBar progressBar, SharedPreferences sharedPreferences) {
+	public ScanningRunnable(Handler uiHandler, ProgressBar progressBar, SharedPreferences sharedPreferences, ScanningActivityFragment parent) {
 		this.uiHandler = uiHandler;
 		this.progressBar = progressBar;
 		this.sharedPreferences = sharedPreferences;
+		this.parent = parent;
 	}
 
 	@Override
@@ -72,7 +75,16 @@ public class ScanningRunnable implements Runnable {
 			String[] split = hostAddress.split("[.]");
 			for (int i = 1; i <= 255; i++) {
 				String target = split[0] + "." + split[1] + "." + split[2] + "." + i;
-				if (checkTarget(target)) return;
+				if (checkTarget(target)) {
+					final FragmentActivity activity = parent.getActivity();
+					activity.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							activity.finish();
+						}
+					});
+					return;
+				}
 				updateProgressBar(pos);
 				pos++;
 			}

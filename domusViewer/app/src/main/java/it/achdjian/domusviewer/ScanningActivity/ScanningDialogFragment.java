@@ -32,7 +32,6 @@ public class ScanningDialogFragment extends DialogFragment {
 		View v = inflater.inflate(R.layout.fragment_scanning, container, false);
 		final ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 		address=0;
-		new Thread(new ScanningRunnable(mHandler, progressBar, getActivity().getPreferences(Context.MODE_PRIVATE))).start();
 		return v;
 	}
 }
