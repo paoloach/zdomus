@@ -1,5 +1,6 @@
 package it.achdjian.domusviewer.ScanningActivity;
 
+import android.content.Context;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -8,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import java.net.Inet4Address;
-import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
@@ -36,7 +35,7 @@ public class ScanningActivityFragment extends Fragment {
 		View v =  inflater.inflate(R.layout.fragment_scanning, container, false);
 
 		final ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
-		new Thread(new ScanningRunnable(new Handler(), progressBar)).start();
+		new Thread(new ScanningRunnable(new Handler(), progressBar, getActivity().getPreferences(Context.MODE_PRIVATE))).start();
 		return v;
 	}
 }
