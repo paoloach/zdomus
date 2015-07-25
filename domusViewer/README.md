@@ -1,1 +1,3 @@
-The android client
+
+android application to comunicate with engine
+

@@ -1,3 +1,17 @@
+.cproject
+.project
+.settings
+*.iml
+.idea
+CMakeCache.txt
+CMakeFiles
+Makefile
+build
+*.cmake
+moc_*.*
+zigbee bridge test/ui*
+
+
 # Compiled Object files
 *.slo
 *.lo
