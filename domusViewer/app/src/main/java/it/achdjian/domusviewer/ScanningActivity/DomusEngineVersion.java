@@ -34,6 +34,9 @@ public class DomusEngineVersion {
 		}
 	}
 
+	public DomusEngineVersion() {
+	}
+
 	public int getMajorVersion() {
 		return majorVersion;
 	}

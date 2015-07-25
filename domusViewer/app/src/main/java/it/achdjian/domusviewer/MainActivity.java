@@ -1,8 +1,8 @@
 package it.achdjian.domusviewer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -11,7 +11,10 @@ import android.view.MenuItem;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
+import it.achdjian.domusviewer.ScanningActivity.DomusEngineVersion;
 import it.achdjian.domusviewer.ScanningActivity.ScanningActivity;
+import it.achdjian.domusviewer.common.SharedKeys;
+import it.achdjian.domusviewer.domus_engine.DomusEngine;
 
 public class MainActivity extends FragmentActivity implements AndroidFragmentApplication.Callbacks {
 
@@ -37,9 +40,20 @@ public class MainActivity extends FragmentActivity implements AndroidFragmentApp
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new DomusPagerAdapter(getSupportFragmentManager()));
 
-        Intent scanningIntent = new Intent(this, ScanningActivity.class);
-        this.startActivity(scanningIntent);
+        String domusEngineLocation = SharedKeys.getDomusEngineLocation(getSharedPreferences(SharedKeys.PREFERENCE_NAME, Context.MODE_PRIVATE));
+		if (domusEngineLocation.isEmpty()) {
+			Intent scanningIntent = new Intent(this, ScanningActivity.class);
+			this.startActivity(scanningIntent);
+		} else {
+			Bundle bundle = new Bundle();
+			bundle.putCharSequence(ScanningActivity.LOCATION, domusEngineLocation);
 
+			DomusEngineVersion domusEngineVersion = DomusEngine.requestVersion(domusEngineLocation);
+			Intent scanningIntent = new Intent(this, ScanningActivity.class);
+			scanningIntent.putExtras(bundle);
+
+			this.startActivity(scanningIntent);
+		}
     }
 
 

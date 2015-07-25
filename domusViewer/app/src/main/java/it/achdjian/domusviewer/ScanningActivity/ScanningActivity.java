@@ -1,18 +1,42 @@
 package it.achdjian.domusviewer.ScanningActivity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import it.achdjian.domusviewer.R;
+import it.achdjian.domusviewer.common.SharedKeys;
 
 public class ScanningActivity extends AppCompatActivity {
+
+	public static final String LOCATION = "location";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_scanning);
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		CharSequence startingLocation = extras.getCharSequence(LOCATION);
+		setContentView(R.layout.fragment_scanning);
+
+		Runnable runnable;
+		if (startingLocation != null){
+			runnable = new CheckingDomusEngine(this);
+		} else {
+			final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+			runnable = new ScanningRunnable(new Handler(), progressBar, getSharedPreferences(SharedKeys.PREFERENCE_NAME, Context.MODE_PRIVATE),this);
+		}
+		new Thread(runnable).start();
+
 	}
 
 

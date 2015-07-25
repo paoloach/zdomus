@@ -14,6 +14,7 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 import it.achdjian.domusviewer.R;
+import it.achdjian.domusviewer.common.SharedKeys;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -27,8 +28,12 @@ public class ScanningActivityFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		View v =  inflater.inflate(R.layout.fragment_scanning, container, false);
+		Bundle arguments = getArguments();
+		if (arguments != null) {
+			CharSequence startingLocation = arguments.getCharSequence(ScanningActivity.LOCATION);
+		}
 		final ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
-		new Thread(new ScanningRunnable(new Handler(), progressBar, getActivity().getPreferences(Context.MODE_PRIVATE),this)).start();
+		//new Thread(new ScanningRunnable(new Handler(), progressBar, getActivity().getSharedPreferences(SharedKeys.PREFERENCE_NAME, Context.MODE_PRIVATE),this)).start();
 		return v;
 	}
 }

@@ -1,14 +1,11 @@
 package it.achdjian.domusviewer.ScanningActivity;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.ProgressBar;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -20,7 +17,8 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
-import it.achdjian.domusviewer.common.SharedKey;
+import it.achdjian.domusviewer.common.SharedKeys;
+import it.achdjian.domusviewer.domus_engine.DomusEngine;
 
 /**
  * Created by Paolo Achdjian on 21/07/15.
@@ -31,9 +29,9 @@ public class ScanningRunnable implements Runnable {
 	private final Handler uiHandler;
 	private final ProgressBar progressBar;
 	private final SharedPreferences sharedPreferences;
-	private final ScanningActivityFragment parent;
+	private final Activity parent;
 
-	public ScanningRunnable(Handler uiHandler, ProgressBar progressBar, SharedPreferences sharedPreferences, ScanningActivityFragment parent) {
+	public ScanningRunnable(Handler uiHandler, ProgressBar progressBar, SharedPreferences sharedPreferences, Activity parent) {
 		this.uiHandler = uiHandler;
 		this.progressBar = progressBar;
 		this.sharedPreferences = sharedPreferences;
@@ -76,11 +74,10 @@ public class ScanningRunnable implements Runnable {
 			for (int i = 1; i <= 255; i++) {
 				String target = split[0] + "." + split[1] + "." + split[2] + "." + i;
 				if (checkTarget(target)) {
-					final FragmentActivity activity = parent.getActivity();
-					activity.runOnUiThread(new Runnable() {
+					parent.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							activity.finish();
+							parent.finish();
 						}
 					});
 					return;
@@ -104,30 +101,14 @@ public class ScanningRunnable implements Runnable {
 
 	private boolean checkTarget(String target) {
 		Log.d(TAG, "Check if " + target);
-		DomusEngineVersion domusEngineVersion = checkZEngine(target);
+		DomusEngineVersion domusEngineVersion = DomusEngine.requestVersion(target);
 		if (domusEngineVersion != null && domusEngineVersion.isValid()) {
 			Log.d(TAG, "found domusEngine at " + target + " version: " + domusEngineVersion);
-			SharedKey.saveDomusEngineLocation(sharedPreferences, target, domusEngineVersion);
+			SharedKeys.saveDomusEngineLocation(sharedPreferences, target, domusEngineVersion);
 			return true;
 		}
 		return false;
 	}
 
 
-	private DomusEngineVersion checkZEngine(String target) {
-		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://" + target + ":8080/who_are_you";
-		try {
-			ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-			HttpStatus statusCode = response.getStatusCode();
-			Log.d(TAG, "statusCode: " + statusCode.value());
-			if (statusCode == HttpStatus.OK) {
-				Log.d(TAG, "response: " + response.getBody());
-				return new DomusEngineVersion(response.getBody());
-			}
-		} catch (Exception e) {
-			Log.d(TAG, e.getMessage());
-		}
-		return null;
-	}
 }
