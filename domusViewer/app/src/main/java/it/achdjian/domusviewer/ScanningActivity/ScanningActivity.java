@@ -4,13 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import it.achdjian.domusviewer.R;
@@ -18,14 +14,12 @@ import it.achdjian.domusviewer.common.SharedKeys;
 
 public class ScanningActivity extends AppCompatActivity {
 
-	public static final String LOCATION = "location";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-		CharSequence startingLocation = extras.getCharSequence(LOCATION);
+		CharSequence startingLocation = extras.getCharSequence(ScanningDialogFragment.LOCATION);
 		setContentView(R.layout.fragment_scanning);
 
 		Runnable runnable;

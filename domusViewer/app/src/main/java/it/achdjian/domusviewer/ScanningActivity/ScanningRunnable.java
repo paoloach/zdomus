@@ -18,13 +18,15 @@ import java.util.Enumeration;
 import java.util.List;
 
 import it.achdjian.domusviewer.common.SharedKeys;
+import it.achdjian.domusviewer.common.Stoppable;
 import it.achdjian.domusviewer.domus_engine.DomusEngine;
 
 /**
  * Created by Paolo Achdjian on 21/07/15.
  * Copyright Paolo Achdjian
  */
-public class ScanningRunnable implements Runnable {
+public class ScanningRunnable implements Runnable, Stoppable {
+	private boolean stop;
 	private static final String TAG = ScanningRunnable.class.getName();
 	private final Handler uiHandler;
 	private final ProgressBar progressBar;
@@ -36,6 +38,7 @@ public class ScanningRunnable implements Runnable {
 		this.progressBar = progressBar;
 		this.sharedPreferences = sharedPreferences;
 		this.parent = parent;
+		stop=false;
 	}
 
 	@Override
@@ -44,6 +47,9 @@ public class ScanningRunnable implements Runnable {
 		try {
 			Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
 			for (NetworkInterface netInt : Collections.list(nets)) {
+				if(stop){
+					return;
+				}
 				if (netInt.isLoopback() || !netInt.isUp() || netInt.isVirtual()) {
 					continue;
 				}
@@ -72,6 +78,9 @@ public class ScanningRunnable implements Runnable {
 			Log.d(TAG, "address: " + hostAddress + " networkPrefixLength: " + interfaceAddress.getNetworkPrefixLength());
 			String[] split = hostAddress.split("[.]");
 			for (int i = 1; i <= 255; i++) {
+				if(stop){
+					return;
+				}
 				String target = split[0] + "." + split[1] + "." + split[2] + "." + i;
 				if (checkTarget(target)) {
 					parent.runOnUiThread(new Runnable() {
@@ -111,4 +120,8 @@ public class ScanningRunnable implements Runnable {
 	}
 
 
+	@Override
+	public void stop() {
+		stop=true;
+	}
 }
