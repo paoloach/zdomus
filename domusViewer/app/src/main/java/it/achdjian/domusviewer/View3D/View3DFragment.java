@@ -78,7 +78,6 @@ public class View3DFragment extends AndroidFragmentApplication implements Notify
 	}
 
 
-
 	@NonNull
 	private AndroidApplicationConfiguration getGDXConfiguration() {
 		AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();

@@ -3,7 +3,6 @@ package it.achdjian.domusviewer.ScanningActivity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.ProgressBar;
 
@@ -32,12 +31,14 @@ public class ScanningRunnable implements Runnable, Stoppable {
 	private final ProgressBar progressBar;
 	private final SharedPreferences sharedPreferences;
 	private final Activity parent;
+	private final ScanningResult scanningResult;
 
-	public ScanningRunnable(Handler uiHandler, ProgressBar progressBar, SharedPreferences sharedPreferences, Activity parent) {
+	public ScanningRunnable(Handler uiHandler, ProgressBar progressBar, SharedPreferences sharedPreferences, Activity parent, ScanningResult scanningResult) {
 		this.uiHandler = uiHandler;
 		this.progressBar = progressBar;
 		this.sharedPreferences = sharedPreferences;
 		this.parent = parent;
+		this.scanningResult = scanningResult;
 		stop=false;
 	}
 
@@ -86,6 +87,7 @@ public class ScanningRunnable implements Runnable, Stoppable {
 					parent.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
+							scanningResult.serverFound();
 							parent.finish();
 						}
 					});
@@ -95,6 +97,12 @@ public class ScanningRunnable implements Runnable, Stoppable {
 				pos++;
 			}
 		}
+		parent.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				scanningResult.serverNotFound();
+			}
+		});
 
 	}
 

@@ -22,19 +22,15 @@ import it.achdjian.domusviewer.common.Stoppable;
  */
 public class ScanningDialogFragment extends DialogFragment {
 	public static final String LOCATION = "location";
-	static final String TAG= ScanningDialogFragment.class.getName();
+	private static final String TAG= ScanningDialogFragment.class.getName();
 
-	private int address;
-	private Handler mHandler = new Handler();
-	private String domusEngineLocation;
-	private Stoppable stoppable;
+	private Stoppable stoppable=null;
+	private ScanningResult scanningResult=null;
 
-	public ScanningDialogFragment() {
-	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+
+	public void setListener(ScanningResult scanningResult){
+		this.scanningResult = scanningResult;
 	}
 
 	@Nullable
@@ -53,7 +49,7 @@ public class ScanningDialogFragment extends DialogFragment {
 			new Thread(scanningServer).start();
 		} else {
 			scanningText.setText(R.string.scanningProgress);
-			ScanningRunnable scanningRunnable = new ScanningRunnable(new Handler(), progressBar, getActivity().getSharedPreferences(SharedKeys.PREFERENCE_NAME, Context.MODE_PRIVATE), getActivity());
+			ScanningRunnable scanningRunnable = new ScanningRunnable(new Handler(), progressBar, getActivity().getSharedPreferences(SharedKeys.PREFERENCE_NAME, Context.MODE_PRIVATE), getActivity(), scanningResult);
 			stoppable = scanningRunnable;
 			new Thread(scanningRunnable).start();
 		}
@@ -71,16 +67,23 @@ public class ScanningDialogFragment extends DialogFragment {
 
 	public void serverFound() {
 		Log.d(TAG, "Server found");
+		if (scanningResult != null){
+			scanningResult.serverFound();
+		}
 		dismiss();
 	}
 
 	public void serverNotFound() {
 		Log.d(TAG, "Server not found");
-		final TextView scanningText = (TextView) getView().findViewById(R.id.scanning_text);
-		final ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.progressBar);
-		scanningText.setText(R.string.scanningProgress);
-		ScanningRunnable scanningRunnable = new ScanningRunnable(new Handler(), progressBar, getActivity().getSharedPreferences(SharedKeys.PREFERENCE_NAME, Context.MODE_PRIVATE), getActivity());
-		stoppable = scanningRunnable;
-		new Thread(scanningRunnable).start();
+		View view = getView();
+		if (view != null) {
+			final TextView scanningText = (TextView) view.findViewById(R.id.scanning_text);
+			final ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.progressBar);
+			scanningText.setText(R.string.scanningProgress);
+			ScanningRunnable scanningRunnable = new ScanningRunnable(new Handler(), progressBar, getActivity().getSharedPreferences(SharedKeys.PREFERENCE_NAME, Context.MODE_PRIVATE), getActivity(), scanningResult);
+			stoppable = scanningRunnable;
+
+			new Thread(scanningRunnable).start();
+		}
 	}
 }
