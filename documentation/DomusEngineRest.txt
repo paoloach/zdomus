@@ -8,4 +8,8 @@ GET:
     Return the version of the DomusEngine as "I am DomusEngine version 1.0.0"
 /devices
 	Return a list of device into text form or json form. In json form is a array of couple network address <-> extended address
-
+	{"first_device_network_address":"firsr_device_extende_address","second_device_network_address":"second_device_extende_address", ..., "last_device_network_address":"last_device_extende_address"}
+/devices/{network_address}
+	Return the description of the device given the network_address into text or json form. JSON form is
+		{"extended address":"extended_address","short address":"short_address","capability":"capability_of_device","endpoints":{"0":"first_endpoint","1":"second_endpoint",....,"n":"last_endpoint"}}
+	
