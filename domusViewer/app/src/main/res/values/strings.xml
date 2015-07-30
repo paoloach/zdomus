@@ -11,4 +11,7 @@
     <string name="title_activity_scanning">ScanningActivity</string>
     <string name="scanningProgress">Scanning in progress</string>
     <string name="scanningIp">Check %s is active yet</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -22,7 +22,7 @@ import it.achdjian.domusviewer.common.Stoppable;
  */
 public class ScanningDialogFragment extends DialogFragment {
 	public static final String LOCATION = "location";
-	static final String TAG= ScanningActivityFragment.class.getName();
+	static final String TAG= ScanningDialogFragment.class.getName();
 
 	private int address;
 	private Handler mHandler = new Handler();
