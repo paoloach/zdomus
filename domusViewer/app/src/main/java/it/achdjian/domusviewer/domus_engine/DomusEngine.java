@@ -12,8 +12,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import it.achdjian.domusviewer.ScanningActivity.DomusEngineVersion;
@@ -27,6 +30,9 @@ import it.achdjian.domusviewer.common.SharedKeys;
 public class DomusEngine implements ScanningResult , Closeable {
 	private static final String TAG = DomusEngine.class.getName();
 	private static final int MAX_NUM_THREAD = 3;
+
+	private Map<Integer,String> zAddresses;
+
 	@NonNull
 	private final Activity activity;
 
@@ -61,7 +67,16 @@ public class DomusEngine implements ScanningResult , Closeable {
 	public void serverFound() {
 		Log.d(TAG, "Unable to find DomusEngine Server");
 		String domusEngineLocation = SharedKeys.getDomusEngineLocation(activity.getSharedPreferences(SharedKeys.PREFERENCE_NAME, Context.MODE_PRIVATE));
-
+		Future<Map<Integer, String>> objectsFuture = executorService.submit(new GetAllZObjects(domusEngineLocation));
+		try {
+			zAddresses = objectsFuture.get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			return;
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+			return;
+		}
 
 	}
 
