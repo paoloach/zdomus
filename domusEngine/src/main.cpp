@@ -70,6 +70,7 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
 	simpleDescMessage.endpoint = 2;
 	simpleDescMessage.numInClusters = 3;
 	simpleDescMessage.numOutClusters = 0;
+	simpleDescMessage.appDeviceId = 0x51; // SMART PLUG
 	simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
 	simpleDescMessage.clustersList[1] = ClustersId::POWER_CONFIGURATION_CLUSTER;
 	simpleDescMessage.clustersList[2] = ClustersId::DEVICE_TEMPERATURE_CONFIG_CLUSTER;
@@ -82,6 +83,7 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
 	simpleDescMessage.endpoint = 5;
 	simpleDescMessage.numInClusters = 4;
 	simpleDescMessage.numOutClusters = 0;
+	simpleDescMessage.appDeviceId = 0x302; // Temp sensor
 	simpleDescMessage.clustersList[0] = ClustersId::IDENTIFY_CLUSTER;
 	simpleDescMessage.clustersList[1] = ClustersId::GROUPS_CLUSTER;
 	simpleDescMessage.clustersList[2] = ClustersId::SCENE_CLUSTER;
