@@ -25,6 +25,7 @@
 #include "clusterTypes/FlowMeasurementCluster.h"
 #include "clusterTypes/RelativeHumidityMeasuramentCluster.h"
 #include "clusterTypes/OccupancySensingCluster.h"
+#include "clusterTypes/MeteringCluster.h"
 
 namespace zigbee {
 
@@ -65,6 +66,8 @@ shared_ptr<Cluster> ClusterTypeFactory::createCluster(ClusterID clusterId, const
 			return make_shared<RelativeHumidityMeasuramentCluster>(zigbeeDevice, endpoint, networkAddress);
 	case OCCUPANCY_SENSING:
 			return make_shared<OccupancySensingCluster>(zigbeeDevice, endpoint, networkAddress);
+	case METERING:
+			return make_shared<MeteringCluster>(zigbeeDevice, endpoint, networkAddress);
 	default:
 		return make_shared<NullCluster>(zigbeeDevice, endpoint, networkAddress, clusterId);
 	}
