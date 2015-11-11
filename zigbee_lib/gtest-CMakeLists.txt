@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.2)
+
+project(gtest-download LANGUAGES NONE)
+
+include(ExternalProject)
+ExternalProject_Add(googletest
+        URL https://github.com/google/googletest/archive/master.zip
+        SOURCE_DIR "${CMAKE_BINARY_DIR}/gtest-src"
+        BINARY_DIR "${CMAKE_BINARY_DIR}/gtest-build"
+        CONFIGURE_COMMAND ""
+        BUILD_COMMAND     ""
+        INSTALL_COMMAND   ""
+        TEST_COMMAND      ""
+        )

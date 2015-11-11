@@ -1,5 +1,10 @@
 .cproject
 .settings
+*.iml/
+*.bin
+.gradle
+local.properties
+.idea/*
 
 # Compiled Object files
 *.slo

@@ -6,6 +6,7 @@
  */
 #include <sstream>
 
+
 #include "ZCLTypeTest.h"
 #include "../zcl/ZCLDataType.h"
 
