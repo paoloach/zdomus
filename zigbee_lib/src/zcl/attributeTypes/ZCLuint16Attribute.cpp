@@ -6,10 +6,6 @@
  */
 
 #include "ZCLuint16Attribute.h"
-#include <boost/lexical_cast.hpp>
-#include <boost/bind.hpp>
-#include "../StatusEnum.h"
-#include "../ZCLDataType.h"
 #include "../Cluster.h"
 
 namespace zigbee {
@@ -37,7 +33,7 @@ void ZCL_uint16_Attribute::sendValue(uint16_t newValue) {
 }
 
 void ZCL_uint16_Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-	value = (*rawData->data) + 256 * (*(rawData->data + 1));
+	value =(uint32_t) (*rawData->data) + 256 * (*(rawData->data + 1));
 }
 
 std::ostream & operator<<(std::ostream & out, const ZCL_uint16_Attribute * attribute) {

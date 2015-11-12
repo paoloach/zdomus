@@ -30,9 +30,9 @@ boost::any ZCL_string_Attribute::getValue() const {
 
 void ZCL_string_Attribute::sendValue(const std::string & newValue) {
 	uint8_t data[1 + value.length()];
-	data[0] = value.length();
+	data[0] = (uint8_t) value.length();
 	memcpy(data + 1, value.c_str(), value.length());
-	sendValueToDevice(1 + value.length(), data);
+	sendValueToDevice((uint8_t)( 1 + value.length()), data);
 }
 
 void ZCL_string_Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {

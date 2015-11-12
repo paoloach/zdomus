@@ -9,7 +9,6 @@
 #include <iostream>
 
 #include "IdentifyCluster.h"
-#include "../ClustersEnum.h"
 
 
 namespace zigbee {

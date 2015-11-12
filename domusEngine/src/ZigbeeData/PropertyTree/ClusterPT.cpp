@@ -11,7 +11,7 @@ namespace zigbee {
 
 using boost::property_tree::ptree;
 
-ClusterPT::ClusterPT(const std::shared_ptr<Cluster> & cluster) noexcept {
+ClusterPT::ClusterPT(const std::shared_ptr<Cluste	r> & cluster) noexcept {
 	ptree attributes;
 	ptree commands;
 

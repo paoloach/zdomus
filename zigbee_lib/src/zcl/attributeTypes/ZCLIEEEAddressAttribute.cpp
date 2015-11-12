@@ -9,7 +9,6 @@
 
 #include "ZCLIEEEAddressAttribute.h"
 #include "../Cluster.h"
-#include "../ZCLDataType.h"
 
 namespace zigbee {
 

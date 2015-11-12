@@ -32,7 +32,7 @@ bool ZCL_bitmap8bit_Attribute::getValue(int index) const {
 	if (status != Available) {
 		throw ZCLAttributeNotAvailableException(parent, identifier);
 	}
-	return value & (1 << index);
+	return (value & (1 << index) ) != 0;
 }
 
 void ZCL_bitmap8bit_Attribute::sendValue(uint8_t newValue) {

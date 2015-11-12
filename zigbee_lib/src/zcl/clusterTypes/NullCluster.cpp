@@ -6,7 +6,6 @@
  */
 
 #include "NullCluster.h"
-#include "../ClustersEnum.h"
 
 namespace zigbee {
 

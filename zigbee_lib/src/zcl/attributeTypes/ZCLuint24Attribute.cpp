@@ -6,10 +6,6 @@
  */
 
 #include "ZCLuint24Attribute.h"
-#include <boost/lexical_cast.hpp>
-#include <boost/bind.hpp>
-#include "../StatusEnum.h"
-#include "../ZCLDataType.h"
 #include "../Cluster.h"
 
 namespace zigbee {

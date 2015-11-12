@@ -7,7 +7,6 @@
 
 #include "ZCLbooleanAttribute.h"
 #include "../Cluster.h"
-#include "../ZCLDataType.h"
 
 namespace zigbee {
 

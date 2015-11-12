@@ -34,7 +34,8 @@ private:
 template<ZCLTypeDataType z>
 class ClusterCmdParams: public ClusterCmdParamsBase {
 public:
-	ClusterCmdParams(std::string && name) :
+	template <typename ARG>
+	ClusterCmdParams(const ARG & name) :
 			ClusterCmdParamsBase{std::move(name)} {
 	}
 	virtual ~ClusterCmdParams() {

@@ -7,7 +7,6 @@
 
 #include "ZCLenum8bitAttribute.h"
 
-#include <boost/lexical_cast.hpp>
 #include "../Cluster.h"
 
 namespace zigbee {

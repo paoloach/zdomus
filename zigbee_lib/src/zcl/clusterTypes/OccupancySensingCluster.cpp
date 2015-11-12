@@ -7,7 +7,6 @@
 
 #include "OccupancySensingCluster.h"
 
-#include <vector>
 namespace zigbee {
 
 static std::vector<Cluster::AttributeDef> attributesDef = {

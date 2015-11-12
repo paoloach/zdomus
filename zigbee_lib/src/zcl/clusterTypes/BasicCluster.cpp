@@ -6,12 +6,7 @@
  */
 
 #include "../attributeTypes/ZCLuint8Attribute.h"
-#include "../attributeTypes/ZCLuint16Attribute.h"
-#include "../attributeTypes/ZCLbitmap8bitAttribute.h"
-#include "../attributeTypes/ZCLstringAttribute.h"
-#include "../attributeTypes/ZCLenum8bitAttribute.h"
 #include "BasicCluster.h"
-#include "../ClustersEnum.h"
 
 namespace zigbee {
 

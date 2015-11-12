@@ -10,19 +10,15 @@
 
 #include <zigbee/messageStructure/AnnunceMessage.h>
 #include <zcl/Cluster.h>
-#include <cstdio>
+#include <zcl/ClustersEnum.h>
 #include <fstream>
 #include <iostream>
-#include <memory>
-#include <string>
 #include <boost/program_options.hpp>
 #include <v8.h>
 #include <v8-platform.h>
 #include <libplatform/libplatform.h>
 
 #include "IO/Server.h"
-
-#include "ZigbeeData/ZDevices.h"
 
 #include "JavaScript/JSManager.h"
 #include "httpServer/DEHttpRequestHandlerFactory.h"
@@ -72,8 +68,9 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
 	simpleDescMessage.numOutClusters = 0;
 	simpleDescMessage.appDeviceId = 0x51; // SMART PLUG
 	simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
-	simpleDescMessage.clustersList[1] = ClustersId::POWER_CONFIGURATION_CLUSTER;
-	simpleDescMessage.clustersList[2] = ClustersId::DEVICE_TEMPERATURE_CONFIG_CLUSTER;
+	simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
+	simpleDescMessage.clustersList[2] = ClustersId::METERING;
+	simpleDescMessage.clustersList[3] = ClustersId::ON_OFF_CLUSTER;
 	zDevices->put(simpleDescMessage);
 	}
 
@@ -81,13 +78,12 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
 	SimpleDescMessage simpleDescMessage;
 	simpleDescMessage.nwkAddr = 1235;
 	simpleDescMessage.endpoint = 5;
-	simpleDescMessage.numInClusters = 4;
+	simpleDescMessage.numInClusters = 3;
 	simpleDescMessage.numOutClusters = 0;
 	simpleDescMessage.appDeviceId = 0x302; // Temp sensor
-	simpleDescMessage.clustersList[0] = ClustersId::IDENTIFY_CLUSTER;
-	simpleDescMessage.clustersList[1] = ClustersId::GROUPS_CLUSTER;
-	simpleDescMessage.clustersList[2] = ClustersId::SCENE_CLUSTER;
-	simpleDescMessage.clustersList[3] = ClustersId::ON_OFF_CLUSTER;
+	simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
+	simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
+	simpleDescMessage.clustersList[2] = ClustersId::TEMPERATURE_MEASUREMENT;
 	zDevices->put(simpleDescMessage);
 	}
 }

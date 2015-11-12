@@ -9,8 +9,6 @@
 #include <boost/lexical_cast.hpp>
 #include <iostream>
 #include "ZCLuint8Attribute.h"
-#include "../StatusEnum.h"
-#include "../ZCLDataType.h"
 #include "../Cluster.h"
 
 namespace zigbee {
