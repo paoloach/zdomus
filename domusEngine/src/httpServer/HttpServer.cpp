@@ -34,7 +34,7 @@ HttpServer::HttpServer(SingletonObjects & singletons) : singletons(singletons){
 }
 
 HttpServer::~HttpServer() {
-	server->stopAll(true);
+	server->stop();
 }
 
 } /* namespace http */

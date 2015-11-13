@@ -6,8 +6,8 @@
  */
 
 #include <boost/date_time.hpp>
-#include <postgresql/server/postgres.h>
-#include <postgresql/server/catalog/pg_type.h>
+#include <postgres.h>
+#include <catalog/pg_type.h>
 #include <boost/lexical_cast.hpp>
 #include <libpq-fe.h>
 #include <iostream>

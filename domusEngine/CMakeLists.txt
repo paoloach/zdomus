@@ -1,17 +1,18 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 2.8)
 project (domus_engine)
 
 set(CMAKE_BUILD_TYPE Debug)
+add_subdirectory(googletest/googlemock)
+add_subdirectory(src/test)
 
-set (GMOCK_DIR /home/paolo/workspace_luna/gmock-1.7.0)
-set (GTEST_DIR /home/paolo/workspace_luna/gmock-1.7.0/gtest)
-set (GMOCK_INCLUDE_DIR ${GMOCK_DIR}/include)
-set (GTEST_INCLUDE_DIR ${GTEST_DIR}/include)
-set (GMOCK_LIB_DIR ${GMOCK_DIR}/lib/.libs)
-set (GTEST_LIB_DIR ${GTEST_DIR}/lib/.libs)
-set (GTEST_LIBS gtest gtest_main)
-set (GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
+set (V8_DIR /usr/local/v8)
+set (V8_INCLUDE_DIR ${V8_DIR} ${V8_DIR}/include)
+set (V8_LIB_DIR ${V8_DIR}/lib)
+set (ZIGBEE_LIB_DIR /usr/local/zigbee)
+set (ZIGBEELIB_INCLUDE_DIR ${ZIGBEE_LIB_DIR}/include)
+set (ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
+set (LIBUSB_INCLUDE_DIR /usr/include/libusb-1.0)
 
 set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g3 -O2 -std=c++14 ")
 set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g3 -O0  -std=c++14 -Wall -Wextra -Wpedantic ")
@@ -19,12 +20,11 @@ set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g3 -O0  -std=c++14 
 add_custom_target(debug cmake -DCMAKE_BUILD_TYPE=Debug COMMAND make)
 add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
 
-
+find_package(PostgreSQL)
 find_package(Boost  COMPONENTS system thread signals program_options filesystem REQUIRED)
 
-link_directories( /usr/local/zigbee/lib /usr/local/v8 ${GMOCK_LIB_DIR} ${GTEST_LIB_DIR})
-
-include_directories(/usr/include/libusb-1.0 /usr/local/zigbee/include /usr/local/v8 /usr/local/v8/include ./include ${GMOCK_INCLUDE_DIR} ${GTEST_INCLUDE_DIR} /usr/include/postgresql/server )
+link_directories( ${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
+include_directories(./include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} )
 
 
 file (GLOB src  "src/*.cpp")
@@ -45,32 +45,16 @@ file (GLOB srcHttpServer "src/httpServer/*.cpp")
 file (GLOB srcRestParser "src/httpServer/RestParser/*.cpp")
 file (GLOB srcRestActions "src/httpServer/RestActions/*.cpp")
 
-file (GLOB test  "src/test/*.cpp")
-file (GLOB testZigbeeData  "src/test/ZigbeeData/*.cpp")
-file (GLOB testIO  "src/test/IO/*.cpp")
-file (GLOB testUtils  "src/test/Utils/*.cpp")
-file (GLOB testMocks  "src/test/Mocks/*.cpp")
-file (GLOB testMocksHttp  "src/test/Mocks/http/*.cpp")
-file (GLOB testComand  "src/test/Comand/*.cpp")
-file (GLOB testConfiguration  "src/test/Configuration/*.cpp")
-file (GLOB testDatabase  "src/test/Database/*.cpp")
-file (GLOB testJavascript  "src/test/Javascript/*.cpp")
-file (GLOB testJavascriptAttributes  "src/test/Javascript/JSAttributes/*.cpp" )
-file (GLOB testHttpServer "src/test/httpServer/*.cpp")
-file (GLOB testRestParser "src/test/httpServer/RestParser/*.cpp")
 
-find_library(libplatform libv8_libplatform.a)
 
-#set (V8_LIBRARY_PATH /usr/local/v8/lib_debug/)
-set (V8_LIBRARY_PATH /usr/local/v8/lib/)
-set (V8_LIBRARY 
-	${V8_LIBRARY_PATH}libv8_libplatform.a
-	${V8_LIBRARY_PATH}libv8_base.a
-	${V8_LIBRARY_PATH}libv8_libbase.a
-	${V8_LIBRARY_PATH}libv8_snapshot.a
-	${V8_LIBRARY_PATH}libicui18n.a
-	${V8_LIBRARY_PATH}libicuuc.a
-	${V8_LIBRARY_PATH}libicudata.a
+set (V8_LIBRARY
+	${V8_LIB_DIR}/libv8_libplatform.a
+	${V8_LIB_DIR}/libv8_base.a
+	${V8_LIB_DIR}/libv8_libbase.a
+	${V8_LIB_DIR}/libv8_snapshot.a
+	${V8_LIB_DIR}/libicui18n.a
+	${V8_LIB_DIR}/libicuuc.a
+	${V8_LIB_DIR}/libicudata.a
 	)
 	
 add_library(domus_engine_static_lib STATIC 
@@ -92,32 +76,17 @@ add_library(domus_engine_static_lib STATIC
 	${srcRestActions}
 	)
 add_executable(domus_engine  src/main.cpp )
-add_executable(domus_engine_test 
-				 src/test/main.cpp 
-				 ${testJavascript}
-				 ${testZigbeeData}
-				 ${testIO}
-				 ${testUtils}
-				 ${testMocks}
-				 ${testComand}
-				 ${testDatabase}
-				 ${testConfiguration}
-				 ${testJavascriptAttributes}
-				 ${testHttpServer}
-				 ${testMocksHttp}
-				 ${testRestParser}
-				 )    
-    
+
 
 SET (LIBS 	zigbeeLib
 	usb-1.0
 	pq
-	PocoNetd
-	PocoUtild
-	PocoXMLd
-	PocoZipd
-	PocoDatad
-	PocoFoundationd
+	PocoNet
+	PocoUtil
+	PocoXML
+	PocoZip
+	PocoData
+	PocoFoundation
 	${V8_LIBRARY}
 	${Boost_SIGNALS_LIBRARY_DEBUG}
 	${Boost_THREAD_LIBRARY_RELEASE}
@@ -129,9 +98,8 @@ SET (LIBS 	zigbeeLib
 )
    
 target_link_libraries(domus_engine domus_engine_static_lib ${V8_LIBRARY} ${LIBS} )
-target_link_libraries(domus_engine_test domus_engine_static_lib ${V8_LIBRARY} ${LIBS}  ${GMOCK_LIBS})
-    
+
 
 set_property(TARGET domus_engine_static_lib PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build/.lib)   
 set_property(TARGET domus_engine PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
-set_property(TARGET domus_engine_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
+

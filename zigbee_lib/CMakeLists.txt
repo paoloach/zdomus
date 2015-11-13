@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 2.8)
 project(zigbee_lib)
 
 
 
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 add_subdirectory(googletest/googlemock)
 add_subdirectory(src/test)
@@ -12,6 +12,8 @@ add_subdirectory(src/test)
 set(INSTALL_PATH /usr/local/zigbee)
 set(INSTALL_LIB_DIR ${INSTALL_PATH}/lib)
 set(INSTALL_INCLUDE_DIR ${INSTALL_PATH}/include)
+
+ADD_CUSTOM_TARGET(run_install COMMAND ${CMAKE_MAKE_PROGRAM} install)
 
 
 set(SOURCE_FILES
@@ -117,7 +119,7 @@ file (GLOB zcl_CmdParams_header  "src/zcl/CmdParams/*.h")
 file (GLOB attributeTypes_header  "src/zcl/attributeTypes/*.h")
 file (GLOB clusterTypes_header  "src/zcl/clusterTypes/*.h")
 
-include_directories(/usr/include/libusb-1.0 . )
+include_directories(/usr/include/libusb-1.0 . src)
 
 add_library(zigbeeLib SHARED  ${SOURCE_FILES} )
 
