@@ -1,0 +1,29 @@
+Rest available on DomusEngine
+
+GET:
+
+/hello
+	Return simply the text "Hello". Can be used as ping to check if the interface is on
+/who_are_you
+    Return the version of the DomusEngine as "I am DomusEngine version 1.0.0"
+/devices
+	Return a list of device into text form or json form. In json form is a array of couple network address <-> extended address
+	{"first_device_network_address":"firsr_device_extende_address","second_device_network_address":"second_device_extende_address", ..., "last_device_network_address":"last_device_extende_address"}
+/devices/{network_address}
+	Return the description of the device given the network_address into text or json form. JSON form is
+		{"extendedAddress":"extended_address","shortAddress":"short_address","capability":"capability_of_device","endpoints":{"0":"first_endpoint","1":"second_endpoint",....,"n":"last_endpoint"}}
+/devices/{network_address}/endpoint/{endpoint_id}
+	Return the description of the endpoint given the network_address of its device and ites id
+		{"shortAddress":"short_address","endpointId":"endpoint_id", "profileId":"profile_id", "deviceId":"device_id","deviceVersion":"device_version",
+		 "inputClusters":{"0","first_input_cluster", ... ,"n":last_input_cluster"},
+		 "outputClusters",{"0","first_output_cluster", ... ,"n":last_output_cluster"}}
+/devices/{network_address}/endpoint/{endpoint_id}/cluster/in/{cluster_id}
+	Return the description and the available attributes of the input cluster with id {cluster_id} given its endpoint_id and its network_address
+		{"clusterId":"cluster_id", "clusterName":"cluster_name","attributes":{"0":"first_attribute_name",....,"n_attribute_id":"last_attribute_name"},"commands":{"command_id_1":"command_name_1", ... , "command_id_n":"command_name_n"}}
+/devices/{network_address}/endpoint/{endpoint_id}/cluster/out/{cluster_id}
+	Return the description and the available attributes of the input cluster with id {cluster_id} given its endpoint_id and its network_address
+		{"clusterId":"cluster_id", "clusterName":"cluster_name","attributes":{"first_attribute_id":"first_attribute",....,"":"last_attribute"},"commands":{"command_id_1":"command_name_1", ... , "command_id_n":"command_name_n"}}
+/devices/{network_address}/endpoint/{endpoint_id}/cluster/in/{cluster_id}/attribute/{attribute_id}
+	Return the description of the attribute given its id, cluster_id, endpoint_id and network_address
+		{"id":"id_of_attribute","name":"the_name_of_attribute","readOnly":"if_is_readonly","type":"the_value_type_of_attribute","isAvailable":"if_the_attribute_value_is_available",
+		 "isSupported","if_the_attribute_is_supported_by_the_device","status":"the_status_of_the_value","value":"the_value_available_only_if_isAvailable_is_true"}

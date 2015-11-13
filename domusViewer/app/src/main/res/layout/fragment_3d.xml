@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/fragment3D">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="3D"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/buttons"
+            android:layout_weight="0.19">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Target:"
+                android:id="@+id/direction"
+                android:gravity="bottom"
+                android:layout_gravity="bottom"/>
+
+            <TextView
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/position"
+                />
+
+            <it.achdjian.domusviewer.customew.view.buttondouble.ButtonDouble
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:textInc="&lt;"
+                app:textDec=">"
+                app:value="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/rotateCamera"
+                />
+
+            <it.achdjian.domusviewer.customew.view.buttondouble.ButtonDouble
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:textInc="UP"
+                app:textDec="DOWN"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/upDownCamera"/>
+
+            <it.achdjian.domusviewer.customew.view.buttondouble.ButtonDouble
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/frontBack"
+                app:textInc="FRONT"
+                app:textDec="BACK"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/layout3D"
+                android:visibility="visible">
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/info_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Large Text"
+                    android:id="@+id/info_text"/>
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

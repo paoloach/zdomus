@@ -1,22 +1,21 @@
-.cproject
-.project
-.settings
-*.iml
-.idea
-CMakeCache.txt
-CMakeFiles
-Makefile
-build
-*.cmake
-moc_*.*
-zigbee bridge test/ui*
 
+
+zigbee_lib/src/test/zigbeeLibTest
+.cproject
+.settings
+*.iml/
+*.bin
+.gradle
+local.properties
+.idea/*
 
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+moc*
+ui*
 
 # Precompiled Headers
 *.gch
@@ -40,3 +39,22 @@ zigbee bridge test/ui*
 *.exe
 *.out
 *.app
+
+# IDE files
+domusEngine/.cproject
+domusEngine/.project
+domusEngine/.idea
+domusEngine/.settings
+*.iml
+build
+
+.cproject
+.project
+.idea
+.settings
+
+#cmake files
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
