@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(zigbee_lib)
+project(zigbee_lib_test)
 
 set (GMOCK_DIR ../../googletest/googlemock)
 set (GTEST_DIR ../../googletest/googletest)

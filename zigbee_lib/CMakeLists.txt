@@ -1,13 +1,11 @@
 cmake_minimum_required(VERSION 2.8)
 project(zigbee_lib)
 
-
-
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 add_subdirectory(googletest/googlemock)
 add_subdirectory(src/test)
+add_subdirectory(src/zcl)
 
 set(INSTALL_PATH /usr/local/zigbee)
 set(INSTALL_LIB_DIR ${INSTALL_PATH}/lib)
@@ -20,74 +18,6 @@ set(SOURCE_FILES
     src/usb/usbConfig.h
     src/usb/USBDevice.cpp
     src/usb/USBDevice.h
-    src/zcl/attributeTypes/ZCLbitmap8bitAttribute.cpp
-    src/zcl/attributeTypes/ZCLbitmap8bitAttribute.h
-    src/zcl/attributeTypes/ZCLbooleanAttribute.cpp
-    src/zcl/attributeTypes/ZCLbooleanAttribute.h
-    src/zcl/attributeTypes/ZCLenum8bitAttribute.cpp
-    src/zcl/attributeTypes/ZCLenum8bitAttribute.h
-    src/zcl/attributeTypes/ZCLIEEEAddressAttribute.cpp
-    src/zcl/attributeTypes/ZCLIEEEAddressAttribute.h
-    src/zcl/attributeTypes/ZCLint16Attribute.cpp
-    src/zcl/attributeTypes/ZCLint16Attribute.h
-    src/zcl/attributeTypes/ZCLstringAttribute.cpp
-    src/zcl/attributeTypes/ZCLstringAttribute.h
-    src/zcl/attributeTypes/ZCLuint16Attribute.cpp
-    src/zcl/attributeTypes/ZCLuint16Attribute.h
-    src/zcl/attributeTypes/ZCLuint24Attribute.cpp
-    src/zcl/attributeTypes/ZCLuint24Attribute.h
-    src/zcl/attributeTypes/ZCLuint8Attribute.cpp
-    src/zcl/attributeTypes/ZCLuint8Attribute.h
-    src/zcl/clusterTypes/BasicCluster.cpp
-    src/zcl/clusterTypes/BasicCluster.h
-    src/zcl/clusterTypes/DeviceTemperatureConfiguration.cpp
-    src/zcl/clusterTypes/DeviceTemperatureConfiguration.h
-    src/zcl/clusterTypes/FlowMeasurementCluster.cpp
-    src/zcl/clusterTypes/FlowMeasurementCluster.h
-    src/zcl/clusterTypes/GroupsCluster.cpp
-    src/zcl/clusterTypes/GroupsCluster.h
-    src/zcl/clusterTypes/IdentifyCluster.cpp
-    src/zcl/clusterTypes/IdentifyCluster.h
-    src/zcl/clusterTypes/IlluminanceLevelSensingCluster.cpp
-    src/zcl/clusterTypes/IlluminanceLevelSensingCluster.h
-    src/zcl/clusterTypes/IlluminanceMeasurementCluster.cpp
-    src/zcl/clusterTypes/IlluminanceMeasurementCluster.h
-    src/zcl/clusterTypes/LevelControlCluster.cpp
-    src/zcl/clusterTypes/LevelControlCluster.h
-    src/zcl/clusterTypes/MeteringCluster.cpp
-    src/zcl/clusterTypes/MeteringCluster.h
-    src/zcl/clusterTypes/NullCluster.cpp
-    src/zcl/clusterTypes/NullCluster.h
-    src/zcl/clusterTypes/OccupancySensingCluster.cpp
-    src/zcl/clusterTypes/OccupancySensingCluster.h
-    src/zcl/clusterTypes/OnOffCluster.cpp
-    src/zcl/clusterTypes/OnOffCluster.h
-    src/zcl/clusterTypes/PowerConfigurationCluster.cpp
-    src/zcl/clusterTypes/PowerConfigurationCluster.h
-    src/zcl/clusterTypes/PressureMeasurementCluster.cpp
-    src/zcl/clusterTypes/PressureMeasurementCluster.h
-    src/zcl/clusterTypes/RelativeHumidityMeasuramentCluster.cpp
-    src/zcl/clusterTypes/RelativeHumidityMeasuramentCluster.h
-    src/zcl/clusterTypes/ScenesCluster.cpp
-    src/zcl/clusterTypes/ScenesCluster.h
-    src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp
-    src/zcl/clusterTypes/TemperatureMeasurementCluster.h
-    src/zcl/CmdParams/ClusterCmdParams.h
-    src/zcl/exceptions/AttributeNotFoundException.h
-    src/zcl/Cluster.cpp
-    src/zcl/Cluster.h
-    src/zcl/ClustersEnum.h
-    src/zcl/ClusterTypeFactory.cpp
-    src/zcl/ClusterTypeFactory.h
-    src/zcl/OnOffLight.cpp
-    src/zcl/OnOffLight.h
-    src/zcl/StatusEnum.h
-    src/zcl/ZCL.h
-    src/zcl/ZCLAttribute.cpp
-    src/zcl/ZCLAttribute.h
-    src/zcl/ZCLDataType.h
-    src/zcl/ZCLDevice.cpp
-    src/zcl/ZCLDevice.h
     src/zigbee/messageStructure/AnnunceMessage.h
     src/zigbee/messageStructure/AttributeValue.h
     src/zigbee/messageStructure/BindRequest.h
@@ -122,8 +52,9 @@ file (GLOB clusterTypes_header  "src/zcl/clusterTypes/*.h")
 include_directories(/usr/include/libusb-1.0 . src)
 
 add_library(zigbeeLib SHARED  ${SOURCE_FILES} )
+add_dependencies(zigbeeLib ZCL)
 
-target_link_libraries(zigbeeLib usb-1.0)
+target_link_libraries(zigbeeLib usb-1.0 ZCL)
 
 set_property(TARGET zigbeeLib PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
 set_target_properties(zigbeeLib PROPERTIES PUBLIC_HEADER "${zigbee_header}" )
