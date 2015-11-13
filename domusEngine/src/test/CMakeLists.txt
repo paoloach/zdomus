@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8)
-project (domus_engine)
+project (domus_engine_test)
 
 SET(SOURCE_SRC main.cpp)
 file (GLOB test  "src/test/*.cpp")
@@ -34,8 +34,6 @@ set (GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
 
 include_directories( ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${V8_INCLUDE_DIR}  ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
 link_directories( ${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
-
-
 
 add_executable(domus_engine_test
         main.cpp
