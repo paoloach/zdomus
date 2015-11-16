@@ -3,8 +3,18 @@ project(zigbee_lib)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC")
 
+
+set (GMOCK_DIR googletest/googlemock)
+set (GTEST_DIR googletest/googletest)
+set (GMOCK_INCLUDE_DIR ${GMOCK_DIR}/include)
+set (GTEST_INCLUDE_DIR ${GTEST_DIR}/include)
+set (GMOCK_LIB_DIR ${GMOCK_DIR}/lib/.libs)
+set (GTEST_LIB_DIR ${GTEST_DIR}/lib/.libs)
+set (GTEST_LIBS gtest gtest_main)
+set (GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
+
+
 add_subdirectory(googletest/googlemock)
-add_subdirectory(src/test)
 
 set(INSTALL_PATH /usr/local/zigbee)
 set(INSTALL_LIB_DIR ${INSTALL_PATH}/lib)
@@ -56,7 +66,7 @@ SET(SOURCE_ATTRIBUTES_FILES
         src/zcl/attributeTypes/ZCLstringAttribute.cpp
         src/zcl/attributeTypes/ZCLuint8Attribute.cpp
         src/zcl/attributeTypes/ZCLuint16Attribute.cpp
-        src/zcl/attributeTypes/ZCLuint24Attribute.cpp)
+        src/zcl/attributeTypes/ZCLuint24Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.h)
 
 
 SET(SOURCE_CLLUSTER_FILES
@@ -78,6 +88,12 @@ SET(SOURCE_CLLUSTER_FILES
         src/zcl/clusterTypes/ScenesCluster.cpp
         src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp)
 
+SET(zigbeeSrcTest  src/test/main.cpp
+        src/test/ZCLTypeTest.cpp
+        src/test/ZCLTypeTest.h
+        src/test/attributesTest.cpp)
+
+
 
 set (USB_HEADER src/usb/USBDevice.h src/usb/usbConfig.h)
 file (GLOB zigbee_header  "src/zigbee/*.h")
@@ -88,12 +104,20 @@ file (GLOB zcl_CmdParams_header  "src/zcl/CmdParams/*.h")
 file (GLOB attributeTypes_header  "src/zcl/attributeTypes/*.h")
 file (GLOB clusterTypes_header  "src/zcl/clusterTypes/*.h")
 
-include_directories(/usr/include/libusb-1.0 . ${PROJECT_SOURCE_DIR}/src)
+include_directories(/usr/include/libusb-1.0 . ${PROJECT_SOURCE_DIR}/src ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
+
 
 add_library(ZCL_Commons OBJECT  ${SOURCE_ZCL_FILES}  )
 add_library(Attributes OBJECT ${SOURCE_ATTRIBUTES_FILES} )
 add_library(Clusters OBJECT  ${SOURCE_CLLUSTER_FILES}  )
 add_library(zigbeeLib SHARED  ${SOURCE_FILES}  $<TARGET_OBJECTS:ZCL_Commons>  $<TARGET_OBJECTS:Attributes> $<TARGET_OBJECTS:Clusters> )
+
+add_executable(zigbeeLibTest  ${zigbeeSrcTest} )
+
+#target_include_directories(zigbeeLibTest ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
+
+target_link_libraries(zigbeeLibTest ${GMOCK_LIBS} zigbeeLib  pthread)
+
 
 target_link_libraries(zigbeeLib usb-1.0)
 

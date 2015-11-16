@@ -20,7 +20,7 @@ class ZCL_uint24_Attribute: public ZCLAttribute {
 	};
 public:
 	ZCL_uint24_Attribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier, const std::string & name, bool readOnly);
-	virtual ~ZCL_uint24_Attribute();
+	virtual ~ZCL_uint24_Attribute(){};
 public:
 	virtual  boost::any getValue() const override;
 	virtual void sendValue(uint32_t newValue);
