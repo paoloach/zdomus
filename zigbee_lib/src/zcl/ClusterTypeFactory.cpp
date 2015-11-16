@@ -8,8 +8,6 @@
 #include <iostream>
 
 #include "ClusterTypeFactory.h"
-#include "clusterTypes/BasicCluster.h"
-#include "clusterTypes/BasicCluster.h"
 #include "clusterTypes/IdentifyCluster.h"
 #include "clusterTypes/NullCluster.h"
 #include "clusterTypes/PowerConfigurationCluster.h"

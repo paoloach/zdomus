@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.3)
 project(zigbee_bridge_test)
 
-find_package(Qt4)
+# this command finds Qt4 libraries and sets all required variables
+# note that it's Qt4, not QT4 or qt4
+FIND_PACKAGE( Qt4 REQUIRED )
+
+INCLUDE( ${QT_USE_FILE} )
 find_package(KDE4)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fexceptions " )

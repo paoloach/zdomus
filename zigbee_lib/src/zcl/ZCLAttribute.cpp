@@ -11,7 +11,6 @@
 
 #include "Cluster.h"
 #include "StatusEnum.h"
-#include "ZCLAttribute.h"
 
 namespace zigbee {
 

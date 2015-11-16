@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(zcl_cluster_type)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC")
+
 SET(SOURCE_FILES
         BasicCluster.cpp
         DeviceTemperatureConfiguration.cpp
@@ -20,4 +22,6 @@ SET(SOURCE_FILES
         ScenesCluster.cpp
         TemperatureMeasurementCluster.cpp)
 
-add_library(ZCL_Clusters STATIC SHARED  ${SOURCE_FILES} )
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
+add_library(ZCL_Clusters OBJECT  ${SOURCE_FILES}  )

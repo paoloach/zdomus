@@ -7,7 +7,6 @@
 
 #include <boost/bind.hpp>
 #include <boost/lexical_cast.hpp>
-#include <iostream>
 #include "ZCLuint8Attribute.h"
 #include "../Cluster.h"
 
