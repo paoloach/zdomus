@@ -66,7 +66,7 @@ SET(SOURCE_ATTRIBUTES_FILES
         src/zcl/attributeTypes/ZCLstringAttribute.cpp
         src/zcl/attributeTypes/ZCLuint8Attribute.cpp
         src/zcl/attributeTypes/ZCLuint16Attribute.cpp
-        src/zcl/attributeTypes/ZCLuint24Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.h)
+        src/zcl/attributeTypes/ZCLuint24Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.h src/zcl/attributeTypes/ZCLint24Attribute.cpp src/zcl/attributeTypes/ZCLint24Attribute.h)
 
 
 SET(SOURCE_CLLUSTER_FILES

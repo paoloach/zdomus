@@ -11,7 +11,9 @@
 #include "Cluster.h"
 #include "attributeTypes/ZCLuint8Attribute.h"
 #include "attributeTypes/ZCLuint16Attribute.h"
+#include "attributeTypes/ZCLint24Attribute.h"
 #include "attributeTypes/ZCLuint24Attribute.h"
+#include "attributeTypes/ZCLuint48Attribute.h"
 #include "attributeTypes/ZCLint16Attribute.h"
 #include "attributeTypes/ZCLstringAttribute.h"
 #include "attributeTypes/ZCLbitmap8bitAttribute.h"
@@ -55,8 +57,12 @@ std::shared_ptr<ZCLAttribute> Cluster::createAttribute(const AttributeDef & attr
 			return createAttribute<ZCL_uint8_Attribute>(attributeDef);
 		case ZCLTypeDataType::ZCLTypeUInt16:
 			return createAttribute<ZCL_uint16_Attribute>(attributeDef);
+		case ZCLTypeDataType::ZCLTypeSInt24:
+			return createAttribute<ZCLint24Attribute>(attributeDef);
 		case ZCLTypeDataType::ZCLTypeUInt24:
 			return createAttribute<ZCL_uint24_Attribute>(attributeDef);
+        case ZCLTypeDataType::ZCLTypeUInt48:
+            return createAttribute<ZCLuint48Attribute>(attributeDef);
 		case ZCLTypeDataType::ZCLType8bitBitmap:
 			return createAttribute<ZCL_bitmap8bit_Attribute>(attributeDef);
 		case ZCLTypeDataType::ZCLTypeStringChar:
