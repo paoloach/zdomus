@@ -87,6 +87,38 @@ static std::vector<Cluster::AttributeDef> attributesDef{
         Cluster::AttributeDef(ZCLTypeDataType::ZCLType8bitBitmap, 0x030b, "Energy Carrier Demand Formatting", true),
         Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeenum8, 0x030c, "Temperature Unit Of Measure", true),
         Cluster::AttributeDef(ZCLTypeDataType::ZCLType8bitBitmap, 0x030d, "Temperature Formatting", true),
+
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x0400, "Instantaneous Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x0401, "Current Day Consumption Delivered", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x0402, "Current Day Consumption Received", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x0403, "Previous Day Consumption Delivered", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x0404, "Previous Day Consumption Received", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUTCTime, 0x0405, "Current Partial Profile Interval Start Time Delivered", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUTCTime, 0x0406, "Current Partial Profile Interval Start Time Received", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x0407, "Current Partial Profile Interval Value Delivered", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x0408, "Current Partial Profile Interval Value Received", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt48, 0x0409, "Current Day Max Pressure", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt48, 0x040a, "Current Day Min Pressure", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt48, 0x040b, "Previous Day Max Pressure", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt48, 0x040c, "Previous Day Min Pressure", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x040d, "Current Day Max Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x040e, "Previous Day Max Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x040f, "Current Month Max Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x0410, "Current Year Max Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x0411, "Current Day Max Energy Carry Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x0412, "Previous Day Max Energy Carry Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x0413, "Current Month Max Energy Carry Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x0414, "Current Month Min Energy Carry Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x0415, "Current Year Max Energy Carry Demand", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt24, 0x0416, "Current Year Min Energy Carry Demand", true),
+
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 0x0500, "Max Number Of Periods Delerived", true),
+
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x0600, "Current Demand Delivered", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x0601, "Demand Limit", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 0x0602, "Demand Integration Period", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 0x0603, "Number Of Demand Subintervals", true)
+
 };
 
 MeteringCluster::MeteringCluster(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
