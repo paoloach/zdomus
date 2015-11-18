@@ -8,6 +8,7 @@
 #include <exception>
 #include <iostream>
 #include <algorithm>
+#include <src/zcl/attributeTypes/ZCLOctetString.h>
 #include "Cluster.h"
 #include "attributeTypes/ZCLuint8Attribute.h"
 #include "attributeTypes/ZCLuint16Attribute.h"
@@ -21,6 +22,7 @@
 #include "attributeTypes/ZCLenum8bitAttribute.h"
 #include "attributeTypes/ZCLIEEEAddressAttribute.h"
 #include "attributeTypes/ZCLUTCTime.h"
+#include "attributeTypes/ZCLOctetString.h"
 #include "exceptions/AttributeNotFoundException.h"
 
 using std::copy;
@@ -68,6 +70,8 @@ std::shared_ptr<ZCLAttribute> Cluster::createAttribute(const AttributeDef & attr
 			return createAttribute<ZCL_bitmap8bit_Attribute>(attributeDef);
 		case ZCLTypeDataType::ZCLTypeStringChar:
 			return createAttribute<ZCL_string_Attribute>(attributeDef);
+        case ZCLTypeDataType::ZCLTypeStringOctect:
+            return createAttribute<ZCLOctetString>(attributeDef);
 		case ZCLTypeDataType::ZCLTypeBool:
 			return createAttribute<ZCL_boolean_Attribute>(attributeDef);
         case ZCLTypeDataType::ZCLTypeUTCTime:
