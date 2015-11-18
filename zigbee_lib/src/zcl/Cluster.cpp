@@ -20,6 +20,7 @@
 #include "attributeTypes/ZCLbooleanAttribute.h"
 #include "attributeTypes/ZCLenum8bitAttribute.h"
 #include "attributeTypes/ZCLIEEEAddressAttribute.h"
+#include "attributeTypes/ZCLUTCTime.h"
 #include "exceptions/AttributeNotFoundException.h"
 
 using std::copy;
@@ -69,6 +70,8 @@ std::shared_ptr<ZCLAttribute> Cluster::createAttribute(const AttributeDef & attr
 			return createAttribute<ZCL_string_Attribute>(attributeDef);
 		case ZCLTypeDataType::ZCLTypeBool:
 			return createAttribute<ZCL_boolean_Attribute>(attributeDef);
+        case ZCLTypeDataType::ZCLTypeUTCTime:
+            return createAttribute<ZCLUTCTime>(attributeDef);
 		case ZCLTypeDataType::ZCLTypeIEEEaddress:
 			return createAttribute<ZCLIEEEAddressAttribute>(attributeDef);
 		default:
