@@ -66,7 +66,7 @@ SET(SOURCE_ATTRIBUTES_FILES
         src/zcl/attributeTypes/ZCLstringAttribute.cpp
         src/zcl/attributeTypes/ZCLuint8Attribute.cpp
         src/zcl/attributeTypes/ZCLuint16Attribute.cpp
-        src/zcl/attributeTypes/ZCLuint24Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.h src/zcl/attributeTypes/ZCLint24Attribute.cpp src/zcl/attributeTypes/ZCLint24Attribute.h src/zcl/attributeTypes/ZCLUTCTime.cpp src/zcl/attributeTypes/ZCLUTCTime.h src/zcl/attributeTypes/ZCLOctetString.cpp src/zcl/attributeTypes/ZCLOctetString.h)
+        src/zcl/attributeTypes/ZCLuint24Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.h src/zcl/attributeTypes/ZCLint24Attribute.cpp src/zcl/attributeTypes/ZCLint24Attribute.h src/zcl/attributeTypes/ZCLUTCTime.cpp src/zcl/attributeTypes/ZCLUTCTime.h src/zcl/attributeTypes/ZCLOctetString.cpp src/zcl/attributeTypes/ZCLOctetString.h src/zcl/attributeTypes/ZCLBitmap32bitAttribute.cpp src/zcl/attributeTypes/ZCLBitmap32bitAttribute.h)
 
 
 SET(SOURCE_CLLUSTER_FILES
@@ -86,7 +86,7 @@ SET(SOURCE_CLLUSTER_FILES
         src/zcl/clusterTypes/PressureMeasurementCluster.cpp
         src/zcl/clusterTypes/RelativeHumidityMeasuramentCluster.cpp
         src/zcl/clusterTypes/ScenesCluster.cpp
-        src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp)
+        src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.h)
 
 SET(zigbeeSrcTest  src/test/main.cpp
         src/test/ZCLTypeTest.cpp

@@ -39,5 +39,6 @@ ClusterID FlowMeasurementID(FLOW_MEASUREMENT);
 ClusterID RelativeHumidityMeasurementID(RELATIVE_HUMIDITY_MEASUREMENT);
 ClusterID OccupancySensingID(OCCUPANCY_SENSING);
 ClusterID Metering(METERING);
+ClusterID ElectricalMeasurament(ELECTRICITY_MEASURE);
 
 } /* namespace zigbee */
