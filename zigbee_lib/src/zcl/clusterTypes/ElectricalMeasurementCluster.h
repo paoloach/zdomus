@@ -23,6 +23,8 @@ public:
 public:
     virtual ClusterID getId();
     virtual std::string getClusterName();
+private:
+    void getMeasurementProfileCommand(void(std::vector<uint8_t> && data));
 };
 
 }

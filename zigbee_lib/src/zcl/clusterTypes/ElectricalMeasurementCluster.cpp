@@ -93,13 +93,67 @@ static std::vector<Cluster::AttributeDef> attributesDef{
         Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x809, "RMS Voltage Sag", true),
         Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x80A, "RMS Voltage Swell", true),
 
-        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x700, "", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x901, "Line Current PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x902, "Active Current PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x903, "Reactive Current PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x905, "RMS Voltage PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x906, "RMS Voltage Min PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x907, "RMS Voltage Max PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x908, "RMS Current PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x909, "RMS Current Min PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x90a, "RMS Current Max PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x90b, "Active Power PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x90c, "Active Power Min PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x90d, "Active Power Max PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x90e, "Reactive Power PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x90f, "Apparent Power PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt8, 0x910, "Power Factor PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x911, "Average RMS Voltage Measurement Period PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x912, "Average RMS Over Voltage Counter PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x913, "Average RMS Under Voltage Counter PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x914, "RMS Extreme Over Voltage Period PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x915, "RMS Extreme Under Voltage Period PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x916, "RMS Voltage Sag Period PhB", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x917, "RMS Voltage Swell Period PhB", true),
+
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa01, "Line Current PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0xa02, "Active Current PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0xa03, "Reactive Current PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa05, "RMS Voltage PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa06, "RMS Voltage Min PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa07, "RMS Voltage Max PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa08, "RMS Current PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa09, "RMS Current Min PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa0a, "RMS Current Max PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0xa0b, "Active Power PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0xa0c, "Active Power Min PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0xa0d, "Active Power Max PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0xa0e, "Reactive Power PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa0f, "Apparent Power PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt8, 0xa10, "Power Factor PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa11, "Average RMS Voltage Measurement Period PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa12, "Average RMS Over Voltage Counter PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa13, "Average RMS Under Voltage Counter PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa14, "RMS Extreme Over Voltage Period PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa15, "RMS Extreme Under Voltage Period PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa16, "RMS Voltage Sag Period PhC", true),
+        Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa17, "RMS Voltage Swell Period PhC", true)
 
 };
 
 ElectricalMeasurementCluster::ElectricalMeasurementCluster(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
         Cluster(zigbeeDevice, endpoint, networkAddress) {
     createAttributes(attributesDef);
+
+    _commandsDef.emplace_back([&](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, ElectricalMeasurament, 0);}, 0, "Get Profile Info Command" );
+    _commandsDef.emplace_back(
+            [&](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, ElectricalMeasurament, 1);},
+            1,
+            "Get Measurement Profile Command" ,
+            std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("Attribute ID"),
+            std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUTCTime>>("Start Time"),
+            std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Number Of Intervals")
+    );
 }
 
 ClusterID ElectricalMeasurementCluster::getId() {

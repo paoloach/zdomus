@@ -6,6 +6,7 @@
  */
 
 #include <exception>
+
 #include <iostream>
 #include <algorithm>
 #include <src/zcl/attributeTypes/ZCLOctetString.h>

@@ -14,6 +14,7 @@
 #include <boost/bind.hpp>
 #include <boost/signals2.hpp>
 #include <functional>
+#include <initializer_list>
 #include "../zigbee/ZigbeeTypes.h"
 #include "../zigbee/ZigbeeDevice.h"
 #include "ZCLDataType.h"
@@ -23,6 +24,7 @@
 #include "../zigbee/EndpointID.h"
 #include "../zigbee/ClusterID.h"
 #include "../zigbee/NwkAddr.h"
+
 
 namespace zigbee {
 
@@ -49,10 +51,28 @@ public:
 		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::vector<std::shared_ptr<ClusterCmdParamsBase>> params) :
 				cmd(cmd), cmdId(cmdId),name(name), params(params) {
 		}
-		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::shared_ptr<ClusterCmdParamsBase> param) :
+		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::initializer_list<std::shared_ptr<ClusterCmdParamsBase>> cmdParams) :
 				cmd(cmd), cmdId(cmdId),name(name) {
-			params.push_back(param);
+            std::copy(cmdParams.begin(), cmdParams.end(), std::back_inserter(params) );
 		}
+
+
+        CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::shared_ptr<ClusterCmdParamsBase> cmdParams) :
+                cmd(cmd), cmdId(cmdId),name(name) {
+            params.push_back(cmdParams);
+        }
+
+//        template <typename CmdParam>
+//        CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, CmdParam cmdParam): cmd(cmd), cmdId(cmdId),name(name)  {
+//            params.push_back(cmdParam);
+//        }
+//
+//        template <typename CmdParam, typename... CmdParams>
+//        CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, CmdParam cmdParam, CmdParams... cmdParams)  {
+//            CommandDef(cmd, cmdId, std::move(name), cmdParams);
+//			params.push_back(cmdParam);
+//		}
+
 		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::shared_ptr<ClusterCmdParamsBase> param1, std::shared_ptr<ClusterCmdParamsBase> param2) :
 				cmd(cmd), cmdId(cmdId),name(name) {
 			params.push_back(param1);
