@@ -18,9 +18,6 @@ ZCL_uint16_Attribute::ZCL_uint16_Attribute(const std::shared_ptr<ZigbeeDevice> &
 	}
 }
 
-ZCL_uint16_Attribute::~ZCL_uint16_Attribute() {
-}
-
 boost::any ZCL_uint16_Attribute::getValue() const {
 	if (status != Available) {
 		throw ZCLAttributeNotAvailableException(parent, identifier);

@@ -20,7 +20,6 @@ class ZCLBitmap32bitAttribute : public ZCLAttribute{
     };
 public:
 	ZCLBitmap32bitAttribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier, const std::string & name, bool readOnly);
-	virtual ~ZCLBitmap32bitAttribute(){};
 public:
 	virtual boost::any getValue() const override;
 	virtual void sendValue(std::bitset<32> value);

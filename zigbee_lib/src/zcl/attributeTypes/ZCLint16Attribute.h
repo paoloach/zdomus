@@ -21,7 +21,6 @@ private:
 	};
 public:
 	ZCL_int16_Attribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier, const std::string & name, bool readOnly);
-	virtual ~ZCL_int16_Attribute();
 public:
 	virtual  boost::any getValue() const override;
 	virtual  void sendValue(int16_t newValue);

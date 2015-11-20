@@ -11,6 +11,7 @@
 #include "zcl/attributeTypes/ZCLUTCTime.h"
 #include "zcl/attributeTypes/ZCLOctetString.h"
 #include "zcl/attributeTypes/ZCLBitmap32bitAttribute.h"
+#include "zcl/attributeTypes/ZCLBitmap16bitAttribute.h"
 #include <sstream>
 
 namespace zigbee {
@@ -148,7 +149,27 @@ TEST(attributes, bitmap32bit) {
     std::stringstream sstream;
     sstream << casted;
     ASSERT_EQ("11001100101110111010101010011001", sstream.str());
+}
 
+TEST(attributes, bitmap16bit) {
+    std::shared_ptr<ZigbeeDevice> zigbee;
+    auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
+    attributeStatusRecord->attributeId = 1;
+    attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLType16bitBitmap;
+    attributeStatusRecord->dataLen = 2;
+    attributeStatusRecord->data[0] = 0x99;
+    attributeStatusRecord->data[1] = 0xAA;
+
+    ZCLBitmap16bitAttribute attribute(zigbee, nullptr, 1, "test", false);
+
+    attribute.setValue(attributeStatusRecord);
+    auto value = attribute.getValue();
+    auto casted = boost::any_cast<std::bitset<16>>(value);
+    std::bitset<16> expected(0xCCBBAA99);
+    ASSERT_EQ(expected,casted);
+    std::stringstream sstream;
+    sstream << casted;
+    ASSERT_EQ("1010101010011001", sstream.str());
 }
 
 };

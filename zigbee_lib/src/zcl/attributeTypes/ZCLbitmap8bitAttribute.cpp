@@ -18,9 +18,6 @@ ZCL_bitmap8bit_Attribute::ZCL_bitmap8bit_Attribute(const std::shared_ptr<ZigbeeD
 	}
 }
 
-ZCL_bitmap8bit_Attribute::~ZCL_bitmap8bit_Attribute() {
-}
-
 boost::any ZCL_bitmap8bit_Attribute::getValue() const {
 	if (status != Available) {
 		throw ZCLAttributeNotAvailableException(parent, identifier);

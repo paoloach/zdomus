@@ -17,7 +17,6 @@ class ZCLuint48Attribute : public ZCLAttribute {
     };
 public:
     ZCLuint48Attribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier, const std::string & name, bool readOnly);
-    virtual ~ZCLuint48Attribute(){};
 public:
     virtual  boost::any getValue() const override;
     virtual void sendValue(uint64_t newValue);

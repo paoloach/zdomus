@@ -19,8 +19,6 @@ ZCL_uint8_Attribute::ZCL_uint8_Attribute(const std::shared_ptr<ZigbeeDevice> & z
 	}
 }
 
-ZCL_uint8_Attribute::~ZCL_uint8_Attribute() {
-}
 
 boost::any ZCL_uint8_Attribute::getValue() const {
 	if (status != Available) {

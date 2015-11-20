@@ -17,7 +17,6 @@ namespace zigbee {
 class ZCL_string_Attribute  : public ZCLAttribute {
 public:
 	ZCL_string_Attribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier, const std::string & name, bool readOnly);
-	virtual ~ZCL_string_Attribute();
 public:
 	virtual  boost::any getValue() const override;
 	virtual void sendValue(const std::string & newValue);
