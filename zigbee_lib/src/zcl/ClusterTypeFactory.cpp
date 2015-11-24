@@ -24,12 +24,13 @@
 #include "clusterTypes/RelativeHumidityMeasuramentCluster.h"
 #include "clusterTypes/OccupancySensingCluster.h"
 #include "clusterTypes/MeteringCluster.h"
+#include "clusterTypes/ElectricalMeasurementCluster.h"
 
 namespace zigbee {
 
 using namespace std;
 
-shared_ptr<Cluster> ClusterTypeFactory::createCluster(ClusterID clusterId, const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) {
+shared_ptr<Cluster> ClusterTypeFactory::createCluster(ClusterID clusterId, std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) {
 
 	std::cout << "CLUSTERD ID: " << clusterId << std::endl;
 
@@ -66,13 +67,15 @@ shared_ptr<Cluster> ClusterTypeFactory::createCluster(ClusterID clusterId, const
 			return make_shared<OccupancySensingCluster>(zigbeeDevice, endpoint, networkAddress);
 	case METERING:
 			return make_shared<MeteringCluster>(zigbeeDevice, endpoint, networkAddress);
+	case ELECTRICITY_MEASURE:
+			return make_shared<ElectricalMeasurementCluster>(zigbeeDevice, endpoint, networkAddress);
 	default:
 		return make_shared<NullCluster>(zigbeeDevice, endpoint, networkAddress, clusterId);
 	}
 
 }
 
-std::shared_ptr<Cluster> ClusterTypeFactory::getCluster(ClusterID clusterId, const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) {
+std::shared_ptr<Cluster> ClusterTypeFactory::getCluster(ClusterID clusterId, std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) {
 	return createCluster(clusterId, zigbeeDevice, endpoint, networkAddress) ;
 }
 

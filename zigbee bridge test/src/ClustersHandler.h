@@ -23,7 +23,7 @@ public:
 public:
 	void push(std::shared_ptr<Cluster>, QTreeWidgetItem* treeItem);
 	std::shared_ptr<Cluster> getCluster(QTreeWidgetItem* treeItem);
-	void insert(SimpleDescMessage* simpleDesc, QTreeWidgetItem* treeItem, const std::shared_ptr<ZigbeeDevice> & usbDevice);
+	void insert(SimpleDescMessage* simpleDesc, QTreeWidgetItem* treeItem, std::shared_ptr<ZigbeeDevice> & usbDevice);
 private:
 	std::vector< std::shared_ptr<ClusterTreeHandler> > handlers;
 };

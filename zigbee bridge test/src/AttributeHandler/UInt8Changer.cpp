@@ -25,7 +25,7 @@ void UInt8Changer::show(QDialog * dialog) {
 	connect(changerUInt8.buttonBox, SIGNAL(rejected()), this, SLOT(close()));
 	connect(changerUInt8.buttonBox, SIGNAL(accepted()), this, SLOT(apply()));
 	if (attribute->isAvailable()){
-		uint8_t value = boost::any_cast<uint8_t>(attribute->getValue());
+		boost::any_cast<uint8_t>(attribute->getValue());
 	}
 }
 

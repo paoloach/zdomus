@@ -8,8 +8,7 @@
 #ifndef ZIGBEEDEVICE_H_
 #define ZIGBEEDEVICE_H_
 
-#include <boost/signals2.hpp>
-#include <boost/bind.hpp>
+#include <functional>
 #include <memory>
 
 #include "ZigbeeTypes.h"
@@ -26,34 +25,38 @@
 
 namespace zigbee {
 
-class ZigbeeDevice {
-public:
+    class ZigbeeDevice {
+    public:
+        ZigbeeDevice()=default;
+        virtual ~ZigbeeDevice()=default;
 
-	typedef boost::signals2::signal<void(AnnunceMessage *)> AnnunceSignal;
-	typedef boost::signals2::signal<void(SimpleDescMessage *)> SimpleDescSignal;
-	typedef boost::signals2::signal<void(std::shared_ptr< AttributeStatusRecord> rawData)> AttributeValueSignal;
-	typedef boost::signals2::signal<void(std::shared_ptr< BindTableResponseMessage> bindTable)> BindTableResponseSignal;
-	typedef boost::signals2::signal<void()> AttributeCmdSignal;
-public:
-	ZigbeeDevice();
-	virtual ~ZigbeeDevice();
-public:
-	virtual bool isPresent()=0;
-	virtual bool requestDevices()=0;
-	virtual void getUsbMessage()=0;
-	virtual void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId)=0;
-	virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType, uint8_t dataValueLen, uint8_t * dataValue)=0;
-	virtual void sendCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t>  data = std::vector<uint8_t>())=0;
-	virtual void sendReqBind(NwkAddr destAddr, uint8_t outClusterAddr[Z_EXTADDR_LEN],EndpointID outClusterEP,ClusterID clusterID, uint8_t inClusterAddr[Z_EXTADDR_LEN],EndpointID inClusterEp)=0;
-	virtual void requesBindTable(NwkAddr nwkAddrs)=0;
+    public:
+        using NewAttributeValueCallback = std::function<void(std::shared_ptr<AttributeStatusRecord> &)>;
+        using SimpleDescCallback = std::function<void(SimpleDescMessage *)>;
+        using AnnunceCallback = std::function<void(AnnunceMessage *)>;
+        using BindTableResponseCallback = std::function<void(std::shared_ptr<BindTableResponseMessage>)>;
 
-	virtual boost::signals2::connection registerForAnnunceMessage(const AnnunceSignal::slot_type &subscriber)=0;
-	virtual boost::signals2::connection registerForSimpleDescMessage(const SimpleDescSignal::slot_type &subscriber)=0;
-	virtual boost::signals2::connection registerForBindTableMessage(const BindTableResponseSignal::slot_type &subscriber)=0;
-	virtual boost::signals2::connection registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeCmdId cmdId,const AttributeCmdSignal::slot_type & subsriber )=0;
-	virtual boost::signals2::connection registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
-			const AttributeValueSignal::slot_type &subscriber)=0;
-};
+        virtual bool isPresent() = 0;
+        virtual bool requestDevices() = 0;
+        virtual void getUsbMessage() = 0;
+        virtual void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) = 0;
+        virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType,
+                                    uint8_t dataValueLen, uint8_t *dataValue) = 0;
+
+        virtual void sendCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId,
+                             std::vector<uint8_t> data = std::vector<uint8_t>()) = 0;
+
+        virtual void sendReqBind(NwkAddr destAddr, uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
+                                 uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) = 0;
+
+        virtual void requestBindTable(NwkAddr nwkAddrs) = 0;
+        virtual void registerForAnnunceMessage( AnnunceCallback) = 0;
+        virtual void registerForSimpleDescMessage( SimpleDescCallback) = 0;
+        virtual void registerForBindTableMessage(BindTableResponseCallback) = 0;
+        virtual void registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeCmdId cmdId, const std::function<void()>) = 0;
+        virtual void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
+                                               const NewAttributeValueCallback subscriber) = 0;
+    };
 
 } /* namespace zigbee */
 

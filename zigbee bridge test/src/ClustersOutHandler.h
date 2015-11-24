@@ -18,7 +18,7 @@ class ZigbeeDevice;
 
 class ClustersOutHandler {
 public:
-	void insert(SimpleDescMessage* simpleDesc, QTreeWidgetItem* treeItem, const std::shared_ptr<ZigbeeDevice> &  usbDevice);
+	void insert(SimpleDescMessage* simpleDesc, QTreeWidgetItem* treeItem,  std::shared_ptr<ZigbeeDevice> &  usbDevice);
 };
 
 } /* namespace zigbee */

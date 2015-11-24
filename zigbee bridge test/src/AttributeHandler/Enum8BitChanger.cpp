@@ -25,7 +25,7 @@ void Enum8BitChanger::show(QDialog * dialog) {
 	connect(changerEnum8Bit.buttonBox, SIGNAL(rejected()), this, SLOT(close()));
 	connect(changerEnum8Bit.buttonBox, SIGNAL(accepted()), this, SLOT(apply()));
 	if (attribute->isAvailable()){
-		uint8_t value = boost::any_cast<uint8_t>(attribute->getValue());
+		boost::any_cast<uint8_t>(attribute->getValue());
 	}
 }
 

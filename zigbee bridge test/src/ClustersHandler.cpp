@@ -31,7 +31,7 @@ std::shared_ptr<Cluster> ClustersHandler::getCluster(QTreeWidgetItem* treeItem) 
 	return std::shared_ptr<Cluster>();
 }
 
-void ClustersHandler::insert(SimpleDescMessage* simpleDesc, QTreeWidgetItem* treeItem, const std::shared_ptr<ZigbeeDevice> & usbDevice) {
+void ClustersHandler::insert(SimpleDescMessage* simpleDesc, QTreeWidgetItem* treeItem, std::shared_ptr<ZigbeeDevice> & usbDevice) {
 	ZigbeeClusterId* clusterIds = simpleDesc->clustersList;
 	for (int i = 0; i < simpleDesc->numInClusters; i++) {
 		QString clusterId = QString::number(*clusterIds);

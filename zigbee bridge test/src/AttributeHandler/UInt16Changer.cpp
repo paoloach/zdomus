@@ -25,7 +25,7 @@ void UInt16Changer::show(QDialog * dialog) {
 	connect(changerUInt16.buttonBox, SIGNAL(rejected()), this, SLOT(close()));
 	connect(changerUInt16.buttonBox, SIGNAL(accepted()), this, SLOT(apply()));
 	if (attribute->isAvailable()){
-		uint16_t value = boost::any_cast<uint16_t>(attribute->getValue());
+		boost::any_cast<uint16_t>(attribute->getValue());
 	}
 }
 

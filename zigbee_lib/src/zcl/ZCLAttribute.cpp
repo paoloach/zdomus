@@ -34,9 +34,6 @@ ZCLAttribute::ZCLAttribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, C
 	status = NotAvailable;
 }
 
-ZCLAttribute::~ZCLAttribute() {
-
-}
 
 void ZCLAttribute::requestValue() {
 	if (zigbeeDevice != nullptr){
@@ -58,12 +55,10 @@ void ZCLAttribute::setValue(std::shared_ptr<AttributeStatusRecord> rawData) {
 		} else {
 			status = Undefined;
 		}
-		changeSignal();
+		for (auto & callback: callbacks){
+            callback();
+        }
 	}
-}
-
-boost::signals2::connection ZCLAttribute::onChange(OnChangeSignal::slot_type subscriber) {
-	return changeSignal.connect(subscriber);
 }
 
 void ZCLAttribute::sendValueToDevice(uint8_t dataLen, uint8_t * data) {

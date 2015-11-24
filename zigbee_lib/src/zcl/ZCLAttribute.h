@@ -8,8 +8,8 @@
 #ifndef ZCLATTRIBUTE_H_
 #define ZCLATTRIBUTE_H_
 
+#include <functional>
 #include <exception>
-#include <boost/signals2.hpp>
 #include <boost/any.hpp>
 #include <memory>
 
@@ -41,11 +41,9 @@ public:
 
 	};
 
-	typedef boost::signals2::signal<void()> OnChangeSignal;
-	typedef boost::signals2::signal<void ()>  signal_t;
 public:
 	ZCLAttribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent,int identifier, ZCLTypeDataType zclType, const std::string & name, bool readOnly);
-	virtual ~ZCLAttribute();
+    virtual ~ZCLAttribute() = default;
 public:
 	virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord>  rawData) = 0;
 	virtual boost::any getValue() const = 0;
@@ -61,7 +59,9 @@ public:
 	virtual int getIdentifier() const {return identifier;}
 	virtual std::string getName() const {return name;}
 	virtual bool isReadOnly() const {return readOnly;}
-	virtual boost::signals2::connection  onChange(OnChangeSignal::slot_type changeSignal);
+	virtual void  onChange(std::function<void()> changeSignal){
+        callbacks.push_back(changeSignal);
+    };
 protected:
 	void sendValueToDevice(uint8_t dataLen, uint8_t * data);
 protected:
@@ -71,7 +71,7 @@ protected:
 	Status status;
 	std::string name;
 	bool readOnly;
-	OnChangeSignal changeSignal;
+	std::vector<std::function<void()>> callbacks;
 	ZCLTypeDataType zclType;
 
 };

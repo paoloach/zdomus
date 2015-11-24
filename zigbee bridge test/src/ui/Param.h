@@ -11,6 +11,7 @@
 namespace zigbee {
 class Param {
 public:
+	virtual ~Param() = default;
 	virtual std::vector<uint8_t> getParamData()=0;
 };
 }

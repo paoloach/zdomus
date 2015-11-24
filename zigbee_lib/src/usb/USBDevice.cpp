@@ -27,12 +27,6 @@ USBDevice::USBDevice(libusb_context * usbContext, int deviceClass, int vendorID,
 
 }
 
-USBDevice::~USBDevice() {
-	for (auto element : attributeValueSignalMap) {
-		delete element.second;
-	}
-}
-
 void emptySlot(void) {
 
 }
@@ -124,19 +118,19 @@ void USBDevice::parseUsbMessage(unsigned char * data, int length) {
 				annunceMessage = (AnnunceMessage *) data;
 				std::cout << "Annunce signal" << std::endl;
 				memcpy(addrLookup[NwkAddr(annunceMessage->nwkAddr)], annunceMessage->extAddr, Z_EXTADDR_LEN);
-				annunceSignal(annunceMessage);
+                std::for_each(annunceSignal.begin(), annunceSignal.end(), [annunceMessage](AnnunceCallback & callback){callback(annunceMessage);});
 				requestActiveEndpoints( NwkAddr(annunceMessage->nwkAddr));
 			break;
 			case SIMPLE_DESC:
 				simpleDescMessage = (SimpleDescMessage *) data;
-				simpleDescSignal(simpleDescMessage);
+                std::for_each(simpleDescSignal.begin(), simpleDescSignal.end(), [simpleDescMessage](SimpleDescCallback & callback){callback(simpleDescMessage);});
 				std::cout << "Simple desciption message " << std::endl;
 			break;
 			case ATTRIBUTE_VALUES:
 				std::cout << "Read response attribute value" << std::endl;
 				readAttributeResponseMessage = (ReadAttributeResponseMessage *) data;
 				for (int i = 0; i < sizeof(ReadAttributeResponseMessage); i++) {
-					std::cout << (int) data[i] << " - ";
+					std::cout << std::hex <<  (int) data[i] << " - ";
 				}
 				std::cout << std::endl;
 				std::cout << "data len: " << (int) readAttributeResponseMessage->dataLen << std::endl;
@@ -146,7 +140,7 @@ void USBDevice::parseUsbMessage(unsigned char * data, int length) {
 				std::cout << "Bind table entry" << std::endl;
 				bindTableResponseMessage = (BindTableResponseMessage *) data;
 				auto dataToSend = std::make_shared<BindTableResponseMessage>(*bindTableResponseMessage);
-				bindTableResponseSignal(dataToSend);
+                std::for_each(bindTableResponseSignal.begin(), bindTableResponseSignal.end(), [dataToSend](BindTableResponseCallback & callback){callback(dataToSend);});
 				break;
 		}
 	}
@@ -205,8 +199,8 @@ void USBDevice::sendCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID c
 void USBDevice::parseAttributeResponse(ReadAttributeResponseMessage * readAttributeResponseMessage) {
 	AttributeKey key(NwkAddr(readAttributeResponseMessage->networkAddr), readAttributeResponseMessage->endpoint, readAttributeResponseMessage->clusterId,
 			readAttributeResponseMessage->attrID);
-	auto found = attributeValueSignalMap.find(key);
-	if (found != attributeValueSignalMap.end()) {
+	auto found = attributeValueSignalMap.equal_range(key);
+	if (found.first != attributeValueSignalMap.end()) {
 		std::shared_ptr<AttributeStatusRecord> attributeStatus = std::make_shared<AttributeStatusRecord>();
 		attributeStatus->attributeId = readAttributeResponseMessage->attrID;
 		attributeStatus->attributeDataType = readAttributeResponseMessage->type;
@@ -214,29 +208,10 @@ void USBDevice::parseAttributeResponse(ReadAttributeResponseMessage * readAttrib
 		attributeStatus->dataLen = readAttributeResponseMessage->dataLen;
 
 		memcpy(attributeStatus->data, readAttributeResponseMessage->data, attributeStatus->dataLen);
-		AttributeValueSignal & signal = *found->second;
-		signal(attributeStatus);
+        std::for_each(found.first, found.second, [&attributeStatus ](AttributeValueSignalMap::value_type & callback){callback.second(attributeStatus);} );
 	}
 }
 
-boost::signals2::connection USBDevice::registerForAnnunceMessage(const AnnunceSignal::slot_type &subscriber) {
-	return annunceSignal.connect(subscriber);
-}
-
-boost::signals2::connection USBDevice::registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
-		const AttributeValueSignal::slot_type &subscriber) {
-	AttributeValueSignal * signal;
-	AttributeKey key(nwkAddrs, endpoint.getId(), cluster.getId(), attributeId);
-	auto found = attributeValueSignalMap.find(key);
-	if (found != attributeValueSignalMap.end()) {
-		signal = found->second;
-		signal->disconnect_all_slots();
-	} else {
-		signal = new AttributeValueSignal;
-		attributeValueSignalMap[key] = signal;
-	}
-	return signal->connect(subscriber);
-}
 
 /**
  * send request devices
@@ -269,17 +244,9 @@ void USBDevice::requestActiveEndpoints(NwkAddr nwkAddr) {
 	}
 }
 
-void USBDevice::requesBindTable(NwkAddr nwkAddrs) {
+void USBDevice::requestBindTable(NwkAddr nwkAddrs) {
 	ReqBindTable request(nwkAddrs.getId());
 	sendData(request);
-}
-
-boost::signals2::connection USBDevice::registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeCmdId cmdId,
-		const AttributeCmdSignal::slot_type & subsriber) {
-}
-
-boost::signals2::connection USBDevice::registerForSimpleDescMessage(const SimpleDescSignal::slot_type &subscriber) {
-	return simpleDescSignal.connect(subscriber);
 }
 
 bool USBDevice::AttributeKey::operator <(const AttributeKey & otherKey) const {
@@ -304,9 +271,6 @@ bool USBDevice::AttributeKey::operator ==(const AttributeKey & otherKey) const {
 
 void parseAttributeResponse(ReadAttributeResponseMessage * readAttributeResponseMessage) {
 
-}
-boost::signals2::connection USBDevice::registerForBindTableMessage(const BindTableResponseSignal::slot_type& subscriber) {
-	return bindTableResponseSignal.connect(subscriber);
 }
 
 void USBDevice::sendReqBind(NwkAddr destAddr, uint8_t outClusterAddr[Z_EXTADDR_LEN],EndpointID outClusterEP,ClusterID clusterID, uint8_t inClusterAddr[Z_EXTADDR_LEN],EndpointID inClusterEp) {

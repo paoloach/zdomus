@@ -19,8 +19,9 @@ namespace zigbee {
 
 class ClusterTypeFactory {
 public:
-	static std::shared_ptr<Cluster> createCluster(ClusterID clusterId,const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
-	virtual std::shared_ptr<Cluster> getCluster(ClusterID clusterId,const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
+	static std::shared_ptr<Cluster> createCluster(ClusterID clusterId, std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
+	virtual ~ClusterTypeFactory() = default;
+	virtual std::shared_ptr<Cluster> getCluster(ClusterID clusterId, std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
 };
 
 } /* namespace zigbee */

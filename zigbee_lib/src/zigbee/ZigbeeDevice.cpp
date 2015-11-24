@@ -9,10 +9,5 @@
 
 namespace zigbee {
 
-ZigbeeDevice::ZigbeeDevice() {
-}
-
-ZigbeeDevice::~ZigbeeDevice() {
-}
 
 } /* namespace zigbee */

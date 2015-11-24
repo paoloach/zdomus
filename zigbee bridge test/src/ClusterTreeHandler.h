@@ -40,8 +40,8 @@ private slots:
 protected:
 	std::vector< std::shared_ptr< AttributeHandler > > attributesHandler;
 	std::shared_ptr<Cluster> cluster;
-	QTreeWidgetItem * widgeItem;
 	QMenu * popupMenu;
+	QTreeWidgetItem * widgeItem;
 	InsertCmdParams insertCmdParams;
 };
 

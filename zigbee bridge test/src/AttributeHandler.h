@@ -46,8 +46,8 @@ private slots:
 	void updateValue();
 
 protected:
-	QTreeWidgetItem * parent;
 	std::string name;
+	QTreeWidgetItem * parent;
 	QTreeWidgetItem * item;
 	QMenu * popupMenu;
 };
@@ -59,7 +59,7 @@ public:
 			AttributeHandler(name, parent), attribute(attribute) {
 		item->setText(0, QString::fromStdString(attribute->getName()));
 
-		this->attribute->onChange(boost::bind(&AttributeHandler::update, this));
+		this->attribute->onChange([this]{update();});
 		attributeChanger = nullptr;
 	}
 

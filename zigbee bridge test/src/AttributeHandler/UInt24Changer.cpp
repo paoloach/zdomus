@@ -25,7 +25,7 @@ void UInt24Changer::show(QDialog * dialog) {
 	connect(changerUInt24.buttonBox, SIGNAL(rejected()), this, SLOT(close()));
 	connect(changerUInt24.buttonBox, SIGNAL(accepted()), this, SLOT(apply()));
 	if (attribute->isAvailable()){
-		uint32_t value = boost::any_cast<uint32_t>(attribute->getValue());
+		boost::any_cast<uint32_t>(attribute->getValue());
 	}
 }
 

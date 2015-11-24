@@ -199,7 +199,6 @@ void MainWindow::addToLightdeviceList(SimpleDescMessage* simpleDesc) {
 }
 
 void MainWindow::addToButtonDeviceList(SimpleDescMessage* simpleDesc) {
-	int nwkAddr = simpleDesc->nwkAddr;
 	DeviceKey deviceKey(NwkAddr{simpleDesc->nwkAddr},EndpointID{ simpleDesc->endpoint});
 	if (mapButtonDeviceAction.count(deviceKey) == 0) {
 		QTreeDeviceItem * item = new QTreeDeviceItem(ui.treeButtonDevices, simpleDesc);
@@ -213,11 +212,11 @@ void MainWindow::simpleDesctMsg(SimpleDescMessage * simpleDesc) {
 
 }
 
-void MainWindow::allDeviceClick(QTreeWidgetItem * item, int col) {
+void MainWindow::allDeviceClick(QTreeWidgetItem * item, int ) {
 	TreeItemSignalMap::getHistance().emitSignal(item);
 }
 
-void MainWindow::buttonClick(QTreeWidgetItem * item, int col) {
+void MainWindow::buttonClick(QTreeWidgetItem * item, int ) {
 	TreeWidgetCluster * treeWidgetCluster = dynamic_cast<TreeWidgetCluster *>(item);
 	if (treeWidgetCluster != nullptr) {
 
@@ -230,7 +229,7 @@ void MainWindow::buttonClick(QTreeWidgetItem * item, int col) {
 	}
 }
 
-void MainWindow::lightClick(QTreeWidgetItem * item, int col) {
+void MainWindow::lightClick(QTreeWidgetItem * item, int ) {
 	TreeWidgetCluster * treeWidgetCluster = dynamic_cast<TreeWidgetCluster *>(item);
 	if (treeWidgetCluster != nullptr) {
 		clusterIn = treeWidgetCluster->getCluster();
@@ -245,7 +244,7 @@ void MainWindow::lightClick(QTreeWidgetItem * item, int col) {
 void MainWindow::updateBindTable() {
 	for (auto buttonDevice : mapButtonDeviceAction) {
 		auto deviceKey = buttonDevice.first;
-		zigbeeDevice->requesBindTable(std::get<0>(deviceKey));
+		zigbeeDevice->requestBindTable(std::get<0>(deviceKey));
 	}
 
 	auto response1 = std::make_shared<BindTableResponseMessage>();
@@ -284,13 +283,13 @@ void MainWindow::insertInClusters(SimpleDescMessage* simpleDesc, QTreeWidgetItem
 }
 
 void MainWindow::bind() {
-	ZAddrType srcAddr;
-	srcAddr.addrMode = ZAddrType::Addr16Bit;
-	srcAddr.addr.shortAddr = clusterOut->getNetworkAddress().getId();
-
-	ZAddrType dstAddr;
-	dstAddr.addrMode = ZAddrType::Addr16Bit;
-	dstAddr.addr.shortAddr = clusterIn->getNetworkAddress().getId();
+//	ZAddrType srcAddr;
+//	srcAddr.addrMode = ZAddrType::Addr16Bit;
+//	srcAddr.addr.shortAddr = clusterOut->getNetworkAddress().getId();
+//
+//	ZAddrType dstAddr;
+//	dstAddr.addrMode = ZAddrType::Addr16Bit;
+//	dstAddr.addr.shortAddr = clusterIn->getNetworkAddress().getId();
 
 	//usbDevice->sendReqBind(clusterOut->getNetworkAddress(), clusterOut, clusterOut->getId(), clusterIn->getNetworkAddress(), clusterIn->getEndpoint());
 }
@@ -311,7 +310,7 @@ void MainWindow::bindTableMsg(std::shared_ptr<BindTableResponseMessage> bindTabl
 
 }
 
-void MainWindow::bindTableClick(QTreeWidgetItem* item, int col) {
+void MainWindow::bindTableClick(QTreeWidgetItem* item, int ) {
 
 	clearAllSelected(ui.treeButtonDevices);
 	clearAllSelected(ui.treeLightDevices);

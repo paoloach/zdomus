@@ -106,7 +106,7 @@ void ClusterTreeHandler::click() {
 	if (popupMenu == nullptr) {
 		std::vector<Cluster::CommandDef> commands = cluster->getCommands();
 		popupMenu = new QMenu();
-		for (int index = 0; index < commands.size(); index++) {
+		for (unsigned int index = 0; index < commands.size(); index++) {
 			QAction * action = popupMenu->addAction(QString::fromStdString(commands[index].name));
 			action->setData(QVariant(index));
 			connect(action, SIGNAL(triggered ( )), this, SLOT(cmd()));
@@ -120,7 +120,7 @@ void ClusterTreeHandler::cmd() {
 	if (action != nullptr) {
 		std::vector<Cluster::CommandDef> commands = cluster->getCommands();
 		int index = action->data().toInt();
-		if (index >= 0 && index < commands.size()) {
+		if (index >= 0 && (unsigned )index < commands.size()) {
 			auto command = commands[index];
 			if (command.params.empty()) {
 				command.cmd(std::vector<uint8_t>());
