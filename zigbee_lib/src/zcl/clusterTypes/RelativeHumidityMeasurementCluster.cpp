@@ -1,11 +1,11 @@
 /*
- * RelativeHumidityMeasuramentCluster.cpp
+ * RelativeHumidityMeasurementCluster.cpp
  *
  *  Created on: 11/nov/2014
  *      Author: Paolo Achdjian
  */
 
-#include "RelativeHumidityMeasuramentCluster.h"
+#include "RelativeHumidityMeasurementCluster.h"
 
 namespace zigbee {
 
@@ -16,16 +16,16 @@ static std::vector<Cluster::AttributeDef> attributesDef = {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 3, "Tollerance", true)
 };
 
-RelativeHumidityMeasuramentCluster::RelativeHumidityMeasuramentCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+RelativeHumidityMeasurementCluster::RelativeHumidityMeasurementCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 												Cluster(zigbeeDevice, endpoint, networkAddress){
 	createAttributes(attributesDef);
 }
 
-ClusterID RelativeHumidityMeasuramentCluster::getId()  const {
+ClusterID RelativeHumidityMeasurementCluster::getId()  const {
 	return RelativeHumidityMeasurementID;
 }
 
-std::string RelativeHumidityMeasuramentCluster::getClusterName()  const {
+std::string RelativeHumidityMeasurementCluster::getClusterName()  const {
 	return "Relative Humidity Measurement";
 }
 

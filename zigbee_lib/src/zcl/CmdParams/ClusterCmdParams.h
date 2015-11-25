@@ -15,62 +15,77 @@
 
 namespace zigbee {
 
-class ClusterCmdParamsBase {
-public:
-	ClusterCmdParamsBase(std::string && name) :
-			name{name} {
-	}
-	virtual ~ClusterCmdParamsBase() {
-	}
-	std::string getName() const {
-		return name;
-	}
-	virtual const ZCLTypeBase & getType() const =0;
-	virtual ZCLTypeDataType getZCLDataType() const =0;
-private:
-	std::string name;
-};
+    class ClusterCmdParamsBase {
+    public:
+        ClusterCmdParamsBase(std::string &&name) :
+                name{name} {
+        }
 
-template<ZCLTypeDataType z>
-class ClusterCmdParams: public ClusterCmdParamsBase {
-public:
-	template <typename ARG>
-	ClusterCmdParams(const ARG & name) :
-			ClusterCmdParamsBase{std::move(name)} {
-	}
-	virtual ~ClusterCmdParams() {
-	}
-public:
+        ClusterCmdParamsBase(const char *name) :
+                name{name} {
+        }
 
-	virtual const ZCLTypeBase & getType() const {
-		return dataType;
-	}
-	virtual ZCLTypeDataType getZCLDataType() const {
-		return dataType.getZCLDataType();
-	}
-private:
-	ZCLType<z> dataType;
-};
+        virtual ~ClusterCmdParamsBase() {
+        }
 
-template<ZCLTypeDataType z>
-class ClusterCmdListParams: public ClusterCmdParamsBase {
-public:
-	ClusterCmdListParams(std::string && name) :
-			ClusterCmdParamsBase(std::move(name)) {
-	}
-	virtual ~ClusterCmdListParams() {
-	}
-public:
+        std::string getName() const {
+            return name;
+        }
 
-	virtual const ZCLTypeBase & getType() const {
-		return dataArrayType;
-	}
-	virtual ZCLTypeDataType getZCLDataType() const {
-		return dataArrayType.getZCLDataType();
-	}
-private:
-	ZCLCmdList<z> dataArrayType;
-};
+        virtual const ZCLTypeBase &getType() const = 0;
+
+        virtual ZCLTypeDataType getZCLDataType() const = 0;
+
+    private:
+        std::string name;
+    };
+
+    template<ZCLTypeDataType z>
+    class ClusterCmdParams : public ClusterCmdParamsBase {
+    public:
+        ClusterCmdParams(std::string &&name) :
+                ClusterCmdParamsBase{std::move(name)} {
+        }
+        ClusterCmdParams(const char * name) :
+                ClusterCmdParamsBase{name} {
+        }
+
+        virtual ~ClusterCmdParams() = default;
+    public:
+        virtual const ZCLTypeBase &getType() const {
+            return dataType;
+        }
+        virtual ZCLTypeDataType getZCLDataType() const {
+            return dataType.getZCLDataType();
+        }
+
+    private:
+        ZCLType<z> dataType;
+    };
+
+    template<ZCLTypeDataType z>
+    class ClusterCmdListParams : public ClusterCmdParamsBase {
+    public:
+        ClusterCmdListParams(std::string &&name) :
+                ClusterCmdParamsBase(std::move(name)) {
+        }
+
+        virtual ~ClusterCmdListParams() {
+        }
+
+    public:
+
+        virtual const ZCLTypeBase &getType() const {
+            return dataArrayType;
+        }
+
+        virtual ZCLTypeDataType getZCLDataType() const {
+            return dataArrayType.getZCLDataType();
+        }
+
+    private:
+        ZCLCmdList<z> dataArrayType;
+    };
 
 } /* namespace zigbee */
 

@@ -23,8 +23,6 @@ public:
 public:
     virtual ClusterID getId() const override;
     virtual std::string getClusterName() const override;
-private:
-    void getMeasurementProfileCommand(void(std::vector<uint8_t> && data));
 };
 
 }

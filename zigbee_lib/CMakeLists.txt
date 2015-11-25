@@ -84,7 +84,7 @@ SET(SOURCE_CLLUSTER_FILES
         src/zcl/clusterTypes/OnOffCluster.cpp
         src/zcl/clusterTypes/PowerConfigurationCluster.cpp
         src/zcl/clusterTypes/PressureMeasurementCluster.cpp
-        src/zcl/clusterTypes/RelativeHumidityMeasuramentCluster.cpp
+        src/zcl/clusterTypes/RelativeHumidityMeasurementCluster.cpp
         src/zcl/clusterTypes/ScenesCluster.cpp
         src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.h)
 

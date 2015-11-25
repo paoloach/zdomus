@@ -21,7 +21,7 @@
 #include "clusterTypes/TemperatureMeasurementCluster.h"
 #include "clusterTypes/PressureMeasurementCluster.h"
 #include "clusterTypes/FlowMeasurementCluster.h"
-#include "clusterTypes/RelativeHumidityMeasuramentCluster.h"
+#include "clusterTypes/RelativeHumidityMeasurementCluster.h"
 #include "clusterTypes/OccupancySensingCluster.h"
 #include "clusterTypes/MeteringCluster.h"
 #include "clusterTypes/ElectricalMeasurementCluster.h"
@@ -62,7 +62,7 @@ shared_ptr<Cluster> ClusterTypeFactory::createCluster(ClusterID clusterId, std::
 	case FLOW_MEASUREMENT:
 			return make_shared<FlowMeasurementCluster>(zigbeeDevice, endpoint, networkAddress);
 	case RELATIVE_HUMIDITY_MEASUREMENT:
-			return make_shared<RelativeHumidityMeasuramentCluster>(zigbeeDevice, endpoint, networkAddress);
+			return make_shared<RelativeHumidityMeasurementCluster>(zigbeeDevice, endpoint, networkAddress);
 	case OCCUPANCY_SENSING:
 			return make_shared<OccupancySensingCluster>(zigbeeDevice, endpoint, networkAddress);
 	case METERING:
