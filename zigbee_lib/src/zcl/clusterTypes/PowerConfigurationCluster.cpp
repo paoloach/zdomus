@@ -33,11 +33,11 @@ PowerConfigurationCluster::PowerConfigurationCluster(const std::shared_ptr<Zigbe
 
 }
 
-ClusterID PowerConfigurationCluster::getId() {
+ClusterID PowerConfigurationCluster::getId()  const {
 	return PowerConfigurationClusterID;
 }
 
-std::string PowerConfigurationCluster::getClusterName() {
+std::string PowerConfigurationCluster::getClusterName()  const {
 	return "Power configuration";
 }
 

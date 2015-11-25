@@ -32,11 +32,11 @@ BasicCluster::BasicCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, c
 
 }
 
-ClusterID BasicCluster::getId() {
+ClusterID BasicCluster::getId() const {
 	return BasicClusterID;
 }
 
-std::string BasicCluster::getClusterName() {
+std::string BasicCluster::getClusterName() const {
 	return "basic";
 }
 

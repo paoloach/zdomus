@@ -49,11 +49,11 @@ LevelControlCluster::LevelControlCluster(const std::shared_ptr<ZigbeeDevice> & z
 
 }
 
-ClusterID LevelControlCluster::getId() {
+ClusterID LevelControlCluster::getId()  const {
 	return LevelControClusterID;
 }
 
-std::string LevelControlCluster::getClusterName() {
+std::string LevelControlCluster::getClusterName()  const {
 	return "Level Control";
 }
 

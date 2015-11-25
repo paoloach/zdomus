@@ -22,11 +22,11 @@ FlowMeasurementCluster::FlowMeasurementCluster(const std::shared_ptr<ZigbeeDevic
 	createAttributes(attributesDef);
 }
 
-ClusterID FlowMeasurementCluster::getId() {
+ClusterID FlowMeasurementCluster::getId() const  {
 	return FlowMeasurementID;
 }
 
-std::string FlowMeasurementCluster::getClusterName() {
+std::string FlowMeasurementCluster::getClusterName()  const {
 	return "Flow Measurement";
 }
 

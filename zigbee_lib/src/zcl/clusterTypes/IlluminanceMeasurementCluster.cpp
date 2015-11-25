@@ -22,11 +22,11 @@ IlluminanceMeasurementCluster::IlluminanceMeasurementCluster(const std::shared_p
 	createAttributes(attributesDef);
 }
 
-ClusterID IlluminanceMeasurementCluster::getId() {
+ClusterID IlluminanceMeasurementCluster::getId()  const {
 	return IlluminanceMeasureID;
 }
 
-std::string IlluminanceMeasurementCluster::getClusterName() {
+std::string IlluminanceMeasurementCluster::getClusterName()  const {
 	return "Illuminance measurement";
 }
 

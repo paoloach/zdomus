@@ -121,8 +121,8 @@ public:
 	Cluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 	virtual ~Cluster() = default;
 public:
-	virtual ClusterID getId() = 0;
-	virtual std::string getClusterName() = 0;
+	virtual ClusterID getId() const = 0;
+	virtual std::string getClusterName() const = 0;
 	virtual void createAttributes(const std::vector<AttributeDef>  & attributesDef);
 	virtual const EndpointID getEndpoint() const {
 		return endpoint;

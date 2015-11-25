@@ -35,8 +35,8 @@ class USBDevice;
 
 class MainWindow : public QMainWindow{
 	Q_OBJECT
-	typedef std::tuple<NwkAddr, EndpointID> DeviceKey;
-	typedef std::tuple<NwkAddr, EndpointID, ClusterID> BindTableKey;
+	using DeviceKey= std::tuple<NwkAddr, EndpointID>;
+	using BindTableKey= std::tuple<NwkAddr, EndpointID, ClusterID>;
 public:
 	MainWindow(libusb_context * usbContext);
 private:

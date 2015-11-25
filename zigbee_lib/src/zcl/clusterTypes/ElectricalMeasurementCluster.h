@@ -21,8 +21,8 @@ class ElectricalMeasurementCluster : public Cluster {
 public:
     ElectricalMeasurementCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
 public:
-    virtual ClusterID getId();
-    virtual std::string getClusterName();
+    virtual ClusterID getId() const override;
+    virtual std::string getClusterName() const override;
 private:
     void getMeasurementProfileCommand(void(std::vector<uint8_t> && data));
 };

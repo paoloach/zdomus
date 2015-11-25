@@ -233,11 +233,7 @@ void MainWindow::lightClick(QTreeWidgetItem * item, int ) {
 	TreeWidgetCluster * treeWidgetCluster = dynamic_cast<TreeWidgetCluster *>(item);
 	if (treeWidgetCluster != nullptr) {
 		clusterIn = treeWidgetCluster->getCluster();
-		if (clusterOut && clusterIn && clusterIn->getId() == clusterOut->getId()) {
-			ui.bindButton->setEnabled(true);
-		} else {
-			ui.bindButton->setEnabled(false);
-		}
+		ui.bindButton->setEnabled(clusterOut && clusterIn && clusterIn->getId() == clusterOut->getId());
 	}
 }
 

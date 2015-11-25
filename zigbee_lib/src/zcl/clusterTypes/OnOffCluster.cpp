@@ -23,11 +23,11 @@ On_Off_Cluster::On_Off_Cluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevic
 	_commandsDef.emplace_back([&](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, OnOffClusterID, 1);}, 2, "Toggle");
 }
 
-ClusterID On_Off_Cluster::getId() {
+ClusterID On_Off_Cluster::getId() const  {
 	return OnOffClusterID;
 }
 
-std::string On_Off_Cluster::getClusterName() {
+std::string On_Off_Cluster::getClusterName()  const {
 	return "On/Off";
 }
 

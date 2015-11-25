@@ -25,11 +25,11 @@ OccupancySensingCluster::OccupancySensingCluster(const std::shared_ptr<ZigbeeDev
 	createAttributes(attributesDef);
 }
 
-ClusterID OccupancySensingCluster::getId() {
+ClusterID OccupancySensingCluster::getId()  const {
 	return OccupancySensingID;
 }
 
-std::string OccupancySensingCluster::getClusterName() {
+std::string OccupancySensingCluster::getClusterName() const  {
 	return "Occupancy Sensing";
 }
 

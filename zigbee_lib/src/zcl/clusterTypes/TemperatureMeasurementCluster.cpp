@@ -23,11 +23,11 @@ TemperatureMeasurementCluster::TemperatureMeasurementCluster(const std::shared_p
 
 }
 
-ClusterID TemperatureMeasurementCluster::getId() {
+ClusterID TemperatureMeasurementCluster::getId() const{
 	return TemperatureMeasurementID;
 }
 
-std::string TemperatureMeasurementCluster::getClusterName() {
+std::string TemperatureMeasurementCluster::getClusterName()  const{
 	return "Temperature Measurement";
 }
 

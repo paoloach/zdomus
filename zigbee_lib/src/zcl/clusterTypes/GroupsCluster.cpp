@@ -41,11 +41,11 @@ GroupsCluster::GroupsCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice,
 
 }
 
-ClusterID GroupsCluster::getId() {
+ClusterID GroupsCluster::getId() const  {
 	return GroupsClusterID;
 }
 
-std::string GroupsCluster::getClusterName() {
+std::string GroupsCluster::getClusterName()  const {
 	return "Groups";
 }
 

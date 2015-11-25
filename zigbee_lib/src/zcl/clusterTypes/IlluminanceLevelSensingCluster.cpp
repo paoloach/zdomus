@@ -21,11 +21,11 @@ IlluminanceLevelSensingCluster::IlluminanceLevelSensingCluster(const std::shared
 	createAttributes(attributesDef);
 }
 
-ClusterID IlluminanceLevelSensingCluster::getId() {
+ClusterID IlluminanceLevelSensingCluster::getId()  const {
 	return IlluminanceLevelSensingID;
 }
 
-std::string IlluminanceLevelSensingCluster::getClusterName() {
+std::string IlluminanceLevelSensingCluster::getClusterName()  const {
 	return "Illuminance Level Sensing";
 }
 

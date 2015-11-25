@@ -25,8 +25,8 @@ class Cluster;
 class ClusterTreeHandler : public QObject{
 	Q_OBJECT
 public:
-	ClusterTreeHandler(std::shared_ptr<Cluster> cluster);
-	virtual ~ClusterTreeHandler();
+	ClusterTreeHandler(std::shared_ptr<Cluster> & cluster);
+	virtual ~ClusterTreeHandler()=default;
 	bool operator==(const QTreeWidgetItem * widget) const;
 public:
 	virtual void insert(QTreeWidgetItem * actionCluster);

@@ -25,11 +25,11 @@ IdentifyCluster::IdentifyCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDev
 	_commandsDef.emplace_back([&](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, IdentifyClusetrID, 1);}, 1, "Identify Query Command" );
 }
 
-ClusterID IdentifyCluster::getId() {
+ClusterID IdentifyCluster::getId()  const {
 	return IdentifyClusetrID;
 }
 
-std::string IdentifyCluster::getClusterName() {
+std::string IdentifyCluster::getClusterName()  const {
 	return "identify";
 }
 

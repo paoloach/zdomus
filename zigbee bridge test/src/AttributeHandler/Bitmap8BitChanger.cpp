@@ -24,46 +24,14 @@ void Bitmap8BitChanger::show(QDialog * dialog) {
 	connect(bitmap8BitChanger.buttonBox, SIGNAL(accepted()), this, SLOT(apply()));
 	if (attribute->isAvailable()){
 		uint8_t value = boost::any_cast<uint8_t>( attribute->getValue());
-		if (value & 1){
-			bitmap8BitChanger.bit1->setChecked(true);
-		} else {
-			bitmap8BitChanger.bit1->setChecked(false);
-		}
-		if (value & 2){
-			bitmap8BitChanger.bit2->setChecked(true);
-		} else {
-			bitmap8BitChanger.bit2->setChecked(false);
-		}
-		if (value & 4){
-			bitmap8BitChanger.bit3->setChecked(true);
-		} else {
-			bitmap8BitChanger.bit3->setChecked(false);
-		}
-		if (value & 8){
-			bitmap8BitChanger.bit4->setChecked(true);
-		} else {
-			bitmap8BitChanger.bit4->setChecked(false);
-		}
-		if (value & 0x10){
-			bitmap8BitChanger.bit5->setChecked(true);
-		} else {
-			bitmap8BitChanger.bit5->setChecked(false);
-		}
-		if (value & 0x20){
-			bitmap8BitChanger.bit6->setChecked(true);
-		} else {
-			bitmap8BitChanger.bit6->setChecked(false);
-		}
-		if (value & 0x40){
-			bitmap8BitChanger.bit7->setChecked(true);
-		} else {
-			bitmap8BitChanger.bit7->setChecked(false);
-		}
-		if (value & 0x80){
-			bitmap8BitChanger.bit8->setChecked(true);
-		} else {
-			bitmap8BitChanger.bit8->setChecked(false);
-		}
+		bitmap8BitChanger.bit1->setChecked((value & 1) != 0);
+		bitmap8BitChanger.bit2->setChecked((value & 2) != 0);
+		bitmap8BitChanger.bit3->setChecked((value & 4) != 0);
+		bitmap8BitChanger.bit4->setChecked((value & 8) != 0);
+		bitmap8BitChanger.bit5->setChecked((value & 0x10) != 0);
+		bitmap8BitChanger.bit6->setChecked((value & 0x20) != 0);
+		bitmap8BitChanger.bit7->setChecked((value & 0x40) != 0);
+		bitmap8BitChanger.bit8->setChecked((value & 0x80) != 0);
 	}
 }
 

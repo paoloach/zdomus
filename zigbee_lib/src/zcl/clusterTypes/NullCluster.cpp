@@ -13,11 +13,11 @@ NullCluster::NullCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, con
 	Cluster(zigbeeDevice, endpoint, networkAddress), clusterId(clusterId){
 }
 
-ClusterID NullCluster::getId() {
+ClusterID NullCluster::getId()  const {
 	return clusterId;
 }
 
-std::string NullCluster::getClusterName() {
+std::string NullCluster::getClusterName() const  {
 	return "Invalid cluster";
 }
 

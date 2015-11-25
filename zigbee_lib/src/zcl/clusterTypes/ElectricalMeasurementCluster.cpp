@@ -156,11 +156,11 @@ ElectricalMeasurementCluster::ElectricalMeasurementCluster(const std::shared_ptr
     );
 }
 
-ClusterID ElectricalMeasurementCluster::getId() {
+ClusterID ElectricalMeasurementCluster::getId()  const {
     return ElectricalMeasurament;
 }
 
-std::string ElectricalMeasurementCluster::getClusterName() {
+std::string ElectricalMeasurementCluster::getClusterName()  const {
     return "Electrical Measurement";
 }
 

@@ -27,11 +27,11 @@ PressureMeasurementCluster::PressureMeasurementCluster(const std::shared_ptr<Zig
 	createAttributes(attributesDef);
 }
 
-ClusterID PressureMeasurementCluster::getId() {
+ClusterID PressureMeasurementCluster::getId()  const {
 	return PressureMeasurementID;
 }
 
-std::string PressureMeasurementCluster::getClusterName() {
+std::string PressureMeasurementCluster::getClusterName()  const {
 	return "Pressure Measurement";
 }
 

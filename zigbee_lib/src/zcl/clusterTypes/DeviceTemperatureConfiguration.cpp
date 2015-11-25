@@ -26,11 +26,11 @@ DeviceTemperatureConfiguration::DeviceTemperatureConfiguration(const std::shared
 	createAttributes(attributesDef);
 }
 
-ClusterID DeviceTemperatureConfiguration::getId() {
+ClusterID DeviceTemperatureConfiguration::getId() const {
 	return DeviceTemperatureConfigClusterID;
 }
 
-std::string DeviceTemperatureConfiguration::getClusterName() {
+std::string DeviceTemperatureConfiguration::getClusterName() const  {
 	return "Device Temperature Configuration";
 }
 

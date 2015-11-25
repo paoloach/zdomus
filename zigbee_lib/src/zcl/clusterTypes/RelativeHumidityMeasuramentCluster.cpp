@@ -21,11 +21,11 @@ RelativeHumidityMeasuramentCluster::RelativeHumidityMeasuramentCluster(const std
 	createAttributes(attributesDef);
 }
 
-ClusterID RelativeHumidityMeasuramentCluster::getId() {
+ClusterID RelativeHumidityMeasuramentCluster::getId()  const {
 	return RelativeHumidityMeasurementID;
 }
 
-std::string RelativeHumidityMeasuramentCluster::getClusterName() {
+std::string RelativeHumidityMeasuramentCluster::getClusterName()  const {
 	return "Relative Humidity Measurement";
 }
 

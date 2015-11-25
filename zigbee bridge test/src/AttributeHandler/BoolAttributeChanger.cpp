@@ -37,11 +37,7 @@ void BoolAttributeChanger::close() {
 }
 
 void BoolAttributeChanger::apply() {
-	if (changeBool.trueButton->isChecked()){
-		attribute->sendValue(true);
-	} else {
-		attribute->sendValue(false);
-	}
+	attribute->sendValue(changeBool.trueButton->isChecked());
 	attribute->requestValue();
 	delete parent;
 }

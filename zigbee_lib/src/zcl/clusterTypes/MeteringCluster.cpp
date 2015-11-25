@@ -127,11 +127,11 @@ MeteringCluster::MeteringCluster(const std::shared_ptr<ZigbeeDevice> &zigbeeDevi
 
 }
 
-ClusterID MeteringCluster::getId() {
+ClusterID MeteringCluster::getId()  const {
     return Metering;
 }
 
-std::string MeteringCluster::getClusterName() {
+std::string MeteringCluster::getClusterName()  const {
     return "Metering";
 }
 

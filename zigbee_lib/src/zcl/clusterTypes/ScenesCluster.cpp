@@ -58,11 +58,11 @@ ScenesCluster::ScenesCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice,
 
 }
 
-ClusterID ScenesCluster::getId() {
+ClusterID ScenesCluster::getId()  const {
 	return SceneClusterID;
 }
 
-std::string ScenesCluster::getClusterName() {
+std::string ScenesCluster::getClusterName() const {
 	return "Scenes";
 }
 
