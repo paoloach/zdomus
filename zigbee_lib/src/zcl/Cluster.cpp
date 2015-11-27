@@ -10,6 +10,7 @@
 #include <iostream>
 #include <algorithm>
 #include <src/zcl/attributeTypes/ZCLOctetString.h>
+#include <src/zcl/attributeTypes/ZCLint8Attribute.h>
 #include "Cluster.h"
 #include "attributeTypes/ZCLuint8Attribute.h"
 #include "attributeTypes/ZCLuint16Attribute.h"
@@ -59,6 +60,8 @@ std::shared_ptr<ZCLAttribute> Cluster::createAttribute(const AttributeDef & attr
 	switch (attributeDef.type) {
 		case ZCLTypeDataType::ZCLTypeenum8:
 			return createAttribute<ZCL_enum8bit_Attribute>(attributeDef);
+		case ZCLTypeDataType::ZCLTypeSInt8:
+			return createAttribute<ZCLint8Attribute>(attributeDef);
 		case ZCLTypeDataType::ZCLTypeSInt16:
 			return createAttribute<ZCL_int16_Attribute>(attributeDef);
 		case ZCLTypeDataType::ZCLTypeUInt8:

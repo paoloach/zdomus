@@ -26,7 +26,7 @@ SingletonObjects::SingletonObjects(std::string && configurationFileName) :
 		std::cerr << "Unable to initialize the libusb" << std::endl;
 	} else {
 		std::cout << "Lib usb initialized" << std::endl;
-		zigbeeDevice = std::make_shared<DomusEngioneUSBDevice>(io, zDevices, attributeDataContainer, usbContext, USB_CLASS, VENDOR_ID, PRODUCT_ID);
+		zigbeeDevice = std::make_shared<DomusEngineUSBDevice>(io, zDevices, attributeDataContainer, usbContext, USB_CLASS, VENDOR_ID, PRODUCT_ID);
 	}
 	zDevices = std::make_shared<ZDevices>();
 	std::ifstream streamConfig(configurationFileName);

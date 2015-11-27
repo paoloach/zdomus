@@ -10,6 +10,7 @@
 
 #include <functional>
 #include <exception>
+#include <list>
 #include <boost/any.hpp>
 #include <memory>
 
@@ -32,6 +33,9 @@ private:
 
 class ZCLAttribute {
 public:
+    using OnChangeCallbacks = std::list<std::function<void()>>;
+	using ListenerOnChange = OnChangeCallbacks::iterator;
+
 	enum Status {
 		Undefined,
 		NotAvailable,
@@ -59,9 +63,18 @@ public:
 	virtual int getIdentifier() const {return identifier;}
 	virtual std::string getName() const {return name;}
 	virtual bool isReadOnly() const {return readOnly;}
-	virtual void  onChange(std::function<void()> changeSignal){
-        callbacks.push_back(changeSignal);
+	virtual ListenerOnChange onChange(std::function<void()> && changeSignal){
+		if (callbacks.empty()){
+			callbacks.push_front(changeSignal);
+			return callbacks.begin();
+		} else {
+			return callbacks.insert(callbacks.begin(), changeSignal);
+		}
     };
+
+    virtual void removeOnChangeListener(ListenerOnChange && listener){
+        callbacks.erase(listener);
+    }
 protected:
 	void sendValueToDevice(uint8_t dataLen, uint8_t * data);
 protected:
@@ -71,7 +84,7 @@ protected:
 	Status status;
 	std::string name;
 	bool readOnly;
-	std::vector<std::function<void()>> callbacks;
+    OnChangeCallbacks    callbacks;
 	ZCLTypeDataType zclType;
 
 };

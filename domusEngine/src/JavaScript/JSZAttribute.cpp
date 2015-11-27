@@ -24,6 +24,7 @@ namespace zigbee {
 
 using namespace v8;
 using std::stringstream;
+using std::get;
 
 std::map<ZCLAttribute::Status, std::string> JSZAttribute::statusMap = { { ZCLAttribute::Available, "available" }, { ZCLAttribute::NotAvailable, "notAvailable" }, {
 		ZCLAttribute::NotSupported, "notSupported" }, { ZCLAttribute::Requesting, "requesting" }, { ZCLAttribute::Undefined, "undefined" }, };
@@ -35,8 +36,10 @@ JSZAttribute::JSZAttribute(const std::shared_ptr<ZDevices>& zDevices, const std:
 
 JSZAttribute::~JSZAttribute() {
 	for (auto & function: mapFunction){
-		std::get<0>(function.second).disconnect();
-		std::get<1>(function.second).Reset();
+		CallbackData callback = function.second;
+		auto attribute = get<1>(callback);
+		attribute->removeOnChangeListener(std::move(get<0>(callback)));
+		get<2 >(callback).Reset();
 	}
 
 }
@@ -115,7 +118,7 @@ void JSZAttribute::jsRequestValue(const v8::FunctionCallbackInfo<v8::Value>& inf
 	try {
 		Local<Object> self = info.Holder();
 		Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
-		ZCLAttribute * attribute = (ZCLAttribute *) wrap->Value();
+		auto attribute = (ZCLAttribute *) wrap->Value();
 		if (info.Length() == 1) {
 			if (!info[0]->IsFunction()) {
 				throw JSExceptionArgNoFunction(0);
@@ -128,9 +131,9 @@ void JSZAttribute::jsRequestValue(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 			Local<Function> callback = Local<Function>::Cast(info[0]);
 			int identity = callback->GetIdentityHash();
-			boost::signals2::connection con = attribute->onChange(std::bind(&JSZAttribute::signalChange, This, isolate, identity));
+			auto con = attribute->onChange([This, isolate, identity](){This->signalChange(isolate, identity);});
 			std::lock_guard<std::mutex> lock(This->mapFunctionMutex);
-			This->mapFunction.insert( { identity, std::make_tuple(con, persistenteObject) });
+			This->mapFunction.insert( { identity, std::make_tuple(con, attribute, persistenteObject) });
 		}
 		attribute->requestValue();
 	} catch (std::exception & excp) {
@@ -142,13 +145,13 @@ void JSZAttribute::jsRequestValue(const v8::FunctionCallbackInfo<v8::Value>& inf
 void JSZAttribute::signalChange(v8::Isolate * isolate, int identity) {
 	if (mapFunction.count(identity) > 0) {
 		CallbackData callbackData  = popCallbackData(identity);
-		Local<Value> object = Local<Value>::New(isolate, std::get<1>(callbackData));
+		Local<Value> object = Local<Value>::New(isolate, std::get<2>(callbackData));
 		Local<Function> callback = Local<Function>::Cast(object);
 		String::Utf8Value name(callback->GetInferredName());
 
 		callback->CallAsFunction(object, 0, nullptr);
-		std::get<0>(callbackData).disconnect();
-		std::get<1>(callbackData).Reset();
+		get<1>(callbackData)->removeOnChangeListener(std::move(get<0>(callbackData)));
+		get<2>(callbackData).Reset();
 	}
 }
 

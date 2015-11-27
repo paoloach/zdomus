@@ -12,7 +12,6 @@
 
 namespace zigbee {
 
-using boost::bind;
 using boost::asio::buffer;
 using boost::asio::async_write;
 using boost::property_tree::ptree;

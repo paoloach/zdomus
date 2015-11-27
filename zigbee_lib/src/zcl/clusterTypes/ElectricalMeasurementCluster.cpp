@@ -43,9 +43,9 @@ namespace zigbee {
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x30d, "Measured Phase 1st Harmonic Current", true),
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x30e, "Measured Phase 3st Harmonic Current", true),
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x30f, "Measured Phase 5st Harmonic Current", true),
-            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x300, "Measured Phase 7st Harmonic Current", true),
-            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x301, "Measured Phase 9st Harmonic Current", true),
-            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x302, "Measured Phase 11st Harmonic Current", true),
+            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x310, "Measured Phase 7st Harmonic Current", true),
+            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x311, "Measured Phase 9st Harmonic Current", true),
+            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x312, "Measured Phase 11st Harmonic Current", true),
 
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x400, "AC Frequence Multiplier", true),
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x401, "AC Frequence Divisor", true),

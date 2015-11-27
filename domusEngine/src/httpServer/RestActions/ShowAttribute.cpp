@@ -36,7 +36,8 @@ void ShowAttribute::operator ()(const PlaceHolders&& placeHolder, Poco::Net::HTT
 	auto zEndpoint = zDevice.getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
 	if (zEndpoint.isInCluster(clusterId)) {
 		response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-		auto cluster(singletons.getClusterTypeFactory()->getCluster(clusterId, singletons.getZigbeeDevice(), endpoint, nwkAddr));
+		auto zDevice = singletons.getZigbeeDevice();
+		auto cluster(singletons.getClusterTypeFactory()->getCluster(clusterId, zDevice, endpoint, nwkAddr));
 		std::shared_ptr<ZCLAttribute> attribute;
 		try {
 			auto attributeId = boost::lexical_cast<int>(attributeParam);

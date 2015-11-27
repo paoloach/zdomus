@@ -8,15 +8,14 @@
 #ifndef SRC_JAVASCRIPT_JSZATTRIBUTE_H_
 #define SRC_JAVASCRIPT_JSZATTRIBUTE_H_
 
-#include <v8.h>
+
 #include <memory>
 #include <mutex>
 #include <map>
 #include <set>
 #include <tuple>
-
 #include <zcl/ZCLAttribute.h>
-
+#include "v8.h"
 #include "../ZigbeeData/ExtAddress.h"
 
 
@@ -30,7 +29,7 @@ class ClusterTypeFactory;
 class JSZAttribute {
 public:
 	static std::map<ZCLAttribute::Status, std::string> statusMap;
-	typedef std::tuple<boost::signals2::connection,v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>> > CallbackData;
+	using CallbackData = std::tuple<ZCLAttribute::ListenerOnChange ,ZCLAttribute *, v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>> >;
 public:
 	JSZAttribute(const std::shared_ptr<ZDevices> & zDevices, const std::shared_ptr<ZigbeeDevice> & zigbeeDevice,const std::shared_ptr<ClusterTypeFactory> & clusterFactory);
 	virtual ~JSZAttribute();

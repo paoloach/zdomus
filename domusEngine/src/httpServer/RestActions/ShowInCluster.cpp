@@ -33,7 +33,8 @@ void ShowInCluster::operator ()(const PlaceHolders&& placeHolder, Poco::Net::HTT
 	auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
 	auto zEndpoint = zDevice.getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
 	if (zEndpoint.isInCluster(clusterId)) {
-		auto cluster = singletons.getClusterTypeFactory()->getCluster(clusterId, singletons.getZigbeeDevice(), endpoint, nwkAddr);
+		auto zDevice = singletons.getZigbeeDevice();
+		auto cluster = singletons.getClusterTypeFactory()->getCluster(clusterId, zDevice, endpoint, nwkAddr);
 		producer.produce(response.send(), ClusterPT(cluster));
 	} else {
 		std::stringstream message;

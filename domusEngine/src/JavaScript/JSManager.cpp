@@ -16,6 +16,7 @@ namespace zigbee {
 using boost::asio::deadline_timer;
 using std::shared_ptr;
 using std::make_shared;
+using boost::system::error_code;
 
 JSManager::JSManager(SingletonObjects & singletonObjects) :
 		singletonObjects(singletonObjects){
@@ -40,7 +41,7 @@ void JSManager::Task::endJS() {
 	timer.async_wait(boost::bind(&Task::timerHandler, this, boost::asio::placeholders::error));
 }
 
-void JSManager::Task::timerHandler(const boost::system::error_code&) {
+void JSManager::Task::timerHandler(const error_code&) {
 	jsExecuter.join();
 	Log::LogData logData = log.get();
 	while (!logData.msg.empty()) {

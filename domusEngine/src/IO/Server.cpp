@@ -14,7 +14,6 @@ namespace zigbee {
 const std::string Server::socketPath ("/tmp/domust_engine");
 
 using boost::asio::local::stream_protocol;
-using boost::bind;
 using std::shared_ptr;
 using std::make_shared;
 

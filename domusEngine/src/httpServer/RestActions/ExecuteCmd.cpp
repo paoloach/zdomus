@@ -34,7 +34,8 @@ void ExecuteCmd::operator ()(const PlaceHolders&& placeHolder, Poco::Net::HTTPSe
 	if (zEndpoint.isInCluster(clusterId)) {
 		std::vector<uint8_t> cmdParams{};
 		response.setStatus(Poco::Net::HTTPResponse::HTTP_NO_CONTENT);
-		auto cluster(singletons.getClusterTypeFactory()->getCluster(clusterId, singletons.getZigbeeDevice(), endpoint, nwkAddr));
+		auto zDevice = singletons.getZigbeeDevice();
+		auto cluster(singletons.getClusterTypeFactory()->getCluster(clusterId, zDevice, endpoint, nwkAddr));
 
 		auto params = cluster->getCmdParams(command);
 		for (const auto & param : params){

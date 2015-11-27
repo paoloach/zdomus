@@ -26,33 +26,28 @@ namespace zigbee {
 
 static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::seconds(1);
 
-DomusEngioneUSBDevice::DomusEngioneUSBDevice(boost::asio::io_service & serviceIo_, std::shared_ptr<ZDevices> & zDevices_, AttributeDataContainer & attributeDataContainer_,
-        libusb_context * usbContext_, int deviceClass_, int vendor_, int product_) :
+DomusEngineUSBDevice::DomusEngineUSBDevice(boost::asio::io_service & serviceIo_, std::shared_ptr<ZDevices> & zDevices_, AttributeDataContainer & attributeDataContainer_,
+										   libusb_context * usbContext_, int deviceClass_, int vendor_, int product_) :
 		ioService(serviceIo_), timer(serviceIo_, CHECK_NEW_MESSAGE), usbContext(usbContext_), deviceClass { deviceClass_ }, vendorID { vendor_ }, productID { product_ }, handle(
 		        nullptr), zDevices(zDevices_), attributeDataContainer(attributeDataContainer_) {
 	device = nullptr;
-	timer.async_wait(boost::bind(&DomusEngioneUSBDevice::timerHandler, this, boost::asio::placeholders::error));
+	timer.async_wait(boost::bind(&DomusEngineUSBDevice::timerHandler, this, boost::asio::placeholders::error));
 }
 
-DomusEngioneUSBDevice::~DomusEngioneUSBDevice() {
-	for (auto & element : attributeValueSignalMap) {
-		delete element.second;
-	}
-}
 
-void DomusEngioneUSBDevice::timerHandler(const boost::system::error_code&) {
+void DomusEngineUSBDevice::timerHandler(const boost::system::error_code&) {
 	if (isPresent()) {
 		getUsbMessage();
 	}
 	timer.expires_from_now(CHECK_NEW_MESSAGE);
-	timer.async_wait(boost::bind(&DomusEngioneUSBDevice::timerHandler, this, boost::asio::placeholders::error));
+	timer.async_wait(boost::bind(&DomusEngineUSBDevice::timerHandler, this, boost::asio::placeholders::error));
 }
 
 void emptySlot(void) {
 
 }
 
-std::string DomusEngioneUSBDevice::strUsbError(int error) {
+std::string DomusEngineUSBDevice::strUsbError(int error) {
 	switch (error) {
 		case LIBUSB_ERROR_IO:
 			return "input/output error";
@@ -76,7 +71,7 @@ std::string DomusEngioneUSBDevice::strUsbError(int error) {
 /**
  * find in the usb tree if the device is present
  */
-bool DomusEngioneUSBDevice::isPresent() {
+bool DomusEngineUSBDevice::isPresent() {
 	if (device != nullptr) {
 		return true;
 	} else {
@@ -116,7 +111,7 @@ bool DomusEngioneUSBDevice::isPresent() {
 /**
  * Check if there is a message from the usb device and emit the right sihnal
  */
-void DomusEngioneUSBDevice::getUsbMessage() {
+void DomusEngineUSBDevice::getUsbMessage() {
 	unsigned char data[64] { };
 	int transfered { };
 	if (device) {
@@ -137,7 +132,7 @@ void DomusEngioneUSBDevice::getUsbMessage() {
 	}
 }
 
-void DomusEngioneUSBDevice::parseUsbMessage(unsigned char * data, int length) {
+void DomusEngineUSBDevice::parseUsbMessage(unsigned char * data, int length) {
 	AnnunceMessage *annunceMessage { };
 	SimpleDescMessage *simpleDescMessage { };
 	ReadAttributeResponseMessage *readAttributeResponseMessage { };
@@ -169,7 +164,7 @@ void DomusEngioneUSBDevice::parseUsbMessage(unsigned char * data, int length) {
 	}
 }
 
-void DomusEngioneUSBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) {
+void DomusEngineUSBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) {
 	std::cout << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << attributeId << ")" << std::endl;
 	if (handle != nullptr) {
 		AttributeValue attributeValue { };
@@ -192,8 +187,8 @@ void DomusEngioneUSBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID 
 	}
 }
 
-void DomusEngioneUSBDevice::writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attrId, ZCLTypeDataType dataType, uint8_t dataValueLen,
-        uint8_t * dataValue) {
+void DomusEngineUSBDevice::writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attrId, ZCLTypeDataType dataType, uint8_t dataValueLen,
+										  uint8_t * dataValue) {
 	std::cout << "USBDevice write attribute to cluster " << std::endl;
 	if (handle != nullptr) {
 		WriteAttributeValueMsg writeAttributeValue { };
@@ -216,7 +211,7 @@ void DomusEngioneUSBDevice::writeAttribute(NwkAddr nwkAddrs, const EndpointID en
 	}
 }
 
-void DomusEngioneUSBDevice::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId comandId, std::vector<uint8_t> data) {
+void DomusEngineUSBDevice::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId comandId, std::vector<uint8_t> data) {
 	std::cout << "USBDevice send cmd to cluster (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << comandId << ")" << std::endl;
 	if (handle != nullptr) {
 		ComandSend comandSend { nwkAddrs, endpoint, cluster, comandId, data };
@@ -231,41 +226,26 @@ void DomusEngioneUSBDevice::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, Clust
 	}
 }
 
-void DomusEngioneUSBDevice::parseAttributeResponse(ReadAttributeResponseMessage * readAttributeResponseMessage) {
-	AttributeKey key(NwkAddr(readAttributeResponseMessage->networkAddr), EndpointID(readAttributeResponseMessage->endpoint), ClusterID(readAttributeResponseMessage->clusterId),
-	        readAttributeResponseMessage->attrID);
-	auto found = attributeValueSignalMap.find(key);
-	if (found != attributeValueSignalMap.end()) {
+void DomusEngineUSBDevice::parseAttributeResponse(ReadAttributeResponseMessage * readAttributeResponseMessage) {
+	AttributeKey key(NwkAddr(readAttributeResponseMessage->networkAddr), readAttributeResponseMessage->endpoint, readAttributeResponseMessage->clusterId,
+					 readAttributeResponseMessage->attrID);
+	auto found = attributeValueSignalMap.equal_range(key);
+	if (found.first != attributeValueSignalMap.end()) {
 		std::shared_ptr<AttributeStatusRecord> attributeStatus = std::make_shared<AttributeStatusRecord>();
 		attributeStatus->attributeId = readAttributeResponseMessage->attrID;
 		attributeStatus->attributeDataType = readAttributeResponseMessage->type;
 		attributeStatus->status = readAttributeResponseMessage->status;
 		attributeStatus->dataLen = readAttributeResponseMessage->dataLen;
-		memcpy(attributeStatus->data, readAttributeResponseMessage->data, attributeStatus->dataLen);
-		AttributeValueSignal & signal = *found->second;
-		signal(attributeStatus);
-	}
-}
 
-boost::signals2::connection DomusEngioneUSBDevice::registerForAttributeValue(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
-        const AttributeValueSignal::slot_type &subscriber) {
-	AttributeValueSignal *signal { };
-	AttributeKey key(nwkAddrs, endpoint, cluster, attributeId);
-	auto found = attributeValueSignalMap.find(key);
-	if (found != attributeValueSignalMap.end()) {
-		signal = found->second;
-		signal->disconnect_all_slots();
-	} else {
-		signal = new AttributeValueSignal { };
-		attributeValueSignalMap[key] = signal;
+		memcpy(attributeStatus->data, readAttributeResponseMessage->data, attributeStatus->dataLen);
+		std::for_each(found.first, found.second, [&attributeStatus ](AttributeValueSignalMap::value_type & callback){callback.second(attributeStatus);} );
 	}
-	return signal->connect(subscriber);
 }
 
 /**
  * send request devices
  */
-bool DomusEngioneUSBDevice::requestDevices() {
+bool DomusEngineUSBDevice::requestDevices() {
 	int transfered;
 	GenericMessage genericMessage;
 
@@ -279,7 +259,7 @@ bool DomusEngioneUSBDevice::requestDevices() {
 	return false;
 }
 
-void DomusEngioneUSBDevice::requestActiveEndpoints(NwkAddr nwkAddr) {
+void DomusEngineUSBDevice::requestActiveEndpoints(NwkAddr nwkAddr) {
 	ReqActiveEndpointsMessage request { };
 	request.nwkAddr = nwkAddr.getId();
 
@@ -293,11 +273,7 @@ void DomusEngioneUSBDevice::requestActiveEndpoints(NwkAddr nwkAddr) {
 	}
 }
 
-boost::signals2::connection DomusEngioneUSBDevice::registerForAttributeCmd(NwkAddr, EndpointID, ClusterID, ZigbeeAttributeCmdId, const AttributeCmdSignal::slot_type &) {
-	return boost::signals2::connection { };
-}
-
-bool DomusEngioneUSBDevice::AttributeKey::operator <(const AttributeKey & otherKey) const {
+bool DomusEngineUSBDevice::AttributeKey::operator <(const AttributeKey & otherKey) const {
 	if (nwkAddr == otherKey.nwkAddr) {
 		if (endpointId == otherKey.endpointId) {
 			if (clusterId == otherKey.clusterId) {
@@ -313,7 +289,7 @@ bool DomusEngioneUSBDevice::AttributeKey::operator <(const AttributeKey & otherK
 	}
 }
 
-bool DomusEngioneUSBDevice::AttributeKey::operator ==(const AttributeKey & otherKey) const {
+bool DomusEngineUSBDevice::AttributeKey::operator ==(const AttributeKey & otherKey) const {
 	return otherKey.nwkAddr == nwkAddr && otherKey.endpointId == endpointId && otherKey.clusterId == clusterId && otherKey.attributeId == attributeId;
 }
 
@@ -321,25 +297,13 @@ void parseAttributeResponse(ReadAttributeResponseMessage *) {
 
 }
 
-boost::signals2::connection DomusEngioneUSBDevice::registerForAnnunceMessage(const AnnunceSignal::slot_type &) {
-	return boost::signals2::connection { };
-}
-boost::signals2::connection DomusEngioneUSBDevice::registerForSimpleDescMessage(const SimpleDescSignal::slot_type &) {
-	return boost::signals2::connection { };
-}
 
-void DomusEngioneUSBDevice::sendReqBind(NwkAddr destAddr, uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID, uint8_t inClusterAddr[Z_EXTADDR_LEN],
-        EndpointID inClusterEp) {
+void DomusEngineUSBDevice::sendReqBind(NwkAddr destAddr, uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID, uint8_t inClusterAddr[Z_EXTADDR_LEN],
+									   EndpointID inClusterEp) {
 	BindRequest bindRequest(destAddr, outClusterAddr, outClusterEP, clusterID, inClusterAddr, inClusterEp);
 
 	sendData(bindRequest);
 }
-void DomusEngioneUSBDevice::requesBindTable(NwkAddr) {
 
-}
-
-boost::signals2::connection DomusEngioneUSBDevice::registerForBindTableMessage(const ZigbeeDevice::BindTableResponseSignal::slot_type &subscriber) {
-	return bindTableResponseSignal.connect(subscriber);
-}
 
 } /* namespace zigbee */
