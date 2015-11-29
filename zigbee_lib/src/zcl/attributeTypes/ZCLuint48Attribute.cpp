@@ -14,7 +14,7 @@ ZCLuint48Attribute::ZCLuint48Attribute(const std::shared_ptr<ZigbeeDevice> &zigb
     if (zigbeeDevice) {
         zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
                                                 identifier,
-                                                boost::bind(&ZCLuint48Attribute::setValue, this, _1));
+                                                [this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
     }
 
 }

@@ -18,9 +18,9 @@ On_Off_Cluster::On_Off_Cluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevic
 
 	createAttributes(attributesDef);
 
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, OnOffClusterID, 1);}, 0, "Off");
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, OnOffClusterID, 1);}, 1, "On");
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, OnOffClusterID, 1);}, 2, "Toggle");
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, OnOffClusterID, 0);}, 0, "Off");
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, OnOffClusterID, 1);}, 1, "On");
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, OnOffClusterID, 2);}, 2, "Toggle");
 }
 
 ClusterID On_Off_Cluster::getId() const  {

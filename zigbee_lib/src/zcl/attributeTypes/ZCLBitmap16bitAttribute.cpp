@@ -13,7 +13,7 @@ ZCLBitmap16bitAttribute::ZCLBitmap16bitAttribute(const std::shared_ptr<ZigbeeDev
         ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLType16bitBitmap, name, readOnly) {
     if (zigbeeDevice) {
         zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
-                                                boost::bind(&ZCLBitmap16bitAttribute::setValue, this, _1));
+                                                [this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
     }
 }
 

@@ -23,28 +23,28 @@ LevelControlCluster::LevelControlCluster(const std::shared_ptr<ZigbeeDevice> & z
 		Cluster(zigbeeDevice, endpoint, networkAddress) {
 	createAttributes(attributesDef);
 
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 0, std::move(data));}, 0, "Move to Level",
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 0, std::move(data));}, 0, "Move to Level",
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Level"),
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("Transition time (tenths of sec)"));
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 1, std::move(data));}, 1, "Move",
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 1, std::move(data));}, 1, "Move",
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Move mode"),
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Rate (unit x sec)"));
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 2, std::move(data));}, 2, "Step",
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 2, std::move(data));}, 2, "Step",
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Move Mode"),
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Step Size"),
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("Transition time (tenths of sec)"));
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 3, std::move(data));}, 3, "Stop");
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 4, std::move(data));}, 4, "Move to Level (On/Off)",
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 3, std::move(data));}, 3, "Stop");
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 4, std::move(data));}, 4, "Move to Level (On/Off)",
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Level"),
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("Transition time (tenths of sec)"));
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 5, std::move(data));}, 5, "Move (On/Off)",
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 5, std::move(data));}, 5, "Move (On/Off)",
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Move mode"),
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Rate (unit x sec)"));
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 6, std::move(data));}, 6, "Step (On/Off)",
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 6, std::move(data));}, 6, "Step (On/Off)",
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Move Mode"),
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Step Size"),
 			std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("Transition time (tenths of sec)"));
-	_commandsDef.emplace_back([&](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 7, std::move(data));}, 7, "Stop (On/Off)");
+	_commandsDef.emplace_back([=](std::vector<uint8_t> && data ) { zigbeeDevice->sendCmd(networkAddress, endpoint, LevelControClusterID, 7, std::move(data));}, 7, "Stop (On/Off)");
 	// @formatter:on
 
 }

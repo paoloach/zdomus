@@ -14,7 +14,7 @@ ZCL_bitmap8bit_Attribute::ZCL_bitmap8bit_Attribute(const std::shared_ptr<ZigbeeD
 		ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLType8bitBitmap, name, readOnly) {
 	if (zigbeeDevice) {
 		zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
-				boost::bind(&ZCL_bitmap8bit_Attribute::setValue, this, _1));
+				[this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
 	}
 }
 

@@ -20,7 +20,7 @@ ZCLUTCTime::ZCLUTCTime(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluste
     if (zigbeeDevice) {
         zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
                                                 identifier,
-                                                boost::bind(&ZCLUTCTime::setValue, this, _1));
+                                                [this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
     }
 
 }

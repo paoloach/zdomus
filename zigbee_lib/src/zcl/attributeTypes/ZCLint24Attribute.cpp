@@ -11,7 +11,7 @@ ZCLint24Attribute::ZCLint24Attribute(const std::shared_ptr<ZigbeeDevice> & zigbe
         ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeSInt24, name, readOnly) {
     if (zigbeeDevice) {
         zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
-                                                boost::bind(&ZCLint24Attribute::setValue, this, _1));
+                                                [this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
     }
 }
 

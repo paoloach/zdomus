@@ -16,7 +16,7 @@ ZCLIEEEAddressAttribute::ZCLIEEEAddressAttribute(const std::shared_ptr<ZigbeeDev
 		ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeIEEEaddress, name, readOnly) {
 	if (zigbeeDevice) {
 		zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
-				boost::bind(&ZCLIEEEAddressAttribute::setValue, this, _1));
+												[this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
 	}
 
 }

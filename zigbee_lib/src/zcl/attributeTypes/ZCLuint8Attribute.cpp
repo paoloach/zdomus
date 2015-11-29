@@ -14,8 +14,10 @@ namespace zigbee {
 
 ZCL_uint8_Attribute::ZCL_uint8_Attribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier, const std::string & name, bool readOnly) :
 		ZCLAttribute(zigbeeDevice, parent, identifier,ZCLTypeDataType::ZCLTypeUInt8, name,readOnly) {
-	if (zigbeeDevice){
-		zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier, boost::bind(&ZCL_uint8_Attribute::setValue, this, _1));
+	if (zigbeeDevice) {
+		zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
+												identifier,
+												[this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
 	}
 }
 

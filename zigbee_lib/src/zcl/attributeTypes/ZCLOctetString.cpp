@@ -11,7 +11,7 @@ ZCLOctetString::ZCLOctetString(const std::shared_ptr<ZigbeeDevice> & zigbeeDevic
         ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeStringOctect, name, readOnly) {
     if (zigbeeDevice) {
         zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
-                                                boost::bind(&ZCLOctetString::setValue, this, _1));
+                                                [this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
     }
 }
 

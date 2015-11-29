@@ -20,7 +20,7 @@ struct __attribute__ ((__packed__)) ReadAttributeResponseMessage {
 	uint16_t networkAddr;
 	uint8_t endpoint;
 	uint16_t panId;
-	uint8_t attrID;
+	uint16_t attrID;
 	uint8_t status;
 	uint8_t dataLen;
 	uint8_t data[MAX_DATA_SIZE];

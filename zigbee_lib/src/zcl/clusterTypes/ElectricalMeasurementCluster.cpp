@@ -77,6 +77,13 @@ namespace zigbee {
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x516, "RMS Voltage Sag Period", true),
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x517, "RMS Voltage Swell Period", true),
 
+            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x600, "AC Voltage Multiplier", true),
+            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x601, "AC Voltage Divisor", true),
+            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x602, "AC Current Multiplier", true),
+            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x603, "AC Current Divisor", true),
+            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x604, "AC Power Multiplier", true),
+            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x605, "AC Power Divisor", true),
+
             Cluster::AttributeDef(ZCLTypeDataType::ZCLType8bitBitmap, 0x700, "DC Overload Alarms Mask", true),
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x701, "DC Voltage Overload", true),
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x702, "DC Current Overload", true),
@@ -145,10 +152,10 @@ namespace zigbee {
             Cluster(zigbeeDevice, endpoint, networkAddress) {
         createAttributes(attributesDef);
 
-        _commandsDef.emplace_back([&](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0); }, 0,
+        _commandsDef.emplace_back([=](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0); }, 0,
                                   "Get Profile Info Command");
         _commandsDef.emplace_back(
-                [&](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 1); },
+                [=](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 1); },
                 1,
                 "Get Measurement Profile Command",
                 std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("Attribute ID"),

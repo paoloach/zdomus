@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 2.8)
 project (domus_engine_test)
 
+find_package(PostgreSQL)
+
 SET(SOURCE_SRC main.cpp)
 file (GLOB test  "*.cpp")
 file (GLOB testZigbeeData  "ZigbeeData/*.cpp")
@@ -35,7 +37,7 @@ set (GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g3 -O2 -std=c++14 ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g3 -O0  -std=c++14 -Wall -Wextra -Wpedantic ")
 
-include_directories( ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${V8_INCLUDE_DIR}  ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
+include_directories( ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${PostgreSQL_INCLUDE_DIRS} ${V8_INCLUDE_DIR}  ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
 link_directories( ${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 
 add_executable(domus_engine_test
