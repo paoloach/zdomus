@@ -11,6 +11,7 @@
 #include "zcl/attributeTypes/ZCLuint24Attribute.h"
 #include "zcl/attributeTypes/ZCLuint32Attribute.h"
 #include "zcl/attributeTypes/ZCLuint48Attribute.h"
+#include "zcl/attributeTypes/ZCLint8Attribute.h"
 #include "zcl/attributeTypes/ZCLint16Attribute.h"
 #include "zcl/attributeTypes/ZCLint24Attribute.h"
 #include "zcl/attributeTypes/ZCLint32Attribute.h"
@@ -30,7 +31,7 @@ using std::dynamic_pointer_cast;
 
 namespace zigbee {
 
-    ClusterTreeHandler::ClusterTreeHandler(std::shared_ptr<Cluster> & cluster) :
+    ClusterTreeHandler::ClusterTreeHandler(std::shared_ptr<Cluster> &cluster) :
             cluster(cluster), popupMenu(nullptr), widgeItem(nullptr) {
 
     }
@@ -70,6 +71,9 @@ namespace zigbee {
                     break;
                 case ZCLTypeDataType::ZCLTypeIEEEaddress:
                     attributeHandler = getHandler<ZCLIEEEAddressAttribute>(attribute, attributeDef.name, parentItem);
+                    break;
+                case ZCLTypeDataType::ZCLTypeSInt8:
+                    attributeHandler = getHandler<ZCLint8Attribute>(attribute, attributeDef.name, parentItem);
                     break;
                 case ZCLTypeDataType::ZCLTypeSInt16:
                     attributeHandler = getHandler<ZCL_int16_Attribute>(attribute, attributeDef.name, parentItem);
@@ -123,7 +127,7 @@ namespace zigbee {
 
     void ClusterTreeHandler::setContextualMenuI(QTreeWidgetItem *parentItem) {
         if (!cluster->getCommands().empty()) {
-            TreeItemSignalMap::getHistance().add(parentItem, boost::bind(&ClusterTreeHandler::click, this));
+            TreeItemSignalMap::getHistance().add(parentItem, [this](){this->click();});
             widgeItem = parentItem;
         }
     }

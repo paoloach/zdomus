@@ -54,6 +54,7 @@ private:
 	std::shared_ptr<ZigbeeDevice> zigbeeDevice;
 	std::shared_ptr<USBDevice> usbDevice;
 	QTimer * timer;
+	QTimer * timerConnection;
 	std::shared_ptr<Cluster>  clusterOut;
 	std::shared_ptr<Cluster>  clusterIn;
 	std::map<NwkAddr, QTreeWidgetItem *> mapNwkAction;
@@ -67,6 +68,7 @@ private:
 	ClustersOutHandler clustersOutHandler;
 
 private slots:
+    void checkUSBConnect();
 	void usbPoll();
 	void generateAnnunce();
 	void generateSimpleDesc();

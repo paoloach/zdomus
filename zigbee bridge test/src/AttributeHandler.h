@@ -57,7 +57,11 @@ class TypezedAttributeHandler: public AttributeHandler {
 public:
 	TypezedAttributeHandler(std::shared_ptr<_Tp> attribute, const std::string name, QTreeWidgetItem * parent) :
 			AttributeHandler(name, parent), attribute(attribute) {
-		item->setText(0, QString::fromStdString(attribute->getName()));
+        if (!attribute){
+            std::cerr << "undefined " << std::endl;
+        } else {
+            item->setText(0, QString::fromStdString(attribute->getName()));
+        }
 
 		this->attribute->onChange([this]{update();});
 		attributeChanger = nullptr;
