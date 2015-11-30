@@ -82,7 +82,6 @@ TEST_F( JavaScriptExecuterTest, creating_attribute_ZCL_uint8) {
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
 	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
-	EXPECT_CALL(*zigbeeDevice, registerForAttributeValue(_,_,_,_,_)).Times(AnyNumber()).WillRepeatedly(Return(boost::signals2::connection()));
 	string objectName = "Z" + ZCL_uint8_Attribute::name();
 
 	js << objectName << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << BASIC_CLUSTER << "," << APPLICATION_VERSION_ID << ");";
@@ -104,7 +103,6 @@ TEST_F( JavaScriptExecuterTest, creating_attribute_ZCL_uint8_log_type) {
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
 	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
-	EXPECT_CALL(*zigbeeDevice, registerForAttributeValue(_,_,_,_,_)).Times(AnyNumber()).WillRepeatedly(Return(boost::signals2::connection()));
 	string objectName = "Z" + ZCL_uint8_Attribute::name();
 
 	js << "var a = " <<  objectName << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << BASIC_CLUSTER << "," << APPLICATION_VERSION_ID << ");";
@@ -130,7 +128,6 @@ TEST_F( JavaScriptExecuterTest, creating_attribute_ZCL_uint8_log_type_two_time) 
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
 	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
-	EXPECT_CALL(*zigbeeDevice, registerForAttributeValue(_,_,_,_,_)).Times(AnyNumber()).WillRepeatedly(Return(boost::signals2::connection()));
 	string objectName = "Z" + ZCL_uint8_Attribute::name();
 
 	js << "var log = Log();";
@@ -163,7 +160,6 @@ TEST_F( JavaScriptExecuterTest, creating_invalid_attribute_ZCL_uint16) {
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
 	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
-	EXPECT_CALL(*zigbeeDevice, registerForAttributeValue(_,_,_,_,_)).Times(AnyNumber()).WillRepeatedly(Return(boost::signals2::connection()));
 	string objectName = "Z" + ZCL_uint16_Attribute::name();
 
 	js << objectName << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << BASIC_CLUSTER << "," << APPLICATION_VERSION_ID << ");";
@@ -188,7 +184,6 @@ TEST_F( JavaScriptExecuterTest, creating_invalid_attribute_ZCL_uint16_and_then_v
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillRepeatedly(Return(true));
 	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillRepeatedly(ReturnRef(zDevice));
-	EXPECT_CALL(*zigbeeDevice, registerForAttributeValue(_,_,_,_,_)).Times(AnyNumber()).WillRepeatedly(Return(boost::signals2::connection()));
 	string objectName_16uint = "Z" + ZCL_uint16_Attribute::name();
 	string objectName_8uint = "Z" + ZCL_uint8_Attribute::name();
 

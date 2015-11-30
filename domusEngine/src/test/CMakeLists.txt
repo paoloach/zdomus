@@ -37,7 +37,7 @@ set (GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g3 -O2 -std=c++14 ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g3 -O0  -std=c++14 -Wall -Wextra -Wpedantic ")
 
-include_directories( ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${PostgreSQL_INCLUDE_DIRS} ${V8_INCLUDE_DIR}  ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
+include_directories( ${CMAKE_SOURCE_DIR}/include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${PostgreSQL_INCLUDE_DIRS} ${V8_INCLUDE_DIR}  ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
 link_directories( ${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 
 add_executable(domus_engine_test
@@ -64,6 +64,24 @@ set (V8_LIBRARY
         ${V8_LIB_DIR}/libicui18n.a
         ${V8_LIB_DIR}/libicuuc.a
         ${V8_LIB_DIR}/libicudata.a
+        )
+
+SET(LIBS zigbeeLib
+        usb-1.0
+        pq
+        PocoNet
+        PocoUtil
+        PocoXML
+        PocoZip
+        PocoData
+        PocoFoundation
+        ${V8_LIBRARY}
+        ${Boost_THREAD_LIBRARY_RELEASE}
+        ${Boost_SYSTEM_LIBRARY_RELEASE}
+        ${Boost_FILESYSTEM_LIBRARY_RELEASE}
+        ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
+
+        pthread
         )
 
 target_link_libraries(domus_engine_test domus_engine_static_lib ${V8_LIBRARY} ${LIBS}  ${GMOCK_LIBS})

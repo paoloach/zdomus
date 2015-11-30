@@ -23,8 +23,8 @@ public:
 	ClusterMock();
 	virtual ~ClusterMock();
 
-	MOCK_METHOD0(getId, ClusterID () );
-	MOCK_METHOD0(getClusterName, std::string () );
+	MOCK_CONST_METHOD0(getId, ClusterID () );
+	MOCK_CONST_METHOD0(getClusterName, std::string () );
 	MOCK_METHOD2(createAttributes, void (const Cluster::AttributeDef * attributesDef, int size) );
 	MOCK_METHOD1(createAttributes, void (const std::vector<AttributeDef> & attributesDef) ) ;
 	MOCK_CONST_METHOD1(getAttribute, std::shared_ptr<ZCLAttribute> (int id) );

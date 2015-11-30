@@ -63,7 +63,7 @@ public:
 	virtual int getIdentifier() const {return identifier;}
 	virtual std::string getName() const {return name;}
 	virtual bool isReadOnly() const {return readOnly;}
-	virtual ListenerOnChange onChange(std::function<void()> && changeSignal){
+	virtual ListenerOnChange onChange(std::function<void()> changeSignal){
 		if (callbacks.empty()){
 			callbacks.push_front(changeSignal);
 			return callbacks.begin();

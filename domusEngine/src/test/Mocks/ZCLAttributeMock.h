@@ -31,7 +31,7 @@ public:
 	MOCK_CONST_METHOD0(getIdentifier, int ());
 	MOCK_CONST_METHOD0(getName, std::string ());
 	MOCK_CONST_METHOD0(isReadOnly, bool () );
-	MOCK_METHOD1(onChange, boost::signals2::connection (OnChangeSignal::slot_type changeSignal));
+	MOCK_METHOD1(onChange, ListenerOnChange(std::function<void()>  changeSignal));
 	MOCK_CONST_METHOD0(getValue, boost::any () );
 };
 

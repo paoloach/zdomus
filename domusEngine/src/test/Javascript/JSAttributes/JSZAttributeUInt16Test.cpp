@@ -98,14 +98,14 @@ TEST_F( JSZAttributeUInt16Test, requestValue) {
 }
 
 TEST_F( JSZAttributeUInt16Test, requestValueWithCallback) {
-	EXPECT_CALL(*zclUint16Attribute, onChange(_)).WillOnce(*new ActionFunction(&action));
+	EXPECT_CALL(*zclUint16Attribute, onChange(_));
 	EXPECT_CALL(*zclUint16Attribute, requestValue());
 
 	requestValueWithCallbackTest(jsZAttribute, zclUint16Attribute, action.changeSignal);
 }
 
 TEST_F( JSZAttributeUInt16Test, requestValueWithCallback_after_the_callback_is_not_called) {
-	EXPECT_CALL(*zclUint16Attribute, onChange(_)).WillOnce(* new ActionFunction(&action));
+	EXPECT_CALL(*zclUint16Attribute, onChange(_));
 	EXPECT_CALL(*zclUint16Attribute, requestValue()).Times(1);
 
 	requestValueWithCallbackTestOnlyFirstTime(jsZAttribute, zclUint16Attribute, action.changeSignal);
@@ -113,7 +113,7 @@ TEST_F( JSZAttributeUInt16Test, requestValueWithCallback_after_the_callback_is_n
 
 
 TEST_F( JSZAttributeUInt16Test, requestValueWithCallback_for_two_functions) {
-	EXPECT_CALL(*zclUint16Attribute, onChange(_)).WillOnce(* new ActionFunction(&action));
+	EXPECT_CALL(*zclUint16Attribute, onChange(_));
 	EXPECT_CALL(*zclUint16Attribute, requestValue()).Times(1);
 
 	requestValueWithCallbackTestOnlyFirstTime(jsZAttribute, zclUint16Attribute, action.changeSignal);
