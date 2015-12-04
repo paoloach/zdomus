@@ -19,9 +19,7 @@ public:
 	virtual ~ZCL_enum8bit_Attribute();
 public:
 	virtual void sendValue(uint8_t newValue);
-	static ZCLTypeDataType type(){
-		return ZCLTypeDataType::ZCLTypeenum8;
-	}
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeenum8;
 	static std::string name() {
 		return "8BitEnum";
 	}

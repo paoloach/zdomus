@@ -26,9 +26,7 @@ public:
 	virtual  boost::any getValue() const override;
 	virtual  const uint8_t *   getRawValue() const;
 	virtual void sendValue(uint64_t value);
-	static ZCLTypeDataType type(){
-		return ZCLTypeDataType::ZCLTypeIEEEaddress;
-	}
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeIEEEaddress;
 	static std::string name() {
 		return "IEEEAddress";
 	}

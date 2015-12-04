@@ -15,19 +15,24 @@
 
 namespace zigbee {
 
-class ParamInt32 {
-public:
-	static int32_t fromV8(const v8::Local<v8::Value> & value) {
-		if (!value->IsInt32()) {
-			throw JSExceptionArgNoInteger(VALUE);
-		}
-		return value->Int32Value();
-	}
+    template<int min = INT_MIN, int max = INT_MAX>
+    class ParamInt32 {
+    public:
+        static int32_t fromV8(const v8::Local<v8::Value> &jsValue) {
+            if (!jsValue->IsInt32()) {
+                throw JSExceptionArgNoInteger(VALUE);
+            }
+            int32_t value =  jsValue->Int32Value();
+            if (value < min || value > max){
+                throw JSExceptionOutOfRange(value, min,max);
+            }
+            return value;
+        }
 
-	static v8::Local<v8::Integer> toV8(v8::Isolate * isolate, const boost::any & value) {
-		return v8::Integer::New(isolate, boost::any_cast<int32_t>(value));
-	}
-};
+        static v8::Local<v8::Integer> toV8(v8::Isolate *isolate, const boost::any &value) {
+            return v8::Integer::New(isolate, boost::any_cast<int32_t>(value));
+        }
+    };
 
 } /* namespace zigbee */
 

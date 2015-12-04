@@ -27,7 +27,7 @@ namespace test {
 
 class JSZClusterTest : public testing::Test{
 public:
-	virtual ~JSZClusterTest();
+	virtual ~JSZClusterTest()=default;
 protected:
 	virtual void SetUp() override ;
 	virtual void TearDown() override ;

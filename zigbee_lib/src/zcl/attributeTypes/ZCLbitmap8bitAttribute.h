@@ -21,12 +21,12 @@ public:
 	virtual boost::any getValue() const override;
 	virtual void sendValue(uint8_t newValue);
 	virtual bool getValue(int bitIndex) const;
-	static ZCLTypeDataType type(){
-		return ZCLTypeDataType::ZCLType8bitBitmap;
-	}
+
 	static std::string name() {
-		return "8 bit Bitmap";
+		return "8bitBitmap";
 	}
+
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLType8bitBitmap;
 private:
 	virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord>  rawData);
 	friend std::ostream & operator<<(std::ostream & out, const ZCL_bitmap8bit_Attribute *);

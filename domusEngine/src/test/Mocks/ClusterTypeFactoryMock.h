@@ -23,7 +23,7 @@ public:
 	ClusterTypeFactoryMock();
 	virtual ~ClusterTypeFactoryMock();
 
-	MOCK_METHOD4(getCluster, std::shared_ptr<Cluster> (ClusterID clusterId,const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress));
+	MOCK_METHOD4(getCluster, std::shared_ptr<Cluster> (ClusterID clusterId,std::shared_ptr<ZigbeeDevice> & zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress));
 };
 
 typedef shared_ptr_mock<ClusterTypeFactory,ClusterTypeFactoryMock> ClusterTypeFactoryMock_P;

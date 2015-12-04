@@ -24,11 +24,9 @@ public:
 	virtual boost::any getValue() const override;
 	virtual void sendValue(std::bitset<32> value);
 	virtual bool getValue(int bitIndex) const;
-	static ZCLTypeDataType type(){
-		return ZCLTypeDataType::ZCLType32bitBitmap;
-	}
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLType32bitBitmap;
 	static std::string name() {
-		return "Bitmap 32 bit";
+		return "32bitBitmap";
 	}
 private:
 	virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord>  rawData);

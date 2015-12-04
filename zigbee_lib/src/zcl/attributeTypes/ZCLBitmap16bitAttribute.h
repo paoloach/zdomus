@@ -28,13 +28,9 @@ public:
     virtual void sendValue(std::bitset<16> value);
 
     virtual bool getValue(int bitIndex) const;
-
-    static ZCLTypeDataType type() {
-        return ZCLTypeDataType::ZCLType16bitBitmap;
-    }
-
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLType16bitBitmap;
     static std::string name() {
-        return "Bitmap 16 bit";
+        return "16bitBitmap";
     }
 
 private:
@@ -46,6 +42,6 @@ private:
     std::bitset<16> value;
 };
 
-};
+}
 
 #endif //ZIGBEE_LIB_ZCLBITMAP16BITATTRIBUTE_H

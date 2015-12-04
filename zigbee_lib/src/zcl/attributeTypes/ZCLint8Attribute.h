@@ -14,9 +14,7 @@ namespace zigbee {
     public:
         virtual boost::any getValue() const override;
         virtual void sendValue(int8_t newValue);
-        static ZCLTypeDataType type() {
-            return ZCLTypeDataType::ZCLTypeSInt8;
-        }
+        static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeSInt8;
         static std::string name() {
             return "Int8";
         }

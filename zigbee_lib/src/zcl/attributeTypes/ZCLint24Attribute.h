@@ -20,11 +20,9 @@ public:
 public:
     virtual  boost::any getValue() const override;
     virtual void sendValue(uint32_t newValue);
-    static ZCLTypeDataType type(){
-        return ZCLTypeDataType::ZCLTypeSInt24;
-    }
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeSInt24;
     static std::string name() {
-        return "SInt24";
+        return "Int24";
     }
 private:
     virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData);

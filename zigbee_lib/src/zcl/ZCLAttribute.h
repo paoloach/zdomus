@@ -16,6 +16,7 @@
 
 #include "../zigbee/ZigbeeDevice.h"
 #include "ZCLDataType.h"
+#include "Callbacks.h"
 
 namespace zigbee {
 
@@ -64,16 +65,11 @@ public:
 	virtual std::string getName() const {return name;}
 	virtual bool isReadOnly() const {return readOnly;}
 	virtual ListenerOnChange onChange(std::function<void()> changeSignal){
-		if (callbacks.empty()){
-			callbacks.push_front(changeSignal);
-			return callbacks.begin();
-		} else {
-			return callbacks.insert(callbacks.begin(), changeSignal);
-		}
+        return callbacks.add(changeSignal);
     };
 
-    virtual void removeOnChangeListener(ListenerOnChange && listener){
-        callbacks.erase(listener);
+    virtual void removeOnChangeListener(std::list<std::function<void()>>::iterator & listener){
+        callbacks.remove(listener);
     }
 protected:
 	void sendValueToDevice(uint8_t dataLen, uint8_t * data);
@@ -84,7 +80,7 @@ protected:
 	Status status;
 	std::string name;
 	bool readOnly;
-    OnChangeCallbacks    callbacks;
+    Callbacks callbacks;
 	ZCLTypeDataType zclType;
 
 };

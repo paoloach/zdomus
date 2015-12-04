@@ -26,12 +26,9 @@ public:
 
     virtual void sendValue(int32_t newValue);
 
-    static ZCLTypeDataType type() {
-        return ZCLTypeDataType::ZCLTypeSInt32;
-    }
-
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeSInt32;
     static std::string name() {
-        return "SInt32";
+        return "Int32";
     }
 
 private:

@@ -30,15 +30,15 @@ std::map<ZCLAttribute::Status, std::string> JSZAttribute::statusMap = { { ZCLAtt
 		ZCLAttribute::NotSupported, "notSupported" }, { ZCLAttribute::Requesting, "requesting" }, { ZCLAttribute::Undefined, "undefined" }, };
 
 JSZAttribute::JSZAttribute(const std::shared_ptr<ZDevices>& zDevices, const std::shared_ptr<ZigbeeDevice> & zigbeeDevice,
-		const std::shared_ptr<ClusterTypeFactory> & clusterFactory) :
-		zDevices(zDevices), zigbeeDevice(zigbeeDevice), clusterFactory(clusterFactory) {
+		const std::shared_ptr<ClusterTypeFactory> & clusterFactory,ZCLTypeDataType zclType) :
+		zDevices(zDevices), zigbeeDevice(zigbeeDevice), clusterFactory(clusterFactory),zclType(zclType) {
 }
 
 JSZAttribute::~JSZAttribute() {
 	for (auto & function: mapFunction){
 		CallbackData callback = function.second;
 		auto attribute = get<1>(callback);
-		attribute->removeOnChangeListener(std::move(get<0>(callback)));
+		attribute->removeOnChangeListener(get<0>(callback));
 		get<2 >(callback).Reset();
 	}
 
@@ -131,7 +131,7 @@ void JSZAttribute::jsRequestValue(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 			Local<Function> callback = Local<Function>::Cast(info[0]);
 			int identity = callback->GetIdentityHash();
-			auto con = attribute->onChange([This, isolate, identity](){This->signalChange(isolate, identity);});
+			auto con = attribute->onChange([This, isolate, identity](){ This->changeSignalCallback(isolate, identity);});
 			std::lock_guard<std::mutex> lock(This->mapFunctionMutex);
 			This->mapFunction.insert( { identity, std::make_tuple(con, attribute, persistenteObject) });
 		}
@@ -142,7 +142,7 @@ void JSZAttribute::jsRequestValue(const v8::FunctionCallbackInfo<v8::Value>& inf
 	}
 }
 
-void JSZAttribute::signalChange(v8::Isolate * isolate, int identity) {
+void JSZAttribute::changeSignalCallback(v8::Isolate *isolate, int identity) {
 	if (mapFunction.count(identity) > 0) {
 		CallbackData callbackData  = popCallbackData(identity);
 		Local<Value> object = Local<Value>::New(isolate, std::get<2>(callbackData));
@@ -150,7 +150,7 @@ void JSZAttribute::signalChange(v8::Isolate * isolate, int identity) {
 		String::Utf8Value name(callback->GetInferredName());
 
 		callback->CallAsFunction(object, 0, nullptr);
-		get<1>(callbackData)->removeOnChangeListener(std::move(get<0>(callbackData)));
+		get<1>(callbackData)->removeOnChangeListener(get<0>(callbackData));
 		get<2>(callbackData).Reset();
 	}
 }

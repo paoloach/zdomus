@@ -19,19 +19,7 @@ namespace test {
 
 class JSZAttributeUInt16Test : public JSAttributeTest{
 public:
-	class ActionOnCall: public ::testing::ActionInterface<boost::signals2::connection(boost::signals2::slot<void(), boost::function<void()> >)> {
-	public:
-		boost::signals2::connection Perform(const ArgumentTuple& args) {
-			boost::signals2::connection result;
 
-			boost::signals2::slot<void(), boost::function<void()> > slot = std::get<0>(args);
-			result = changeSignal.connect(slot);
-			return result;
-		}
-
-		OnChangeSignal changeSignal;
-		// boost::signals2::slot<void(), boost::function<void()> > func;
-	};
 
 protected:
 	virtual void SetUp() override;
@@ -39,8 +27,6 @@ protected:
 protected:
 	std::shared_ptr<JSZAttribute> jsZAttribute;
 	std::shared_ptr<ZCLUint16AttributeMock> zclUint16Attribute;
-	ActionOnCall action;
-
 };
 
 } /* namespace test */

@@ -21,12 +21,9 @@ public:
 
     virtual void sendValue(const std::string &newValue);
 
-    static ZCLTypeDataType type() {
-        return ZCLTypeDataType::ZCLTypeStringOctect;
-    }
-
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeStringOctect;
     static std::string name() {
-        return "Octect String";
+        return "OctectString";
     }
 
 private:

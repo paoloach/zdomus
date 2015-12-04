@@ -21,9 +21,7 @@ public:
 public:
     virtual  boost::any getValue() const override;
     virtual void sendValue(uint32_t newValue);
-    static ZCLTypeDataType type(){
-        return ZCLTypeDataType::ZCLTypeUTCTime;
-    }
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeUTCTime;
     static std::string name() {
         return "UTCTime";
     }

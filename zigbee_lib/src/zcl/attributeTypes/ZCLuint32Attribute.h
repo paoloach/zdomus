@@ -22,9 +22,7 @@ public:
 public:
 	virtual  boost::any getValue() const override;
 	virtual void sendValue(uint32_t newValue);
-	static ZCLTypeDataType type(){
-		return ZCLTypeDataType::ZCLTypeUInt32;
-	}
+    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeUInt32;
 	static std::string name() {
 		return "UInt32";
 	}

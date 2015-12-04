@@ -55,9 +55,8 @@ void ZCLAttribute::setValue(std::shared_ptr<AttributeStatusRecord> rawData) {
 		} else {
 			status = Undefined;
 		}
-		for (auto & callback: callbacks){
-            callback();
-        }
+
+        callbacks();
 	}
 }
 
