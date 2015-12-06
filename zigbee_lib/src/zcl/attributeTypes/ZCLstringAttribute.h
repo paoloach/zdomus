@@ -20,7 +20,7 @@ public:
 public:
 	virtual  boost::any getValue() const override;
 	virtual void sendValue(const std::string & newValue);
-    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeStringChar;
+    static constexpr ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeStringChar;
 	static std::string name() {
 		return "String";
 	}

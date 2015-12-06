@@ -26,7 +26,7 @@ public:
 		return "8bitBitmap";
 	}
 
-    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLType8bitBitmap;
+    static constexpr ZCLTypeDataType type=ZCLTypeDataType::ZCLType8bitBitmap;
 private:
 	virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord>  rawData);
 	friend std::ostream & operator<<(std::ostream & out, const ZCL_bitmap8bit_Attribute *);

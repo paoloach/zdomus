@@ -24,31 +24,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/Callbacks.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/Callbacks.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttributes/ParamInt32.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttributes/ParamInt32.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ClusterTypeFactoryMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ClusterTypeFactoryMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLUint16AttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLUint16AttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" afterPath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/ZCLAttribute.cpp" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/ZCLAttribute.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/ZCLAttribute.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/ZCLAttribute.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" afterPath="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLBitmap16bitAttribute.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLBitmap16bitAttribute.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLBitmap32bitAttribute.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLBitmap32bitAttribute.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLIEEEAddressAttribute.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLIEEEAddressAttribute.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLOctetString.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLOctetString.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLUTCTime.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLUTCTime.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLbitmap8bitAttribute.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLbitmap8bitAttribute.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLbooleanAttribute.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLbooleanAttribute.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLenum8bitAttribute.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/attributeTypes/ZCLenum8bitAttribute.h" />
@@ -83,21 +68,45 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="JSZAttributeFactory.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
+              <folding>
+                <element signature="e#0#95#0" expanded="false" />
+                <element signature="e#2663#3061#0" expanded="false" />
+                <element signature="e#3067#3217#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="JSZAttribute.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+              <caret line="73" column="36" selection-start-line="73" selection-start-column="36" selection-end-line="73" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JSZAttributeFactory.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp">
+      <file leaf-file-name="JSZAttributeFactory.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="56" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="67" />
+              <caret line="31" column="48" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeviceBrowserHandlerTest.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/httpServer/DeviceBrowserHandlerTest.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.33278418">
+              <caret line="58" column="4" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -107,7 +116,7 @@
         <entry file="file:///usr/local/zigbee/include/zcl/ZCLAttribute.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="57" selection-end-column="5" />
+              <caret line="55" column="27" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="27" />
               <folding>
                 <element signature="e#137#158#0" expanded="true" />
               </folding>
@@ -115,21 +124,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JSZAttributeFactory.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h">
+      <file leaf-file-name="JSZAttributeTemplate.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
+              <caret line="126" column="87" selection-start-line="126" selection-start-column="87" selection-end-line="126" selection-end-column="87" />
+              <folding>
+                <element signature="e#219#234#0" expanded="true" />
+                <element signature="e#1621#1665#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JavaScriptExecuterTest.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="56" column="55" selection-start-line="56" selection-start-column="55" selection-end-line="56" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParamInt32.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributes/ParamInt32.h">
+      <file leaf-file-name="JSZAttributeInt16Test.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -139,30 +161,17 @@
         <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+              <caret line="39" column="53" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JSZAttributeTemplate.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h">
+      <file leaf-file-name="JSZAttributeMock.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="57" column="10" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
-              <folding>
-                <element signature="e#219#234#0" expanded="true" />
-                <element signature="e#1621#1665#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ZCLuint16Attribute.h" pinned="false" current-in-tab="true">
-        <entry file="file:///usr/local/zigbee/include/zcl/attributeTypes/ZCLuint16Attribute.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41821247">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <caret line="23" column="130" selection-start-line="23" selection-start-column="130" selection-end-line="23" selection-end-column="130" />
               <folding />
             </state>
           </provider>
@@ -215,14 +224,15 @@
         <option value="/usr/local/zigbee/include/zcl/Callbacks.h" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributes/ParaUInt32.h" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributes/ParamInt32.h" />
         <option value="/usr/local/zigbee/include/zcl/attributeTypes/ZCLbitmap8bitAttribute.h" />
         <option value="/usr/local/zigbee/include/zcl/attributeTypes/ZCLBitmap16bitAttribute.h" />
+        <option value="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h" />
       </list>
     </option>
   </component>
@@ -233,7 +243,8 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="width" value="1920" />
+    <option name="x" value="-4" />
+    <option name="width" value="1928" />
     <option name="height" value="1053" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -740,6 +751,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="httpServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="JavaScript" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -860,8 +893,12 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1152" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
-  <component name="RunManager" selected="Google Test.JSZAttribute8BitBitmapTest.createIstance">
+  <component name="RunManager" selected="Google Test.DomusEngineTest">
     <configuration default="false" name="JSZAttribute8BitBitmapTest.createIstance" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JSZAttribute8BitBitmapTest" TEST_METHOD="createIstance" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="JavaScriptExecuterTest.constructor_descructor" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JavaScriptExecuterTest" TEST_METHOD="constructor_descructor" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
     </configuration>
@@ -897,11 +934,11 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="DomusEngineTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_PATTERN="JSZ*" TEST_MODE="PATTERN">
+    <configuration default="false" name="DomusEngineTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
     </configuration>
-    <list size="8">
+    <list size="9">
       <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
       <item index="1" class="java.lang.String" itemvalue="Application.debug" />
       <item index="2" class="java.lang.String" itemvalue="Application.domus_engine" />
@@ -910,10 +947,12 @@
       <item index="5" class="java.lang.String" itemvalue="Application.javascript_lib" />
       <item index="6" class="java.lang.String" itemvalue="Google Test.DomusEngineTest" />
       <item index="7" class="java.lang.String" itemvalue="Google Test.JSZAttribute8BitBitmapTest.createIstance" />
+      <item index="8" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.constructor_descructor" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Google Test.JSZAttribute8BitBitmapTest.createIstance" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.constructor_descructor" />
+        <item index="1" class="java.lang.String" itemvalue="Google Test.JSZAttribute8BitBitmapTest.createIstance" />
       </list>
     </recent_temporary>
   </component>
@@ -948,44 +987,44 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_JSAttributeTest - 2015.12.04 at 05h 49m 31s.xml">
-      <configuration name="All in JSAttributeTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="DomusEngineTest - 2015.12.04 at 05h 48m 58s.xml">
+    <history-entry file="DomusEngineTest - 2015.12.04 at 20h 38m 15s.xml">
       <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DomusEngineTest - 2015.12.04 at 05h 50m 01s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="JavaScriptExecuterTest_constructor_descructor - 2015.12.04 at 20h 22m 04s.xml">
+      <configuration name="JavaScriptExecuterTest.constructor_descructor" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttribute8BitBitmapTest_createIstance - 2015.12.04 at 05h 50m 30s.xml">
-      <configuration name="JSZAttribute8BitBitmapTest.createIstance" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="JavaScriptExecuterTest_constructor_descructor - 2015.12.04 at 20h 22m 51s.xml">
+      <configuration name="JavaScriptExecuterTest.constructor_descructor" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttribute8BitBitmapTest_createIstance - 2015.12.04 at 05h 57m 16s.xml">
-      <configuration name="JSZAttribute8BitBitmapTest.createIstance" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="JavaScriptExecuterTest_constructor_descructor - 2015.12.04 at 20h 25m 52s.xml">
+      <configuration name="JavaScriptExecuterTest.constructor_descructor" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttribute8BitBitmapTest_createIstance - 2015.12.04 at 05h 57m 57s.xml">
-      <configuration name="JSZAttribute8BitBitmapTest.createIstance" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="JavaScriptExecuterTest_constructor_descructor - 2015.12.04 at 20h 26m 22s.xml">
+      <configuration name="JavaScriptExecuterTest.constructor_descructor" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttribute8BitBitmapTest_createIstance - 2015.12.04 at 05h 58m 40s.xml">
-      <configuration name="JSZAttribute8BitBitmapTest.createIstance" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="JavaScriptExecuterTest_constructor_descructor - 2015.12.04 at 20h 30m 33s.xml">
+      <configuration name="JavaScriptExecuterTest.constructor_descructor" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttributeUInt16Test_requestValueWithCallback_after_the_callback_is_not_called - 2015.12.03 at 17h 37m 28s.xml">
-      <configuration name="JSZAttributeUInt16Test.requestValueWithCallback_after_the_callback_is_not_called" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="JavaScriptExecuterTest_constructor_descructor - 2015.12.04 at 20h 35m 07s.xml">
+      <configuration name="JavaScriptExecuterTest.constructor_descructor" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttributeUInt16Test_requestValueWithCallback_after_the_callback_is_not_called - 2015.12.03 at 17h 38m 53s.xml">
-      <configuration name="JSZAttributeUInt16Test.requestValueWithCallback_after_the_callback_is_not_called" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="JavaScriptExecuterTest_constructor_descructor - 2015.12.04 at 20h 35m 53s.xml">
+      <configuration name="JavaScriptExecuterTest.constructor_descructor" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttributeUInt16Test_requestValueWithCallback_after_the_callback_is_not_called - 2015.12.03 at 17h 50m 42s.xml">
-      <configuration name="JSZAttributeUInt16Test.requestValueWithCallback_after_the_callback_is_not_called" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="JavaScriptExecuterTest_constructor_descructor - 2015.12.04 at 20h 36m 53s.xml">
+      <configuration name="JavaScriptExecuterTest.constructor_descructor" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JavaScriptExecuterTest_constructor_descructor - 2015.12.04 at 20h 38m 06s.xml">
+      <configuration name="JavaScriptExecuterTest.constructor_descructor" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1053" extended-state="4" />
+    <frame x="-4" y="0" width="1928" height="1053" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17080909" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17008953" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33476394" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33476394" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32832617" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1068,7 +1107,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="45" />
+      <option name="time" value="48" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeGoogleTestRunConfigurationType">
@@ -1084,48 +1123,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/include/c++/4.9/bits/alloc_traits.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="281" column="0" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/c++/4.9/bits/shared_ptr_base.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1013" column="6" selection-start-line="1013" selection-start-column="6" selection-end-line="1013" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/c++/4.9/bits/list.tcc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/c++/4.9/bits/stl_map.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="628" column="6" selection-start-line="628" selection-start-column="6" selection-end-line="628" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Mocks/ZCLUint16AttributeMock.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="50" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1262,14 +1259,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/include/c++/4.9/bits/shared_ptr.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1338,36 +1327,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/zigbee/include/zcl/ZCLAttribute.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="57" selection-end-column="5" />
-          <folding>
-            <element signature="e#137#158#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5518395">
           <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37625417">
-          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32608697">
-          <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1396,14 +1359,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/zigbee/include/zcl/attributeTypes/ZCLbooleanAttribute.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35413152">
@@ -1420,34 +1375,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributes/ParamInt32.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="56" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="67" />
           <folding />
         </state>
       </provider>
@@ -1468,10 +1399,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/zigbee/include/zcl/attributeTypes/ZCLuint16Attribute.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zcl/ZCLDataType.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3288364">
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="181" selection-start-line="13" selection-start-column="181" selection-end-line="13" selection-end-column="181" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="130" selection-start-line="23" selection-start-column="130" selection-end-line="23" selection-end-column="130" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/4.9/bits/shared_ptr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3322091">
+          <caret line="99" column="16" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="53" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="10" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
+          <caret line="126" column="87" selection-start-line="126" selection-start-column="87" selection-end-line="126" selection-end-column="87" />
           <folding>
             <element signature="e#219#234#0" expanded="true" />
             <element signature="e#1621#1665#0" expanded="true" />
@@ -1479,10 +1466,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/zigbee/include/zcl/attributeTypes/ZCLuint16Attribute.h">
+    <entry file="file:///usr/include/c++/4.9/array">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41821247">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state vertical-scroll-proportion="2.4157302">
+          <caret line="88" column="11" selection-start-line="88" selection-start-column="11" selection-end-line="88" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="73" column="36" selection-start-line="73" selection-start-column="36" selection-end-line="73" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zcl/ZCLAttribute.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="27" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="27" />
+          <folding>
+            <element signature="e#137#158#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/4.9/bits/unique_ptr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="356" column="0" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="55" selection-start-line="56" selection-start-column="55" selection-end-line="56" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#95#0" expanded="false" />
+            <element signature="e#2663#3061#0" expanded="false" />
+            <element signature="e#3067#3217#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="48" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/DeviceBrowserHandlerTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33278418">
+          <caret line="58" column="4" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="4" />
           <folding />
         </state>
       </provider>

@@ -28,7 +28,7 @@ public:
     virtual void sendValue(std::bitset<16> value);
 
     virtual bool getValue(int bitIndex) const;
-    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLType16bitBitmap;
+    static constexpr ZCLTypeDataType type=ZCLTypeDataType::ZCLType16bitBitmap;
     static std::string name() {
         return "16bitBitmap";
     }

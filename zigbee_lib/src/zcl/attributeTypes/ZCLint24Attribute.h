@@ -20,7 +20,7 @@ public:
 public:
     virtual  boost::any getValue() const override;
     virtual void sendValue(uint32_t newValue);
-    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeSInt24;
+    static constexpr ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeSInt24;
     static std::string name() {
         return "Int24";
     }

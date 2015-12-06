@@ -20,7 +20,7 @@ public:
 public:
 	virtual boost::any getValue() const override;
 	virtual void sendValue(bool value);
-    static const ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeBool;
+    static constexpr ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeBool;
 	static std::string name() {
 		return "Boolean";
 	}

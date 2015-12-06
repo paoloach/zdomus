@@ -71,9 +71,9 @@ void JSZAttribute::validateParams(const v8::FunctionCallbackInfo<v8::Value>& inf
 	}
 }
 
-v8::Local<v8::Object> JSZAttribute::createInstance(v8::Isolate* isolate, const std::shared_ptr<ZCLAttribute>& zclAttribute) {
-	if (zclAttribute->getZCLType() != getZCLDataType()) {
-		throw JSExceptionInvalidAttributeType(getName(), zclAttribute->getZCLType(), getZCLDataType());
+v8::Local<v8::Object> JSZAttribute::createInstance(v8::Isolate* isolate, std::shared_ptr<ZCLAttribute>& zclAttribute) {
+	if (zclAttribute->getZCLType() != getZCLType()) {
+		throw JSExceptionInvalidAttributeType(getName(), zclAttribute->getZCLType(), getZCLType());
 	}
 	Local<ObjectTemplate> zAttributeT = Local<FunctionTemplate>::New(isolate, functionTemplate)->InstanceTemplate();
 	Local<Object> zAttributeInstance = zAttributeT->NewInstance();

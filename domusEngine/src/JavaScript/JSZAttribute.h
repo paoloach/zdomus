@@ -34,12 +34,15 @@ namespace zigbee {
         JSZAttribute(const std::shared_ptr<ZDevices> &zDevices, const std::shared_ptr<ZigbeeDevice> &zigbeeDevice,
                      const std::shared_ptr<ClusterTypeFactory> &clusterFactory,ZCLTypeDataType zclType);
         virtual ~JSZAttribute();
+        ZCLTypeDataType getZCLType() {
+            return zclType;
+        }
+        std::shared_ptr<ZCLAttribute> getZCLAttribute(const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId, uint32_t attributeId);
     public:
         virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) = 0;
-        virtual ZCLTypeDataType getZCLDataType() const = 0;
         virtual std::string getName() const = 0;
         virtual void resetPersistence();
-        v8::Local<v8::Object> createInstance(v8::Isolate *isolate, const std::shared_ptr<ZCLAttribute> &zclAttribute);
+        v8::Local<v8::Object> createInstance(v8::Isolate *isolate, std::shared_ptr<ZCLAttribute> &zclAttribute);
     protected:
         static void constructor(const v8::FunctionCallbackInfo<v8::Value> &info);
         static ExtAddress getExtAddressFromArg(const v8::FunctionCallbackInfo<v8::Value> &info);
@@ -52,10 +55,8 @@ namespace zigbee {
         static void jsGetName(const v8::FunctionCallbackInfo<v8::Value> &info);
         static void jsIsReadOnly(const v8::FunctionCallbackInfo<v8::Value> &info);
         void initJsObjectsTemplate(v8::Isolate *isolate, const v8::Local<v8::FunctionTemplate> &zAttributeFunctionTemplate);
-        ZCLTypeDataType getZCLType() {
-            return zclType;
-        }
-        std::shared_ptr<ZCLAttribute> getZCLAttribute(const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId, uint32_t attributeId);
+
+
         void changeSignalCallback(v8::Isolate *isolate, int identity);
         CallbackData popCallbackData(int id);
     protected:

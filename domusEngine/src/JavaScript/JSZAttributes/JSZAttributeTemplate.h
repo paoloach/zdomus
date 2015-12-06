@@ -85,9 +85,6 @@ namespace zigbee {
         }
 
     protected:
-        ZCLTypeDataType getZCLDataType() const override {
-            return AttributeType::type();
-        }
         std::string getName() const override {
             return "Z" + AttributeType::name();
         }
@@ -124,10 +121,10 @@ namespace zigbee {
     typedef JSZAttributeTemplate<ZCLBitmap32bitAttribute, ParamUInt32<0, 0xFF> > JSZAttribute32BitBitmap;
     typedef JSZAttributeTemplate<ZCL_boolean_Attribute, ParamBool> JSZAttributeBool;
     typedef JSZAttributeTemplate<ZCLIEEEAddressAttribute, ParamIEEEAddress> JSZAttributeIEEEAddress;
-    typedef JSZAttributeTemplate<ZCLint8Attribute, ParamInt32<0,0xFF> >JSZAttributeInt8;
-    typedef JSZAttributeTemplate<ZCL_int16_Attribute, ParamInt32<0,0xFFFF>> JSZAttributeInt16;
-    typedef JSZAttributeTemplate<ZCLint24Attribute, ParamInt32<0,0xFFFFFF>> JSZAttributeInt24;
-    typedef JSZAttributeTemplate<ZCL_int32_Attribute, ParamInt32<0,0xFFFFFF>> JSZAttributeInt32;
+    typedef JSZAttributeTemplate<ZCLint8Attribute, ParamInt32<-0x7F,0x7F> >JSZAttributeInt8;
+    typedef JSZAttributeTemplate<ZCL_int16_Attribute, ParamInt32<-0x7FFF,0x7FFF>> JSZAttributeInt16;
+    typedef JSZAttributeTemplate<ZCLint24Attribute, ParamInt32<-0x7FFFFF,0x7FFFFF>> JSZAttributeInt24;
+    typedef JSZAttributeTemplate<ZCL_int32_Attribute, ParamInt32<-0x7FFFFFFF,0x7FFFFFFF>> JSZAttributeInt32;
 
     typedef JSZAttributeTemplate<ZCLOctetString, ParamString> JSZAttributeOctectString;
     typedef JSZAttributeTemplate<ZCL_string_Attribute, ParamString> JSZAttributeString;
