@@ -4,11 +4,14 @@ SET(CMAKE_SYSTEM_NAME Linux)
 SET(CMAKE_SYSTEM_VERSION 1)
 
 # specify the cross compiler
-SET(CMAKE_C_COMPILER   /home/paolo/x-tools6h/arm-unknown-linux-gnueabihf/bin/arm-unknown-linux-gnueabihf-gcc)
-SET(CMAKE_CXX_COMPILER /home/paolo/x-tools6h/arm-unknown-linux-gnueabihf/bin/arm-unknown-linux-gnueabihf-g++)
+SET(CMAKE_C_COMPILER   /opt/cross/x-tools6h/arm-unknown-linux-gnueabihf/bin/arm-unknown-linux-gnueabihf-gcc)
+SET(CMAKE_CXX_COMPILER /opt/cross/x-tools6h/arm-unknown-linux-gnueabihf/bin/arm-unknown-linux-gnueabihf-g++)
 
 # where is the target environment 
-SET(CMAKE_FIND_ROOT_PATH  /home/paolo/x-tools6h/arm-unknown-linux-gnueabihf/arm-unknown-linux-gnueabihf/sysroot)
+SET(CMAKE_FIND_ROOT_PATH  /opt/cross/x-tools6h/arm-unknown-linux-gnueabihf/arm-unknown-linux-gnueabihf/sysroot)
+SET(CMAKE_INSTALL_PREFIX  /opt/cross/x-tools6h/arm-unknown-linux-gnueabihf/arm-unknown-linux-gnueabihf/sysroot)
+
+
 
 # search for programs in the build host directories
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)

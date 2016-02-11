@@ -16,7 +16,7 @@ set (GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
 
 add_subdirectory(googletest/googlemock)
 
-set(INSTALL_PATH /usr/local/zigbee)
+set(INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/usr/local/zigbee)
 set(INSTALL_LIB_DIR ${INSTALL_PATH}/lib)
 set(INSTALL_INCLUDE_DIR ${INSTALL_PATH}/include)
 
