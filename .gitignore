@@ -1,3 +1,8 @@
+rasberry
+.idea
+zigbeeLibTest
+CMakeTmp
+cmake_uninstall.cmake
 
 
 zigbee_lib/src/test/zigbeeLibTest
