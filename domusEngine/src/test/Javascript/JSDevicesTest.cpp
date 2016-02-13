@@ -23,7 +23,7 @@ JSDevicesTest::~JSDevicesTest() {
 
 void JSDevicesTest::SetUp() {
 	jsDevices.reset(new JSZDevices{zDevices,jszDevice} );
-	isolate = Isolate::New();
+	isolate = Isolate::New(Isolate::CreateParams{});
 }
 
 void JSDevicesTest::TearDown() {

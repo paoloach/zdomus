@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <functional>
+#include <v8.h>
 
 #include "../Utils/SingletonObjects.h"
 #include "JavaScriptExecuter.h"
@@ -28,7 +29,7 @@ JavaScriptExecuter::JavaScriptExecuter(SingletonObjects & singletonObjects, Log 
 	jszDevices = std::make_shared<JSZDevices>(singletonObjects.getZDevices(),jsZDevice);
 	jsZAttributeFactory = std::make_shared<JSZAttributeFactory>();
 	jsZCluster = std::make_shared<JSZCluster>(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(),jsZAttributeFactory,clusterTypeFactory);
-	isolate = Isolate::New();
+	isolate = Isolate::New(Isolate::CreateParams{});
 
 
 	jsZAttributeFactory->init(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), clusterTypeFactory);

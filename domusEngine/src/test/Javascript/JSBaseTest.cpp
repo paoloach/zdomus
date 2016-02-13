@@ -18,7 +18,7 @@ JSBaseTest::~JSBaseTest() {
 }
 
 void JSBaseTest::SetUp() {
-	isolate = v8::Isolate::New();
+	isolate = v8::Isolate::New(Isolate::CreateParams{});
 
 	isolate->Enter();
 	locker.reset(new Locker { isolate });

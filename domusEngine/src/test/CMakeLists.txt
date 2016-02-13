@@ -58,9 +58,10 @@ add_executable(domus_engine_test
 
 set (V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a
+        ${V8_LIB_DIR}/libv8_external_snapshot.a
+        ${V8_LIB_DIR}/libv8_nosnapshot.a
         ${V8_LIB_DIR}/libv8_base.a
         ${V8_LIB_DIR}/libv8_libbase.a
-        ${V8_LIB_DIR}/libv8_snapshot.a
         ${V8_LIB_DIR}/libicui18n.a
         ${V8_LIB_DIR}/libicuuc.a
         ${V8_LIB_DIR}/libicudata.a
@@ -80,7 +81,7 @@ SET(LIBS zigbeeLib
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
-
+        dl
         pthread
         )
 

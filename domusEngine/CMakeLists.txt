@@ -5,14 +5,14 @@ set(CMAKE_BUILD_TYPE Debug)
 add_subdirectory(googletest/googlemock)
 add_subdirectory(src/test)
 
-set(V8_DIR /usr/local/v8)
+set(V8_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/v8)
 set(V8_INCLUDE_DIR ${V8_DIR} ${V8_DIR}/include)
 set(V8_LIB_DIR ${V8_DIR}/lib)
 set(ZIGBEE_LIB_DIR /usr/local/zigbee)
 set(ZIGBEELIB_INCLUDE_DIR ${ZIGBEE_LIB_DIR}/include)
 set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
-set(LIBUSB_INCLUDE_DIR /usr/include/libusb-1.0)
+set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g3 -O2 -std=c++14 ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g3 -O0  -std=c++14 -Wall -Wextra -Wpedantic ")
@@ -49,7 +49,8 @@ set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a
         ${V8_LIB_DIR}/libv8_base.a
         ${V8_LIB_DIR}/libv8_libbase.a
-        ${V8_LIB_DIR}/libv8_snapshot.a
+        ${V8_LIB_DIR}/libv8_external_snapshot.a
+        ${V8_LIB_DIR}/libv8_nosnapshot.a
         ${V8_LIB_DIR}/libicui18n.a
         ${V8_LIB_DIR}/libicuuc.a
         ${V8_LIB_DIR}/libicudata.a
@@ -109,7 +110,7 @@ SET(LIBS zigbeeLib
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_DEBUG}
-
+        dl
         pthread
         )
 

@@ -25,6 +25,7 @@ using namespace boost::spirit::karma;
 static constexpr const char * server = "localhost:5432";
 static constexpr const char * database = "domusEngine";
 static constexpr const char * user = "DomusEngine";
+    static constexpr const char * password = "DomusEngine";
 
 std::shared_ptr<DBRow> DBTable::makeDBRow(PGresult* resultSet, uint index) {
 	std::shared_ptr<DBRow> dbRow = std::make_shared<DBRow>();
@@ -103,9 +104,13 @@ DBTable::DBTable(const std::string & tableName) :
 	resultSet = nullptr;
 	std::stringstream connectionStream;
 
-	connectionStream << "postgresql://" << user << "@" << server << "/" << database;
+//	connectionStream << "postgresql://" << user << "@" << server << "/" << database;
+//
+//	conn = PQconnectdb(connectionStream.str().c_str());
 
-	conn = PQconnectdb(connectionStream.str().c_str());
+    connectionStream << "hostaddr = '127.0.0.1' dbname = " << database << " user = " << user << " password = " << password;
+    PGconn *conn = PQconnectdb(connectionStream.str().c_str());
+
 	if (conn == nullptr) {
 		throw DBExceptionNoServer(server, database);
 	}

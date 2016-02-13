@@ -60,7 +60,7 @@ void JSEndpointTest::SetUp() {
 	ZDevices_P zDevicesP = zDevices;
 	jsEndpoint = std::make_shared<JSZEndpoint>(zDevicesP);
 	JSZDevice_P jsZDeviceP = jszDevice;
-	isolate = v8::Isolate::New();
+	isolate = v8::Isolate::New(Isolate::CreateParams{});
 
 	isolate->Enter();
 	locker.reset(new Locker { isolate });
