@@ -104,6 +104,7 @@ extern ClusterID RelativeHumidityMeasurementID;
 extern ClusterID OccupancySensingID;
 extern ClusterID Metering;
 extern ClusterID ElectricalMeasurament;
+extern ClusterID Test;
 
 } /* namespace zigbee */
 

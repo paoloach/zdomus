@@ -86,6 +86,7 @@ SET(SOURCE_CLLUSTER_FILES
         src/zcl/clusterTypes/PressureMeasurementCluster.cpp
         src/zcl/clusterTypes/RelativeHumidityMeasurementCluster.cpp
         src/zcl/clusterTypes/ScenesCluster.cpp
+        src/zcl/clusterTypes/TestCluster.cpp
         src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.h)
 
 SET(zigbeeSrcTest  src/test/main.cpp

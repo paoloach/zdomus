@@ -40,5 +40,6 @@ ClusterID RelativeHumidityMeasurementID(RELATIVE_HUMIDITY_MEASUREMENT);
 ClusterID OccupancySensingID(OCCUPANCY_SENSING);
 ClusterID Metering(METERING);
 ClusterID ElectricalMeasurament(ELECTRICITY_MEASURE);
+ClusterID Test(TEST_CLUSTER);
 
 } /* namespace zigbee */

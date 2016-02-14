@@ -6,7 +6,6 @@
  */
 
 #include <iostream>
-
 #include "ClusterTypeFactory.h"
 #include "clusterTypes/IdentifyCluster.h"
 #include "clusterTypes/NullCluster.h"
@@ -25,6 +24,7 @@
 #include "clusterTypes/OccupancySensingCluster.h"
 #include "clusterTypes/MeteringCluster.h"
 #include "clusterTypes/ElectricalMeasurementCluster.h"
+#include "clusterTypes/TestCluster.h"
 
 namespace zigbee {
 
@@ -69,6 +69,8 @@ shared_ptr<Cluster> ClusterTypeFactory::createCluster(ClusterID clusterId, std::
 			return make_shared<MeteringCluster>(zigbeeDevice, endpoint, networkAddress);
 	case ELECTRICITY_MEASURE:
 			return make_shared<ElectricalMeasurementCluster>(zigbeeDevice, endpoint, networkAddress);
+	case TEST_CLUSTER:
+			return make_shared<TestCluster>(zigbeeDevice, endpoint, networkAddress);
 	default:
 		return make_shared<NullCluster>(zigbeeDevice, endpoint, networkAddress, clusterId);
 	}
