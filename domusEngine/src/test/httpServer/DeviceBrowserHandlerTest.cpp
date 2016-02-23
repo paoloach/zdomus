@@ -56,7 +56,7 @@ void DeviceBrowserHandlerTest::SetUp() {
 	request.setMethod("GET");
 	attributeAvailable = true;
 	attributeStatus = ZCLAttribute::Available;
-	EXPECT_CALL(singletonObjects, getZDevices()).WillOnce(Return(zDevicesMock.getBase()));
+	EXPECT_CALL(singletonObjects, getZDevices()).Times(AnyNumber()).WillOnce(Return(zDevicesMock.getBase()));
 	EXPECT_CALL(singletonObjects, getClusterTypeFactory()).Times(AnyNumber()).WillOnce(Return(clusterTypeFactoryMock));
 	EXPECT_CALL(singletonObjects, getZigbeeDevice()).Times(AnyNumber()).WillOnce(Return(zigbeeDeviceMock));
 

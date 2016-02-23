@@ -72,7 +72,8 @@ void JSDeviceTest::SetUp() {
 	ZDevices_P zDevicesP = zDevices;
 	JSZEndpoint_P jsZEndpoint = jsEndpoint;
 	jsDevice = std::make_shared<JSZDevice>(zDevicesP, jsZEndpoint);
-	isolate = Isolate::New(Isolate::CreateParams{});
+	createParams.array_buffer_allocator = &v8Allocator;
+	isolate = v8::Isolate::New(createParams);
 
 	isolate->Enter();
 	locker.reset(new Locker { isolate });

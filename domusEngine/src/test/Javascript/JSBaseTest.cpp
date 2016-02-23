@@ -18,7 +18,8 @@ JSBaseTest::~JSBaseTest() {
 }
 
 void JSBaseTest::SetUp() {
-	isolate = v8::Isolate::New(Isolate::CreateParams{});
+	createParams.array_buffer_allocator = &v8Allocator;
+	isolate = v8::Isolate::New(createParams);
 
 	isolate->Enter();
 	locker.reset(new Locker { isolate });

@@ -14,6 +14,7 @@
 #include "../Mocks/ZDevicesMock.h"
 #include "../Mocks/JSZDeviceMock.h"
 #include "../../JavaScript/JSZEndpoint.h"
+#include "../../JavaScript/V8Allocator.h"
 
 namespace zigbee {
 namespace test {
@@ -27,6 +28,8 @@ protected:
 	v8::Local<v8::Value> runScript(const std::string& script);
 	static ExtAddress convertFromString(const std::string & strExt);
 protected:
+	V8Allocator v8Allocator;
+	v8::Isolate::CreateParams createParams;
 	std::unique_ptr<v8::Locker> locker;
 	std::string	creatingZDeviceScript;
 	v8::Isolate * isolate;

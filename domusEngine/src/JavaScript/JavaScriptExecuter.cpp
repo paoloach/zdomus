@@ -29,7 +29,8 @@ JavaScriptExecuter::JavaScriptExecuter(SingletonObjects & singletonObjects, Log 
 	jszDevices = std::make_shared<JSZDevices>(singletonObjects.getZDevices(),jsZDevice);
 	jsZAttributeFactory = std::make_shared<JSZAttributeFactory>();
 	jsZCluster = std::make_shared<JSZCluster>(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(),jsZAttributeFactory,clusterTypeFactory);
-	isolate = Isolate::New(Isolate::CreateParams{});
+	createParams.array_buffer_allocator = &v8Allocator;
+	isolate = v8::Isolate::New(createParams);
 
 
 	jsZAttributeFactory->init(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), clusterTypeFactory);

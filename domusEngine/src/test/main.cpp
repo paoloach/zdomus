@@ -10,22 +10,28 @@
 #include <v8.h>
 #include <v8-platform.h>
 #include <libplatform/libplatform.h>
-#include <memory>
 
-static void initV8() {
-	v8::V8::InitializeICU();
-	v8::Platform * platform(v8::platform::CreateDefaultPlatform());
-	v8::V8::InitializePlatform(platform);
-	v8::V8::Initialize();
+using namespace v8;
+
+static void initV8(int argc, char* argv[]) {
+	V8::InitializeICU();
+	if (argc==0) {
+        V8::InitializeExternalStartupData(argv[0]);
+    } else {
+        V8::InitializeExternalStartupData(argv[1]);
+    }
+    Platform* platform = platform::CreateDefaultPlatform();
+    V8::InitializePlatform(platform);
+    V8::Initialize();
 }
 
 static void exitV8() {
-	v8::V8::Dispose();
-	v8::V8::ShutdownPlatform();
+	V8::Dispose();
+	V8::ShutdownPlatform();
 }
 
 int main( int argc, char *argv[]) {
-	initV8();
+	initV8(argc, argv);
 	::testing::InitGoogleMock( &argc, argv );
 	int result {RUN_ALL_TESTS( )};
 	exitV8();

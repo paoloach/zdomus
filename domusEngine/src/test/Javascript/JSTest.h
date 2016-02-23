@@ -13,6 +13,7 @@
 
 #include <v8.h>
 #include "../../JavaScript/JSLog.h"
+#include "../../JavaScript/V8Allocator.h"
 #include "../../Utils/Log.h"
 #include "../../ZigbeeData/ZDevice.h"
 #include "../../ZigbeeData/ExtAddress.h"
@@ -42,13 +43,15 @@ protected:
 	static constexpr uint32_t ATTRIBUTE1_ID { 3 };
 
 public:
-	virtual ~JSTest();
+	virtual ~JSTest()=default;
 protected:
 	virtual void SetUp() override;
 	virtual void TearDown() override;
 	v8::Local<v8::Value> runScript(const std::string& script);
 	static ExtAddress convertFromString(const std::string & strExt);
 protected:
+    V8Allocator v8Allocator;
+	v8::Isolate::CreateParams createParams;
 	std::unique_ptr<v8::Locker> locker;
 	v8::Isolate * isolate;
 	ZDevicesMock_P zDevices;

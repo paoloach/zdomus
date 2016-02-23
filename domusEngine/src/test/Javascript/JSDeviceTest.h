@@ -11,6 +11,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
+#include "../../JavaScript/V8Allocator.h"
 #include "../Mocks/ZDevicesMock.h"
 #include "../Mocks/JSZEndpointMock.h"
 #include "../Mocks/JSZDeviceMock.h"
@@ -28,6 +29,8 @@ protected:
 	static void getDevice( const v8::FunctionCallbackInfo<v8::Value>& info);
 	v8::Local<v8::Value> runScript(const std::string& script);
 protected:
+	V8Allocator v8Allocator;
+	v8::Isolate::CreateParams createParams;
 	std::unique_ptr<v8::Locker> locker;
 	std::string	creatingZDeviceScript;
 	v8::Isolate * isolate;

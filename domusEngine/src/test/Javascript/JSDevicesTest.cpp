@@ -23,7 +23,8 @@ JSDevicesTest::~JSDevicesTest() {
 
 void JSDevicesTest::SetUp() {
 	jsDevices.reset(new JSZDevices{zDevices,jszDevice} );
-	isolate = Isolate::New(Isolate::CreateParams{});
+	createParams.array_buffer_allocator = &v8Allocator;
+	isolate = v8::Isolate::New(createParams);
 }
 
 void JSDevicesTest::TearDown() {

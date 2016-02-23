@@ -13,6 +13,7 @@
 #include "../Mocks/ZDevicesMock.h"
 #include "../Mocks/JSZDeviceMock.h"
 #include "../../JavaScript/JSZDevices.h"
+#include "../../JavaScript/V8Allocator.h"
 
 namespace zigbee {
 namespace test {
@@ -26,6 +27,8 @@ protected:
 protected:
 	v8::Local<v8::Value> runScript(const std::string & script);
 protected:
+	V8Allocator v8Allocator;
+	v8::Isolate::CreateParams createParams;
 	ZDevicesMock_P zDevices;
 	JSZDeviceMock_P jszDevice;
 	std::unique_ptr<JSZDevices> jsDevices;

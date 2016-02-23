@@ -26,6 +26,7 @@
 #include "JSRestServer.h"
 #include "../Database/DBTableFactory.h"
 #include "../httpServer/FixedPathContainer.h"
+#include "V8Allocator.h"
 
 namespace zigbee {
 
@@ -46,6 +47,8 @@ public:
 private:
 	void runThread();
 private:
+    V8Allocator v8Allocator;
+    v8::Isolate::CreateParams createParams;
 	SingletonObjects & singletonObjects;
 	Log & log;
 	v8::Isolate * isolate;

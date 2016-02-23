@@ -13,6 +13,7 @@
 #include <v8.h>
 
 #include <memory>
+#include "../../JavaScript/V8Allocator.h"
 
 namespace zigbee {
 namespace test {
@@ -41,6 +42,8 @@ protected:
 	virtual void TearDown() override ;
 	v8::Local<v8::Value> runScript(const std::string& script);
 protected:
+	V8Allocator v8Allocator;
+	v8::Isolate::CreateParams createParams;
 	std::unique_ptr<v8::Locker> locker;
 	v8::Isolate * isolate;
 };

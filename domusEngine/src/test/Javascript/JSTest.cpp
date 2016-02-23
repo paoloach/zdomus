@@ -31,11 +31,9 @@ const std::string JSTest::EXTENDED_ADDRESS = "00-01-02-03-04-05-06-07";
 const std::vector<ClusterID> JSTest::IN_CLUSTERS { ClusterID { 1 }, ClusterID { 2 } };
 const std::vector<ClusterID> JSTest::OUT_CLUSTERS { ClusterID { 3 }, ClusterID { 4 } };
 
-JSTest::~JSTest() {
-}
-
 void JSTest::SetUp() {
-	isolate = v8::Isolate::New(Isolate::CreateParams{});
+    createParams.array_buffer_allocator = &v8Allocator;
+	isolate = v8::Isolate::New(createParams);
 	isolate->Enter();
 	locker.reset(new Locker { isolate });
 
