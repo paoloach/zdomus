@@ -7,6 +7,7 @@
 #ifndef ZIGBEE_LIB_ZCLBITMAP16BITATTRIBUTE_H
 #define ZIGBEE_LIB_ZCLBITMAP16BITATTRIBUTE_H
 
+#include <experimental/string_view>
 #include <bitset>
 #include <ostream>
 #include "../ZCLAttribute.h"
@@ -20,7 +21,7 @@ class ZCLBitmap16bitAttribute : public ZCLAttribute {
         uint8_t raw[2];
     };
 public:
-    ZCLBitmap16bitAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier, const std::string &name, bool readOnly);
+    ZCLBitmap16bitAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier, std::experimental::string_view  name, bool readOnly);
 
 public:
     virtual boost::any getValue() const override;

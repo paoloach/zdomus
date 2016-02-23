@@ -8,12 +8,16 @@
 #include "../Cluster.h"
 
 namespace zigbee {
-    ZCLint8Attribute::ZCLint8Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier, const std::string &name,
+    ZCLint8Attribute::ZCLint8Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+                                       ZigbeeClusterId identifier, std::experimental::string_view name,
                                        bool readOnly) :
             ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeSInt8, name, readOnly) {
         if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> &attribute) { setValue(attribute); });
+            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
+                                                    identifier,
+                                                    [this](std::shared_ptr<AttributeStatusRecord> &attribute) {
+                                                        setValue(attribute);
+                                                    });
         }
     }
 
@@ -30,7 +34,7 @@ namespace zigbee {
     }
 
     void ZCLint8Attribute::sendValue(int8_t newValue) {
-        sendValueToDevice(1, (uint8_t *)&newValue);
+        sendValueToDevice(1, (uint8_t *) &newValue);
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCLint8Attribute *attribute) {

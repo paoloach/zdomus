@@ -28,7 +28,6 @@
 #include "attributeTypes/ZCLenum8bitAttribute.h"
 #include "attributeTypes/ZCLIEEEAddressAttribute.h"
 #include "attributeTypes/ZCLUTCTime.h"
-#include "attributeTypes/ZCLOctetString.h"
 #include "exceptions/AttributeNotFoundException.h"
 
 using std::copy;

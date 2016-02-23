@@ -16,7 +16,7 @@ namespace zigbee {
 
 class ZCL_bitmap8bit_Attribute : public ZCLAttribute {
 public:
-	ZCL_bitmap8bit_Attribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier, const std::string & name, bool readOnly);
+	ZCL_bitmap8bit_Attribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier,  std::experimental::string_view   name, bool readOnly);
 public:
 	virtual boost::any getValue() const override;
 	virtual void sendValue(uint8_t newValue);

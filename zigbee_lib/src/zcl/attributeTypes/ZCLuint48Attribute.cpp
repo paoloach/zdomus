@@ -9,7 +9,7 @@ namespace zigbee {
 
 
 ZCLuint48Attribute::ZCLuint48Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
-                                       ZigbeeClusterId identifier, const std::string &name, bool readOnly) :
+                                       ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly) :
         ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeUInt48, name, readOnly) {
     if (zigbeeDevice) {
         zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),

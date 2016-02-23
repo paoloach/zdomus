@@ -10,30 +10,32 @@
 #include "../../zigbee/AttributeStatusRecord.h"
 
 namespace zigbee {
-class ZCLOctetString : public ZCLAttribute{
-public:
-    ZCLOctetString(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier, const std::string &name, bool readOnly);
+    class ZCLOctetString : public ZCLAttribute {
+    public:
+        ZCLOctetString(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+                       std::experimental::string_view name, bool readOnly);
 
-    virtual ~ZCLOctetString() { }
+        virtual ~ZCLOctetString() { }
 
-public:
-    virtual boost::any getValue() const override;
+    public:
+        virtual boost::any getValue() const override;
 
-    virtual void sendValue(const std::string &newValue);
+        virtual void sendValue(const std::string &newValue);
 
-    static constexpr ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeStringOctect;
-    static std::string name() {
-        return "OctectString";
-    }
+        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeStringOctect;
 
-private:
-    virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData);
+        static std::string name() {
+            return "OctectString";
+        }
 
-    friend std::ostream &operator<<(std::ostream &out, const ZCLOctetString *);
+    private:
+        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData);
 
-private:
-    std::vector<uint8_t> value;
-};
+        friend std::ostream &operator<<(std::ostream &out, const ZCLOctetString *);
+
+    private:
+        std::vector<uint8_t> value;
+    };
 }
 
 
