@@ -29,7 +29,7 @@ std::string ZCLAttributeNotAvailableException::getMessage() const _GLIBCXX_USE_N
 }
 
 
-ZCLAttribute::ZCLAttribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, int attributeId, ZCLTypeDataType zclType, const std::string & name, bool readOnly) :
+ZCLAttribute::ZCLAttribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, int attributeId, ZCLTypeDataType zclType, std::experimental::string_view name, bool readOnly) :
 		zigbeeDevice(zigbeeDevice), parent(parent), identifier(attributeId), zclType(zclType),name(name),readOnly(readOnly) {
 	status = NotAvailable;
 }

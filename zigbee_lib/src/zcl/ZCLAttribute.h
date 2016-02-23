@@ -13,6 +13,7 @@
 #include <list>
 #include <boost/any.hpp>
 #include <memory>
+#include <experimental/string_view>
 
 #include "../zigbee/ZigbeeDevice.h"
 #include "ZCLDataType.h"
@@ -47,7 +48,7 @@ public:
 	};
 
 public:
-	ZCLAttribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent,int identifier, ZCLTypeDataType zclType, const std::string & name, bool readOnly);
+	ZCLAttribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent,int identifier, ZCLTypeDataType zclType, std::experimental::string_view  name, bool readOnly);
     virtual ~ZCLAttribute() = default;
 public:
 	virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord>  rawData) = 0;
@@ -62,7 +63,7 @@ public:
 	virtual bool isUnsupported() const {return status == NotSupported;}
 	virtual Status getStatus() {return status;}
 	virtual int getIdentifier() const {return identifier;}
-	virtual std::string getName() const {return name;}
+	virtual std::experimental::string_view  getName() const {return name;}
 	virtual bool isReadOnly() const {return readOnly;}
 	virtual ListenerOnChange onChange(std::function<void()> changeSignal){
         return callbacks.add(changeSignal);
@@ -78,7 +79,7 @@ protected:
 	Cluster * parent;
 	int identifier;
 	Status status;
-	std::string name;
+	std::experimental::string_view name;
 	bool readOnly;
     Callbacks callbacks;
 	ZCLTypeDataType zclType;

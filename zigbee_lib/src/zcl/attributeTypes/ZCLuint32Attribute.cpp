@@ -39,7 +39,7 @@ void ZCL_uint32_Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecor
 }
 
 std::ostream & operator<<(std::ostream & out, const ZCL_uint32_Attribute * attribute) {
-    out << attribute->value;
+    out << std::hex << attribute->value;
     return out;
 }
 

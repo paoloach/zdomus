@@ -8,6 +8,7 @@
 #ifndef CLUSTER_H_
 #define CLUSTER_H_
 
+#include <experimental/string_view>
 #include <string>
 #include <memory>
 #include <vector>
@@ -26,19 +27,19 @@
 #include "../zigbee/NwkAddr.h"
 
 
+
 namespace zigbee {
 
 class Cluster {
 public:
 
 	struct AttributeDef {
-		template <typename T>
-		AttributeDef(ZCLTypeDataType type, int id, T && name, bool readOnly = false) :
+		AttributeDef(ZCLTypeDataType type, int id,std::experimental::string_view  name, bool readOnly = false) :
 				type{type}, id(id), name(name), readOnly(readOnly) {
 		}
 		ZCLTypeDataType type;
 		int id;
-		std::string name;
+		std::experimental::string_view name;
 		bool readOnly;
 	};
 
@@ -61,17 +62,6 @@ public:
                 cmd(cmd), cmdId(cmdId),name(name) {
             params.push_back(cmdParams);
         }
-
-//        template <typename CmdParam>
-//        CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, CmdParam cmdParam): cmd(cmd), cmdId(cmdId),name(name)  {
-//            params.push_back(cmdParam);
-//        }
-//
-//        template <typename CmdParam, typename... CmdParams>
-//        CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, CmdParam cmdParam, CmdParams... cmdParams)  {
-//            CommandDef(cmd, cmdId, std::move(name), cmdParams);
-//			params.push_back(cmdParam);
-//		}
 
 		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::shared_ptr<ClusterCmdParamsBase> param1, std::shared_ptr<ClusterCmdParamsBase> param2) :
 				cmd(cmd), cmdId(cmdId),name(name) {
