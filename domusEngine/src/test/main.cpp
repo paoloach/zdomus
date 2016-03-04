@@ -15,7 +15,7 @@ using namespace v8;
 
 static void initV8(int argc, char* argv[]) {
 	V8::InitializeICU();
-	if (argc==0) {
+	if (argc==1) {
         V8::InitializeExternalStartupData(argv[0]);
     } else {
         V8::InitializeExternalStartupData(argv[1]);

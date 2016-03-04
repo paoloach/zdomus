@@ -20,7 +20,7 @@
 
 namespace zigbee {
 
-AttributeHandler::AttributeHandler(const std::string name, QTreeWidgetItem * parent) :
+AttributeHandler::AttributeHandler(std::experimental::string_view  name, QTreeWidgetItem * parent) :
 		name(name), parent(parent), popupMenu(nullptr) {
 	item = new QTreeWidgetItem(this->parent);
 	TreeItemSignalMap::getHistance().add(item, boost::bind(&AttributeHandler::click, this));

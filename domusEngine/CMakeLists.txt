@@ -1,21 +1,21 @@
 cmake_minimum_required(VERSION 2.8)
 project(domus_engine)
 
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 add_subdirectory(googletest/googlemock)
 add_subdirectory(src/test)
 
 set(V8_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/v8)
 set(V8_INCLUDE_DIR ${V8_DIR} ${V8_DIR}/include)
 set(V8_LIB_DIR ${V8_DIR}/lib)
-set(ZIGBEE_LIB_DIR /usr/local/zigbee)
+set(ZIGBEE_LIB_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/zigbee)
 set(ZIGBEELIB_INCLUDE_DIR ${ZIGBEE_LIB_DIR}/include)
 set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
 set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g3 -O2 -std=c++14 ")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g3 -O0  -std=c++14 -Wall -Wextra -Wpedantic ")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -ggdb -O2 -std=c++14  -Wall -Wextra -Wpedantic")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -ggdb -O0  -std=c++14 -Wall -Wextra -Wpedantic ")
 
 add_custom_target(debug cmake -DCMAKE_BUILD_TYPE=Debug COMMAND make)
 add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
@@ -101,8 +101,8 @@ SET(LIBS zigbeeLib
         PocoNet
         PocoUtil
         PocoXML
-        PocoZip
-        PocoData
+   #con     PocoZip
+   #     PocoData
         PocoFoundation
         ${V8_LIBRARY}
         ${Boost_SIGNALS_LIBRARY_DEBUG}

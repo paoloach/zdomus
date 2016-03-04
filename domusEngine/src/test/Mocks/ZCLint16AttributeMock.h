@@ -32,7 +32,7 @@ public:
 	MOCK_CONST_METHOD0(isUnsupported, bool () );
 	MOCK_METHOD0(getStatus, Status () );
 	MOCK_CONST_METHOD0(getIdentifier, int ());
-	MOCK_CONST_METHOD0(getName, std::string ());
+	MOCK_CONST_METHOD0(getName, std::experimental::string_view ());
 	MOCK_CONST_METHOD0(isReadOnly, bool () );
 	MOCK_METHOD1(onChange, ListenerOnChange(std::function<void()> changeSignal));
 };

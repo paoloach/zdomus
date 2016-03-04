@@ -41,7 +41,7 @@ namespace zigbee {
     }
 
     template<typename _TP_attribute>
-    shared_ptr<AttributeHandler> getHandler(shared_ptr<ZCLAttribute> attribute, const std::string name, QTreeWidgetItem *parentItem) {
+    shared_ptr<AttributeHandler> getHandler(shared_ptr<ZCLAttribute> attribute, std::experimental::string_view name, QTreeWidgetItem *parentItem) {
         auto attributeChild = std::dynamic_pointer_cast<_TP_attribute>(attribute);
         auto typezedAttributeHandler = make_shared<TypezedAttributeHandler<_TP_attribute> >(attributeChild, name, parentItem);
         return dynamic_pointer_cast<AttributeHandler>(typezedAttributeHandler);

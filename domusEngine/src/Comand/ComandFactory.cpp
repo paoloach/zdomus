@@ -12,6 +12,7 @@
 #include <memory>
 #include <string>
 #include <sstream>
+#include <iostream>
 
 #include "Comands.h"
 #include "CmdGetUpdate.h"

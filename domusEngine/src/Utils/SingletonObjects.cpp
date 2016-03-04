@@ -37,9 +37,7 @@ SingletonObjects::SingletonObjects(std::string && configurationFileName) :
 	configuration = std::make_shared<Configuration>(streamConfig);
 	fixedPathContainer = std::make_shared<http::FixedPathContainer>();
 	clusterTypeFactory = std::make_shared<ClusterTypeFactory>();
-
 	jsManager = std::make_shared<JSManager>(*this);
-
 }
 
 SingletonObjects::SingletonObjects() :

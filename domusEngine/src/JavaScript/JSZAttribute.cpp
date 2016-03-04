@@ -210,7 +210,7 @@ void JSZAttribute::jsGetName(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	try {
 		Local<External> wrap = Local<External>::Cast(info.Holder()->GetInternalField(0));
 		ZCLAttribute * attribute = (ZCLAttribute *) wrap->Value();
-		Local<String> name = String::NewFromUtf8(isolate, attribute->getName().c_str());
+		Local<String> name = String::NewFromUtf8(isolate, attribute->getName().data());
 		info.GetReturnValue().Set(name);
 	} catch (std::exception & excp) {
 		v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());

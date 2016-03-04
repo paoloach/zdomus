@@ -26,7 +26,7 @@ namespace zigbee {
 class AttributeHandler: public QObject {
 Q_OBJECT
 public:
-	AttributeHandler(const std::string name, QTreeWidgetItem * parent);
+	AttributeHandler(std::experimental::string_view  name, QTreeWidgetItem * parent);
 	virtual ~AttributeHandler() {
 		delete popupMenu;
 	}
@@ -46,7 +46,7 @@ private slots:
 	void updateValue();
 
 protected:
-	std::string name;
+	std::experimental::string_view  name;
 	QTreeWidgetItem * parent;
 	QTreeWidgetItem * item;
 	QMenu * popupMenu;
@@ -55,12 +55,12 @@ protected:
 template<typename _Tp>
 class TypezedAttributeHandler: public AttributeHandler {
 public:
-	TypezedAttributeHandler(std::shared_ptr<_Tp> attribute, const std::string name, QTreeWidgetItem * parent) :
+	TypezedAttributeHandler(std::shared_ptr<_Tp> attribute, std::experimental::string_view name, QTreeWidgetItem * parent) :
 			AttributeHandler(name, parent), attribute(attribute) {
         if (!attribute){
             std::cerr << "undefined " << std::endl;
         } else {
-            item->setText(0, QString::fromStdString(attribute->getName()));
+            item->setText(0, attribute->getName().data());
         }
 
 		this->attribute->onChange([this]{update();});

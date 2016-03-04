@@ -18,12 +18,12 @@ file (GLOB testJavascriptAttributes  "Javascript/JSAttributes/*.cpp" )
 file (GLOB testHttpServer "httpServer/*.cpp")
 file (GLOB testRestParser "httpServer/RestParser/*.cpp")
 
-set (V8_DIR /usr/local/v8)
-set (V8_INCLUDE_DIR ${V8_DIR}  ${V8_DIR}/include)
-set (V8_LIB_DIR ${V8_DIR}/lib)
-set (ZIGBEE_LIB_DIR /usr/local/zigbee)
-set (ZIGBEELIB_INCLUDE_DIR ${ZIGBEE_LIB_DIR}/include)
-set (ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
+set(V8_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/v8)
+set(V8_INCLUDE_DIR ${V8_DIR} ${V8_DIR}/include)
+set(V8_LIB_DIR ${V8_DIR}/lib)
+set(ZIGBEE_LIB_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/zigbee)
+set(ZIGBEELIB_INCLUDE_DIR ${ZIGBEE_LIB_DIR}/include)
+set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
 set (GMOCK_DIR ${CMAKE_SOURCE_DIR}/googletest/googlemock)
 set (GTEST_DIR ${CMAKE_SOURCE_DIR}/googletest/googletest)
@@ -56,12 +56,24 @@ add_executable(domus_engine_test
         ${testRestParser}
         )
 
-set (V8_LIBRARY
+add_executable(test_empty
+        main.cpp
+        Javascript/JSZClusterTest.cpp
+        Mocks/ClusterMock.cpp
+        Mocks/JSZAttributeMock.cpp
+        Mocks/ZCLAttributeMock.cpp
+        Mocks/JSZAttributeFactoryMock.cpp
+        Mocks/ZigbeeDeviceMock.cpp
+        Mocks/ZDevicesMock.cpp
+        Mocks/ClusterTypeFactoryMock.cpp
+        )
+
+set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a
-        ${V8_LIB_DIR}/libv8_external_snapshot.a
-        ${V8_LIB_DIR}/libv8_nosnapshot.a
         ${V8_LIB_DIR}/libv8_base.a
         ${V8_LIB_DIR}/libv8_libbase.a
+        ${V8_LIB_DIR}/libv8_external_snapshot.a
+        ${V8_LIB_DIR}/libv8_nosnapshot.a
         ${V8_LIB_DIR}/libicui18n.a
         ${V8_LIB_DIR}/libicuuc.a
         ${V8_LIB_DIR}/libicudata.a
@@ -73,8 +85,8 @@ SET(LIBS zigbeeLib
         PocoNet
         PocoUtil
         PocoXML
-        PocoZip
-        PocoData
+ #       PocoZip
+ #       PocoData
         PocoFoundation
         ${V8_LIBRARY}
         ${Boost_THREAD_LIBRARY_RELEASE}
@@ -86,5 +98,7 @@ SET(LIBS zigbeeLib
         )
 
 target_link_libraries(domus_engine_test domus_engine_static_lib ${V8_LIBRARY} ${LIBS}  ${GMOCK_LIBS})
+target_link_libraries(test_empty  domus_engine_static_lib ${V8_LIBRARY}  ${LIBS}  ${GMOCK_LIBS})
 
 set_property(TARGET domus_engine_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
+set_property(TARGET test_empty PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)

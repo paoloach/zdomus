@@ -131,7 +131,7 @@ public:
 	virtual void executeComand(uint32_t cmd, std::vector<uint8_t>   data);
 
 	virtual std::shared_ptr<ZCLAttribute> getAttribute(int id) const;
-	virtual std::shared_ptr<ZCLAttribute> getAttribute(const std::string & name) const;
+	virtual std::shared_ptr<ZCLAttribute> getAttribute(std::experimental::string_view name) const;
 protected:
 	template<typename tp_attrType>
 	std::shared_ptr<ZCLAttribute> createAttribute(const AttributeDef & attributeDef) {

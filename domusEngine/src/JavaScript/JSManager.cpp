@@ -33,6 +33,7 @@ JSManager::~JSManager() {
 JSManager::Task::Task(SingletonObjects & singletonObjects, const std::shared_ptr<JavaScriptData> & js) :
 		timer(singletonObjects.getIO(), js->getPeriod()), js(js), jsExecuter(singletonObjects, log) {
 	jsExecuter.notificationEnd(boost::bind(&Task::endJS, this));
+
 	jsExecuter.run(js->getCode());
 }
 

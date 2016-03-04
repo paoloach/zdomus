@@ -8,6 +8,7 @@
 #ifndef SRC_TEST_MOCKS_CLUSTERMOCK_H_
 #define SRC_TEST_MOCKS_CLUSTERMOCK_H_
 
+#include <experimental/string_view>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
@@ -28,7 +29,7 @@ public:
 	MOCK_METHOD2(createAttributes, void (const Cluster::AttributeDef * attributesDef, int size) );
 	MOCK_METHOD1(createAttributes, void (const std::vector<AttributeDef> & attributesDef) ) ;
 	MOCK_CONST_METHOD1(getAttribute, std::shared_ptr<ZCLAttribute> (int id) );
-	MOCK_CONST_METHOD1(getAttribute, std::shared_ptr<ZCLAttribute> (const std::string & name) );
+	MOCK_CONST_METHOD1(getAttribute, std::shared_ptr<ZCLAttribute> (std::experimental::string_view  name) );
 	MOCK_METHOD2(executeComand, void (uint32_t cmd, std::vector<uint8_t>  data));
 	MOCK_CONST_METHOD0(getAttributes, std::vector<AttributeDef> ());
 	MOCK_CONST_METHOD0(getCommands, std::vector<CommandDef> ());

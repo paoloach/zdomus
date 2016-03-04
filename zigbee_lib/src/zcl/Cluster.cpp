@@ -108,7 +108,7 @@ std::shared_ptr<ZCLAttribute> Cluster::getAttribute(int id) const {
 	return std::shared_ptr<ZCLAttribute>();
 }
 
-std::shared_ptr<ZCLAttribute> Cluster::getAttribute(const std::string& name) const {
+std::shared_ptr<ZCLAttribute> Cluster::getAttribute(std::experimental::string_view name) const {
 	for (auto & attribute : attributes) {
 		if (attribute->getName() == name) {
 			return attribute;
