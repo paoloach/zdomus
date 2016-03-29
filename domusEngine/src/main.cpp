@@ -27,6 +27,11 @@
 using namespace zigbee;
 using namespace boost::program_options;
 
+extern unsigned char natives_blob_bin[];
+extern unsigned int natives_blob_bin_len;
+extern unsigned char snapshot_blob_bin[];
+extern unsigned int snapshot_blob_bin_len;
+
 static constexpr auto CONFIGURATION_OPTION = "configuration";
 static constexpr auto DEMO_DATA = "demo";
 static constexpr auto HELP = "help";
@@ -92,9 +97,20 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
 
 using namespace v8;
 
-void initV8(const char *arg0) {
+void initV8() {
     V8::InitializeICU();
-    V8::InitializeExternalStartupData(arg0);
+
+
+    StartupData nativeBlob;
+    nativeBlob.data = (char *)natives_blob_bin;
+    nativeBlob.raw_size = natives_blob_bin_len;
+    V8::SetNativesDataBlob(&nativeBlob);
+
+    StartupData snapshotBlob;
+    snapshotBlob.data = (char *)snapshot_blob_bin;
+    snapshotBlob.raw_size = snapshot_blob_bin_len;
+    V8::SetSnapshotDataBlob(&snapshotBlob);
+
     Platform* platform = platform::CreateDefaultPlatform();
     V8::InitializePlatform(platform);
     V8::Initialize();
@@ -116,7 +132,7 @@ void exitV8() {
 
 int main(int argc, const char *argv[]) {
 
-    initV8(argv[0]);
+    initV8();
     std::string configurationFileName = DEFAULT_CONFIG_FILE;
 
     ClusterTypeFactory clusterTypeFactory;

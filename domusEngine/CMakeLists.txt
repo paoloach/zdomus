@@ -45,6 +45,29 @@ file(GLOB srcRestParser "src/httpServer/RestParser/*.cpp")
 file(GLOB srcRestActions "src/httpServer/RestActions/*.cpp")
 
 
+
+if (CMAKE_BUILD_TYPE MATCHES "Debug")
+    if (CMAKE_C_COMPILER MATCHES "arm")
+        set(V8_BLOB
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/native_blob.cpp
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/snapshot_blob.cpp)
+    else()
+        set(V8_BLOB
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/native_blob.cpp
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/snapshot_blob.cpp)
+    endif()
+else ()
+    if (CMAKE_C_COMPILER MATCHES "arm")
+        set(V8_BLOB
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/native_blob.cpp
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/snapshot_blob.cpp)
+    else()
+        set(V8_BLOB
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp)
+    endif()
+endif ()
+
 set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a
         ${V8_LIB_DIR}/libv8_base.a
@@ -92,7 +115,7 @@ add_library(domus_engine_static_lib STATIC
         ${srcRestActions}
         $<TARGET_OBJECTS:javascript_lib>
         )
-add_executable(domus_engine src/main.cpp)
+add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 
 SET(LIBS zigbeeLib

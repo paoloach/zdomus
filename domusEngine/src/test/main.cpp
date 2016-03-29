@@ -13,13 +13,24 @@
 
 using namespace v8;
 
+extern unsigned char natives_blob_bin[];
+extern unsigned int natives_blob_bin_len;
+extern unsigned char snapshot_blob_bin[];
+extern unsigned int snapshot_blob_bin_len;
+
 static void initV8(int argc, char* argv[]) {
 	V8::InitializeICU();
-	if (argc==1) {
-        V8::InitializeExternalStartupData(argv[0]);
-    } else {
-        V8::InitializeExternalStartupData(argv[1]);
-    }
+
+	StartupData nativeBlob;
+	nativeBlob.data = (char *)natives_blob_bin;
+	nativeBlob.raw_size = natives_blob_bin_len;
+	V8::SetNativesDataBlob(&nativeBlob);
+
+	StartupData snapshotBlob;
+	snapshotBlob.data = (char *)snapshot_blob_bin;
+	snapshotBlob.raw_size = snapshot_blob_bin_len;
+	V8::SetSnapshotDataBlob(&snapshotBlob);
+
     Platform* platform = platform::CreateDefaultPlatform();
     V8::InitializePlatform(platform);
     V8::Initialize();

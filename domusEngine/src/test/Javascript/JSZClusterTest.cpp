@@ -151,9 +151,13 @@ namespace zigbee {
         }
 
         TEST_F(JSZClusterTest, createTemplate) {
+            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             HandleScope handle_scope(isolate);
+            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             Local<Context> context = Context::New(isolate, nullptr);
+            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             Context::Scope context_scope(context);
+            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
 
             Handle<Object> global = context->Global();
             jsZCluster->initJsObjectsTemplate(isolate, global);

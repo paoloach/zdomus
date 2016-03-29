@@ -53,14 +53,14 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/Mocks/ZCLAttributeMock.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Mocks/ZCLenum8bitAttributeMock.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/IODataBufferTest.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/DataPropertyTreeMatcher.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/MatcherPropertyTree.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/IODataBufferTest.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/AttributeDataContainerTest.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/IODataBufferTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/AttributeDataContainerTest.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/DataPropertyTreeMatcher.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/DataPropertyTreeMatcher.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/AttributeDataContainerTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/MatcherPropertyTree.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/DataPropertyTreeMatcher.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/CmdUpdateAttributeTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/CmdRequestAttributeTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/CmdGetUpdateTest.h" isTestSource="false" />
@@ -73,6 +73,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/CmdUpdateAttributeTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/ComandFactoryTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/CmdSendCmdTest.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/main_test.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Configuration/ConfigurationTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Configuration/ConfigurationTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/main.cpp" isTestSource="false" />
@@ -132,8 +133,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSZClusterTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSDevicesTest.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/Database/DBTableTest.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/Database/DBTableTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Utils/LogTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Utils/LogTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/ZigbeeData/ExtAddressTest.h" isTestSource="false" />
@@ -333,6 +332,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionResultNotSet.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionResultNotSet.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionQueryError.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/v8_blob/x64-release/native_blob.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/v8_blob/x64-release/snapshot_blob.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Log.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/SingletonObjects.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Log.h" isTestSource="false" />
