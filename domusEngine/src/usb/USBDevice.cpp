@@ -9,18 +9,19 @@
 #include <iomanip>
 #include <libusb-1.0/libusb.h>
 #include <boost/bind.hpp>
+#include <zigbee/messageStructure//ReqBindTable.h>
 #include "usbConfig.h"
 #include "USBDevice.h"
 
-#include "zigbee/messageStructure/AnnunceMessage.h"
-#include "zigbee/messageStructure/ReqActiveEndpointsMessage.h"
-#include "zigbee/messageStructure/SimpleDescMessage.h"
-#include "zigbee/messageStructure/ReadAttributeResponseMessage.h"
-#include "zigbee/messageStructure/AttributeValue.h"
-#include "zigbee/messageStructure/ComandSend.h"
-#include "zigbee/messageStructure/WriteAttributeValue.h"
-#include "zigbee/messageStructure/BindTableResponseMessage.h"
-#include "zigbee/messageStructure/BindRequest.h"
+#include <zigbee/messageStructure/AnnunceMessage.h>
+#include <zigbee/messageStructure/ReqActiveEndpointsMessage.h>
+#include <zigbee/messageStructure/SimpleDescMessage.h>
+//#include "zigbee/messageStructure/ReadAttributeResponsieMessage.h"
+#include <zigbee/messageStructure/AttributeValue.h>
+#include <zigbee/messageStructure/ComandSend.h>
+#include <zigbee/messageStructure/WriteAttributeValue.h>
+#include <zigbee/messageStructure/BindTableResponseMessage.h>
+#include <zigbee/messageStructure/BindRequest.h>
 
 namespace zigbee {
 
@@ -311,6 +312,7 @@ namespace zigbee {
 
 
     void DomusEngineUSBDevice::requestBindTable(NwkAddr nwkAddrs) {
-
+        ReqBindTable request(nwkAddrs.getId());
+        sendData(request);
     }
 } /* namespace zigbee */

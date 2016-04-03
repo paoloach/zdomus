@@ -13,11 +13,12 @@
 
 namespace zigbee {
 
-class ZDevicePT : public boost::property_tree::ptree{
-public:
-	ZDevicePT(const ZDevice & zDevice) noexcept;
-	virtual ~ZDevicePT() noexcept;
-};
+  class ZDevicePT : public boost::property_tree::ptree {
+  public:
+      ZDevicePT(const ZDevice &zDevice) noexcept;
+
+      virtual ~ZDevicePT() noexcept=default;
+  };
 
 } /* namespace zigbee */
 

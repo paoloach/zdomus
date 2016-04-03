@@ -14,14 +14,14 @@ set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
 set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -ggdb -O2 -std=c++14  -Wall -Wextra -Wpedantic")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -ggdb -O0  -std=c++14 -Wall -Wextra -Wpedantic ")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O0 -std=c++14  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    ")
 
 add_custom_target(debug cmake -DCMAKE_BUILD_TYPE=Debug COMMAND make)
 add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
 
 find_package(PostgreSQL)
-find_package(Boost COMPONENTS system thread signals program_options filesystem REQUIRED)
+find_package(Boost COMPONENTS system thread signals program_options filesystem log REQUIRED)
 
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 include_directories(./include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR})
@@ -114,7 +114,7 @@ add_library(domus_engine_static_lib STATIC
         ${srcRestParser}
         ${srcRestActions}
         $<TARGET_OBJECTS:javascript_lib>
-        )
+        src/ZigbeeData/BindTable.cpp src/ZigbeeData/BindTable.h src/httpServer/RestActions/ShowBindTable.cpp src/httpServer/RestActions/ShowBindTable.h src/ZigbeeData/PropertyTree/BindTablePT.cpp src/ZigbeeData/PropertyTree/BindTablePT.h)
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 
@@ -128,11 +128,12 @@ SET(LIBS zigbeeLib
    #     PocoData
         PocoFoundation
         ${V8_LIBRARY}
-        ${Boost_SIGNALS_LIBRARY_DEBUG}
+        ${Boost_SIGNALS_LIBRARY_RELEASE}
         ${Boost_THREAD_LIBRARY_RELEASE}
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
-        ${Boost_PROGRAM_OPTIONS_LIBRARY_DEBUG}
+        ${Boost_LOG_LIBRARY_RELEASE}
+        ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
         dl
         pthread
         )

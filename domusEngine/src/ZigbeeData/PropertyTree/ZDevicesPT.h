@@ -12,15 +12,15 @@
 #include "../ZDevices.h"
 
 namespace zigbee {
-namespace http {
+    namespace http {
 
-class ZDevicesPT : public boost::property_tree::ptree{
-public:
-	ZDevicesPT(std::shared_ptr<ZDevices>  zDevices) noexcept;
-	virtual ~ZDevicesPT() noexcept;
-};
+        class ZDevicesPT : public boost::property_tree::ptree {
+        public:
+            ZDevicesPT(std::shared_ptr<ZDevices> zDevices) noexcept;
+            virtual ~ZDevicesPT() noexcept= default;
+        };
 
-} /* namespace http */
+    } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_ZIGBEEDATA_PROPERTYTREE_ZDEVICESPT_H_ */

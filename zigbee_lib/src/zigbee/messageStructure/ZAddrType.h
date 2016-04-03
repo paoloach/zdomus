@@ -8,9 +8,11 @@
 #ifndef SRC_ZIGBEE_MESSAGESTRUCTURE_ZADDRTYPE_H_
 #define SRC_ZIGBEE_MESSAGESTRUCTURE_ZADDRTYPE_H_
 
+#include "../zigbeeConfig.h"
+
 namespace zigbee {
 
-#define Z_EXTADDR_LEN   8
+
 
 struct __attribute__ ((__packed__)) ZAddrType {
 	enum AddressMode {

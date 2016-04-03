@@ -9,16 +9,12 @@
 #include "ZDevicesPT.h"
 
 namespace zigbee {
-namespace http {
+  namespace http {
 
-ZDevicesPT::ZDevicesPT(std::shared_ptr<ZDevices>  zDevices) noexcept {
-	for (const ZDevice & device : zDevices->getDevices()) {
-		add(boost::lexical_cast<std::string>(device.getNwkAddr()),device.getExtAddr());
-	}
-}
-
-ZDevicesPT::~ZDevicesPT() noexcept {
-}
-
-} /* namespace http */
+    ZDevicesPT::ZDevicesPT(std::shared_ptr<ZDevices> zDevices) noexcept {
+        for (const auto &device : zDevices->getDevices()) {
+            add(boost::lexical_cast<std::string>(device.getNwkAddr()), device.getExtAddr());
+        }
+    }
+  } /* namespace http */
 } /* namespace zigbee */

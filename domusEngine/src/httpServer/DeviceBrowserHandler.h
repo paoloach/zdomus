@@ -16,23 +16,26 @@
 #include "RestParser/RestActions.h"
 
 namespace zigbee {
-class SingletonObjects;
-namespace http {
+    class SingletonObjects;
+    namespace http {
 
 
-class DeviceBrowserHandler : public Poco::Net::HTTPRequestHandler{
-public:
-	DeviceBrowserHandler(SingletonObjects & singletons);
-protected:
-	virtual void handleRequest( Poco::Net::HTTPServerRequest & request,  Poco::Net::HTTPServerResponse & response) override;
-private:
-	SingletonObjects & singletons;
-	RestActions restGetActions;
-	RestActions restPostActions;
+        class DeviceBrowserHandler : public Poco::Net::HTTPRequestHandler {
+        public:
+            DeviceBrowserHandler(SingletonObjects &singletons);
 
-};
+        protected:
+            virtual void handleRequest(Poco::Net::HTTPServerRequest &request,
+                                       Poco::Net::HTTPServerResponse &response) override;
 
-} /* namespace http */
+        private:
+            SingletonObjects &singletons;
+            RestActions restGetActions;
+            RestActions restPostActions;
+
+        };
+
+    } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_DEVICEBROWSERHANDLER_H_ */

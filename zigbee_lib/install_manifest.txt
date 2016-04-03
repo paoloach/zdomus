@@ -8,6 +8,7 @@
 /usr/local/zigbee/include/zigbee/ZigbeeTypes.h
 /usr/local/zigbee/include/zcl/ZCLDevice.h
 /usr/local/zigbee/include/zcl/ClusterTypeFactory.h
+/usr/local/zigbee/include/zcl/Callbacks.h
 /usr/local/zigbee/include/zcl/OnOffLight.h
 /usr/local/zigbee/include/zcl/ClustersEnum.h
 /usr/local/zigbee/include/zcl/Cluster.h
@@ -23,6 +24,7 @@
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLuint8Attribute.h
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLuint48Attribute.h
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLint16Attribute.h
+/usr/local/zigbee/include/zcl/attributeTypes/ZCLint8Attribute.h
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLenum8bitAttribute.h
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLbitmap8bitAttribute.h
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLint32Attribute.h
@@ -34,6 +36,7 @@
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLuint16Attribute.h
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLuint32Attribute.h
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLint24Attribute.h
+/usr/local/zigbee/include/zcl/clusterTypes/TestCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/LevelControlCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/MeteringCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/OnOffCluster.h
@@ -44,7 +47,6 @@
 /usr/local/zigbee/include/zcl/clusterTypes/IlluminanceMeasurementCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/PressureMeasurementCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/IdentifyCluster.h
-/usr/local/zigbee/include/zcl/clusterTypes/RelativeHumidityMeasuramentCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/NullCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/TemperatureMeasurementCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/ScenesCluster.h
@@ -52,6 +54,7 @@
 /usr/local/zigbee/include/zcl/clusterTypes/BasicCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/PowerConfigurationCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/IlluminanceLevelSensingCluster.h
+/usr/local/zigbee/include/zcl/clusterTypes/RelativeHumidityMeasurementCluster.h
 /usr/local/zigbee/include/zigbee/messageStructure/AnnunceMessage.h
 /usr/local/zigbee/include/zigbee/messageStructure/ReqActiveEndpointsMessage.h
 /usr/local/zigbee/include/zigbee/messageStructure/SimpleDescMessage.h

@@ -11,23 +11,19 @@
 
 namespace zigbee {
 
-using boost::property_tree::ptree;
+  using boost::property_tree::ptree;
 
-ZDevicePT::ZDevicePT(const ZDevice& zDevice) noexcept {
-	ptree endpoints;
+  ZDevicePT::ZDevicePT(const ZDevice &zDevice) noexcept {
+      ptree endpoints;
 
-	add("extended address", zDevice.getExtAddr());
-	add("short address", zDevice.getNwkAddr());
-	add("capability", zDevice.getCapabilities());
-	int index=0;
-	for (auto endpoint : zDevice.getEndpoints()) {
-		endpoints.add(boost::lexical_cast<std::string>(index), boost::lexical_cast<std::string>(endpoint.first));
-		index++;
-	}
-	push_back( { "endpoints", endpoints });
-}
-
-ZDevicePT::~ZDevicePT()noexcept {
-}
-
+      add("extended address", zDevice.getExtAddr());
+      add("short address", zDevice.getNwkAddr());
+      add("capability", zDevice.getCapabilities());
+      int index = 0;
+      for (auto endpoint : zDevice.getEndpoints()) {
+          endpoints.add(boost::lexical_cast<std::string>(index), boost::lexical_cast<std::string>(endpoint.first));
+          index++;
+      }
+      push_back({"endpoints", endpoints});
+  }
 } /* namespace zigbee */

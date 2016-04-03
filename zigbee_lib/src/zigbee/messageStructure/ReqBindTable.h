@@ -9,6 +9,8 @@
 #define SRC_ZIGBEE_MESSAGESTRUCTURE_REQBINDTABLE_H_
 
 #include "../ZigbeeTypes.h"
+#include "GenericMessage.h"
+#include "../zigbeeConfig.h"
 
 namespace zigbee {
 

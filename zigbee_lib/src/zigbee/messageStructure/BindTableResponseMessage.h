@@ -9,6 +9,8 @@
 #define SRC_ZIGBEE_MESSAGESTRUCTURE_BINDTABLERESPONSEMESSAGE_H_
 
 #include "ZAddrType.h"
+#include "GenericMessage.h"
+#include "../zigbeeConfig.h"
 
 namespace zigbee {
 
