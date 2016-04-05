@@ -52,7 +52,7 @@ namespace zigbee {
                            std::vector<uint8_t> data = std::vector<uint8_t>()) = 0;
 
       virtual void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
-                               uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) = 0;
+                               const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) = 0;
 
       virtual void requestBindTable(NwkAddr nwkAddrs) = 0;
 

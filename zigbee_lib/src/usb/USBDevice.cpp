@@ -275,7 +275,7 @@ namespace zigbee {
   }
 
   void USBDevice::sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
-                              uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
+                              const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
       BindRequest bindRequest(destAddr, outClusterAddr, outClusterEP, clusterID, inClusterAddr, inClusterEp);
 
       sendData(bindRequest);

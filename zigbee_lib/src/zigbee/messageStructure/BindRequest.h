@@ -16,7 +16,7 @@
 namespace zigbee {
 
   struct __attribute__ ((__packed__)) BindRequest {
-      BindRequest(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID, uint8_t inClusterAddr[Z_EXTADDR_LEN],
+      BindRequest(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID, const uint8_t inClusterAddr[Z_EXTADDR_LEN],
                   EndpointID inClusterEp) noexcept : generticDataMsg(REQ_ADD_BIND_TABLE_ENTRY),
                                                      destAddr(destAddr.getId()), outClusterEP(outClusterEP.getId()), clusterID(clusterID.getId()),
                                                      inClusterEp(inClusterEp.getId()) {
