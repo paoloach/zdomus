@@ -45,27 +45,26 @@ file(GLOB srcRestParser "src/httpServer/RestParser/*.cpp")
 file(GLOB srcRestActions "src/httpServer/RestActions/*.cpp")
 
 
-
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     if (CMAKE_C_COMPILER MATCHES "arm")
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/native_blob.cpp
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/snapshot_blob.cpp)
-    else()
+    else ()
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/native_blob.cpp
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/snapshot_blob.cpp)
-    endif()
+    endif ()
 else ()
     if (CMAKE_C_COMPILER MATCHES "arm")
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/native_blob.cpp
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/snapshot_blob.cpp)
-    else()
+    else ()
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp)
-    endif()
+    endif ()
 endif ()
 
 set(V8_LIBRARY
@@ -114,7 +113,20 @@ add_library(domus_engine_static_lib STATIC
         ${srcRestParser}
         ${srcRestActions}
         $<TARGET_OBJECTS:javascript_lib>
-        src/ZigbeeData/BindTable.cpp src/ZigbeeData/BindTable.h src/httpServer/RestActions/ShowBindTable.cpp src/httpServer/RestActions/ShowBindTable.h src/ZigbeeData/PropertyTree/BindTablePT.cpp src/ZigbeeData/PropertyTree/BindTablePT.h)
+        src/ZigbeeData/BindTable.cpp
+        src/ZigbeeData/BindTable.h
+        src/httpServer/RestActions/ShowBindTable.cpp
+        src/httpServer/RestActions/ShowBindTable.h
+        src/ZigbeeData/PropertyTree/BindTablePT.cpp
+        src/ZigbeeData/PropertyTree/BindTablePT.h
+        src/httpServer/RestActions/ExecuteBind.cpp
+        src/httpServer/RestActions/ExecuteBind.h
+        src/ZigbeeData/Exceptions/InvalidOutCluster.cpp
+        src/ZigbeeData/Exceptions/InvalidOutCluster.h
+        src/ZigbeeData/Exceptions/InvalidInCluster.cpp
+        src/ZigbeeData/Exceptions/InvalidInCluster.h
+        src/ZigbeeData/Exceptions/InvalidInCluster.cpp
+        src/ZigbeeData/Exceptions/InvalidInCluster.h)
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 
@@ -124,8 +136,8 @@ SET(LIBS zigbeeLib
         PocoNet
         PocoUtil
         PocoXML
-   #con     PocoZip
-   #     PocoData
+        #con     PocoZip
+        #     PocoData
         PocoFoundation
         ${V8_LIBRARY}
         ${Boost_SIGNALS_LIBRARY_RELEASE}

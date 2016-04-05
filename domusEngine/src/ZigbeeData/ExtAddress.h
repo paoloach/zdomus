@@ -20,14 +20,15 @@ public:
 	ExtAddress();
 	ExtAddress(std::initializer_list<uint8_t> extAddr);
 	ExtAddress(std::array<uint8_t, Z_EXTADDR_LEN> extAddr);
-	ExtAddress(const uint8_t * extAddr);
-	ExtAddress & operator=(const std::array<uint8_t, Z_EXTADDR_LEN> & extAddr);
-	ExtAddress & operator=(const uint8_t extAddr[Z_EXTADDR_LEN]);
-	void assign(const std::array<uint8_t, Z_EXTADDR_LEN> & extAddr);
-	bool operator==(const ExtAddress & other) const;
-	bool operator<(const ExtAddress & other) const;
-	virtual ~ExtAddress();
+    ExtAddress(const uint8_t * extAddr);
+    virtual ~ExtAddress()= default;
+    ExtAddress & operator=(const std::array<uint8_t, Z_EXTADDR_LEN> & extAddr);
+    ExtAddress & operator=(const uint8_t extAddr[Z_EXTADDR_LEN]);
+    void assign(const std::array<uint8_t, Z_EXTADDR_LEN> & extAddr);
+    bool operator==(const ExtAddress & other) const;
+    bool operator<(const ExtAddress & other) const;
 	uint32_t getNible(int i) const {return data[i];}
+    const uint8_t  * asArray(){return data.begin();}
 private:
 	std::array<uint8_t, Z_EXTADDR_LEN> data;
 

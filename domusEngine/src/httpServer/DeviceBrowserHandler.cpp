@@ -23,6 +23,7 @@
 #include "RestActions/ResponseFile.h"
 #include "RestActions/ShowHello.h"
 #include "RestActions/ShowWhoAreYou.h"
+#include "RestActions/ExecuteBind.h"
 
 namespace zigbee {
   namespace http {
@@ -45,6 +46,7 @@ namespace zigbee {
         restGetActions.setDefaultAction(ResponseFile(singletons));
 
         restPostActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/command/{command}"}, ExecuteCmd{singletons});
+        restPostActions.addActions(RestPath {"/bind/src/{srcDevice}/endpoint/{srcEndpoint}/cluster/{cluster}/dst/{dstDevice}/endpoint/{dstEndpoint}"}, ExecuteBind{singletons});
     }
 
     void DeviceBrowserHandler::handleRequest(Poco::Net::HTTPServerRequest &request,

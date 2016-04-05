@@ -10,13 +10,11 @@
 
 namespace zigbee {
 
-InvalidZEndpointException::InvalidZEndpointException(NwkAddr nwkAddress, EndpointID endpoint) {
-	std::stringstream stream { };
-	stream << "The endpoint " << endpoint << " doesn't exist on device "<< nwkAddress;
-	message = stream.str();
-}
+  InvalidZEndpointException::InvalidZEndpointException(NwkAddr nwkAddress, EndpointID endpoint) {
+      std::stringstream stream{};
+      stream << "The endpoint " << endpoint << " doesn't exist on device " << nwkAddress;
+      message = stream.str();
+  }
 
-InvalidZEndpointException::~InvalidZEndpointException() {
-}
 
 } /* namespace zigbee */

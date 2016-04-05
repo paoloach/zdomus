@@ -13,21 +13,23 @@
 
 namespace zigbee {
 
-class SingletonObjects;
+  class SingletonObjects;
 
-namespace http {
+  namespace http {
 
-class PlaceHolders;
+    class PlaceHolders;
 
-class ExecuteCmd : public ActionHandler, public ClusterThrowingException {
-public:
-	ExecuteCmd(SingletonObjects & singletons) noexcept : singletons(singletons){};
-	void operator()(const PlaceHolders && placeHolder, Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
-private:
-	SingletonObjects & singletons;
-};
+    class ExecuteCmd : public ActionHandler, public ClusterThrowingException {
+    public:
+        ExecuteCmd(SingletonObjects &singletons) noexcept : singletons(singletons) { };
 
-} /* namespace http */
+        void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
+
+    private:
+        SingletonObjects &singletons;
+    };
+
+  } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTACTIONS_EXECUTECMD_H_ */

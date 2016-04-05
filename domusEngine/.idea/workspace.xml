@@ -20,40 +20,31 @@
       <config projectName="domus_engine" targetName="domus_engine_static_lib" />
     </generated>
   </component>
-  <component name="CMakeSettings" AUTO_RELOAD="false" GENERATION_PASS_SYSTEM_ENVIRONMENT="true" BUILD_OUTPUT_DIR="$PROJECT_DIR$/../x86/domus_engine" ADDITIONAL_BUILD_OPTIONS="-j5 VERBOSE=1">
+  <component name="CMakeSettings" AUTO_RELOAD="false" GENERATION_PASS_SYSTEM_ENVIRONMENT="true" BUILD_OUTPUT_DIR="$PROJECT_DIR$/../x86/domus_engine">
     <ADDITIONAL_GENERATION_ENVIRONMENT>
       <envs />
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ZigbeeData/BindTable.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ZigbeeData/BindTable.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/BindTablePT.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/BindTablePT.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidInCluster.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidInCluster.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidOutCluster.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidOutCluster.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteBind.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteBind.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/domus_engine.iml" afterPath="$PROJECT_DIR$/.idea/domus_engine.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/domusEngine.xml" afterPath="$PROJECT_DIR$/configuration/domusEngine.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" afterPath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils/SingletonObjects.h" afterPath="$PROJECT_DIR$/src/Utils/SingletonObjects.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp" afterPath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.h" afterPath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.cpp" afterPath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.h" afterPath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.cpp" afterPath="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.h" afterPath="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/ExtAddress.cpp" afterPath="$PROJECT_DIR$/src/ZigbeeData/ExtAddress.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/ExtAddress.h" afterPath="$PROJECT_DIR$/src/ZigbeeData/ExtAddress.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" afterPath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.h" afterPath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowWhoAreYou.h" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowWhoAreYou.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.h" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" afterPath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/install_manifest.txt" afterPath="$PROJECT_DIR$/../zigbee_lib/install_manifest.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/BindTableResponseMessage.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/BindTableResponseMessage.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/ReqBindTable.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/ReqBindTable.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/ZAddrType.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/ZAddrType.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.h" afterPath="$PROJECT_DIR$/src/usb/USBDevice.h" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,107 +66,70 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ShowBindTable.h" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.h">
+      <file leaf-file-name="ExecuteCmd.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShowBindTable.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BindTablePT.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/BindTablePT.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+            <state relative-caret-position="307">
+              <caret line="29" column="32" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="32" />
               <folding>
-                <element signature="e#111#151#0" expanded="true" />
+                <element signature="e#89#129#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowAttribute.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
+      <file leaf-file-name="ExecuteBind.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteBind.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="51" column="70" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="70" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShowAttribute.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ZDevicePT.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="13" selection-end-column="36" />
+            <state relative-caret-position="450">
+              <caret line="39" column="38" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
               <folding>
-                <element signature="e#87#120#0" expanded="true" />
+                <element signature="e#39#79#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BindTablePT.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/BindTablePT.cpp">
+      <file leaf-file-name="ExtAddress.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ExtAddress.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BindTable.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ZigbeeData/BindTable.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+            <state relative-caret-position="378">
+              <caret line="30" column="51" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
               <folding>
-                <element signature="e#107#128#0" expanded="true" />
+                <marker date="1459840115517" expanded="true" signature="277:1140" placeholder="{...}" />
+                <marker date="1459840115517" expanded="true" signature="297:985" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BindTable.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ZigbeeData/BindTable.cpp">
+      <file leaf-file-name="ExtAddress.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ExtAddress.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+            <state relative-caret-position="588">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+              <folding>
+                <marker date="1459840050155" expanded="true" signature="220:3457" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="305" column="149" selection-start-line="305" selection-start-column="149" selection-end-line="305" selection-end-column="149" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BindTableResponseMessage.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/BindTableResponseMessage.h">
+      <file leaf-file-name="USBDevice.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+            <state relative-caret-position="-1006">
+              <caret line="32" column="92" selection-start-line="32" selection-start-column="92" selection-end-line="32" selection-end-column="92" />
               <folding />
             </state>
           </provider>
@@ -189,19 +143,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/Mocks/ZCLUint8AttributeMock.h" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/ZCLstringAttributeMock.h" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/ZCLint16AttributeMock.h" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/ZCLIEEEAddressAttributeMock.h" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/ZCLenum8bitAttributeMock.h" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/ZCLbooleanAttributeMock.h" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h" />
-        <option value="/usr/local/zigbee/include/zcl/Cluster.h" />
-        <option value="$PROJECT_DIR$/src/Comand/ComandFactory.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/ClusterMock.h" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSDeviceTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" />
         <option value="$PROJECT_DIR$/src/test/Javascript/Little.h" />
@@ -218,19 +159,15 @@
         <option value="$PROJECT_DIR$/src/test/main.cpp" />
         <option value="$PROJECT_DIR$/src/test/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
-        <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
         <option value="/usr/local/zigbee/include/zigbee/messageStructure/ReqBindTable.h" />
         <option value="/usr/local/zigbee/include/zigbee/messageStructure/BindTableResponseMessage.h" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/BindTable.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/usb/USBDevice.h" />
         <option value="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.h" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/BindTable.h" />
         <option value="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.h" />
         <option value="$PROJECT_DIR$/src/Utils/SingletonObjects.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowWhoAreYou.h" />
-        <option value="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.cpp" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.h" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp" />
@@ -240,6 +177,23 @@
         <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/BindTablePT.h" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/BindTablePT.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.h" />
+        <option value="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteBind.h" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.h" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.cpp" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidInCluster.h" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidInCluster.cpp" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidOutCluster.cpp" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/ExtAddress.cpp" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/ExtAddress.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidOutCluster.h" />
+        <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
+        <option value="$PROJECT_DIR$/src/usb/USBDevice.h" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteBind.cpp" />
+        <option value="/usr/local/zigbee/include/zigbee/ZigbeeDevice.h" />
       </list>
     </option>
   </component>
@@ -530,6 +484,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="ZigbeeData" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Exceptions" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -567,28 +543,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="httpServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="httpServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RestParser" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -648,7 +602,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C/C++" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../zigbee_lib" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="228" />
@@ -980,7 +934,14 @@
       <option name="project" value="LOCAL" />
       <updated>1459280579343</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="some fixes&#10;add bind table request rest method">
+      <created>1459664138207</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1459664138207</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1021,7 +982,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15789473" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34777898" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34777898" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24702059" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1059,7 +1020,8 @@
     <MESSAGE value="Used string_view instead of string" />
     <MESSAGE value="some fixes" />
     <MESSAGE value="embedded v8 blob snapshot files" />
-    <option name="LAST_COMMIT_MESSAGE" value="embedded v8 blob snapshot files" />
+    <MESSAGE value="some fixes&#10;add bind table request rest method" />
+    <option name="LAST_COMMIT_MESSAGE" value="some fixes&#10;add bind table request rest method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1104,11 +1066,6 @@
           <line>33</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/usb/USBDevice.h</url>
-          <line>110</line>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -1129,235 +1086,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/v8_blob/arm-release/snapshot_blob.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="9" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/v8_blob/x64-release/snapshot_blob.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/v8/include/v8.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86128">
-          <caret line="6152" column="33" selection-start-line="6152" selection-start-column="14" selection-end-line="6152" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSDeviceTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/main_test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="23" column="2" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="63" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/v8_blob/x64-release/native_blob.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="32317" column="0" selection-start-line="32317" selection-start-column="0" selection-end-line="32317" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZDevices.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="42" column="15" selection-start-line="42" selection-start-column="15" selection-end-line="42" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/AnnunceMessage.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/SimpleDescMessage.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="27" selection-end-column="2" />
-          <folding>
-            <element signature="e#152#180#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ReqBindTable.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#221#248#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/BindRequest.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="17" column="47" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/zigbeeConfig.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ZAddrType.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/ZigbeeDevice.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="36" column="87" selection-start-line="36" selection-start-column="87" selection-end-line="36" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/tuple">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ExtAddress.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="143" column="25" selection-start-line="143" selection-start-column="25" selection-end-line="143" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/NwkAddr.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/functional">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="1824" column="0" selection-start-line="1824" selection-start-column="0" selection-end-line="1824" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/shared_ptr_base.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="1055" column="0" selection-start-line="1055" selection-start-column="0" selection-end-line="1055" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="110" column="73" selection-start-line="110" selection-start-column="67" selection-end-line="110" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-251">
-          <caret line="40" column="12" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="12" />
-          <folding>
-            <element signature="e#511#562#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZDevices.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="26" column="72" selection-start-line="26" selection-start-column="72" selection-end-line="26" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_function.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="17" column="128" selection-start-line="17" selection-start-column="128" selection-end-line="17" selection-end-column="128" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ClusterThrowingException.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/AttributePT.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1383,7 +1111,7 @@
         <state relative-caret-position="252">
           <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="52" />
           <folding>
-            <element signature="e#187#227#0" expanded="true" />
+            <element signature="e#187#227#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1392,14 +1120,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="35" column="10" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1441,7 +1161,7 @@
         <state relative-caret-position="266">
           <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
           <folding>
-            <element signature="e#184#224#0" expanded="true" />
+            <element signature="e#184#224#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1454,30 +1174,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ExtAddress.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="46" column="125" selection-start-line="46" selection-start-column="125" selection-end-line="46" selection-end-column="125" />
-          <folding>
-            <element signature="e#97#137#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ZigbeeData/BindTable.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
           <folding>
-            <element signature="e#107#128#0" expanded="true" />
+            <element signature="e#107#128#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1495,7 +1197,7 @@
         <state relative-caret-position="168">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="13" selection-end-column="36" />
           <folding>
-            <element signature="e#87#120#0" expanded="true" />
+            <element signature="e#87#120#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1512,7 +1214,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
           <caret line="51" column="70" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="70" />
-          <folding />
+          <folding>
+            <marker date="1459663906709" expanded="false" signature="100:508" placeholder="..." />
+            <marker date="1459663906709" expanded="true" signature="527:2321" placeholder="{...}" />
+            <marker date="1459663906709" expanded="true" signature="546:2298" placeholder="{...}" />
+            <marker date="1459663906709" expanded="true" signature="733:2293" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1521,7 +1228,10 @@
         <state relative-caret-position="196">
           <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
           <folding>
-            <element signature="e#111#151#0" expanded="true" />
+            <marker date="1459664033444" expanded="true" signature="120:177" placeholder="..." />
+            <marker date="1459664033444" expanded="true" signature="196:408" placeholder="{...}" />
+            <marker date="1459664033444" expanded="true" signature="215:406" placeholder="{...}" />
+            <marker date="1459664033444" expanded="true" signature="277:401" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1530,7 +1240,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
           <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
-          <folding />
+          <folding>
+            <marker date="1459664040174" expanded="true" signature="180:594" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1538,15 +1250,303 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1459664065713" expanded="true" signature="48:305" placeholder="..." />
+            <marker date="1459664065713" expanded="true" signature="324:775" placeholder="{...}" />
+            <marker date="1459664065713" expanded="true" signature="344:773" placeholder="{...}" />
+            <marker date="1459664065713" expanded="true" signature="579:768" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <marker date="1459663906770" expanded="true" signature="173:610" placeholder="{...}" />
+            <marker date="1459663906770" expanded="true" signature="219:608" placeholder="{...}" />
+            <marker date="1459663906770" expanded="true" signature="269:603" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="28" column="37" selection-start-line="22" selection-start-column="3" selection-end-line="28" selection-end-column="37" />
+          <folding>
+            <element signature="e#185#223#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="48" column="146" selection-start-line="48" selection-start-column="135" selection-end-line="48" selection-end-column="146" />
+          <folding>
+            <element signature="e#97#137#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteBind.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+          <folding>
+            <element signature="e#111#149#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZDevices.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="31" column="37" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="46" column="42" selection-start-line="46" selection-start-column="42" selection-end-line="46" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZDevice.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="51" column="19" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZEndpoint.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-170">
+          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZEndpoint.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="43" column="28" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zigbee/ClusterID.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="20" column="15" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="15" column="29" selection-start-line="13" selection-start-column="6" selection-end-line="15" selection-end-column="29" />
+          <folding>
+            <element signature="e#103#121#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="21" selection-end-column="49" />
+          <folding>
+            <element signature="e#228#258#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidZDevice.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZDevices.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/Exceptions/IncalidInCluster.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/Exceptions/IncalidInCluster.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidInCluster.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="14" column="24" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidInCluster.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+          <folding>
+            <marker date="1459755254445" expanded="true" signature="221:432" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zigbee/NwkAddr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZDevice.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="63" column="15" selection-start-line="63" selection-start-column="15" selection-end-line="63" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ExtAddress.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding>
+            <marker date="1459840050155" expanded="true" signature="220:3457" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ExtAddress.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="30" column="51" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
+          <folding>
+            <marker date="1459840115517" expanded="true" signature="277:1140" placeholder="{...}" />
+            <marker date="1459840115517" expanded="true" signature="297:985" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="122" column="48" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidOutCluster.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/Exceptions/InvalidOutCluster.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/usbConfig.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/BindRequest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="17" column="47" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="305" column="149" selection-start-line="305" selection-start-column="149" selection-end-line="305" selection-end-column="149" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1006">
+          <caret line="32" column="92" selection-start-line="32" selection-start-column="92" selection-end-line="32" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zigbee/ZigbeeDevice.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="54" column="19" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
+          <folding>
+            <element signature="e#137#158#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="29" column="32" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="32" />
+          <folding>
+            <element signature="e#89#129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteBind.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="39" column="38" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
+          <folding>
+            <element signature="e#39#79#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

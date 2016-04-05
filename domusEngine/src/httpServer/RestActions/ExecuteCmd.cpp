@@ -11,45 +11,42 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
-#include <boost/lexical_cast.hpp>
 
 #include "ExecuteCmd.h"
 
-#include "../RestParser/PlaceHolders.h"
 #include "../MediaTypeProducerFactory.h"
 #include "../../Utils/SingletonObjects.h"
-#include "../../ZigbeeData/PropertyTree/AttributePT.h"
 #include "../../ZigbeeData/ZDevices.h"
 
 namespace zigbee {
-namespace http {
+  namespace http {
 
-void ExecuteCmd::operator ()(const PlaceHolders&& placeHolder, Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) {
-	auto nwkAddr(placeHolder.get<NwkAddr>("device"));
-	auto endpoint(placeHolder.get<EndpointID>("endpoint"));
-	auto clusterId(placeHolder.get<ClusterID>("cluster"));
-	auto command(placeHolder.get<int>("command"));
-	auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
-	auto zEndpoint = zDevice.getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
-	if (zEndpoint.isInCluster(clusterId)) {
-		std::vector<uint8_t> cmdParams{};
-		response.setStatus(Poco::Net::HTTPResponse::HTTP_NO_CONTENT);
-		auto zDevice = singletons.getZigbeeDevice();
-		auto cluster(singletons.getClusterTypeFactory()->getCluster(clusterId, zDevice, endpoint, nwkAddr));
+    void ExecuteCmd::operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response) {
+        auto nwkAddr(placeHolder.get<NwkAddr>("device"));
+        auto endpoint(placeHolder.get<EndpointID>("endpoint"));
+        auto clusterId(placeHolder.get<ClusterID>("cluster"));
+        auto command(placeHolder.get<int>("command"));
+        auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
+        auto zEndpoint = zDevice.getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
+        if (zEndpoint.isInCluster(clusterId)) {
+            std::vector<uint8_t> cmdParams{};
+            response.setStatus(Poco::Net::HTTPResponse::HTTP_NO_CONTENT);
+            auto zDevice = singletons.getZigbeeDevice();
+            auto cluster(singletons.getClusterTypeFactory()->getCluster(clusterId, zDevice, endpoint, nwkAddr));
 
-		auto params = cluster->getCmdParams(command);
-		for (const auto & param : params){
-			auto paramValue = placeHolder.getQueryParam<std::string>(param->getName());
-			auto rawValues = param->getType().getRaw(paramValue);
-			std::copy(std::begin(rawValues), std::end(rawValues), std::back_inserter(cmdParams));
-		}
+            auto params = cluster->getCmdParams(command);
+            for (const auto &param : params) {
+                auto paramValue = placeHolder.getQueryParam<std::string>(param->getName());
+                auto rawValues = param->getType().getRaw(paramValue);
+                std::copy(std::begin(rawValues), std::end(rawValues), std::back_inserter(cmdParams));
+            }
 
-		cluster->executeComand(command,cmdParams );
-	} else {
-		throwWrongCluster(response, clusterId, endpoint, nwkAddr);
-	}
-}
+            cluster->executeComand(command, cmdParams);
+        } else {
+            throwWrongCluster(response, clusterId, endpoint, nwkAddr);
+        }
+    }
 
-} /* namespace http */
+  } /* namespace http */
 } /* namespace zigbee */
 
