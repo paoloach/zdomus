@@ -25,38 +25,48 @@
 
 namespace zigbee {
 
-    class ZigbeeDevice {
-    public:
-        ZigbeeDevice()=default;
-        virtual ~ZigbeeDevice()=default;
+  class ZigbeeDevice {
+  public:
+      ZigbeeDevice() = default;
 
-    public:
-        using NewAttributeValueCallback = std::function<void(std::shared_ptr<AttributeStatusRecord> &)>;
-        using SimpleDescCallback = std::function<void(SimpleDescMessage *)>;
-        using AnnunceCallback = std::function<void(AnnunceMessage *)>;
-        using BindTableResponseCallback = std::function<void(std::shared_ptr<BindTableResponseMessage>)>;
+      virtual ~ZigbeeDevice() = default;
 
-        virtual bool isPresent() = 0;
-        virtual bool requestDevices() = 0;
-        virtual void getUsbMessage() = 0;
-        virtual void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) = 0;
-        virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType,
-                                    uint8_t dataValueLen, uint8_t *dataValue) = 0;
+  public:
+      using NewAttributeValueCallback = std::function<void(std::shared_ptr<AttributeStatusRecord> &)>;
+      using SimpleDescCallback = std::function<void(SimpleDescMessage *)>;
+      using AnnunceCallback = std::function<void(AnnunceMessage *)>;
+      using BindTableResponseCallback = std::function<void(std::shared_ptr<BindTableResponseMessage>)>;
 
-        virtual void sendCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId,
-                             std::vector<uint8_t> data = std::vector<uint8_t>()) = 0;
+      virtual bool isPresent() = 0;
 
-        virtual void sendReqBind(NwkAddr destAddr, uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
-                                 uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) = 0;
+      virtual bool requestDevices() = 0;
 
-        virtual void requestBindTable(NwkAddr nwkAddrs) = 0;
-        virtual void registerForAnnunceMessage( AnnunceCallback) = 0;
-        virtual void registerForSimpleDescMessage( SimpleDescCallback) = 0;
-        virtual void registerForBindTableMessage(BindTableResponseCallback) = 0;
-        virtual void registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeCmdId cmdId, const std::function<void()>) = 0;
-        virtual void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
-                                               const NewAttributeValueCallback subscriber) = 0;
-    };
+      virtual void getUsbMessage() = 0;
+
+      virtual void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) = 0;
+
+      virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType,
+                                  uint8_t dataValueLen, uint8_t *dataValue) = 0;
+
+      virtual void sendCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId,
+                           std::vector<uint8_t> data = std::vector<uint8_t>()) = 0;
+
+      virtual void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
+                               uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) = 0;
+
+      virtual void requestBindTable(NwkAddr nwkAddrs) = 0;
+
+      virtual void registerForAnnunceMessage(AnnunceCallback) = 0;
+
+      virtual void registerForSimpleDescMessage(SimpleDescCallback) = 0;
+
+      virtual void registerForBindTableMessage(BindTableResponseCallback) = 0;
+
+      virtual void registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeCmdId cmdId, const std::function<void()>) = 0;
+
+      virtual void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
+                                             const NewAttributeValueCallback subscriber) = 0;
+  };
 
 } /* namespace zigbee */
 

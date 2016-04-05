@@ -12,8 +12,6 @@
 
 namespace zigbee {
 
-
-
 struct __attribute__ ((__packed__)) ZAddrType {
 	enum AddressMode {
 		AddrNotPresent = 0, AddrGroup = 1, Addr16Bit = 2, Addr64Bit = 3, AddrBroadcast = 15
