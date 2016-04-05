@@ -17,12 +17,13 @@ namespace zigbee {
 
     class ExecuteBind : public ActionHandler, public ClusterThrowingException {
     public:
-        ExecuteBind(SingletonObjects &singletons) noexcept : singletons(singletons) { };
+        ExecuteBind(SingletonObjects &singletons, bool bind=true) noexcept : singletons(singletons),bind(bind) { };
 
         void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
 
     private:
         SingletonObjects &singletons;
+        bool bind;
     };
   }
 }

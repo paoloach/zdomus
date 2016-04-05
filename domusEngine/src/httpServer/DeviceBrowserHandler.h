@@ -32,6 +32,7 @@ namespace zigbee {
             SingletonObjects &singletons;
             RestActions restGetActions;
             RestActions restPostActions;
+            RestActions restDeleteActions;
 
         };
 

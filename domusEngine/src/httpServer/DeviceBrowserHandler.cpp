@@ -46,7 +46,9 @@ namespace zigbee {
         restGetActions.setDefaultAction(ResponseFile(singletons));
 
         restPostActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/command/{command}"}, ExecuteCmd{singletons});
-        restPostActions.addActions(RestPath {"/bind/src/{srcDevice}/endpoint/{srcEndpoint}/cluster/{cluster}/dst/{dstDevice}/endpoint/{dstEndpoint}"}, ExecuteBind{singletons});
+        restPostActions.addActions(RestPath {"/bind/src/{srcDevice}/endpoint/{srcEndpoint}/cluster/{cluster}/dst/{dstDevice}/endpoint/{dstEndpoint}"}, ExecuteBind{singletons,true});
+
+        restDeleteActions.addActions(RestPath {"/bind/src/{srcDevice}/endpoint/{srcEndpoint}/cluster/{cluster}/dst/{dstDevice}/endpoint/{dstEndpoint}"}, ExecuteBind{singletons,false});
     }
 
     void DeviceBrowserHandler::handleRequest(Poco::Net::HTTPServerRequest &request,
@@ -60,6 +62,8 @@ namespace zigbee {
                 restGetActions.execute(std::move(pathReceived), request, response);
             } else if (request.getMethod() == "POST") {
                 restPostActions.execute(std::move(pathReceived), request, response);
+            }else if (request.getMethod() == "DELETE") {
+                restDeleteActions.execute(std::move(pathReceived), request, response);
             }
 
         } catch (boost::bad_lexical_cast &cast) {

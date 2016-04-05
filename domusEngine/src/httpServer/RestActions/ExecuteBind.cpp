@@ -37,6 +37,10 @@ void zigbee::http::ExecuteBind::operator()(const zigbee::http::PlaceHolders &&pl
     }
 
     NwkAddr coordinator;
-    singletons.getZigbeeDevice()->sendReqBind(coordinator, srcZDevice.getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice.getExtAddr().asArray(), dstEndpoint);
+    if (bind) {
+        singletons.getZigbeeDevice()->sendReqBind(coordinator, srcZDevice.getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice.getExtAddr().asArray(), dstEndpoint);
+    } else {
+        singletons.getZigbeeDevice()->sendReqUnbind(coordinator, srcZDevice.getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice.getExtAddr().asArray(), dstEndpoint);
+    }
 }
 
