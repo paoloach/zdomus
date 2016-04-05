@@ -287,5 +287,10 @@ namespace zigbee {
       }
   }
 
+  void USBDevice::sendReqUnbind(NwkAddr outClusterAddr, EndpointID outClusterEP, ClusterID clusterID, NwkAddr inClusterAddr, EndpointID inClusterEp) {
+
+  }
+
+
 } /* namespace zigbee */
 

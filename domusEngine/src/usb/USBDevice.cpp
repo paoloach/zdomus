@@ -13,15 +13,11 @@
 #include "usbConfig.h"
 #include "USBDevice.h"
 
-#include <zigbee/messageStructure/AnnunceMessage.h>
-#include <zigbee/messageStructure/ReqActiveEndpointsMessage.h>
-#include <zigbee/messageStructure/SimpleDescMessage.h>
-//#include "zigbee/messageStructure/ReadAttributeResponsieMessage.h"
 #include <zigbee/messageStructure/AttributeValue.h>
 #include <zigbee/messageStructure/ComandSend.h>
 #include <zigbee/messageStructure/WriteAttributeValue.h>
-#include <zigbee/messageStructure/BindTableResponseMessage.h>
 #include <zigbee/messageStructure/BindRequest.h>
+#include <zigbee/messageStructure/UnbindRequest.h>
 
 namespace zigbee {
 
@@ -307,6 +303,12 @@ namespace zigbee {
                                          const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
       BindRequest bindRequest(destAddr, outClusterAddr, outClusterEP, clusterID, inClusterAddr, inClusterEp);
       sendData(bindRequest);
+  }
+
+  void DomusEngineUSBDevice::sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
+                                         const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
+      UnbindRequest unbindRequest(destAddr, outClusterAddr, outClusterEP, clusterID, inClusterAddr, inClusterEp);
+      sendData(unbindRequest);
   }
 
 

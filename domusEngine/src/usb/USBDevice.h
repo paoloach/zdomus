@@ -91,6 +91,9 @@ namespace zigbee {
       virtual void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
                                const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
 
+      virtual void sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
+                               const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
+
       void requestBindTable(NwkAddr nwkAddrs) override;
 
   private:
