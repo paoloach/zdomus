@@ -16,8 +16,8 @@ namespace zigbee {
   ZDevicePT::ZDevicePT(const ZDevice &zDevice) noexcept {
       ptree endpoints;
 
-      add("extended address", zDevice.getExtAddr());
-      add("short address", zDevice.getNwkAddr());
+      add("extended_address", zDevice.getExtAddr());
+      add("short_address", zDevice.getNwkAddr());
       add("capability", zDevice.getCapabilities());
       int index = 0;
       for (auto endpoint : zDevice.getEndpoints()) {
