@@ -31,6 +31,7 @@ namespace zigbee {
             zigbeeDevice = std::make_shared<DomusEngineUSBDevice>(io, zDevices, attributeDataContainer, usbContext,
                                                                   USB_CLASS, VENDOR_ID, PRODUCT_ID);
             if (zigbeeDevice->isPresent()) {
+                zigbeeDevice->requestDevices();
                 zigbeeDevice->registerForBindTableMessage(
                         [this](std::shared_ptr<BindTableResponseMessage> msg) { bindTable.add(msg); });
                 NwkAddr addr;
