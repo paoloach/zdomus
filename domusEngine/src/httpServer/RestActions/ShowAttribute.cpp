@@ -8,6 +8,7 @@
 #include <chrono>
 #include <thread>
 
+#include <boost/log/trivial.hpp>
 #include <Poco/Net/HTTPServerResponse.h>
 #include <Poco/Net/HTTPServerRequest.h>
 #include <zigbee/NwkAddr.h>
@@ -40,8 +41,10 @@ namespace zigbee {
             std::shared_ptr<ZCLAttribute> attribute;
             try {
                 auto attributeId = boost::lexical_cast<int>(attributeParam);
+                BOOST_LOG_TRIVIAL(info) << "get attribute " << attributeId;
                 attribute = cluster->getAttribute(attributeId);
             } catch (boost::bad_lexical_cast &badCast) {
+                BOOST_LOG_TRIVIAL(info) << "get attribute " << attributeParam;
                 attribute = cluster->getAttribute(attributeParam);
             }
             attribute->requestValue();
