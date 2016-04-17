@@ -36,11 +36,17 @@ void zigbee::http::ExecuteBind::operator()(const zigbee::http::PlaceHolders &&pl
         throw InvalidInCluster(srcDevice, srcEndpoint, clusterId);
     }
 
-    NwkAddr coordinator;
+    NwkAddr coordinator(srcDevice);
     if (bind) {
         singletons.getZigbeeDevice()->sendReqBind(coordinator, srcZDevice.getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice.getExtAddr().asArray(), dstEndpoint);
     } else {
         singletons.getZigbeeDevice()->sendReqUnbind(coordinator, srcZDevice.getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice.getExtAddr().asArray(), dstEndpoint);
     }
+
+    Poco::Net::MediaType mediaType("text","plain");
+    response.setContentType(mediaType);
+    response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+
+    response.send() << "Cluster " << clusterId << " binded " << srcDevice << ":" << srcEndpoint << " with " << dstDevice << ":" << dstEndpoint << std::endl;
 }
 
