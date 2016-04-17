@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "it.achdjian.paolo.domusviewer"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
+
+
+    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+//    compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+////    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+////    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+////    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+//    compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+////    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi"
+////    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi-v7a"
+////    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
+//    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+//    compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+}
+

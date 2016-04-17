@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">DomusViewer</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="on_off_switch">Switch</string>
+    <string name="lamp">lamp</string>
+    <string name="title_activity_setting">settingActivity</string>
+    <string name="pref_default_display_name">192.168.1.121:8080</string>
+    <string name="server_address">Server Address</string>
+    <string name="server_address_key">DomusEngineAddress</string>
+</resources>
