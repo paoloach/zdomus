@@ -4,7 +4,7 @@
  *  Created on: 24/apr/2015
  *      Author: Paolo Achdjian
  */
-
+#include <boost/log/trivial.hpp>
 #include <boost/lexical_cast.hpp>
 #include "ZDevicesPT.h"
 
@@ -13,6 +13,7 @@ namespace zigbee {
 
     ZDevicesPT::ZDevicesPT(std::shared_ptr<ZDevices> zDevices) noexcept {
         for (const auto &device : zDevices->getDevices()) {
+            BOOST_LOG_TRIVIAL(info) << device.getNwkAddr();
             add(boost::lexical_cast<std::string>(device.getNwkAddr()), device.getExtAddr());
         }
     }
