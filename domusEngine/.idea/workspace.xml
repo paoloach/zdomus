@@ -88,7 +88,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/../domusViewer/local.properties" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/../domusViewer/settings.gradle" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" afterPath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1007,7 +1006,14 @@
       <option name="project" value="LOCAL" />
       <updated>1460871289877</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Added request to application start in order to get all the zigbee devices registred">
+      <created>1460871342594</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1460871342594</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1105,7 +1111,8 @@
     <MESSAGE value="added response for http request" />
     <MESSAGE value="update project file" />
     <MESSAGE value="reformatted code" />
-    <option name="LAST_COMMIT_MESSAGE" value="reformatted code" />
+    <MESSAGE value="Added request to application start in order to get all the zigbee devices registred" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added request to application start in order to get all the zigbee devices registred" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
