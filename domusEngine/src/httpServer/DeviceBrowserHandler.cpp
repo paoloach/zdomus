@@ -63,7 +63,8 @@ namespace zigbee {
             } else if (request.getMethod() == "POST") {
                 restPostActions.execute(std::move(pathReceived), request, response);
             }else if (request.getMethod() == "DELETE") {
-                restDeleteActions.execute(std::move(pathReceived), request, response);
+                restDeleteActions
+                        .execute(std::move(pathReceived), request, response);
             }
 
         } catch (boost::bad_lexical_cast &cast) {
