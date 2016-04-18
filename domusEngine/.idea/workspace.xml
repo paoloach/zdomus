@@ -27,7 +27,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/GetEndpoint.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp" afterPath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/GetDevices.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/GetDevices.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/zigbee/ZDevice.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/zigbee/ZDevice.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/zigbee/ZDevices.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/zigbee/ZDevices.java" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,7 +57,7 @@
       <file leaf-file-name="DeviceBrowserHandler.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="574">
               <caret line="41" column="134" selection-start-line="41" selection-start-column="134" selection-end-line="41" selection-end-column="134" />
               <folding />
             </state>
@@ -113,11 +118,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ZDevicePT.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ZDevicePT.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="336">
               <caret line="26" column="27" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ZEndpointPT.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -131,7 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/main_test.cpp" />
         <option value="$PROJECT_DIR$/src/v8_blob/arm-release/native_blob.c" />
         <option value="$PROJECT_DIR$/src/v8_blob/arm-release/snapshot_blob.c" />
         <option value="$PROJECT_DIR$/src/v8_blob/arm-debug/native_blob.c" />
@@ -182,6 +196,7 @@
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
         <option value="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp" />
       </list>
     </option>
   </component>
@@ -529,7 +544,7 @@
       <recent name="$PROJECT_DIR$/src/test/Javascript" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.domus_engine">
+  <component name="RunManager" selected="Application.domus_enginedemo">
     <configuration default="false" name="JSZAttribute8BitBitmapTest.createIstance" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PROGRAM_PARAMS="$PROJECT_DIR$/../x86/v8_blob/" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JSZAttribute8BitBitmapTest" TEST_METHOD="createIstance" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
@@ -983,15 +998,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15684211" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3445287" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34341252" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2462203" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261339" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277487" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1108,13 +1123,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="28" column="37" selection-start-line="22" selection-start-column="3" selection-end-line="28" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="333">
@@ -1391,7 +1399,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1432,7 +1439,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="574">
           <caret line="41" column="134" selection-start-line="41" selection-start-column="134" selection-end-line="41" selection-end-column="134" />
           <folding />
         </state>
@@ -1450,7 +1457,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
           <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1458,7 +1464,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1466,6 +1471,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="26" column="27" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
           <folding />
         </state>
       </provider>
