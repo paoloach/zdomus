@@ -27,13 +27,17 @@ ZEndpointPT::ZEndpointPT(const ZEndpoint& zEndpoint) noexcept{
 		inCluster.add(boost::lexical_cast<std::string>(index), cluster);
 		index++;
 	}
-	push_back( { "input_clusters", inCluster });
+    if (!inCluster.empty()) {
+        push_back({"input_clusters", inCluster});
+    }
 	index=0;
 	for (auto cluster : zEndpoint.getOutCluster()) {
 		outCluster.add(boost::lexical_cast<std::string>(index), cluster);
 		index++;
 	}
-	push_back( { "output_clusters", outCluster });
+    if (!outCluster.empty()) {
+        push_back({"output_clusters", outCluster});
+    }
 }
 
 
