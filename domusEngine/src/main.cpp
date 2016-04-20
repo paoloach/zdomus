@@ -81,6 +81,38 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
 
     {
         SimpleDescMessage simpleDescMessage;
+        simpleDescMessage.nwkAddr = 1234;
+        simpleDescMessage.endpoint = 4;
+        simpleDescMessage.numInClusters = 2;
+        simpleDescMessage.numOutClusters = 4;
+        simpleDescMessage.appDeviceId = 0; // ON OFF SWITCH
+        simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
+        simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
+        simpleDescMessage.clustersList[0] = ClustersId::ON_OFF_CLUSTER;
+        simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
+        simpleDescMessage.clustersList[2] = ClustersId::SCENE_CLUSTER;
+        simpleDescMessage.clustersList[3] = ClustersId::GROUPS_CLUSTER;
+        zDevices->put(simpleDescMessage);
+    }
+
+    {
+        SimpleDescMessage simpleDescMessage;
+        simpleDescMessage.nwkAddr = 1234;
+        simpleDescMessage.endpoint = 6;
+        simpleDescMessage.numInClusters = 2;
+        simpleDescMessage.numOutClusters = 4;
+        simpleDescMessage.appDeviceId = 0x103; // ON OFF LIGHT SWITCH
+        simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
+        simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
+        simpleDescMessage.clustersList[0] = ClustersId::ON_OFF_CLUSTER;
+        simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
+        simpleDescMessage.clustersList[2] = ClustersId::SCENE_CLUSTER;
+        simpleDescMessage.clustersList[3] = ClustersId::GROUPS_CLUSTER;
+        zDevices->put(simpleDescMessage);
+    }
+
+    {
+        SimpleDescMessage simpleDescMessage;
         simpleDescMessage.nwkAddr = 1235;
         simpleDescMessage.endpoint = 5;
         simpleDescMessage.numInClusters = 3;
@@ -89,6 +121,36 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
         simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
         simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
         simpleDescMessage.clustersList[2] = ClustersId::TEMPERATURE_MEASUREMENT;
+        zDevices->put(simpleDescMessage);
+    }
+
+    {
+        SimpleDescMessage simpleDescMessage;
+        simpleDescMessage.nwkAddr = 1235;
+        simpleDescMessage.endpoint = 7;
+        simpleDescMessage.numInClusters = 5;
+        simpleDescMessage.numOutClusters = 0;
+        simpleDescMessage.appDeviceId = 0x02; // On off output
+        simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
+        simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
+        simpleDescMessage.clustersList[2] = ClustersId::ON_OFF_CLUSTER;
+        simpleDescMessage.clustersList[3] = ClustersId::SCENE_CLUSTER;
+        simpleDescMessage.clustersList[4] = ClustersId::GROUPS_CLUSTER;
+        zDevices->put(simpleDescMessage);
+    }
+
+    {
+        SimpleDescMessage simpleDescMessage;
+        simpleDescMessage.nwkAddr = 1235;
+        simpleDescMessage.endpoint = 11;
+        simpleDescMessage.numInClusters = 5;
+        simpleDescMessage.numOutClusters = 0;
+        simpleDescMessage.appDeviceId = 0x100; // On off light
+        simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
+        simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
+        simpleDescMessage.clustersList[2] = ClustersId::ON_OFF_CLUSTER;
+        simpleDescMessage.clustersList[3] = ClustersId::SCENE_CLUSTER;
+        simpleDescMessage.clustersList[4] = ClustersId::GROUPS_CLUSTER;
         zDevices->put(simpleDescMessage);
     }
 }

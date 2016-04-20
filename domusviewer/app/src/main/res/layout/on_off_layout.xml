@@ -8,11 +8,10 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/space"
-        android:layout_toStartOf="@+id/space">
+        android:layout_toLeftOf="@+id/space">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,17 +20,25 @@
             android:text="@string/on_off_switch"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/switches"
+            android:choiceMode="singleChoice"
+            android:dividerHeight="10dp"
+            android:listSelector="@color/colorPrimary"
+            android:longClickable="true"/>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/button"
         android:layout_toRightOf="@+id/space"
-        android:layout_toEndOf="@+id/space">
+        android:layout_toEndOf="@+id/space"
+        android:layout_alignParentRight="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,6 +47,16 @@
             android:text="@string/lamp"
             android:id="@+id/textView2"
             android:layout_gravity="center_horizontal"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lghts"
+            android:layout_gravity="center_horizontal"
+            android:choiceMode="singleChoice"
+            android:longClickable="true"
+            android:dividerHeight="10dp"
+            android:listSelector="@color/colorPrimary"/>
     </LinearLayout>
 
     <Space
@@ -48,4 +65,13 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/space"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bind"
+        android:id="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"/>
 </RelativeLayout>

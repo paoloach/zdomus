@@ -34,7 +34,6 @@ public class GetDevices extends DomusEngineRest {
                 try {
                     Map<String, String> devices = mapper.readValue(body, new TypeReference<Map<String, String>>() { });
                     for (Map.Entry<String, String> entry : devices.entrySet()) {
-                        Log.d(getClass().getName(), "Added new device");
                         zDevices.addDevice(entry.getKey(), entry.getValue());
                     }
                 } catch (IOException e) {

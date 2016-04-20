@@ -4,27 +4,31 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import it.achdjian.paolo.domusviewer.DomusEngine;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionStatus;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.GetDevice;
+import it.achdjian.paolo.domusviewer.DomusEngineRest.GetEndpoint;
+import it.achdjian.paolo.domusviewer.DomusEngineRest.JSonDevice;
 
 /**
  * Created by Paolo Achdjian on 15/04/16.
  */
-public class ZDevices implements GetDevice.Listener {
-    public interface Listener {
-        void newDevice(ZDevice zDevice );
-    }
+public class ZDevices implements GetDevice.Listener, GetEndpoint.Listener {
+    private static final String TAG=ZDevices.class.getName();
+
 
     private final SharedPreferences sharedPreferences;
     private final ConnectionStatus connected;
     private final Map<Integer, ZDevice> devices = new TreeMap<>();
-    private final List<Listener> listeners = new ArrayList<>();
+    private final List<DomusEngine.EndpointListener> listeners = new ArrayList<>();
     private final Looper looper;
 
     public ZDevices(@NonNull SharedPreferences sharedPreferences,@NonNull ConnectionStatus connected,@NonNull Looper looper) {
@@ -34,11 +38,11 @@ public class ZDevices implements GetDevice.Listener {
     }
 
 
-    public void addListener(@NonNull Listener listener){
+    public void addListener(@NonNull DomusEngine.EndpointListener listener){
         listeners.add(listener);
     }
 
-    public void deleteListener(@NonNull  Listener listener){
+    public void deleteListener(@NonNull DomusEngine.EndpointListener listener){
         listeners.remove(listener);
     }
 
@@ -61,7 +65,50 @@ public class ZDevices implements GetDevice.Listener {
     }
 
     @Override
-    public void newDevice(@NonNull ZDevice zDevice) {
-        devices.put(zDevice.short_address,zDevice);
+    public void newDevice(@NonNull JSonDevice jSonDevice) {
+        ZDevice existingDevice;
+        if (!devices.containsKey(jSonDevice.short_address)) {
+            existingDevice = devices.get(jSonDevice.short_address);
+            existingDevice.merge(jSonDevice);
+        } else {
+            existingDevice = new ZDevice(jSonDevice);
+            devices.put(jSonDevice.short_address,existingDevice);
+        }
+        if (!existingDevice.requestingEndpoint.isEmpty()) {
+            Integer endpoint = existingDevice.requestingEndpoint.iterator().next();
+            Handler handler = new Handler(looper);
+            handler.post(new GetEndpoint(sharedPreferences,connected,jSonDevice.short_address, endpoint, this));
+        }
+    }
+
+    @Override
+    public void newEndpoint(ZEndpoint zEndpoint) {
+        if (devices.containsKey(zEndpoint.short_address)){
+            ZDevice existingDevice = devices.get(zEndpoint.short_address);
+            for (DomusEngine.EndpointListener listener : listeners) {
+                listener.newEndpoint(zEndpoint);
+            }
+            existingDevice.endpoints.put(zEndpoint.endpoint_id, zEndpoint);
+            existingDevice.requestingEndpoint.remove(zEndpoint.endpoint_id);
+            if (!existingDevice.requestingEndpoint.isEmpty()) {
+                Integer endpoint = existingDevice.requestingEndpoint.iterator().next();
+                Handler handler = new Handler(looper);
+                handler.post(new GetEndpoint(sharedPreferences,connected,zEndpoint.short_address, endpoint, this));
+            }
+        } else {
+            Log.e(TAG,"received an endpoint (" + zEndpoint.endpoint_id + ") description of a not previous declared device: " + zEndpoint.short_address);
+        }
+    }
+
+    public void deleteAllListener() {
+        listeners.clear();
+    }
+
+    public Collection<ZDevice> getDevices(){
+        return devices.values();
+    }
+
+    public ZDevice getDevice(int networkId){
+        return devices.get(networkId);
     }
 }

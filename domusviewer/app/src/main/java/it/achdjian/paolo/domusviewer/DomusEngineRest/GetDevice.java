@@ -15,7 +15,7 @@ import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
  */
 public class GetDevice  extends DomusEngineRest  {
     public interface Listener {
-        void newDevice(ZDevice zDevice);
+        void newDevice(JSonDevice zDevice);
     }
 
     private final int nwkAddress;
@@ -35,7 +35,7 @@ public class GetDevice  extends DomusEngineRest  {
             if (!body.isEmpty()) {
                 ObjectMapper mapper = new ObjectMapper();
                 try {
-                    ZDevice zDevice = mapper.readValue(body, ZDevice.class);
+                    JSonDevice zDevice = mapper.readValue(body, JSonDevice.class);
                     listener.newDevice(zDevice);
                 } catch (IOException e) {
                     e.printStackTrace();

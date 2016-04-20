@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity implements ConnectionObserve
 
         actionBar = getSupportActionBar();
 
-        domusEngine = new DomusEngine(PreferenceManager.getDefaultSharedPreferences(this));
+        DomusEngine.initInstance(PreferenceManager.getDefaultSharedPreferences(this));
+        domusEngine =DomusEngine.getInstance();
         domusEngine.addConnectionObserver(this);
-
     }
 
     private void initConstants() {
@@ -118,17 +118,13 @@ public class MainActivity extends AppCompatActivity implements ConnectionObserve
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
         }
 
         /**
-         * Returns a new instance of this fragment for the given section
+         * Returns a new domusEngine of this fragment for the given section
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {

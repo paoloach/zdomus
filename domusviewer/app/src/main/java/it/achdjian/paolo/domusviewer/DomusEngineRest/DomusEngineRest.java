@@ -68,4 +68,29 @@ public abstract class DomusEngineRest implements Runnable {
         return null;
     }
 
+    public void post(String path){
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setReadTimeout(20000);
+        factory.setConnectTimeout(20000);
+        RestTemplate restTemplate = new RestTemplate(factory);
+        String url = "http://" + getAddress() + path;
+        Handler handler = new Handler();
+
+        try {
+            Log.d(TAG,"request: " + url);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(url,null, String.class);
+            Log.d(TAG,"response: " + response.getStatusCode().getReasonPhrase());
+            if (response.getStatusCode() == HttpStatus.OK) {
+                return;
+            }
+        } catch (Exception ignored) {
+        }
+        Log.e(TAG, "ERROR");
+        connected.setConnected(false);
+        handler.postDelayed(new WhoAreYou(this.sharedPreferences, this.connected), 1000);
+    }
+
 }
