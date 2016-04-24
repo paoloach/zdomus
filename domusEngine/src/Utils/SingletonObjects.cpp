@@ -28,12 +28,10 @@ namespace zigbee {
         } else {
             std::cout << "Lib usb initialized" << std::endl;
 
-            zigbeeDevice = std::make_shared<DomusEngineUSBDevice>(io, zDevices, attributeDataContainer, usbContext,
+            zigbeeDevice = std::make_shared<DomusEngineUSBDevice>(io, zDevices, attributeDataContainer, *this,usbContext,
                                                                   USB_CLASS, VENDOR_ID, PRODUCT_ID);
             if (zigbeeDevice->isPresent()) {
                 zigbeeDevice->requestDevices();
-                zigbeeDevice->registerForBindTableMessage(
-                        [this](std::shared_ptr<BindTableResponseMessage> msg) { bindTable.add(msg); });
                 NwkAddr addr;
                 zigbeeDevice->requestBindTable(addr);
             }

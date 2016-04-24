@@ -15,7 +15,7 @@
 namespace zigbee {
 
   namespace http {
-    void ShowBindTable::operator()(const zigbee::http::PlaceHolders &&placeHolder,
+    void ShowBindTable::operator()(const zigbee::http::PlaceHolders &&,
                                    Poco::Net::HTTPServerRequest &request,
                                    Poco::Net::HTTPServerResponse &response) {
         const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());

@@ -10,18 +10,21 @@
 #include <zigbee/messageStructure/ZAddrType.h>
 #include <zigbee/messageStructure/BindTableResponseMessage.h>
 #include <memory>
+#include <zigbee/ClusterID.h>
 
-#include "ExtAddress.h"
+#include "../usb/BindResponse.h"
+#include "ZElement.h"
 
 namespace zigbee {
 
+
     class BindTable {
     public:
-        void add(std::shared_ptr<BindTableResponseMessage>);
+        void add(BindResponse && response );
 
         auto getEntries() const {return entries;}
     private:
-        std::set<std::tuple<ExtAddress, int, uint, uint, int>> entries;
+        std::vector<std::tuple<ZElement, ClusterID, ZElement>> entries;
     };
 
 }

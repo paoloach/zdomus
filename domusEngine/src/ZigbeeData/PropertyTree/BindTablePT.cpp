@@ -10,11 +10,11 @@ zigbee::http::BindTablePT::BindTablePT(zigbee::BindTable &bindTable) noexcept {
     ptree entryPT;
     for (auto &entry: bindTable.getEntries()) {
         ptree entryPT;
-        entryPT.add("sourceAddr", std::get<0>(entry));
-        entryPT.add("sourceEndPoint", std::get<1>(entry));
-        entryPT.add("cluster", std::get<2>(entry));
-        entryPT.add("destAddr", std::get<3>(entry));
-        entryPT.add("destEndpoint", std::get<4>(entry));
+        entryPT.add("sourceAddr", std::get<0>(entry).address);
+        entryPT.add("sourceEndPoint", std::get<0>(entry).endpoint);
+        entryPT.add("cluster", std::get<1>(entry));
+        entryPT.add("destAddr", std::get<2>(entry).address);
+        entryPT.add("destEndpoint", std::get<2>(entry).endpoint);
         push_back({"entry", entryPT});
     }
 }

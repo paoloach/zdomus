@@ -2,14 +2,9 @@ package it.achdjian.paolo.domusviewer.on_off;
 
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.os.Build;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListAdapter;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,29 +125,6 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
     public boolean hasStableIds() {
         return true;
     }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        TextView result;
-        if (convertView != null) {
-            if (convertView instanceof TextView)
-                result = (TextView) convertView;
-            else
-                result = new TextView(parent.getContext());
-
-        } else {
-            result = new TextView(parent.getContext());
-        }
-        Element element = elements.get(position);
-        result.setText(element.network + ":" + element.endpoint);
-        if (Build.VERSION.SDK_INT < 23) {
-            result.setTextAppearance(context, android.R.style.TextAppearance_Large);
-        } else {
-            result.setTextAppearance(android.R.style.TextAppearance_Large);
-        }
-        return result;
-    }
-
 
     @Override
     public boolean isEmpty() {

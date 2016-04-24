@@ -14,6 +14,7 @@
 #include <zigbee/messageStructure/AnnunceMessage.h>
 #include <zigbee/messageStructure/SimpleDescMessage.h>
 #include "ZDevice.h"
+#include "../usb/BindResponse.h"
 
 namespace zigbee {
 
@@ -25,6 +26,7 @@ public:
 public:
 	virtual void put(const AnnunceMessage & message );
 	virtual void put(const SimpleDescMessage & message);
+    virtual void put(const BindResponse & message);
 	virtual boost::property_tree::ptree getDifferences(uint32_t token);
 	virtual int getNumDevices() const {return devices.size();}
 	virtual std::vector<ZDevice> getDevices();

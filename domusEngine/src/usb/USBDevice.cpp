@@ -8,7 +8,7 @@
 #include <iostream>
 #include <iomanip>
 #include <libusb-1.0/libusb.h>
-#include <boost/bind.hpp>
+#include <boost/log/trivial.hpp>
 #include <zigbee/messageStructure//ReqBindTable.h>
 #include "usbConfig.h"
 #include "USBDevice.h"
@@ -18,16 +18,18 @@
 #include <zigbee/messageStructure/WriteAttributeValue.h>
 #include <zigbee/messageStructure/BindRequest.h>
 #include <zigbee/messageStructure/UnbindRequest.h>
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
 
   static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::seconds(1);
 
   DomusEngineUSBDevice::DomusEngineUSBDevice(boost::asio::io_service &serviceIo_, std::shared_ptr<ZDevices> &zDevices_, AttributeDataContainer &attributeDataContainer_,
+                                             SingletonObjects & singletonObjects,
                                              libusb_context *usbContext_, int deviceClass_, int vendor_, int product_) :
           ioService(serviceIo_), timer(serviceIo_, CHECK_NEW_MESSAGE), usbContext(usbContext_), deviceClass{deviceClass_}, vendorID{vendor_}, productID{product_},
           handle(
-                  nullptr), zDevices(zDevices_), attributeDataContainer(attributeDataContainer_) {
+                  nullptr), zDevices(zDevices_), attributeDataContainer(attributeDataContainer_),singletonObjects(singletonObjects) {
       device = nullptr;
       timer.async_wait(boost::bind(&DomusEngineUSBDevice::timerHandler, this, boost::asio::placeholders::error));
   }
@@ -141,6 +143,7 @@ namespace zigbee {
                   zDevices->put(*annunceMessage);
                   std::cout << "Annunce signal" << std::endl;
                   requestActiveEndpoints(NwkAddr(annunceMessage->nwkAddr));
+                  requestBindTable(NwkAddr(annunceMessage->nwkAddr));
                   break;
               case SIMPLE_DESC:
                   simpleDescMessage = (SimpleDescMessage *) data;
@@ -157,6 +160,16 @@ namespace zigbee {
                   std::cout << "data len: " << (int) readAttributeResponseMessage->dataLen << std::endl;
                   attributeDataContainer.push(*readAttributeResponseMessage);
                   break;
+              case BIND_TABLE: {
+                  std::vector<BindResponse> responses;
+                  BOOST_LOG_TRIVIAL(info) << "Bind response " << std::endl;
+
+                  int count = data[1];
+                  data +=2;
+                  for (int i=0; i < count; i++){
+                      singletonObjects.getBindTable().add(std::move(BindResponse(data)));
+                  }
+              }
 
           }
       }
@@ -251,7 +264,7 @@ namespace zigbee {
       GenericMessage genericMessage;
 
       genericMessage.msgCode = REQ_ALL_NODES;
-      int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &genericMessage, sizeof(genericMessage), &transfered, 10);
+      int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &genericMessage, sizeof(genericMessage), &transfered, 10);
       if (result == 0) {
           std::cout << "request sent" << std::endl;
       } else {
@@ -266,7 +279,7 @@ namespace zigbee {
 
       int transfered{};
 
-      int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request), &transfered, 10);
+      int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request), &transfered, 10);
       if (result == 0) {
           std::cout << "request sent" << std::endl;
       } else {
@@ -306,7 +319,7 @@ namespace zigbee {
   }
 
   void DomusEngineUSBDevice::sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
-                                         const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
+                                           const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
       UnbindRequest unbindRequest(destAddr, outClusterAddr, outClusterEP, clusterID, inClusterAddr, inClusterEp);
       sendData(unbindRequest);
   }

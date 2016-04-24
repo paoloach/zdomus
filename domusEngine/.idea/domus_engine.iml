@@ -154,14 +154,16 @@
       <sourceFolder url="file://$MODULE_DIR$/src/Comand/CmdNull.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Comand/ResponseCreator.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/BindTable.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZEndpoint.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/BindTable.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevices.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZEndpoint.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevice.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/AttributeData.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZEndpoint.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevices.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevice.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZElement.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevices.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZElement.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/AttributeData.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/ZigbeeDeviceException.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidOutCluster.h" isTestSource="false" />
@@ -258,6 +260,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestValue.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/USBDevice.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/USBDevice.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/BindResponse.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/BindResponse.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZAttribute.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZAttributeFactory.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZAttribute.h" isTestSource="false" />

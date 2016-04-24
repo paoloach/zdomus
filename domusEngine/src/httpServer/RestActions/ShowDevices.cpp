@@ -19,7 +19,7 @@
 namespace zigbee {
   namespace http {
 
-    void ShowDevices::operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response) {
+    void ShowDevices::operator()(const PlaceHolders &&, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response) {
         response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
         BOOST_LOG_TRIVIAL(info) << "ShowDevices";
         const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());

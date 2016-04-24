@@ -8,10 +8,9 @@
 
 namespace zigbee {
 
-    void BindTable::add(std::shared_ptr<BindTableResponseMessage> entry) {
+    void BindTable::add(BindResponse && response ) {
         BOOST_LOG_TRIVIAL(info) << "new bind entry";
-        entries.emplace(ExtAddress(entry->srcAddr), entry->srcEP, (uint) (entry->clusterID), (uint) (entry->dstAddr),
-                        entry->dstEP);
+        entries.push_back(std::make_tuple<ZElement, ClusterID, ZElement>(ZElement(response.srcAddr,response.srcEP), std::move(response.clusterId), ZElement(response.dstAddr,response.dstEP)));
     }
 
 }

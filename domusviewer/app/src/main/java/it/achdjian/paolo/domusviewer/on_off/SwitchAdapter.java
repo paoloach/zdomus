@@ -1,5 +1,6 @@
 package it.achdjian.paolo.domusviewer.on_off;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import it.achdjian.paolo.domusviewer.R;
+import it.achdjian.paolo.domusviewer.utils.ClickChangeSelected;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
@@ -62,6 +64,7 @@ class SwitchAdapter extends OnOffAdapter {
         return 0;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View result;
@@ -73,13 +76,11 @@ class SwitchAdapter extends OnOffAdapter {
         }
         Element element = elements.get(position);
         TextView mainText = (TextView) result.findViewById(R.id.mainText);
-        if (mainText != null)
-            mainText.setText(element.network + ":" + element.endpoint);
+        mainText.setText(element.network + ":" + element.endpoint);
+        result.setOnClickListener(new ClickChangeSelected());
         Button IButton = (Button) result.findViewById(R.id.identifyBt);
-        if (IButton != null) {
-            IButton.setTag(element);
-            IButton.setOnClickListener(identifyListener);
-        }
+        IButton.setTag(element);
+        IButton.setOnClickListener(identifyListener);
         return result;
     }
 }

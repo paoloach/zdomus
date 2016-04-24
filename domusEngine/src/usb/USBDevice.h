@@ -14,11 +14,14 @@
 #include <zigbee/AttributeStatusRecord.h>
 #include <zigbee/ZigbeeDevice.h>
 #include <zcl/ZCLDataType.h>
+#include <libusb.h>
 #include "../ZigbeeData/ZDevices.h"
 #include "../IO/AttributeDataContainer.h"
+#include "BindResponse.h"
 
 namespace zigbee {
 
+  class SingletonObjects;
 
   static const int STANDARD_REQUEST_TYPE{0};
   static const int CLASS_REQUEST_TYPE{0x20};
@@ -46,7 +49,9 @@ namespace zigbee {
 
       using AttributeValueSignalMap = std::multimap<AttributeKey, NewAttributeValueCallback>;
   public:
-      DomusEngineUSBDevice(boost::asio::io_service &io, std::shared_ptr<ZDevices> &zDevices, AttributeDataContainer &attributeDataContainer, libusb_context *usbContext,
+      DomusEngineUSBDevice(boost::asio::io_service &io, std::shared_ptr<ZDevices> &zDevices, AttributeDataContainer &attributeDataContainer,
+                           SingletonObjects &singletonObjects,
+                           libusb_context *usbContext,
                            int deviceClass, int vendorID, int productID);
 
       virtual ~DomusEngineUSBDevice() = default;
@@ -92,7 +97,7 @@ namespace zigbee {
                                const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
 
       virtual void sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
-                               const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
+                                 const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
 
       void requestBindTable(NwkAddr nwkAddrs) override;
 
@@ -111,6 +116,7 @@ namespace zigbee {
       std::vector<SimpleDescCallback> simpleDescSignal;
       std::vector<BindTableResponseCallback> bindTableResponseSignal;
       AttributeValueSignalMap attributeValueSignalMap;
+      SingletonObjects &singletonObjects;
 
   private:
       template<typename T>

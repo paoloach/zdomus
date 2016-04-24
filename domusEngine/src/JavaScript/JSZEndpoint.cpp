@@ -94,7 +94,7 @@ ExtAddress JSZEndpoint::getExtAddressFromArg(const v8::FunctionCallbackInfo<v8::
 	return extAddress;
 }
 
-void JSZEndpoint::checkConstructorValidArgument(v8::Isolate * isolate, const v8::FunctionCallbackInfo<v8::Value>& info) {
+void JSZEndpoint::checkConstructorValidArgument(v8::Isolate * , const v8::FunctionCallbackInfo<v8::Value>& info) {
 	if (info.Length() != 2) {
 		throw JSExceptionOnlyTwoArguments(JSZENDPOINT);
 	}

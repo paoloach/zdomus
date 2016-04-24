@@ -21,7 +21,7 @@
 namespace zigbee {
   namespace http {
 
-    void ExecuteCmd::operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response) {
+    void ExecuteCmd::operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &, Poco::Net::HTTPServerResponse &response) {
         auto nwkAddr(placeHolder.get<NwkAddr>("device"));
         auto endpoint(placeHolder.get<EndpointID>("endpoint"));
         auto clusterId(placeHolder.get<ClusterID>("cluster"));

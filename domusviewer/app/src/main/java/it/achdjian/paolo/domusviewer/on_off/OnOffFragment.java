@@ -5,11 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import it.achdjian.paolo.domusviewer.R;
-import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
 /**
  * Created by paolo on 14/04/16.
@@ -19,8 +17,7 @@ public class OnOffFragment extends Fragment  {
     private LightAdapter lightAdapter;
 
     public static OnOffFragment newInstance() {
-        OnOffFragment fragment = new OnOffFragment();
-        return fragment;
+        return new OnOffFragment();
     }
 
     @Override

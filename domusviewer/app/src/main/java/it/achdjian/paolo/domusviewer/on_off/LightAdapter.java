@@ -1,9 +1,15 @@
 package it.achdjian.paolo.domusviewer.on_off;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Looper;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import it.achdjian.paolo.domusviewer.R;
+import it.achdjian.paolo.domusviewer.utils.ClickChangeSelected;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
@@ -17,8 +23,8 @@ import static it.achdjian.paolo.domusviewer.Constants.ZCL_HA_DEVICEID_ON_OFF_OUT
  * Created by Paolo Achdjian on 20/04/16.
  */
 class LightAdapter extends OnOffAdapter {
-    public LightAdapter( Context context, LayoutInflater inflater) {
-        super( context, inflater);
+    public LightAdapter(Context context, LayoutInflater inflater) {
+        super(context, inflater);
     }
 
     @Override
@@ -57,5 +63,25 @@ class LightAdapter extends OnOffAdapter {
             }
         }
         return 0;
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View result;
+        if (convertView != null) {
+            result = convertView;
+        } else {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            result = inflater.inflate(R.layout.switch_on_off, parent, false);
+        }
+        Element element = elements.get(position);
+        TextView mainText = (TextView) result.findViewById(R.id.mainText);
+        mainText.setText(element.network + ":" + element.endpoint);
+        result.setOnClickListener(new ClickChangeSelected());
+        Button IButton = (Button) result.findViewById(R.id.identifyBt);
+        IButton.setTag(element);
+        IButton.setOnClickListener(identifyListener);
+        return result;
     }
 }

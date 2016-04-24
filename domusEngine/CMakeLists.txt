@@ -126,7 +126,11 @@ add_library(domus_engine_static_lib STATIC
         src/ZigbeeData/Exceptions/InvalidInCluster.cpp
         src/ZigbeeData/Exceptions/InvalidInCluster.h
         src/ZigbeeData/Exceptions/InvalidInCluster.cpp
-        src/ZigbeeData/Exceptions/InvalidInCluster.h)
+        src/ZigbeeData/Exceptions/InvalidInCluster.h
+        src/usb/BindResponse.cpp
+        src/usb/BindResponse.h
+        src/ZigbeeData/ZElement.cpp
+        src/ZigbeeData/ZElement.h)
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 
