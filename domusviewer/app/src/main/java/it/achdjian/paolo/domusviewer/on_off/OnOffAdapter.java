@@ -3,7 +3,6 @@ package it.achdjian.paolo.domusviewer.on_off;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.widget.ListAdapter;
 
 import java.util.ArrayList;
@@ -52,11 +51,9 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
     private final List<DataSetObserver> observers = new ArrayList<>();
     protected final List<Element> elements = new ArrayList<>();
     protected final Context context;
-    protected final LayoutInflater layoutInflater;
 
-    OnOffAdapter( Context context, LayoutInflater layoutInflater) {
+    OnOffAdapter(Context context) {
         this.context = context;
-        this.layoutInflater = layoutInflater;
         domusEngine = DomusEngine.getInstance();
         domusEngine.addEndpointListener(this);
 

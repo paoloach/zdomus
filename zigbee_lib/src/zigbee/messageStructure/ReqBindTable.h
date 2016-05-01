@@ -16,7 +16,7 @@ namespace zigbee {
 
 struct __attribute__ ((__packed__)) ReqBindTable {
 	ReqBindTable(ZigbeeNwkAddress nwkAddr):nwkAddr(nwkAddr){
-		generticDataMsg.msgCode = REQ_SEND_CMD_VALUES;
+		generticDataMsg.msgCode = REQ_BIND_TABLE;
 	}
 
 

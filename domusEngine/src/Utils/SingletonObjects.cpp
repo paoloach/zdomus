@@ -26,6 +26,7 @@ namespace zigbee {
         if (libusb_init(&usbContext) != 0) {
             std::cerr << "Unable to initialize the libusb" << std::endl;
         } else {
+            //libusb_set_debug(usbContext, 4);
             std::cout << "Lib usb initialized" << std::endl;
 
             zigbeeDevice = std::make_shared<DomusEngineUSBDevice>(io, zDevices, attributeDataContainer, *this,usbContext,

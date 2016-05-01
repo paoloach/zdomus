@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.achdjian.paolo.domusviewer.R;
-import it.achdjian.paolo.domusviewer.utils.ClickChangeSelected;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
@@ -22,9 +24,10 @@ import static it.achdjian.paolo.domusviewer.Constants.ZCL_HA_DEVICEID_ON_OFF_SWI
 /**
  * Created by Paolo Achdjian on 19/04/16.
  */
-class SwitchAdapter extends OnOffAdapter {
-    public SwitchAdapter(Context context, LayoutInflater inflater) {
-        super(context, inflater);
+class SwitchAdapter extends OnOffAdapter implements View.OnClickListener {
+    private final List<SwitchListener> switchListeners = new ArrayList<>();
+    public SwitchAdapter(Context context) {
+        super(context);
     }
 
     boolean rightDevice(ZEndpoint zEndpoint) {
@@ -77,10 +80,29 @@ class SwitchAdapter extends OnOffAdapter {
         Element element = elements.get(position);
         TextView mainText = (TextView) result.findViewById(R.id.mainText);
         mainText.setText(element.network + ":" + element.endpoint);
-        result.setOnClickListener(new ClickChangeSelected());
+        result.setOnClickListener(this);
+        result.setTag(element);
         Button IButton = (Button) result.findViewById(R.id.identifyBt);
         IButton.setTag(element);
         IButton.setOnClickListener(identifyListener);
         return result;
+    }
+
+    @Override
+    public void onClick(View v) {
+        boolean selected;
+        
+        selected = !v.isSelected();
+        v.setSelected(selected);
+        Object tag = v.getTag();
+        if (tag instanceof Element) {
+            for (SwitchListener switchListener : switchListeners) {
+                switchListener.changeSwitch((Element) tag, selected);
+            }
+        }
+    }
+
+    public void addListener(SwitchListener listener){
+        switchListeners.add(listener);
     }
 }

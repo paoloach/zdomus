@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import it.achdjian.paolo.domusviewer.R;
@@ -15,6 +16,7 @@ import it.achdjian.paolo.domusviewer.R;
 public class OnOffFragment extends Fragment  {
     private SwitchAdapter switchAdapter;
     private LightAdapter lightAdapter;
+    private BindController bindController;
 
     public static OnOffFragment newInstance() {
         return new OnOffFragment();
@@ -25,15 +27,20 @@ public class OnOffFragment extends Fragment  {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.on_off_layout, container, false);
 
-        switchAdapter = new SwitchAdapter(this.getContext(), inflater);
-        lightAdapter = new LightAdapter(this.getContext(), inflater);
+        switchAdapter = new SwitchAdapter(this.getContext());
+        lightAdapter = new LightAdapter(this.getContext());
 
         ListView switches = (ListView) rootView.findViewById(R.id.switches);
         switches.setAdapter(switchAdapter);
 
-        ListView ligths = (ListView)rootView.findViewById(R.id.lghts);
-        ligths.setAdapter(lightAdapter);
+        ListView lights = (ListView)rootView.findViewById(R.id.lghts);
+        lights.setAdapter(lightAdapter);
 
+
+        Button bindBound= (Button)rootView.findViewById(R.id.bindButton);
+        bindController = new BindController(bindBound);
+        switchAdapter.addListener(bindController);
+        lightAdapter.addListener(bindController);
         return rootView;
     }
 

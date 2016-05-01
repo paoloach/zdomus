@@ -88,10 +88,10 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
         simpleDescMessage.appDeviceId = 0; // ON OFF SWITCH
         simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
         simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
-        simpleDescMessage.clustersList[0] = ClustersId::ON_OFF_CLUSTER;
-        simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
-        simpleDescMessage.clustersList[2] = ClustersId::SCENE_CLUSTER;
-        simpleDescMessage.clustersList[3] = ClustersId::GROUPS_CLUSTER;
+        simpleDescMessage.clustersList[2] = ClustersId::ON_OFF_CLUSTER;
+        simpleDescMessage.clustersList[3] = ClustersId::IDENTIFY_CLUSTER;
+        simpleDescMessage.clustersList[4] = ClustersId::SCENE_CLUSTER;
+        simpleDescMessage.clustersList[5] = ClustersId::GROUPS_CLUSTER;
         zDevices->put(simpleDescMessage);
     }
 
@@ -104,10 +104,10 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
         simpleDescMessage.appDeviceId = 0x103; // ON OFF LIGHT SWITCH
         simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
         simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
-        simpleDescMessage.clustersList[0] = ClustersId::ON_OFF_CLUSTER;
-        simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
-        simpleDescMessage.clustersList[2] = ClustersId::SCENE_CLUSTER;
-        simpleDescMessage.clustersList[3] = ClustersId::GROUPS_CLUSTER;
+        simpleDescMessage.clustersList[2] = ClustersId::ON_OFF_CLUSTER;
+        simpleDescMessage.clustersList[3] = ClustersId::IDENTIFY_CLUSTER;
+        simpleDescMessage.clustersList[4] = ClustersId::SCENE_CLUSTER;
+        simpleDescMessage.clustersList[5] = ClustersId::GROUPS_CLUSTER;
         zDevices->put(simpleDescMessage);
     }
 

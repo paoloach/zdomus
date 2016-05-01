@@ -5,11 +5,13 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 
+import it.achdjian.paolo.domusviewer.DomusEngineRest.Bind;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionObserver;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionStatus;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.GetDevices;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestIdentify;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.WhoAreYou;
+import it.achdjian.paolo.domusviewer.zigbee.BindRequestData;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevices;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
@@ -68,6 +70,11 @@ public class DomusEngine  extends HandlerThread implements ConnectionObserver{
     public void requestIdentify(int network, int endpoint) {
         Handler handler = new Handler(getLooper());
         handler.post(new RequestIdentify(sharedPreferences, connected,network,endpoint));
+    }
+
+    public void bind(@NonNull  BindRequestData data) {
+        Handler handler = new Handler(getLooper());
+        handler.post(new Bind(sharedPreferences, connected,data));
     }
 
 

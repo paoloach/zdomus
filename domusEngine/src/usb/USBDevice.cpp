@@ -9,10 +9,10 @@
 #include <iomanip>
 #include <libusb-1.0/libusb.h>
 #include <boost/log/trivial.hpp>
-#include <zigbee/messageStructure//ReqBindTable.h>
+
 #include "usbConfig.h"
 #include "USBDevice.h"
-
+#include <zigbee/messageStructure/ReqBindTable.h>
 #include <zigbee/messageStructure/AttributeValue.h>
 #include <zigbee/messageStructure/ComandSend.h>
 #include <zigbee/messageStructure/WriteAttributeValue.h>
@@ -112,22 +112,21 @@ namespace zigbee {
  * Check if there is a message from the usb device and emit the right sihnal
  */
   void DomusEngineUSBDevice::getUsbMessage() {
-      unsigned char data[64]{};
+      unsigned char data[1024]{};
       int transfered{};
       if (device) {
           int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_IN, data, sizeof(data), &transfered, 10);
           if (result == 0) {
-              std::cout << "new data arrived: size " << transfered << std::endl;
-              std::cout << "data: ";
-              for (int i = 0; i < transfered; i++) {
-                  std::cout << (int) data[i] << " - ";
-              }
-              std::cout << std::endl;
+              BOOST_LOG_TRIVIAL(info) << "new data arrived: size " << transfered;
               parseUsbMessage(data, transfered);
           } else if (result == LIBUSB_ERROR_TIMEOUT) {
               // no data
           } else {
-              std::cerr << strUsbError(result) << std::endl;
+              BOOST_LOG_TRIVIAL(error) << " Transfered: " << transfered;
+              BOOST_LOG_TRIVIAL(error) << strUsbError(result) ;
+              if (libusb_reset_device(handle) != 0){
+                  handle= nullptr;
+              }
           }
       }
   }
@@ -141,23 +140,18 @@ namespace zigbee {
               case ANNUNCE_MSG:
                   annunceMessage = (AnnunceMessage *) data;
                   zDevices->put(*annunceMessage);
-                  std::cout << "Annunce signal" << std::endl;
+                  BOOST_LOG_TRIVIAL(info) << "Annunce signal" ;
                   requestActiveEndpoints(NwkAddr(annunceMessage->nwkAddr));
                   requestBindTable(NwkAddr(annunceMessage->nwkAddr));
                   break;
               case SIMPLE_DESC:
                   simpleDescMessage = (SimpleDescMessage *) data;
                   zDevices->put(*simpleDescMessage);
-                  std::cout << "Simple desciption message " << std::endl;
+                  BOOST_LOG_TRIVIAL(info) << "Simple desciption message ";
                   break;
               case ATTRIBUTE_VALUES:
-                  std::cout << "Read response attribute value" << std::endl;
+                  BOOST_LOG_TRIVIAL(info) << "Read response attribute value";
                   readAttributeResponseMessage = (ReadAttributeResponseMessage *) data;
-                  for (unsigned int i = 0; i < sizeof(ReadAttributeResponseMessage); i++) {
-                      std::cout << (int) (data[i]) << " - ";
-                  }
-                  std::cout << std::endl;
-                  std::cout << "data len: " << (int) readAttributeResponseMessage->dataLen << std::endl;
                   attributeDataContainer.push(*readAttributeResponseMessage);
                   break;
               case BIND_TABLE: {
@@ -166,10 +160,14 @@ namespace zigbee {
 
                   int count = data[1];
                   data +=2;
+                  BOOST_LOG_TRIVIAL(info) << " entry: " << count;
                   for (int i=0; i < count; i++){
                       singletonObjects.getBindTable().add(std::move(BindResponse(data)));
                   }
+                  break;
               }
+              default:
+                  BOOST_LOG_TRIVIAL(info) << "Unknow message type:  "  << (int)(*data)<< std::endl;
 
           }
       }
@@ -326,6 +324,7 @@ namespace zigbee {
 
 
   void DomusEngineUSBDevice::requestBindTable(NwkAddr nwkAddrs) {
+      BOOST_LOG_TRIVIAL(info) << "Send request for bind table at " << nwkAddrs;
       ReqBindTable request(nwkAddrs.getId());
       sendData(request);
   }
