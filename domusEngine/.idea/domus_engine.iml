@@ -168,25 +168,23 @@
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/ZigbeeDeviceException.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidOutCluster.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidZDevice.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/ZigbeeDeviceException.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidInCluster.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidZDevice.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/ZigbeeDeviceException.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidInCluster.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidOutCluster.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidZEndpointException.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/Exceptions/InvalidZDevice.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ExtAddress.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ExtAddress.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/AttributePT.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/ClusterPT.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/BindTablePT.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/ClusterPT.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/AttributePT.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/BindTablePT.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
@@ -204,6 +202,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/IO/AttributeDataContainer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/AttributeDataContainer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/Session.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/json/jsoncpp.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/json/json/json.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/json/json/json-forwards.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/FixedPathHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathReceived.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathElement.h" isTestSource="false" />

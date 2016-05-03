@@ -39,7 +39,10 @@ static constexpr auto DEFAULT_CONFIG_FILE = "/home/paolo/workspace_luna/domus_en
 
 variables_map getVariableMap(size_t argc, char const *argv[]);
 
-void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_code &) {
+void add1Demo(SingletonObjects  & singletons){
+
+    std::shared_ptr<ZDevices> zDevices = singletons.getZDevices();
+
     AnnunceMessage annunceMsg;
     annunceMsg.nwkAddr = 1234;
     annunceMsg.extAddr[0] = 1;
@@ -153,6 +156,8 @@ void add1Demo(std::shared_ptr<ZDevices> zDevices, const boost::system::error_cod
         simpleDescMessage.clustersList[4] = ClustersId::GROUPS_CLUSTER;
         zDevices->put(simpleDescMessage);
     }
+    singletons.getBindTable().add(BindResponse(NwkAddr(1234), EndpointID(4),ClusterID(ClustersId::ON_OFF_CLUSTER), NwkAddr(1235), EndpointID(11)));
+    singletons.getBindTable().add(BindResponse(NwkAddr(1234), EndpointID(4),ClusterID(ClustersId::ON_OFF_CLUSTER), NwkAddr(1235), EndpointID(7)));
 }
 
 
@@ -179,11 +184,9 @@ void initV8() {
 
 }
 
-void enableDemo(const variables_map &vm, boost::asio::io_service &io, const std::shared_ptr<ZDevices> &zDevices) {
+void enableDemo(const variables_map &vm, SingletonObjects  & singletons){
     if (vm.count(DEMO_DATA)) {
-        boost::asio::deadline_timer timer1(io, boost::posix_time::seconds(5));
-
-        timer1.async_wait(boost::bind(&add1Demo, zDevices, boost::asio::placeholders::error));
+        add1Demo(singletons);
     }
 }
 
@@ -205,7 +208,7 @@ int main(int argc, const char *argv[]) {
     }
     SingletonObjects singletons(std::move(configurationFileName));
 
-    enableDemo(vm, singletons.getIO(), singletons.getZDevices());
+    enableDemo(vm, singletons);
 
     auto server = new http::HttpServer(singletons);
 

@@ -7,10 +7,12 @@
 #include <Poco/Net/HTTPServerRequest.h>
 
 #include "ShowBindTable.h"
+#include "../../json/json/json.h"
 
 #include "../MediaTypeProducerFactory.h"
 #include "../../Utils/SingletonObjects.h"
-#include "../../ZigbeeData/PropertyTree/BindTablePT.h"
+
+using namespace Json;
 
 namespace zigbee {
 
@@ -18,9 +20,20 @@ namespace zigbee {
     void ShowBindTable::operator()(const zigbee::http::PlaceHolders &&,
                                    Poco::Net::HTTPServerRequest &request,
                                    Poco::Net::HTTPServerResponse &response) {
-        const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
 
-        producer.produce(response.send(), BindTablePT(singletons.getBindTable()));
+        Value root(arrayValue);
+        auto & bindTable = singletons.getBindTable();
+        for (auto &entry: bindTable.getEntries()) {
+            Value jsonEntry(objectValue);
+            jsonEntry["sourceAddr"] = Value(std::get<0>(entry).address.getId());
+            jsonEntry["sourceEndPoint"] = Value(std::get<0>(entry).endpoint.getId());
+            jsonEntry["cluster"] = Value(std::get<1>(entry).getId());
+            jsonEntry["destAddr"] = Value(std::get<2>(entry).address.getId());
+            jsonEntry["destEndpoint"] = Value(std::get<2>(entry).endpoint.getId());
+            root.append(jsonEntry);
+        }
+
+        response.send() << root;
 
     }
 

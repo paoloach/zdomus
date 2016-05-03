@@ -93,7 +93,9 @@ add_library(javascript_lib OBJECT
         src/JavaScript/JSZDevice.cpp
         src/JavaScript/JSZDevices.cpp
         src/JavaScript/JSZEndpoint.cpp
-        src/JavaScript/V8anyConverter.cpp src/JavaScript/V8Allocator.cpp src/JavaScript/V8Allocator.h)
+        src/JavaScript/V8anyConverter.cpp
+        src/JavaScript/V8Allocator.cpp
+        src/JavaScript/V8Allocator.h)
 
 add_library(domus_engine_static_lib STATIC
         ${srcUsb}
@@ -113,12 +115,8 @@ add_library(domus_engine_static_lib STATIC
         ${srcRestParser}
         ${srcRestActions}
         $<TARGET_OBJECTS:javascript_lib>
-        src/ZigbeeData/BindTable.cpp
-        src/ZigbeeData/BindTable.h
         src/httpServer/RestActions/ShowBindTable.cpp
         src/httpServer/RestActions/ShowBindTable.h
-        src/ZigbeeData/PropertyTree/BindTablePT.cpp
-        src/ZigbeeData/PropertyTree/BindTablePT.h
         src/httpServer/RestActions/ExecuteBind.cpp
         src/httpServer/RestActions/ExecuteBind.h
         src/ZigbeeData/Exceptions/InvalidOutCluster.cpp
@@ -130,7 +128,10 @@ add_library(domus_engine_static_lib STATIC
         src/usb/BindResponse.cpp
         src/usb/BindResponse.h
         src/ZigbeeData/ZElement.cpp
-        src/ZigbeeData/ZElement.h)
+        src/ZigbeeData/ZElement.h
+        src/json/jsoncpp.cpp
+        src/json/json/json-forwards.h
+        src/json/json/json.h)
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 

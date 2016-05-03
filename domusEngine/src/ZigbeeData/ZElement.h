@@ -18,6 +18,9 @@ namespace  zigbee {
       NwkAddr  address;
       EndpointID endpoint;
 
+
+
+
       bool operator<(const ZElement & other){
           return other.address == address ? other.endpoint < endpoint : other.address < address;
       }
