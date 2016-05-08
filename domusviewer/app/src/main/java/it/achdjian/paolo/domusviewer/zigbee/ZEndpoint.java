@@ -14,4 +14,21 @@ public class ZEndpoint {
     public int device_version;
     public Map<Integer, Integer> input_clusters = new HashMap<>();
     public Map<Integer, Integer> output_clusters = new HashMap<>();
+    public boolean containsOutCluster(int cluster){
+        for (Integer clusterID : output_clusters.values()) {
+            if (clusterID == cluster){
+                return true;
+            }
+        }
+        return  false;
+    }
+
+    public boolean containsInCluster(int cluster){
+        for (Integer clusterID : input_clusters.values()) {
+            if (clusterID == cluster){
+                return true;
+            }
+        }
+        return  false;
+    }
 }

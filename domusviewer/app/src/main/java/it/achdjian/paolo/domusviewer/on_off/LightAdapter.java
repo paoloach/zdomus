@@ -2,15 +2,15 @@ package it.achdjian.paolo.domusviewer.on_off;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import it.achdjian.paolo.domusviewer.Element;
 import it.achdjian.paolo.domusviewer.R;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
@@ -24,10 +24,13 @@ import static it.achdjian.paolo.domusviewer.Constants.ZCL_HA_DEVICEID_ON_OFF_OUT
 /**
  * Created by Paolo Achdjian on 20/04/16.
  */
-class LightAdapter extends OnOffAdapter implements View.OnClickListener  {
-    private final List<LightListener> lightListeners = new ArrayList<>();
-    public LightAdapter(Context context) {
-        super(context);
+class LightAdapter extends OnOffAdapter implements View.OnClickListener {
+    private final List<OnOffListener> listeners = new ArrayList<>();
+    private final BindLightLongClickListener bindLightLongClickListener;
+
+    public LightAdapter(Context context, @NonNull BindController bindController, @NonNull Binding binding, @NonNull ElementSelected selected) {
+        super(context, bindController, selected);
+        this.bindLightLongClickListener = new BindLightLongClickListener(selected, binding);
     }
 
     @Override
@@ -43,6 +46,7 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener  {
     public int getViewTypeCount() {
         return 5;
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -71,39 +75,32 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener  {
     @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View result;
-        if (convertView != null) {
-            result = convertView;
-        } else {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            result = inflater.inflate(R.layout.switch_on_off, parent, false);
-        }
-        Element element = elements.get(position);
-        TextView mainText = (TextView) result.findViewById(R.id.mainText);
-        mainText.setText(element.network + ":" + element.endpoint);
+        View result = super.getView(position, convertView, parent);
         result.setOnClickListener(this);
-        result.setTag(element);
-        Button IButton = (Button) result.findViewById(R.id.identifyBt);
-        IButton.setTag(element);
-        IButton.setOnClickListener(identifyListener);
+        result.setTag(R.id.type, TYPE_LIGHT);
+
+        ImageView bind = (ImageView)result.findViewById(R.id.binded);
+        bind.setTag(R.id.element_value,elements.get(position));
+        bind.setOnLongClickListener(bindLightLongClickListener);
         return result;
     }
 
     @Override
     public void onClick(View v) {
-        boolean selected;
-
-        selected = !v.isSelected();
-        v.setSelected(selected);
-        Object tag = v.getTag();
+        Object tag = v.getTag(R.id.element_value);
         if (tag instanceof Element) {
-            for (LightListener lightListener : lightListeners) {
-                lightListener.changeLight((Element) tag, selected);
+            if (selected.is((Element) tag)) {
+                selected.selected=null;
+            } else {
+                selected.selected= (Element) tag;
+            }
+            for (OnOffListener lightListener : listeners) {
+                lightListener.change();
             }
         }
     }
 
-    public void  addListener(LightListener listener){
-        lightListeners.add(listener);
+    public void addListener(OnOffListener listener) {
+        listeners.add(listener);
     }
 }

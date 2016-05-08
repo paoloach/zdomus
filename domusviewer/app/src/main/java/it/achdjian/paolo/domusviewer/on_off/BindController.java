@@ -1,64 +1,57 @@
 package it.achdjian.paolo.domusviewer.on_off;
 
-import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 
-import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import it.achdjian.paolo.domusviewer.DomusEngine;
-import it.achdjian.paolo.domusviewer.zigbee.BindRequestData;
+import it.achdjian.paolo.domusviewer.Element;
+import it.achdjian.paolo.domusviewer.R;
+import it.achdjian.paolo.domusviewer.zigbee.ClustersId;
 
 /**
  * Created by Paolo Achdjian on 25/04/16.
  */
-public class BindController implements SwitchListener, LightListener , View.OnClickListener{
-    private final Button bindButton;
-    private final Set<OnOffAdapter.Element> switchSelected = new HashSet<>();
-    private final Set<OnOffAdapter.Element> lightSelected = new HashSet<>();
+public class BindController implements OnOffListener {
+    private final ElementSelected elementSelected;
+    public OnOffAdapter switchAdapter = null;
+    public OnOffAdapter lightAdapter = null;
 
-    public BindController(@NonNull  Button bindButton) {
-        this.bindButton = bindButton;
-        bindButton.setEnabled(false);
-        bindButton.setOnClickListener(this);
+    public BindController(ElementSelected elementSelected) {
+        this.elementSelected = elementSelected;
     }
 
     @Override
-    public void changeLight(@NonNull OnOffAdapter.Element element, boolean selected) {
-        if (selected) {
-            lightSelected.add(element);
-        } else {
-            lightSelected.remove(element);
+    public void change() {
+        if (lightAdapter != null) {
+            lightAdapter.invalidate();
         }
-        setEnable();
-    }
-
-    private void setEnable() {
-        if (!lightSelected.isEmpty() && !switchSelected.isEmpty()){
-            bindButton.setEnabled(true);
-        } else {
-            bindButton.setEnabled(false);
+        if (switchAdapter != null) {
+            switchAdapter.invalidate();
         }
     }
 
-    @Override
-    public void changeSwitch(@NonNull OnOffAdapter.Element element, boolean selected) {
-        if (selected) {
-            switchSelected.add(element);
-        } else {
-            switchSelected.remove(element);
-        }
-        setEnable();
-    }
+    public void setBindStatus(View result) {
+        ImageView bindedImg = (ImageView) result.findViewById(R.id.binded);
+        Object tagType = result.getTag(R.id.type);
+        Object tagElement = result.getTag(R.id.element_value);
+        if (tagType instanceof Integer && tagElement instanceof Element) {
+            int typeValue = (Integer) tagType;
+            Element element = (Element) tagElement;
 
-    @Override
-    public void onClick(View v) {
-        if (!lightSelected.isEmpty() && !switchSelected.isEmpty()){
-            DomusEngine instance = DomusEngine.getInstance();
-            for (OnOffAdapter.Element switchElement :switchSelected){
-                for (OnOffAdapter.Element lightElement : lightSelected) {
-                    instance.bind(new BindRequestData(switchElement.network, switchElement.endpoint, 6, lightElement.network, lightElement.endpoint));
+            if (elementSelected.selected != null) {
+                Map<Element, Set<Element>> elementSetMap;
+                if (typeValue == OnOffAdapter.TYPE_LIGHT) {
+                    elementSetMap = DomusEngine.getInstance().srcDstBindMap.get(ClustersId.ON_OFF_CLUSTER);
+                } else {
+                    elementSetMap = DomusEngine.getInstance().dstSrcBindMap.get(ClustersId.ON_OFF_CLUSTER);
+                }
+                if (elementSetMap.containsKey(elementSelected.selected) && elementSetMap.get(elementSelected.selected).contains(element)) {
+                    bindedImg.setActivated(true);
+                } else {
+                    bindedImg.setActivated(false);
                 }
             }
         }

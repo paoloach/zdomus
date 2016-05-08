@@ -1,14 +1,24 @@
 package it.achdjian.paolo.domusviewer.on_off;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import it.achdjian.paolo.domusviewer.DomusEngine;
+import it.achdjian.paolo.domusviewer.Element;
+import it.achdjian.paolo.domusviewer.R;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
@@ -17,43 +27,22 @@ import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
  */
 abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener {
 
-    protected final DomusEngine domusEngine;
-    protected final IdentifyListener identifyListener;
+    static final Integer TYPE_SWITCH =1;
+    static final Integer TYPE_LIGHT =2;
 
-    static class Element {
-        public final int network;
-        public final int endpoint;
-
-        public Element(int short_address, int endpoint_id) {
-            network = short_address;
-            endpoint = endpoint_id;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Element element = (Element) o;
-
-            return network == element.network && endpoint == element.endpoint;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = network;
-            result = 31 * result + endpoint;
-            return result;
-        }
-    }
+    final DomusEngine domusEngine;
+    private final IdentifyListener identifyListener;
+    private final BindController bindController;
+    final ElementSelected selected;
 
     private final List<DataSetObserver> observers = new ArrayList<>();
-    protected final List<Element> elements = new ArrayList<>();
-    protected final Context context;
+    final List<Element> elements = new ArrayList<>();
+    private final Context context;
 
-    OnOffAdapter(Context context) {
+    OnOffAdapter(Context context,@NonNull BindController bindController,  ElementSelected selected) {
         this.context = context;
+        this.bindController = bindController;
+        this.selected = selected;
         domusEngine = DomusEngine.getInstance();
         domusEngine.addEndpointListener(this);
 
@@ -139,6 +128,41 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
                     }
                 }
             });
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View result;
+        if (convertView != null) {
+            result = convertView;
+        } else {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            result = inflater.inflate(R.layout.switch_on_off, parent, false);
+        }
+        Element element = elements.get(position);
+        TextView mainText = (TextView) result.findViewById(R.id.mainText);
+        RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
+        mainText.setText(element.network + ":" + element.endpoint);
+
+        result.setTag(R.id.element_value,element);
+        Button IButton = (Button) result.findViewById(R.id.identifyBt);
+        IButton.setTag(element);
+        IButton.setOnClickListener(identifyListener);
+
+        bindController.setBindStatus(result);
+        if (selected.is(element)){
+            infoLayout.setActivated(true);
+        } else{
+            infoLayout.setActivated(false);
+        }
+        return result;
+    }
+
+    public void invalidate(){
+        for (DataSetObserver observer : observers) {
+            observer.onChanged();
         }
     }
 }

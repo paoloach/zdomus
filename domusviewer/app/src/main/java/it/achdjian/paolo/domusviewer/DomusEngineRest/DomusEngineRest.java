@@ -61,6 +61,7 @@ public abstract class DomusEngineRest implements Runnable {
 
             }
         } catch (Exception ignored) {
+            Log.e(TAG,"error", ignored);
         }
         Log.e(TAG, "ERROR");
         connected.setConnected(false);

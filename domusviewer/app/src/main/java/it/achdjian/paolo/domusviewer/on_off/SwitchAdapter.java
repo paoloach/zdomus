@@ -2,15 +2,15 @@ package it.achdjian.paolo.domusviewer.on_off;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import it.achdjian.paolo.domusviewer.Element;
 import it.achdjian.paolo.domusviewer.R;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
@@ -25,11 +25,15 @@ import static it.achdjian.paolo.domusviewer.Constants.ZCL_HA_DEVICEID_ON_OFF_SWI
  * Created by Paolo Achdjian on 19/04/16.
  */
 class SwitchAdapter extends OnOffAdapter implements View.OnClickListener {
-    private final List<SwitchListener> switchListeners = new ArrayList<>();
-    public SwitchAdapter(Context context) {
-        super(context);
+    private final List<OnOffListener> switchListeners = new ArrayList<>();
+    private final BindSwitchLongClickListener bindSwitchLongClickListener;
+    public SwitchAdapter(Context context, @NonNull BindController bindController, @NonNull Binding binding, @NonNull ElementSelected selected) {
+        super(context, bindController, selected);
+        this.bindSwitchLongClickListener = new BindSwitchLongClickListener(selected, binding);
+
     }
 
+    @Override
     boolean rightDevice(ZEndpoint zEndpoint) {
         return zEndpoint.device_id == ZCL_HA_DEVICEID_ON_OFF_SWITCH ||
                 zEndpoint.device_id == ZCL_HA_DEVICEID_LEVEL_CONTROL_SWITCH ||
@@ -67,42 +71,37 @@ class SwitchAdapter extends OnOffAdapter implements View.OnClickListener {
         return 0;
     }
 
+
     @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View result;
-        if (convertView != null) {
-            result = convertView;
-        } else {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            result = inflater.inflate(R.layout.switch_on_off, parent, false);
-        }
-        Element element = elements.get(position);
-        TextView mainText = (TextView) result.findViewById(R.id.mainText);
-        mainText.setText(element.network + ":" + element.endpoint);
+        View result = super.getView(position, convertView, parent);
         result.setOnClickListener(this);
-        result.setTag(element);
-        Button IButton = (Button) result.findViewById(R.id.identifyBt);
-        IButton.setTag(element);
-        IButton.setOnClickListener(identifyListener);
+        result.setTag(R.id.type, TYPE_SWITCH);
+
+        ImageView bind = (ImageView)result.findViewById(R.id.binded);
+        bind.setLongClickable(true);
+        bind.setTag(R.id.element_value,elements.get(position));
+        bind.setOnLongClickListener(bindSwitchLongClickListener);
         return result;
     }
 
     @Override
     public void onClick(View v) {
-        boolean selected;
-        
-        selected = !v.isSelected();
-        v.setSelected(selected);
-        Object tag = v.getTag();
+        Object tag = v.getTag(R.id.element_value);
         if (tag instanceof Element) {
-            for (SwitchListener switchListener : switchListeners) {
-                switchListener.changeSwitch((Element) tag, selected);
+            if (selected.is((Element) tag)){
+                selected.selected = null;
+            } else {
+                selected.selected= (Element) tag;
+            }
+            for (OnOffListener switchListener : switchListeners) {
+                switchListener.change();
             }
         }
     }
 
-    public void addListener(SwitchListener listener){
+    public void addListener(OnOffListener listener){
         switchListeners.add(listener);
     }
 }
