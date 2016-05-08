@@ -15,6 +15,7 @@ void ResponseFile::operator ()( Poco::Net::HTTPServerRequest& request, Poco::Net
 	auto & uri = request.getURI();
 
 	std::cout << "uri is : " << uri << std::endl;
+	response.send() << "\n";
 
 }
 
