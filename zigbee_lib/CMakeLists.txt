@@ -47,7 +47,7 @@ set(SOURCE_FILES
     src/zigbee/zigbeeConfig.h
     src/zigbee/ZigbeeDevice.cpp
     src/zigbee/ZigbeeDevice.h
-    src/zigbee/ZigbeeTypes.h)
+    src/zigbee/ZigbeeTypes.h src/zigbee/messageStructure/ReadAttributeResponseErrorMsg.h)
 
 
 SET(SOURCE_ZCL_FILES

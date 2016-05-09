@@ -8,6 +8,8 @@
 #ifndef ATTRIBUTEVALUE_H_
 #define ATTRIBUTEVALUE_H_
 
+#include <ostream>
+#include <stdint.h>
 #include "../zigbeeConfig.h"
 #include "../ZigbeeTypes.h"
 #include "GenericMessage.h"
@@ -16,25 +18,34 @@
 #include "../ClusterID.h"
 
 namespace zigbee {
+    struct __attribute__ ((__packed__)) AttributeValue {
+        AttributeValue(NwkAddr nwkAddr, EndpointID endpointId, ClusterID clusterId,
+                       ZigbeeAttributeId attribute) noexcept:
+                generticDataMsg{REQ_ATTRIBUTE_VALUES}, nwkAddr{nwkAddr.getId()}, endpoint{endpointId.getId()},
+                cluster{clusterId.getId()}, attribute{attribute} {
 
-#define MAX_CLUSTERS 20
+        }
 
-struct __attribute__ ((__packed__)) AttributeValue {
-	AttributeValue(NwkAddr nwkAddr, EndpointID endpointId, ClusterID clusterId, ZigbeeAttributeId attribute) noexcept:
-			generticDataMsg{REQ_ATTRIBUTE_VALUES},nwkAddr{nwkAddr.getId()},endpoint{endpointId.getId()},cluster{clusterId.getId()},attribute{attribute} {
+        AttributeValue() : nwkAddr(0), endpoint(0), cluster(0), attribute(0) {
+            generticDataMsg.msgCode = REQ_ATTRIBUTE_VALUES;
+        }
 
-	}
+        GenericMessage generticDataMsg;
+        ZigbeeNwkAddress nwkAddr;
+        ZigbeeEndpoint endpoint;
+        ZigbeeClusterId cluster;
+        ZigbeeAttributeId attribute;
+    };
 
-	AttributeValue():nwkAddr(0),endpoint(0),cluster(0),attribute(0) {
-		generticDataMsg.msgCode = REQ_ATTRIBUTE_VALUES;
-	}
-
-	GenericMessage generticDataMsg;
-	ZigbeeNwkAddress nwkAddr;
-	ZigbeeEndpoint endpoint;
-	ZigbeeClusterId cluster;
-	ZigbeeAttributeId attribute;
-};
+    std::ostream & operator<<(  std::ostream &out,  const AttributeValue &attribute    ){
+        out << "{" << attribute.nwkAddr << ":" << attribute.endpoint << ":" << attribute.cluster << ":" << attribute.attribute <<  " {";
+        uint8_t  const * iter = reinterpret_cast<uint8_t  const *>(&attribute);
+        uint8_t  const * end = reinterpret_cast<uint8_t  const *>(&attribute)+ sizeof(AttributeValue);
+        for ( ; iter < end; iter++){
+            out << "0x" << std::hex << static_cast<uint32_t >(*iter) << " ";
+        }
+        return out;
+    }
 
 }
 
