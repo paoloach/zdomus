@@ -36,7 +36,7 @@ namespace zigbee {
 
     };
 
-    std::ostream & operator<<(  std::ostream &out,  const ReadAttributeResponseErrorMsg &attribute ){
+    inline std::ostream & operator<<(  std::ostream &out,  const ReadAttributeResponseErrorMsg &attribute ){
         out << "{" << attribute.nwkAddr << ":" << attribute.endpoint << ":" << attribute.cluster << ":" << attribute.attribute <<  " status: " << attribute.status;
         return out;
     }

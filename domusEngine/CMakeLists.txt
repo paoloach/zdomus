@@ -131,7 +131,9 @@ add_library(domus_engine_static_lib STATIC
         src/ZigbeeData/ZElement.h
         src/json/jsoncpp.cpp
         src/json/json/json-forwards.h
-        src/json/json/json.h)
+        src/json/json/json.h
+        src/usb/AttributeValueReqError.cpp
+        src/usb/AnnunceMsgExecuter.h src/usb/SimpleDescExecutor.h src/usb/AttributeValuesExecuter.h src/usb/BindTableExecuter.h src/usb/UsbResponseExecutors.cpp src/usb/UsbResponseExecutors.h src/usb/Executor.h)
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 
