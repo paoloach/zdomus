@@ -12,9 +12,10 @@ namespace zigbee {
     private:
         std::shared_ptr<ZDevices> zDevices;
     public:
-        SimpleDescExecutor(std::shared_ptr<ZDevices> zDevices):zDevices(zDevices){}
-        virtual void operator()(unsigned char *data, int ) override {
-            SimpleDescMessage * simpleDescMessage = reinterpret_cast<SimpleDescMessage *>(data);
+        SimpleDescExecutor(std::shared_ptr<ZDevices> zDevices) : zDevices(zDevices) { }
+
+        virtual void operator()(unsigned char *data, int) override {
+            SimpleDescMessage *simpleDescMessage = reinterpret_cast<SimpleDescMessage *>(data);
             zDevices->put(*simpleDescMessage);
             BOOST_LOG_TRIVIAL(info) << "Simple desciption message ";
         }

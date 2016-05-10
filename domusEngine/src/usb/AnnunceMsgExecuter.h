@@ -10,15 +10,15 @@
 #include "USBDevice.h"
 
 namespace zigbee {
-    class AnnunceMsgExecuter : public Executor{
+    class AnnunceMsgExecuter : public Executor {
     private:
         std::shared_ptr<ZDevices> zDevices;
-        DomusEngineUSBDevice & usbDevice;
+        DomusEngineUSBDevice &usbDevice;
     public:
-        AnnunceMsgExecuter(std::shared_ptr<ZDevices> zDevices, DomusEngineUSBDevice & usbDevice):zDevices(zDevices), usbDevice(usbDevice){}
+        AnnunceMsgExecuter(std::shared_ptr<ZDevices> zDevices, DomusEngineUSBDevice &usbDevice) : zDevices(zDevices), usbDevice(usbDevice) { }
 
-        virtual void operator()(unsigned char *data, int ) override {
-            AnnunceMessage * annunceMessage = reinterpret_cast<AnnunceMessage *>(data);
+        virtual void operator()(unsigned char *data, int) override {
+            AnnunceMessage *annunceMessage = reinterpret_cast<AnnunceMessage *>(data);
             zDevices->put(*annunceMessage);
             BOOST_LOG_TRIVIAL(info) << "Annunce signal";
             usbDevice.requestActiveEndpoints(NwkAddr(annunceMessage->nwkAddr));

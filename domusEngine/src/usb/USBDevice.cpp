@@ -20,11 +20,6 @@
 #include <zigbee/messageStructure/BindRequest.h>
 #include <zigbee/messageStructure/UnbindRequest.h>
 #include <zigbee/messageStructure/ReadAttributeResponseErrorMsg.h>
-#include "../Utils/SingletonObjects.h"
-#include "AnnunceMsgExecuter.h"
-#include "SimpleDescExecutor.h"
-#include "AttributeValuesExecuter.h"
-#include "BindTableExecuter.h"
 
 namespace zigbee {
 
@@ -40,7 +35,7 @@ namespace zigbee {
             deviceClass{deviceClass_}, vendorID{vendor_},
             productID{product_},
             handle{nullptr},
-            usbResponseExecuters{singletonObjects, attributeValueSignalMap, attributeDataContainer_,zDevices_,*this},
+            usbResponseExecuters{singletonObjects, attributeValueSignalMap, attributeDataContainer_, zDevices_, *this},
             zDevices(zDevices_), attributeDataContainer(attributeDataContainer_), singletonObjects(singletonObjects) {
         device = nullptr;
         timer.async_wait(boost::bind(&DomusEngineUSBDevice::timerHandler, this, boost::asio::placeholders::error));
@@ -145,7 +140,7 @@ namespace zigbee {
     }
 
     void DomusEngineUSBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) {
-        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << attributeId  << ")";
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << attributeId << ")";
         if (handle != nullptr) {
             std::stringstream stream;
             AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeId};
@@ -237,7 +232,6 @@ namespace zigbee {
             std::cerr << strUsbError(result) << std::endl;
         }
     }
-
 
 
     void DomusEngineUSBDevice::sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP,

@@ -10,8 +10,9 @@ namespace zigbee {
     private:
         SingletonObjects &singletonObjects;
     public:
-        BindTableExecuter(SingletonObjects &singletonObjects):singletonObjects(singletonObjects){}
-        virtual void operator()(unsigned char *data, int ) override {
+        BindTableExecuter(SingletonObjects &singletonObjects) : singletonObjects(singletonObjects) { }
+
+        virtual void operator()(unsigned char *data, int) override {
             std::vector<BindResponse> responses;
             int count = data[1];
             data += 2;

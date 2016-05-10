@@ -9,11 +9,12 @@
 #include "AttributeValuesExecuter.h"
 #include "BindTableExecuter.h"
 #include "AttributeValueReqError.h"
-#include "USBDevice.h"
 
 using std::make_unique;
 
-zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonObjects, AttributeValueSignalMap & attributeValueSignalMap, AttributeDataContainer &attributeDataContainer, std::shared_ptr<ZDevices> zDevices,  DomusEngineUSBDevice & usbDevice) {
+zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonObjects, AttributeValueSignalMap &attributeValueSignalMap,
+                                                   AttributeDataContainer &attributeDataContainer, std::shared_ptr<ZDevices> zDevices,
+                                                   DomusEngineUSBDevice &usbDevice) {
     executors[ANNUNCE_MSG] = make_unique<AnnunceMsgExecuter>(zDevices, usbDevice);
     executors[SIMPLE_DESC] = make_unique<SimpleDescExecutor>(zDevices);
     executors[ATTRIBUTE_VALUES] = make_unique<AttributeValuesExecuter>(attributeDataContainer);
@@ -23,9 +24,9 @@ zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonOb
 }
 
 void zigbee::UsbResponseExecutors::execute(unsigned char *data, int length) {
-    if (executors.count(*data) > 0){
-        executors[*data]->operator()(data,length);
-    } else{
+    if (executors.count(*data) > 0) {
+        executors[*data]->operator()(data, length);
+    } else {
         BOOST_LOG_TRIVIAL(info) << "Unknow message type:  " << (int) (*data);
     }
 }

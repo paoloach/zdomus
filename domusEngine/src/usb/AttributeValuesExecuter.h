@@ -8,14 +8,15 @@
 #include <boost/log/trivial.hpp>
 
 namespace zigbee {
-    class AttributeValuesExecuter : public Executor{
+    class AttributeValuesExecuter : public Executor {
     private:
         AttributeDataContainer &attributeDataContainer;
     public:
-        AttributeValuesExecuter(AttributeDataContainer &attributeDataContainer):attributeDataContainer(attributeDataContainer){}
-        virtual void operator()(unsigned char *data, int ) override {
+        AttributeValuesExecuter(AttributeDataContainer &attributeDataContainer) : attributeDataContainer(attributeDataContainer) { }
+
+        virtual void operator()(unsigned char *data, int) override {
             BOOST_LOG_TRIVIAL(info) << "Read response attribute value";
-            ReadAttributeResponseMessage * readAttributeResponseMessage = reinterpret_cast<ReadAttributeResponseMessage *>(data);
+            ReadAttributeResponseMessage *readAttributeResponseMessage = reinterpret_cast<ReadAttributeResponseMessage *>(data);
             attributeDataContainer.push(*readAttributeResponseMessage);
         }
     };

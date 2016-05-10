@@ -11,12 +11,13 @@
 namespace zigbee {
 
     class AttributeValueReqError : public Executor {
-        AttributeValueSignalMap & attributeValueSignalMap;
+        AttributeValueSignalMap &attributeValueSignalMap;
     public:
-        AttributeValueReqError(AttributeValueSignalMap & attributeValueSignalMap):attributeValueSignalMap(attributeValueSignalMap){
+        AttributeValueReqError(AttributeValueSignalMap &attributeValueSignalMap) : attributeValueSignalMap(attributeValueSignalMap) {
 
         }
-        virtual void operator()(unsigned char *data, int length) override ;
+
+        virtual void operator()(unsigned char *data, int length) override;
     };
 }
 

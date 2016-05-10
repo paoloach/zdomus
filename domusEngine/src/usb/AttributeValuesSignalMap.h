@@ -47,13 +47,13 @@ namespace zigbee {
                otherKey.attributeId == attributeId;
     }
 
-    using NewAttributeValueCallback = std::function<void(std::shared_ptr<AttributeStatusRecord> & )>;
+    using NewAttributeValueCallback = std::function<void(std::shared_ptr<AttributeStatusRecord> &)>;
 
     class AttributeValueSignalMap : public std::multimap<AttributeKey, NewAttributeValueCallback> {
     public:
-        void execute(const AttributeKey & key, std::shared_ptr<AttributeStatusRecord> attribute){
-            if (count(key) > 0){
-                for (auto  iter = lower_bound(key); iter != upper_bound(key); iter++){
+        void execute(const AttributeKey &key, std::shared_ptr<AttributeStatusRecord> attribute) {
+            if (count(key) > 0) {
+                for (auto iter = lower_bound(key); iter != upper_bound(key); iter++) {
                     iter->second(attribute);
                 }
             }

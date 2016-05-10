@@ -45,9 +45,13 @@ namespace zigbee {
 
     public:
         bool isPresent() override;
+
         bool requestDevices() override;
+
         void getUsbMessage() override;
+
         void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
+
         virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId,
                                     ZCLTypeDataType dataType, uint8_t dataValueLen,
                                     uint8_t *dataValue) override;
@@ -77,11 +81,13 @@ namespace zigbee {
         }
 
         void requestActiveEndpoints(NwkAddr nwkAddr);
+
         virtual void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
                                  const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
 
         virtual void sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
                                    const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
+
         void requestBindTable(NwkAddr nwkAddrs) override;
 
     private:
@@ -103,7 +109,8 @@ namespace zigbee {
         SingletonObjects &singletonObjects;
 
     private:
-        template<typename T>  void sendData(const T &);
+        template<typename T>
+        void sendData(const T &);
 
         void timerHandler(const boost::system::error_code &error);
 

@@ -5,10 +5,10 @@
 #ifndef DOMUS_ENGINE_EXECUTOR_H
 #define DOMUS_ENGINE_EXECUTOR_H
 
-namespace zigbee{
+namespace zigbee {
     class Executor {
     public:
-        virtual  void operator()(unsigned char *data, int length) = 0;
+        virtual void operator()(unsigned char *data, int length) = 0;
     };
 }
 

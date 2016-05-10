@@ -16,5 +16,4 @@ static const unsigned char BULK_ENDPOINT_OUT = 2;
 static const unsigned char BULK_ENDPOINT_IN = 0x83;
 
 
-
 #endif /* USBCONFIG_H_ */
