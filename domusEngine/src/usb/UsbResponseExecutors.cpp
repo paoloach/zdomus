@@ -12,13 +12,12 @@
 
 using std::make_unique;
 
-zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonObjects, AttributeValueSignalMap &attributeValueSignalMap,
-                                                   DomusEngineUSBDevice &usbDevice) {
+zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonObjects,  DomusEngineUSBDevice &usbDevice) {
     executors[ANNUNCE_MSG] = make_unique<AnnunceMsgExecuter>(singletonObjects.getZDevices(), usbDevice);
     executors[SIMPLE_DESC] = make_unique<SimpleDescExecutor>(singletonObjects.getZDevices());
     executors[ATTRIBUTE_VALUES] = make_unique<AttributeValuesExecuter>(singletonObjects.getAttributeDataContainer());
     executors[BIND_TABLE] = make_unique<BindTableExecuter>(singletonObjects);
-    executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(attributeValueSignalMap);
+    executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(singletonObjects.getAttributeValueSignalMap());
 }
 
 void zigbee::UsbResponseExecutors::execute(unsigned char *data, int length) {

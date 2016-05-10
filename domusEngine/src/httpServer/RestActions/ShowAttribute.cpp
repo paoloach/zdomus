@@ -48,6 +48,8 @@ namespace zigbee {
                 attribute = cluster->getAttribute(attributeParam);
             }
             attribute->requestValue();
+
+
             std::chrono::milliseconds duration(5);
             while (!attribute->isAvailable()) {
                 std::this_thread::sleep_for(duration);

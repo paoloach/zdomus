@@ -12,6 +12,7 @@
 #include <memory>
 #include "../IO/AttributeDataContainer.h"
 #include "../ZigbeeData/BindTable.h"
+#include "../usb/AttributeValuesSignalMap.h"
 
 
 struct libusb_context;
@@ -59,6 +60,7 @@ namespace zigbee {
         virtual AttributeDataContainer &getAttributeDataContainer() { return attributeDataContainer; }
 
         virtual BindTable &getBindTable() { return bindTable; }
+        virtual AttributeValueSignalMap & getAttributeValueSignalMap() {return attributeValueSignalMap;}
 
     private:
         boost::asio::io_service io;
@@ -71,6 +73,7 @@ namespace zigbee {
         zigbee::AttributeDataContainer attributeDataContainer;
         libusb_context *usbContext;
         std::shared_ptr<http::FixedPathContainer> fixedPathContainer;
+        AttributeValueSignalMap attributeValueSignalMap;
     };
 
 } /* namespace zigbee */

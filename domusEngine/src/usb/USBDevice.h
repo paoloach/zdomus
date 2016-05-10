@@ -77,7 +77,7 @@ namespace zigbee {
         void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
                                        const NewAttributeValueCallback subscriber) override {
             AttributeKey key(nwkAddrs, endpoint.getId(), cluster.getId(), attributeId);
-            attributeValueSignalMap.insert(AttributeValueSignalMap::value_type(key, subscriber));
+            singletonObjects.getAttributeValueSignalMap().insert(AttributeValueSignalMap::value_type(key, subscriber));
         }
 
         void requestActiveEndpoints(NwkAddr nwkAddr);
@@ -105,7 +105,6 @@ namespace zigbee {
         std::vector<AnnunceCallback> annunceSignal;
         std::vector<SimpleDescCallback> simpleDescSignal;
         std::vector<BindTableResponseCallback> bindTableResponseSignal;
-        AttributeValueSignalMap attributeValueSignalMap;
         SingletonObjects &singletonObjects;
 
     private:
