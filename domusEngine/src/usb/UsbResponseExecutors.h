@@ -20,8 +20,7 @@ namespace zigbee {
     private:
         std::map<uint8_t, std::unique_ptr<Executor> > executors;
     public:
-        UsbResponseExecutors(SingletonObjects &singletonObjects, AttributeValueSignalMap &attributeValueSignalMap,
-                             AttributeDataContainer &attributeDataContainerm, std::shared_ptr<ZDevices> zDevices, DomusEngineUSBDevice &usbDevice);
+        UsbResponseExecutors(SingletonObjects &singletonObjects, AttributeValueSignalMap &attributeValueSignalMap, DomusEngineUSBDevice &usbDevice);
 
         void execute(unsigned char *data, int length);
     };

@@ -35,7 +35,7 @@ namespace zigbee {
             deviceClass{deviceClass_}, vendorID{vendor_},
             productID{product_},
             handle{nullptr},
-            usbResponseExecuters{singletonObjects, attributeValueSignalMap, attributeDataContainer_, zDevices_, *this},
+            usbResponseExecuters{singletonObjects, attributeValueSignalMap, *this},
             zDevices(zDevices_), attributeDataContainer(attributeDataContainer_), singletonObjects(singletonObjects) {
         device = nullptr;
         timer.async_wait(boost::bind(&DomusEngineUSBDevice::timerHandler, this, boost::asio::placeholders::error));
