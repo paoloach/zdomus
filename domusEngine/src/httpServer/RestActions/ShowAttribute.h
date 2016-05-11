@@ -10,6 +10,8 @@
 
 #include "../RestParser/RestActions.h"
 #include "ClusterThrowingException.h"
+#include <atomic>
+#include <zcl/ZCLAttribute.h>
 
 namespace zigbee {
 
@@ -20,10 +22,15 @@ namespace zigbee {
     class PlaceHolders;
 
     class ShowAttribute : public ActionHandler, public ClusterThrowingException {
+    private:
+        std::atomic_bool attributeArrived;
+        int status;
     public:
-        ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) { };
+        ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) { std::atomic_init(&attributeArrived, false);};
 
         void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
+        void attributeReceived(int status);
+        void send(Poco::Net::HTTPServerResponse &response, std::shared_ptr<ZCLAttribute> attribute);
     private:
         SingletonObjects &singletons;
     };

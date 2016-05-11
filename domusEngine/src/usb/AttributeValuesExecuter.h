@@ -11,13 +11,19 @@ namespace zigbee {
     class AttributeValuesExecuter : public Executor {
     private:
         AttributeDataContainer &attributeDataContainer;
+        AttributeValueSignalMap &attributeValueSignalMap;
     public:
-        AttributeValuesExecuter(AttributeDataContainer &attributeDataContainer) : attributeDataContainer(attributeDataContainer) { }
+        AttributeValuesExecuter(AttributeDataContainer &attributeDataContainer, AttributeValueSignalMap &attributeValueSignalMap)
+                : attributeDataContainer(attributeDataContainer), attributeValueSignalMap(attributeValueSignalMap) { }
 
         virtual void operator()(unsigned char *data, int) override {
             BOOST_LOG_TRIVIAL(info) << "Read response attribute value";
             ReadAttributeResponseMessage *readAttributeResponseMessage = reinterpret_cast<ReadAttributeResponseMessage *>(data);
+            AttributeKey key(NwkAddr(readAttributeResponseMessage->networkAddr), readAttributeResponseMessage->endpoint, readAttributeResponseMessage->clusterId, readAttributeResponseMessage->attrID);
             attributeDataContainer.push(*readAttributeResponseMessage);
+            if (attributeValueSignalMap.count(key) > 0) {
+                attributeValueSignalMap.execute(key, 0);
+            }
         }
     };
 }

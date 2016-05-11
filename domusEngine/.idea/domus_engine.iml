@@ -249,6 +249,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowWhoAreYou.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowWhoAreYou.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteBind.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttributeFactory.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttributeFactory.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttribute.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ClusterThrowingException.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ResponseFile.h" isTestSource="false" />
@@ -262,13 +264,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/usb/AttributeValuesExecuter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/UsbResponseExecutors.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/AnnunceMsgExecuter.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/usb/BindResponse.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/usb/USBDevice.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/UsbResponseExecutors.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/USBDevice.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/BindResponse.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/USBDevice.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/AttributeValueReqError.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/SimpleDescExecutor.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/usb/UsbResponseExecutors.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/BindResponse.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/BindTableExecuter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/AttributeValueReqError.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/Executor.h" isTestSource="false" />

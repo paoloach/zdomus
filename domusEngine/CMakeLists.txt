@@ -133,7 +133,7 @@ add_library(domus_engine_static_lib STATIC
         src/json/json/json-forwards.h
         src/json/json/json.h
         src/usb/AttributeValueReqError.cpp
-        src/usb/AnnunceMsgExecuter.h src/usb/SimpleDescExecutor.h src/usb/AttributeValuesExecuter.h src/usb/BindTableExecuter.h src/usb/UsbResponseExecutors.cpp src/usb/UsbResponseExecutors.h src/usb/Executor.h)
+        src/usb/AnnunceMsgExecuter.h src/usb/SimpleDescExecutor.h src/usb/AttributeValuesExecuter.h src/usb/BindTableExecuter.h src/usb/UsbResponseExecutors.cpp src/usb/UsbResponseExecutors.h src/usb/Executor.h src/httpServer/RestActions/ShowAttributeFactory.cpp src/httpServer/RestActions/ShowAttributeFactory.h)
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 

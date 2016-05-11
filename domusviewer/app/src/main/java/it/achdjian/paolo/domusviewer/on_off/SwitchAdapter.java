@@ -3,6 +3,7 @@ package it.achdjian.paolo.domusviewer.on_off;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,8 +28,8 @@ import static it.achdjian.paolo.domusviewer.Constants.ZCL_HA_DEVICEID_ON_OFF_SWI
 class SwitchAdapter extends OnOffAdapter implements View.OnClickListener {
     private final List<OnOffListener> switchListeners = new ArrayList<>();
     private final BindSwitchLongClickListener bindSwitchLongClickListener;
-    public SwitchAdapter(Context context, @NonNull BindController bindController, @NonNull Binding binding, @NonNull ElementSelected selected) {
-        super(context, bindController, selected);
+    public SwitchAdapter(Context context, @NonNull BindController bindController, @NonNull Binding binding, @NonNull ElementSelected selected, FragmentManager fragmentManager) {
+        super(context, bindController, selected,fragmentManager);
         this.bindSwitchLongClickListener = new BindSwitchLongClickListener(selected, binding);
 
     }

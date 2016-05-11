@@ -3,6 +3,7 @@ package it.achdjian.paolo.domusviewer.on_off;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,8 +29,8 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener {
     private final List<OnOffListener> listeners = new ArrayList<>();
     private final BindLightLongClickListener bindLightLongClickListener;
 
-    public LightAdapter(Context context, @NonNull BindController bindController, @NonNull Binding binding, @NonNull ElementSelected selected) {
-        super(context, bindController, selected);
+    public LightAdapter(Context context, @NonNull BindController bindController, @NonNull Binding binding, @NonNull ElementSelected selected, FragmentManager fragmentManager) {
+        super(context, bindController, selected, fragmentManager);
         this.bindLightLongClickListener = new BindLightLongClickListener(selected, binding);
     }
 

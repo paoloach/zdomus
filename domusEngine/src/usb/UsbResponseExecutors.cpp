@@ -15,7 +15,7 @@ using std::make_unique;
 zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonObjects,  DomusEngineUSBDevice &usbDevice) {
     executors[ANNUNCE_MSG] = make_unique<AnnunceMsgExecuter>(singletonObjects.getZDevices(), usbDevice);
     executors[SIMPLE_DESC] = make_unique<SimpleDescExecutor>(singletonObjects.getZDevices());
-    executors[ATTRIBUTE_VALUES] = make_unique<AttributeValuesExecuter>(singletonObjects.getAttributeDataContainer());
+    executors[ATTRIBUTE_VALUES] = make_unique<AttributeValuesExecuter>(singletonObjects.getAttributeDataContainer(), singletonObjects.getAttributeValueSignalMap());
     executors[BIND_TABLE] = make_unique<BindTableExecuter>(singletonObjects);
     executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(singletonObjects.getAttributeValueSignalMap());
 }

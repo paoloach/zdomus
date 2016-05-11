@@ -12,18 +12,20 @@
 
 #include "DeviceBrowserHandler.h"
 #include "../ZigbeeData/Exceptions/ZigbeeDeviceException.h"
+
 #include "RestActions/ShowDevices.h"
 #include "RestActions/ShowDevice.h"
 #include "RestActions/ShowEndpoint.h"
 #include "RestActions/ShowInCluster.h"
 #include "RestActions/ShowOutCluster.h"
-#include "RestActions/ShowAttribute.h"
+#include "RestActions/ShowAttributeFactory.h"
 #include "RestActions/ShowBindTable.h"
 #include "RestActions/ExecuteCmd.h"
 #include "RestActions/ResponseFile.h"
 #include "RestActions/ShowHello.h"
 #include "RestActions/ShowWhoAreYou.h"
 #include "RestActions/ExecuteBind.h"
+
 
 namespace zigbee {
   namespace http {
@@ -41,7 +43,7 @@ namespace zigbee {
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}"}, ShowEndpoint{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}"}, ShowInCluster{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/out/{cluster}"}, ShowOutCluster{singletons});
-        restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/attribute/{attribute}"}, ShowAttribute{singletons});
+        restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/attribute/{attribute}"}, ShowAttributeFactory{singletons});
         restGetActions.addActions(RestPath {"/binds"}, ShowBindTable{singletons});
         restGetActions.setDefaultAction(ResponseFile(singletons));
 

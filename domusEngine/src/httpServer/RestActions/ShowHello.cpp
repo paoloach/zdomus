@@ -19,8 +19,7 @@ void ShowHello::operator ()(const PlaceHolders&& , Poco::Net::HTTPServerRequest&
 	response.setContentType(mediaType);
 	response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
 
-	std::ostream & stream = response.send();
-	stream << "Hello";
+	response.send() << "Hello\n";
 }
 
 } /* namespace http */

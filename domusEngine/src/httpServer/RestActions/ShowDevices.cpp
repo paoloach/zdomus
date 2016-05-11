@@ -23,8 +23,7 @@ namespace zigbee {
         response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
         BOOST_LOG_TRIVIAL(info) << "ShowDevices";
         const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
-        std::ostream &stream = response.send();
-        producer.produce(stream, ZDevicesPT(singletons.getZDevices()));
+        producer.produce(response.send(), ZDevicesPT(singletons.getZDevices()));
     }
 
   } /* namespace http */

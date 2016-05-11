@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +20,14 @@ import java.util.List;
 import it.achdjian.paolo.domusviewer.DomusEngine;
 import it.achdjian.paolo.domusviewer.Element;
 import it.achdjian.paolo.domusviewer.R;
+import it.achdjian.paolo.domusviewer.other.ZDeviceInfoFragment;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
 /**
  * Created by Paolo Achdjian on 20/04/16.
  */
-abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener {
+abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener, View.OnLongClickListener {
 
     static final Integer TYPE_SWITCH =1;
     static final Integer TYPE_LIGHT =2;
@@ -34,15 +36,17 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
     private final IdentifyListener identifyListener;
     private final BindController bindController;
     final ElementSelected selected;
+    private final FragmentManager fragmentManager;
 
     private final List<DataSetObserver> observers = new ArrayList<>();
     final List<Element> elements = new ArrayList<>();
     private final Context context;
 
-    OnOffAdapter(Context context,@NonNull BindController bindController,  ElementSelected selected) {
+    OnOffAdapter(Context context, @NonNull BindController bindController, ElementSelected selected, FragmentManager fragmentManager) {
         this.context = context;
         this.bindController = bindController;
         this.selected = selected;
+        this.fragmentManager = fragmentManager;
         domusEngine = DomusEngine.getInstance();
         domusEngine.addEndpointListener(this);
 
@@ -144,6 +148,11 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
         Element element = elements.get(position);
         TextView mainText = (TextView) result.findViewById(R.id.mainText);
         RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
+        infoLayout.setLongClickable(true);
+        infoLayout.setOnLongClickListener(this);
+        infoLayout.setTag(R.id.element_value, element);
+
+
         mainText.setText(element.network + ":" + element.endpoint);
 
         result.setTag(R.id.element_value,element);
@@ -164,5 +173,27 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
         for (DataSetObserver observer : observers) {
             observer.onChanged();
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (v instanceof RelativeLayout){
+            RelativeLayout infoLayout = (RelativeLayout) v;
+            Object tag = infoLayout.getTag(R.id.element_value);
+            if (tag instanceof Element){
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                // Create and show the dialog.
+                DialogFragment newFragment = ZDeviceInfoFragment.newInstance((Element) tag);
+                newFragment.show(ft, "dialog");
+                return true;
+            }
+        }
+        return false;
     }
 }

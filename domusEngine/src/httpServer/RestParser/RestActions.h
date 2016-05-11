@@ -30,7 +30,7 @@ private:
 	Actions actions;
 	DefaultActionHandler defaultAction;
 public:
-	void addActions(RestPath && restPath,ActionHandler  f ) noexcept ;
+	void addActions(RestPath && restPath,ActionHandler   f ) noexcept ;
 	void setDefaultAction(DefaultActionHandler f) noexcept {defaultAction = f;}
 	void execute(PathReceived &&pathReceived,  Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
 };

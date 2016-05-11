@@ -15,6 +15,8 @@
 #include "../ZigbeeData/ZDevices.h"
 #include "RestParser/RestActions.h"
 
+
+
 namespace zigbee {
     class SingletonObjects;
     namespace http {
@@ -33,7 +35,6 @@ namespace zigbee {
             RestActions restGetActions;
             RestActions restPostActions;
             RestActions restDeleteActions;
-
         };
 
     } /* namespace http */

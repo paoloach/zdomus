@@ -76,8 +76,6 @@ namespace zigbee {
 
         void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
                                        const NewAttributeValueCallback subscriber) override {
-            AttributeKey key(nwkAddrs, endpoint.getId(), cluster.getId(), attributeId);
-            singletonObjects.getAttributeValueSignalMap().insert(AttributeValueSignalMap::value_type(key, subscriber));
         }
 
         void requestActiveEndpoints(NwkAddr nwkAddr);

@@ -22,17 +22,20 @@
 #include "../../ZigbeeData/PropertyTree/AttributePT.h"
 #include "../../ZigbeeData/ZDevices.h"
 
+#include "../../json/json/json.h"
+
+using namespace Json;
+
 namespace zigbee {
   namespace http {
 
-    void ShowAttribute::operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request,
+    void ShowAttribute::operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &,
                                    Poco::Net::HTTPServerResponse &response) {
-        const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
         auto nwkAddr(placeHolder.get<NwkAddr>("device"));
         auto endpoint(placeHolder.get<EndpointID>("endpoint"));
         auto clusterId(placeHolder.get<ClusterID>("cluster"));
         auto attributeParam(placeHolder.get<std::string>("attribute"));
-        auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
+        auto zDevice = singletons.getZDevices()->getDevice(nwkAddr);
         auto zEndpoint = zDevice.getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
         if (zEndpoint.isInCluster(clusterId)) {
             response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
@@ -47,19 +50,51 @@ namespace zigbee {
                 BOOST_LOG_TRIVIAL(info) << "get attribute " << attributeParam;
                 attribute = cluster->getAttribute(attributeParam);
             }
+
+            attributeArrived.store(false);
+            NewAttributeValueCallback fn = [this](int status){this->attributeReceived(status);};
+            singletons.getAttributeValueSignalMap().insert(AttributeKey{nwkAddr, endpoint.getId(), cluster->getId().getId(),static_cast<ZigbeeAttributeId>(attribute->getIdentifier()) },fn);
             attribute->requestValue();
 
-
-            std::chrono::milliseconds duration(5);
-            while (!attribute->isAvailable()) {
+            std::chrono::milliseconds duration(100);
+            while (!attributeArrived.load()) {
                 std::this_thread::sleep_for(duration);
             }
-            producer.produce(response.send(), AttributePT(attribute));
+            if (status != 0){
+                response.setStatus(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
+            } else {
+                send(response,attribute);
+            }
 
         } else {
             throwWrongCluster(response, clusterId, endpoint, nwkAddr);
         }
     }
+
+      void ShowAttribute::send(Poco::Net::HTTPServerResponse &response, std::shared_ptr<ZCLAttribute> attribute){
+          response.setContentType(Poco::Net::MediaType("application","json"));
+          response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_OK);
+          Value root(objectValue);
+
+          root["id"]  = Value(attribute->getIdentifier());
+          root["name"]= Value(attribute->getName().to_string());
+          root["readOnly"]= Value(attribute->isReadOnly());
+          root["type"]= Value(static_cast<int>(attribute->getZCLType()));
+          root["isAvailable"]= Value(attribute->isAvailable());
+          root["isSupported"]= Value(!attribute->isUnsupported());
+          root["status"]= Value(attribute->getStatus());
+          if (attribute->isAvailable()){
+              root["value"] = Value( boost::any_cast<std::string>(attribute->getValue()));
+          }
+
+          response.send()<< root << "\n";
+      }
+
+      void ShowAttribute::attributeReceived(int status) {
+          this->status = status;
+          attributeArrived.store(true);
+      }
+
 
   } /* namespace http */
 } /* namespace zigbee */
