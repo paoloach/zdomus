@@ -51,6 +51,7 @@ namespace zigbee {
         void getUsbMessage() override;
 
         void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
+        void requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, std::vector<ZigbeeAttributeId> & attributeIds) override;
 
         virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId,
                                     ZCLTypeDataType dataType, uint8_t dataValueLen,

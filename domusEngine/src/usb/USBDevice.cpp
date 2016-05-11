@@ -254,4 +254,25 @@ namespace zigbee {
         ReqBindTable request(nwkAddrs.getId());
         sendData(request);
     }
+
+    void DomusEngineUSBDevice::requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
+                                                 std::vector<ZigbeeAttributeId> &attributeIds) {
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << "attribute size: " << attributeIds.size() << ")";
+        if (handle != nullptr) {
+            std::stringstream stream;
+            AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeIds};
+            int transfered{};
+
+            BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
+
+            int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &attributeValue, sizeof(attributeValue), &transfered, 10);
+            if (result == 0) {
+                BOOST_LOG_TRIVIAL(trace) << "request sent";
+            } else {
+                BOOST_LOG_TRIVIAL(error) << strUsbError(result);
+            }
+        }
+    }
+
+
 } /* namespace zigbee */

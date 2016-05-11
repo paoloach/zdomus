@@ -7,11 +7,9 @@
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include <sstream>
 #include <iostream>
 
 #include "jsonFields.h"
-#include "../IO/ProperyTreeUtils.h"
 
 #include "CmdRequestAttribute.h"
 
