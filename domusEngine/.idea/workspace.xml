@@ -27,12 +27,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/httpServer/RestParser/RestQueryTest.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/ZclAttributeUtils.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/ZclAttributeUtils.h" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/IO/MatcherPropertyTree.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/IO/MatcherPropertyTree.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/PathElementTest.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/PathParserTest.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/RestPathTest.h" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/domus_engine.iml" afterPath="$PROJECT_DIR$/.idea/domus_engine.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Comand/CmdRequestAttribute.cpp" afterPath="$PROJECT_DIR$/src/Comand/CmdRequestAttribute.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.h" afterPath="$PROJECT_DIR$/src/usb/USBDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeDevice.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/AttributeValue.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/AttributeValue.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IO/AttributeDataContainer.cpp" afterPath="$PROJECT_DIR$/src/IO/AttributeDataContainer.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IO/AttributeDataContainer.h" afterPath="$PROJECT_DIR$/src/IO/AttributeDataContainer.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/AttributeData.cpp" afterPath="$PROJECT_DIR$/src/ZigbeeData/AttributeData.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/AttributeData.h" afterPath="$PROJECT_DIR$/src/ZigbeeData/AttributeData.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" afterPath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowHello.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowHello.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.h" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/CMakeLists.txt" afterPath="$PROJECT_DIR$/src/test/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/IO/AttributeDataContainerTest.cpp" afterPath="$PROJECT_DIR$/src/test/IO/AttributeDataContainerTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/PathElementTest.cpp" afterPath="$PROJECT_DIR$/src/test/httpServer/RestParser/PathElementTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/PathParserTest.cpp" afterPath="$PROJECT_DIR$/src/test/httpServer/RestParser/PathParserTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp" afterPath="$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/RestPathTest.cpp" afterPath="$PROJECT_DIR$/src/test/httpServer/RestParser/RestPathTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" afterPath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/BindResponse.cpp" afterPath="$PROJECT_DIR$/src/usb/BindResponse.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/build.gradle" afterPath="$PROJECT_DIR$/../domusviewer/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffAdapter.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffFragment.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/build.gradle" afterPath="$PROJECT_DIR$/../domusviewer/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" afterPath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/../zigbee_lib/src/usb/USBDevice.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/ReadAttributeResponseMessage.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/ReadAttributeResponseMessage.h" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,52 +93,18 @@
       <file leaf-file-name="DeviceBrowserHandler.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
-              <folding>
-                <element signature="e#97#137#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="USBDevice.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="53" column="128" selection-start-line="53" selection-start-column="128" selection-end-line="53" selection-end-column="128" />
+            <state relative-caret-position="225">
+              <caret line="45" column="114" selection-start-line="45" selection-start-column="114" selection-end-line="45" selection-end-column="114" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
+      <file leaf-file-name="ShowAttributeFactory.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttributeFactory.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="259" column="168" selection-start-line="259" selection-start-column="168" selection-end-line="259" selection-end-column="168" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShowAttribute.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-              <folding>
-                <element signature="e#194#232#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CmdRequestAttributeTest.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Comand/CmdRequestAttributeTest.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+            <state relative-caret-position="224">
+              <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -111,21 +113,87 @@
       <file leaf-file-name="ShowAttribute.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="31" column="99" selection-start-line="31" selection-start-column="99" selection-end-line="31" selection-end-column="99" />
+            <state relative-caret-position="208">
+              <caret line="45" column="99" selection-start-line="45" selection-start-column="99" selection-end-line="45" selection-end-column="99" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DeviceBrowserHandler.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.h">
+      <file leaf-file-name="ShowHello.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowHello.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="168">
+              <caret line="16" column="81" selection-start-line="16" selection-start-column="81" selection-end-line="16" selection-end-column="81" />
               <folding>
-                <element signature="e#191#231#0" expanded="true" />
+                <marker date="1463503947524" expanded="true" signature="242:588" placeholder="{...}" />
+                <marker date="1463503947524" expanded="true" signature="259:565" placeholder="{...}" />
+                <marker date="1463503947524" expanded="true" signature="386:562" placeholder="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="479">
+              <caret line="143" column="47" selection-start-line="143" selection-start-column="47" selection-end-line="143" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShowAttribute.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="233">
+              <caret line="26" column="44" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="44" />
+              <folding>
+                <marker date="1463503707148" expanded="true" signature="337:1248" placeholder="{...}" />
+                <marker date="1463503707148" expanded="true" signature="388:1225" placeholder="{...}" />
+                <marker date="1463503707148" expanded="true" signature="504:1217" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="USBDevice.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="36" column="30" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SingletonObjects.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="31" column="24" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2383">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ZigbeeTypes.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/zigbee/include/zigbee/ZigbeeTypes.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -138,32 +206,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp" />
-        <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp" />
-        <option value="$PROJECT_DIR$/src/ZigbeeData/ZDevices.h" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp" />
-        <option value="$PROJECT_DIR$/src/ZigbeeData/BindTable.h" />
-        <option value="$PROJECT_DIR$/src/ZigbeeData/ZDevices.cpp" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteBind.cpp" />
-        <option value="$PROJECT_DIR$/src/usb/BindResponse.cpp" />
-        <option value="/usr/local/zigbee/include/zigbee/messageStructure/ReqBindTable.h" />
-        <option value="$PROJECT_DIR$/src/ZigbeeData/BindTable.cpp" />
-        <option value="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
-        <option value="$PROJECT_DIR$/src/usb/BindResponse.h" />
-        <option value="$PROJECT_DIR$/src/main.cpp" />
-        <option value="$PROJECT_DIR$/src/ZigbeeData/ZElement.h" />
-        <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/BindTablePT.cpp" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ResponseFile.cpp" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.cpp" />
-        <option value="/usr/local/zigbee/include/zigbee/zigbeeConfig.h" />
-        <option value="$PROJECT_DIR$/src/usb/UsbResponse.h" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/usb/AttributeValueReqError.h" />
-        <option value="$PROJECT_DIR$/src/usb/SimpleDescExecuter.h" />
-        <option value="$PROJECT_DIR$/src/usb/UsbResponseExecuters.h" />
-        <option value="$PROJECT_DIR$/src/usb/Executor.h" />
-        <option value="$PROJECT_DIR$/src/usb/AnnunceMsgExecuter.h" />
         <option value="$PROJECT_DIR$/src/usb/SimpleDescExecutor.h" />
         <option value="$PROJECT_DIR$/src/usb/UsbResponseExecuters.cpp" />
         <option value="$PROJECT_DIR$/src/usb/BindTableExecuter.h" />
@@ -172,23 +214,49 @@
         <option value="$PROJECT_DIR$/src/usb/UsbResponseExecutors.h" />
         <option value="$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h" />
         <option value="$PROJECT_DIR$/src/usb/AttributeValueReqError.cpp" />
-        <option value="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
         <option value="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowDevices.cpp" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowHello.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestActions.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestActions.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttributeFactory.h" />
         <option value="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.h" />
-        <option value="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttributeFactory.cpp" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
         <option value="$PROJECT_DIR$/src/Comand/CmdRequestAttribute.cpp" />
         <option value="/usr/local/zigbee/include/zigbee/ZigbeeDevice.h" />
         <option value="$PROJECT_DIR$/src/usb/USBDevice.h" />
         <option value="/usr/local/zigbee/include/zigbee/messageStructure/AttributeValue.h" />
         <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
+        <option value="/usr/local/zigbee/include/zigbee/messageStructure/ReadAttributeResponseMessage.h" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/AttributeData.h" />
+        <option value="$PROJECT_DIR$/src/IO/AttributeDataContainer.h" />
+        <option value="$PROJECT_DIR$/src/IO/AttributeDataContainer.cpp" />
+        <option value="$PROJECT_DIR$/src/ZigbeeData/AttributeData.cpp" />
+        <option value="$PROJECT_DIR$/src/usb/BindResponse.cpp" />
+        <option value="/usr/local/zigbee/include/zcl/ZclAttributeUtils.h" />
+        <option value="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestQueryParams.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestQueryParams.h" />
+        <option value="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
+        <option value="$PROJECT_DIR$/src/test/IO/AttributeDataContainerTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestPathTest.h" />
+        <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestQueryTest.h" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.cpp" />
+        <option value="$PROJECT_DIR$/src/test/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestQueryTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestPathTest.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.h" />
+        <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/PathElementTest.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.h" />
+        <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/PathParserTest.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h" />
+        <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowHello.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
       </list>
     </option>
   </component>
@@ -308,32 +376,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="zigbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="messageStructure" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="zcl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -362,6 +404,72 @@
               <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="g++-v5" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="g++-v5" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bits" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="domusEngine" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -377,46 +485,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ZigbeeData" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ZigbeeData" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PropertyTree" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -470,46 +538,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Comand" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="json" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -533,24 +561,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="json" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IO" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -644,6 +654,64 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="googletest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="googletest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="googlemock" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="googletest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="googlemock" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gmock" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="CMakeFiles" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -701,19 +769,15 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.domus_enginedemo">
-    <configuration default="false" name="JSZAttribute8BitBitmapTest.createIstance" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PROGRAM_PARAMS="$PROJECT_DIR$/../x86/v8_blob/" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JSZAttribute8BitBitmapTest" TEST_METHOD="createIstance" TEST_MODE="SUITE_TEST">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="JavaScriptExecuterTest.constructor_descructor" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PROGRAM_PARAMS="$PROJECT_DIR$/../x86/v8_blob/" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JavaScriptExecuterTest" TEST_METHOD="constructor_descructor" TEST_MODE="SUITE_TEST">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="DBTableTest.connection" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PROGRAM_PARAMS="$PROJECT_DIR$/../x86/v8_blob/" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="DBTableTest" TEST_METHOD="connection" TEST_MODE="SUITE_TEST">
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="All in JSDeviceTest.cpp" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PROGRAM_PARAMS="$PROJECT_DIR$/../x86/v8_blob/" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_PATTERN="JSDeviceTest.*:JSDeviceTest/*.*:*/JSDeviceTest.*/*:*/JSDeviceTest/*.*" TEST_MODE="PATTERN">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="RestPathTest.pathWithPlaceHolderMatch" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="RestPathTest" TEST_METHOD="pathWithPlaceHolderMatch" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="RestQuery" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="RestQuery" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
     </configuration>
@@ -918,7 +982,19 @@
       <envs />
       <method />
     </configuration>
-    <list size="14">
+    <configuration default="false" name="RestPath" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="RestPathTest" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="PathParserTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="PathParserTest" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="RestActionsTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="RestActionsTest" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <list size="16">
       <item index="0" class="java.lang.String" itemvalue="Application.domus_engine_test" />
       <item index="1" class="java.lang.String" itemvalue="Application.Build All" />
       <item index="2" class="java.lang.String" itemvalue="Application.debug" />
@@ -929,17 +1005,18 @@
       <item index="7" class="java.lang.String" itemvalue="Application.javascript_lib" />
       <item index="8" class="java.lang.String" itemvalue="Google Test.DomusEngineTest" />
       <item index="9" class="java.lang.String" itemvalue="Google Test.test_empty" />
-      <item index="10" class="java.lang.String" itemvalue="Google Test.JSZAttribute8BitBitmapTest.createIstance" />
-      <item index="11" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.constructor_descructor" />
-      <item index="12" class="java.lang.String" itemvalue="Google Test.DBTableTest.connection" />
+      <item index="10" class="java.lang.String" itemvalue="Google Test.RestPath" />
+      <item index="11" class="java.lang.String" itemvalue="Google Test.PathParserTest" />
+      <item index="12" class="java.lang.String" itemvalue="Google Test.RestActionsTest" />
       <item index="13" class="java.lang.String" itemvalue="Google Test.All in JSDeviceTest.cpp" />
+      <item index="14" class="java.lang.String" itemvalue="Google Test.RestPathTest.pathWithPlaceHolderMatch" />
+      <item index="15" class="java.lang.String" itemvalue="Google Test.RestQuery" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Google Test.All in JSDeviceTest.cpp" />
-        <item index="1" class="java.lang.String" itemvalue="Google Test.DBTableTest.connection" />
-        <item index="2" class="java.lang.String" itemvalue="Google Test.JSZAttribute8BitBitmapTest.createIstance" />
-        <item index="3" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.constructor_descructor" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Google Test.RestQuery" />
+        <item index="1" class="java.lang.String" itemvalue="Google Test.RestPathTest.pathWithPlaceHolderMatch" />
+        <item index="2" class="java.lang.String" itemvalue="Google Test.All in JSDeviceTest.cpp" />
       </list>
     </recent_temporary>
   </component>
@@ -1178,39 +1255,46 @@
       <option name="project" value="LOCAL" />
       <updated>1462865200413</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="allowed to request up to 25 attributes using the same request to USB">
+      <created>1462985247521</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1462985247521</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DomusEngineTest - 2016.02.23 at 18h 31m 34s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="PathParserTest - 2016.05.16 at 21h 51m 38s.xml">
+      <configuration name="PathParserTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DomusEngineTest - 2016.02.24 at 08h 36m 47s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="PathParserTest - 2016.05.16 at 21h 52m 08s.xml">
+      <configuration name="PathParserTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DomusEngineTest - 2016.03.29 at 20h 45m 25s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="PathParserTest - 2016.05.16 at 21h 52m 24s.xml">
+      <configuration name="PathParserTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DomusEngineTest - 2016.03.29 at 20h 59m 38s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="PathParserTest - 2016.05.16 at 21h 53m 12s.xml">
+      <configuration name="PathParserTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttribute8BitBitmapTest_createIstance - 2016.02.23 at 08h 26m 08s.xml">
-      <configuration name="JSZAttribute8BitBitmapTest.createIstance" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="PathParserTest - 2016.05.16 at 21h 53m 46s.xml">
+      <configuration name="PathParserTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttribute8BitBitmapTest_createIstance - 2016.02.23 at 08h 26m 57s.xml">
-      <configuration name="JSZAttribute8BitBitmapTest.createIstance" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="PathParserTest - 2016.05.17 at 08h 09m 54s.xml">
+      <configuration name="PathParserTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttribute8BitBitmapTest_createIstance - 2016.02.23 at 08h 27m 26s.xml">
-      <configuration name="JSZAttribute8BitBitmapTest.createIstance" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="PathParserTest - 2016.05.17 at 08h 10m 56s.xml">
+      <configuration name="PathParserTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttribute8BitBitmapTest_createIstance - 2016.02.23 at 08h 28m 11s.xml">
-      <configuration name="JSZAttribute8BitBitmapTest.createIstance" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="PathParserTest - 2016.05.17 at 08h 11m 45s.xml">
+      <configuration name="PathParserTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSZAttribute8BitBitmapTest_createIstance - 2016.02.23 at 08h 34m 59s.xml">
-      <configuration name="JSZAttribute8BitBitmapTest.createIstance" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="RestActionsTest - 2016.05.17 at 08h 33m 17s.xml">
+      <configuration name="RestActionsTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="test_empty - 2016.03.02 at 18h 35m 23s.xml">
-      <configuration name="test_empty" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="RestPath - 2016.05.16 at 18h 56m 10s.xml">
+      <configuration name="RestPath" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -1226,14 +1310,14 @@
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15157895" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14473684" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34019503" sideWeight="0.49052632" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34019503" sideWeight="0.49052632" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24702059" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34019503" sideWeight="0.5094737" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31744313" sideWeight="0.49157894" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31744313" sideWeight="0.49157894" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1261,7 +1345,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="test compile again" />
     <MESSAGE value="fix for new version of v8 library (commit 1b6265eff71c73e64013299900520a01ec06baa8)" />
     <MESSAGE value="Used string_view instead of string" />
     <MESSAGE value="some fixes" />
@@ -1286,7 +1369,8 @@
     <MESSAGE value="reformatted" />
     <MESSAGE value="reduced the parameters for UsbResponseExecuters" />
     <MESSAGE value="put AttributeValuesSignalMap into SingletonsObject class" />
-    <option name="LAST_COMMIT_MESSAGE" value="put AttributeValuesSignalMap into SingletonsObject class" />
+    <MESSAGE value="allowed to request up to 25 attributes using the same request to USB" />
+    <option name="LAST_COMMIT_MESSAGE" value="allowed to request up to 25 attributes using the same request to USB" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1321,21 +1405,11 @@
           <line>239</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp</url>
-          <line>57</line>
-          <option name="timeStamp" value="84" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/httpServer/RestParser/RestActions.cpp</url>
-          <line>14</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="87" />
+      <option name="time" value="98" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeGoogleTestRunConfigurationType">
@@ -1351,46 +1425,270 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/usb/BindTableExecuter.h">
+    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="30" column="70" selection-start-line="30" selection-start-column="70" selection-end-line="30" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttributeFactory.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/boost/token_functions.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6027">
+          <caret line="569" column="8" selection-start-line="569" selection-start-column="8" selection-end-line="569" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/boost/tokenizer.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="27" column="41" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestQueryParams.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ClusterThrowingException.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="62" column="103" selection-start-line="62" selection-start-column="103" selection-end-line="62" selection-end-column="103" />
-          <folding>
-            <element signature="e#169#205#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/UsbResponseExecutors.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="22" column="65" selection-start-line="22" selection-start-column="65" selection-end-line="22" selection-end-column="65" />
-          <folding>
-            <element signature="e#129#143#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/EndpointID.h">
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
+          <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/IO/MatcherPropertyTree.h" />
+    <entry file="file://$PROJECT_DIR$/src/test/IO/MatcherPropertyTree.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ReadAttributeResponseMessage.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IO/AttributeDataContainer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
           <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/IO/AttributeDataContainerTest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/IO/AttributeDataContainerTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1582">
+          <caret line="113" column="3" selection-start-line="48" selection-start-column="2" selection-end-line="113" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/RestQueryTest.h" />
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/RestPathTest.h" />
+    <entry file="file://$PROJECT_DIR$/src/test/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-157">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="60" column="75" selection-start-line="60" selection-start-column="75" selection-end-line="60" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/main_test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/RestPathTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+          <folding>
+            <element signature="e#89#113#0" expanded="false" />
+            <marker date="1463417822735" expanded="true" signature="268:1433" placeholder="{...}" />
+            <marker date="1463417822735" expanded="true" signature="289:1410" placeholder="{...}" />
+            <marker date="1463417822735" expanded="true" signature="314:1383" placeholder="{...}" />
+            <marker date="1463417822735" expanded="true" signature="412:603" placeholder="{...}" />
+            <marker date="1463417822735" expanded="true" signature="673:866" placeholder="{...}" />
+            <marker date="1463417822735" expanded="true" signature="928:1123" placeholder="{...}" />
+            <marker date="1463417822735" expanded="true" signature="1177:1372" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestPath.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/PathElementTest.h" />
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/PathElementTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/RestQueryTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="24" />
+          <folding>
+            <element signature="e#40#64#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/PathParserTest.h" />
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <element signature="e#40#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+          <folding>
+            <element signature="e#107#124#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/googletest/googlemock/include/gmock/gmock-matchers.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="203" column="0" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/basic_string.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="4940" column="0" selection-start-line="4940" selection-start-column="0" selection-end-line="4940" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/PathParserTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="687">
+          <caret line="67" column="64" selection-start-line="67" selection-start-column="64" selection-end-line="67" selection-end-column="64" />
+          <folding>
+            <element signature="e#92#116#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="23" column="56" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="56" />
+          <folding>
+            <element signature="e#185#202#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttributeFactory.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.h" />
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestPath.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestActions.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="67" column="63" selection-start-line="67" selection-start-column="63" selection-end-line="67" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding>
+            <element signature="e#93#117#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="45" column="114" selection-start-line="45" selection-start-column="114" selection-end-line="45" selection-end-column="114" />
           <folding />
         </state>
       </provider>
@@ -1403,18 +1701,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/AnnunceMsgExecuter.h">
+    <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="17" column="63" selection-start-line="17" selection-start-column="63" selection-end-line="17" selection-end-column="63" />
+        <state relative-caret-position="-2383">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
+    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2349">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="168">
+          <caret line="36" column="30" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -1427,354 +1725,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/AttributeStatusRecord.h">
+    <entry file="file:///usr/local/zigbee/include/zcl/Cluster.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="60" column="56" selection-start-line="60" selection-start-column="56" selection-end-line="60" selection-end-column="56" />
-          <folding>
-            <element signature="e#137#164#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValueReqError.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="13" column="57" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ReadAttributeResponseMessage.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ClusterPT.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteBind.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowWhoAreYou.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/Poco/Net/HTTPResponse.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="84" column="24" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/PropertyTree/AttributePT.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="23" column="5" selection-start-line="14" selection-start-column="4" selection-end-line="23" selection-end-column="5" />
+        <state relative-caret-position="194">
+          <caret line="132" column="41" selection-start-line="132" selection-start-column="12" selection-end-line="132" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/json/json/json.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="284" column="8" selection-start-line="284" selection-start-column="8" selection-end-line="284" selection-end-column="8" />
+        <state relative-caret-position="208">
+          <caret line="527" column="13" selection-start-line="527" selection-start-column="2" selection-end-line="527" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/json/jsoncpp.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="2815" column="23" selection-start-line="2815" selection-start-column="23" selection-end-line="2815" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zcl/ZCLDataType.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="38" column="29" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#2#0" expanded="false" />
-            <element signature="e#39#56#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/unique_ptr.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="764" column="0" selection-start-line="764" selection-start-column="0" selection-end-line="764" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="17" column="162" selection-start-line="17" selection-start-column="162" selection-end-line="17" selection-end-column="162" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowDevices.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowHello.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowHello.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/functional">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="1665" column="10" selection-start-line="1665" selection-start-column="10" selection-end-line="1665" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestActions.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="13" column="64" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
-          <folding>
-            <marker date="1462884613215" expanded="true" signature="132:693" placeholder="{...}" />
-            <marker date="1462884613215" expanded="true" signature="149:670" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestActions.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttributeFactory.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#191#231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zcl/ZCLAttribute.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="35" column="6" selection-start-line="35" selection-start-column="6" selection-end-line="35" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValueReqError.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="14" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
-          <folding>
-            <element signature="e#97#137#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Comand/CmdRequestAttributeTest.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IO/Session.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="40" column="48" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Comand/ComandFactory.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="52" column="22" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Comand/CmdRequestAttribute.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="20" column="40" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="40" />
+        <state relative-caret-position="310">
+          <caret line="3353" column="0" selection-start-line="3353" selection-start-column="0" selection-end-line="3353" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+        <state relative-caret-position="233">
+          <caret line="26" column="44" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="44" />
           <folding>
-            <element signature="e#194#232#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/ZigbeeDevice.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttributeFactory.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-          <folding>
-            <element signature="e#40#73#0" expanded="true" />
+            <marker date="1463503707148" expanded="true" signature="337:1248" placeholder="{...}" />
+            <marker date="1463503707148" expanded="true" signature="388:1225" placeholder="{...}" />
+            <marker date="1463503707148" expanded="true" signature="504:1217" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="31" column="99" selection-start-line="31" selection-start-column="99" selection-end-line="31" selection-end-column="99" />
+        <state relative-caret-position="208">
+          <caret line="45" column="99" selection-start-line="45" selection-start-column="99" selection-end-line="45" selection-end-column="99" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestQueryParams.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="53" column="128" selection-start-line="53" selection-start-column="128" selection-end-line="53" selection-end-column="128" />
+        <state relative-caret-position="84">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/AttributeValue.h">
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowHello.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="168">
+          <caret line="16" column="81" selection-start-line="16" selection-start-column="81" selection-end-line="16" selection-end-column="81" />
+          <folding>
+            <marker date="1463503947524" expanded="true" signature="242:588" placeholder="{...}" />
+            <marker date="1463503947524" expanded="true" signature="259:565" placeholder="{...}" />
+            <marker date="1463503947524" expanded="true" signature="386:562" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="259" column="168" selection-start-line="259" selection-start-column="168" selection-end-line="259" selection-end-column="168" />
+        <state relative-caret-position="479">
+          <caret line="143" column="47" selection-start-line="143" selection-start-column="47" selection-end-line="143" selection-end-column="47" />
           <folding />
         </state>
       </provider>

@@ -15,27 +15,33 @@
 
 namespace zigbee {
 
-  class SingletonObjects;
+    class SingletonObjects;
 
-  namespace http {
+    namespace http {
 
-    class PlaceHolders;
+        class PlaceHolders;
 
-    class ShowAttribute : public ActionHandler, public ClusterThrowingException {
-    private:
-        std::atomic_bool attributeArrived;
-        int status;
-    public:
-        ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) { std::atomic_init(&attributeArrived, false);};
+        class ShowAttribute : public ActionHandler, public ClusterThrowingException {
+        private:
+            std::vector<std::atomic<bool >> attributesArrived;
+            std::map<int, int> mapAttributes;
+            int status;
+            SingletonObjects &singletons;
+        public:
+            ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) { };
 
-        void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
-        void attributeReceived(int status);
-        void send(Poco::Net::HTTPServerResponse &response, std::shared_ptr<ZCLAttribute> attribute);
-    private:
-        SingletonObjects &singletons;
-    };
+            void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
 
-  } /* namespace http */
+            void attributeReceived(int attributeId, int status);
+
+            void send(Poco::Net::HTTPServerResponse &response, std::vector<std::shared_ptr<ZCLAttribute>> &&attributes);
+
+        private:
+            bool isAllAttributeArrived() const;
+
+        };
+
+    } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTACTIONS_SHOWATTRIBUTE_H_ */

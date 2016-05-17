@@ -55,7 +55,7 @@ SET(SOURCE_ZCL_FILES
         src/zcl/ClusterTypeFactory.cpp
         src/zcl/OnOffLight.cpp
         src/zcl/ZCLAttribute.cpp
-        src/zcl/ZCLDevice.cpp src/zcl/Callbacks.cpp src/zcl/Callbacks.h)
+        src/zcl/ZCLDevice.cpp src/zcl/Callbacks.cpp src/zcl/Callbacks.h src/zcl/ZclAttributeUtils.cpp src/zcl/ZclAttributeUtils.h)
 
 SET(SOURCE_ATTRIBUTES_FILES
         src/zcl/attributeTypes/ZCLbitmap8bitAttribute.cpp
@@ -92,7 +92,7 @@ SET(SOURCE_CLLUSTER_FILES
 SET(zigbeeSrcTest  src/test/main.cpp
         src/test/ZCLTypeTest.cpp
         src/test/ZCLTypeTest.h
-        src/test/attributesTest.cpp)
+        src/test/attributesTest.cpp src/zcl/ZclAttributeUtils.cpp src/zcl/ZclAttributeUtils.h)
 
 
 

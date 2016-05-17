@@ -12,19 +12,22 @@
 
 namespace zigbee {
 
-struct __attribute__ ((__packed__)) ReadAttributeResponseMessage {
-	static const int MAX_DATA_SIZE = 40;
-	GenericMessage generticDataMsg;
-	uint8_t type;
-	uint16_t clusterId;
-	uint16_t networkAddr;
-	uint8_t endpoint;
-	uint16_t panId;
-	uint16_t attrID;
-	uint8_t status;
-	uint8_t dataLen;
-	uint8_t data[MAX_DATA_SIZE];
-};
+    struct __attribute__ ((__packed__)) AttributeResponse {
+        uint16_t attrID;
+        uint8_t status;
+        uint8_t dataType;
+    };
+
+    struct __attribute__ ((__packed__)) ReadAttributeResponseMessage {
+        static const int MAX_DATA_SIZE = 40;
+        GenericMessage generticDataMsg;
+        uint8_t type;
+        uint16_t clusterId;
+        uint16_t networkAddr;
+        uint8_t endpoint;
+        uint16_t panId;
+        uint8_t numAttributes;
+    };
 
 }
 

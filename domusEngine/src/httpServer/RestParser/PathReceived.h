@@ -13,28 +13,32 @@
 #include <map>
 #include <boost/filesystem/path.hpp>
 
+#include "RestQuery.h"
+
 namespace zigbee {
-namespace http {
+    namespace http {
 
-class PathReceived {
-private:
-	std::vector<std::string> elements;
-	std::map<std::string, std::string> queryParams;
-public:
-	PathReceived(std::string && uri) noexcept;
+        class PathReceived {
+        private:
+            std::vector<std::string> elements;
+            std::map<std::string, RestQuery> queryParams;
+        public:
+            PathReceived(std::string &&uri) noexcept;
 
-	auto begin()const noexcept -> decltype(elements.begin())   {return elements.begin();}
-	auto end() const noexcept -> decltype(elements.end()) {return elements.end();}
+            auto begin() const noexcept -> decltype(elements.begin()) { return elements.begin(); }
 
-	auto getSize() const noexcept-> decltype(elements.size())  {return elements.size();}
+            auto end() const noexcept -> decltype(elements.end()) { return elements.end(); }
 
-	auto getQueryParams() const noexcept -> decltype(queryParams) {return queryParams;}
-private:
-	void createElements(std::string && uri);
+            auto getSize() const noexcept -> decltype(elements.size()) { return elements.size(); }
 
-};
+            auto getQueryParams() const noexcept -> decltype(queryParams) { return queryParams; }
 
-}  // end http
+        private:
+            void createElements(std::string &&uri);
+
+        };
+
+    }  // end http
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTPARSER_PATHRECEIVED_ */

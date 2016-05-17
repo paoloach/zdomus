@@ -43,7 +43,7 @@ namespace zigbee {
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}"}, ShowEndpoint{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}"}, ShowInCluster{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/out/{cluster}"}, ShowOutCluster{singletons});
-        restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/attribute/{attribute}"}, ShowAttributeFactory{singletons});
+        restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/attributes"}, ShowAttributeFactory{singletons});
         restGetActions.addActions(RestPath {"/binds"}, ShowBindTable{singletons});
         restGetActions.setDefaultAction(ResponseFile(singletons));
 

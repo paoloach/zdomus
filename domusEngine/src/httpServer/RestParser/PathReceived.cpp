@@ -8,10 +8,12 @@
 #include<boost/tokenizer.hpp>
 #include "PathReceived.h"
 
+using std::string;
+
 namespace zigbee {
 namespace http {
 
-PathReceived::PathReceived(std::string && uri) noexcept {
+PathReceived::PathReceived(string && uri) noexcept {
 	using Separator=boost::char_separator<char>;
 	using Tokenizer=boost::tokenizer<Separator>;
 	auto queryDelim = uri.find('?');
@@ -23,14 +25,9 @@ PathReceived::PathReceived(std::string && uri) noexcept {
 		auto queryString = uri.substr(queryDelim+1);
 		Separator separator("&");
 		Tokenizer tokens(queryString, separator);
-		for (const auto & token: tokens){
-			auto queryDelim = token.find('=');
-			if (queryDelim == std::string::npos){
-				queryParams[token];
-			} else {
-				auto key = token.substr(0,queryDelim);
-				queryParams[key] = token.substr(queryDelim+1);
-			}
+		for (string token: tokens){
+			RestQuery restQuery(std::move(token));
+			queryParams.insert({restQuery.name, restQuery});
 		}
 
 	}

@@ -46,21 +46,21 @@ if (CMAKE_BUILD_TYPE MATCHES "Debug")
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/native_blob.cpp
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/snapshot_blob.cpp)
-    else()
+    else ()
         set(V8_BLOB
-            ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/native_blob.cpp
-            ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/snapshot_blob.cpp)
-    endif()
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/native_blob.cpp
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/snapshot_blob.cpp)
+    endif ()
 else ()
     if (CMAKE_C_COMPILER MATCHES "arm")
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/native_blob.cpp
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/snapshot_blob.cpp)
-    else()
+    else ()
         set(V8_BLOB
-            ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
-            ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp)
-    endif()
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp )
+    endif ()
 endif ()
 
 add_executable(domus_engine_test
@@ -71,7 +71,7 @@ add_executable(domus_engine_test
         ${testUtils}
         ${testMocks}
         ${testComand}
-#        ${testDatabase}
+        #        ${testDatabase}
         ${testConfiguration}
         ${testJavascriptAttributes}
         ${testHttpServer}
@@ -82,7 +82,7 @@ add_executable(domus_engine_test
 
 
 add_executable(test_empty
-        main_test.cpp
+        main.cpp
         )
 
 set(V8_LIBRARY
@@ -109,6 +109,7 @@ SET(LIBS zigbeeLib
         ${Boost_THREAD_LIBRARY_RELEASE}
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
+        ${Boost_LOG_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
         dl
         pthread

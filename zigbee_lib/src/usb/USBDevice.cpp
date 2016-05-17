@@ -133,7 +133,7 @@ namespace zigbee {
                       std::cout << std::hex << (int) data[i] << " - ";
                   }
                   std::cout << std::endl;
-                  std::cout << "data len: " << (int) readAttributeResponseMessage->dataLen << std::endl;
+                  std::cout << "data len: " << (int) readAttributeResponseMessage->numAttributes << std::endl;
                   parseAttributeResponse(readAttributeResponseMessage);
                   break;
               case BIND_TABLE:
@@ -198,19 +198,19 @@ namespace zigbee {
   }
 
   void USBDevice::parseAttributeResponse(ReadAttributeResponseMessage *readAttributeResponseMessage) {
-      AttributeKey key(NwkAddr(readAttributeResponseMessage->networkAddr), readAttributeResponseMessage->endpoint, readAttributeResponseMessage->clusterId,
-                       readAttributeResponseMessage->attrID);
-      auto found = attributeValueSignalMap.equal_range(key);
-      if (found.first != attributeValueSignalMap.end()) {
-          std::shared_ptr<AttributeStatusRecord> attributeStatus = std::make_shared<AttributeStatusRecord>();
-          attributeStatus->attributeId = readAttributeResponseMessage->attrID;
-          attributeStatus->attributeDataType = readAttributeResponseMessage->type;
-          attributeStatus->status = readAttributeResponseMessage->status;
-          attributeStatus->dataLen = readAttributeResponseMessage->dataLen;
-
-          memcpy(attributeStatus->data, readAttributeResponseMessage->data, attributeStatus->dataLen);
-          std::for_each(found.first, found.second, [&attributeStatus](AttributeValueSignalMap::value_type &callback) { callback.second(attributeStatus); });
-      }
+//      AttributeKey key(NwkAddr(readAttributeResponseMessage->networkAddr), readAttributeResponseMessage->endpoint, readAttributeResponseMessage->clusterId,
+//                       readAttributeResponseMessage->attrID);
+//      auto found = attributeValueSignalMap.equal_range(key);
+//      if (found.first != attributeValueSignalMap.end()) {
+//          std::shared_ptr<AttributeStatusRecord> attributeStatus = std::make_shared<AttributeStatusRecord>();
+//          attributeStatus->attributeId = readAttributeResponseMessage->attrID;
+//          attributeStatus->attributeDataType = readAttributeResponseMessage->type;
+//          attributeStatus->status = readAttributeResponseMessage->status;
+//          attributeStatus->dataLen = readAttributeResponseMessage->dataLen;
+//
+//          memcpy(attributeStatus->data, readAttributeResponseMessage->data, attributeStatus->dataLen);
+//          std::for_each(found.first, found.second, [&attributeStatus](AttributeValueSignalMap::value_type &callback) { callback.second(attributeStatus); });
+//      }
   }
 
 

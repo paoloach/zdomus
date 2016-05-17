@@ -15,32 +15,19 @@ AttributeData::AttributeData() {
 
 }
 
-AttributeData::AttributeData(const ReadAttributeResponseMessage& attribute) {
+AttributeData::AttributeData(const ReadAttributeResponseMessage& attribute, AttributeResponse & attributeResponse, size_t attributeLen) {
 	type = attribute.type;
 	clusterId = attribute.clusterId;
 	networkAddr = attribute.networkAddr;
 	endpoint = attribute.endpoint;
 	panId = attribute.panId;
-	attrID = attribute.attrID;
-	status = attribute.status;
+	attrID = attributeResponse.attrID;
+	status = attributeResponse.status;
 
-	std::copy(attribute.data, attribute.data+attribute.dataLen, std::back_inserter(data));
+	uint8_t * rawData = reinterpret_cast<uint8_t *>(&attributeResponse)+sizeof(AttributeResponse);
+	std::copy(rawData, rawData+attributeLen, std::back_inserter(data));
 }
 
-AttributeData & AttributeData::operator =(const ReadAttributeResponseMessage& attribute) {
-	type = attribute.type;
-	clusterId = attribute.clusterId;
-	networkAddr = attribute.networkAddr;
-	endpoint = attribute.endpoint;
-	panId = attribute.panId;
-	attrID = attribute.attrID;
-	status = attribute.status;
-	std::copy(attribute.data, attribute.data+attribute.dataLen, std::back_inserter(data));
-	return *this;
-}
-
-AttributeData::~AttributeData() {
-}
 
 bool AttributeData::operator==(const AttributeData & other) {
 	return (type == other.type) && (clusterId == other.clusterId) &&

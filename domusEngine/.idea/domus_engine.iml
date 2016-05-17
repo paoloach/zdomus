@@ -69,31 +69,25 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/CmdUpdateAttributeTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/ComandFactoryTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/CmdSendCmdTest.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/main_test.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Configuration/ConfigurationTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Configuration/ConfigurationTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/IODataBufferTest.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/MatcherPropertyTree.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/IODataBufferTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/AttributeDataContainerTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/AttributeDataContainerTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/DataPropertyTreeMatcher.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/DataPropertyTreeMatcher.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/IO/MatcherPropertyTree.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/DeviceBrowserHandlerTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/PathTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/PathTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/ZDeviceFixture.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/PathParserTest.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/RestQueryTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/PathElementTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/RestPathTest.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/RestActionsTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/PlaceHoldersTest.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/PathElementTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/PlaceHoldersTest.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/PathParserTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/RestParser/RestPathTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/DeviceBrowserHandlerTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/httpServer/ZDeviceFixture.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" isTestSource="false" />
@@ -192,7 +186,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/Configuration/Configuration.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/Server.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/DataPropertyTree.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/IO/DataPropertyTree.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IO/Session.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/IODataBuffer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/Session.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/Server.h" isTestSource="false" />
@@ -201,12 +195,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/IO/ProperyTreeUtils.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/AttributeDataContainer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/AttributeDataContainer.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/IO/Session.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IO/DataPropertyTree.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/json/jsoncpp.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/json/json/json.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/json/json/json-forwards.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/FixedPathHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathReceived.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestActions.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathElement.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestActions.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathReceived.h" isTestSource="false" />
@@ -215,7 +210,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathElement.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PlaceHolders.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PlaceHolders.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestActions.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestQuery.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestQuery.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/HttpServer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/PlainTextProducer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestValue.h" isTestSource="false" />

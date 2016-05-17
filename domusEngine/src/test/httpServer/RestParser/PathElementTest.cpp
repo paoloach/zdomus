@@ -5,41 +5,33 @@
  *      Author: Paolo Achdjian
  */
 
-#include "PathElementTest.h"
 #include "../../../httpServer/RestParser/PathElement.h"
 
-namespace zigbee {
-namespace http {
-namespace test {
-
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 using namespace testing;
+namespace zigbee {
+    namespace http {
+        namespace test {
+            TEST(PathElementTest, pathString) {
+                std::string path = "path";
 
-PathElementTest::PathElementTest() {
-}
+                PathElement pathElement(path);
 
-PathElementTest::~PathElementTest() {
-}
+                ASSERT_THAT(pathElement.isPlaceholder(), Eq(false));
+                ASSERT_THAT(pathElement.getValue(), Eq(path));
+            }
 
+            TEST(PathElementTest, isPlaceholder) {
+                std::string placeHolder = "{path}";
 
-TEST_F( PathElementTest, pathString) {
-	std::string path="path";
+                PathElement pathElement(placeHolder);
 
-	PathElement pathElement(path);
+                ASSERT_THAT(pathElement.isPlaceholder(), Eq(true));
+                ASSERT_THAT(pathElement.getValue(), Eq("path"));
+            }
 
-	ASSERT_THAT(pathElement.isPlaceholder(), Eq(false));
-	ASSERT_THAT(pathElement.getValue(), Eq(path));
-}
-
-TEST_F( PathElementTest, isPlaceholder) {
-	std::string placeHolder="{path}";
-
-	PathElement pathElement(placeHolder);
-
-	ASSERT_THAT(pathElement.isPlaceholder(), Eq(true));
-	ASSERT_THAT(pathElement.getValue(), Eq("path"));
-}
-
-}
-} /* namespace http */
+        }
+    } /* namespace http */
 } /* namespace zigbee */

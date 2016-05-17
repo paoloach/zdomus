@@ -17,9 +17,8 @@ namespace zigbee {
 class AttributeData {
 public:
 	AttributeData();
-	AttributeData(const ReadAttributeResponseMessage & attribute);
-	AttributeData & operator=(const ReadAttributeResponseMessage & attribute);
-	virtual ~AttributeData();
+	AttributeData(const ReadAttributeResponseMessage & attribute, AttributeResponse & attributeResponse, size_t attributeLen);
+	virtual ~AttributeData()= default;
 public:
 	bool operator==(const AttributeData & attribute);
 

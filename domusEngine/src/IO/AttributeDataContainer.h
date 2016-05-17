@@ -18,10 +18,10 @@ namespace zigbee {
 
 class AttributeDataContainer {
 public:
-	AttributeDataContainer(unsigned int maxElements);
-	virtual ~AttributeDataContainer();
+	AttributeDataContainer(unsigned int maxElements):maxElements{maxElements}, tokenUpdate(0){};
+	virtual ~AttributeDataContainer()=default;
 public:
-	virtual void push(const AttributeData & attribute);
+	virtual void push(AttributeData && attribute);
 	virtual boost::property_tree::ptree get(uint64_t token);
 private:
 	class Data {

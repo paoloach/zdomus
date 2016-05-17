@@ -36,10 +36,11 @@ public:
 	MOCK_METHOD5(registerForAttributeValue, void (NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
             const NewAttributeValueCallback subscriber));
 
-	MOCK_METHOD6(sendReqBind, void (NwkAddr destAddr, uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
-            uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) );
 	MOCK_METHOD1(requestBindTable, void (NwkAddr nwkAddrs) );
 	MOCK_METHOD1(registerForBindTableMessage, void (BindTableResponseCallback) );
+	MOCK_METHOD4(requestAttributes, void (NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, std::vector<ZigbeeAttributeId> & attributeIds) );
+    MOCK_METHOD6(sendReqBind,  void (zigbee::NwkAddr, const uint8_t*, zigbee::EndpointID, zigbee::ClusterID, const uint8_t*, zigbee::EndpointID));
+    MOCK_METHOD6(sendReqUnbind,  void (zigbee::NwkAddr, const uint8_t*, zigbee::EndpointID, zigbee::ClusterID, const uint8_t*, zigbee::EndpointID));
 };
 
 }

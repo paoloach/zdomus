@@ -5,61 +5,83 @@
  *      Author: Paolo Achdjian
  */
 
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
+
 #include "../../../httpServer/RestParser/PathReceived.h"
 #include "../../../httpServer/RestParser/RestPath.h"
 #include "../../../httpServer/RestParser/RestActions.h"
 
-#include "RestActionsTest.h"
 #include "../../Mocks/http/HTTPServerResponseMock.h"
 #include "../../Mocks/http/HTTPServerRequestMock.h"
 #include <Poco/Net/HTTPServerParams.h>
 
 namespace zigbee {
-namespace http {
-namespace test {
+    namespace http {
+        namespace test {
 
-using namespace testing;
+            using namespace testing;
 
-RestActionsTest::RestActionsTest() {
-}
+            TEST(RestActionsTest, matchRestPath) {
+                bool pathP1 = false;
+                bool pathP2 = false;
+                RestPath restPath1{"/p1/{p2}/p3/{p4}"};
+                RestPath restPath2{"/p1/{p2}/p5/{p6}"};
+                HTTPServerResponseMock response;
+                HTTPServerRequestMock request{"GET", "aa"};
 
-RestActionsTest::~RestActionsTest() {
-}
+                RestActions restActions;
+                restActions.addActions(std::move(restPath1),
+                                       [&](const PlaceHolders &, Poco::Net::HTTPServerRequest &, Poco::Net::HTTPServerResponse &) { pathP1 = true; });
+                restActions.addActions(std::move(restPath2),
+                                       [&](const PlaceHolders &, Poco::Net::HTTPServerRequest &, Poco::Net::HTTPServerResponse &) { pathP2 = true; });
 
-TEST_F( RestActionsTest, matchRestPath) {
-	bool pathP1=false;
-	bool pathP2=false;
-	RestPath restPath1 {"/p1/{p2}/p3/{p4}"};
-	RestPath restPath2 {"/p1/{p2}/p5/{p6}"};
-	HTTPServerResponseMock response;
-	HTTPServerRequestMock request{"GET","aa"};
+                restActions.execute(PathReceived("/p1/p2val/p3/p4val"), request, response);
 
-	RestActions restActions;
-	restActions.addActions(std::move(restPath1), [&](const PlaceHolders &, Poco::Net::HTTPServerRequest& , Poco::Net::HTTPServerResponse& ){pathP1=true;});
-	restActions.addActions(std::move(restPath2), [&](const PlaceHolders &, Poco::Net::HTTPServerRequest&,Poco::Net::HTTPServerResponse& ){pathP2=true;});
+                ASSERT_THAT(pathP1, Eq(true));
+            }
 
-	restActions.execute(PathReceived("/p1/p2val/p3/p4val"),request, response);
+            TEST(RestActionsTest, rightPlaceOlder) {
+                std::string pathP1;
+                std::string pathP2;
+                RestPath restPath1{"/p1/{p2}/p3/{p4}"};
+                RestPath restPath2{"/p1/{p2}/p5/{p6}"};
+                HTTPServerResponseMock response;
+                HTTPServerRequestMock request{"GET", "aa"};;
 
-	ASSERT_THAT(pathP1, Eq(true));
-}
+                RestActions restActions;
+                restActions.addActions(std::move(restPath1), [&](const PlaceHolders &ph, Poco::Net::HTTPServerRequest &,
+                                                                 Poco::Net::HTTPServerResponse &) { pathP1 = ph.get<std::string>("p2"); });
+                restActions.addActions(std::move(restPath2), [&](const PlaceHolders &ph, Poco::Net::HTTPServerRequest &,
+                                                                 Poco::Net::HTTPServerResponse &) { pathP2 = ph.get<std::string>("p2"); });
 
-TEST_F( RestActionsTest, rightPlaceOlder) {
-	std::string pathP1;
-	std::string pathP2;
-	RestPath restPath1 {"/p1/{p2}/p3/{p4}"};
-	RestPath restPath2 {"/p1/{p2}/p5/{p6}"};
-	HTTPServerResponseMock response;
-	HTTPServerRequestMock request{"GET","aa"};;
+                restActions.execute(PathReceived("/p1/p2val/p3/p4val"), request, response);
 
-	RestActions restActions;
-	restActions.addActions(std::move(restPath1), [&](const PlaceHolders &ph, Poco::Net::HTTPServerRequest&,Poco::Net::HTTPServerResponse& ) {pathP1=ph.get<std::string>("p2");});
-	restActions.addActions(std::move(restPath2), [&](const PlaceHolders &ph, Poco::Net::HTTPServerRequest&,Poco::Net::HTTPServerResponse& ) {pathP2=ph.get<std::string>("p2");});
+                ASSERT_THAT(pathP1, Eq("p2val"));
+            }
 
-	restActions.execute(PathReceived("/p1/p2val/p3/p4val"),request, response);
+            TEST(RestActionsTest, querParam) {
+                std::string pathP1;
+                std::string pathP2;
+                RestPath restPath1{"/p1/{p2}/p3/{p4}"};
+                RestPath restPath2{"/p1/{p2}/p5/{p6}"};
+                HTTPServerResponseMock response;
+                HTTPServerRequestMock request{"GET", "aa"};
+                std::vector<int> queryParamsId;
 
-	ASSERT_THAT(pathP1, Eq("p2val"));
-}
+                RestActions restActions;
+                restActions.addActions(std::move(restPath1), [&](const PlaceHolders &ph, Poco::Net::HTTPServerRequest &,
+                                                                 Poco::Net::HTTPServerResponse &) { queryParamsId = ph.getQueryParams<int>("id"); });
+                restActions.addActions(std::move(restPath2), [&](const PlaceHolders &ph, Poco::Net::HTTPServerRequest &,
+                                                                 Poco::Net::HTTPServerResponse &) { pathP2 = ph.get<std::string>("p2"); });
 
-} /* namespace test */
-} /* namespace http */
+                restActions.execute(PathReceived("/p1/p2val/p3/p4val?id=1,2"), request, response);
+
+                ASSERT_THAT(queryParamsId.size(), Eq(2));
+                ASSERT_THAT(queryParamsId[0], Eq(1));
+                ASSERT_THAT(queryParamsId[1], Eq(2));
+            }
+
+        } /* namespace test */
+    } /* namespace http */
 } /* namespace zigbee */
