@@ -53,37 +53,55 @@ namespace zigbee {
 
     public:
         bool isPresent() override;
+
         bool requestDevices() override;
+
         void getUsbMessage() override;
+
         void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
-        virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType,
+
+        virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId,
+                                    ZCLTypeDataType dataType,
                                     uint8_t dataValueLen, uint8_t *dataValue) override;
-        void sendCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t> data = std::vector<uint8_t>());
+
+        void sendCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId,
+                     std::vector<uint8_t> data = std::vector<uint8_t>());
+
         void requestBindTable(NwkAddr nwkAddrs) override;
-        void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID, const uint8_t inClusterAddr[Z_EXTADDR_LEN],
+
+        void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
+                         const uint8_t inClusterAddr[Z_EXTADDR_LEN],
                          EndpointID inClusterEp)
                 override;
-        void sendReqBind(NwkAddr outClusterAddr, EndpointID outClusterEP, ClusterID clusterID, NwkAddr inClusterAddr, EndpointID inClusterEp)  ;
-        void sendReqUnbind(NwkAddr outClusterAddr, EndpointID outClusterEP, ClusterID clusterID, NwkAddr inClusterAddr, EndpointID inClusterEp)  ;
+
+        void sendReqBind(NwkAddr outClusterAddr, EndpointID outClusterEP, ClusterID clusterID, NwkAddr inClusterAddr, EndpointID inClusterEp);
+
+        void sendReqUnbind(NwkAddr outClusterAddr, EndpointID outClusterEP, ClusterID clusterID, NwkAddr inClusterAddr, EndpointID inClusterEp);
+
         void registerForAnnunceMessage(AnnunceCallback subscriber) override {
             annunceSignal.push_back(subscriber);
         }
+
         void registerForSimpleDescMessage(SimpleDescCallback subscriber) override {
             simpleDescSignal.push_back(subscriber);
         }
+
         void registerForBindTableMessage(BindTableResponseCallback subscriber) override {
             bindTableResponseSignal.push_back(subscriber);
         }
+
         void registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                      ZigbeeAttributeCmdId cmdId,
                                      const std::function<void()> subscriber) override {
         }
+
         void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                        ZigbeeAttributeId attributeId,
                                        const NewAttributeValueCallback subscriber) override {
             AttributeKey key(nwkAddrs, endpoint.getId(), cluster.getId(), attributeId);
             attributeValueSignalMap.insert(AttributeValueSignalMap::value_type(key, subscriber));
         }
+
         void requestActiveEndpoints(NwkAddr nwkAddr);
 
     private:
@@ -102,8 +120,11 @@ namespace zigbee {
     private:
         template<typename T>
         void sendData(const T &);
+
         void parseUsbMessage(unsigned char *data, int length);
+
         void parseAttributeResponse(ReadAttributeResponseMessage *readAttributeResponseMessage);
+
         std::string strUsbError(int);
     };
 
@@ -112,7 +133,8 @@ namespace zigbee {
         int transfered;
 
         if (handle != nullptr) {
-            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &data, sizeof(data), &transfered, 10);
+            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &data, sizeof(data), &transfered,
+                                              10);
             if (result == 0) {
                 std::cout << "request sent" << std::endl;
             } else {

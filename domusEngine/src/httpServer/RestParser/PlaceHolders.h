@@ -9,6 +9,7 @@
 #define SRC_HTTPSERVER_RESTPARSER_PLACEHOLDERS_H_
 
 #include <boost/lexical_cast.hpp>
+#include <zigbee/ZigbeeTypes.h>
 
 #include "RestPath.h"
 #include "PathReceived.h"
@@ -69,6 +70,7 @@ namespace zigbee {
             }
             return result;
         }
+
 
     } /* namespace http */
 } /* namespace zigbee */

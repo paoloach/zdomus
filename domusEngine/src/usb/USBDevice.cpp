@@ -21,9 +21,11 @@
 #include <zigbee/messageStructure/UnbindRequest.h>
 #include <zigbee/messageStructure/ReadAttributeResponseErrorMsg.h>
 
-namespace zigbee {
 
+namespace zigbee {
     static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::seconds(1);
+
+
 
     DomusEngineUSBDevice::DomusEngineUSBDevice(boost::asio::io_service &serviceIo_, std::shared_ptr<ZDevices> &zDevices_,
                                                AttributeDataContainer &attributeDataContainer_,
@@ -255,9 +257,8 @@ namespace zigbee {
         sendData(request);
     }
 
-    void DomusEngineUSBDevice::requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
-                                                 std::vector<ZigbeeAttributeId> &attributeIds) {
-        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << "attribute size: " << attributeIds.size() << ")";
+    void DomusEngineUSBDevice::requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,  ZigbeeAttributeIds  &attributeIds) {
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << "attribute: " << attributeIds << ")";
         if (handle != nullptr) {
             std::stringstream stream;
             AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeIds};

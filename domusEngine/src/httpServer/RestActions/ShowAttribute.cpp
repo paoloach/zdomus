@@ -44,23 +44,26 @@ namespace zigbee {
                 response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                 auto zigbeeDevice = singletons.getZigbeeDevice();
                 auto cluster(singletons.getClusterTypeFactory()->getCluster(clusterId, zigbeeDevice, endpoint, nwkAddr));
-                vector<ZigbeeAttributeId> attributesId = placeHolder.getQueryParams<ZigbeeAttributeId>("id");
+                ZigbeeAttributeIds attributesId (placeHolder.getQueryParams<ZigbeeAttributeId>("id"));
                 vector<std::shared_ptr<ZCLAttribute>> attributes;
                 attributesArrived = std::vector<std::atomic<bool >>(attributesId.size());
 
-                int index=0;
+                int index = 0;
                 for (int attributeId: attributesId) {
                     auto attribute = cluster->getAttribute(attributeId);
                     attributes.push_back(attribute);
-                    std::atomic_init(&attributesArrived[index],false);
-                    mapAttributes[attributeId]=index;
+                    std::atomic_init(&attributesArrived[index], false);
+                    mapAttributes[attributeId] = index;
                     index++;
                     NewAttributeValueCallback fn = [this, attributeId](int status) { this->attributeReceived(attributeId, status); };
-                    singletons.getAttributeValueSignalMap().insert(AttributeKey{nwkAddr, endpoint.getId(), cluster->getId().getId(),
-                                                                                static_cast<ZigbeeAttributeId>(attribute->getIdentifier())}, fn);
+                    if (attribute) {
+                        singletons.getAttributeValueSignalMap().insert(AttributeKey{nwkAddr, endpoint.getId(), clusterId.getId(),
+                                                                                    static_cast<ZigbeeAttributeId>(attribute->getIdentifier())}, fn);
+                    }
                 }
-                singletons.getZigbeeDevice()->requestAttributes(nwkAddr, endpoint, clusterId, attributesId);
-
+                if (zigbeeDevice != nullptr) {
+                    zigbeeDevice->requestAttributes(nwkAddr, endpoint, clusterId, attributesId);
+                }
 
                 std::chrono::milliseconds duration(100);
                 while (!isAllAttributeArrived()) {
