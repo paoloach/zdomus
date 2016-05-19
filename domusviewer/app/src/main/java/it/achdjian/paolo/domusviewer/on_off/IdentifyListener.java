@@ -2,18 +2,19 @@ package it.achdjian.paolo.domusviewer.on_off;
 
 import android.view.View;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+
 import it.achdjian.paolo.domusviewer.DomusEngine;
 import it.achdjian.paolo.domusviewer.Element;
 
 /**
  * Created by Paolo Achdjian on 20/04/16.
  */
+@EBean
 class IdentifyListener implements View.OnClickListener {
-    private final DomusEngine domusEngine;
-
-    public IdentifyListener(){
-        domusEngine = DomusEngine.getInstance();
-    }
+    @Bean
+    DomusEngine domusEngine;
 
     @Override
     public void onClick(View v) {

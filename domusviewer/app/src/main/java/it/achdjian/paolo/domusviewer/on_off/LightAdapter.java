@@ -1,12 +1,13 @@
 package it.achdjian.paolo.domusviewer.on_off;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import org.androidannotations.annotations.EBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +26,14 @@ import static it.achdjian.paolo.domusviewer.Constants.ZCL_HA_DEVICEID_ON_OFF_OUT
 /**
  * Created by Paolo Achdjian on 20/04/16.
  */
+@EBean
 class LightAdapter extends OnOffAdapter implements View.OnClickListener {
     private final List<OnOffListener> listeners = new ArrayList<>();
-    private final BindLightLongClickListener bindLightLongClickListener;
+    private BindLightLongClickListener bindLightLongClickListener;
 
-    public LightAdapter(Context context, @NonNull BindController bindController, @NonNull Binding binding, @NonNull ElementSelected selected, FragmentManager fragmentManager) {
-        super(context, bindController, selected, fragmentManager);
-        this.bindLightLongClickListener = new BindLightLongClickListener(selected, binding);
+    public void init(@NonNull BindController bindController, @NonNull Binding binding) {
+        init(bindController);
+        this.bindLightLongClickListener = new BindLightLongClickListener(bindController.elementSelected, binding);
     }
 
     @Override
@@ -79,6 +81,9 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener {
         View result = super.getView(position, convertView, parent);
         result.setOnClickListener(this);
         result.setTag(R.id.type, TYPE_LIGHT);
+        RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
+        infoLayout.setClickable(true);
+        infoLayout.setOnClickListener(this);
 
         ImageView bind = (ImageView)result.findViewById(R.id.binded);
         bind.setTag(R.id.element_value,elements.get(position));
@@ -90,10 +95,10 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener {
     public void onClick(View v) {
         Object tag = v.getTag(R.id.element_value);
         if (tag instanceof Element) {
-            if (selected.is((Element) tag)) {
-                selected.selected=null;
+            if (bindController.elementSelected.is((Element) tag)) {
+                bindController.elementSelected.selected=null;
             } else {
-                selected.selected= (Element) tag;
+                bindController.elementSelected.selected= (Element) tag;
             }
             for (OnOffListener lightListener : listeners) {
                 lightListener.change();

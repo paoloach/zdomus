@@ -3,6 +3,9 @@ package it.achdjian.paolo.domusviewer.on_off;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -14,14 +17,17 @@ import it.achdjian.paolo.domusviewer.zigbee.ClustersId;
 /**
  * Created by Paolo Achdjian on 25/04/16.
  */
+@EBean
 public class BindController implements OnOffListener {
-    private final ElementSelected elementSelected;
     public OnOffAdapter switchAdapter = null;
     public OnOffAdapter lightAdapter = null;
 
-    public BindController(ElementSelected elementSelected) {
-        this.elementSelected = elementSelected;
-    }
+    @Bean
+    public ElementSelected elementSelected;
+    @Bean
+    DomusEngine domusEngine;
+
+
 
     @Override
     public void change() {
@@ -44,14 +50,16 @@ public class BindController implements OnOffListener {
             if (elementSelected.selected != null) {
                 Map<Element, Set<Element>> elementSetMap;
                 if (typeValue == OnOffAdapter.TYPE_LIGHT) {
-                    elementSetMap = DomusEngine.getInstance().srcDstBindMap.get(ClustersId.ON_OFF_CLUSTER);
+                    elementSetMap = domusEngine.srcDstBindMap.get(ClustersId.ON_OFF_CLUSTER);
                 } else {
-                    elementSetMap = DomusEngine.getInstance().dstSrcBindMap.get(ClustersId.ON_OFF_CLUSTER);
+                    elementSetMap = domusEngine.dstSrcBindMap.get(ClustersId.ON_OFF_CLUSTER);
                 }
-                if (elementSetMap.containsKey(elementSelected.selected) && elementSetMap.get(elementSelected.selected).contains(element)) {
-                    bindedImg.setActivated(true);
-                } else {
-                    bindedImg.setActivated(false);
+                if (elementSetMap != null) {
+                    if (elementSetMap.containsKey(elementSelected.selected) && elementSetMap.get(elementSelected.selected).contains(element)) {
+                        bindedImg.setActivated(true);
+                    } else {
+                        bindedImg.setActivated(false);
+                    }
                 }
             }
         }

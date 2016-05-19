@@ -1,12 +1,13 @@
 package it.achdjian.paolo.domusviewer.on_off;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import org.androidannotations.annotations.EBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +26,15 @@ import static it.achdjian.paolo.domusviewer.Constants.ZCL_HA_DEVICEID_ON_OFF_SWI
 /**
  * Created by Paolo Achdjian on 19/04/16.
  */
+@EBean
 class SwitchAdapter extends OnOffAdapter implements View.OnClickListener {
     private final List<OnOffListener> switchListeners = new ArrayList<>();
-    private final BindSwitchLongClickListener bindSwitchLongClickListener;
-    public SwitchAdapter(Context context, @NonNull BindController bindController, @NonNull Binding binding, @NonNull ElementSelected selected, FragmentManager fragmentManager) {
-        super(context, bindController, selected,fragmentManager);
-        this.bindSwitchLongClickListener = new BindSwitchLongClickListener(selected, binding);
+    private BindSwitchLongClickListener bindSwitchLongClickListener;
+
+
+    public void init(@NonNull BindController bindController, @NonNull Binding binding) {
+        init(bindController);
+        this.bindSwitchLongClickListener = new BindSwitchLongClickListener(bindController.elementSelected, binding);
 
     }
 
@@ -80,6 +84,10 @@ class SwitchAdapter extends OnOffAdapter implements View.OnClickListener {
         result.setOnClickListener(this);
         result.setTag(R.id.type, TYPE_SWITCH);
 
+        RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
+        infoLayout.setClickable(true);
+        infoLayout.setOnClickListener(this);
+
         ImageView bind = (ImageView)result.findViewById(R.id.binded);
         bind.setLongClickable(true);
         bind.setTag(R.id.element_value,elements.get(position));
@@ -91,10 +99,10 @@ class SwitchAdapter extends OnOffAdapter implements View.OnClickListener {
     public void onClick(View v) {
         Object tag = v.getTag(R.id.element_value);
         if (tag instanceof Element) {
-            if (selected.is((Element) tag)){
-                selected.selected = null;
+            if (bindController.elementSelected.is((Element) tag)){
+                bindController.elementSelected.selected = null;
             } else {
-                selected.selected= (Element) tag;
+                bindController.elementSelected.selected= (Element) tag;
             }
             for (OnOffListener switchListener : switchListeners) {
                 switchListener.change();

@@ -1,42 +1,61 @@
 package it.achdjian.paolo.domusviewer.other;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
+
+import it.achdjian.paolo.domusviewer.DomusEngine;
+import it.achdjian.paolo.domusviewer.DomusEngineRest.JSonAttribute;
 import it.achdjian.paolo.domusviewer.Element;
 import it.achdjian.paolo.domusviewer.R;
 
 /**
  * Created by Paolo Achdjian on 11/05/16.
  */
-public class ZDeviceInfoFragment extends DialogFragment {
+@EFragment(R.layout.zdevice_info)
+public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.AttributesListener {
+    @FragmentArg("network_id")
+    Integer networkId;
+    @FragmentArg("endpoint_id")
+    Integer endpointId;
 
-    public static final String NETWORK_ID = "network_id";
-    public static final String ENDPOINT_ID = "endpoint_id";
 
-    public static ZDeviceInfoFragment newInstance(Element element){
-        ZDeviceInfoFragment info = new ZDeviceInfoFragment();
+    @ViewById(R.id.name)
+    TextView name;
+    @ViewById(R.id.model)
+    TextView model;
+    @ViewById(R.id.date)
+    TextView date;
+    @ViewById(R.id.location)
+    TextView location;
+    @ViewById(R.id.environment)
+    TextView environment;
+    @ViewById(R.id.enabled)
+    CheckBox checkBox;
+    @Bean
+    DomusEngine domusEngine;
 
-        Bundle args = new Bundle();
-        args.putInt(NETWORK_ID, element.network);
-        args.putInt(ENDPOINT_ID, element.endpoint);
-        info.setArguments(args);
-        return info;
+    @AfterViews
+    public void afterView(){
+        domusEngine.requestAttributes(this,networkId, endpointId, 0,4,5,6,0x10,0x11,0x12);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    public void newAttributes(List<JSonAttribute> attributes) {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.zdevice_info, container, false);
-
-        return view;
     }
 }

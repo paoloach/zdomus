@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -23,38 +22,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionObserver;
-import it.achdjian.paolo.domusviewer.on_off.OnOffFragment;
+import it.achdjian.paolo.domusviewer.on_off.OnOffFragment_;
 import it.achdjian.paolo.domusviewer.setting.SettingActivity;
 
+@EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements ConnectionObserver {
-    private DomusEngine domusEngine;
+    @Bean
+    DomusEngine domusEngine;
+    @ViewById(R.id.container)
+    ViewPager mViewPager;
+    @ViewById(R.id.tabs)
+    TabLayout tabLayout;
+    @ViewById(R.id.toolbar)
+    Toolbar toolbar;
+    @ViewById(R.id.fab)
+    FloatingActionButton fab;
+
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
     private ActionBar actionBar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @AfterViews
+    protected void afterView() {
         initConstants();
 
-        setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,8 +70,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionObserve
 
         actionBar = getSupportActionBar();
 
-        DomusEngine.initInstance(PreferenceManager.getDefaultSharedPreferences(this));
-        domusEngine =DomusEngine.getInstance();
         domusEngine.addConnectionObserver(this);
     }
 
@@ -158,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionObserve
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return OnOffFragment.newInstance();
+                return OnOffFragment_.builder().build();
             }
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).

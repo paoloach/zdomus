@@ -1,11 +1,14 @@
 package it.achdjian.paolo.domusviewer.on_off;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,40 +17,41 @@ import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import it.achdjian.paolo.domusviewer.DomusEngine;
 import it.achdjian.paolo.domusviewer.Element;
 import it.achdjian.paolo.domusviewer.R;
-import it.achdjian.paolo.domusviewer.other.ZDeviceInfoFragment;
+import it.achdjian.paolo.domusviewer.other.ZDeviceInfoFragment_;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
 /**
  * Created by Paolo Achdjian on 20/04/16.
  */
+@EBean
 abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener, View.OnLongClickListener {
+    static final Integer TYPE_SWITCH = 1;
+    static final Integer TYPE_LIGHT = 2;
 
-    static final Integer TYPE_SWITCH =1;
-    static final Integer TYPE_LIGHT =2;
+    @RootContext
+    AppCompatActivity activity;
+    @Bean
+    DomusEngine domusEngine;
+    @Bean
+    IdentifyListener identifyListener;
 
-    final DomusEngine domusEngine;
-    private final IdentifyListener identifyListener;
-    private final BindController bindController;
-    final ElementSelected selected;
-    private final FragmentManager fragmentManager;
-
+    BindController bindController;
     private final List<DataSetObserver> observers = new ArrayList<>();
     final List<Element> elements = new ArrayList<>();
-    private final Context context;
 
-    OnOffAdapter(Context context, @NonNull BindController bindController, ElementSelected selected, FragmentManager fragmentManager) {
-        this.context = context;
+    void init(@NonNull BindController bindController) {
         this.bindController = bindController;
-        this.selected = selected;
-        this.fragmentManager = fragmentManager;
-        domusEngine = DomusEngine.getInstance();
         domusEngine.addEndpointListener(this);
 
         for (ZDevice zDevice : domusEngine.getDevices().getDevices()) {
@@ -55,12 +59,10 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
                 addEndpoint(zEndpoint);
             }
         }
-        identifyListener = new IdentifyListener();
     }
 
     public void onDestroy() {
-        DomusEngine instance = DomusEngine.getInstance();
-        instance.removeEndpointListener(this);
+        domusEngine.removeEndpointListener(this);
     }
 
     private boolean addEndpoint(ZEndpoint zEndpoint) {
@@ -123,8 +125,8 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
 
     @Override
     public void newEndpoint(ZEndpoint zDevice) {
-        if (addEndpoint(zDevice)){
-            new Handler(context.getMainLooper()).post(new Runnable() {
+        if (addEndpoint(zDevice)) {
+            new Handler(activity.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
                     for (DataSetObserver observer : observers) {
@@ -142,34 +144,34 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
         if (convertView != null) {
             result = convertView;
         } else {
-            LayoutInflater inflater = LayoutInflater.from(context);
+            LayoutInflater inflater = LayoutInflater.from(activity);
             result = inflater.inflate(R.layout.switch_on_off, parent, false);
         }
         Element element = elements.get(position);
         TextView mainText = (TextView) result.findViewById(R.id.mainText);
         RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
-        infoLayout.setLongClickable(true);
+        infoLayout.setLongClickable(false);
         infoLayout.setOnLongClickListener(this);
         infoLayout.setTag(R.id.element_value, element);
 
 
         mainText.setText(element.network + ":" + element.endpoint);
 
-        result.setTag(R.id.element_value,element);
+        result.setTag(R.id.element_value, element);
         Button IButton = (Button) result.findViewById(R.id.identifyBt);
         IButton.setTag(element);
         IButton.setOnClickListener(identifyListener);
 
         bindController.setBindStatus(result);
-        if (selected.is(element)){
+        if (bindController.elementSelected.is(element)) {
             infoLayout.setActivated(true);
-        } else{
+        } else {
             infoLayout.setActivated(false);
         }
         return result;
     }
 
-    public void invalidate(){
+    public void invalidate() {
         for (DataSetObserver observer : observers) {
             observer.onChanged();
         }
@@ -177,19 +179,24 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
 
     @Override
     public boolean onLongClick(View v) {
-        if (v instanceof RelativeLayout){
+        if (v instanceof RelativeLayout) {
             RelativeLayout infoLayout = (RelativeLayout) v;
             Object tag = infoLayout.getTag(R.id.element_value);
-            if (tag instanceof Element){
+            if (tag instanceof Element) {
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                Fragment prev = fragmentManager.findFragmentByTag("dialog");
                 if (prev != null) {
                     ft.remove(prev);
                 }
                 ft.addToBackStack(null);
 
                 // Create and show the dialog.
-                DialogFragment newFragment = ZDeviceInfoFragment.newInstance((Element) tag);
+                Element element = (Element) tag;
+                DialogFragment newFragment = ZDeviceInfoFragment_.builder().
+                        endpointId(element.endpoint).
+                        networkId(element.network).
+                        build();
                 newFragment.show(ft, "dialog");
                 return true;
             }

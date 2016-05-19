@@ -27,21 +27,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeTypes.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/JSonAttribute.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/RequestAttributes.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.h" afterPath="$PROJECT_DIR$/src/usb/USBDevice.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/build.gradle" afterPath="$PROJECT_DIR$/../domusviewer/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngine.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/MainActivity.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/BindController.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/BindController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffAdapter.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffFragment.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/on_off_layout.xml" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/on_off_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/zdevice_info.xml" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/zdevice_info.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/build.gradle" afterPath="$PROJECT_DIR$/../domusviewer/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" afterPath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/usb/USBDevice.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/usb/USBDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeDevice.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeTypes.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeTypes.h" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,7 +61,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DeviceBrowserHandler.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DeviceBrowserHandler.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
@@ -76,21 +74,19 @@
       <file leaf-file-name="ShowAttribute.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-311">
-              <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+            <state relative-caret-position="393">
+              <caret line="93" column="57" selection-start-line="93" selection-start-column="57" selection-end-line="93" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
+      <file leaf-file-name="ZCLAttribute.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/zigbee/include/zcl/ZCLAttribute.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <element signature="e#78#97#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="201">
+              <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -98,7 +94,7 @@
       <file leaf-file-name="USBDevice.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="336">
               <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="45" selection-end-column="11" />
               <folding>
                 <marker date="1463552204652" expanded="true" signature="532:4913" placeholder="{...}" />
@@ -111,7 +107,7 @@
       <file leaf-file-name="record_ostream.hpp" pinned="false" current-in-tab="false">
         <entry file="file:///usr/include/boost/log/sources/record_ostream.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
+            <state relative-caret-position="5264">
               <caret line="376" column="8" selection-start-line="376" selection-start-column="8" selection-end-line="376" selection-end-column="8" />
               <folding />
             </state>
@@ -121,7 +117,7 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2383">
+            <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -283,10 +279,6 @@
               <option name="myItemId" value="include" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zigbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -307,150 +299,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="zcl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boost" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boost" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="log" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boost" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="log" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utility" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boost" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="log" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1325,7 +1173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463504118707</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Managed request multiple attribute">
+      <created>1463588872149</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1463588872150</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1378,7 +1233,6 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34019503" sideWeight="0.49052632" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24702059" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34019503" sideWeight="0.5094737" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31744313" sideWeight="0.49157894" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1390,6 +1244,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1488,25 +1343,12 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/IO/MatcherPropertyTree.h" />
     <entry file="file://$PROJECT_DIR$/src/test/IO/MatcherPropertyTree.cpp" />
     <entry file="file://$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="401">
           <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
-          <folding>
-            <marker date="1463380995022" expanded="false" signature="188:261" placeholder="..." />
-            <marker date="1463380995022" expanded="true" signature="280:2128" placeholder="{...}" />
-            <marker date="1463380995022" expanded="true" signature="297:2126" placeholder="{...}" />
-            <marker date="1463380995022" expanded="true" signature="344:2122" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1544,7 +1386,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-157">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1566,16 +1407,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
           <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
-          <folding>
-            <element signature="e#89#113#0" expanded="false" />
-            <marker date="1463417822735" expanded="true" signature="268:1433" placeholder="{...}" />
-            <marker date="1463417822735" expanded="true" signature="289:1410" placeholder="{...}" />
-            <marker date="1463417822735" expanded="true" signature="314:1383" placeholder="{...}" />
-            <marker date="1463417822735" expanded="true" signature="412:603" placeholder="{...}" />
-            <marker date="1463417822735" expanded="true" signature="673:866" placeholder="{...}" />
-            <marker date="1463417822735" expanded="true" signature="928:1123" placeholder="{...}" />
-            <marker date="1463417822735" expanded="true" signature="1177:1372" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1598,9 +1429,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="56">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="24" />
-          <folding>
-            <element signature="e#40#64#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1609,7 +1437,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="303">
           <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1617,9 +1444,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#40#70#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1627,9 +1451,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-          <folding>
-            <element signature="e#107#124#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1652,9 +1473,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="687">
           <caret line="67" column="64" selection-start-line="67" selection-start-column="64" selection-end-line="67" selection-end-column="64" />
-          <folding>
-            <element signature="e#92#116#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1662,9 +1480,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="23" column="56" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="56" />
-          <folding>
-            <element signature="e#185#202#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1672,7 +1487,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1680,7 +1494,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1689,7 +1502,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1697,7 +1509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1705,9 +1516,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="543">
           <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding>
-            <element signature="e#93#117#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1715,7 +1523,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="31" column="24" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1739,7 +1546,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="310">
           <caret line="3353" column="0" selection-start-line="3353" selection-start-column="0" selection-end-line="3353" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1755,19 +1561,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestQueryParams.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestParser/RestQueryParams.cpp" />
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="479">
           <caret line="143" column="47" selection-start-line="143" selection-start-column="47" selection-end-line="143" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1775,21 +1573,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="16" column="81" selection-start-line="16" selection-start-column="81" selection-end-line="16" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="45" column="114" selection-start-line="45" selection-start-column="114" selection-end-line="45" selection-end-column="114" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2383">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -1799,7 +1588,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1807,7 +1595,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="429">
           <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1815,7 +1602,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="112" column="28" selection-start-line="112" selection-start-column="28" selection-end-line="112" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1823,13 +1609,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="806" column="0" selection-start-line="806" selection-start-column="0" selection-end-line="806" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="336">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="45" selection-end-column="11" />
           <folding>
             <marker date="1463552204652" expanded="true" signature="532:4913" placeholder="{...}" />
@@ -1850,27 +1635,43 @@
     </entry>
     <entry file="file:///usr/include/boost/log/sources/record_ostream.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
+        <state relative-caret-position="5264">
           <caret line="376" column="8" selection-start-line="376" selection-start-column="8" selection-end-line="376" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-311">
-          <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="320">
+          <caret line="42" column="85" selection-start-line="42" selection-start-column="85" selection-end-line="42" selection-end-column="85" />
           <folding>
             <element signature="e#78#97#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zcl/ZCLAttribute.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="93" column="57" selection-start-line="93" selection-start-column="57" selection-end-line="93" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="45" column="114" selection-start-line="45" selection-start-column="114" selection-end-line="45" selection-end-column="114" />
+          <folding />
         </state>
       </provider>
     </entry>
