@@ -8,8 +8,8 @@ public class JSonAttribute {
     public String name;
     public boolean readOnly;
     public int type;
-    public int isAvailable;
-    public int isSupported;
+    public boolean isAvailable;
+    public boolean isSupported;
     public int status;
     public String value;
 }
