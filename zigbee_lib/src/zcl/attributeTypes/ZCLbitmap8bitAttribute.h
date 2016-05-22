@@ -14,28 +14,35 @@
 
 namespace zigbee {
 
-class ZCL_bitmap8bit_Attribute : public ZCLAttribute {
-public:
-	ZCL_bitmap8bit_Attribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier,  std::experimental::string_view   name, bool readOnly);
-public:
-	virtual boost::any getValue() const override;
-	virtual void sendValue(uint8_t newValue);
-	virtual bool getValue(int bitIndex) const;
+    class ZCL_bitmap8bit_Attribute : public ZCLAttribute {
+    public:
+        ZCL_bitmap8bit_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+                                 std::experimental::string_view name, bool readOnly);
 
-	static std::string name() {
-		return "8bitBitmap";
-	}
+    public:
+        virtual boost::any getValue() const override;
 
-    static constexpr ZCLTypeDataType type=ZCLTypeDataType::ZCLType8bitBitmap;
-private:
-	virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord>  rawData);
-	friend std::ostream & operator<<(std::ostream & out, const ZCL_bitmap8bit_Attribute *);
-private:
-	uint32_t value;
-};
+        virtual void sendValue(uint8_t newValue);
 
-std::ostream & operator<<(std::ostream & out, const ZCL_bitmap8bit_Attribute *);
+        virtual bool getValue(int bitIndex) const;
 
+        static std::string name() {
+            return "8bitBitmap";
+        }
+
+        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLType8bitBitmap;
+    private:
+        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
+
+        virtual void internalSetValue(uint8_t *rawData) override;
+
+        friend std::ostream &operator<<(std::ostream &out, const ZCL_bitmap8bit_Attribute *);
+
+    private:
+        uint32_t value;
+    };
+
+    std::ostream &operator<<(std::ostream &out, const ZCL_bitmap8bit_Attribute *);
 
 
 } /* namespace zigbee */

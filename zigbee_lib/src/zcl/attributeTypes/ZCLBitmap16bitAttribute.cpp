@@ -9,42 +9,52 @@
 
 namespace zigbee {
 
-ZCLBitmap16bitAttribute::ZCLBitmap16bitAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,  std::experimental::string_view   name, bool readOnly) :
-        ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLType16bitBitmap, name, readOnly) {
-    if (zigbeeDevice) {
-        zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
-                                                [this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
+    ZCLBitmap16bitAttribute::ZCLBitmap16bitAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+                                                     std::experimental::string_view name, bool readOnly) :
+            ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLType16bitBitmap, name, readOnly) {
+        if (zigbeeDevice) {
+            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
+                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) { setValue(rawData); });
+        }
     }
-}
 
-boost::any ZCLBitmap16bitAttribute::getValue() const {
-    if (status != Available) {
-        throw ZCLAttributeNotAvailableException(parent, identifier);
+    boost::any ZCLBitmap16bitAttribute::getValue() const {
+        if (status != Available) {
+            throw ZCLAttributeNotAvailableException(parent, identifier);
+        }
+        return boost::any(value);
     }
-    return boost::any(value);
-}
 
-bool ZCLBitmap16bitAttribute::getValue(int index) const {
-    if (status != Available) {
-        throw ZCLAttributeNotAvailableException(parent, identifier);
+    bool ZCLBitmap16bitAttribute::getValue(int index) const {
+        if (status != Available) {
+            throw ZCLAttributeNotAvailableException(parent, identifier);
+        }
+        return value[index];
     }
-    return value[index];
-}
 
-void ZCLBitmap16bitAttribute::sendValue(std::bitset<16> value) {
-    auto toSend = value.to_ulong();
-    sendValueToDevice(2, (uint8_t *) &toSend);
-}
+    void ZCLBitmap16bitAttribute::sendValue(std::bitset<16> value) {
+        auto toSend = value.to_ulong();
+        sendValueToDevice(2, (uint8_t *) &toSend);
+    }
 
-void ZCLBitmap16bitAttribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-    Converter converter;
-    converter.raw[0] = *rawData->data;
-    converter.raw[1] = *(rawData->data + 1);
-    value = converter.value;
-}
+    void ZCLBitmap16bitAttribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
+        Converter converter;
+        converter.raw[0] = *rawData->data;
+        converter.raw[1] = *(rawData->data + 1);
+        value = converter.value;
+    }
 
-std::ostream &operator<<(std::ostream &out, const ZCLBitmap16bitAttribute *attribute) {
-    out << attribute->value.to_string();
-    return out;
-}
+    std::ostream &operator<<(std::ostream &out, const ZCLBitmap16bitAttribute *attribute) {
+        out << attribute->value.to_string();
+        return out;
+    }
+
+    void ZCLBitmap16bitAttribute::internalSetValue(uint8_t *rawData) {
+        Converter converter;
+        converter.raw[0] = *rawData;
+        converter.raw[1] = *(rawData + 1);
+        value = converter.value;
+    }
+
+
 }

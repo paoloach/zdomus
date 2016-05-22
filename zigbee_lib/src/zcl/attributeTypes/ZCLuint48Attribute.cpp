@@ -8,43 +8,58 @@
 namespace zigbee {
 
 
-ZCLuint48Attribute::ZCLuint48Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
-                                       ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly) :
-        ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeUInt48, name, readOnly) {
-    if (zigbeeDevice) {
-        zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
-                                                identifier,
-                                                [this](std::shared_ptr<AttributeStatusRecord> rawData){setValue(rawData);});
+    ZCLuint48Attribute::ZCLuint48Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+                                           ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly) :
+            ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeUInt48, name, readOnly) {
+        if (zigbeeDevice) {
+            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
+                                                    identifier,
+                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) { setValue(rawData); });
+        }
+
     }
 
-}
-
-boost::any ZCLuint48Attribute::getValue() const {
-    if (status != Available) {
-        throw ZCLAttributeNotAvailableException(parent, identifier);
+    boost::any ZCLuint48Attribute::getValue() const {
+        if (status != Available) {
+            throw ZCLAttributeNotAvailableException(parent, identifier);
+        }
+        return boost::any(value);
     }
-    return boost::any(value);
-}
 
-void ZCLuint48Attribute::sendValue(uint64_t newValue) {
-    sendValueToDevice(6, (uint8_t *) &newValue);
-}
+    void ZCLuint48Attribute::sendValue(uint64_t newValue) {
+        sendValueToDevice(6, (uint8_t *) &newValue);
+    }
 
-void ZCLuint48Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-    Converter converter;
-    converter.raw[0] = *rawData->data;
-    converter.raw[1] = *(rawData->data + 1);
-    converter.raw[2] = *(rawData->data + 2);
-    converter.raw[3] = *(rawData->data + 3);
-    converter.raw[4] = *(rawData->data + 4);
-    converter.raw[5] = *(rawData->data + 5);
-    converter.raw[6] = 0;
-    converter.raw[7] = 0;
-    value = converter.value;
-}
+    void ZCLuint48Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
+        Converter converter;
+        converter.raw[0] = *rawData->data;
+        converter.raw[1] = *(rawData->data + 1);
+        converter.raw[2] = *(rawData->data + 2);
+        converter.raw[3] = *(rawData->data + 3);
+        converter.raw[4] = *(rawData->data + 4);
+        converter.raw[5] = *(rawData->data + 5);
+        converter.raw[6] = 0;
+        converter.raw[7] = 0;
+        value = converter.value;
+    }
 
-std::ostream &operator<<(std::ostream &out, const ZCLuint48Attribute *attribute) {
-    out << attribute->value;
-    return out;
-}
+    std::ostream &operator<<(std::ostream &out, const ZCLuint48Attribute *attribute) {
+        out << attribute->value;
+        return out;
+    }
+
+    void ZCLuint48Attribute::internalSetValue(uint8_t * rawData) {
+        Converter converter;
+        converter.raw[0] = *rawData;
+        converter.raw[1] = *(rawData + 1);
+        converter.raw[2] = *(rawData + 2);
+        converter.raw[3] = *(rawData + 3);
+        converter.raw[4] = *(rawData + 4);
+        converter.raw[5] = *(rawData + 5);
+        converter.raw[6] = 0;
+        converter.raw[7] = 0;
+        value = converter.value;
+    }
+
+
 };

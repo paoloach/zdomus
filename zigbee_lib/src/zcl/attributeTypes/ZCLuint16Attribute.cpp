@@ -5,6 +5,7 @@
  *      Author: Paolo Achdjian
  */
 
+#include <boost/endian/conversion.hpp>
 #include "ZCLuint16Attribute.h"
 #include "../Cluster.h"
 
@@ -35,12 +36,18 @@ namespace zigbee {
     }
 
     void ZCL_uint16_Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-        value = (uint32_t) (*rawData->data) + 256 * (*(rawData->data + 1));
+        boost::endian::little_to_native( *(uint16_t *) rawData->data);
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCL_uint16_Attribute *attribute) {
         out << attribute->value;
         return out;
     }
+
+    void ZCL_uint16_Attribute::internalSetValue(uint8_t *rawData) {
+        value = boost::endian::little_to_native( *(uint16_t *) rawData);
+
+    }
+
 
 } /* namespace zigbee */

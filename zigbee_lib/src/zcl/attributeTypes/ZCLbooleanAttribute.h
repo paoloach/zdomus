@@ -32,7 +32,9 @@ namespace zigbee {
         }
 
     private:
-        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData);
+        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
+
+        virtual void internalSetValue(uint8_t * rawData) override;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCL_boolean_Attribute *);
 

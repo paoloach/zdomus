@@ -14,10 +14,6 @@
 namespace zigbee {
 
     class ZCL_int32_Attribute : public ZCLAttribute {
-        union Converter {
-            int32_t value;
-            uint8_t raw[4];
-        };
     public:
         ZCL_int32_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
                             ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
@@ -34,7 +30,8 @@ namespace zigbee {
         }
 
     private:
-        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData);
+        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
+        virtual void internalSetValue(uint8_t * rawData) override ;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCL_int32_Attribute *);
 

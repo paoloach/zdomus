@@ -51,4 +51,14 @@ namespace zigbee {
         return out;
     }
 
+    void ZCL_string_Attribute::internalSetValue(uint8_t *rawData) {
+        uint8_t len = *rawData;
+        value = std::string();
+        value.resize(len);
+        for (int i = 0; i < len; i++) {
+            value[i] = rawData[i + 1];
+        }
+    }
+
+
 } /* namespace zigbee */

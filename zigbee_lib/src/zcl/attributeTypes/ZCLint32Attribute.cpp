@@ -4,6 +4,7 @@
 
 //
 
+#include <boost/endian/conversion.hpp>
 #include "ZCLint32Attribute.h"
 #include "../Cluster.h"
 
@@ -34,17 +35,17 @@ namespace zigbee {
     }
 
     void ZCL_int32_Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-        Converter converter;
-        converter.raw[0] = *rawData->data;
-        converter.raw[1] = *(rawData->data + 1);
-        converter.raw[2] = *(rawData->data + 2);
-        converter.raw[3] = *(rawData->data + 2);;
-        value = converter.value;
+        value = boost::endian::little_to_native( *(int32_t *) rawData->data);
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCL_int32_Attribute *attribute) {
         out << std::hex << attribute->value;
         return out;
     }
+
+    void ZCL_int32_Attribute::internalSetValue(uint8_t *rawData) {
+        value = boost::endian::little_to_native( *(int32_t *) rawData);
+    }
+
 
 } /* namespace zigbee */

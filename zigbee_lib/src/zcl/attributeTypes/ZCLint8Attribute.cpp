@@ -41,4 +41,10 @@ namespace zigbee {
         out << attribute->value;
         return out;
     }
+
+    void ZCLint8Attribute::internalSetValue(uint8_t *rawData) {
+        value = *rawData;
+    }
+
+
 }

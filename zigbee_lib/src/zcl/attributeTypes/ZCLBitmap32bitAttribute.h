@@ -14,10 +14,6 @@
 
 namespace zigbee {
     class ZCLBitmap32bitAttribute : public ZCLAttribute {
-        union Converter {
-            uint32_t value;
-            uint8_t raw[4];
-        };
     public:
         ZCLBitmap32bitAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
                                 ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
@@ -36,7 +32,8 @@ namespace zigbee {
         }
 
     private:
-        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData);
+        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
+        virtual void internalSetValue(uint8_t * rawData) override ;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCLBitmap32bitAttribute *);
 

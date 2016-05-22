@@ -47,4 +47,9 @@ namespace zigbee {
         return out;
     }
 
+    void ZCL_boolean_Attribute::internalSetValue(uint8_t *rawData) {
+        value = *rawData;
+    }
+
+
 } /* namespace zigbee */

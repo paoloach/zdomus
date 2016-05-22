@@ -54,4 +54,14 @@ namespace zigbee {
         return out;
     }
 
+    void ZCLOctetString::internalSetValue(uint8_t *rawData) {
+        uint8_t len = *rawData;
+        value.clear();
+        for (int i = 0; i < len; i++) {
+            rawData++;
+            value.push_back(*rawData);
+        }
+    }
+
+
 } /* namespace zigbee */

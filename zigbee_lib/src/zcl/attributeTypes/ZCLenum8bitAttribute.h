@@ -13,21 +13,28 @@
 
 namespace zigbee {
 
-class ZCL_enum8bit_Attribute: public ZCL_uint8_Attribute {
-public:
-	ZCL_enum8bit_Attribute(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent, ZigbeeClusterId identifier, std::experimental::string_view   name, bool readOnly);
-	virtual ~ZCL_enum8bit_Attribute();
-public:
-	virtual void sendValue(uint8_t newValue);
-    static constexpr ZCLTypeDataType type=ZCLTypeDataType::ZCLTypeenum8;
-	static std::string name() {
-		return "8BitEnum";
-	}
-	friend std::ostream & operator<<(std::ostream & out, const ZCL_enum8bit_Attribute *);
-private:
-};
+    class ZCL_enum8bit_Attribute : public ZCL_uint8_Attribute {
+    public:
+        ZCL_enum8bit_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+                               std::experimental::string_view name, bool readOnly);
 
-std::ostream & operator<<(std::ostream & out, const ZCL_enum8bit_Attribute *);
+        virtual ~ZCL_enum8bit_Attribute();
+
+    public:
+        virtual void sendValue(uint8_t newValue);
+
+        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeenum8;
+
+        static std::string name() {
+            return "8BitEnum";
+        }
+
+        friend std::ostream &operator<<(std::ostream &out, const ZCL_enum8bit_Attribute *);
+
+    private:
+    };
+
+    std::ostream &operator<<(std::ostream &out, const ZCL_enum8bit_Attribute *);
 
 } /* namespace zigbee */
 

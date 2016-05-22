@@ -49,6 +49,15 @@ namespace zigbee {
         value = converter.value;
     }
 
+    void ZCLUTCTime::internalSetValue(uint8_t * rawData) {
+        Converter converter;
+        converter.raw[0] = *rawData;
+        converter.raw[1] = *(rawData+ 1);
+        converter.raw[2] = *(rawData+ 2);
+        converter.raw[3] = *(rawData + 3);
+        value = converter.value;
+    }
+
     std::ostream &operator<<(std::ostream &out, const ZCLUTCTime *attribute) {
         out << attribute->value;
         return out;

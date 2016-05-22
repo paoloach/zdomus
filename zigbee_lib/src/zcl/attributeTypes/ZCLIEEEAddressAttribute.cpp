@@ -41,19 +41,17 @@ namespace zigbee {
     }
 
     void ZCLIEEEAddressAttribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-        value.raw[0] = rawData->data[0];
-        value.raw[1] = rawData->data[1];
-        value.raw[2] = rawData->data[2];
-        value.raw[3] = rawData->data[3];
-        value.raw[4] = rawData->data[4];
-        value.raw[5] = rawData->data[5];
-        value.raw[6] = rawData->data[6];
-        value.raw[7] = rawData->data[7];
+        memcpy(value.raw,rawData->data,8);
     }
 
     const uint8_t *ZCLIEEEAddressAttribute::getRawValue() const {
         return value.raw;
     }
+
+    void ZCLIEEEAddressAttribute::internalSetValue(uint8_t *rawData) {
+        memcpy(value.raw,rawData,8);
+    }
+
 
     std::ostream &operator<<(std::ostream &out, const ZCLIEEEAddressAttribute *attribute) {
         const uint8_t *ieeeAddress = attribute->getRawValue();

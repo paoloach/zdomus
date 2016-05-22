@@ -4,6 +4,7 @@
 
 //
 
+#include <boost/endian/conversion.hpp>
 #include "ZCLBitmap32bitAttribute.h"
 #include "../Cluster.h"
 
@@ -42,16 +43,17 @@ namespace zigbee {
     }
 
     void ZCLBitmap32bitAttribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-        Converter converter;
-        converter.raw[0] = *rawData->data;
-        converter.raw[1] = *(rawData->data + 1);
-        converter.raw[2] = *(rawData->data + 2);
-        converter.raw[3] = *(rawData->data + 3);
-        value = converter.value;
+        value = boost::endian::little_to_native( *(uint32_t *) rawData->data);
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCLBitmap32bitAttribute *attribute) {
         out << attribute->value.to_string();
         return out;
     }
+
+    void ZCLBitmap32bitAttribute::internalSetValue(uint8_t *rawData) {
+        value = boost::endian::little_to_native( *(uint32_t *) rawData);
+    }
+
+
 }
