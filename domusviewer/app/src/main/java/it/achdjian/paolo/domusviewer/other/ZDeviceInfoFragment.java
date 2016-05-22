@@ -1,17 +1,11 @@
 package it.achdjian.paolo.domusviewer.other;
 
-import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
@@ -20,7 +14,6 @@ import java.util.List;
 
 import it.achdjian.paolo.domusviewer.DomusEngine;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.JSonAttribute;
-import it.achdjian.paolo.domusviewer.Element;
 import it.achdjian.paolo.domusviewer.R;
 
 /**
@@ -56,6 +49,29 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
 
     @Override
     public void newAttributes(List<JSonAttribute> attributes) {
-
+        for (JSonAttribute attribute : attributes) {
+            if (attribute.isSupported && attribute.isAvailable) {
+                switch (attribute.id) {
+                    case 4:
+                        name.setText(attribute.value);
+                        break;
+                    case 5:
+                        model.setText(attribute.value);
+                        break;
+                    case 6:
+                        date.setText(attribute.value);
+                        break;
+                    case 0x10:
+                        location.setText(attribute.value);
+                        break;
+                    case 0x11:
+                        environment.setText(attribute.value);
+                        break;
+                    case 0x12:
+                        checkBox.setSelected(attribute.value.equals("true"));
+                        break;
+                }
+            }
+        }
     }
 }
