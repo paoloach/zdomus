@@ -16,7 +16,7 @@ set (GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
 
 add_subdirectory(googletest/googlemock)
 
-set(INSTALL_PATH /usr/local/zigbee)
+set(INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/usr/local/zigbee)
 set(INSTALL_LIB_DIR ${INSTALL_PATH}/lib)
 set(INSTALL_INCLUDE_DIR ${INSTALL_PATH}/include)
 
@@ -47,7 +47,7 @@ set(SOURCE_FILES
     src/zigbee/zigbeeConfig.h
     src/zigbee/ZigbeeDevice.cpp
     src/zigbee/ZigbeeDevice.h
-    src/zigbee/ZigbeeTypes.h src/zigbee/messageStructure/ReadAttributeResponseErrorMsg.h src/zigbee/ZigbeeTypes.cpp)
+    src/zigbee/ZigbeeTypes.h src/zigbee/messageStructure/ReadAttributeResponseErrorMsg.h src/zigbee/ZigbeeTypes.cpp src/zigbee/messageStructure/UnbindRequest.h)
 
 
 SET(SOURCE_ZCL_FILES
