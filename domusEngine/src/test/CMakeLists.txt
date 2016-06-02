@@ -81,10 +81,6 @@ add_executable(domus_engine_test
         )
 
 
-add_executable(test_empty
-        main.cpp
-        )
-
 set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a
         ${V8_LIB_DIR}/libv8_base.a
@@ -116,7 +112,5 @@ SET(LIBS zigbeeLib
         )
 
 target_link_libraries(domus_engine_test domus_engine_static_lib ${V8_LIBRARY} ${LIBS} ${GMOCK_LIBS})
-target_link_libraries(test_empty domus_engine_static_lib ${V8_LIBRARY} ${LIBS} ${GMOCK_LIBS})
 
 set_property(TARGET domus_engine_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
-set_property(TARGET test_empty PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
