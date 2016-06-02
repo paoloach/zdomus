@@ -23,8 +23,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" afterPath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" />
     </list>
     <ignored path="domus_engine.iws" />
@@ -1368,7 +1366,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464854678364</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="fix mock for ZCLAttribute and ZigbeeDevice">
+      <created>1464855408705</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1464855408705</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1451,7 +1456,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="embedded v8 blob snapshot files" />
     <MESSAGE value="some fixes&#10;add bind table request rest method" />
     <MESSAGE value="add rest method   to add a bind table entry" />
     <MESSAGE value="Add unbind method to usb interface" />
@@ -1476,7 +1480,8 @@
     <MESSAGE value="Managed request multiple attribute" />
     <MESSAGE value="Removed test" />
     <MESSAGE value="fix retrieve multiple attributes" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix retrieve multiple attributes" />
+    <MESSAGE value="fix mock for ZCLAttribute and ZigbeeDevice" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix mock for ZCLAttribute and ZigbeeDevice" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
