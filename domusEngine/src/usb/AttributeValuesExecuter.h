@@ -5,6 +5,7 @@
 #ifndef DOMUS_ENGINE_ATTRIBUTEVALUESEXECUTER_H
 #define DOMUS_ENGINE_ATTRIBUTEVALUESEXECUTER_H
 
+#include <zcl/ClusterTypeFactory.h>
 #include <zcl/ZclAttributeUtils.h>
 
 #include <boost/log/trivial.hpp>
@@ -13,28 +14,37 @@
 namespace zigbee {
     class AttributeValuesExecuter : public Executor {
     private:
-        AttributeDataContainer &attributeDataContainer;
-        AttributeValueSignalMap &attributeValueSignalMap;
+        SingletonObjects &singletonObjects;
     public:
-        AttributeValuesExecuter(AttributeDataContainer &attributeDataContainer, AttributeValueSignalMap &attributeValueSignalMap)
-                : attributeDataContainer(attributeDataContainer), attributeValueSignalMap(attributeValueSignalMap) { }
+        AttributeValuesExecuter(SingletonObjects &singletonObjects) : singletonObjects(singletonObjects) { }
 
         virtual void operator()(unsigned char *data, int) override {
             ReadAttributeResponseMessage *readAttributeResponseMessage = reinterpret_cast<ReadAttributeResponseMessage *>(data);
             BOOST_LOG_TRIVIAL(debug) << "Read " << readAttributeResponseMessage->numAttributes << " attribute value from " <<
-                        (int)readAttributeResponseMessage->networkAddr << ":" <<
-                                     readAttributeResponseMessage->endpoint << ":" << (int)readAttributeResponseMessage->clusterId;
+                                     (int) readAttributeResponseMessage->networkAddr << ":" <<
+                                     readAttributeResponseMessage->endpoint << ":" << (int) readAttributeResponseMessage->clusterId;
             uint8_t *rawResponses = data + sizeof(ReadAttributeResponseMessage);
             for (int i = 0; i < readAttributeResponseMessage->numAttributes; i++) {
+                std::stringstream log;
                 AttributeResponse *response = reinterpret_cast<AttributeResponse *>(rawResponses);
+                uint8_t * rawData = rawResponses + sizeof(AttributeResponse);
 
-                BOOST_LOG_TRIVIAL(debug) << "Read attribute " << (int)response->attrID << ", status " << response->status;
+                log << "Read attribute " << (int) response->attrID << ", status " << (int) response->status;
 
                 uint8_t *data = rawResponses + sizeof(AttributeResponse);
 
                 size_t dataLen = ZclAttributeUtils::zclGetAttrDataLength(response->dataType, data);
-                attributeDataContainer.push(AttributeData(*readAttributeResponseMessage, *response, dataLen));
+                log << ", dataLen: " << dataLen;
+                auto zigbeeDevice =singletonObjects.getZigbeeDevice();
+                auto cluster(singletonObjects.getClusterTypeFactory()->getCluster(ClusterID{readAttributeResponseMessage->clusterId},
+                                                                                  zigbeeDevice,
+                                                                                  EndpointID{readAttributeResponseMessage->endpoint},
+                                                                                  NwkAddr{readAttributeResponseMessage->networkAddr}));
+                auto attribute = cluster->getAttribute(response->attrID);
+                attribute->internalSetValue(rawData);
 
+
+                auto attributeValueSignalMap = singletonObjects.getAttributeValueSignalMap();
                 AttributeKey key(NwkAddr(readAttributeResponseMessage->networkAddr), readAttributeResponseMessage->endpoint,
                                  readAttributeResponseMessage->clusterId, response->attrID);
                 if (attributeValueSignalMap.count(key) > 0) {
@@ -42,6 +52,7 @@ namespace zigbee {
                 }
 
                 rawResponses += sizeof(AttributeResponse) + dataLen;
+                BOOST_LOG_TRIVIAL(debug) << log.str();
             }
         }
     };

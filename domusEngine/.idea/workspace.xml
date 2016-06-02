@@ -23,7 +23,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/CMakeLists.txt" afterPath="$PROJECT_DIR$/src/test/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" afterPath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" afterPath="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" />
     </list>
@@ -1288,7 +1287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463588872150</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Removed test">
+      <created>1464854642304</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1464854642304</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1371,7 +1377,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Used string_view instead of string" />
     <MESSAGE value="some fixes" />
     <MESSAGE value="embedded v8 blob snapshot files" />
     <MESSAGE value="some fixes&#10;add bind table request rest method" />
@@ -1396,7 +1401,8 @@
     <MESSAGE value="put AttributeValuesSignalMap into SingletonsObject class" />
     <MESSAGE value="allowed to request up to 25 attributes using the same request to USB" />
     <MESSAGE value="Managed request multiple attribute" />
-    <option name="LAST_COMMIT_MESSAGE" value="Managed request multiple attribute" />
+    <MESSAGE value="Removed test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
