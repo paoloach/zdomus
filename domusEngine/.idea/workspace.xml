@@ -23,8 +23,9 @@
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" afterPath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" afterPath="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" afterPath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,28 +47,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AttributeValuesExecuter.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="574">
-              <caret line="41" column="134" selection-start-line="41" selection-start-column="134" selection-end-line="41" selection-end-column="134" />
-              <folding>
-                <element signature="e#135#170#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReadAttributeResponseMessage.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ReadAttributeResponseMessage.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="UsbResponseExecutors.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp">
           <provider selected="true" editor-type-id="text-editor">
@@ -94,8 +73,10 @@
         <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/UnbindRequest.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="37" selection-end-column="55" />
-              <folding />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="3" />
+              <folding>
+                <marker date="1464854389000" expanded="true" signature="0:6" ph="/.../" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,21 +91,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <file leaf-file-name="JSTest.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSTest.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-723">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="200">
+              <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/CMakeLists.txt">
+      <file leaf-file-name="ZCLAttributeMock.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="54" column="39" selection-start-line="54" selection-start-column="39" selection-end-line="85" selection-end-column="34" />
+            <state relative-caret-position="116">
+              <caret line="25" column="87" selection-start-line="25" selection-start-column="87" selection-end-line="25" selection-end-column="87" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ZCLAttribute.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/zigbee/include/zcl/ZCLAttribute.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="394">
+              <caret line="60" column="7" selection-start-line="60" selection-start-column="7" selection-end-line="60" selection-end-column="61" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ZigbeeDeviceMock.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="548">
+              <caret line="43" column="141" selection-start-line="43" selection-start-column="141" selection-end-line="43" selection-end-column="141" />
               <folding />
             </state>
           </provider>
@@ -158,7 +159,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/usb/UsbResponseExecuters.cpp" />
         <option value="$PROJECT_DIR$/src/usb/BindTableExecuter.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ClusterThrowingException.cpp" />
         <option value="$PROJECT_DIR$/src/Utils/SingletonObjects.h" />
@@ -183,7 +183,6 @@
         <option value="/usr/local/zigbee/include/zcl/ZclAttributeUtils.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestQueryParams.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestQueryParams.h" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
         <option value="$PROJECT_DIR$/src/test/IO/AttributeDataContainerTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestPathTest.h" />
         <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestQueryTest.h" />
@@ -209,6 +208,8 @@
         <option value="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
         <option value="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" />
         <option value="$PROJECT_DIR$/src/test/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
+        <option value="$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h" />
       </list>
     </option>
   </component>
@@ -334,6 +335,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="messageStructure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zcl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -514,6 +537,50 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Mocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Javascript" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -751,7 +818,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C/C++" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../zigbee_lib" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="228" />
@@ -779,7 +846,7 @@
       <recent name="$PROJECT_DIR$/src/test/Javascript" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.domus_enginedemo">
+  <component name="RunManager" selected="Application.Build All">
     <configuration default="false" name="All in JSDeviceTest.cpp" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PROGRAM_PARAMS="$PROJECT_DIR$/../x86/v8_blob/" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_PATTERN="JSDeviceTest.*:JSDeviceTest/*.*:*/JSDeviceTest.*/*:*/JSDeviceTest/*.*" TEST_MODE="PATTERN">
       <envs />
       <method />
@@ -1294,7 +1361,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464854642304</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="fix retrieve multiple attributes">
+      <created>1464854678364</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1464854678364</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1344,20 +1418,20 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14427084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24524313" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3372093" sideWeight="0.49052632" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24524313" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34019503" sideWeight="0.5094737" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33802816" sideWeight="0.49052632" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3163597" sideWeight="0.49157894" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39328277" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1377,7 +1451,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="some fixes" />
     <MESSAGE value="embedded v8 blob snapshot files" />
     <MESSAGE value="some fixes&#10;add bind table request rest method" />
     <MESSAGE value="add rest method   to add a bind table entry" />
@@ -1402,7 +1475,8 @@
     <MESSAGE value="allowed to request up to 25 attributes using the same request to USB" />
     <MESSAGE value="Managed request multiple attribute" />
     <MESSAGE value="Removed test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed test" />
+    <MESSAGE value="fix retrieve multiple attributes" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix retrieve multiple attributes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1604,15 +1678,17 @@
     <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/UnbindRequest.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="37" selection-end-column="55" />
-          <folding />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="3" />
+          <folding>
+            <marker date="1464854389000" expanded="true" signature="0:6" ph="/.../" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile">
+    <entry file="file://$PROJECT_DIR$/src/test/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="406">
+          <caret line="78" column="25" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -1625,10 +1701,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/Makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="54" column="39" selection-start-line="54" selection-start-column="39" selection-end-line="85" selection-end-column="34" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="548">
+          <caret line="43" column="141" selection-start-line="43" selection-start-column="141" selection-end-line="43" selection-end-column="141" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zcl/ZCLAttribute.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="60" column="7" selection-start-line="60" selection-start-column="7" selection-end-line="60" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="25" column="87" selection-start-line="25" selection-start-column="87" selection-end-line="25" selection-end-column="87" />
           <folding />
         </state>
       </provider>

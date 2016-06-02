@@ -41,6 +41,7 @@ public:
 	MOCK_METHOD4(requestAttributes, void (NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, std::vector<ZigbeeAttributeId> & attributeIds) );
     MOCK_METHOD6(sendReqBind,  void (zigbee::NwkAddr, const uint8_t*, zigbee::EndpointID, zigbee::ClusterID, const uint8_t*, zigbee::EndpointID));
     MOCK_METHOD6(sendReqUnbind,  void (zigbee::NwkAddr, const uint8_t*, zigbee::EndpointID, zigbee::ClusterID, const uint8_t*, zigbee::EndpointID));
+	MOCK_METHOD4(requestAttributes, void(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds & attributeIds));
 };
 
 }
