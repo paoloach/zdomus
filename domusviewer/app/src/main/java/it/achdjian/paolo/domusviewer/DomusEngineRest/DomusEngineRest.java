@@ -47,12 +47,10 @@ public abstract class DomusEngineRest implements Runnable {
         Handler handler = new Handler();
 
         try {
-            Log.d(TAG,"request: " + url);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<>(headers);
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET,entity,String.class);
-            Log.d(TAG,"response: " + response.getStatusCode().getReasonPhrase());
             if (response.getStatusCode() == HttpStatus.OK) {
                 String body = response.getBody();
                 if (body != null) {
