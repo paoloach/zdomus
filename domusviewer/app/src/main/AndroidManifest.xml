@@ -27,4 +27,7 @@
         </activity>
     </application>
 
+    <instrumentation android:targetPackage="it.achdjian.paolo.domusviewer"
+                     android:name="android.test.InstrumentationTestRunner" />
+
 </manifest>
