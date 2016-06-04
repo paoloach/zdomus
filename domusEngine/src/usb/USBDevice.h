@@ -52,6 +52,7 @@ namespace zigbee {
 
         void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
         void requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds & attributeIds) override;
+        void requestReset() override;
 
         virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId,
                                     ZCLTypeDataType dataType, uint8_t dataValueLen,

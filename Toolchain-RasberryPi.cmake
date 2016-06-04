@@ -9,7 +9,7 @@ SET(CMAKE_CXX_COMPILER /opt/cross/x-tools6h/arm-unknown-linux-gnueabihf/bin/arm-
 
 # where is the target environment 
 SET(CMAKE_FIND_ROOT_PATH  /opt/cross/x-tools6h/arm-unknown-linux-gnueabihf/arm-unknown-linux-gnueabihf/sysroot)
-SET(CMAKE_INSTALL_PREFIX  ${CMAKE_FIND_ROOT_PATH}S/usr/local)
+SET(CMAKE_INSTALL_PREFIX  ${CMAKE_FIND_ROOT_PATH}/usr/local)
 
 
 

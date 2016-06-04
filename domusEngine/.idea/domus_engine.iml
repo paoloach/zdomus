@@ -95,13 +95,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.h" isTestSource="false" />
@@ -110,6 +109,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSDBTableTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSRowTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSDeviceTest.cpp" isTestSource="false" />
@@ -223,34 +223,36 @@
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/ApplicationJSONProducer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/DEHttpRequestHandlerFactory.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/FixedPathHandler.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevice.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteCmd.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowBindTable.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowOutCluster.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowEndpoint.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowHello.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ResponseFile.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteBind.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowEndpoint.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowHello.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowBindTable.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevices.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowInCluster.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevice.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevices.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ClusterThrowingException.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowInCluster.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowWhoAreYou.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowWhoAreYou.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteBind.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttributeFactory.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttributeFactory.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowHello.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteReset.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttribute.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ClusterThrowingException.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevice.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowWhoAreYou.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ClusterThrowingException.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ResponseFile.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowOutCluster.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ResponseFile.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowOutCluster.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteBind.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowInCluster.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowHello.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowInCluster.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowEndpoint.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteCmd.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevices.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevices.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ClusterThrowingException.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowBindTable.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevice.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteBind.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttributeFactory.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowBindTable.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowEndpoint.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttributeFactory.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/ApplicationJSONProducer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/DeviceBrowserHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/HttpServer.cpp" isTestSource="false" />

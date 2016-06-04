@@ -142,7 +142,7 @@ add_library(domus_engine_static_lib STATIC
         src/httpServer/RestActions/ShowAttributeFactory.cpp
         src/httpServer/RestActions/ShowAttributeFactory.h
         src/httpServer/RestParser/RestQuery.cpp
-        src/httpServer/RestParser/RestQuery.h)
+        src/httpServer/RestParser/RestQuery.h src/httpServer/RestActions/ExecuteReset.cpp src/httpServer/RestActions/ExecuteReset.h)
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 

@@ -22,6 +22,7 @@ static const unsigned char REQ_BIND_TABLE = 0x0C;
 static const unsigned char BIND_TABLE = 0x0D;
 static const unsigned char REQ_ADD_BIND_TABLE_ENTRY = 0x0E;
 static const unsigned char REQ_REMOVE_BIND_TABLE_ENTRY = 0x0F;
+static const unsigned char REQ_RESET=0x10;
 static const unsigned char ATTRIBUTE_VALUE_REQ_ERROR = 0x40;
 
 static const int Z_EXTADDR_LEN  = 8;
