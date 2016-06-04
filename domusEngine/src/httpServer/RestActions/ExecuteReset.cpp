@@ -10,5 +10,7 @@ void zigbee::http::ExecuteReset::operator()(const zigbee::http::PlaceHolders &&p
                                             Poco::Net::HTTPServerRequest &request,
                                             Poco::Net::HTTPServerResponse &response) {
     singletons.getZigbeeDevice()->requestReset();
+    response.setStatus(Poco::Net::HTTPResponse::HTTP_NO_CONTENT);
+    response.send() << "reset\n";
 }
 

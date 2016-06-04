@@ -22,22 +22,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/androidTest/java/it/achdjian/paolo/domusviewer/ImageViewActivated.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/androidTest/java/it/achdjian/paolo/domusviewer/NotActivatedMatcher.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/androidTest/java/it/achdjian/paolo/domusviewer/ViewBindedFind.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Toolchain-RasberryPi.cmake" afterPath="$PROJECT_DIR$/../Toolchain-RasberryPi.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/domus_engine.iml" afterPath="$PROJECT_DIR$/.idea/domus_engine.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" afterPath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.h" afterPath="$PROJECT_DIR$/src/usb/USBDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/androidTest/java/it/achdjian/paolo/domusviewer/OnOffTabTest.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/androidTest/java/it/achdjian/paolo/domusviewer/OnOffTabTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeDevice.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/zigbeeConfig.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/zigbeeConfig.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,89 +45,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DeviceBrowserHandler.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-              <folding>
-                <element signature="e#97#137#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExecuteReset.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-              <folding>
-                <element signature="e#113#151#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="shared_ptr.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/shared_ptr.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="628" column="0" selection-start-line="628" selection-start-column="0" selection-end-line="628" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="278" column="39" selection-start-line="278" selection-start-column="39" selection-end-line="278" selection-end-column="39" />
-              <folding>
-                <element signature="e#78#97#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="zigbeeConfig.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/zigbee/include/zigbee/zigbeeConfig.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="11" column="42" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExecuteCmd.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-              <folding>
-                <element signature="e#185#223#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExecuteReset.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ExecuteReset.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="8" column="31" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="31" />
+            <state relative-caret-position="182">
+              <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
               <folding>
                 <element signature="e#40#72#0" expanded="true" />
               </folding>
@@ -149,11 +57,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="USBDevice.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
+      <file leaf-file-name="ResponseFile.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ResponseFile.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="588">
-              <caret line="54" column="36" selection-start-line="54" selection-start-column="36" selection-end-line="54" selection-end-column="36" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExecuteCmd.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="32" column="73" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -212,12 +130,12 @@
         <option value="$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h" />
         <option value="/usr/local/zigbee/include/zigbee/ZigbeeDevice.h" />
         <option value="$PROJECT_DIR$/src/usb/USBDevice.h" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" />
         <option value="/usr/local/zigbee/include/zigbee/zigbeeConfig.h" />
         <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.h" />
         <option value="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" />
       </list>
     </option>
   </component>
@@ -1306,7 +1224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464855448677</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Add reset cmd">
+      <created>1465033796369</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1465033796369</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1389,7 +1314,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="add rest method   to add a bind table entry" />
     <MESSAGE value="Add unbind method to usb interface" />
     <MESSAGE value="Add delete rest mothod in order to remove a bind" />
     <MESSAGE value="Added new line to the message of the exceptions" />
@@ -1414,7 +1338,8 @@
     <MESSAGE value="fix retrieve multiple attributes" />
     <MESSAGE value="fix mock for ZCLAttribute and ZigbeeDevice" />
     <MESSAGE value="Fix CMakeLists in order to use the global variable for install path" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix CMakeLists in order to use the global variable for install path" />
+    <MESSAGE value="Add reset cmd" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add reset cmd" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1727,14 +1652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="43" column="19" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
@@ -1829,31 +1746,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="8" column="31" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="31" />
-          <folding>
-            <element signature="e#40#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="588">
           <caret line="54" column="36" selection-start-line="54" selection-start-column="36" selection-end-line="54" selection-end-column="36" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="278" column="39" selection-start-line="278" selection-start-column="39" selection-end-line="278" selection-end-column="39" />
-          <folding>
-            <element signature="e#78#97#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1870,6 +1767,42 @@
         <state relative-caret-position="154">
           <caret line="11" column="42" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="42" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="278" column="39" selection-start-line="278" selection-start-column="39" selection-end-line="278" selection-end-column="39" />
+          <folding>
+            <element signature="e#78#97#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="32" column="73" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ResponseFile.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
+          <folding>
+            <element signature="e#40#72#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
