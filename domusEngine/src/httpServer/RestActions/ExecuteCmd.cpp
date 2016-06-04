@@ -31,6 +31,7 @@ namespace zigbee {
         if (zEndpoint.isInCluster(clusterId)) {
             std::vector<uint8_t> cmdParams{};
             response.setStatus(Poco::Net::HTTPResponse::HTTP_NO_CONTENT);
+            response.send() << "comand sent\n";
             auto zDevice = singletons.getZigbeeDevice();
             auto cluster(singletons.getClusterTypeFactory()->getCluster(clusterId, zDevice, endpoint, nwkAddr));
 

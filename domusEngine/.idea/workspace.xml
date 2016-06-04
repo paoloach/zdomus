@@ -23,7 +23,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,7 +45,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ExecuteReset.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ExecuteReset.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="182">
@@ -67,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ExecuteCmd.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ExecuteCmd.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="32" column="73" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="73" />
+            <state relative-caret-position="322">
+              <caret line="33" column="47" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -114,7 +114,6 @@
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.h" />
         <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/PathElementTest.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.cpp" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.h" />
         <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/PathParserTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp" />
@@ -136,6 +135,7 @@
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.h" />
         <option value="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" />
       </list>
     </option>
   </component>
@@ -1231,7 +1231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1465033796369</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Add response to rest reset request">
+      <created>1465034315577</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1465034315577</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1314,7 +1321,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Add unbind method to usb interface" />
     <MESSAGE value="Add delete rest mothod in order to remove a bind" />
     <MESSAGE value="Added new line to the message of the exceptions" />
     <MESSAGE value="added log" />
@@ -1339,7 +1345,8 @@
     <MESSAGE value="fix mock for ZCLAttribute and ZigbeeDevice" />
     <MESSAGE value="Fix CMakeLists in order to use the global variable for install path" />
     <MESSAGE value="Add reset cmd" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add reset cmd" />
+    <MESSAGE value="Add response to rest reset request" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add response to rest reset request" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1780,14 +1787,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="32" column="73" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ResponseFile.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1803,6 +1802,14 @@
           <folding>
             <element signature="e#40#72#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="33" column="47" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
