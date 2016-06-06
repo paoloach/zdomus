@@ -2,6 +2,7 @@ package it.achdjian.paolo.domusviewer.DomusEngineRest;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import org.springframework.http.HttpEntity;
@@ -40,8 +41,8 @@ public abstract class DomusEngineRest implements Runnable {
 
     public String get(String path){
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setReadTimeout(20000);
-        factory.setConnectTimeout(20000);
+        factory.setReadTimeout(10000);
+        factory.setConnectTimeout(10000);
         RestTemplate restTemplate = new RestTemplate(factory);
         String url = "http://" + getAddress() + path;
         Handler handler = new Handler();
@@ -58,12 +59,18 @@ public abstract class DomusEngineRest implements Runnable {
                 }
 
             }
+            if (response.getStatusCode() == HttpStatus.NO_CONTENT){
+                return "";
+            }
         } catch (Exception ignored) {
             Log.e(TAG,"error", ignored);
         }
         Log.e(TAG, "ERROR");
         connected.setConnected(false);
-        handler.postDelayed(new WhoAreYou(this.sharedPreferences, this.connected), 1000);
+        if (!WhoAreYou.isRunning()) {
+            handler.postDelayed(new WhoAreYou(this.sharedPreferences, this.connected), 1000);
+        }
+
         return null;
     }
 
@@ -82,14 +89,16 @@ public abstract class DomusEngineRest implements Runnable {
             HttpEntity<String> entity = new HttpEntity<>(headers);
             ResponseEntity<String> response = restTemplate.postForEntity(url,null, String.class);
             Log.d(TAG,"response: " + response.getStatusCode().getReasonPhrase());
-            if (response.getStatusCode() == HttpStatus.OK) {
+            if (response.getStatusCode() == HttpStatus.OK || response.getStatusCode() == HttpStatus.NO_CONTENT) {
                 return;
             }
         } catch (Exception ignored) {
         }
         Log.e(TAG, "ERROR");
         connected.setConnected(false);
-        handler.postDelayed(new WhoAreYou(this.sharedPreferences, this.connected), 1000);
+        if (!WhoAreYou.isRunning()) {
+            handler.postDelayed(new WhoAreYou(this.sharedPreferences, this.connected), 1000);
+        }
     }
 
 }
