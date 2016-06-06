@@ -20,10 +20,12 @@ namespace zigbee {
       add("short_address", zDevice.getNwkAddr());
       add("capability", zDevice.getCapabilities());
       int index = 0;
-      for (auto endpoint : zDevice.getEndpoints()) {
-          endpoints.add(boost::lexical_cast<std::string>(index), boost::lexical_cast<std::string>(endpoint.first));
-          index++;
+      if (!zDevice.getEndpoints().empty()) {
+          for (auto endpoint : zDevice.getEndpoints()) {
+              endpoints.add(boost::lexical_cast<std::string>(index), boost::lexical_cast<std::string>(endpoint.first));
+              index++;
+          }
+          push_back({"endpoints", endpoints});
       }
-      push_back({"endpoints", endpoints});
   }
 } /* namespace zigbee */

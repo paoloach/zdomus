@@ -24,9 +24,6 @@
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp" afterPath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicePT.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" afterPath="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1114,7 +1111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1465034553350</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="added logs and rise the usb timeout">
+      <created>1465238840121</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1465238840121</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1197,7 +1201,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Added new line to the message of the exceptions" />
     <MESSAGE value="added log" />
     <MESSAGE value="added response for http request" />
     <MESSAGE value="update project file" />
@@ -1222,7 +1225,8 @@
     <MESSAGE value="Add reset cmd" />
     <MESSAGE value="Add response to rest reset request" />
     <MESSAGE value="Add response to rest send cmd request" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add response to rest send cmd request" />
+    <MESSAGE value="added logs and rise the usb timeout" />
+    <option name="LAST_COMMIT_MESSAGE" value="added logs and rise the usb timeout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
