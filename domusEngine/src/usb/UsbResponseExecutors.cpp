@@ -25,6 +25,11 @@ void zigbee::UsbResponseExecutors::execute(unsigned char *data, int length) {
         executors[*data]->operator()(data, length);
     } else {
         BOOST_LOG_TRIVIAL(info) << "Unknow message type:  " << (int) (*data);
+        std::stringstream stream;
+        for (int i=0; i < length; i++){
+            stream << (int)data[i] << " ";
+        }
+        BOOST_LOG_TRIVIAL(trace) << stream.str();
     }
 }
 

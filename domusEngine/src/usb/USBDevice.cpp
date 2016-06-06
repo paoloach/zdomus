@@ -125,7 +125,7 @@ namespace zigbee {
         unsigned char data[1024]{};
         int transfered{};
         if (device) {
-            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_IN, data, sizeof(data), &transfered, 100);
+            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_IN, data, sizeof(data), &transfered, 1000);
             if (result == 0) {
                 BOOST_LOG_TRIVIAL(info) << "new data arrived: size " << transfered;
                 usbResponseExecuters.execute(data, transfered);
@@ -150,7 +150,7 @@ namespace zigbee {
 
             BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
 
-            int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &attributeValue, sizeof(attributeValue), &transfered, 100);
+            int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &attributeValue, sizeof(attributeValue), &transfered, 1000);
             if (result == 0) {
                 BOOST_LOG_TRIVIAL(trace) << "request sent";
             } else {
@@ -178,7 +178,7 @@ namespace zigbee {
             int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &writeAttributeValue,
                                               sizeof(WriteAttributeValueMsg),
                                               &transfered,
-                                              10);
+                                              1000);
             if (result == 0) {
                 std::cout << "request sent" << std::endl;
             } else {
@@ -189,13 +189,19 @@ namespace zigbee {
 
     void DomusEngineUSBDevice::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId comandId,
                                        std::vector<uint8_t> data) {
-        std::cout << "USBDevice send cmd to cluster (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << comandId << ")" << std::endl;
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice send cmd to cluster (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << comandId << ")" << std::endl;
         if (handle != nullptr) {
             ComandSend comandSend{nwkAddrs, endpoint, cluster, comandId, data};
 
             int transfered{};
+            uint8_t  * data = reinterpret_cast<uint8_t  *>(&comandSend);
+            std::stringstream sstream;
+            for (int i=0; i < sizeof(ComandSend); i++) {
+                sstream << (int) data[i] << " ";
+            }
+            BOOST_LOG_TRIVIAL(trace) << sstream.str();
             int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &comandSend, sizeof(comandSend),
-                                              &transfered, 10);
+                                              &transfered, 1000);
             if (result == 0) {
                 std::cout << "request sent" << std::endl;
             } else {
@@ -212,7 +218,7 @@ namespace zigbee {
         GenericMessage genericMessage;
 
         genericMessage.msgCode = REQ_ALL_NODES;
-        int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &genericMessage, sizeof(genericMessage), &transfered, 100);
+        int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &genericMessage, sizeof(genericMessage), &transfered, 1000);
         if (result == 0) {
             std::cout << "request sent" << std::endl;
         } else {
@@ -227,7 +233,7 @@ namespace zigbee {
 
         int transfered{};
 
-        int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request), &transfered, 100);
+        int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request), &transfered, 1000);
         if (result == 0) {
             std::cout << "request sent" << std::endl;
         } else {
@@ -266,7 +272,7 @@ namespace zigbee {
 
             BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
 
-            int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &attributeValue, sizeof(attributeValue), &transfered, 100);
+            int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &attributeValue, sizeof(attributeValue), &transfered, 1000);
             if (result == 0) {
                 BOOST_LOG_TRIVIAL(trace) << "request sent";
             } else {
@@ -279,7 +285,7 @@ namespace zigbee {
         GenericMessage resetMessage{REQ_RESET};
         int transfered{};
 
-        int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &resetMessage, sizeof(GenericMessage), &transfered, 100);
+        int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &resetMessage, sizeof(GenericMessage), &transfered, 1000);
         if (result == 0) {
             BOOST_LOG_TRIVIAL(trace) << "request sent";
         } else {

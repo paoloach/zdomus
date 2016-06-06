@@ -72,6 +72,7 @@ namespace zigbee {
                 if (status != 0) {
                     response.setStatus(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
                 } else {
+                    BOOST_LOG_TRIVIAL(debug) << "All the " << attributes.size() << " arrived";
                     send(response, std::move(attributes));
                 }
 
