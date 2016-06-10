@@ -21,6 +21,7 @@
 #include "BindResponse.h"
 #include "AttributeValuesSignalMap.h"
 #include "UsbResponseExecutors.h"
+#include "RequestedAttributes.h"
 
 
 namespace zigbee {
@@ -36,10 +37,11 @@ namespace zigbee {
 
     class DomusEngineUSBDevice : public ZigbeeDevice {
     public:
-        DomusEngineUSBDevice(boost::asio::io_service &io, std::shared_ptr<ZDevices> &zDevices, AttributeDataContainer &attributeDataContainer,
+        DomusEngineUSBDevice(boost::asio::io_service &io, std::shared_ptr<ZDevices> &zDevices,
+                             AttributeDataContainer &attributeDataContainer,
                              SingletonObjects &singletonObjects,
                              libusb_context *usbContext,
-                             int deviceClass, int vendorID, int productID);
+                             int deviceClass, int vendorID, int productID, bool demo);
 
         virtual ~DomusEngineUSBDevice() = default;
 
@@ -50,11 +52,16 @@ namespace zigbee {
 
         void getUsbMessage() override;
 
-        void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
-        void requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds & attributeIds) override;
+        void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
+                              ZigbeeAttributeId attributeId) override;
+
+        void requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
+                               ZigbeeAttributeIds &attributeIds) override;
+
         void requestReset() override;
 
-        virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId,
+        virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
+                                    ZigbeeAttributeId commandId,
                                     ZCLTypeDataType dataType, uint8_t dataValueLen,
                                     uint8_t *dataValue) override;
 
@@ -73,19 +80,23 @@ namespace zigbee {
             bindTableResponseSignal.push_back(subscriber);
         }
 
-        void registerForAttributeCmd(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeCmdId, const std::function<void()>) override {
+        void registerForAttributeCmd(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeCmdId,
+                                     const std::function<void()>) override {
         }
 
-        void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
+        void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
+                                       ZigbeeAttributeId attributeId,
                                        const NewAttributeValueCallback subscriber) override {
         }
 
         void requestActiveEndpoints(NwkAddr nwkAddr);
 
-        virtual void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
+        virtual void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP,
+                                 ClusterID clusterID,
                                  const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
 
-        virtual void sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
+        virtual void sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN],
+                                   EndpointID outClusterEP, ClusterID clusterID,
                                    const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
 
         void requestBindTable(NwkAddr nwkAddrs) override;
@@ -99,6 +110,7 @@ namespace zigbee {
         int productID;
         libusb_device *device;
         libusb_device_handle *handle;
+        bool demo;
         UsbResponseExecutors usbResponseExecuters;
         std::shared_ptr<ZDevices> zDevices;
         AttributeDataContainer &attributeDataContainer;
@@ -107,6 +119,10 @@ namespace zigbee {
         std::vector<BindTableResponseCallback> bindTableResponseSignal;
         SingletonObjects &singletonObjects;
 
+        // demo data
+        RequestedAttributes requestedAttributes;
+        std::map<RequestedAttributes::Attribute, const uint8_t *> attributeRawData;
+
     private:
         template<typename T>
         void sendData(const T &);
@@ -114,13 +130,19 @@ namespace zigbee {
         void timerHandler(const boost::system::error_code &error);
 
         std::string strUsbError(int);
+
+        void addSyntetichData();
+        std::vector<RequestedAttributes::Attribute> getAttributeToSend(NwkAddr nwkAddr, EndpointID endpoint, ClusterID cluster);
+        size_t calcTotalSize(std::vector<RequestedAttributes::Attribute> & attributes);
+        uint8_t * fillRawData(std::vector<RequestedAttributes::Attribute> & attributes, uint8_t * data);
     };
 
     template<typename T>
     inline void zigbee::DomusEngineUSBDevice::sendData(const T &data) {
         int transfered;
 
-        int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &data, sizeof(data), &transfered, 10);
+        int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &data,
+                                          sizeof(data), &transfered, 10);
         if (result == 0) {
             std::cout << "request sent" << std::endl;
         } else {

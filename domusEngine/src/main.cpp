@@ -206,7 +206,7 @@ int main(int argc, const char *argv[]) {
     if (vm.count("configuration")) {
         configurationFileName = vm[CONFIGURATION_OPTION].as<std::string>();
     }
-    SingletonObjects singletons(std::move(configurationFileName));
+    SingletonObjects singletons(std::move(configurationFileName),vm.count(DEMO_DATA));
 
     enableDemo(vm, singletons);
 

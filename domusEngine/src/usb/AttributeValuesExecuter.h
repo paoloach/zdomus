@@ -31,18 +31,16 @@ namespace zigbee {
 
                 log << "Read attribute " << (int) response->attrID << ", status " << (int) response->status;
 
-                uint8_t *data = rawResponses + sizeof(AttributeResponse);
-
-                size_t dataLen = ZclAttributeUtils::zclGetAttrDataLength(response->dataType, data);
+                size_t dataLen = ZclAttributeUtils::zclGetAttrDataLength(response->dataType, rawData);
                 log << ", dataLen: " << dataLen;
                 auto zigbeeDevice =singletonObjects.getZigbeeDevice();
-                auto cluster(singletonObjects.getClusterTypeFactory()->getCluster(ClusterID{readAttributeResponseMessage->clusterId},
-                                                                                  zigbeeDevice,
-                                                                                  EndpointID{readAttributeResponseMessage->endpoint},
-                                                                                  NwkAddr{readAttributeResponseMessage->networkAddr}));
-                auto attribute = cluster->getAttribute(response->attrID);
-                attribute->internalSetValue(rawData);
 
+                std::shared_ptr<Cluster> cluster{singletonObjects.getClusters()->getCluster(NwkAddr{readAttributeResponseMessage->networkAddr},
+                                                                        EndpointID{readAttributeResponseMessage->endpoint},
+                                                                        ClusterID{readAttributeResponseMessage->clusterId}
+                                                                                  )};
+                auto attribute = cluster->getAttribute(response->attrID);
+                attribute->setValue(*response);
 
                 auto attributeValueSignalMap = singletonObjects.getAttributeValueSignalMap();
                 AttributeKey key(NwkAddr(readAttributeResponseMessage->networkAddr), readAttributeResponseMessage->endpoint,
@@ -50,7 +48,6 @@ namespace zigbee {
                 if (attributeValueSignalMap.count(key) > 0) {
                     attributeValueSignalMap.execute(key, 0);
                 }
-
                 rawResponses += sizeof(AttributeResponse) + dataLen;
                 BOOST_LOG_TRIVIAL(debug) << log.str();
             }

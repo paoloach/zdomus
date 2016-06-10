@@ -10,6 +10,7 @@
 
 #include <boost/log/trivial.hpp>
 #include <boost/tokenizer.hpp>
+#include <boost/lexical_cast.hpp>
 #include <Poco/Net/HTTPServerResponse.h>
 #include <Poco/Net/HTTPServerRequest.h>
 #include <zigbee/NwkAddr.h>
@@ -43,7 +44,7 @@ namespace zigbee {
             if (zEndpoint.isInCluster(clusterId)) {
                 response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                 auto zigbeeDevice = singletons.getZigbeeDevice();
-                auto cluster(singletons.getClusterTypeFactory()->getCluster(clusterId, zigbeeDevice, endpoint, nwkAddr));
+                auto cluster(singletons.getClusters()->getCluster(nwkAddr,endpoint,clusterId));
                 ZigbeeAttributeIds attributesId (placeHolder.getQueryParams<ZigbeeAttributeId>("id"));
                 vector<std::shared_ptr<ZCLAttribute>> attributes;
                 attributesArrived = std::vector<std::atomic<bool >>(attributesId.size());
@@ -97,7 +98,8 @@ namespace zigbee {
                 jsonAttribute["isSupported"] = Value(!attribute->isUnsupported());
                 jsonAttribute["status"] = Value(attribute->getStatus());
                 if (attribute->isAvailable()) {
-                    jsonAttribute["value"] = Value(boost::any_cast<std::string>(attribute->getValue()));
+                    std::string value = boost::lexical_cast<std::string>(attribute->getValue());
+                    jsonAttribute["value"] = Value(value);
                 }
                 root.append(jsonAttribute);
             }

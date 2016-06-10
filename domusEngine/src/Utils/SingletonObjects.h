@@ -13,7 +13,7 @@
 #include "../IO/AttributeDataContainer.h"
 #include "../ZigbeeData/BindTable.h"
 #include "../usb/AttributeValuesSignalMap.h"
-
+#include "Clusters.h"
 
 struct libusb_context;
 
@@ -38,7 +38,7 @@ namespace zigbee {
     public:
         SingletonObjects();
 
-        SingletonObjects(std::string &&configurationFileName);
+        SingletonObjects(std::string &&configurationFileName, bool demo);
 
         virtual ~SingletonObjects() = default;
 
@@ -51,8 +51,6 @@ namespace zigbee {
 
         virtual std::shared_ptr<JSManager> getJSManage() { return jsManager; }
 
-        virtual std::shared_ptr<ClusterTypeFactory> getClusterTypeFactory() { return clusterTypeFactory; }
-
         virtual std::shared_ptr<http::FixedPathContainer> getFixedPathContainer() { return fixedPathContainer; }
 
         virtual boost::asio::io_service &getIO() { return io; }
@@ -60,7 +58,11 @@ namespace zigbee {
         virtual AttributeDataContainer &getAttributeDataContainer() { return attributeDataContainer; }
 
         virtual BindTable &getBindTable() { return bindTable; }
-        virtual AttributeValueSignalMap & getAttributeValueSignalMap() {return attributeValueSignalMap;}
+
+        virtual AttributeValueSignalMap &getAttributeValueSignalMap() { return attributeValueSignalMap; }
+        virtual std::shared_ptr<Clusters> getClusters() {return clusters;};
+
+
 
     private:
         boost::asio::io_service io;
@@ -68,12 +70,12 @@ namespace zigbee {
         std::shared_ptr<ZigbeeDevice> zigbeeDevice;
         std::shared_ptr<Configuration> configuration;
         std::shared_ptr<JSManager> jsManager;
-        std::shared_ptr<ClusterTypeFactory> clusterTypeFactory;
         BindTable bindTable;
         zigbee::AttributeDataContainer attributeDataContainer;
         libusb_context *usbContext;
         std::shared_ptr<http::FixedPathContainer> fixedPathContainer;
         AttributeValueSignalMap attributeValueSignalMap;
+        std::shared_ptr<Clusters> clusters;
     };
 
 } /* namespace zigbee */
