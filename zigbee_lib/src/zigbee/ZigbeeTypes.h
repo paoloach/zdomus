@@ -24,7 +24,7 @@ typedef uint16_t ZigbeeClusterCmdId;
 
 class ZigbeeAttributeIds : public std::vector<ZigbeeAttributeId> {
 public:
-
+    ZigbeeAttributeIds(){}
     ZigbeeAttributeIds(std::vector<ZigbeeAttributeId> &&attributes) :
             std::vector<ZigbeeAttributeId>(attributes) { };
 

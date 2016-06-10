@@ -9,13 +9,13 @@
 using namespace boost::endian;
 
 namespace zigbee {
-    size_t ZclAttributeUtils::zclGetAttrDataLength(uint8_t dataType, uint8_t *pData) {
+    size_t ZclAttributeUtils::zclGetAttrDataLength(uint8_t dataType, const uint8_t *pData) {
         size_t dataLen = 0;
 
         ZCLTypeDataType zclTypeDataType = static_cast<ZCLTypeDataType>(dataType);
 
         if (zclTypeDataType == ZCLTypeDataType::ZCLTypeStringLongChar || zclTypeDataType == ZCLTypeDataType::ZCLTypeStringLongOctect) {
-            dataLen = little_to_native(*(uint16_t *) pData) + 2; // long string length + 2 for length field
+            dataLen = little_to_native(*(const uint16_t *) pData) + 2; // long string length + 2 for length field
         }
         else if (zclTypeDataType == ZCLTypeDataType::ZCLTypeStringOctect || zclTypeDataType == ZCLTypeDataType::ZCLTypeStringChar) {
             dataLen = *pData + 1; // string length + 1 for length field

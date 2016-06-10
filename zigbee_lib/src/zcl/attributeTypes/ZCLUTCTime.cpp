@@ -56,6 +56,7 @@ namespace zigbee {
         converter.raw[2] = *(rawData+ 2);
         converter.raw[3] = *(rawData + 3);
         value = converter.value;
+        status = Available;
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCLUTCTime *attribute) {

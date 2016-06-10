@@ -15,7 +15,7 @@ namespace zigbee {
 
     class ZclAttributeUtils {
     public:
-        static size_t zclGetAttrDataLength(uint8_t dataType, uint8_t *pData);
+        static size_t zclGetAttrDataLength(uint8_t dataType, const uint8_t *pData);
         static size_t zclGetDataTypeLength( ZCLTypeDataType dataType );
     };
 }
