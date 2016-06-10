@@ -98,7 +98,7 @@ namespace zigbee {
                 jsonAttribute["isSupported"] = Value(!attribute->isUnsupported());
                 jsonAttribute["status"] = Value(attribute->getStatus());
                 if (attribute->isAvailable()) {
-                    std::string value = boost::lexical_cast<std::string>(attribute->getValue());
+                    std::string value = boost::lexical_cast<std::string>(attribute);
                     jsonAttribute["value"] = Value(value);
                 }
                 root.append(jsonAttribute);
