@@ -7,6 +7,7 @@
 
 #include <string>
 #include <sstream>
+#include <boost/spirit/include/karma.hpp>
 #include "../ZCLAttribute.h"
 #include "../../zigbee/AttributeStatusRecord.h"
 
@@ -21,13 +22,14 @@ namespace zigbee {
     public:
         virtual boost::any getValue() const override;
         virtual std::string getStrValue() const {
-            std::stringstream stream;
-            stream << "{";
-            for (uint8_t val: value){
-                stream << (int)val << " ";
-            }
-            stream << "}";
-            return stream.str();
+            using boost::spirit::karma::int_;
+            using boost::spirit::karma::generate_delimited;
+            using boost::spirit::ascii::space;
+            std::string  result;
+            std::back_insert_iterator<std::string> sink(result);
+
+            generate_delimited(sink, int_ % ',',  space, value);
+            return result;
         }
 
         virtual void sendValue(const std::string &newValue);
