@@ -44,8 +44,8 @@ namespace zigbee {
             if (zEndpoint.isInCluster(clusterId)) {
                 response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                 auto zigbeeDevice = singletons.getZigbeeDevice();
-                auto cluster(singletons.getClusters()->getCluster(nwkAddr,endpoint,clusterId));
-                ZigbeeAttributeIds attributesId (placeHolder.getQueryParams<ZigbeeAttributeId>("id"));
+                auto cluster(singletons.getClusters()->getCluster(nwkAddr, endpoint, clusterId));
+                ZigbeeAttributeIds attributesId(placeHolder.getQueryParams<ZigbeeAttributeId>("id"));
                 vector<std::shared_ptr<ZCLAttribute>> attributes;
                 attributesArrived = std::vector<std::atomic<bool >>(attributesId.size());
 
@@ -98,8 +98,7 @@ namespace zigbee {
                 jsonAttribute["isSupported"] = Value(!attribute->isUnsupported());
                 jsonAttribute["status"] = Value(attribute->getStatus());
                 if (attribute->isAvailable()) {
-                    std::string value = boost::lexical_cast<std::string>(attribute);
-                    jsonAttribute["value"] = Value(value);
+                    jsonAttribute["value"] = attribute->getStrValue();
                 }
                 root.append(jsonAttribute);
             }

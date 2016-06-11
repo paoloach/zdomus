@@ -6,6 +6,7 @@
 #define ZIGBEE_LIB_ZCLOCTETSTRING_H
 
 #include <string>
+#include <sstream>
 #include "../ZCLAttribute.h"
 #include "../../zigbee/AttributeStatusRecord.h"
 
@@ -19,6 +20,15 @@ namespace zigbee {
 
     public:
         virtual boost::any getValue() const override;
+        virtual std::string getStrValue() const {
+            std::stringstream stream;
+            stream << "{";
+            for (uint8_t val: value){
+                stream << (int)val << " ";
+            }
+            stream << "}";
+            return stream.str();
+        }
 
         virtual void sendValue(const std::string &newValue);
 

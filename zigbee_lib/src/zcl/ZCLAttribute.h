@@ -61,6 +61,7 @@ namespace zigbee {
         virtual void internalSetValue(uint8_t * rawData) = 0;
 
         virtual boost::any getValue() const = 0;
+        virtual std::string getStrValue() const = 0;
 
         virtual ZCLTypeDataType getZCLType() {
             return zclType;

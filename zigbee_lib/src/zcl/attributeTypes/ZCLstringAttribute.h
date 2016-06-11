@@ -21,6 +21,9 @@ namespace zigbee {
 
     public:
         virtual boost::any getValue() const override;
+        virtual std::string getStrValue() const {
+            return value;
+        }
 
         virtual void sendValue(const std::string &newValue);
 

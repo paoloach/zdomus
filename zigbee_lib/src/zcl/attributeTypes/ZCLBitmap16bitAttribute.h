@@ -26,6 +26,9 @@ namespace zigbee {
 
     public:
         virtual boost::any getValue() const override;
+        virtual std::string getStrValue() const {
+            return boost::lexical_cast<std::string>(value);
+        }
 
         virtual void sendValue(std::bitset<16> value);
 

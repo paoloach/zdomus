@@ -8,6 +8,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
@@ -48,6 +49,7 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
     }
 
     @Override
+    @UiThread
     public void newAttributes(List<JSonAttribute> attributes) {
         for (JSonAttribute attribute : attributes) {
             if (attribute.isSupported && attribute.isAvailable) {

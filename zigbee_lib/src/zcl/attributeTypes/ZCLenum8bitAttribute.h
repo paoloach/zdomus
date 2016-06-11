@@ -22,6 +22,9 @@ namespace zigbee {
 
     public:
         virtual void sendValue(uint8_t newValue);
+        virtual std::string getStrValue() const {
+            return boost::lexical_cast<std::string>(value);
+        }
 
         static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeenum8;
 
