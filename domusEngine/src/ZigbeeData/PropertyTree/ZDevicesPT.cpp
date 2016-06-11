@@ -14,7 +14,9 @@ namespace zigbee {
     ZDevicesPT::ZDevicesPT(std::shared_ptr<ZDevices> zDevices) noexcept {
         for (const auto &device : zDevices->getDevices()) {
             BOOST_LOG_TRIVIAL(info) << device.getNwkAddr();
-            add(boost::lexical_cast<std::string>(device.getNwkAddr()), device.getExtAddr());
+            if (!device.getEndpoints().empty()) {
+                add(boost::lexical_cast<std::string>(device.getNwkAddr()), device.getExtAddr());
+            }
         }
     }
   } /* namespace http */
