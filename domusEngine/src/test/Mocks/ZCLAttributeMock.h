@@ -49,6 +49,7 @@ namespace zigbee {
                     changeSignal));
 
             MOCK_CONST_METHOD0(getValue, boost::any());
+            MOCK_CONST_METHOD0(getStrValue, std::string());
 
             MOCK_METHOD1(internalSetValue, void(uint8_t
                     *rawData));
