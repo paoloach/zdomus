@@ -142,11 +142,11 @@ namespace zigbee {
         int transfered;
 
         int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &data,
-                                          sizeof(data), &transfered, 10);
+                                          sizeof(data), &transfered, 1000);
         if (result == 0) {
-            std::cout << "request sent" << std::endl;
+            BOOST_LOG_TRIVIAL(trace) << "request sent";
         } else {
-            std::cerr << strUsbError(result) << std::endl;
+            BOOST_LOG_TRIVIAL(error) << strUsbError(result);
         }
     }
 

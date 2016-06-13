@@ -208,7 +208,7 @@ namespace zigbee {
             int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_IN, data, sizeof(data),
                                               &transfered, 1000);
             if (result == 0) {
-                BOOST_LOG_TRIVIAL(info) << "new data arrived: size " << transfered;
+                BOOST_LOG_TRIVIAL(debug) << "new data arrived: size " << transfered;
                 usbResponseExecuters.execute(data, transfered);
             } else if (result == LIBUSB_ERROR_TIMEOUT) {
                 // no data
@@ -249,7 +249,7 @@ namespace zigbee {
                                               ZCLTypeDataType dataType,
                                               uint8_t dataValueLen,
                                               uint8_t *dataValue) {
-        std::cout << "USBDevice write attribute to cluster " << std::endl;
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice write attribute to cluster " << std::endl;
         if (handle != nullptr) {
             WriteAttributeValueMsg writeAttributeValue{};
 
@@ -267,9 +267,9 @@ namespace zigbee {
                                               &transfered,
                                               1000);
             if (result == 0) {
-                std::cout << "request sent" << std::endl;
+                BOOST_LOG_TRIVIAL(trace) << "request sent" << std::endl;
             } else {
-                std::cerr << strUsbError(result) << std::endl;
+                BOOST_LOG_TRIVIAL(error) << strUsbError(result) << std::endl;
             }
         }
     }
@@ -293,9 +293,9 @@ namespace zigbee {
                                               (unsigned char *) &comandSend, sizeof(comandSend),
                                               &transfered, 1000);
             if (result == 0) {
-                std::cout << "request sent" << std::endl;
+                BOOST_LOG_TRIVIAL(trace) << "request sent";
             } else {
-                std::cerr << strUsbError(result) << std::endl;
+                BOOST_LOG_TRIVIAL(error) << strUsbError(result);
             }
         }
     }
@@ -314,9 +314,9 @@ namespace zigbee {
         int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &genericMessage,
                                           sizeof(genericMessage), &transfered, 1000);
         if (result == 0) {
-            std::cout << "request sent" << std::endl;
+            BOOST_LOG_TRIVIAL(trace) << "request sent";
         } else {
-            std::cerr << strUsbError(result) << std::endl;
+            BOOST_LOG_TRIVIAL(error) << strUsbError(result);
         }
         return false;
     }
@@ -325,6 +325,7 @@ namespace zigbee {
         if (handle == nullptr){
             return;
         }
+        BOOST_LOG_TRIVIAL(debug) << "Request active endpons for " << nwkAddr;
         ReqActiveEndpointsMessage request{};
         request.nwkAddr = nwkAddr.getId();
 
@@ -333,9 +334,9 @@ namespace zigbee {
         int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request),
                                           &transfered, 1000);
         if (result == 0) {
-            std::cout << "request sent" << std::endl;
+            BOOST_LOG_TRIVIAL(trace) << "request sent";
         } else {
-            std::cerr << strUsbError(result) << std::endl;
+            BOOST_LOG_TRIVIAL(error) << strUsbError(result);
         }
     }
 
@@ -347,6 +348,7 @@ namespace zigbee {
         if (handle == nullptr){
             return;
         }
+        BOOST_LOG_TRIVIAL(debug) << "Request to bind ";
         BindRequest bindRequest(destAddr, outClusterAddr, outClusterEP, clusterID, inClusterAddr, inClusterEp);
         sendData(bindRequest);
     }
@@ -358,6 +360,7 @@ namespace zigbee {
         if (handle == nullptr){
             return;
         }
+        BOOST_LOG_TRIVIAL(debug) << "Request to unbind ";
         UnbindRequest unbindRequest(destAddr, outClusterAddr, outClusterEP, clusterID, inClusterAddr, inClusterEp);
         sendData(unbindRequest);
     }
