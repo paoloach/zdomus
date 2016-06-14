@@ -20,7 +20,8 @@ namespace zigbee {
 
         virtual void operator()(unsigned char *data, int) override {
             ActiveEPErrorMessage * activeEPErrorMessage = reinterpret_cast<ActiveEPErrorMessage *>(data);
-            BOOST_LOG_TRIVIAL(error) << "error requesting acttive enpoint at " << activeEPErrorMessage->nwkAddr << " with error code: " << (int)activeEPErrorMessage->errorCode;
+            int nwkAddr = activeEPErrorMessage->nwkAddr;
+            BOOST_LOG_TRIVIAL(error) << "error requesting acttive enpoint at " << nwkAddr << " with error code: " << (int)activeEPErrorMessage->errorCode;
         }
     };
 }
