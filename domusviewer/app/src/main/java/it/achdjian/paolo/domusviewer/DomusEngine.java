@@ -24,6 +24,7 @@ import it.achdjian.paolo.domusviewer.DomusEngineRest.JSonAttribute;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequesetBindMap;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestAttributes;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestIdentify;
+import it.achdjian.paolo.domusviewer.DomusEngineRest.Stoppable;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Unbind;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.WhoAreYou;
 import it.achdjian.paolo.domusviewer.zigbee.BindRequestData;
@@ -104,9 +105,11 @@ public class DomusEngine extends HandlerThread implements ConnectionObserver {
         handler.post(new Unbind(sharedPreferences, connected, data));
     }
 
-    public void requestAttributes(@NonNull AttributesListener listener, @NonNull Integer networkId, @NonNull Integer endpointId, int clusterId, Integer... attributes) {
+    public Stoppable requestAttributes(@NonNull AttributesListener listener, @NonNull Integer networkId, @NonNull Integer endpointId, int clusterId, Integer... attributes) {
         Handler handler = new Handler(getLooper());
-        handler.post(new RequestAttributes(sharedPreferences, connected, listener, networkId, endpointId, clusterId, attributes));
+        RequestAttributes requestAttributes = new RequestAttributes(sharedPreferences, connected, listener, networkId, endpointId, clusterId, attributes);
+        handler.post(requestAttributes);
+        return requestAttributes;
     }
 
     @Override

@@ -15,6 +15,7 @@ import java.util.List;
 
 import it.achdjian.paolo.domusviewer.DomusEngine;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.JSonAttribute;
+import it.achdjian.paolo.domusviewer.DomusEngineRest.Stoppable;
 import it.achdjian.paolo.domusviewer.R;
 
 /**
@@ -26,7 +27,6 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
     Integer networkId;
     @FragmentArg("endpoint_id")
     Integer endpointId;
-
 
     @ViewById(R.id.name)
     TextView name;
@@ -42,10 +42,27 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
     CheckBox checkBox;
     @Bean
     DomusEngine domusEngine;
+    Stoppable request;
 
     @AfterViews
     public void afterView(){
-        domusEngine.requestAttributes(this,networkId, endpointId, 0,4,5,6,0x10,0x11,0x12);
+
+        getDialog().setTitle("device "+networkId + " endpoint " + endpointId);
+        name.setText("");
+        model.setText("");
+        date.setText("");
+        location.setText("");
+        environment.setText("");
+        checkBox.setChecked(false);
+        request = domusEngine.requestAttributes(this, networkId, endpointId, 0, 4, 5, 6, 0x10, 0x11, 0x12);
+    }
+
+    @Override
+    public void onDestroyView(){
+        if (request != null){
+            request.stop();
+        }
+        super.onDestroyView();
     }
 
     @Override
@@ -70,7 +87,7 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
                         environment.setText(attribute.value);
                         break;
                     case 0x12:
-                        checkBox.setSelected(attribute.value.equals("true"));
+                        checkBox.setChecked(attribute.value.equals("1"));
                         break;
                 }
             }

@@ -10,19 +10,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import it.achdjian.paolo.domusviewer.DomusEngine;
 
 /**
  * Created by Paolo Achdjian on 18/05/16.
  */
-public class RequestAttributes extends DomusEngineRest {
-    private final DomusEngine.AttributesListener listener;
+public class RequestAttributes extends DomusEngineRest implements Stoppable {
+    private DomusEngine.AttributesListener listener;
     private final Integer networkId;
     private final Integer endpointId;
     private final int clusterId;
     private final Integer[] attributes;
+    private boolean toStop;
 
     public RequestAttributes(@NonNull SharedPreferences sharedPreferences, @NonNull ConnectionStatus connected, @NonNull DomusEngine.AttributesListener listener, @NonNull Integer networkId, @NonNull Integer endpointId, int clusterId, @NonNull Integer[] attributes) {
         super(sharedPreferences, connected);
@@ -31,6 +31,7 @@ public class RequestAttributes extends DomusEngineRest {
         this.endpointId = endpointId;
         this.clusterId = clusterId;
         this.attributes = attributes;
+        toStop = false;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class RequestAttributes extends DomusEngineRest {
                 append(clusterId).
                 append("/attributes?id=").append(TextUtils.join(",", attributes));
         String body = get(builder.toString());
-        if (body != null) {
+        if (body != null && toStop==false) {
             if (!body.isEmpty()) {
                 ObjectMapper mapper = new ObjectMapper();
                 try {
@@ -56,5 +57,11 @@ public class RequestAttributes extends DomusEngineRest {
             }
             new Handler().postDelayed(this, 2000);
         }
+    }
+
+    @Override
+    public void stop() {
+        listener = null;
+        toStop=true;
     }
 }
