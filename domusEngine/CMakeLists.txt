@@ -28,7 +28,6 @@ include_directories(./include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} $
 
 
 file(GLOB src "src/*.cpp")
-file(GLOB srcUsb "src/usb/*.cpp")
 file(GLOB srcZigbeeData "src/ZigbeeData/*.cpp")
 file(GLOB srcZigbeeDataPT "src/ZigbeeData/PropertyTree/*.cpp")
 file(GLOB srcZigbeeDataExceptions "src/ZigbeeData/Exceptions/*.cpp")
@@ -67,6 +66,25 @@ else ()
     endif ()
 endif ()
 
+set(USB_SRC  src/usb/ActiveEPReqError.h
+        src/usb/AnnunceMsgExecuter.h
+        src/usb/AttributeValueReqError.cpp
+        src/usb/AttributeValueReqError.h
+        src/usb/AttributeValuesExecuter.h
+        src/usb/AttributeValuesSignalMap.h
+        src/usb/BindResponse.cpp
+        src/usb/BindResponse.h
+        src/usb/BindTableExecuter.h
+        src/usb/Executor.h
+        src/usb/RequestedAttributes.cpp
+        src/usb/RequestedAttributes.h
+        src/usb/SimpleDescExecutor.h
+        src/usb/usbConfig.h
+        src/usb/USBDevice.cpp
+        src/usb/USBDevice.h
+        src/usb/UsbResponseExecutors.cpp
+        src/usb/UsbResponseExecutors.h)
+
 set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a
         ${V8_LIB_DIR}/libv8_base.a
@@ -98,7 +116,7 @@ add_library(javascript_lib OBJECT
         src/JavaScript/V8Allocator.h)
 
 add_library(domus_engine_static_lib STATIC
-        ${srcUsb}
+        ${USB_SRC}
         ${srcZigbeeData}
         ${srcZigbeeDataPT}
         ${srcIO}
@@ -125,24 +143,19 @@ add_library(domus_engine_static_lib STATIC
         src/ZigbeeData/Exceptions/InvalidInCluster.h
         src/ZigbeeData/Exceptions/InvalidInCluster.cpp
         src/ZigbeeData/Exceptions/InvalidInCluster.h
-        src/usb/BindResponse.cpp
-        src/usb/BindResponse.h
         src/ZigbeeData/ZElement.cpp
         src/ZigbeeData/ZElement.h
         src/json/jsoncpp.cpp
         src/json/json/json-forwards.h
         src/json/json/json.h
-        src/usb/AttributeValueReqError.cpp
-        src/usb/AnnunceMsgExecuter.h
-        src/usb/SimpleDescExecutor.h
-        src/usb/AttributeValuesExecuter.h
-        src/usb/BindTableExecuter.h
-        src/usb/UsbResponseExecutors.cpp
-        src/usb/UsbResponseExecutors.h src/usb/Executor.h
         src/httpServer/RestActions/ShowAttributeFactory.cpp
         src/httpServer/RestActions/ShowAttributeFactory.h
         src/httpServer/RestParser/RestQuery.cpp
-        src/httpServer/RestParser/RestQuery.h src/httpServer/RestActions/ExecuteReset.cpp src/httpServer/RestActions/ExecuteReset.h src/usb/RequestedAttributes.cpp src/usb/RequestedAttributes.h src/Utils/Clusters.cpp src/Utils/Clusters.h)
+        src/httpServer/RestParser/RestQuery.h
+        src/httpServer/RestActions/ExecuteReset.cpp
+        src/httpServer/RestActions/ExecuteReset.h
+        src/Utils/Clusters.cpp
+        src/Utils/Clusters.h)
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 

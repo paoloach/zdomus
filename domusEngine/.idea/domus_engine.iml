@@ -226,19 +226,22 @@
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/PlainTextProducer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestValue.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/RequestedAttributes.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/BindResponse.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/AttributeValueReqError.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/BindTableExecuter.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/usb/BindResponse.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/usb/USBDevice.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/Executor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/AttributeValuesSignalMap.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/USBDevice.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/SimpleDescExecutor.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/BindResponse.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/UsbResponseExecutors.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/AttributeValueReqError.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/USBDevice.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/ActiveEPReqError.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/RequestedAttributes.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/AttributeValuesExecuter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/UsbResponseExecutors.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/usb/RequestedAttributes.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/usbConfig.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/AnnunceMsgExecuter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZAttribute.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZAttributeFactory.cpp" isTestSource="false" />

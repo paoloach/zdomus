@@ -9,6 +9,7 @@
 #include "AttributeValuesExecuter.h"
 #include "BindTableExecuter.h"
 #include "AttributeValueReqError.h"
+#include "ActiveEPReqError.h"
 
 using std::make_unique;
 
@@ -18,6 +19,7 @@ zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonOb
     executors[ATTRIBUTE_VALUES] = make_unique<AttributeValuesExecuter>(singletonObjects);
     executors[BIND_TABLE] = make_unique<BindTableExecuter>(singletonObjects);
     executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(singletonObjects.getAttributeValueSignalMap());
+    executors[ACTIVE_EP_REQ_ERROR] = make_unique<ActiveEPReqError>(singletonObjects);
 }
 
 void zigbee::UsbResponseExecutors::execute(unsigned char *data, int length) {
