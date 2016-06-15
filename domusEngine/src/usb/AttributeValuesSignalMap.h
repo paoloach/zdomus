@@ -8,6 +8,7 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/AttributeStatusRecord.h>
 #include <zcl/ZCLDataType.h>
+#include <iostream>
 
 namespace zigbee {
 
@@ -53,14 +54,18 @@ namespace zigbee {
     public:
         void execute(const AttributeKey &key, int status) {
             if (count(key) > 0) {
-                for (auto iter = lower_bound(key); iter != upper_bound(key); iter++) {
+                auto lower = lower_bound(key);
+                auto upper = upper_bound(key);
+                for (auto iter = lower; iter != upper; iter++) {
                     iter->second(status);
                 }
+                erase(lower, upper);
             }
         }
         void insert(const AttributeKey &key,const  NewAttributeValueCallback & fn){
             multimap::insert(value_type{key,fn});
         }
+
     };
 
 }

@@ -76,7 +76,6 @@ namespace zigbee {
                     BOOST_LOG_TRIVIAL(debug) << "All the " << attributes.size() << " arrived";
                     send(response, std::move(attributes));
                 }
-
             } else {
                 throwWrongCluster(response, clusterId, endpoint, nwkAddr);
             }

@@ -22,8 +22,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="managed active endpoint error report by USB">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-hdpi/light_off.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-hdpi/light_on.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-ldpi/light_off.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-ldpi/light_on.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-mdpi/light_off.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-mdpi/light_on.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-xhdpi/light_off.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-xhdpi/light_on.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/LightController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable/light_image_states.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/light.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/svg/light.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/svg/light_off.svg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/ActiveEPReqError.h" afterPath="$PROJECT_DIR$/src/usb/ActiveEPReqError.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" afterPath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h" afterPath="$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/Constants.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/Binding.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/Binding.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/LightAdapter.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/LightAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffAdapter.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/SwitchAdapter.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/SwitchAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/switch_on_off.xml" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/switch_on_off.xml" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,23 +69,87 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AnnunceMsgExecuter.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/AnnunceMsgExecuter.h">
+      <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="23" column="37" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="44" />
+            <state relative-caret-position="581">
+              <caret line="104" column="121" selection-start-line="104" selection-start-column="121" selection-end-line="104" selection-end-column="121" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShowAttribute.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="107" column="34" selection-start-line="107" selection-start-column="34" selection-end-line="107" selection-end-column="34" />
               <folding>
-                <element signature="e#125#157#0" expanded="true" />
+                <element signature="e#91#108#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
+      <file leaf-file-name="SingletonObjects.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2996">
-              <caret line="214" column="20" selection-start-line="214" selection-start-column="20" selection-end-line="214" selection-end-column="20" />
+            <state relative-caret-position="217">
+              <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShowAttribute.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="31" column="91" selection-start-line="31" selection-start-column="91" selection-end-line="31" selection-end-column="91" />
+              <folding>
+                <element signature="e#194#232#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AttributeValuesSignalMap.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="762">
+              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+              <folding>
+                <element signature="e#137#164#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stl_function.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_function.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="508">
+              <caret line="386" column="0" selection-start-line="386" selection-start-column="0" selection-end-line="386" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stl_tree.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_tree.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="178">
+              <caret line="1090" column="0" selection-start-line="1090" selection-start-column="0" selection-end-line="1090" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2646">
+              <caret line="189" column="5" selection-start-line="189" selection-start-column="5" selection-end-line="189" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -70,77 +158,11 @@
       <file leaf-file-name="AttributeValuesExecuter.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="18" column="70" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="70" />
+            <state relative-caret-position="616">
+              <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
               <folding>
                 <element signature="e#135#170#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BindTableExecuter.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/BindTableExecuter.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="10" column="43" selection-start-line="9" selection-start-column="4" selection-end-line="10" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UsbResponseExecutors.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
-              <folding>
-                <element signature="e#40#72#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AttributeValueReqError.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/AttributeValueReqError.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-              <folding>
-                <element signature="e#133#170#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AttributeValueReqError.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/usb/AttributeValueReqError.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActiveEPReqError.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/usb/ActiveEPReqError.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
-              <folding>
-                <element signature="e#121#153#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1260">
-              <caret line="90" column="37" selection-start-line="90" selection-start-column="37" selection-end-line="90" selection-end-column="37" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -153,7 +175,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/IO/AttributeDataContainer.cpp" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/AttributeData.cpp" />
         <option value="$PROJECT_DIR$/src/usb/BindResponse.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestQueryParams.cpp" />
@@ -170,7 +191,6 @@
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.h" />
         <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/PathParserTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowHello.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h" />
         <option value="$PROJECT_DIR$/src/test/CMakeLists.txt" />
@@ -188,22 +208,24 @@
         <option value="$PROJECT_DIR$/src/Utils/Clusters.cpp" />
         <option value="$PROJECT_DIR$/src/Utils/SingletonObjects.h" />
         <option value="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
-        <option value="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
         <option value="$PROJECT_DIR$/src/Utils/Clusters.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowOutCluster.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowInCluster.cpp" />
         <option value="/usr/local/zigbee/include/zcl/ZCLAttribute.h" />
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
         <option value="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZDevicesPT.cpp" />
         <option value="$PROJECT_DIR$/src/test/Mocks/ZCLAttributeMock.h" />
         <option value="$PROJECT_DIR$/src/usb/USBDevice.h" />
-        <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
         <option value="/usr/local/zigbee/include/zigbee/zigbeeConfig.h" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" />
         <option value="$PROJECT_DIR$/src/usb/ActiveEPReqError.h" />
+        <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
+        <option value="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" />
+        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
+        <option value="$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h" />
       </list>
     </option>
   </component>
@@ -1303,11 +1325,12 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14368421" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33694476" sideWeight="0.4836842" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24514039" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33586133" sideWeight="0.4836842" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24593717" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39111593" sideWeight="0.51526314" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3347779" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31310943" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.312026" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1317,7 +1340,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3347779" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1388,13 +1410,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/usb/USBDevice.cpp</url>
-          <line>386</line>
+          <line>391</line>
           <option name="timeStamp" value="100" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp</url>
-          <line>102</line>
-          <option name="timeStamp" value="138" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1419,55 +1436,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/zigbee/include/zigbee/NwkAddr.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/RequestedAttributes.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/RequestedAttributes.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="7" column="97" selection-start-line="7" selection-start-column="97" selection-end-line="7" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2646">
-          <caret line="189" column="5" selection-start-line="189" selection-start-column="5" selection-end-line="189" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/AttributeData.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ReadAttributeResponseMessage.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="23" column="18" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zcl/ZclAttributeUtils.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../zigbee_lib/src/zcl/ZCLAttribute.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
@@ -1500,13 +1468,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="512">
           <caret line="56" column="60" selection-start-line="56" selection-start-column="60" selection-end-line="56" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="868">
-          <caret line="62" column="41" selection-start-line="62" selection-start-column="41" selection-end-line="62" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -1580,13 +1541,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_function.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5404">
-          <caret line="386" column="0" selection-start-line="386" selection-start-column="0" selection-end-line="386" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/json/json/json.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8442">
@@ -1619,16 +1573,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
           <caret line="39" column="10" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="93" column="80" selection-start-line="93" selection-start-column="80" selection-end-line="93" selection-end-column="80" />
-          <folding>
-            <element signature="e#91#108#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1681,14 +1625,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2996">
-          <caret line="214" column="20" selection-start-line="214" selection-start-column="20" selection-end-line="214" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/zigbee/include/zigbee/zigbeeConfig.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -1707,9 +1643,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="23" column="37" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="44" />
-          <folding>
-            <element signature="e#125#157#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1720,29 +1653,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="90" column="37" selection-start-line="90" selection-start-column="37" selection-end-line="90" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValueReqError.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding>
-            <element signature="e#133#170#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ActiveEPErrorMessage.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="12" column="56" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1753,48 +1667,153 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/BindTableExecuter.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="10" column="43" selection-start-line="9" selection-start-column="4" selection-end-line="10" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValueReqError.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/ActiveEPReqError.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
-          <folding>
-            <element signature="e#121#153#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="90" column="37" selection-start-line="90" selection-start-column="37" selection-end-line="90" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ReadAttributeResponseMessage.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2646">
+          <caret line="189" column="5" selection-start-line="189" selection-start-column="5" selection-end-line="189" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_raw_storage_iter.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_function.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="386" column="0" selection-start-line="386" selection-start-column="0" selection-end-line="386" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_tree.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="1090" column="0" selection-start-line="1090" selection-start-column="0" selection-end-line="1090" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_map.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="478" column="0" selection-start-line="478" selection-start-column="0" selection-end-line="478" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValueReqError.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+        <state relative-caret-position="238">
+          <caret line="20" column="65" selection-start-line="20" selection-start-column="65" selection-end-line="20" selection-end-column="65" />
           <folding>
             <element signature="e#40#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/BindTableExecuter.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="10" column="43" selection-start-line="9" selection-start-column="4" selection-end-line="10" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="18" column="70" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="70" />
+        <state relative-caret-position="616">
+          <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
           <folding>
             <element signature="e#135#170#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValueReqError.cpp">
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="287">
+          <caret line="31" column="91" selection-start-line="31" selection-start-column="91" selection-end-line="31" selection-end-column="91" />
+          <folding>
+            <element signature="e#194#232#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="107" column="34" selection-start-line="107" selection-start-column="34" selection-end-line="107" selection-end-column="34" />
+          <folding>
+            <element signature="e#91#108#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="762">
+          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <element signature="e#137#164#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="104" column="121" selection-start-line="104" selection-start-column="121" selection-end-line="104" selection-end-column="121" />
           <folding />
         </state>
       </provider>

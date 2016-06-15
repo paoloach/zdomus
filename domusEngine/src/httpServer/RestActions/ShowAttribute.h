@@ -12,6 +12,7 @@
 #include "ClusterThrowingException.h"
 #include <atomic>
 #include <zcl/ZCLAttribute.h>
+#include <iostream>
 
 namespace zigbee {
 
@@ -28,7 +29,7 @@ namespace zigbee {
             int status;
             SingletonObjects &singletons;
         public:
-            ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) { };
+            ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) {};
 
             void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
 

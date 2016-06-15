@@ -42,9 +42,9 @@ namespace zigbee {
                 auto attribute = cluster->getAttribute(response->attrID);
                 attribute->setValue(*response);
 
-                auto attributeValueSignalMap = singletonObjects.getAttributeValueSignalMap();
-                AttributeKey key(NwkAddr(readAttributeResponseMessage->networkAddr), readAttributeResponseMessage->endpoint,
-                                 readAttributeResponseMessage->clusterId, response->attrID);
+                auto & attributeValueSignalMap = singletonObjects.getAttributeValueSignalMap();
+                AttributeKey key{NwkAddr(readAttributeResponseMessage->networkAddr), readAttributeResponseMessage->endpoint,
+                                 readAttributeResponseMessage->clusterId, response->attrID};
                 if (attributeValueSignalMap.count(key) > 0) {
                     attributeValueSignalMap.execute(key, 0);
                 }
