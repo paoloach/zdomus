@@ -45,12 +45,14 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
     DomusEngine domusEngine;
     @Bean
     IdentifyListener identifyListener;
+    int layout;
 
     BindController bindController;
     private final List<DataSetObserver> observers = new ArrayList<>();
     final List<Element> elements = new ArrayList<>();
 
-    void init(@NonNull BindController bindController) {
+    void init(@NonNull BindController bindController, int layout) {
+        this.layout = layout;
         this.bindController = bindController;
         domusEngine.addEndpointListener(this);
 
@@ -145,7 +147,7 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
             result = convertView;
         } else {
             LayoutInflater inflater = LayoutInflater.from(activity);
-            result = inflater.inflate(R.layout.switch_on_off, parent, false);
+            result = inflater.inflate(layout, parent, false);
         }
         Element element = elements.get(position);
         TextView mainText = (TextView) result.findViewById(R.id.mainText);

@@ -33,7 +33,7 @@ class SwitchAdapter extends OnOffAdapter implements View.OnClickListener {
 
 
     public void init(@NonNull BindController bindController, @NonNull Binding binding) {
-        init(bindController);
+        init(bindController, R.layout.switch_on_off);
         this.bindSwitchLongClickListener = new BindSwitchLongClickListener(bindController.elementSelected, binding);
 
     }

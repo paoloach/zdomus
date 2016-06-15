@@ -33,7 +33,7 @@ class Binding implements DialogInterface.OnClickListener {
         bind=true;
         this.switchElement = switchElement;
         this.lightElement = lightElement;
-        String text = "Do you want bind the switch " + switchElement.getName() + " with the light " + lightElement.getName() + " ?";
+        String text = "Do you want bind the switch " + switchElement.getName() + " with the light_on " + lightElement.getName() + " ?";
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.setTitle("Bind").setMessage(text).setNegativeButton("NO", this).setPositiveButton("YES", this).create();
         alertDialog.show();
@@ -43,7 +43,7 @@ class Binding implements DialogInterface.OnClickListener {
         bind=false;
         this.switchElement = switchElement;
         this.lightElement = lightElement;
-        String text = "Do you want bind the switch " + switchElement.getName() + " with the light " + lightElement.getName() + " ?";
+        String text = "Do you want bind the switch " + switchElement.getName() + " with the light_on " + lightElement.getName() + " ?";
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog alertDialog = builder.setTitle("Bind").setMessage(text).setNegativeButton("NO", this).setPositiveButton("YES", this).create();
         alertDialog.show();

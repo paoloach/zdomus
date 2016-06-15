@@ -13,6 +13,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
+import it.achdjian.paolo.domusviewer.Constants;
 import it.achdjian.paolo.domusviewer.DomusEngine;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.JSonAttribute;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Stoppable;
@@ -54,7 +55,7 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
         location.setText("");
         environment.setText("");
         checkBox.setChecked(false);
-        request = domusEngine.requestAttributes(this, networkId, endpointId, 0, 4, 5, 6, 0x10, 0x11, 0x12);
+        request = domusEngine.requestAttributes(this, networkId, endpointId, Constants.BASIC_CLUSTER, 4, 5, 6, 0x10, 0x11, 0x12);
     }
 
     @Override

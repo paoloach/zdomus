@@ -36,10 +36,6 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/svg/light.svg" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/svg/light_off.svg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" afterPath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h" afterPath="$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/Constants.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/Binding.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/Binding.java" />
@@ -72,8 +68,8 @@
       <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="104" column="121" selection-start-line="104" selection-start-column="121" selection-end-line="104" selection-end-column="121" />
+            <state relative-caret-position="382">
+              <caret line="48" column="65" selection-start-line="48" selection-start-column="65" selection-end-line="48" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -221,11 +217,11 @@
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" />
         <option value="$PROJECT_DIR$/src/usb/ActiveEPReqError.h" />
-        <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
         <option value="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
         <option value="$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h" />
+        <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
       </list>
     </option>
   </component>
@@ -932,13 +928,6 @@
       <option name="presentableId" value="Default" />
       <updated>1419683612428</updated>
     </task>
-    <task id="LOCAL-00002" summary="update for Clion">
-      <created>1447438177487</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1447438177487</updated>
-    </task>
     <task id="LOCAL-00003" summary="fix for new version of v8 library (commit 1b6265eff71c73e64013299900520a01ec06baa8)">
       <created>1455345273166</created>
       <option name="number" value="00003" />
@@ -1275,7 +1264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1465886579019</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="fix get attributes memory leack">
+      <created>1466021316779</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1466021316780</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1330,7 +1326,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39111593" sideWeight="0.51526314" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3347779" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.312026" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.312026" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1378,7 +1374,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="managed binding table response" />
     <MESSAGE value="Fix Bind Table" />
     <MESSAGE value="Fix Binds rest response" />
     <MESSAGE value="Split the usb message response in classes, each for every response type" />
@@ -1403,7 +1398,8 @@
     <MESSAGE value="fix test compilation" />
     <MESSAGE value="Used boost log instead of std::cout" />
     <MESSAGE value="managed active endpoint error report by USB" />
-    <option name="LAST_COMMIT_MESSAGE" value="managed active endpoint error report by USB" />
+    <MESSAGE value="fix get attributes memory leack" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix get attributes memory leack" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1643,6 +1639,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="23" column="37" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="44" />
+          <folding>
+            <element signature="e#125#157#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1812,8 +1811,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="104" column="121" selection-start-line="104" selection-start-column="121" selection-end-line="104" selection-end-column="121" />
+        <state relative-caret-position="382">
+          <caret line="48" column="65" selection-start-line="48" selection-start-column="65" selection-end-line="48" selection-end-column="65" />
           <folding />
         </state>
       </provider>

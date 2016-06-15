@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -28,11 +29,12 @@ import static it.achdjian.paolo.domusviewer.Constants.ZCL_HA_DEVICEID_ON_OFF_OUT
  */
 @EBean
 class LightAdapter extends OnOffAdapter implements View.OnClickListener {
+    private final List<LightController> lightControllers = new ArrayList<>();
     private final List<OnOffListener> listeners = new ArrayList<>();
     private BindLightLongClickListener bindLightLongClickListener;
 
     public void init(@NonNull BindController bindController, @NonNull Binding binding) {
-        init(bindController);
+        init(bindController, R.layout.light);
         this.bindLightLongClickListener = new BindLightLongClickListener(bindController.elementSelected, binding);
     }
 
@@ -79,11 +81,15 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View result = super.getView(position, convertView, parent);
+        Element element = elements.get(position);
         result.setOnClickListener(this);
         result.setTag(R.id.type, TYPE_LIGHT);
         RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
         infoLayout.setClickable(true);
         infoLayout.setOnClickListener(this);
+
+        ImageButton light = (ImageButton)result.findViewById(R.id.lightBt);
+        lightControllers.add(new LightController(domusEngine,light, element));
 
         ImageView bind = (ImageView)result.findViewById(R.id.binded);
         bind.setTag(R.id.element_value,elements.get(position));

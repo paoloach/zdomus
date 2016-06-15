@@ -54,4 +54,13 @@ public class Constants {
     public static final int ZCL_HA_DEVICEID_IAS_ANCILLARY_CONTROL_EQUIPMENT = 0x0401;
     public static final int ZCL_HA_DEVICEID_IAS_ZONE = 0x0402;
     public static final int ZCL_HA_DEVICEID_IAS_WARNING_DEVICE = 0x0403;
+
+    public static final int BASIC_CLUSTER =0;
+    public static final int POWER_CONFIGURATION_CLUSTER=1;
+    public static final int DEVICE_TEMPERATURE_CONFIGURATION_CLUSTER=2;
+    public static final int IDENTIFY_CLUSTER=3;
+    public static final int GROUP_CLUSTER=4;
+    public static final int SCENES_CLUSTER=5;
+    public static final int ON_OFF_CLUSTER=6;
+    public static final int ON_OFF_SWITCH_CONFIGURATION_CLUSTER=7;
 }
