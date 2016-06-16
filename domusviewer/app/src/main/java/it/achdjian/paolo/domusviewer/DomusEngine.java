@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import it.achdjian.paolo.domusviewer.DTO.CmdRequest;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Bind;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionObserver;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionStatus;
@@ -23,6 +24,7 @@ import it.achdjian.paolo.domusviewer.DomusEngineRest.GetDevices;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.JSonAttribute;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequesetBindMap;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestAttributes;
+import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestCmd;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestIdentify;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Stoppable;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Unbind;
@@ -88,6 +90,11 @@ public class DomusEngine extends HandlerThread implements ConnectionObserver {
     public void requestIdentify(int network, int endpoint) {
         Handler handler = new Handler(getLooper());
         handler.post(new RequestIdentify(sharedPreferences, connected, network, endpoint));
+    }
+
+    public void sendCmd(CmdRequest request){
+        Handler handler = new Handler(getLooper());
+        handler.post(new RequestCmd(sharedPreferences,connected,request));
     }
 
     public void requestBindMap() {

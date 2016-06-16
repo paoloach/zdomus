@@ -22,28 +22,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="managed active endpoint error report by USB">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-hdpi/light_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-hdpi/light_on.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-ldpi/light_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-ldpi/light_on.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-mdpi/light_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-mdpi/light_on.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-xhdpi/light_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable-xhdpi/light_on.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/LightController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/drawable/light_image_states.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/light.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/svg/light.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/svg/light_off.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DTO/CmdRequest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/RequestCmd.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/Constants.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/Binding.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/Binding.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/LightAdapter.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/LightAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffAdapter.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/OnOffAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/SwitchAdapter.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/SwitchAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/switch_on_off.xml" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/switch_on_off.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngine.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/RequestIdentify.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/RequestIdentify.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/LightController.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/on_off/LightController.java" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,7 +49,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="382">
@@ -75,10 +59,30 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="DeviceBrowserHandler.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="406">
+              <caret line="50" column="131" selection-start-line="50" selection-start-column="131" selection-end-line="50" selection-end-column="131" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExecuteCmd.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="21" column="10" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ShowAttribute.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
+            <state relative-caret-position="1498">
               <caret line="107" column="34" selection-start-line="107" selection-start-column="34" selection-end-line="107" selection-end-column="34" />
               <folding>
                 <element signature="e#91#108#0" expanded="true" />
@@ -90,7 +94,7 @@
       <file leaf-file-name="SingletonObjects.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
+            <state relative-caret-position="854">
               <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
               <folding />
             </state>
@@ -100,7 +104,7 @@
       <file leaf-file-name="ShowAttribute.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
+            <state relative-caret-position="434">
               <caret line="31" column="91" selection-start-line="31" selection-start-column="91" selection-end-line="31" selection-end-column="91" />
               <folding>
                 <element signature="e#194#232#0" expanded="true" />
@@ -112,7 +116,7 @@
       <file leaf-file-name="AttributeValuesSignalMap.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="762">
+            <state relative-caret-position="868">
               <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
               <folding>
                 <element signature="e#137#164#0" expanded="true" />
@@ -124,7 +128,7 @@
       <file leaf-file-name="stl_function.h" pinned="false" current-in-tab="false">
         <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_function.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
+            <state relative-caret-position="5404">
               <caret line="386" column="0" selection-start-line="386" selection-start-column="0" selection-end-line="386" selection-end-column="0" />
               <folding />
             </state>
@@ -134,18 +138,8 @@
       <file leaf-file-name="stl_tree.h" pinned="false" current-in-tab="false">
         <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_tree.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
+            <state relative-caret-position="15260">
               <caret line="1090" column="0" selection-start-line="1090" selection-start-column="0" selection-end-line="1090" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2646">
-              <caret line="189" column="5" selection-start-line="189" selection-start-column="5" selection-end-line="189" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -300,72 +294,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Header Search Paths" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="g++-v5" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="g++-v5" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bits" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1321,12 +1249,11 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14368421" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33586133" sideWeight="0.4836842" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24593717" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33585313" sideWeight="0.4836842" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24514039" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39111593" sideWeight="0.51526314" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3347779" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.312026" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3109426" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1336,6 +1263,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3347779" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1432,20 +1360,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../zigbee_lib/src/zcl/ZCLAttribute.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/EndpointID.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/zigbee/include/zcl/ClusterTypeFactory.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -1639,9 +1553,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="23" column="37" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="44" />
-          <folding>
-            <element signature="e#125#157#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1677,7 +1588,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1699,7 +1609,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1715,13 +1624,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_function.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
+        <state relative-caret-position="5404">
           <caret line="386" column="0" selection-start-line="386" selection-start-column="0" selection-end-line="386" selection-end-column="0" />
           <folding />
         </state>
@@ -1729,7 +1637,7 @@
     </entry>
     <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include/g++-v5/bits/stl_tree.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
+        <state relative-caret-position="15260">
           <caret line="1090" column="0" selection-start-line="1090" selection-start-column="0" selection-end-line="1090" selection-end-column="0" />
           <folding />
         </state>
@@ -1739,13 +1647,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
           <caret line="478" column="0" selection-start-line="478" selection-start-column="0" selection-end-line="478" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
+        <state relative-caret-position="854">
           <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
           <folding />
         </state>
@@ -1755,7 +1662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1763,9 +1669,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="20" column="65" selection-start-line="20" selection-start-column="65" selection-end-line="20" selection-end-column="65" />
-          <folding>
-            <element signature="e#40#72#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1781,7 +1684,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
+        <state relative-caret-position="434">
           <caret line="31" column="91" selection-start-line="31" selection-start-column="91" selection-end-line="31" selection-end-column="91" />
           <folding>
             <element signature="e#194#232#0" expanded="true" />
@@ -1791,7 +1694,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
+        <state relative-caret-position="1498">
           <caret line="107" column="34" selection-start-line="107" selection-start-column="34" selection-end-line="107" selection-end-column="34" />
           <folding>
             <element signature="e#91#108#0" expanded="true" />
@@ -1801,7 +1704,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesSignalMap.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="762">
+        <state relative-caret-position="868">
           <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
           <folding>
             <element signature="e#137#164#0" expanded="true" />
@@ -1813,6 +1716,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="382">
           <caret line="48" column="65" selection-start-line="48" selection-start-column="65" selection-end-line="48" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ExecuteCmd.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="21" column="10" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="50" column="131" selection-start-line="50" selection-start-column="131" selection-end-line="50" selection-end-column="131" />
           <folding />
         </state>
       </provider>

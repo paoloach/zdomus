@@ -11,10 +11,6 @@ import java.io.IOException;
  * Created by Paolo Achdjian on 15/04/16.
  */
 public class RequestIdentify extends DomusEngineRest  {
-    public interface Listener {
-        void newDevice(JSonDevice zDevice);
-    }
-
     private final int nwkAddress;
     private final int endpoint;
 

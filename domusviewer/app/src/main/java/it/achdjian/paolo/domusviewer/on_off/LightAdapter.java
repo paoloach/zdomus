@@ -38,6 +38,13 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener {
         this.bindLightLongClickListener = new BindLightLongClickListener(bindController.elementSelected, binding);
     }
 
+    public void onDestroy() {
+        super.onDestroy();
+        for (LightController lightController : lightControllers) {
+            lightController.stop();
+        }
+    }
+
     @Override
     boolean rightDevice(ZEndpoint zEndpoint) {
         return zEndpoint.device_id == ZCL_HA_DEVICEID_ON_OFF_OUTPUT ||
