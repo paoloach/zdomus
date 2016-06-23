@@ -2,6 +2,7 @@ package it.achdjian.paolo.domusviewer.on_off;
 
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -18,12 +19,12 @@ import it.achdjian.paolo.domusviewer.Element;
 /**
  * Created by Paolo Achdjian on 15/06/16.
  */
-public class LightController implements View.OnClickListener, Runnable, DomusEngine.AttributesListener, Stoppable {
+class LightController implements View.OnClickListener, Runnable, DomusEngine.AttributesListener, Stoppable {
     private static final int REQUEST_DELAY = 2000;
     private static final int REQUEST_DELAY_SHUFFLE = 300;
     private static final int DELAY_FROM_CLICK = 2000;
     private final DomusEngine domusEngine;
-    private final ImageButton imageButton;
+    public final ImageButton imageButton;
     private final Element element;
     private final Handler handler;
     private final Random random = new Random();
@@ -83,6 +84,9 @@ public class LightController implements View.OnClickListener, Runnable, DomusEng
 
     @Override
     public void stop() {
+        Log.d("LightController", "Stopping element " + element.getName());
         toStop = true;
     }
+
+
 }

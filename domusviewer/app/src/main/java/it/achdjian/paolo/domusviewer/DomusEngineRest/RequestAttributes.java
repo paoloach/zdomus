@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,7 +56,6 @@ public class RequestAttributes extends DomusEngineRest implements Stoppable {
                     e.printStackTrace();
                 }
             }
-            new Handler().postDelayed(this, 2000);
         }
     }
 

@@ -86,6 +86,8 @@ dependencies {
     androidTestCompile('com.android.support.test.uiautomator:uiautomator-v18:2.1.2') {
         exclude group: 'com.android.support'
     }
+
+    compile 'org.rajawali3d:rajawali:1.0.325@aar'
 //    compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
 ////    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
 ////    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"

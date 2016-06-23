@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import static it.achdjian.paolo.domusviewer.Constants.ZCL_HA_DEVICEID_ON_OFF_OUT
  */
 @EBean
 class LightAdapter extends OnOffAdapter implements View.OnClickListener {
-    private final List<LightController> lightControllers = new ArrayList<>();
+    private ListLightController lightControllers;
     private final List<OnOffListener> listeners = new ArrayList<>();
     private BindLightLongClickListener bindLightLongClickListener;
 
@@ -38,11 +38,15 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener {
         this.bindLightLongClickListener = new BindLightLongClickListener(bindController.elementSelected, binding);
     }
 
+    @AfterInject
+    public void init(){
+        lightControllers = new ListLightController(domusEngine);
+    }
+
+
     public void onDestroy() {
         super.onDestroy();
-        for (LightController lightController : lightControllers) {
-            lightController.stop();
-        }
+        lightControllers.destroy();
     }
 
     @Override
@@ -91,12 +95,12 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener {
         Element element = elements.get(position);
         result.setOnClickListener(this);
         result.setTag(R.id.type, TYPE_LIGHT);
-        RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
+        View infoLayout = result.findViewById(R.id.info_layout);
         infoLayout.setClickable(true);
         infoLayout.setOnClickListener(this);
 
         ImageButton light = (ImageButton)result.findViewById(R.id.lightBt);
-        lightControllers.add(new LightController(domusEngine,light, element));
+        lightControllers.add(light, element);
 
         ImageView bind = (ImageView)result.findViewById(R.id.binded);
         bind.setTag(R.id.element_value,elements.get(position));

@@ -1,4 +1,4 @@
-package it.achdjian.paolo.domusviewer.on_off;
+package it.achdjian.paolo.domusviewer.other;
 
 import android.view.View;
 
@@ -12,7 +12,7 @@ import it.achdjian.paolo.domusviewer.Element;
  * Created by Paolo Achdjian on 20/04/16.
  */
 @EBean
-class IdentifyListener implements View.OnClickListener {
+public class IdentifyListener implements View.OnClickListener {
     @Bean
     DomusEngine domusEngine;
 

@@ -1,9 +1,7 @@
-package it.achdjian.paolo.domusviewer.on_off;
+package it.achdjian.paolo.domusviewer.devices;
 
-import android.annotation.SuppressLint;
 import android.database.DataSetObserver;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,13 +27,10 @@ import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
 /**
- * Created by Paolo Achdjian on 20/04/16.
+ * Created by Paolo Achdjian on 21/06/16.
  */
 @EBean
-abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener {
-    static final Integer TYPE_SWITCH = 1;
-    static final Integer TYPE_LIGHT = 2;
-
+public class DeviceAdapter implements ListAdapter, DomusEngine.EndpointListener {
     @RootContext
     AppCompatActivity activity;
     @Bean
@@ -44,15 +39,11 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
     ZDeviceInfoClick zDeviceInfoClick;
     @Bean
     IdentifyListener identifyListener;
-    private int layout;
 
-    BindController bindController;
     private final List<DataSetObserver> observers = new ArrayList<>();
     final List<Element> elements = new ArrayList<>();
 
-    void init(@NonNull BindController bindController, int layout) {
-        this.layout = layout;
-        this.bindController = bindController;
+    void init() {
         domusEngine.addEndpointListener(this);
 
         for (ZDevice zDevice : domusEngine.getDevices().getDevices()) {
@@ -62,31 +53,14 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
         }
     }
 
-    public void onDestroy() {
-        domusEngine.removeEndpointListener(this);
-    }
-
-    private boolean addEndpoint(ZEndpoint zEndpoint) {
-        if (rightDevice(zEndpoint)) {
-            Element newElement = new Element(zEndpoint.short_address, zEndpoint.endpoint_id);
-            if (elements.indexOf(newElement) < 0) {
-                elements.add(newElement);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    abstract boolean rightDevice(ZEndpoint zEndpoint);
-
     @Override
     public boolean areAllItemsEnabled() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isEnabled(int position) {
-        return true;
+        return false;
     }
 
     @Override
@@ -120,8 +94,44 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
     }
 
     @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View result;
+        if (convertView != null) {
+            result = convertView;
+        } else {
+            LayoutInflater inflater = LayoutInflater.from(activity);
+            result = inflater.inflate(R.layout.device_layout, parent, false);
+        }
+        Element element = elements.get(position);
+        TextView mainText = (TextView) result.findViewById(R.id.mainText);
+        String text = element.network + ":" + element.endpoint;
+        mainText.setText(text);
+
+        RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.deviceInfo);
+        infoLayout.setLongClickable(false);
+        infoLayout.setOnLongClickListener(zDeviceInfoClick);
+        infoLayout.setTag(R.id.element_value, element);
+        result.setTag(R.id.element_value, element);
+        Button IButton = (Button) result.findViewById(R.id.identifyBt);
+        IButton.setTag(element);
+        IButton.setOnClickListener(identifyListener);
+
+        return result;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return 1;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 1;
+    }
+
+    @Override
     public boolean isEmpty() {
-        return false;
+        return elements.isEmpty();
     }
 
     @Override
@@ -138,43 +148,13 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View result;
-        if (convertView != null) {
-            result = convertView;
-        } else {
-            LayoutInflater inflater = LayoutInflater.from(activity);
-            result = inflater.inflate(layout, parent, false);
+
+    private boolean addEndpoint(ZEndpoint zEndpoint) {
+        Element newElement = new Element(zEndpoint.short_address, zEndpoint.endpoint_id);
+        if (elements.indexOf(newElement) < 0) {
+            elements.add(newElement);
+            return true;
         }
-        Element element = elements.get(position);
-        TextView mainText = (TextView) result.findViewById(R.id.mainText);
-        RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
-        infoLayout.setLongClickable(false);
-        infoLayout.setOnLongClickListener(zDeviceInfoClick);
-        infoLayout.setTag(R.id.element_value, element);
-
-
-        mainText.setText(element.network + ":" + element.endpoint);
-
-        result.setTag(R.id.element_value, element);
-        Button IButton = (Button) result.findViewById(R.id.identifyBt);
-        IButton.setTag(element);
-        IButton.setOnClickListener(identifyListener);
-
-        bindController.setBindStatus(result);
-        if (bindController.elementSelected.is(element)) {
-            infoLayout.setActivated(true);
-        } else {
-            infoLayout.setActivated(false);
-        }
-        return result;
-    }
-
-    public void invalidate() {
-        for (DataSetObserver observer : observers) {
-            observer.onChanged();
-        }
+        return false;
     }
 }
