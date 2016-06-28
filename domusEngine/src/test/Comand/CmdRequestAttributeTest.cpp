@@ -24,13 +24,13 @@ using std::stringstream;
 static constexpr NwkAddr NWKADDR { 1 };
 static constexpr EndpointID ENDPOINT { 2 };
 static constexpr ClusterID CLUSTER { 3 };
-static constexpr int ATTRIBUTE_ID { 4 };
+static constexpr int ATTRIBUTE_STRING_ID { 4 };
 
 CmdRequestAttributeTest::~CmdRequestAttributeTest() {
 }
 
 void CmdRequestAttributeTest::SetUp() {
-	inputJson = createInputJSON(NWKADDR, ENDPOINT, CLUSTER, ATTRIBUTE_ID);
+	inputJson = createInputJSON(NWKADDR, ENDPOINT, CLUSTER, ATTRIBUTE_STRING_ID);
 
 	cmdReqAttribute = new CmdRequestAttribute { zigbeeDevice };
 }
@@ -46,7 +46,7 @@ TEST_F( CmdRequestAttributeTest, parse_data) {
 TEST_F( CmdRequestAttributeTest, execute) {
 	cmdReqAttribute->parseData(inputJson);
 
-	EXPECT_CALL(zigbeeDevice, requestAttribute(NWKADDR, ENDPOINT, CLUSTER, ATTRIBUTE_ID));
+	EXPECT_CALL(zigbeeDevice, requestAttribute(NWKADDR, ENDPOINT, CLUSTER, ATTRIBUTE_STRING_ID));
 
 	cmdReqAttribute->execute();
 }

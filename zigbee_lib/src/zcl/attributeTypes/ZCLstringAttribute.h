@@ -14,7 +14,7 @@
 
 namespace zigbee {
 
-    class ZCL_string_Attribute : public ZCLAttribute {
+    class ZCL_string_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeStringChar> {
     public:
         ZCL_string_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
                              ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
@@ -27,8 +27,6 @@ namespace zigbee {
 
         virtual void sendValue(const std::string &newValue);
 
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeStringChar;
-
         static std::string name() {
             return "String";
         }
@@ -36,6 +34,8 @@ namespace zigbee {
     private:
         virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
         virtual void internalSetValue(uint8_t * rawData) override ;
+
+        ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeStringChar> zclAttributeRawValueImpl;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCL_string_Attribute *);
 

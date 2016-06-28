@@ -13,7 +13,7 @@ namespace zigbee {
     ZCL_string_Attribute::ZCL_string_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
                                                ZigbeeClusterId identifier, std::experimental::string_view name,
                                                bool readOnly) :
-            ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeStringChar, name, readOnly) {
+            ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeStringChar>(zigbeeDevice, parent, identifier, name, readOnly) {
         if (zigbeeDevice) {
             zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
                                                     identifier,

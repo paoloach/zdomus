@@ -10,7 +10,7 @@
 namespace zigbee {
 
 
-    class ZCLuint48Attribute : public ZCLAttribute {
+    class ZCLuint48Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUInt48> {
         union Converter {
             uint64_t value;
             uint8_t raw[8];
@@ -26,8 +26,6 @@ namespace zigbee {
         }
 
         virtual void sendValue(uint64_t newValue);
-
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeUInt48;
 
         static std::string name() {
             return "UInt48";

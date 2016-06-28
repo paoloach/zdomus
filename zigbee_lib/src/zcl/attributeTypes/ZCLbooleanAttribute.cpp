@@ -13,7 +13,7 @@ namespace zigbee {
     ZCL_boolean_Attribute::ZCL_boolean_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
                                                  ZigbeeClusterId identifier, std::experimental::string_view name,
                                                  bool readOnly) :
-            ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeBool, name, readOnly) {
+            ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeBool>(zigbeeDevice, parent, identifier, name, readOnly) {
         if (zigbeeDevice) {
             zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
                                                     identifier,

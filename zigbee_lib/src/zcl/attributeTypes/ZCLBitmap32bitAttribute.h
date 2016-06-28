@@ -13,7 +13,7 @@
 #include "../../zigbee/AttributeStatusRecord.h"
 
 namespace zigbee {
-    class ZCLBitmap32bitAttribute : public ZCLAttribute {
+    class ZCLBitmap32bitAttribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLType32bitBitmap> {
     public:
         ZCLBitmap32bitAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
                                 ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
@@ -27,8 +27,6 @@ namespace zigbee {
         virtual void sendValue(std::bitset<32> value);
 
         virtual bool getValue(int bitIndex) const;
-
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLType32bitBitmap;
 
         static std::string name() {
             return "32bitBitmap";

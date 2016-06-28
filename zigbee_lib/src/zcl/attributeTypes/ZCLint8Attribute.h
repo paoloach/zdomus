@@ -9,7 +9,7 @@
 #include "../../zigbee/AttributeStatusRecord.h"
 
 namespace zigbee {
-    class ZCLint8Attribute : public ZCLAttribute {
+    class ZCLint8Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeSInt8> {
     public:
         ZCLint8Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                          std::experimental::string_view name, bool readOnly);
@@ -21,8 +21,6 @@ namespace zigbee {
         }
 
         virtual void sendValue(int8_t newValue);
-
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeSInt8;
 
         static std::string name() {
             return "Int8";

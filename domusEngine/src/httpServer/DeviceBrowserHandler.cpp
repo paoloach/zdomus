@@ -26,6 +26,7 @@
 #include "RestActions/ShowWhoAreYou.h"
 #include "RestActions/ExecuteBind.h"
 #include "RestActions/ExecuteReset.h"
+#include "RestActions/UpdateAttributes.h"
 
 
 namespace zigbee {
@@ -49,6 +50,7 @@ namespace zigbee {
         restGetActions.setDefaultAction(ResponseFile(singletons));
 
         restPostActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/command/{command}"}, ExecuteCmd{singletons});
+        restPostActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/attributes"}, UpdateAttributes{singletons});
         restPostActions.addActions(RestPath {"/reset"}, ExecuteReset{singletons});
         restPostActions.addActions(RestPath {"/bind/src/{srcDevice}/endpoint/{srcEndpoint}/cluster/{cluster}/dst/{dstDevice}/endpoint/{dstEndpoint}"}, ExecuteBind{singletons,true});
 

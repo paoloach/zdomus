@@ -12,7 +12,7 @@ namespace zigbee {
 
     ZCL_uint32_Attribute::ZCL_uint32_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                                                std::experimental::string_view name, bool readOnly) :
-            ZCLAttribute(zigbeeDevice, parent, identifier, ZCLTypeDataType::ZCLTypeUInt32, name, readOnly) {
+            ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUInt32>(zigbeeDevice, parent, identifier, name, readOnly) {
         if (zigbeeDevice) {
             zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
                                                     [this](std::shared_ptr<AttributeStatusRecord> rawData) { setValue(rawData); });
@@ -31,7 +31,7 @@ namespace zigbee {
     }
 
     void ZCL_uint32_Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-        value = boost::endian::little_to_native( *(uint32_t *) rawData->data);
+        value = boost::endian::little_to_native(*(uint32_t *) rawData->data);
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCL_uint32_Attribute *attribute) {
@@ -40,7 +40,7 @@ namespace zigbee {
     }
 
     void ZCL_uint32_Attribute::internalSetValue(uint8_t *rawData) {
-        value = boost::endian::little_to_native( *(uint32_t *) rawData);
+        value = boost::endian::little_to_native(*(uint32_t *) rawData);
     }
 
 

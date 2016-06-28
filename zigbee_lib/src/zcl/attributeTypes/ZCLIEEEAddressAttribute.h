@@ -13,7 +13,7 @@
 
 namespace zigbee {
 
-    class ZCLIEEEAddressAttribute : public ZCLAttribute {
+    class ZCLIEEEAddressAttribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeIEEEaddress> {
     private:
         union Value {
             uint64_t data;
@@ -34,8 +34,6 @@ namespace zigbee {
         virtual const uint8_t *getRawValue() const;
 
         virtual void sendValue(uint64_t value);
-
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeIEEEaddress;
 
         static std::string name() {
             return "IEEEAddress";

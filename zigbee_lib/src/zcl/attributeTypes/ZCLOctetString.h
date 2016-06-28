@@ -12,7 +12,7 @@
 #include "../../zigbee/AttributeStatusRecord.h"
 
 namespace zigbee {
-    class ZCLOctetString : public ZCLAttribute {
+    class ZCLOctetString : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeStringOctect> {
     public:
         ZCLOctetString(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                        std::experimental::string_view name, bool readOnly);
@@ -33,8 +33,6 @@ namespace zigbee {
         }
 
         virtual void sendValue(const std::string &newValue);
-
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeStringOctect;
 
         static std::string name() {
             return "OctectString";

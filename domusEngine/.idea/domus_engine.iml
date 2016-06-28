@@ -86,6 +86,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/Comand/CmdSendCmdTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Configuration/ConfigurationTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Configuration/ConfigurationTest.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/utils/AttributeWriterTest.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/utils/AttributeWriterTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/IODataBufferTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/IODataBufferTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/IO/AttributeDataContainerTest.h" isTestSource="false" />
@@ -146,8 +148,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/Javascript/JSDevicesTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/Utils/LogTest.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/Utils/LogTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/Server.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/DataPropertyTree.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IO/Session.h" isTestSource="false" />
@@ -189,23 +189,24 @@
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/ApplicationJSONProducer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/DEHttpRequestHandlerFactory.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/FixedPathHandler.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowOutCluster.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowWhoAreYou.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowHello.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteReset.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttribute.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/UpdateAttributes.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevice.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowWhoAreYou.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ClusterThrowingException.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteReset.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ResponseFile.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteCmd.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowOutCluster.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowInCluster.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ResponseFile.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowOutCluster.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteBind.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowInCluster.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowHello.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowHello.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowInCluster.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ClusterThrowingException.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowEndpoint.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteCmd.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevices.cpp" isTestSource="false" />
@@ -214,8 +215,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowBindTable.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowDevice.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteBind.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttributeFactory.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowBindTable.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttributeFactory.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/UpdateAttributes.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowEndpoint.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ShowAttributeFactory.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestActions/ExecuteReset.cpp" isTestSource="false" />
@@ -332,10 +334,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/v8_blob/x64-release/native_blob.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/v8_blob/x64-release/snapshot_blob.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Clusters.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Utils/Log.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Log.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Utils/Log.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Utils/AttributeWriter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/SingletonObjects.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/SingletonObjects.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Utils/AttributeWriter.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Clusters.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/BindTable.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZEndpoint.h" isTestSource="false" />
@@ -384,20 +388,20 @@
     <orderEntry type="module-library">
       <library name="Header Search Paths">
         <CLASSES>
-          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include" />
-          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include" />
+          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include-fixed" />
           <root url="file:///usr/include" />
-          <root url="file:///usr/local/zigbee/include" />
-          <root url="file:///usr/local/v8" />
           <root url="file:///usr/local/include" />
+          <root url="file:///usr/local/v8" />
+          <root url="file:///usr/local/zigbee/include" />
         </CLASSES>
         <SOURCES>
-          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include" />
-          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.3.0/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include" />
+          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include-fixed" />
           <root url="file:///usr/include" />
-          <root url="file:///usr/local/zigbee/include" />
-          <root url="file:///usr/local/v8" />
           <root url="file:///usr/local/include" />
+          <root url="file:///usr/local/v8" />
+          <root url="file:///usr/local/zigbee/include" />
         </SOURCES>
       </library>
     </orderEntry>

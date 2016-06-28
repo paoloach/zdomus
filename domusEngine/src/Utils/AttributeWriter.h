@@ -5,20 +5,24 @@
 #ifndef DOMUS_ENGINE_ATTRIBUTEWRITER_H
 #define DOMUS_ENGINE_ATTRIBUTEWRITER_H
 
-#include "../../json/json/json.h"
+#include <zigbee/EndpointID.h>
+#include <boost/asio/detail/shared_ptr.hpp>
+#include "../json/json/json.h"
+
 namespace zigbee {
 
     class SingletonObjects;
 
-    namespace http {
-        class AttributeWriter {
-        public:
-            AttributeWriter(SingletonObjects &singletons) noexcept : singletons(singletons) { };
-            void write(Json::Value & value);
-        private:
-            SingletonObjects & singletons;
-        };
-    }
+    class AttributeWriter {
+    public:
+        AttributeWriter(SingletonObjects &singletons) noexcept : singletons(singletons) { };
+
+        std::set<int> write(NwkAddr nwkAddr, EndpointID endpointID, std::shared_ptr<Cluster> cluster, Json::Value value);
+    private:
+        void addElement(NwkAddr nwkAddr, EndpointID endpointID,  std::shared_ptr<zigbee::Cluster> cluster,Json::Value && value, std::set<int> &results);
+        SingletonObjects &singletons;
+    };
+}
 
 
 #endif //DOMUS_ENGINE_ATTRIBUTEWRITER_H

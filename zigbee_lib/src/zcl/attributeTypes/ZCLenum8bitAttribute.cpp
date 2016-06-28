@@ -13,7 +13,7 @@ namespace zigbee {
 
     ZCL_enum8bit_Attribute::ZCL_enum8bit_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                                                    std::experimental::string_view name, bool readOnly) :
-            ZCL_uint8_Attribute(zigbeeDevice, parent, identifier, name, readOnly) {
+            ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeenum8>(zigbeeDevice, parent, identifier, name, readOnly) {
         zclType = ZCLTypeDataType::ZCLTypeenum8;
     }
 
@@ -27,6 +27,13 @@ namespace zigbee {
     std::ostream &operator<<(std::ostream &out, const ZCL_enum8bit_Attribute *attribute) {
         out << attribute->value;
         return out;
+    }
+
+    boost::any ZCL_enum8bit_Attribute::getValue() const {
+        if (status != Available) {
+            throw ZCLAttributeNotAvailableException(parent, identifier);
+        }
+        return boost::any(value);
     }
 
 } /* namespace zigbee */

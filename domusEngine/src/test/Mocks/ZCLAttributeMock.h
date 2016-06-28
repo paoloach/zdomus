@@ -23,6 +23,7 @@ namespace zigbee {
 
             virtual ~ZCLAttributeMock();
 
+            MOCK_METHOD0( getAttributeRawValue,ZclAttributeRawValue &());
             MOCK_METHOD1(internalSetValue, void (std::shared_ptr<AttributeStatusRecord>
                     rawData));
 

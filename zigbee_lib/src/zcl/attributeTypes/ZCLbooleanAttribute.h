@@ -13,7 +13,7 @@
 
 namespace zigbee {
 
-    class ZCL_boolean_Attribute : public ZCLAttribute {
+    class ZCL_boolean_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeBool> {
     public:
         ZCL_boolean_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
                               ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
@@ -27,8 +27,6 @@ namespace zigbee {
         }
 
         virtual void sendValue(bool value);
-
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeBool;
 
         static std::string name() {
             return "Boolean";

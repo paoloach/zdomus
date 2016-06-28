@@ -14,7 +14,7 @@
 
 namespace zigbee {
 
-    class ZCL_bitmap8bit_Attribute : public ZCLAttribute {
+    class ZCL_bitmap8bit_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLType8bitBitmap> {
     public:
         ZCL_bitmap8bit_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                                  std::experimental::string_view name, bool readOnly);
@@ -33,7 +33,6 @@ namespace zigbee {
             return "8bitBitmap";
         }
 
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLType8bitBitmap;
     private:
         virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
 

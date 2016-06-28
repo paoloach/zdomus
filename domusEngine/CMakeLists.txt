@@ -83,7 +83,10 @@ set(USB_SRC  src/usb/ActiveEPReqError.h
         src/usb/USBDevice.cpp
         src/usb/USBDevice.h
         src/usb/UsbResponseExecutors.cpp
-        src/usb/UsbResponseExecutors.h)
+        src/usb/UsbResponseExecutors.h
+        src/httpServer/RestActions/UpdateAttributes.cpp
+        src/httpServer/RestActions/UpdateAttributes.h
+        )
 
 set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a

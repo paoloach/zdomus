@@ -10,7 +10,7 @@
 namespace zigbee {
 
 
-    class ZCLUTCTime : public ZCLAttribute {
+    class ZCLUTCTime : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUTCTime> {
         union Converter {
             uint32_t value;
             uint8_t raw[4];
@@ -22,13 +22,12 @@ namespace zigbee {
         virtual ~ZCLUTCTime() { };
     public:
         virtual boost::any getValue() const override;
+
         virtual std::string getStrValue() const {
             return boost::lexical_cast<std::string>(value);
         }
 
         virtual void sendValue(uint32_t newValue);
-
-        static const ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeUTCTime;
 
         static std::string name() {
             return "UTCTime";
@@ -37,7 +36,7 @@ namespace zigbee {
     private:
         virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData);
 
-        virtual void internalSetValue(uint8_t * rawData) override;
+        virtual void internalSetValue(uint8_t *rawData) override;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCLUTCTime *);
 

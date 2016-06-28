@@ -15,7 +15,7 @@
 
 namespace zigbee {
 
-    class ZCLBitmap16bitAttribute : public ZCLAttribute {
+    class ZCLBitmap16bitAttribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLType16bitBitmap> {
         union Converter {
             uint16_t value;
             uint8_t raw[2];
@@ -26,6 +26,7 @@ namespace zigbee {
 
     public:
         virtual boost::any getValue() const override;
+
         virtual std::string getStrValue() const {
             return boost::lexical_cast<std::string>(value);
         }
@@ -34,17 +35,17 @@ namespace zigbee {
 
         virtual bool getValue(int bitIndex) const;
 
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLType16bitBitmap;
-
         static std::string name() {
             return "16bitBitmap";
         }
 
     private:
-        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
-        virtual void internalSetValue(uint8_t * rawData) override ;
+        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) override;
+
+        virtual void internalSetValue(uint8_t *rawData) override;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCLBitmap16bitAttribute *);
+
 
     private:
         std::bitset<16> value;

@@ -13,7 +13,7 @@
 
 namespace zigbee {
 
-    class ZCL_int16_Attribute : public ZCLAttribute {
+    class ZCL_int16_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeSInt16> {
     public:
         ZCL_int16_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
                             ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
@@ -25,8 +25,6 @@ namespace zigbee {
         }
 
         virtual void sendValue(int16_t newValue);
-
-        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeSInt16;
 
         static std::string name() {
             return "Int16";

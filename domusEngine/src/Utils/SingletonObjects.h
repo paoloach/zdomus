@@ -14,6 +14,7 @@
 #include "../ZigbeeData/BindTable.h"
 #include "../usb/AttributeValuesSignalMap.h"
 #include "Clusters.h"
+#include "AttributeWriter.h"
 
 struct libusb_context;
 
@@ -33,6 +34,8 @@ namespace zigbee {
     class JSManager;
 
     class AttributeDataContainer;
+
+    class AttributeWriter;
 
     class SingletonObjects {
     public:
@@ -60,8 +63,10 @@ namespace zigbee {
         virtual BindTable &getBindTable() { return bindTable; }
 
         virtual AttributeValueSignalMap &getAttributeValueSignalMap() { return attributeValueSignalMap; }
-        virtual std::shared_ptr<Clusters> getClusters() {return clusters;};
 
+        virtual std::shared_ptr<Clusters> getClusters() { return clusters; };
+
+        virtual AttributeWriter &getAttributeWriter() { return attributeWriter; }
 
 
     private:
@@ -76,6 +81,7 @@ namespace zigbee {
         std::shared_ptr<http::FixedPathContainer> fixedPathContainer;
         AttributeValueSignalMap attributeValueSignalMap;
         std::shared_ptr<Clusters> clusters;
+        AttributeWriter attributeWriter;
     };
 
 } /* namespace zigbee */
