@@ -7,6 +7,7 @@
 
 #include <set>
 #include <cstddef>
+#include <string>
 
 class AttributeWriterResult {
 public:
@@ -16,6 +17,7 @@ public:
 
     size_t size() const {return ids.size();}
     bool hasId(int id){return ids.count(id) > 0;}
+    std::string toJSon();
 private:
     std::set<int>   ids;
 };

@@ -20,7 +20,7 @@ void zigbee::http::ShowWhoAreYou::operator ()(const PlaceHolders&& , Poco::Net::
 	response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
 
 	std::ostream & stream = response.send();
-	stream << "I am DomusEngine version 1.0.0";
+	stream << "I am DomusEngine version 1.0.0\r\n";
 }
 
 } /* namespace http */

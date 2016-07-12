@@ -50,13 +50,11 @@ namespace zigbee {
             auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
             auto zEndpoint = zDevice.getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
             if (zEndpoint.isInCluster(clusterId)) {
-                response.setStatus(Poco::Net::HTTPResponse::HTTP_NO_CONTENT);
-                response.send() << "comand sent\n";
                 auto cluster(singletons.getClusters()->getCluster(nwkAddr,endpoint, clusterId));
 
                 if (request.getContentType() != "application/json"){
-                    response.send() <<"Accepted only application/json type\r\n";
                     response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_ACCEPTABLE);
+                    response.send() <<"Accepted only application/json type\r\n";
                     return ;
                 }
 
@@ -64,9 +62,10 @@ namespace zigbee {
                 request.stream() >> root;
 
                 auto results = singletons.getAttributeWriter().write(nwkAddr, endpoint, cluster, root);
-
-                auto & attributes = root["attributes"];
-
+                Poco::Net::MediaType mediaType("application", "json");
+                response.setContentType(mediaType);
+                response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+                response.send() << results.toJSon() << "\r\n";
             } else {
                 throwWrongCluster(response, clusterId, endpoint, nwkAddr);
             }
