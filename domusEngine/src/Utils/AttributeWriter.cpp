@@ -11,8 +11,8 @@
 
 namespace zigbee {
 
-    std::set<int> AttributeWriter::write(NwkAddr nwkAddr, EndpointID endpointID, std::shared_ptr<Cluster> cluster, Json::Value value) {
-        std::set<int> results;
+    AttributeWriterResult AttributeWriter::write(NwkAddr nwkAddr, EndpointID endpointID, std::shared_ptr<Cluster> cluster, Json::Value value) {
+        AttributeWriterResult results;
         auto attributes = value["attributes"];
         if (!attributes.isArray()) {
             return results;
@@ -25,7 +25,7 @@ namespace zigbee {
     }
 
     void AttributeWriter::addElement(NwkAddr nwkAddr, EndpointID endpointID, std::shared_ptr<zigbee::Cluster> cluster, Json::Value &&value,
-                                     std::set<int> &results) {
+                                     AttributeWriterResult &results) {
         auto jsonId = value["id"];
         if (!jsonId.isInt()) {
             return;
@@ -58,7 +58,7 @@ namespace zigbee {
             return;
         }
         zigbeeDevice->writeAttribute(nwkAddr, endpointID, cluster->getId(), id, rawValue.type, rawValue.rawData.size(), &rawValue.rawData[0]);
-        results.insert(id);
+        results.add(id);
     }
 }
 

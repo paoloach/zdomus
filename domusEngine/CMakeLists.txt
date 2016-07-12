@@ -86,7 +86,7 @@ set(USB_SRC  src/usb/ActiveEPReqError.h
         src/usb/UsbResponseExecutors.h
         src/httpServer/RestActions/UpdateAttributes.cpp
         src/httpServer/RestActions/UpdateAttributes.h
-        )
+        src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h)
 
 set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a

@@ -322,22 +322,24 @@
       <sourceFolder url="file://$MODULE_DIR$/src/Database/DBTableFactory.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/DBTableFactory.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionInvalidDataType.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionNoServer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionNoServer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionNoTable.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionNoTable.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionQueryError.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionInvalidDataType.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionResultNotSet.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionNoServer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionResultNotSet.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionResultNotSet.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Database/Exceptions/DBExceptionQueryError.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/v8_blob/x64-release/native_blob.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/v8_blob/x64-release/snapshot_blob.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Clusters.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Log.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Log.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Utils/AttributeWriterResult.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/AttributeWriter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/SingletonObjects.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Utils/AttributeWriterResult.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/SingletonObjects.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/AttributeWriter.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Clusters.cpp" isTestSource="false" />

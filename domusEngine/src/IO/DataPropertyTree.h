@@ -9,6 +9,7 @@
 #define SRC_IO_DATAPROPERTYTREE_H_
 
 #include <boost/property_tree/ptree.hpp>
+#include <vector>
 
 namespace zigbee {
 

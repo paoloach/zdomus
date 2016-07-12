@@ -75,7 +75,7 @@ namespace zigbee {
 
             auto results = attributeWriter->write(nwkAddr,endpointID, clusterMock, root);
             ASSERT_THAT(results.size(), 1);
-            ASSERT_THAT(results, Contains(ATTRIBUTE_STRING_ID));
+            ASSERT_THAT(results.hasId(ATTRIBUTE_STRING_ID), true);
         }
 
         TEST_F(AttributeWriterTest, OneElementTypeInt8) {
@@ -89,7 +89,7 @@ namespace zigbee {
 
             auto results = attributeWriter->write(nwkAddr,endpointID, clusterMock, root);
             ASSERT_THAT(results.size(), 1);
-            ASSERT_THAT(results, Contains(ATTRIBUTE_INT_ID));
+            ASSERT_THAT(results.hasId(ATTRIBUTE_INT_ID), true);
         }
 
 
@@ -106,7 +106,8 @@ namespace zigbee {
 
             auto results = attributeWriter->write(nwkAddr,endpointID, clusterMock, root);
             ASSERT_THAT(results.size(), 1);
-            ASSERT_THAT(results, Contains(ATTRIBUTE_UINT32_ID));
+            ASSERT_THAT(results.hasId(ATTRIBUTE_UINT32_ID), true);
+
         }
 
 
@@ -126,7 +127,7 @@ namespace zigbee {
 
             auto results = attributeWriter->write(nwkAddr,endpointID, clusterMock, root);
             ASSERT_THAT(results.size(), 1);
-            ASSERT_THAT(results, Contains(ATTRIBUTE_UINT32_ID));
+            ASSERT_THAT(results.hasId(ATTRIBUTE_UINT32_ID), true);
         }
 
         TEST_F(AttributeWriterTest, MultipleElement) {
@@ -146,8 +147,8 @@ namespace zigbee {
 
             auto results = attributeWriter->write(nwkAddr,endpointID, clusterMock, root);
             ASSERT_THAT(results.size(), 2);
-            ASSERT_THAT(results, Contains(ATTRIBUTE_UINT32_ID));
-            ASSERT_THAT(results, Contains(ATTRIBUTE_STRING_ID));
+            ASSERT_THAT(results.hasId(ATTRIBUTE_UINT32_ID), true);
+            ASSERT_THAT(results.hasId(ATTRIBUTE_STRING_ID), true);
         }
 
     }

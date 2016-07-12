@@ -55,7 +55,7 @@ namespace zigbee {
                 auto cluster(singletons.getClusters()->getCluster(nwkAddr,endpoint, clusterId));
 
                 if (request.getContentType() != "application/json"){
-                    response.send() <<"\r\n";
+                    response.send() <<"Accepted only application/json type\r\n";
                     response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_ACCEPTABLE);
                     return ;
                 }
@@ -63,7 +63,7 @@ namespace zigbee {
                 Json::Value root;
                 request.stream() >> root;
 
-                singletons.getAttributeWriter().write(nwkAddr, endpoint, cluster, root);
+                auto results = singletons.getAttributeWriter().write(nwkAddr, endpoint, cluster, root);
 
                 auto & attributes = root["attributes"];
 
