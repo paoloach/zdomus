@@ -63,4 +63,19 @@ public class Constants {
     public static final int SCENES_CLUSTER=5;
     public static final int ON_OFF_CLUSTER=6;
     public static final int ON_OFF_SWITCH_CONFIGURATION_CLUSTER=7;
+
+    // BASIC CLUSTER ATTRIBUTES
+    public static final int ZCL_VERSION=0;
+    public static final int APPLICATION_VERSION=1;
+    public static final int STACK_VERSION=2;
+    public static final int HW_VERSION=3;
+    public static final int MANUFACTURER_NAME=4;
+    public static final int MODEL_IDENTIFIER=5;
+    public static final int DATE_CODE=6;
+    public static final int POWER_SOURCE=7;
+    public static final int LOCATION_DESCRIPTION=0x10;
+    public static final int PHYSICAL_ENVIRONMENT=0x11;
+    public static final int DEVICE_ENABLED=0x12;
+    public static final int ALARM_MASK=0x13;
+    public static final int DISABLE_LOCAL_CONFIG=0x14;
 }

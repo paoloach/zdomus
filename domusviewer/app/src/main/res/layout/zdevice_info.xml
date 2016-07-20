@@ -78,18 +78,8 @@
         android:id="@+id/label_location"
         android:layout_below="@+id/label_date"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/location"
-        android:layout_alignBottom="@+id/label_location"
-        android:layout_alignLeft="@+id/date"
-        android:layout_alignStart="@+id/date"
-        android:layout_alignTop="@+id/label_location"/>
+        android:layout_alignParentStart="true"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,7 +87,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/environment"
         android:id="@+id/label_environment"
-        android:layout_below="@+id/label_location"
+        android:layout_below="@+id/location"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -108,9 +98,9 @@
         android:text="Large Text"
         android:id="@+id/environment"
         android:layout_alignTop="@+id/label_environment"
-        android:layout_alignLeft="@+id/location"
-        android:layout_alignStart="@+id/location"
-        android:layout_alignBottom="@+id/label_environment"/>
+        android:layout_alignBottom="@+id/label_environment"
+        android:layout_alignLeft="@+id/date"
+        android:layout_alignStart="@+id/date"/>
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -123,4 +113,15 @@
         android:layout_alignLeft="@+id/label_environment"
         android:layout_alignRight="@+id/environment"
         android:checked="false"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/location"
+        android:layout_alignTop="@+id/label_location"
+        android:layout_alignStart="@+id/date"
+        android:breakStrategy="simple"
+        android:inputType="text"
+        android:singleLine="true"/>
+
 </RelativeLayout>

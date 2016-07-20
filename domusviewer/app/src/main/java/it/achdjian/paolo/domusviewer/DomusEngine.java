@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
@@ -18,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 import it.achdjian.paolo.domusviewer.DTO.CmdRequest;
+import it.achdjian.paolo.domusviewer.DTO.WriteAttributeRequest;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Bind;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionObserver;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionStatus;
@@ -27,6 +27,7 @@ import it.achdjian.paolo.domusviewer.DomusEngineRest.RequesetBindMap;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestAttributes;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestCmd;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestIdentify;
+import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestWriteAttribute;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Stoppable;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Unbind;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.WhoAreYou;
@@ -118,6 +119,12 @@ public class DomusEngine extends HandlerThread implements ConnectionObserver {
         RequestAttributes requestAttributes = new RequestAttributes(sharedPreferences, connected, listener, networkId, endpointId, clusterId, attributes);
         handler.post(requestAttributes);
         return requestAttributes;
+    }
+
+    public void writeAttribute( @NonNull WriteAttributeRequest writeAttributeRequest){
+        Handler handler = new Handler(getLooper());
+        RequestWriteAttribute request = new RequestWriteAttribute(sharedPreferences, connected, writeAttributeRequest);
+        handler.post(request);
     }
 
     @Override

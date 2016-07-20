@@ -14,6 +14,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 import it.achdjian.paolo.domusviewer.Constants;
+import it.achdjian.paolo.domusviewer.DTO.WriteAttributeRequest;
 import it.achdjian.paolo.domusviewer.DomusEngine;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.JSonAttribute;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Stoppable;
@@ -43,27 +44,46 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
     CheckBox checkBox;
     @Bean
     DomusEngine domusEngine;
-    Stoppable request;
+    private Stoppable request;
+    private String prevLocation;
 
     @AfterViews
-    public void afterView(){
+    public void afterView() {
 
-        getDialog().setTitle("device "+networkId + " endpoint " + endpointId);
+        getDialog().setTitle("device " + networkId + " endpoint " + endpointId);
+        prevLocation="";
         name.setText("");
         model.setText("");
         date.setText("");
         location.setText("");
         environment.setText("");
         checkBox.setChecked(false);
-        request = domusEngine.requestAttributes(this, networkId, endpointId, Constants.BASIC_CLUSTER, 4, 5, 6, 0x10, 0x11, 0x12);
+        request = domusEngine.requestAttributes(this, networkId, endpointId, Constants.BASIC_CLUSTER,
+                Constants.MANUFACTURER_NAME,
+                Constants.MODEL_IDENTIFIER,
+                Constants.DATE_CODE,
+                Constants.LOCATION_DESCRIPTION,
+                Constants.PHYSICAL_ENVIRONMENT,
+                Constants.DEVICE_ENABLED);
     }
 
     @Override
-    public void onDestroyView(){
-        if (request != null){
+    public void onPause(){
+        String actualLocation = location.getText().toString();
+        if (!actualLocation.equals(prevLocation)){
+            WriteAttributeRequest writeAttributeRequest =new WriteAttributeRequest();
+            writeAttributeRequest.networkId = networkId;
+            writeAttributeRequest.endpointId = endpointId;
+            writeAttributeRequest.clusterId = Constants.BASIC_CLUSTER;
+            writeAttributeRequest.attributeId = Constants.LOCATION_DESCRIPTION;
+            writeAttributeRequest.args = actualLocation;
+
+            domusEngine.writeAttribute(writeAttributeRequest);
+        }
+        if (request != null) {
             request.stop();
         }
-        super.onDestroyView();
+        super.onPause();
     }
 
     @Override
@@ -72,22 +92,23 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
         for (JSonAttribute attribute : attributes) {
             if (attribute.isSupported && attribute.isAvailable) {
                 switch (attribute.id) {
-                    case 4:
+                    case Constants.MANUFACTURER_NAME:
                         name.setText(attribute.value);
                         break;
-                    case 5:
+                    case Constants.MODEL_IDENTIFIER:
                         model.setText(attribute.value);
                         break;
-                    case 6:
+                    case Constants.DATE_CODE:
                         date.setText(attribute.value);
                         break;
-                    case 0x10:
+                    case Constants.LOCATION_DESCRIPTION:
                         location.setText(attribute.value);
+                        prevLocation = attribute.value;
                         break;
-                    case 0x11:
+                    case Constants.PHYSICAL_ENVIRONMENT:
                         environment.setText(attribute.value);
                         break;
-                    case 0x12:
+                    case Constants.DEVICE_ENABLED:
                         checkBox.setChecked(attribute.value.equals("1"));
                         break;
                 }
