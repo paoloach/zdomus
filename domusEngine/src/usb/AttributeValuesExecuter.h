@@ -20,12 +20,18 @@ namespace zigbee {
 
         virtual void operator()(unsigned char *data, int) override {
             ReadAttributeResponseMessage *readAttributeResponseMessage = reinterpret_cast<ReadAttributeResponseMessage *>(data);
-            BOOST_LOG_TRIVIAL(debug) << "Read " << readAttributeResponseMessage->numAttributes << " attribute value from " <<
+            BOOST_LOG_TRIVIAL(info) << "Read " << readAttributeResponseMessage->numAttributes << " attribute value from " <<
                                      (int) readAttributeResponseMessage->networkAddr << ":" <<
                                      readAttributeResponseMessage->endpoint << ":" << (int) readAttributeResponseMessage->clusterId;
             uint8_t *rawResponses = data + sizeof(ReadAttributeResponseMessage);
             for (int i = 0; i < readAttributeResponseMessage->numAttributes; i++) {
                 std::stringstream log;
+                std::stringstream rawLog;
+
+                for(int i=0; i< 30; i ++){
+                    log << std::hex << (uint)(rawResponses[i]) << ",";
+                }
+                BOOST_LOG_TRIVIAL(info) << log.str();
                 AttributeResponse *response = reinterpret_cast<AttributeResponse *>(rawResponses);
                 uint8_t * rawData = rawResponses + sizeof(AttributeResponse);
 
@@ -49,7 +55,7 @@ namespace zigbee {
                     attributeValueSignalMap.execute(key, 0);
                 }
                 rawResponses += sizeof(AttributeResponse) + dataLen;
-                BOOST_LOG_TRIVIAL(debug) << log.str();
+                BOOST_LOG_TRIVIAL(info) << log.str();
             }
         }
     };

@@ -39,7 +39,9 @@ namespace zigbee {
                                                                   usbContext,
                                                                   USB_CLASS, VENDOR_ID, PRODUCT_ID, demo);
             if (zigbeeDevice->isPresent()) {
+                zigbeeDevice->enableLog();
                 zigbeeDevice->requestDevices();
+                sleep(1);
                 NwkAddr addr;
                 zigbeeDevice->requestBindTable(addr);
             }

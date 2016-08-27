@@ -20,8 +20,9 @@ namespace zigbee {
         virtual void operator()(unsigned char *data, int) override {
             AnnunceMessage *annunceMessage = reinterpret_cast<AnnunceMessage *>(data);
             zDevices->put(*annunceMessage);
-            BOOST_LOG_TRIVIAL(info) << "Annunce signal";
+            BOOST_LOG_TRIVIAL(info) << "Annunce signal: device " << std::hex << NwkAddr(annunceMessage->nwkAddr);
             usbDevice.requestActiveEndpoints(NwkAddr(annunceMessage->nwkAddr));
+            sleep(1);
             usbDevice.requestBindTable(NwkAddr(annunceMessage->nwkAddr));
         }
     };

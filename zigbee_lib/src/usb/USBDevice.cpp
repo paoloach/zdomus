@@ -124,7 +124,7 @@ namespace zigbee {
               case SIMPLE_DESC:
                   simpleDescMessage = (SimpleDescMessage *) data;
                   std::for_each(simpleDescSignal.begin(), simpleDescSignal.end(), [simpleDescMessage](SimpleDescCallback &callback) { callback(simpleDescMessage); });
-                  std::cout << "Simple desciption message " << std::endl;
+                  std::cout << "Simple desciption message from " << simpleDescMessage->nwkAddr << std::endl;
                   break;
               case ATTRIBUTE_VALUES:
                   std::cout << "Read response attribute value" << std::endl;

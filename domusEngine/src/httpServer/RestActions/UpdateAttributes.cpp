@@ -4,6 +4,7 @@
 
 #include <Poco/Net/HTTPServerResponse.h>
 #include <Poco/Net/HTTPServerRequest.h>
+#include <boost/log/trivial.hpp>
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
@@ -13,9 +14,10 @@
 #include "../MediaTypeProducerFactory.h"
 #include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/ZDevices.h"
-#include "../../json/json/json.h"
+#include "../ServerRequest.h"
 
 using  Json::operator>>;
+
 
 namespace zigbee {
     namespace http {
@@ -43,7 +45,7 @@ namespace zigbee {
          * }
          *
          */
-        void UpdateAttributes::operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest & request, Poco::Net::HTTPServerResponse &response) {
+        void UpdateAttributes::operator()(const PlaceHolders &&placeHolder,ServerRequest & request, Poco::Net::HTTPServerResponse &response) {
             auto nwkAddr(placeHolder.get<NwkAddr>("device"));
             auto endpoint(placeHolder.get<EndpointID>("endpoint"));
             auto clusterId(placeHolder.get<ClusterID>("cluster"));
@@ -52,7 +54,8 @@ namespace zigbee {
             if (zEndpoint.isInCluster(clusterId)) {
                 auto cluster(singletons.getClusters()->getCluster(nwkAddr,endpoint, clusterId));
 
-                if (request.getContentType() != "application/json"){
+                if (!request.isApplicationJSon()){
+                    BOOST_LOG_TRIVIAL(error) << "requested content type " << request.getContentType();
                     response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_ACCEPTABLE);
                     response.send() <<"Accepted only application/json type\r\n";
                     return ;

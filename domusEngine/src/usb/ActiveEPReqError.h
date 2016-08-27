@@ -21,7 +21,22 @@ namespace zigbee {
         virtual void operator()(unsigned char *data, int) override {
             ActiveEPErrorMessage * activeEPErrorMessage = reinterpret_cast<ActiveEPErrorMessage *>(data);
             int nwkAddr = activeEPErrorMessage->nwkAddr;
-            BOOST_LOG_TRIVIAL(error) << "error requesting acttive enpoint at " << nwkAddr << " with error code: " << (int)activeEPErrorMessage->errorCode;
+            std::stringstream stream;
+            stream << "error requesting acttive enpoint at " << std::hex << nwkAddr << " because ";
+            switch (activeEPErrorMessage->errorCode){
+                case 0x02:
+                    stream << " invalid parameter";
+                    break;
+                case 0x10:
+                    stream << " memory fail";
+                    break;
+                case 0xCD:
+                    stream  << " no route";
+                    break;
+                default:
+                    stream << " error code " << activeEPErrorMessage->errorCode;
+            }
+            BOOST_LOG_TRIVIAL(error) <<stream.str();
         }
     };
 }

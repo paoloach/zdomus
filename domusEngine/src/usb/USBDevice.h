@@ -49,6 +49,7 @@ namespace zigbee {
         bool isPresent() override;
 
         bool requestDevices() override;
+        bool enableLog() override;
 
         void getUsbMessage() override;
 
@@ -126,6 +127,8 @@ namespace zigbee {
     private:
         template<typename T>
         void sendData(const T &);
+        template<typename T>
+        void sendData(const T &, size_t size);
 
         void timerHandler(const boost::system::error_code &error);
 
@@ -139,14 +142,19 @@ namespace zigbee {
 
     template<typename T>
     inline void zigbee::DomusEngineUSBDevice::sendData(const T &data) {
+        sendData(data, sizeof(data));
+       }
+
+    template<typename T>
+    inline void zigbee::DomusEngineUSBDevice::sendData(const T &data, size_t size) {
         int transfered;
 
         int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &data,
-                                          sizeof(data), &transfered, 1000);
+                                          size, &transfered, 1000);
         if (result == 0) {
             BOOST_LOG_TRIVIAL(trace) << "request sent";
         } else {
-            BOOST_LOG_TRIVIAL(error) << strUsbError(result);
+            BOOST_LOG_TRIVIAL(error) << "Error send data: " << strUsbError(result)<< ", transfered: " << transfered << " insteado of " << sizeof(T);
         }
     }
 

@@ -19,7 +19,7 @@ namespace zigbee {
     public:
         ExecuteBind(SingletonObjects &singletons, bool bind=true) noexcept : singletons(singletons),bind(bind) { };
 
-        void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
+        void operator()(const PlaceHolders &&placeHolder, ServerRequest &request, Poco::Net::HTTPServerResponse &response);
 
     private:
         SingletonObjects &singletons;

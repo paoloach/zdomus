@@ -17,6 +17,9 @@
 #include <v8.h>
 #include <v8-platform.h>
 #include <libplatform/libplatform.h>
+#include <boost/log/core/core.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/expressions.hpp>
 
 #include "IO/Server.h"
 
@@ -36,6 +39,8 @@ static constexpr auto CONFIGURATION_OPTION = "configuration";
 static constexpr auto DEMO_DATA = "demo";
 static constexpr auto HELP = "help";
 static constexpr auto DEFAULT_CONFIG_FILE = "/home/paolo/workspace_luna/domus_engine_copy/configuration/domusEngine.xml";
+static constexpr auto LOGGIN_SETTINGS="logging";
+
 
 variables_map getVariableMap(size_t argc, char const *argv[]);
 
@@ -224,15 +229,20 @@ int main(int argc, const char *argv[]) {
 
 variables_map getVariableMap(size_t argc, char const *argv[]) {
     options_description desc("Allowed options");
+    boost::log::trivial::severity_level logSeverity;
     desc.add_options()
             (HELP, "help")
             (CONFIGURATION_OPTION, value<std::string>(), "configuration file")
+            (LOGGIN_SETTINGS, value<boost::log::trivial::severity_level>(&logSeverity), "Logging settings")
             (DEMO_DATA, "enable demo data");
 
 
     variables_map vm{};
     store(parse_command_line(argc, argv, desc), vm);
     notify(vm);
+
+    boost::log::core::get()->set_filter(boost::log::trivial::severity >= logSeverity);
+    BOOST_LOG_TRIVIAL(info) << "severity " << logSeverity;
 
     if (vm.count(HELP)) {
         std::cout << desc << std::endl;

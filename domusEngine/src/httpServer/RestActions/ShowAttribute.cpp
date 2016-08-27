@@ -34,7 +34,7 @@ using std::vector;
 namespace zigbee {
     namespace http {
 
-        void ShowAttribute::operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &,
+        void ShowAttribute::operator()(const PlaceHolders &&placeHolder, ServerRequest &,
                                        Poco::Net::HTTPServerResponse &response) {
             auto nwkAddr(placeHolder.get<NwkAddr>("device"));
             auto endpoint(placeHolder.get<EndpointID>("endpoint"));
@@ -56,10 +56,13 @@ namespace zigbee {
                     std::atomic_init(&attributesArrived[index], false);
                     mapAttributes[attributeId] = index;
                     index++;
-                    NewAttributeValueCallback fn = [this, attributeId](int status) { this->attributeReceived(attributeId, status); };
+                    NewAttributeValueCallback fn = [this, attributeId](int status) {
+                        this->attributeReceived(attributeId, status);
+                    };
                     if (attribute) {
-                        singletons.getAttributeValueSignalMap().insert(AttributeKey{nwkAddr, endpoint.getId(), clusterId.getId(),
-                                                                                    static_cast<ZigbeeAttributeId>(attribute->getIdentifier())}, fn);
+                        singletons.getAttributeValueSignalMap().insert(
+                                AttributeKey{nwkAddr, endpoint.getId(), clusterId.getId(),
+                                             static_cast<ZigbeeAttributeId>(attribute->getIdentifier())}, fn);
                     }
                 }
                 if (zigbeeDevice != nullptr) {
@@ -81,7 +84,8 @@ namespace zigbee {
             }
         }
 
-        void ShowAttribute::send(Poco::Net::HTTPServerResponse &response, std::vector<std::shared_ptr<ZCLAttribute>> &&attributes) {
+        void ShowAttribute::send(Poco::Net::HTTPServerResponse &response,
+                                 std::vector<std::shared_ptr<ZCLAttribute>> &&attributes) {
             response.setContentType(Poco::Net::MediaType("application", "json"));
             response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_OK);
             Value root(arrayValue);

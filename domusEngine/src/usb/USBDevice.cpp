@@ -24,7 +24,7 @@
 
 
 namespace zigbee {
-    static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::seconds(1);
+    static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::milliseconds(10);
     static const uint8_t raw_1234_4_0_0[] = {0x00, 0x00, 0x00, 0x20, 0x1};
     static const uint8_t raw_1234_4_0_1[] = {0x01, 0x00, 0x00, 0x20, 0x10};
     static const uint8_t raw_1234_4_0_2[] = {0x02, 0x00, 0x00, 0x20, 0x1};
@@ -32,9 +32,12 @@ namespace zigbee {
     static const uint8_t raw_1234_4_0_4[] = {0x04, 0x00, 0x00, 0x42, 0x08, 'a', 'c', 'h', 'd', 'j', 'i', 'a', 'n'};
     // model identifier
     static const uint8_t raw_1234_4_0_5[] = {0x05, 0x00, 0x00, 0x42, 0x07, 's', 'w', 'i', 't', 'c', 'h', '1'};
-    static const uint8_t raw_1234_6_0_5[] = {0x05, 0x00, 0x00, 0x42, 12, 'l', 'i', 'g', 'h', 't', ' ', 's', 'w', 'i', 't', 'c', 'h'};
-    static const uint8_t raw_1235_7_0_5[] = {0x05, 0x00, 0x00, 0x42, 13, 'o', 'n', '/', 'o', 'f', 'f', ' ', 'o', 'u', 't', 'p', 'u', 't'};
-    static const uint8_t raw_1235_11_0_5[]= {0x05, 0x00, 0x00, 0x42, 12, 'o', 'n', '/', 'o', 'f', 'f', ' ', 'l', 'i', 'g', 't', 'h'};
+    static const uint8_t raw_1234_6_0_5[] = {0x05, 0x00, 0x00, 0x42, 12, 'l', 'i', 'g', 'h', 't', ' ', 's', 'w', 'i',
+                                             't', 'c', 'h'};
+    static const uint8_t raw_1235_7_0_5[] = {0x05, 0x00, 0x00, 0x42, 13, 'o', 'n', '/', 'o', 'f', 'f', ' ', 'o', 'u',
+                                             't', 'p', 'u', 't'};
+    static const uint8_t raw_1235_11_0_5[] = {0x05, 0x00, 0x00, 0x42, 12, 'o', 'n', '/', 'o', 'f', 'f', ' ', 'l', 'i',
+                                              'g', 't', 'h'};
 
 
     static const uint8_t raw_1234_4_0_6[] = {0x06, 0x00, 0x00, 0x42, 8, '2', '0', '1', '6', '0', '4', '1', '2'};
@@ -53,76 +56,136 @@ namespace zigbee {
     DomusEngineUSBDevice::DomusEngineUSBDevice(boost::asio::io_service &serviceIo_,
                                                std::shared_ptr<ZDevices> &zDevices_,
                                                AttributeDataContainer &attributeDataContainer_,
-                                               SingletonObjects &singletonObjects,
-                                               libusb_context *usbContext_, int deviceClass_, int vendor_, int product_,
-                                               bool demo) :
-            ioService(serviceIo_),
-            timer{serviceIo_, CHECK_NEW_MESSAGE},
-            usbContext{usbContext_},
-            deviceClass{deviceClass_}, vendorID{vendor_},
-            productID{product_},
-            handle{nullptr},
-            demo{demo},
-            usbResponseExecuters{singletonObjects, *this},
-            zDevices(zDevices_), attributeDataContainer(attributeDataContainer_), singletonObjects(singletonObjects) {
+                                               SingletonObjects &singletonObjects, libusb_context *usbContext_,
+                                               int deviceClass_, int vendor_, int product_, bool demo) : ioService(
+            serviceIo_), timer{serviceIo_, CHECK_NEW_MESSAGE}, usbContext{usbContext_}, deviceClass{deviceClass_},
+                                                                                                         vendorID{
+                                                                                                                 vendor_},
+                                                                                                         productID{
+                                                                                                                 product_},
+                                                                                                         handle{nullptr},
+                                                                                                         demo{demo},
+                                                                                                         usbResponseExecuters{
+                                                                                                                 singletonObjects,
+                                                                                                                 *this},
+                                                                                                         zDevices(
+                                                                                                                 zDevices_),
+                                                                                                         attributeDataContainer(
+                                                                                                                 attributeDataContainer_),
+                                                                                                         singletonObjects(
+                                                                                                                 singletonObjects) {
         device = nullptr;
         timer.async_wait(boost::bind(&DomusEngineUSBDevice::timerHandler, this, boost::asio::placeholders::error));
 
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 0)] = raw_1234_4_0_0;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 1)] = raw_1234_4_0_1;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 2)] = raw_1234_4_0_2;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 3)] = raw_1234_4_0_3;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 4)] = raw_1234_4_0_4;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 5)] = raw_1234_6_0_5;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 6)] = raw_1234_4_0_6;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 7)] = raw_1234_4_0_7;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 16)] = raw_1234_4_0_16;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 17)] = raw_1234_4_0_17;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 18)] = raw_1234_4_0_18;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 19)] = raw_1234_4_0_19;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0), 20)] = raw_1234_4_0_20;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        0)] = raw_1234_4_0_0;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        1)] = raw_1234_4_0_1;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        2)] = raw_1234_4_0_2;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        3)] = raw_1234_4_0_3;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        4)] = raw_1234_4_0_4;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        5)] = raw_1234_6_0_5;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        6)] = raw_1234_4_0_6;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        7)] = raw_1234_4_0_7;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        16)] = raw_1234_4_0_16;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        17)] = raw_1234_4_0_17;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        18)] = raw_1234_4_0_18;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        19)] = raw_1234_4_0_19;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(6), ClusterID(0),
+                                                        20)] = raw_1234_4_0_20;
 
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 0)] = raw_1234_4_0_0;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 1)] = raw_1234_4_0_1;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 2)] = raw_1234_4_0_2;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 3)] = raw_1234_4_0_3;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 4)] = raw_1234_4_0_4;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 5)] = raw_1234_4_0_5;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 6)] = raw_1234_4_0_6;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 7)] = raw_1234_4_0_7;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 16)] = raw_1234_4_0_16;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 17)] = raw_1234_4_0_17;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 18)] = raw_1234_4_0_18;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 19)] = raw_1234_4_0_19;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0), 20)] = raw_1234_4_0_20;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 0)] = raw_1234_4_0_0;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 1)] = raw_1234_4_0_1;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 2)] = raw_1234_4_0_2;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 3)] = raw_1234_4_0_3;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 4)] = raw_1234_4_0_4;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 5)] = raw_1235_7_0_5;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 6)] = raw_1234_4_0_6;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 7)] = raw_1234_4_0_7;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 16)] = raw_1234_4_0_16;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 17)] = raw_1234_4_0_17;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 18)] = raw_1234_4_0_18;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 19)] = raw_1234_4_0_19;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0), 20)] = raw_1234_4_0_20;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(6), 0)] = raw_1235_7_6_0;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 0)] = raw_1234_4_0_0;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 1)] = raw_1234_4_0_1;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 2)] = raw_1234_4_0_2;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 3)] = raw_1234_4_0_3;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 4)] = raw_1234_4_0_4;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 5)] = raw_1235_11_0_5;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 6)] = raw_1234_4_0_6;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 7)] = raw_1234_4_0_7;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 16)] = raw_1234_4_0_16;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 17)] = raw_1234_4_0_17;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 18)] = raw_1234_4_0_18;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 19)] = raw_1234_4_0_19;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0), 20)] = raw_1234_4_0_20;
-        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(6), 0)] = raw_1235_11_6_0;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        0)] = raw_1234_4_0_0;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        1)] = raw_1234_4_0_1;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        2)] = raw_1234_4_0_2;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        3)] = raw_1234_4_0_3;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        4)] = raw_1234_4_0_4;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        5)] = raw_1234_4_0_5;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        6)] = raw_1234_4_0_6;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        7)] = raw_1234_4_0_7;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        16)] = raw_1234_4_0_16;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        17)] = raw_1234_4_0_17;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        18)] = raw_1234_4_0_18;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        19)] = raw_1234_4_0_19;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1234), EndpointID(4), ClusterID(0),
+                                                        20)] = raw_1234_4_0_20;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        0)] = raw_1234_4_0_0;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        1)] = raw_1234_4_0_1;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        2)] = raw_1234_4_0_2;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        3)] = raw_1234_4_0_3;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        4)] = raw_1234_4_0_4;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        5)] = raw_1235_7_0_5;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        6)] = raw_1234_4_0_6;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        7)] = raw_1234_4_0_7;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        16)] = raw_1234_4_0_16;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        17)] = raw_1234_4_0_17;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        18)] = raw_1234_4_0_18;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        19)] = raw_1234_4_0_19;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(0),
+                                                        20)] = raw_1234_4_0_20;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(7), ClusterID(6),
+                                                        0)] = raw_1235_7_6_0;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        0)] = raw_1234_4_0_0;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        1)] = raw_1234_4_0_1;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        2)] = raw_1234_4_0_2;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        3)] = raw_1234_4_0_3;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        4)] = raw_1234_4_0_4;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        5)] = raw_1235_11_0_5;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        6)] = raw_1234_4_0_6;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        7)] = raw_1234_4_0_7;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        16)] = raw_1234_4_0_16;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        17)] = raw_1234_4_0_17;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        18)] = raw_1234_4_0_18;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        19)] = raw_1234_4_0_19;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(0),
+                                                        20)] = raw_1234_4_0_20;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(6),
+                                                        0)] = raw_1235_11_6_0;
     }
 
 
@@ -204,21 +267,37 @@ namespace zigbee {
  * Check if there is a message from the usb device and emit the right sihnal
  */
     void DomusEngineUSBDevice::getUsbMessage() {
-        unsigned char data[1024]{};
+        unsigned char data[64]{};
         int transfered{};
         if (demo && !requestedAttributes.empty()) {
             addSyntetichData();
         }
         if (device) {
-            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_IN, data, sizeof(data),
-                                              &transfered, 1000);
+            int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_IN, data, sizeof(data), &transfered, 100);
             if (result == 0) {
-                BOOST_LOG_TRIVIAL(debug) << "new data arrived: size " << transfered;
+                BOOST_LOG_TRIVIAL(info) << "new data arrived from endpoint " << (int) BULK_ENDPOINT_IN << ",  size "
+                                        << transfered;
                 usbResponseExecuters.execute(data, transfered);
             } else if (result == LIBUSB_ERROR_TIMEOUT) {
                 // no data
             } else {
-                BOOST_LOG_TRIVIAL(error) << " Transfered: " << transfered;
+                BOOST_LOG_TRIVIAL(error) << "from endpoint " << std::hex << (int) BULK_ENDPOINT_IN << " Transfered: "
+                                         << transfered;
+                BOOST_LOG_TRIVIAL(error) << strUsbError(result);
+                if (libusb_reset_device(handle) != 0) {
+                    handle = nullptr;
+                    device = nullptr;
+                }
+            }
+            result = libusb_bulk_transfer(handle, LOG_ENDPOINT_IN, data, sizeof(data), &transfered, 100);
+            if (result == 0) {
+                BOOST_LOG_TRIVIAL(trace) << "new data arrived from endpoint " << std::hex << (int) LOG_ENDPOINT_IN
+                                         << ",  size " << transfered;
+                usbResponseExecuters.execute(data, transfered);
+            } else if (result == LIBUSB_ERROR_TIMEOUT) {
+                // no data
+            } else {
+                BOOST_LOG_TRIVIAL(error) << "from endpoint" << (int) BULK_ENDPOINT_IN << " Transfered: " << transfered;
                 BOOST_LOG_TRIVIAL(error) << strUsbError(result);
                 if (libusb_reset_device(handle) != 0) {
                     handle = nullptr;
@@ -230,29 +309,20 @@ namespace zigbee {
 
     void DomusEngineUSBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                                 ZigbeeAttributeId attributeId) {
-        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster <<
-                                 ", " << attributeId << ")";
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster
+                                 << ", " << attributeId << ")";
         if (handle != nullptr) {
             std::stringstream stream;
             AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeId};
             int transfered{};
 
             BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
-
-            int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &attributeValue,
-                                              sizeof(attributeValue), &transfered, 1000);
-            if (result == 0) {
-                BOOST_LOG_TRIVIAL(trace) << "request sent";
-            } else {
-                BOOST_LOG_TRIVIAL(error) << strUsbError(result);
-            }
+            sendData(attributeValue);
         }
     }
 
     void DomusEngineUSBDevice::writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
-                                              ZigbeeAttributeId attrId,
-                                              ZCLTypeDataType dataType,
-                                              uint8_t dataValueLen,
+                                              ZigbeeAttributeId attrId, ZCLTypeDataType dataType, uint8_t dataValueLen,
                                               uint8_t *dataValue) {
         BOOST_LOG_TRIVIAL(debug) << "USBDevice write attribute to cluster " << std::endl;
         if (handle != nullptr) {
@@ -265,25 +335,15 @@ namespace zigbee {
             writeAttributeValue.dataType = static_cast<ZigbeeAttributeDataType>(dataType);
             writeAttributeValue.dataValueLen = dataValueLen;
             memcpy(writeAttributeValue.dataValue, dataValue, dataValueLen);
-            int transfered{};
-            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT,
-                                              (unsigned char *) &writeAttributeValue,
-                                              sizeof(WriteAttributeValueMsg),
-                                              &transfered,
-                                              1000);
-            if (result == 0) {
-                BOOST_LOG_TRIVIAL(trace) << "request sent" << std::endl;
-            } else {
-                BOOST_LOG_TRIVIAL(error) << strUsbError(result) << std::endl;
-            }
+            sendData(writeAttributeValue);
         }
     }
 
-    void DomusEngineUSBDevice::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster,
-                                       ZigbeeClusterCmdId comandId,
-                                       std::vector<uint8_t> data) {
-        BOOST_LOG_TRIVIAL(debug) << "USBDevice send cmd to cluster (" << nwkAddrs << ", " << endpoint << ", " <<
-                                 cluster << ", " << comandId << ")" << std::endl;
+    void
+    DomusEngineUSBDevice::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId comandId,
+                                  std::vector<uint8_t> data) {
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice send cmd to cluster (" << nwkAddrs << ", " << endpoint << ", " << cluster
+                                 << ", " << comandId << ")";
         if (handle != nullptr) {
             ComandSend comandSend{nwkAddrs, endpoint, cluster, comandId, data};
 
@@ -294,14 +354,7 @@ namespace zigbee {
                 sstream << (int) data[i] << " ";
             }
             BOOST_LOG_TRIVIAL(trace) << sstream.str();
-            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT,
-                                              (unsigned char *) &comandSend, sizeof(comandSend),
-                                              &transfered, 1000);
-            if (result == 0) {
-                BOOST_LOG_TRIVIAL(trace) << "request sent";
-            } else {
-                BOOST_LOG_TRIVIAL(error) << strUsbError(result);
-            }
+            sendData(comandSend);
         }
     }
 
@@ -310,27 +363,35 @@ namespace zigbee {
  */
     bool DomusEngineUSBDevice::requestDevices() {
         int transfered;
-        if (handle == nullptr){
+        if (handle == nullptr) {
             return false;
         }
         GenericMessage genericMessage;
 
         genericMessage.msgCode = REQ_ALL_NODES;
-        int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &genericMessage,
-                                          sizeof(genericMessage), &transfered, 1000);
-        if (result == 0) {
-            BOOST_LOG_TRIVIAL(trace) << "request sent";
-        } else {
-            BOOST_LOG_TRIVIAL(error) << strUsbError(result);
+        BOOST_LOG_TRIVIAL(info) << "Request all nodes";
+        sendData(genericMessage);
+        return true;
+    }
+
+    bool DomusEngineUSBDevice::enableLog() {
+        int transfered;
+        if (handle == nullptr) {
+            return false;
         }
-        return false;
+        GenericMessage genericMessage;
+
+        genericMessage.msgCode = 0x21;
+        BOOST_LOG_TRIVIAL(info) << "Enable usb logs";
+        sendData(genericMessage);
+        return true;
     }
 
     void DomusEngineUSBDevice::requestActiveEndpoints(NwkAddr nwkAddr) {
-        if (handle == nullptr){
+        if (handle == nullptr) {
             return;
         }
-        BOOST_LOG_TRIVIAL(debug) << "Request active endpons for " << nwkAddr;
+        BOOST_LOG_TRIVIAL(info) << "Request active endpons for " << nwkAddr;
         ReqActiveEndpointsMessage request{};
         request.nwkAddr = nwkAddr.getId();
 
@@ -338,19 +399,14 @@ namespace zigbee {
 
         int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request),
                                           &transfered, 1000);
-        if (result == 0) {
-            BOOST_LOG_TRIVIAL(trace) << "request sent";
-        } else {
-            BOOST_LOG_TRIVIAL(error) << strUsbError(result);
-        }
+        sendData(request);
     }
 
 
     void DomusEngineUSBDevice::sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN],
-                                           EndpointID outClusterEP,
-                                           ClusterID clusterID,
+                                           EndpointID outClusterEP, ClusterID clusterID,
                                            const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
-        if (handle == nullptr){
+        if (handle == nullptr) {
             return;
         }
         BOOST_LOG_TRIVIAL(debug) << "Request to bind ";
@@ -359,10 +415,9 @@ namespace zigbee {
     }
 
     void DomusEngineUSBDevice::sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN],
-                                             EndpointID outClusterEP,
-                                             ClusterID clusterID,
+                                             EndpointID outClusterEP, ClusterID clusterID,
                                              const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
-        if (handle == nullptr){
+        if (handle == nullptr) {
             return;
         }
         BOOST_LOG_TRIVIAL(debug) << "Request to unbind ";
@@ -372,7 +427,7 @@ namespace zigbee {
 
 
     void DomusEngineUSBDevice::requestBindTable(NwkAddr nwkAddrs) {
-        if (handle == nullptr){
+        if (handle == nullptr) {
             return;
         }
         BOOST_LOG_TRIVIAL(info) << "Send request for bind table at " << nwkAddrs;
@@ -383,31 +438,24 @@ namespace zigbee {
     void DomusEngineUSBDevice::requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                                  ZigbeeAttributeIds &attributeIds) {
         requestedAttributes = RequestedAttributes(nwkAddrs, endpoint, cluster, attributeIds);
-        if (handle == nullptr){
+        if (handle == nullptr) {
             return;
         }
-        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster <<
-                                 ", " << "attribute: " << attributeIds << ")";
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster
+                                 << ", " << "attribute: " << attributeIds << ")";
 
-        if (handle != nullptr) {
-            std::stringstream stream;
-            AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeIds};
-            int transfered{};
 
-            BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
+        std::stringstream stream;
+        AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeIds};
+        int transfered{};
 
-            int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &attributeValue,
-                                              sizeof(attributeValue), &transfered, 1000);
-            if (result == 0) {
-                BOOST_LOG_TRIVIAL(trace) << "request sent";
-            } else {
-                BOOST_LOG_TRIVIAL(error) << strUsbError(result);
-            }
-        }
+        BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
+
+        sendData(attributeValue, sizeof(GenericMessage) + sizeof(ZigbeeNwkAddress) + sizeof(ZigbeeEndpoint) + sizeof(ZigbeeClusterId) + sizeof(uint8_t) + sizeof(ZigbeeAttributeId) * attributeValue.numAttr);
     }
 
     void DomusEngineUSBDevice::requestReset() {
-        if (handle == nullptr){
+        if (handle == nullptr) {
             return;
         }
         GenericMessage resetMessage{REQ_RESET};
@@ -415,11 +463,7 @@ namespace zigbee {
 
         int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &resetMessage,
                                           sizeof(GenericMessage), &transfered, 1000);
-        if (result == 0) {
-            BOOST_LOG_TRIVIAL(trace) << "request sent";
-        } else {
-            BOOST_LOG_TRIVIAL(error) << strUsbError(result);
-        }
+        sendData(resetMessage);
     }
 
     void DomusEngineUSBDevice::addSyntetichData() {
@@ -429,25 +473,26 @@ namespace zigbee {
         ClusterID cluster = firstAttr.clusterID;
 
         std::vector<RequestedAttributes::Attribute> attributesToSend{getAttributeToSend(nwkAddr, endpoint, cluster)};
-        size_t size = calcTotalSize(attributesToSend)+ sizeof(ReadAttributeResponseMessage);
+        size_t size = calcTotalSize(attributesToSend) + sizeof(ReadAttributeResponseMessage);
 
-        uint8_t  * data = new uint8_t[size];
-        ReadAttributeResponseMessage * message = reinterpret_cast<ReadAttributeResponseMessage *>(data);
+        uint8_t *data = new uint8_t[size];
+        ReadAttributeResponseMessage *message = reinterpret_cast<ReadAttributeResponseMessage *>(data);
         message->networkAddr = nwkAddr.getId();
         message->endpoint = endpoint.getId();
         message->clusterId = cluster.getId();
-        message->generticDataMsg =ATTRIBUTE_VALUES;
-        message->numAttributes=attributesToSend.size();
-        message->panId=0;
-        message->type=0;
-        uint8_t * rawData = data + sizeof(ReadAttributeResponseMessage);
-        BOOST_LOG_TRIVIAL(info) << "start attributes data: " << (void *)rawData;
-        uint8_t  * endData = fillRawData(attributesToSend, rawData);
+        message->generticDataMsg = ATTRIBUTE_VALUES;
+        message->numAttributes = attributesToSend.size();
+        message->panId = 0;
+        message->type = 0;
+        uint8_t *rawData = data + sizeof(ReadAttributeResponseMessage);
+        BOOST_LOG_TRIVIAL(info) << "start attributes data: " << (void *) rawData;
+        uint8_t *endData = fillRawData(attributesToSend, rawData);
         usbResponseExecuters.execute(data, size);
-        delete []data;
+        delete[]data;
     }
 
-    std::vector<RequestedAttributes::Attribute> DomusEngineUSBDevice::getAttributeToSend(NwkAddr nwkAddr, EndpointID endpoint, ClusterID cluster) {
+    std::vector<RequestedAttributes::Attribute>
+    DomusEngineUSBDevice::getAttributeToSend(NwkAddr nwkAddr, EndpointID endpoint, ClusterID cluster) {
         std::vector<RequestedAttributes::Attribute> attributesToSend;
         std::vector<RequestedAttributes::Attribute> attributesRemained;
 
@@ -465,23 +510,27 @@ namespace zigbee {
     size_t DomusEngineUSBDevice::calcTotalSize(std::vector<RequestedAttributes::Attribute> &attributes) {
         size_t totaleSize = 0;
         for (auto &attribute: attributes) {
-            const uint8_t * raw = attributeRawData[attribute];
+            const uint8_t *raw = attributeRawData[attribute];
             const AttributeResponse *response = reinterpret_cast<const AttributeResponse *>(raw);
             const uint8_t *rawData = raw + sizeof(AttributeResponse);
-            size_t  size = ZclAttributeUtils::zclGetAttrDataLength(response->dataType, rawData)+sizeof(AttributeResponse);
-            BOOST_LOG_TRIVIAL(info) << "id: " << attribute.attributeId << ", dataType: " << (int)response->dataType <<",  size: " << size;
-            totaleSize +=size;
+            size_t size =
+                    ZclAttributeUtils::zclGetAttrDataLength(response->dataType, rawData) + sizeof(AttributeResponse);
+            BOOST_LOG_TRIVIAL(info) << "id: " << attribute.attributeId << ", dataType: " << (int) response->dataType
+                                    << ",  size: " << size;
+            totaleSize += size;
         }
         return totaleSize;
     }
 
-    uint8_t * DomusEngineUSBDevice::fillRawData(std::vector<RequestedAttributes::Attribute> &attributes, uint8_t *data) {
+    uint8_t *DomusEngineUSBDevice::fillRawData(std::vector<RequestedAttributes::Attribute> &attributes, uint8_t *data) {
         for (auto &attribute: attributes) {
-            const uint8_t * raw = attributeRawData[attribute];
+            const uint8_t *raw = attributeRawData[attribute];
             const AttributeResponse *response = reinterpret_cast<const AttributeResponse *>(raw);
             const uint8_t *rawData = raw + sizeof(AttributeResponse);
-            size_t size = ZclAttributeUtils::zclGetAttrDataLength(response->dataType, rawData) + sizeof(AttributeResponse);
-            BOOST_LOG_TRIVIAL(info) << "id: " << attribute.attributeId  << ", dataType: " << (int)response->dataType << ",copy size: " << size;
+            size_t size =
+                    ZclAttributeUtils::zclGetAttrDataLength(response->dataType, rawData) + sizeof(AttributeResponse);
+            BOOST_LOG_TRIVIAL(info) << "id: " << attribute.attributeId << ", dataType: " << (int) response->dataType
+                                    << ",copy size: " << size;
             memcpy(data, raw, size);
             data += size;
         }

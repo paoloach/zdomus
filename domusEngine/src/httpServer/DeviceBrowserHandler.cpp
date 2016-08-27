@@ -27,6 +27,7 @@
 #include "RestActions/ExecuteBind.h"
 #include "RestActions/ExecuteReset.h"
 #include "RestActions/UpdateAttributes.h"
+#include "ServerRequest.h"
 
 
 namespace zigbee {
@@ -60,17 +61,17 @@ namespace zigbee {
     void DeviceBrowserHandler::handleRequest(Poco::Net::HTTPServerRequest &request,
                                              Poco::Net::HTTPServerResponse &response) {
         std::cout << "request: " << request.getURI() << std::endl;
-
+        ServerRequest serverRequest{request};
         try {
             response.setStatus(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
             PathReceived pathReceived(std::string(request.getURI()));
             if (request.getMethod() == "GET") {
-                restGetActions.execute(std::move(pathReceived), request, response);
+                restGetActions.execute(std::move(pathReceived), serverRequest, response);
             } else if (request.getMethod() == "POST") {
-                restPostActions.execute(std::move(pathReceived), request, response);
+                restPostActions.execute(std::move(pathReceived), serverRequest, response);
             }else if (request.getMethod() == "DELETE") {
                 restDeleteActions
-                        .execute(std::move(pathReceived), request, response);
+                        .execute(std::move(pathReceived), serverRequest, response);
             }
 
         } catch (boost::bad_lexical_cast &cast) {

@@ -17,7 +17,7 @@
 #include "../../ZigbeeData/Exceptions/InvalidInCluster.h"
 
 
-void zigbee::http::ExecuteBind::operator()(const zigbee::http::PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &, Poco::Net::HTTPServerResponse &response) {
+void zigbee::http::ExecuteBind::operator()(const zigbee::http::PlaceHolders &&placeHolder, ServerRequest &, Poco::Net::HTTPServerResponse &response) {
     auto srcDevice(placeHolder.get<NwkAddr>("srcDevice"));
     auto srcEndpoint(placeHolder.get<EndpointID>("srcEndpoint"));
     auto clusterId(placeHolder.get<ClusterID>("cluster"));

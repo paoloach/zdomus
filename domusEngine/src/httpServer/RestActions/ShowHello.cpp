@@ -12,16 +12,16 @@
 #include "ShowHello.h"
 
 namespace zigbee {
-namespace http {
+    namespace http {
 
-void ShowHello::operator ()(const PlaceHolders&& , Poco::Net::HTTPServerRequest& , Poco::Net::HTTPServerResponse& response) {
-	Poco::Net::MediaType mediaType("text","plain");
-	response.setContentType(mediaType);
-	response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+        void ShowHello::operator()(const PlaceHolders &&, ServerRequest &, Poco::Net::HTTPServerResponse &response) {
+            Poco::Net::MediaType mediaType("text", "plain");
+            response.setContentType(mediaType);
+            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
 
-	response.send() << "Hello\n";
-}
+            response.send() << "Hello\n";
+        }
 
-} /* namespace http */
+    } /* namespace http */
 } /* namespace zigbee */
 

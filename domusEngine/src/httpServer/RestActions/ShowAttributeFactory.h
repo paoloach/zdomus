@@ -17,7 +17,7 @@ namespace zigbee {
         class ShowAttributeFactory {
         public:
             ShowAttributeFactory(SingletonObjects &singletons): singletons(singletons){}
-            void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
+            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request, Poco::Net::HTTPServerResponse &response);
         private:
             SingletonObjects &singletons;
         };

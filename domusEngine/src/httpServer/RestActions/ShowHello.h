@@ -12,19 +12,21 @@
 
 namespace zigbee {
 
-class SingletonObjects;
+    class SingletonObjects;
 
-namespace http {
+    namespace http {
 
-class PlaceHolders;
+        class PlaceHolders;
 
-class ShowHello : public ActionHandler {
-public:
-	ShowHello() noexcept {};
-	void operator()(const PlaceHolders && placeHolder, Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
-};
+        class ShowHello : public ActionHandler {
+        public:
+            ShowHello() noexcept { };
 
-} /* namespace http */
+            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
+                            Poco::Net::HTTPServerResponse &response);
+        };
+
+    } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTACTIONS_SHOWHELLO_H_ */

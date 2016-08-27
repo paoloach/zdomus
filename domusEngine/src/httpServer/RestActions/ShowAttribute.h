@@ -31,7 +31,7 @@ namespace zigbee {
         public:
             ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) {};
 
-            void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response);
+            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request, Poco::Net::HTTPServerResponse &response);
 
             void attributeReceived(int attributeId, int status);
 

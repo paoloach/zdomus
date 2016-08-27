@@ -20,17 +20,18 @@
 #include "../../ZigbeeData/ZDevices.h"
 
 namespace zigbee {
-namespace http {
+    namespace http {
 
-void ShowEndpoint::operator ()(const PlaceHolders&& placeHolder, Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) {
-	response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-	const auto & producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
-	auto device(placeHolder.get<NwkAddr>("device"));
-	auto endpoint(placeHolder.get<EndpointID>("endpoint"));
-	auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(device));
-	producer.produce(response.send(), ZEndpointPT(zDevice.getEndpoint(endpoint)));
-}
+        void ShowEndpoint::operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
+                                      Poco::Net::HTTPServerResponse &response) {
+            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+            const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
+            auto device(placeHolder.get<NwkAddr>("device"));
+            auto endpoint(placeHolder.get<EndpointID>("endpoint"));
+            auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(device));
+            producer.produce(response.send(), ZEndpointPT(zDevice.getEndpoint(endpoint)));
+        }
 
-} /* namespace http */
+    } /* namespace http */
 } /* namespace zigbee */
 

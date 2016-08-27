@@ -46,7 +46,7 @@ public abstract class DomusEngineRest implements Runnable {
     public String get(String path) {
         String url = "http://" + getAddress() + path;
 
-        Request request = new Request.Builder().url(url).get().header("Accept", "application/json").build();
+        Request request = new Request.Builder().url(url).get().header("Accept", "application/json").header("Content-Type", "application/json").build();
 
         try {
             Response response = client.newCall(request).execute();

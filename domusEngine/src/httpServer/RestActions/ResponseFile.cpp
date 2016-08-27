@@ -11,7 +11,7 @@
 namespace zigbee {
 namespace http {
 
-void ResponseFile::operator ()( Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) {
+void ResponseFile::operator ()( ServerRequest& request, Poco::Net::HTTPServerResponse& response) {
 	auto & uri = request.getURI();
 
 	std::cout << "uri is : " << uri << std::endl;
@@ -21,4 +21,3 @@ void ResponseFile::operator ()( Poco::Net::HTTPServerRequest& request, Poco::Net
 
 } /* namespace http */
 } /* namespace zigbee */
-

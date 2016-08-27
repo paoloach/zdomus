@@ -12,20 +12,23 @@
 
 namespace zigbee {
 
-class SingletonObjects;
-namespace http {
+    class SingletonObjects;
+    namespace http {
 
-class PlaceHolders;
+        class PlaceHolders;
 
-class ShowDevice : public ActionHandler {
-public:
-	ShowDevice(SingletonObjects & singletons) noexcept : singletons(singletons){};
-	void operator()(const PlaceHolders && placeHolder, Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
-private:
-	SingletonObjects & singletons;
-};
+        class ShowDevice : public ActionHandler {
+        public:
+            ShowDevice(SingletonObjects &singletons) noexcept : singletons(singletons) { };
 
-} /* namespace http */
+            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
+                            Poco::Net::HTTPServerResponse &response);
+
+        private:
+            SingletonObjects &singletons;
+        };
+
+    } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTACTIONS_SHOWDEVICE_H_ */

@@ -39,6 +39,8 @@ namespace zigbee {
 
         virtual bool isPresent() = 0;
 
+        virtual bool enableLog()=0;
+
         virtual bool requestDevices() = 0;
 
         virtual void getUsbMessage() = 0;

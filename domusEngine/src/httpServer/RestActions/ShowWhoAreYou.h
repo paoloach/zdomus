@@ -20,7 +20,7 @@ namespace zigbee {
         public:
             ShowWhoAreYou(zigbee::SingletonObjects &singletons) noexcept  : singletons(singletons) { };
 
-            void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request,
+            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
                             Poco::Net::HTTPServerResponse &response);
 
         private:

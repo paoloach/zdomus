@@ -12,17 +12,18 @@
 #include "ShowWhoAreYou.h"
 
 namespace zigbee {
-namespace http {
+    namespace http {
 
-void zigbee::http::ShowWhoAreYou::operator ()(const PlaceHolders&& , Poco::Net::HTTPServerRequest& , Poco::Net::HTTPServerResponse& response) {
-	Poco::Net::MediaType mediaType("text", "plain");
-	response.setContentType(mediaType);
-	response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+        void zigbee::http::ShowWhoAreYou::operator()(const PlaceHolders &&, ServerRequest &,
+                                                     Poco::Net::HTTPServerResponse &response) {
+            Poco::Net::MediaType mediaType("text", "plain");
+            response.setContentType(mediaType);
+            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
 
-	std::ostream & stream = response.send();
-	stream << "I am DomusEngine version 1.0.0\r\n";
-}
+            std::ostream &stream = response.send();
+            stream << "I am DomusEngine version 1.0.0\r\n";
+        }
 
-} /* namespace http */
+    } /* namespace http */
 } /* namespace zigbee */
 

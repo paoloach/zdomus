@@ -23,7 +23,7 @@
 namespace zigbee {
     namespace http {
 
-        void ShowOutCluster::operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request,
+        void ShowOutCluster::operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
                                         Poco::Net::HTTPServerResponse &response) {
             response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
             const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
@@ -38,7 +38,8 @@ namespace zigbee {
             } else {
                 std::stringstream message;
 
-                message << "ERROR: " << "cluster " << clusterId << " is not an OUT cluster of endpoint " << zEndpoint.getEndpoint() <<
+                message << "ERROR: " << "cluster " << clusterId << " is not an OUT cluster of endpoint " <<
+                zEndpoint.getEndpoint() <<
                 " in the device with address " << zEndpoint.getNwkAddr();
                 std::cerr << message.str() << std::endl;
                 response.send() << message.str();

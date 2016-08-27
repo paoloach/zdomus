@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionObserve
     @AfterViews
     protected void afterView() {
         initConstants();
-
         setSupportActionBar(toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);

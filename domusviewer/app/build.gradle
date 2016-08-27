@@ -56,8 +56,6 @@ dependencies {
 
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
-    compile "org.androidannotations:rest-spring-api:$AAVersion"
-    apt "org.androidannotations:rest-spring:$AAVersion"
 
   //  compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
 

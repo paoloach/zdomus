@@ -17,12 +17,13 @@
 #include "RestPath.h"
 #include "PlaceHolders.h"
 #include "PathReceived.h"
+#include "../ServerRequest.h"
 
 namespace zigbee {
 namespace http {
 
-using ActionHandler = std::function<void(const PlaceHolders &&, Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response)>;
-using DefaultActionHandler = std::function<void(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response)>;
+using ActionHandler = std::function<void(const PlaceHolders &&, ServerRequest& request, Poco::Net::HTTPServerResponse& response)>;
+using DefaultActionHandler = std::function<void(ServerRequest& request, Poco::Net::HTTPServerResponse& response)>;
 using Actions = std::vector<std::tuple<RestPath, ActionHandler>> ;
 
 class RestActions {
@@ -32,7 +33,7 @@ private:
 public:
 	void addActions(RestPath && restPath,ActionHandler   f ) noexcept ;
 	void setDefaultAction(DefaultActionHandler f) noexcept {defaultAction = f;}
-	void execute(PathReceived &&pathReceived,  Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response);
+	void execute(PathReceived &&pathReceived,  ServerRequest& request, Poco::Net::HTTPServerResponse& response);
 };
 
 } /* namespace http */

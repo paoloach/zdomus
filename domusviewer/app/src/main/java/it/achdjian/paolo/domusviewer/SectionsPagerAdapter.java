@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import it.achdjian.paolo.domusviewer.devices.AllDevicesFragment_;
 import it.achdjian.paolo.domusviewer.on_off.OnOffFragment_;
+import it.achdjian.paolo.domusviewer.temperature.TemperatureFragment;
+import it.achdjian.paolo.domusviewer.temperature.TemperatureFragment_;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -24,6 +26,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return OnOffFragment_.builder().build();
             case  1:
                 return AllDevicesFragment_.builder().build();
+            case 2:
+                return TemperatureFragment_.builder().build();
             default:
                 return PlaceholderFragment.newInstance(position + 1);
         }
@@ -43,7 +47,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return "All devices";
             case 2:
-                return "SECTION 3";
+                return "Temperature";
         }
         return null;
     }

@@ -10,6 +10,7 @@
 #include "BindTableExecuter.h"
 #include "AttributeValueReqError.h"
 #include "ActiveEPReqError.h"
+#include "InfoMessageExecuter.h"
 
 using std::make_unique;
 
@@ -20,18 +21,21 @@ zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonOb
     executors[BIND_TABLE] = make_unique<BindTableExecuter>(singletonObjects);
     executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(singletonObjects.getAttributeValueSignalMap());
     executors[ACTIVE_EP_REQ_ERROR] = make_unique<ActiveEPReqError>(singletonObjects);
+        executors[INFO_MESSAGE] = make_unique<InfoMessageExecuter>();
 }
 
 void zigbee::UsbResponseExecutors::execute(unsigned char *data, int length) {
     if (executors.count(*data) > 0) {
         executors[*data]->operator()(data, length);
     } else {
-        BOOST_LOG_TRIVIAL(info) << "Unknow message type:  " << (int) (*data);
+        BOOST_LOG_TRIVIAL(info) << "Unknow message type:  " << (int) (*data) << " of length " << length;
         std::stringstream stream;
+        std::stringstream streamText;
         for (int i=0; i < length; i++){
-            stream << (int)data[i] << " ";
+            stream << (int)data[i]  << " ";
+            stream << (data[i] >= 32 ? (char)data[i] : '?') << " ";
         }
-        BOOST_LOG_TRIVIAL(trace) << stream.str();
+        BOOST_LOG_TRIVIAL(info) << stream.str();
     }
 }
 

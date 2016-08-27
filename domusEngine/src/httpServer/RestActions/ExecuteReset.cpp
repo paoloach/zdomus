@@ -7,7 +7,7 @@
 #include "../../Utils/SingletonObjects.h"
 
 void zigbee::http::ExecuteReset::operator()(const zigbee::http::PlaceHolders &&placeHolder,
-                                            Poco::Net::HTTPServerRequest &request,
+                                            ServerRequest &request,
                                             Poco::Net::HTTPServerResponse &response) {
     singletons.getZigbeeDevice()->requestReset();
     response.setStatus(Poco::Net::HTTPResponse::HTTP_NO_CONTENT);

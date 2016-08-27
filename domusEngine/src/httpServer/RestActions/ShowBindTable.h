@@ -10,20 +10,20 @@
 
 namespace zigbee {
 
-  class SingletonObjects;
-  namespace http {
+    class SingletonObjects;
+    namespace http {
 
-    class ShowBindTable : public ActionHandler {
-    public:
-        ShowBindTable(zigbee::SingletonObjects &singletons) noexcept : singletons(singletons) { };
+        class ShowBindTable : public ActionHandler {
+        public:
+            ShowBindTable(zigbee::SingletonObjects &singletons) noexcept : singletons(singletons) { };
 
-        void operator()(const PlaceHolders &&placeHolder, Poco::Net::HTTPServerRequest &request,
-                        Poco::Net::HTTPServerResponse &response);
+            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
+                            Poco::Net::HTTPServerResponse &response);
 
-    private:
-        SingletonObjects &singletons;
-    };
-  }
+        private:
+            SingletonObjects &singletons;
+        };
+    }
 }
 
 

@@ -77,7 +77,7 @@ SET(SOURCE_ATTRIBUTES_FILES
         src/zcl/attributeTypes/ZCLBitmap16bitAttribute.cpp src/zcl/attributeTypes/ZCLBitmap16bitAttribute.h
         src/zcl/attributeTypes/ZCLint8Attribute.cpp src/zcl/attributeTypes/ZCLint8Attribute.h
         src/zcl/attributeTypes/AttributeValue.h
-        src/zigbee/messageStructure/ActiveEPErrorMessage.h)
+        src/zigbee/messageStructure/ActiveEPErrorMessage.h src/zigbee/messageStructure/InfoMessage.h)
 
 
 SET(SOURCE_CLLUSTER_FILES
