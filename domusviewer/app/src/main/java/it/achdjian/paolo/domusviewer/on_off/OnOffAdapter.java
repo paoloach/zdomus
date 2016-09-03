@@ -1,17 +1,12 @@
 package it.achdjian.paolo.domusviewer.on_off;
 
-import android.annotation.SuppressLint;
 import android.database.DataSetObserver;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -22,9 +17,8 @@ import java.util.List;
 
 import it.achdjian.paolo.domusviewer.DomusEngine;
 import it.achdjian.paolo.domusviewer.Element;
-import it.achdjian.paolo.domusviewer.R;
-import it.achdjian.paolo.domusviewer.other.IdentifyListener;
-import it.achdjian.paolo.domusviewer.other.ZDeviceInfoClick;
+import it.achdjian.paolo.domusviewer.utils.ElementView;
+import it.achdjian.paolo.domusviewer.utils.ElementViewFactory;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
@@ -41,9 +35,7 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
     @Bean
     DomusEngine domusEngine;
     @Bean
-    ZDeviceInfoClick zDeviceInfoClick;
-    @Bean
-    IdentifyListener identifyListener;
+    ElementViewFactory elementViewFactory;
     private int layout;
 
     BindController bindController;
@@ -138,38 +130,13 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View result;
-        if (convertView != null) {
-            result = convertView;
-        } else {
-            LayoutInflater inflater = LayoutInflater.from(activity);
-            result = inflater.inflate(layout, parent, false);
-        }
+    public ElementView getElementView(int position, View oldView, ViewGroup parent) {
         Element element = elements.get(position);
-        TextView mainText = (TextView) result.findViewById(R.id.mainText);
-        RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
-        infoLayout.setLongClickable(false);
-        infoLayout.setOnLongClickListener(zDeviceInfoClick);
-        infoLayout.setTag(R.id.element_value, element);
+        ElementView elementView = elementViewFactory.createElementView(parent,layout, element, oldView);
 
-
-        mainText.setText(element.network + ":" + element.endpoint);
-
-        result.setTag(R.id.element_value, element);
-        Button IButton = (Button) result.findViewById(R.id.identifyBt);
-        IButton.setTag(element);
-        IButton.setOnClickListener(identifyListener);
-
-        bindController.setBindStatus(result);
-        if (bindController.elementSelected.is(element)) {
-            infoLayout.setActivated(true);
-        } else {
-            infoLayout.setActivated(false);
-        }
-        return result;
+        bindController.setBindStatus(elementView.view);
+        elementView.selected(bindController.elementSelected.is(element));
+        return elementView;
     }
 
     public void invalidate() {

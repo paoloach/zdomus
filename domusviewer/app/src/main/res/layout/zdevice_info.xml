@@ -3,7 +3,9 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="8dp">
+                android:padding="8dp"
+                android:minWidth="1500dp"
+                android:minHeight="250dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:id="@+id/name"
         android:layout_alignParentTop="true"
@@ -41,7 +43,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="@android:style/TextAppearance.Medium"
         android:text="Large Text"
         android:id="@+id/model"
         android:layout_alignTop="@+id/label_model"
@@ -62,7 +64,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:id="@+id/date"
         android:layout_alignLeft="@+id/model"
@@ -94,7 +96,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:id="@+id/environment"
         android:layout_alignTop="@+id/label_environment"
@@ -122,6 +124,7 @@
         android:layout_alignStart="@+id/date"
         android:breakStrategy="simple"
         android:inputType="text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:singleLine="true"/>
 
 </RelativeLayout>

@@ -51,7 +51,7 @@ public class RequestAttributes extends DomusEngineRest implements Stoppable {
                 try {
                     List<JSonAttribute> attributes = mapper.readValue(body, new TypeReference<List<JSonAttribute>>() {
                     });
-                    listener.newAttributes(attributes);
+                    listener.newAttributes(networkId, endpointId, attributes);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -87,16 +87,8 @@ dependencies {
     }
 
     compile 'org.rajawali3d:rajawali:1.0.325@aar'
-//    compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-////    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
-////    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
-////    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
-//    compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-////    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi"
-////    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi-v7a"
-////    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
-//    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-//    compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+
 }
 
 

@@ -15,6 +15,7 @@ import java.util.List;
 
 import it.achdjian.paolo.domusviewer.Element;
 import it.achdjian.paolo.domusviewer.R;
+import it.achdjian.paolo.domusviewer.utils.ElementView;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
@@ -88,24 +89,21 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener {
         return 0;
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View result = super.getView(position, convertView, parent);
-        Element element = elements.get(position);
-        result.setOnClickListener(this);
-        result.setTag(R.id.type, TYPE_LIGHT);
-        View infoLayout = result.findViewById(R.id.info_layout);
-        infoLayout.setClickable(true);
-        infoLayout.setOnClickListener(this);
+    public View getView(int position, View oldView, ViewGroup parent) {
+        ElementView elementView = getElementView(position, oldView, parent);
+        elementView.setOnClickListener(this);
+        elementView.setTagType(TYPE_LIGHT);
+        elementView.infoLayout.setClickable(true);
+        elementView.infoLayout.setOnClickListener(this);
 
-        ImageButton light = (ImageButton)result.findViewById(R.id.lightBt);
-        lightControllers.add(light, element);
+        ImageButton light = (ImageButton)elementView.view.findViewById(R.id.lightBt);
+        lightControllers.add(light, elementView.element);
 
-        ImageView bind = (ImageView)result.findViewById(R.id.binded);
+        ImageView bind = (ImageView)elementView.view.findViewById(R.id.binded);
         bind.setTag(R.id.element_value,elements.get(position));
         bind.setOnLongClickListener(bindLightLongClickListener);
-        return result;
+        return elementView.view;
     }
 
     @Override

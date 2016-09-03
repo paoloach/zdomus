@@ -64,7 +64,7 @@ class LightController implements View.OnClickListener, Runnable, DomusEngine.Att
     }
 
     @Override
-    public void newAttributes(List<JSonAttribute> attributes) {
+    public void newAttributes(int networkId, int endpointId, List<JSonAttribute> attributes) {
         if (!toStop) {
             for (final JSonAttribute attribute : attributes) {
                 if (attribute.isSupported && attribute.isAvailable && attribute.id == 0) {

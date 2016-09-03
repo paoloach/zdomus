@@ -14,6 +14,7 @@ import java.util.List;
 
 import it.achdjian.paolo.domusviewer.Element;
 import it.achdjian.paolo.domusviewer.R;
+import it.achdjian.paolo.domusviewer.utils.ElementView;
 import it.achdjian.paolo.domusviewer.zigbee.ZDevice;
 import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 
@@ -79,20 +80,17 @@ class SwitchAdapter extends OnOffAdapter implements View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View result = super.getView(position, convertView, parent);
-        result.setOnClickListener(this);
-        result.setTag(R.id.type, TYPE_SWITCH);
+    public View getView(int position, View oldView, ViewGroup parent) {
+        ElementView elementView = getElementView(position, oldView, parent);
+        elementView.setOnClickListener(this);
+        elementView.setTagType(TYPE_SWITCH);
+        elementView.infoLayout.setClickable(true);
+        elementView.infoLayout.setOnClickListener(this);
 
-        RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.info_layout);
-        infoLayout.setClickable(true);
-        infoLayout.setOnClickListener(this);
-
-        ImageView bind = (ImageView)result.findViewById(R.id.binded);
-        bind.setLongClickable(true);
+        ImageView bind = (ImageView)elementView.view.findViewById(R.id.binded);
         bind.setTag(R.id.element_value,elements.get(position));
         bind.setOnLongClickListener(bindSwitchLongClickListener);
-        return result;
+        return elementView.view;
     }
 
     @Override

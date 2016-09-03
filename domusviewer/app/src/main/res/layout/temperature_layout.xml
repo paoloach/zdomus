@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+              android:clickable="false">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/lamps">
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sottoscala"
-            android:id="@+id/cbSottoscala"
-            android:enabled="true"
-            android:checked="true"/>
-    </RelativeLayout>
+    <ListView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:id="@+id/tempLV"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
 
-    <RelativeLayout
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Assign"
+        android:id="@+id/assign"
+        android:clickable="true"
+        android:enabled="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:singleLine="true"
+        android:layout_below="@+id/tempLV"
+        android:layout_alignRight="@+id/tempLV"/>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/tempLV"
         android:id="@+id/rajaBase">
-    </RelativeLayout>
-
-</LinearLayout>
+        android:id="@+id/rajaBase"
+        android:clickable="true">
+    </FrameLayout>
+</RelativeLayout>

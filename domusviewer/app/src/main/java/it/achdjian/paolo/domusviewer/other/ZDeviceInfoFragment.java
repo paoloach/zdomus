@@ -68,6 +68,15 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        int width = getResources().getDimensionPixelSize(R.dimen.info_device_width);
+        int height = getResources().getDimensionPixelSize(R.dimen.info_device_height);
+        getDialog().getWindow().setLayout(width, height);
+
+    }
+
+    @Override
     public void onPause(){
         String actualLocation = location.getText().toString();
         if (!actualLocation.equals(prevLocation)){
@@ -88,25 +97,25 @@ public class ZDeviceInfoFragment extends DialogFragment implements DomusEngine.A
 
     @Override
     @UiThread
-    public void newAttributes(List<JSonAttribute> attributes) {
+    public void newAttributes(int networkId, int endpointId,List<JSonAttribute> attributes) {
         for (JSonAttribute attribute : attributes) {
             if (attribute.isSupported && attribute.isAvailable) {
                 switch (attribute.id) {
                     case Constants.MANUFACTURER_NAME:
-                        name.setText(attribute.value);
+                        name.setText(attribute.value.trim());
                         break;
                     case Constants.MODEL_IDENTIFIER:
-                        model.setText(attribute.value);
+                        model.setText(attribute.value.trim());
                         break;
                     case Constants.DATE_CODE:
-                        date.setText(attribute.value);
+                        date.setText(attribute.value.trim());
                         break;
                     case Constants.LOCATION_DESCRIPTION:
-                        location.setText(attribute.value);
+                        location.setText(attribute.value.trim());
                         prevLocation = attribute.value;
                         break;
                     case Constants.PHYSICAL_ENVIRONMENT:
-                        environment.setText(attribute.value);
+                        environment.setText(attribute.value.trim());
                         break;
                     case Constants.DEVICE_ENABLED:
                         checkBox.setChecked(attribute.value.equals("1"));

@@ -50,7 +50,7 @@ public class DomusEngine extends HandlerThread implements ConnectionObserver {
     }
 
     public interface AttributesListener {
-        void newAttributes(List<JSonAttribute> attributes);
+        void newAttributes(int networkId, int endpointId, List<JSonAttribute> attributes);
     }
 
     private final ConnectionStatus connected = new ConnectionStatus();
