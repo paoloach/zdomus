@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.Nullable;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -17,7 +18,7 @@ import it.achdjian.paolo.domusviewer.zigbee.ZDevices;
 /**
  * Created by Paolo Achdjian on 31/08/16.
  */
-@EBean
+@EBean(scope= EBean.Scope.Singleton)
 public class TempSensorLocationDS {
     @RootContext
     Context context;
@@ -75,9 +76,18 @@ public class TempSensorLocationDS {
             return null;
         }
         query.moveToFirst();
-        return new Element(query.getInt(0), query.getInt(1));
+
+        String extAddress = query.getString(0);
+
+        ZDevice device = domusEngine.getDevices().getDevice(extAddress);
+        if (device != null) {
+            return new Element(device.short_address, query.getInt(1));
+        } else {
+            return new Element(0,0);
+        }
     }
 
+    @Nullable
     public String getRoom(int networkId, int endpointId) {
 
         ZDevice device = domusEngine.getDevices().getDevice(networkId);

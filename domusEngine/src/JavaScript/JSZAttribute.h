@@ -27,6 +27,13 @@ namespace zigbee {
     class ClusterTypeFactory;
 
     class JSZAttribute {
+    protected:
+        struct JsCallbackParameters {
+            NwkAddr nwkAddr;
+            EndpointID endpointID;
+            ClusterID clusterID;
+            ZigbeeAttributeId  attributeId;
+        };
     public:
         static std::map<ZCLAttribute::Status, std::string> statusMap;
         using CallbackData = std::tuple<std::list<std::function<void()>>::iterator, ZCLAttribute *, v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>>>;
@@ -57,7 +64,7 @@ namespace zigbee {
         void initJsObjectsTemplate(v8::Isolate *isolate, const v8::Local<v8::FunctionTemplate> &zAttributeFunctionTemplate);
 
 
-        void changeSignalCallback(v8::Isolate *isolate, int identity);
+        void changeSignalCallback(v8::Isolate *isolate, int identity,JsCallbackParameters callbackParameters);
         CallbackData popCallbackData(int id);
     protected:
         std::shared_ptr<ZDevices> zDevices;

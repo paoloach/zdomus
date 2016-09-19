@@ -6,6 +6,18 @@
               android:clickable="false">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="23.04"
+        android:id="@+id/tempValue"
+        android:layout_gravity="left|top"
+        android:background="#ffffff"
+        android:layout_alignTop="@+id/tempLV"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_marginLeft="5dp"/>
+
     <ListView
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -30,8 +42,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toRightOf="@+id/tempLV"
-        android:id="@+id/rajaBase">
+        android:id="@+id/rajaBase"
+        android:layout_below="@+id/tempValue"><![CDATA[
         android:id="@+id/rajaBase"
         android:clickable="true">
-    </FrameLayout>
+
+        ]]></FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="temp:"
+        android:id="@+id/textView3"
+        android:layout_above="@+id/rajaBase"
+        android:layout_alignTop="@+id/tempValue"
+        android:layout_toRightOf="@+id/tempLV"/>
 </RelativeLayout>

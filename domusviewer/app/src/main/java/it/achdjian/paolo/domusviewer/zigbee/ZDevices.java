@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -104,11 +105,27 @@ public class ZDevices implements GetDevice.Listener, GetEndpoint.Listener {
         listeners.clear();
     }
 
+    @NonNull
     public Collection<ZDevice> getDevices(){
         return devices.values();
     }
 
+    @Nullable
     public ZDevice getDevice(int networkId){
         return devices.get(networkId);
+    }
+
+    public boolean existDevice(int networkId){
+        return devices.containsKey(networkId);
+    }
+
+    @Nullable
+    public ZDevice getDevice(String extAddress){
+        for(ZDevice device: devices.values()){
+            if (device.extended_address.equals(extAddress)){
+                return device;
+            }
+        }
+        return null;
     }
 }

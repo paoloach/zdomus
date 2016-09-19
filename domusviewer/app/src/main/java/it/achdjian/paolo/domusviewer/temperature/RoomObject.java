@@ -2,6 +2,8 @@ package it.achdjian.paolo.domusviewer.temperature;
 
 import android.opengl.GLES20;
 
+import com.google.common.base.Optional;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.rajawali3d.Object3D;
 import org.rajawali3d.bounds.BoundingBox;
@@ -19,6 +21,7 @@ public class RoomObject {
     public SpotLight light;
     public Object3D object3D;
     public boolean selected;
+    public Optional<Integer> temperature =Optional.absent();
 
     public RoomObject(Object3D object3D) {
 
@@ -28,12 +31,12 @@ public class RoomObject {
         object3D.setDepthTestEnabled(true);
         object3D.setBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
-        assignName(object3D);
-        assignDefaultMaterial(object3D);
-        assignLight(object3D);
+        assignName();
+        assignDefaultMaterial();
+        assignLight();
     }
 
-    private void assignLight(Object3D object3D) {
+    private void assignLight() {
         BoundingBox boundingBox = object3D.getGeometry().getBoundingBox();
         Vector3 childMax = boundingBox.getMax();
         Vector3 childMin = boundingBox.getMin();
@@ -46,17 +49,16 @@ public class RoomObject {
         light.setPosition(mean);
     }
 
-    private void assignDefaultMaterial(Object3D object3D) {
+    private void assignDefaultMaterial() {
         material = new Material();
         material.setColor(Rooms.DEFAULT_COLOR);
         material.enableLighting(true);
         material.setDiffuseMethod(new DiffuseMethod.Lambert());
-        object3D.setMaterial(material);
     }
 
-    private void assignName(Object3D object3D) {
+    private void assignName() {
         name = object3D.getName();
-        int delim = name.indexOf("_");
+        int delim = name.lastIndexOf("_");
         name = name.substring(0, delim);
     }
 
@@ -68,13 +70,32 @@ public class RoomObject {
     }
 
     public void select() {
-        material.setColor(Rooms.SELECTED_COLOR);
         selected=true;
+        if (!temperature.isPresent()) {
+            material.setColor(Rooms.SELECTED_COLOR);
+        } else {
+            setTemperature(temperature);
+        }
     }
 
     public void unselect() {
-        material.setColor(Rooms.DEFAULT_COLOR);
         selected=false;
+        if (!temperature.isPresent()) {
+            material.setColor(Rooms.DEFAULT_COLOR);
+        } else {
+            setTemperature(temperature);
+        }
+    }
+
+    public void setTemperature(Optional<Integer> temp){
+        if (temp.isPresent() && material != null) {
+            temperature = temp;
+            int color = TemperatureColorMap.getColor(temperature.get());
+            if (selected) {
+                color = ~(color & 0xFFFFFF);
+            }
+            material.setColor(color);
+        }
     }
 
 

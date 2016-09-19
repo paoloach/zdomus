@@ -78,4 +78,13 @@ public class Constants {
     public static final int DEVICE_ENABLED=0x12;
     public static final int ALARM_MASK=0x13;
     public static final int DISABLE_LOCAL_CONFIG=0x14;
+
+    public static final int ILLUMINANCE_MEASURE=0x0400;
+    public static final int ILLUMINCANCE_LEVEL_SENSING=0x0401;
+    public static final int TEMPERATURE_MEASUREMENT=0x0402;
+    public static final int PRESSURE_MEASUREMENT=0x0403;
+    public static final int FLOW_MEASUREMENT=0x0404;
+    public static final int HUMIDITY_MEASUREMENT=0x0405;
+    public static final int OCCUPANCY_SENSOR=0x0406;
+
 }

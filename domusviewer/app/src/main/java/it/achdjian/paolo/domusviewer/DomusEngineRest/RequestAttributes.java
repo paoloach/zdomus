@@ -44,7 +44,7 @@ public class RequestAttributes extends DomusEngineRest implements Stoppable {
                 append("/cluster/in/").
                 append(clusterId).
                 append("/attributes?id=").append(TextUtils.join(",", attributes));
-        String body = get(builder.toString());
+        String body = getLongRead(builder.toString());
         if (body != null && toStop==false) {
             if (!body.isEmpty()) {
                 ObjectMapper mapper = new ObjectMapper();

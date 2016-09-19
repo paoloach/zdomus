@@ -21,6 +21,7 @@ public abstract class DomusEngineRest implements Runnable {
     protected final SharedPreferences sharedPreferences;
     protected final ConnectionStatus connected;
     protected OkHttpClient client;
+    protected OkHttpClient clientLongTimeout;
     public static final okhttp3.MediaType JSON = okhttp3.MediaType.parse("application/json; charset=utf-8");
 
     public DomusEngineRest(SharedPreferences sharedPreferences, ConnectionStatus connected) {
@@ -37,6 +38,7 @@ public abstract class DomusEngineRest implements Runnable {
 
     private void init() {
         client = new OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).build();
+        clientLongTimeout = new OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS).readTimeout(5, TimeUnit.MINUTES).build();
     }
 
     public String getAddress() {
@@ -66,6 +68,26 @@ public abstract class DomusEngineRest implements Runnable {
             handler.postDelayed(new WhoAreYou(this.sharedPreferences, this.connected), 1000);
         }
 
+        return null;
+    }
+
+    public String getLongRead(String path) {
+        String url = "http://" + getAddress() + path;
+
+        Request request = new Request.Builder().url(url).get().header("Accept", "application/json").header("Content-Type", "application/json").build();
+
+        try {
+            Response response = clientLongTimeout.newCall(request).execute();
+            if (response.code() == 200){
+                return response.body().string();
+            }
+            if (response.code() == 204) {
+                return "";
+            }
+        } catch (Exception ignored) {
+            Log.e(TAG, "error", ignored);
+        }
+        Log.e(TAG, "ERROR");
         return null;
     }
 

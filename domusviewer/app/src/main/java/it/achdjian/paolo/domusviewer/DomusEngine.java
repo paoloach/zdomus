@@ -114,6 +114,7 @@ public class DomusEngine extends HandlerThread implements ConnectionObserver {
         handler.post(new Unbind(sharedPreferences, connected, data));
     }
 
+    @NonNull
     public Stoppable requestAttributes(@NonNull AttributesListener listener, @NonNull Integer networkId, @NonNull Integer endpointId, int clusterId, Integer... attributes) {
         Handler handler = new Handler(getLooper());
         RequestAttributes requestAttributes = new RequestAttributes(sharedPreferences, connected, listener, networkId, endpointId, clusterId, attributes);
@@ -145,6 +146,7 @@ public class DomusEngine extends HandlerThread implements ConnectionObserver {
         return super.quit();
     }
 
+    @NonNull
     public ZDevices getDevices() {
         return devices;
     }

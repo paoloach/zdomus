@@ -52,6 +52,10 @@ namespace zigbee {
     static const uint8_t raw_1235_7_6_0[] = {0x0, 0x00, 0x00, 0x10, 1};
     static const uint8_t raw_1235_11_6_0[] = {0x0, 0x00, 0x00, 0x10, 0};
 
+    static const uint8_t raw_1235_5_1026_0[] = {0x0, 0x00, 0x00, 0x29, 0x34, 8};
+    static const uint8_t raw_1232_7_1026_0[] = {0x0, 0x00, 0x00, 0x29, 0x89, 8};
+
+
 
     DomusEngineUSBDevice::DomusEngineUSBDevice(boost::asio::io_service &serviceIo_,
                                                std::shared_ptr<ZDevices> &zDevices_,
@@ -186,6 +190,11 @@ namespace zigbee {
                                                         20)] = raw_1234_4_0_20;
         attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(11), ClusterID(6),
                                                         0)] = raw_1235_11_6_0;
+
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1235), EndpointID(5), ClusterID(1026),
+                                                        0)] = raw_1235_5_1026_0;
+        attributeRawData[RequestedAttributes::Attribute(NwkAddr(1232), EndpointID(7), ClusterID(1026),
+                                                        0)] = raw_1232_7_1026_0;
     }
 
 

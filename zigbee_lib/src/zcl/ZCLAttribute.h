@@ -120,6 +120,8 @@ namespace zigbee {
 
         virtual bool isReadOnly() const { return readOnly; }
 
+        virtual Cluster * getClusterParent(){return parent;};
+
         virtual ListenerOnChange onChange(std::function<void()> changeSignal) {
             return callbacks.add(changeSignal);
         };

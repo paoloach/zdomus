@@ -15,4 +15,7 @@
     <string name="environment">environment</string>
     <string name="enabled">enabled</string>
     <string name="apply">apply</string>
+    <string name="already_assigned">There is another sensor assigned to this room. Do you want change the assignment ?</string>
+    <string name="change_assignment">Change assignment</string>
+    <string name="leave_assignment">Leave previous assignment</string>
 </resources>

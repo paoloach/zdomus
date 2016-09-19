@@ -1,5 +1,6 @@
 package it.achdjian.paolo.domusviewer;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -18,12 +19,16 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionObserver;
+import it.achdjian.paolo.domusviewer.other.ActivityManager;
 import it.achdjian.paolo.domusviewer.setting.SettingActivity;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements ConnectionObserver {
     @Bean
     DomusEngine domusEngine;
+    @Bean
+    ActivityManager activityManager;
+
     @ViewById(R.id.container)
     ViewPager mViewPager;
     @ViewById(R.id.tabs)

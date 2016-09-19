@@ -131,7 +131,13 @@ void JSZAttribute::jsRequestValue(const v8::FunctionCallbackInfo<v8::Value>& inf
 
 			Local<Function> callback = Local<Function>::Cast(info[0]);
 			int identity = callback->GetIdentityHash();
-			auto con = attribute->onChange([This, isolate, identity](){ This->changeSignalCallback(isolate, identity);});
+            auto cluster = attribute->getClusterParent();
+            JsCallbackParameters callbackParameters;
+            callbackParameters.nwkAddr = cluster->getNetworkAddress();
+            callbackParameters.endpointID = cluster->getEndpoint();
+            callbackParameters.clusterID = cluster->getId();
+            callbackParameters.attributeId = attribute->getIdentifier();
+			auto con = attribute->onChange([This, isolate, identity,callbackParameters](){ This->changeSignalCallback(isolate, identity,callbackParameters);});
 			std::lock_guard<std::mutex> lock(This->mapFunctionMutex);
 			This->mapFunction.insert( { identity, std::make_tuple(con, attribute, persistenteObject) });
 		}
@@ -142,14 +148,20 @@ void JSZAttribute::jsRequestValue(const v8::FunctionCallbackInfo<v8::Value>& inf
 	}
 }
 
-void JSZAttribute::changeSignalCallback(v8::Isolate *isolate, int identity) {
+void JSZAttribute::changeSignalCallback(v8::Isolate *isolate, int identity,JsCallbackParameters callbackParameters) {
 	if (mapFunction.count(identity) > 0) {
 		CallbackData callbackData  = popCallbackData(identity);
 		Local<Value> object = Local<Value>::New(isolate, std::get<2>(callbackData));
 		Local<Function> callback = Local<Function>::Cast(object);
 		String::Utf8Value name(callback->GetInferredName());
 
-		callback->CallAsFunction(object, 0, nullptr);
+        Local<Value> argv[4];
+        argv[0] = v8::Int32::New(isolate, callbackParameters.nwkAddr.getId());
+        argv[1] = v8::Int32::New(isolate, callbackParameters.endpointID.getId());
+        argv[2] = v8::Int32::New(isolate, callbackParameters.clusterID.getId());
+        argv[3] = v8::Int32::New(isolate, callbackParameters.attributeId);
+
+		callback->CallAsFunction(object, 4, argv);
 		get<1>(callbackData)->removeOnChangeListener(get<0>(callbackData));
 		get<2>(callbackData).Reset();
 	}

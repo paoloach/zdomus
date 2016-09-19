@@ -73,6 +73,18 @@ void add1Demo(SingletonObjects  & singletons){
     annunceMsg2.extAddr[7] = 16;
     zDevices->put(annunceMsg2);
 
+
+    annunceMsg2.nwkAddr = 1232;
+    annunceMsg2.extAddr[0] = 9;
+    annunceMsg2.extAddr[1] = 20;
+    annunceMsg2.extAddr[2] = 21;
+    annunceMsg2.extAddr[3] = 22;
+    annunceMsg2.extAddr[4] = 23;
+    annunceMsg2.extAddr[5] = 24;
+    annunceMsg2.extAddr[6] = 25;
+    annunceMsg2.extAddr[7] = 26;
+    zDevices->put(annunceMsg2);
+
     {
         SimpleDescMessage simpleDescMessage;
         simpleDescMessage.nwkAddr = 1234;
@@ -159,6 +171,19 @@ void add1Demo(SingletonObjects  & singletons){
         simpleDescMessage.clustersList[2] = ClustersId::ON_OFF_CLUSTER;
         simpleDescMessage.clustersList[3] = ClustersId::SCENE_CLUSTER;
         simpleDescMessage.clustersList[4] = ClustersId::GROUPS_CLUSTER;
+        zDevices->put(simpleDescMessage);
+    }
+
+    {
+        SimpleDescMessage simpleDescMessage;
+        simpleDescMessage.nwkAddr = 1232;
+        simpleDescMessage.endpoint = 7;
+        simpleDescMessage.numInClusters = 3;
+        simpleDescMessage.numOutClusters = 0;
+        simpleDescMessage.appDeviceId = 0x302; // Temp sensor
+        simpleDescMessage.clustersList[0] = ClustersId::BASIC_CLUSTER;
+        simpleDescMessage.clustersList[1] = ClustersId::IDENTIFY_CLUSTER;
+        simpleDescMessage.clustersList[2] = ClustersId::TEMPERATURE_MEASUREMENT;
         zDevices->put(simpleDescMessage);
     }
     singletons.getBindTable().add(BindResponse(NwkAddr(1234), EndpointID(4),ClusterID(ClustersId::ON_OFF_CLUSTER), NwkAddr(1235), EndpointID(11)));
