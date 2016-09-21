@@ -25,7 +25,7 @@ namespace zigbee {
             response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
             const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
             auto device(placeHolder.get<NwkAddr>("device"));
-            BOOST_LOG_TRIVIAL(info) << "Request device info " << device;
+            BOOST_LOG_TRIVIAL(info) << "Request device configuration " << device;
             producer.produce(response.send(), ZDevicePT(singletons.getZDevices()->getDevice(device)));
         }
 

@@ -15,6 +15,7 @@
 #include "../Configuration/Configuration.h"
 #include "../httpServer/FixedPathContainer.h"
 #include "../JavaScript/JSManager.h"
+#include "DeviceInfoDispatcher.h"
 
 
 namespace zigbee {
@@ -57,6 +58,7 @@ namespace zigbee {
 
         jsManager = std::make_shared<JSManager>(*this);
         clusters = std::make_shared<Clusters>(zigbeeDevice);
+        deviceInfoDispatcher = std::make_shared<DeviceInfoDispatcher>();
     }
 
     SingletonObjects::SingletonObjects() :

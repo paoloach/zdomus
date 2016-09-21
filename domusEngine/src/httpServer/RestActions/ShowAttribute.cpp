@@ -27,6 +27,7 @@
 #include "../../json/json/json.h"
 
 using namespace Json;
+using namespace std::chrono;
 using std::string;
 using boost::tokenizer;
 using std::vector;
@@ -70,8 +71,15 @@ namespace zigbee {
                 }
 
                 std::chrono::milliseconds duration(100);
+                auto start = system_clock::now();
                 while (!isAllAttributeArrived()) {
                     std::this_thread::sleep_for(duration);
+                    milliseconds elapsed =  duration_cast<std::chrono::milliseconds>(system_clock::now()- start);
+                    if (elapsed > minutes(10) ){
+                        response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
+                        response.send() << "data timeout\n";
+                        return;
+                    }
                 }
                 if (status != 0) {
                     response.setStatus(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);

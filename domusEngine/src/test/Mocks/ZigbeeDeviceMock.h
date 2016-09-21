@@ -80,6 +80,10 @@ namespace zigbee {
             MOCK_METHOD6(sendReqBind, void(zigbee::NwkAddr,
                     const uint8_t*, zigbee::EndpointID, zigbee::ClusterID, const uint8_t*, zigbee::EndpointID));
 
+            MOCK_METHOD1(sendReqDeviceInfo, void(zigbee::NwkAddr));
+
+            MOCK_METHOD0(enableLog,bool());
+
             MOCK_METHOD6(sendReqUnbind, void(zigbee::NwkAddr,
                     const uint8_t*, zigbee::EndpointID, zigbee::ClusterID, const uint8_t*, zigbee::EndpointID));
             MOCK_METHOD4(requestAttributes, void(NwkAddr

@@ -23,6 +23,9 @@ static const unsigned char BIND_TABLE = 0x0D;
 static const unsigned char REQ_ADD_BIND_TABLE_ENTRY = 0x0E;
 static const unsigned char REQ_REMOVE_BIND_TABLE_ENTRY = 0x0F;
 static const unsigned char REQ_RESET=0x10;
+static const unsigned char REQ_DEVICE_INFO=0x11;
+static const unsigned char DEVICE_INFO=0x12;
+
 static const unsigned char INFO_MESSAGE=0x20;
 static const unsigned char ATTRIBUTE_VALUE_REQ_ERROR = 0x40;
 static const unsigned char ACTIVE_EP_REQ_ERROR = 0x41;

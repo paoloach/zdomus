@@ -28,6 +28,7 @@
 #include "RestActions/ExecuteReset.h"
 #include "RestActions/UpdateAttributes.h"
 #include "ServerRequest.h"
+#include "RestActions/ShowDeviceInfo.h"
 
 
 namespace zigbee {
@@ -43,6 +44,7 @@ namespace zigbee {
         restGetActions.addActions(RestPath {"/who_are_you"}, ShowWhoAreYou{singletons});
         restGetActions.addActions(RestPath {"/devices"}, ShowDevices{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}"}, ShowDevice{singletons});
+        restGetActions.addActions(RestPath {"/devices/{device}/info"}, ShowDeviceInfo{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}"}, ShowEndpoint{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}"}, ShowInCluster{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/out/{cluster}"}, ShowOutCluster{singletons});

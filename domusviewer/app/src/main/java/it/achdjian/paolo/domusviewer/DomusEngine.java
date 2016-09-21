@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
@@ -21,12 +22,14 @@ import it.achdjian.paolo.domusviewer.DTO.WriteAttributeRequest;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Bind;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionObserver;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionStatus;
+import it.achdjian.paolo.domusviewer.DomusEngineRest.DeviceInformation;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.GetDevices;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.JSonAttribute;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequesetBindMap;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestAttributes;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestCmd;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestIdentify;
+import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestQuality;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.RequestWriteAttribute;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Stoppable;
 import it.achdjian.paolo.domusviewer.DomusEngineRest.Unbind;
@@ -51,6 +54,10 @@ public class DomusEngine extends HandlerThread implements ConnectionObserver {
 
     public interface AttributesListener {
         void newAttributes(int networkId, int endpointId, List<JSonAttribute> attributes);
+    }
+
+    public interface DeviceInformationListener {
+        void newDeviceInformation(@Nullable DeviceInformation information);
     }
 
     private final ConnectionStatus connected = new ConnectionStatus();
@@ -120,6 +127,22 @@ public class DomusEngine extends HandlerThread implements ConnectionObserver {
         RequestAttributes requestAttributes = new RequestAttributes(sharedPreferences, connected, listener, networkId, endpointId, clusterId, attributes);
         handler.post(requestAttributes);
         return requestAttributes;
+    }
+
+    @NonNull
+    public Stoppable requestQuality(int networkId, DeviceInformationListener listener){
+        Handler handler = new Handler(getLooper());
+        RequestQuality requestQuality = new RequestQuality(sharedPreferences, connected, networkId, listener);
+        handler.post(requestQuality);
+        return  requestQuality;
+    }
+
+    @NonNull
+    public Stoppable requestQuality(int networkId, DeviceInformationListener listener, int delayMillisec){
+        Handler handler = new Handler(getLooper());
+        RequestQuality requestQuality = new RequestQuality(sharedPreferences, connected, networkId, listener);
+        handler.postDelayed(requestQuality, delayMillisec);
+        return  requestQuality;
     }
 
     public void writeAttribute( @NonNull WriteAttributeRequest writeAttributeRequest){

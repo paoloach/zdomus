@@ -58,6 +58,10 @@ public abstract class DomusEngineRest implements Runnable {
             if (response.code() == 204) {
                 return "";
             }
+            if (response.code() >= 400 && response.code() < 500){
+                Log.e(TAG,"Errore code: " + response.code() + ": msg: " + response.message());
+                return "";
+            }
         } catch (Exception ignored) {
             Log.e(TAG, "error", ignored);
         }

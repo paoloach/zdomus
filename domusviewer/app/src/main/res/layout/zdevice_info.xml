@@ -86,16 +86,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/environment"
-        android:id="@+id/label_environment"
-        android:layout_below="@+id/location"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         android:id="@+id/environment"
@@ -109,7 +99,7 @@
         android:layout_height="wrap_content"
         android:text="@string/enabled"
         android:id="@+id/enabled"
-        android:layout_below="@+id/label_environment"
+        android:layout_below="@+id/label_tx_qualiry"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignLeft="@+id/label_environment"
@@ -126,5 +116,55 @@
         android:inputType="text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:singleLine="true"/>
+
+    <TextView
+        android:text="@string/rxQuality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label_environment"
+        android:id="@+id/label_quality"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/environment"
+        android:id="@+id/quality"
+        android:layout_alignParentTop="false"
+        android:layout_alignTop="@+id/label_quality"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/environment"
+        android:id="@+id/label_environment"
+        android:layout_below="@+id/location"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="@string/tx_quality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quality"
+        android:id="@+id/label_tx_qualiry"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label_tx_qualiry"
+        android:layout_alignStart="@+id/quality"
+        android:id="@+id/tx_quality"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignLeft="@+id/quality"
+        android:layout_alignTop="@+id/label_tx_qualiry"/>
 
 </RelativeLayout>

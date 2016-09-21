@@ -100,6 +100,8 @@ namespace zigbee {
                                    EndpointID outClusterEP, ClusterID clusterID,
                                    const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
 
+        void sendReqDeviceInfo(NwkAddr networkId) override;
+
         void requestBindTable(NwkAddr nwkAddrs) override;
 
     private:

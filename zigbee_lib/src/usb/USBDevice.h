@@ -78,6 +78,8 @@ namespace zigbee {
 
         void sendReqUnbind(NwkAddr outClusterAddr, EndpointID outClusterEP, ClusterID clusterID, NwkAddr inClusterAddr, EndpointID inClusterEp);
 
+        void sendReqDeviceInfo(NwkAddr networkId) override;
+
         void registerForAnnunceMessage(AnnunceCallback subscriber) override {
             annunceSignal.push_back(subscriber);
         }

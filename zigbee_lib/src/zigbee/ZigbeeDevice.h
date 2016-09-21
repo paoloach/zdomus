@@ -68,6 +68,7 @@ namespace zigbee {
         virtual void sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN],
                                    EndpointID outClusterEP, ClusterID clusterID,
                                    const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) = 0;
+        virtual void sendReqDeviceInfo(NwkAddr networkId) =0;
 
 
         virtual void requestBindTable(NwkAddr nwkAddrs) = 0;

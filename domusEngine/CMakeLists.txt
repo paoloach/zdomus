@@ -90,7 +90,7 @@ set(USB_SRC  src/usb/ActiveEPReqError.h
         src/Utils/AttributeWriterResult.h
         src/httpServer/ServerRequest.cpp
         src/httpServer/ServerRequest.h
-        src/usb/InfoMessageExecuter.h)
+        src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp src/usb/DeviceInfoExecutor.h src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h src/httpServer/RestActions/ShowDeviceInfo.cpp src/httpServer/RestActions/ShowDeviceInfo.h src/Utils/Constant.cpp src/Utils/Constant.h)
 
 set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a

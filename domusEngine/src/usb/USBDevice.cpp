@@ -20,6 +20,7 @@
 #include <zigbee/messageStructure/BindRequest.h>
 #include <zigbee/messageStructure/UnbindRequest.h>
 #include <zigbee/messageStructure/ReadAttributeResponseErrorMsg.h>
+#include <zigbee/messageStructure/ReqDeviceInformation.h>
 #include <zcl/ZclAttributeUtils.h>
 
 
@@ -470,8 +471,6 @@ namespace zigbee {
         GenericMessage resetMessage{REQ_RESET};
         int transfered{};
 
-        int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &resetMessage,
-                                          sizeof(GenericMessage), &transfered, 1000);
         sendData(resetMessage);
     }
 
@@ -544,6 +543,16 @@ namespace zigbee {
             data += size;
         }
         return data;
+    }
+
+    void DomusEngineUSBDevice::sendReqDeviceInfo(NwkAddr networkId) {
+        if (handle == nullptr) {
+            return;
+        }
+        ReqDeviceInformation message{networkId.getId()};
+        int transfered{};
+
+        sendData(message);
     }
 
 

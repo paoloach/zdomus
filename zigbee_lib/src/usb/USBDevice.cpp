@@ -291,6 +291,10 @@ namespace zigbee {
 
   }
 
+    void USBDevice::sendReqDeviceInfo(NwkAddr networkId) {
+
+    }
+
 
 } /* namespace zigbee */
 
