@@ -13,7 +13,7 @@ namespace zigbee {
 
     struct __attribute__ ((__packed__)) ReqDeviceInformation {
         ReqDeviceInformation(ZigbeeNwkAddress nwkAddr):nwkAddr(nwkAddr){
-            generticDataMsg.msgCode = REQ_BIND_TABLE;
+            generticDataMsg.msgCode = DEVICE_INFO;
         }
 
         GenericMessage generticDataMsg;

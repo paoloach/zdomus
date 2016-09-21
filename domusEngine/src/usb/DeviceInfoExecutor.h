@@ -17,10 +17,18 @@ namespace zigbee {
         SingletonObjects &singletonObjects;
 
     public:
-        DeviceInfoExecutor(SingletonObjects & singletonObjects):singletonObjects{singletonObjects}{}
+        DeviceInfoExecutor(SingletonObjects &singletonObjects) : singletonObjects{singletonObjects} {}
 
         virtual void operator()(unsigned char *data, int) override {
-            DeviceInfoMessage * message = reinterpret_cast<DeviceInfoMessage *>(data);
+            DeviceInfoMessage *message = reinterpret_cast<DeviceInfoMessage *>(data);
+            BOOST_LOG_TRIVIAL(info) << "Device info: address=" << (int)message->nwkAddr
+                                    << " nodeRelation" << (int) message->nodeRelation
+                                    << ", devStatus=" << (int) message->devStatus
+                                    << ", assocCnt=" << (int) message->assocCnt
+                                    << ", age=" << (int) message->age
+                                    << ", txCounter=" << (int) message->txCounter
+                                    << ", txCost" << (int) message->txCost
+                                    << ", rxLqi" << (int) message->rxLqi;
             singletonObjects.getDeviceInfoDispatcher()->dispatch(message);
         }
     };
