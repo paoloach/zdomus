@@ -22,43 +22,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Utils/Constant.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Utils/Constant.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Utils/DeviceInfoDispatcher.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Utils/DeviceInfoDispatcher.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowDeviceInfo.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowDeviceInfo.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/usb/DeviceInfoExecutor.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/usb/DeviceInfoExecutor.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/DeviceInformation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngineRest/RequestQuality.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/DeviceInfoMessage.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/messageStructure/ReqDeviceInformation.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/domus_engine.iml" afterPath="$PROJECT_DIR$/.idea/domus_engine.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" afterPath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" afterPath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils/SingletonObjects.h" afterPath="$PROJECT_DIR$/src/Utils/SingletonObjects.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" afterPath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowDevice.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestActions/ShowDevice.h" afterPath="$PROJECT_DIR$/src/httpServer/RestActions/ShowDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp" afterPath="$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.h" afterPath="$PROJECT_DIR$/src/usb/USBDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" afterPath="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngine.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/DomusEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/java/it/achdjian/paolo/domusviewer/other/ZDeviceInfoFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/zdevice_info.xml" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/layout/zdevice_info.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/../domusviewer/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../domusviewer/build.gradle" afterPath="$PROJECT_DIR$/../domusviewer/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" afterPath="$PROJECT_DIR$/../zigbee_lib/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/../zigbee_lib/src/usb/USBDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/usb/USBDevice.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/usb/USBDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeDevice.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/ZigbeeDevice.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/zigbeeConfig.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zigbee/zigbeeConfig.h" />
     </list>
     <ignored path="domus_engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -91,7 +56,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowDeviceInfo.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ShowDeviceInfo.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowDeviceInfo.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="248">
@@ -103,11 +68,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HTTPResponse.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/include/Poco/Net/HTTPResponse.h">
+      <file leaf-file-name="USBDevice.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="84" column="8" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
+            <state relative-caret-position="201">
+              <caret line="539" column="12" selection-start-line="539" selection-start-column="12" selection-end-line="539" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeviceInfoExecutor.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/usb/DeviceInfoExecutor.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeviceInfoMessage.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/DeviceInfoMessage.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="23" column="21" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -118,28 +103,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="168">
               <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShowDeviceInfo.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowDeviceInfo.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="27" column="55" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="55" />
-              <folding>
-                <element signature="e#117#155#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DeviceInfoMessage.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/DeviceInfoMessage.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="23" column="32" selection-start-line="17" selection-start-column="8" selection-end-line="23" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -166,7 +129,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowBindTable.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowDevices.h" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowDevices.cpp" />
@@ -202,7 +164,6 @@
         <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
         <option value="$PROJECT_DIR$/src/usb/UsbResponseExecutors.cpp" />
         <option value="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
-        <option value="$PROJECT_DIR$/src/usb/DeviceInfoExecutor.h" />
         <option value="$PROJECT_DIR$/src/test/Mocks/ZigbeeDeviceMock.h" />
         <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/RestActionsTest.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
@@ -217,6 +178,8 @@
         <option value="$PROJECT_DIR$/src/Utils/DeviceInfoDispatcher.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowDeviceInfo.cpp" />
         <option value="$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp" />
+        <option value="/usr/local/zigbee/include/zigbee/messageStructure/ReqDeviceInformation.h" />
+        <option value="$PROJECT_DIR$/src/usb/DeviceInfoExecutor.h" />
       </list>
     </option>
   </component>
@@ -354,26 +317,8 @@
               <option name="myItemId" value="include" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Header Search Paths" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Poco" />
+              <option name="myItemId" value="zigbee" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -395,11 +340,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Poco" />
+              <option name="myItemId" value="zigbee" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Net" />
+              <option name="myItemId" value="messageStructure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -852,7 +815,7 @@
       <recent name="$PROJECT_DIR$/src/test/Javascript" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.domus_enginedemo">
+  <component name="RunManager" selected="Application.domus_engine">
     <configuration default="false" name="RestPathTest.pathWithPlaceHolderMatch" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="RestPathTest" TEST_METHOD="pathWithPlaceHolderMatch" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
@@ -1165,6 +1128,7 @@
       <workItem from="1473950027313" duration="1564000" />
       <workItem from="1474265692916" duration="11886000" />
       <workItem from="1474438563559" duration="2942000" />
+      <workItem from="1474480767824" duration="4309000" />
     </task>
     <task id="LOCAL-00007" summary="embedded v8 blob snapshot files">
       <created>1459280579343</created>
@@ -1545,7 +1509,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133860000" />
+    <option name="totallyTimeSpent" value="138169000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1618,7 +1582,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/googletest" />
     </ignored-roots>
-    <MESSAGE value="put AttributeValuesSignalMap into SingletonsObject class" />
     <MESSAGE value="allowed to request up to 25 attributes using the same request to USB" />
     <MESSAGE value="Managed request multiple attribute" />
     <MESSAGE value="Removed test" />
@@ -1643,7 +1606,8 @@
     <MESSAGE value="Added AttributeWriterResult class" />
     <MESSAGE value="some changes" />
     <MESSAGE value="temperature management" />
-    <option name="LAST_COMMIT_MESSAGE" value="temperature management" />
+    <MESSAGE value="quality management" />
+    <option name="LAST_COMMIT_MESSAGE" value="quality management" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1658,11 +1622,16 @@
           <line>506</line>
           <option name="timeStamp" value="181" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/usb/DeviceInfoExecutor.h</url>
+          <line>31</line>
+          <option name="timeStamp" value="183" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="183" />
+      <option name="time" value="184" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeGoogleTestRunConfigurationType">
@@ -1705,54 +1674,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-858">
-          <caret line="443" column="12" selection-start-line="443" selection-start-column="12" selection-end-line="443" selection-end-column="12" />
-          <folding>
-            <element signature="e#78#97#0" expanded="false" />
-            <marker date="1474303928753" expanded="true" signature="733:30734" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="5275:15463" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="15545:15785" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="15883:16584" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="18457:20376" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="20569:21072" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="21370:22074" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="22267:22933" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="23015:23314" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="23359:23647" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="23720:24186" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="24495:24764" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="25078:25355" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="25424:25651" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="25849:26641" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="26689:26866" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="26918:28117" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="28269:28851" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="28957:29659" ph="{...}" />
-            <marker date="1474303928753" expanded="true" signature="29780:30479" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/ActiveEPReqError.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="83">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/zigbeeConfig.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="26" column="38" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ReqDeviceInformation.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="14" column="28" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1910,13 +1835,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/DeviceInfoExecutor.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttributeFactory.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1981,24 +1899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowDeviceInfo.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="27" column="55" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="55" />
-          <folding>
-            <element signature="e#117#155#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/DeviceInfoMessage.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="23" column="32" selection-start-line="17" selection-start-column="8" selection-end-line="23" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5/chrono">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -2013,18 +1913,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utils/Constant.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Utils/DeviceInfoDispatcher.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="77" column="45" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/Poco/Net/HTTPResponse.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1176">
+          <caret line="84" column="8" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2039,12 +1946,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowAttribute.cpp">
+    <entry file="file:///usr/local/zigbee/include/zigbee/zigbeeConfig.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="77" column="45" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
+        <state relative-caret-position="341">
+          <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="539" column="12" selection-start-line="539" selection-start-column="12" selection-end-line="539" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowDeviceInfo.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="27" column="55" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="55" />
           <folding>
-            <element signature="e#91#108#0" expanded="true" />
+            <element signature="e#117#155#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils/Constant.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/ReqDeviceInformation.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="15" column="53" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowDeviceInfo.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="48" column="85" selection-start-line="48" selection-start-column="77" selection-end-line="48" selection-end-column="93" />
+          <folding>
+            <element signature="e#40#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2059,21 +2008,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/include/Poco/Net/HTTPResponse.h">
+    <entry file="file:///usr/local/zigbee/include/zigbee/messageStructure/DeviceInfoMessage.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="84" column="8" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
+        <state relative-caret-position="322">
+          <caret line="23" column="21" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/httpServer/RestActions/ShowDeviceInfo.cpp">
+    <entry file="file://$PROJECT_DIR$/src/usb/DeviceInfoExecutor.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="48" column="85" selection-start-line="48" selection-start-column="77" selection-end-line="48" selection-end-column="93" />
-          <folding>
-            <element signature="e#40#72#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="266">
+          <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
+          <folding />
         </state>
       </provider>
     </entry>
