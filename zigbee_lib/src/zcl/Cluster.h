@@ -11,6 +11,7 @@
 #include <experimental/string_view>
 #include <string>
 #include <memory>
+#include <utility>
 #include <vector>
 #include <boost/bind.hpp>
 #include <boost/signals2.hpp>
@@ -47,36 +48,36 @@ public:
 
 	struct CommandDef {
 		CommandDef(Cmd cmd,uint32_t cmdId,  std::string && name) :
-				cmd(cmd), cmdId(cmdId),name(name) {
+				cmd(std::move(std::move(cmd))), cmdId(cmdId),name(name) {
 		}
 		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::vector<std::shared_ptr<ClusterCmdParamsBase>> params) :
-				cmd(cmd), cmdId(cmdId),name(name), params(params) {
+				cmd(std::move(std::move(cmd))), cmdId(cmdId),name(name), params(std::move(params)) {
 		}
 		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::initializer_list<std::shared_ptr<ClusterCmdParamsBase>> cmdParams) :
-				cmd(cmd), cmdId(cmdId),name(name) {
+				cmd(std::move(std::move(cmd))), cmdId(cmdId),name(name) {
             std::copy(cmdParams.begin(), cmdParams.end(), std::back_inserter(params) );
 		}
 
 
         CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::shared_ptr<ClusterCmdParamsBase> cmdParams) :
-                cmd(cmd), cmdId(cmdId),name(name) {
+                cmd(std::move(std::move(cmd))), cmdId(cmdId),name(name) {
             params.push_back(cmdParams);
         }
 
 		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::shared_ptr<ClusterCmdParamsBase> param1, std::shared_ptr<ClusterCmdParamsBase> param2) :
-				cmd(cmd), cmdId(cmdId),name(name) {
+				cmd(std::move(std::move(cmd))), cmdId(cmdId),name(name) {
 			params.push_back(param1);
 			params.push_back(param2);
 		}
 		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::shared_ptr<ClusterCmdParamsBase> param1, std::shared_ptr<ClusterCmdParamsBase> param2, std::shared_ptr<ClusterCmdParamsBase> param3) :
-				cmd(cmd),cmdId(cmdId), name(name) {
+				cmd(std::move(std::move(cmd))),cmdId(cmdId), name(name) {
 			params.push_back(param1);
 			params.push_back(param2);
 			params.push_back(param3);
 		}
 		CommandDef(Cmd cmd, uint32_t cmdId, std::string && name, std::shared_ptr<ClusterCmdParamsBase> param1, std::shared_ptr<ClusterCmdParamsBase> param2, std::shared_ptr<ClusterCmdParamsBase> param3,
 				std::shared_ptr<ClusterCmdParamsBase> param4) :
-				cmd(cmd), cmdId(cmdId),name(name) {
+				cmd(std::move(std::move(cmd))), cmdId(cmdId),name(name) {
 			params.push_back(param1);
 			params.push_back(param2);
 			params.push_back(param3);
@@ -84,7 +85,7 @@ public:
 		}
 		CommandDef(Cmd cmd,uint32_t cmdId,  std::string && name, std::shared_ptr<ClusterCmdParamsBase> param1, std::shared_ptr<ClusterCmdParamsBase> param2, std::shared_ptr<ClusterCmdParamsBase> param3,
 				std::shared_ptr<ClusterCmdParamsBase> param4,std::shared_ptr<ClusterCmdParamsBase> param5) :
-				cmd(cmd), cmdId(cmdId),name(name) {
+				cmd(std::move(std::move(cmd))), cmdId(cmdId),name(name) {
 			params.push_back(param1);
 			params.push_back(param2);
 			params.push_back(param3);
@@ -93,7 +94,7 @@ public:
 		}
 		CommandDef(Cmd cmd,uint32_t cmdId,  std::string && name, std::shared_ptr<ClusterCmdParamsBase> param1, std::shared_ptr<ClusterCmdParamsBase> param2, std::shared_ptr<ClusterCmdParamsBase> param3,
 				std::shared_ptr<ClusterCmdParamsBase> param4,std::shared_ptr<ClusterCmdParamsBase> param5,std::shared_ptr<ClusterCmdParamsBase> param6) :
-				cmd(cmd), cmdId(cmdId),name(name) {
+				cmd(std::move(std::move(cmd))), cmdId(cmdId),name(name) {
 			params.push_back(param1);
 			params.push_back(param2);
 			params.push_back(param3);
@@ -108,7 +109,7 @@ public:
 	};
 
 public:
-	Cluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	Cluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID &endpoint, NwkAddr networkAddress);
 	virtual ~Cluster() = default;
 public:
 	virtual ClusterID getId() const = 0;

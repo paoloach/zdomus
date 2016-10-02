@@ -30,9 +30,7 @@ public:
 			address(boost::lexical_cast<int>(addressSrc)) {
 	}
 
-	constexpr NwkAddr(const NwkAddr & other) :
-			address(other.address) {
-	}
+	constexpr NwkAddr(const NwkAddr & other) = default;
 
 	bool operator==(const NwkAddr other) const {
 		return address == other.address;

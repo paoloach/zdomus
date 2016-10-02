@@ -15,6 +15,7 @@
 #include <memory>
 #include <experimental/string_view>
 #include <boost/endian/conversion.hpp>
+#include <utility>
 
 #include "../zigbee/ZigbeeDevice.h"
 #include "ZCLDataType.h"
@@ -28,7 +29,7 @@ namespace zigbee {
     public:
         ZCLAttributeNotAvailableException(Cluster *parent, int identifier);
 
-        virtual const char *what() const _GLIBCXX_USE_NOEXCEPT;
+        const char *what() const _GLIBCXX_USE_NOEXCEPT override;
 
         virtual std::string getMessage() const _GLIBCXX_USE_NOEXCEPT;
 
@@ -62,9 +63,9 @@ namespace zigbee {
             type = T;
         }
 
-        virtual void operator()(const std::string &) override { }
+        void operator()(const std::string &) override { }
 
-        virtual void operator()(int64_t) override { }
+        void operator()(int64_t) override { }
     };
 
     class ZCLAttribute {
@@ -123,7 +124,7 @@ namespace zigbee {
         virtual Cluster * getClusterParent(){return parent;};
 
         virtual ListenerOnChange onChange(std::function<void()> changeSignal) {
-            return callbacks.add(changeSignal);
+            return callbacks.add(std::move(changeSignal));
         };
 
         virtual void removeOnChangeListener(std::list<std::function<void()>>::iterator &listener) {

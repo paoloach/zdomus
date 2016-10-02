@@ -30,8 +30,7 @@ public:
 	explicit ClusterID(const std::string & clusterSrc):clusterID( boost::lexical_cast<int>(clusterSrc) ) {
 	}
 
-	constexpr ClusterID(const ClusterID & other):clusterID(other.clusterID) {
-	}
+	constexpr ClusterID(const ClusterID & other)= default;
 
 	bool operator==(const ClusterID other) const {
 		return clusterID == other.clusterID;

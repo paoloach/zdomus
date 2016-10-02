@@ -19,12 +19,12 @@ namespace zigbee {
         ZCLUTCTime(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                    std::experimental::string_view name, bool readOnly);
 
-        virtual ~ZCLUTCTime() { };
+        ~ZCLUTCTime() override = default;;
     public:
-        virtual boost::any getValue() const override;
+        boost::any getValue() const override;
 
-        virtual std::string getStrValue() const  override {
-            return boost::lexical_cast<std::string>(value);
+        std::string getStrValue() const  override {
+            return std::to_string(value);
         }
 
         virtual void sendValue(uint32_t newValue);
@@ -34,9 +34,9 @@ namespace zigbee {
         }
 
     private:
-        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)  override ;
+        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)  override ;
 
-        virtual void internalSetValue(uint8_t *rawData) override;
+        void internalSetValue(uint8_t *rawData) override;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCLUTCTime *);
 

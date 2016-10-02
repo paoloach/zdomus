@@ -35,7 +35,7 @@ using std::back_inserter;
 
 namespace zigbee {
 
-Cluster::Cluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+Cluster::Cluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID& endpoint, NwkAddr networkAddress) :
 		zigbeeDevice(zigbeeDevice), endpoint(endpoint), networkAddress(networkAddress) {
 
 }

@@ -25,9 +25,9 @@ namespace zigbee {
                                 std::experimental::string_view name, bool readOnly);
 
     public:
-        virtual boost::any getValue() const override;
+        boost::any getValue() const override;
 
-        virtual std::string getStrValue() const  override {
+        std::string getStrValue() const  override {
             return boost::lexical_cast<std::string>(value);
         }
 
@@ -40,9 +40,9 @@ namespace zigbee {
         }
 
     private:
-        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) override;
+        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) override;
 
-        virtual void internalSetValue(uint8_t *rawData) override;
+        void internalSetValue(uint8_t *rawData) override;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCLBitmap16bitAttribute *);
 

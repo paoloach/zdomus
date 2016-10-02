@@ -8,7 +8,7 @@
 #ifndef ZIGBEECONFIG_H_
 #define ZIGBEECONFIG_H_
 
-#include <stdint.h>
+#include <cstdint>
 
 static const uint8_t ANNUNCE_MSG = 0x01;
 static const uint8_t REQ_SIMPLE_DESC = 0x02;

@@ -20,9 +20,9 @@ namespace zigbee {
                           ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
 
     public:
-        virtual boost::any getValue() const override;
-        virtual std::string getStrValue() const   override {
-            return boost::lexical_cast<std::string>(value);
+        boost::any getValue() const override;
+        std::string getStrValue() const   override {
+            return std::to_string(value);
         }
 
         virtual void sendValue(uint32_t newValue);
@@ -32,9 +32,9 @@ namespace zigbee {
         }
 
     private:
-        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
+        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
 
-        virtual void internalSetValue(uint8_t * rawData) override;
+        void internalSetValue(uint8_t * rawData) override;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCLint24Attribute *);
 

@@ -26,12 +26,10 @@ public:
 			endpointId(endpointId) {
 	}
 
-	explicit EndpointID(const std::string endpointSrc) {
+	explicit EndpointID(const std::string& endpointSrc) {
 		this->endpointId = boost::lexical_cast<int>(endpointSrc);
 	}
-	constexpr EndpointID(const EndpointID & endpointId) :
-			endpointId(endpointId.endpointId) {
-	}
+	constexpr EndpointID(const EndpointID & endpointId) = default;
 
 	bool operator==(const EndpointID & other) const {
 		return endpointId == other.endpointId;

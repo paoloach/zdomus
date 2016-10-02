@@ -8,18 +8,18 @@
 #ifndef ZigbeeTYPES_H_
 #define ZigbeeTYPES_H_
 
-#include <stdint.h>
+#include <cstdint>
 #include <ostream>
 #include <vector>
 
 
-typedef uint8_t ZigbeeEndpoint;
-typedef uint16_t ZigbeeClusterId;
-typedef uint16_t ZigbeeNwkAddress;
-typedef uint16_t ZigbeeAttributeId;
-typedef uint8_t ZigbeeAttributeDataType;
-typedef uint8_t ZigbeeAttributeCmdId;
-typedef uint16_t ZigbeeClusterCmdId;
+using ZigbeeEndpoint = uint8_t;
+using ZigbeeClusterId = uint16_t;
+using ZigbeeNwkAddress = uint16_t;
+using ZigbeeAttributeId = uint16_t;
+using ZigbeeAttributeDataType = uint8_t;
+using ZigbeeAttributeCmdId = uint8_t;
+using ZigbeeClusterCmdId = uint16_t;
 
 
 class ZigbeeAttributeIds : public std::vector<ZigbeeAttributeId> {

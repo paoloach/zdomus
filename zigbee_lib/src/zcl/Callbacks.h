@@ -13,7 +13,7 @@ namespace zigbee {
     public:
         using ListenerOnChange = std::list<std::function<void()>>::iterator;
 
-        ListenerOnChange add(std::function<void()> callback){
+        ListenerOnChange add(const std::function<void()>& callback){
             if (data.empty()){
                 data.push_front(callback);
                 return data.begin();
