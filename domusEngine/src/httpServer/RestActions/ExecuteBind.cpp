@@ -6,7 +6,7 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
-
+#include <boost/log/trivial.hpp>
 
 #include "ExecuteBind.h"
 
@@ -18,6 +18,7 @@
 
 
 void zigbee::http::ExecuteBind::operator()(const zigbee::http::PlaceHolders &&placeHolder, ServerRequest &, Poco::Net::HTTPServerResponse &response) {
+    BOOST_LOG_TRIVIAL(info) << "ExecuteBind";
     auto srcDevice(placeHolder.get<NwkAddr>("srcDevice"));
     auto srcEndpoint(placeHolder.get<EndpointID>("srcEndpoint"));
     auto clusterId(placeHolder.get<ClusterID>("cluster"));
@@ -25,22 +26,22 @@ void zigbee::http::ExecuteBind::operator()(const zigbee::http::PlaceHolders &&pl
     auto dstEndpoint(placeHolder.get<EndpointID>("dstEndpoint"));
 
     auto srcZDevice = singletons.getZDevices()->getDevice(srcDevice);
-    auto srcZEndpoint = srcZDevice.getEndpoint(srcEndpoint);
+    auto srcZEndpoint = srcZDevice->getEndpoint(srcEndpoint);
     if (!srcZEndpoint.isOutCluster(clusterId)){
         throw InvalidOutCluster(srcDevice, srcEndpoint, clusterId);
     }
 
     auto dstZDevice = singletons.getZDevices()->getDevice(dstDevice);
-    auto dstZEndpoint = dstZDevice.getEndpoint(dstEndpoint);
+    auto dstZEndpoint = dstZDevice->getEndpoint(dstEndpoint);
     if (!dstZEndpoint.isInCluster(clusterId)){
         throw InvalidInCluster(srcDevice, srcEndpoint, clusterId);
     }
 
     NwkAddr coordinator(srcDevice);
     if (bind) {
-        singletons.getZigbeeDevice()->sendReqBind(coordinator, srcZDevice.getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice.getExtAddr().asArray(), dstEndpoint);
+        singletons.getZigbeeDevice()->sendReqBind(coordinator, srcZDevice->getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice->getExtAddr().asArray(), dstEndpoint);
     } else {
-        singletons.getZigbeeDevice()->sendReqUnbind(coordinator, srcZDevice.getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice.getExtAddr().asArray(), dstEndpoint);
+        singletons.getZigbeeDevice()->sendReqUnbind(coordinator, srcZDevice->getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice->getExtAddr().asArray(), dstEndpoint);
     }
 
     Poco::Net::MediaType mediaType("text","plain");

@@ -12,7 +12,7 @@
 namespace zigbee {
     class InfoMessageExecuter : public Executor {
     public:
-        virtual void operator()(unsigned char *data, int len) override {
+        virtual void operator()(unsigned char *data, int ) override {
             InfoMessage *infoMessage = reinterpret_cast<InfoMessage *>(data);
             char * strData = reinterpret_cast<char *>(data + sizeof(InfoMessage));
             uint16_t  nwkAddr = infoMessage->nwkAddr;

@@ -10,9 +10,10 @@
 #include "JSZDevices.h"
 #include "JSObjects.h"
 
-namespace zigbee {
-
 using namespace v8;
+using std::shared_ptr;
+
+namespace zigbee {
 
 JSZDevices::JSZDevices(ZDevices_P  zDevices,JSZDevice_P  jsDevice) :
 		zDevices(zDevices), jsDevice(jsDevice) {
@@ -81,11 +82,11 @@ void JSZDevices::jsGetCountDevices(const v8::FunctionCallbackInfo<v8::Value>& in
 
 void JSZDevices::jsGetDevices(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	JSZDevices * This = getThis(info);
-	std::vector<ZDevice> devices = This->zDevices->getDevices();
+	auto devices = This->zDevices->getDevices();
 
 	Local<Array> jsDevices = Array::New(info.GetIsolate(), devices.size());
 	for (unsigned int index = 0; index < devices.size(); index++) {
-		jsDevices->Set(index, This->jsDevice->createInstance(info.GetIsolate(), devices[index].getExtAddr()));
+		jsDevices->Set(index, This->jsDevice->createInstance(info.GetIsolate(), devices[index]->getExtAddr()));
 	}
 
 	info.GetReturnValue().Set(jsDevices);
@@ -106,7 +107,7 @@ void JSZDevices::resetIstances() {
 
 void JSZDevices::jsGetDevice(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	if (info.Length() != 1) {
-		std::stringstream stream { };
+		std::stringstream stream;
 		stream << "Invoking ZDevice.getDevice with " << info.Length() << " parameters but expected 1 (the extended address of a valid ZDevice)";
 		Local<String> errorMsg = String::NewFromUtf8(info.GetIsolate(), stream.str().c_str());
 		info.GetIsolate()->ThrowException(errorMsg);
@@ -115,7 +116,7 @@ void JSZDevices::jsGetDevice(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	ExtAddress extAddress = getExtAddressFromParam(info, 0);
 	JSZDevices * This = getThis(info);
 	if (!This->zDevices->exists(extAddress)) {
-		std::stringstream stream { };
+		std::stringstream stream;
 		stream << "Found any devices with extended address " << extAddress;
 		Local<String> errorMsg = String::NewFromUtf8(info.GetIsolate(), stream.str().c_str());
 		info.GetIsolate()->ThrowException(errorMsg);

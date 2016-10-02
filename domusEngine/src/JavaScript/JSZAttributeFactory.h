@@ -24,7 +24,7 @@ class JSZAttributeFactory {
 public:
 	virtual ~JSZAttributeFactory()= default;
 public:
-	virtual void init(const std::shared_ptr<ZDevices> & zDevices,const std::shared_ptr<ZigbeeDevice> & zigbeeDevice,const std::shared_ptr<ClusterTypeFactory> & clusterFactory);
+	virtual void init( ZDevices * zDevices,const std::shared_ptr<ZigbeeDevice> & zigbeeDevice,const std::shared_ptr<ClusterTypeFactory> & clusterFactory);
 	virtual void initJsObjectsTemplate(v8::Isolate * isolate, v8::Handle<v8::Object> & global);
 	virtual v8::Local<v8::Object> createAttributeInstance(v8::Isolate* isolate, std::shared_ptr<ZCLAttribute> attribute );
 	virtual void resetPersistences();

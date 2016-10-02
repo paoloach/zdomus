@@ -23,7 +23,7 @@ namespace zigbee {
     public:
         virtual void sendValue(uint8_t newValue);
         virtual boost::any getValue() const override;
-        virtual std::string getStrValue() const {
+        virtual std::string getStrValue() const  override {
             return boost::lexical_cast<std::string>(value);
         }
 

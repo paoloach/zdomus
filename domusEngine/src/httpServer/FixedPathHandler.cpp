@@ -19,7 +19,7 @@ FixedPathHandler::~FixedPathHandler() {
 FixedPathHandler::FixedPathHandler(const std::string& value):value(value) {
 }
 
-void FixedPathHandler::handleRequest(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) {
+void FixedPathHandler::handleRequest(Poco::Net::HTTPServerRequest& , Poco::Net::HTTPServerResponse& response) {
 	Poco::Net::MediaType mediaType("text","plain");
 	response.setContentType(mediaType);
 	response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);

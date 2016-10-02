@@ -37,8 +37,7 @@ namespace zigbee {
 
     class DomusEngineUSBDevice : public ZigbeeDevice {
     public:
-        DomusEngineUSBDevice(boost::asio::io_service &io, std::shared_ptr<ZDevices> &zDevices,
-                             AttributeDataContainer &attributeDataContainer,
+        DomusEngineUSBDevice(boost::asio::io_service &io,
                              SingletonObjects &singletonObjects,
                              libusb_context *usbContext,
                              int deviceClass, int vendorID, int productID, bool demo);
@@ -49,9 +48,12 @@ namespace zigbee {
         bool isPresent() override;
 
         bool requestDevices() override;
+
         bool enableLog() override;
 
         void getUsbMessage() override;
+
+        void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) override;
 
         void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                               ZigbeeAttributeId attributeId) override;
@@ -85,12 +87,12 @@ namespace zigbee {
                                      const std::function<void()>) override {
         }
 
-        void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
-                                       ZigbeeAttributeId attributeId,
-                                       const NewAttributeValueCallback subscriber) override {
+        void registerForAttributeValue(NwkAddr , const EndpointID , ClusterID ,
+                                       ZigbeeAttributeId ,
+                                       const NewAttributeValueCallback ) override {
         }
 
-        void requestActiveEndpoints(NwkAddr nwkAddr);
+        void requestActiveEndpoints(NwkAddr nwkAddr) override ;
 
         virtual void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP,
                                  ClusterID clusterID,
@@ -105,7 +107,6 @@ namespace zigbee {
         void requestBindTable(NwkAddr nwkAddrs) override;
 
     private:
-        boost::asio::io_service &ioService;
         boost::asio::deadline_timer timer;
         libusb_context *usbContext;
         int deviceClass;
@@ -115,12 +116,9 @@ namespace zigbee {
         libusb_device_handle *handle;
         bool demo;
         UsbResponseExecutors usbResponseExecuters;
-        std::shared_ptr<ZDevices> zDevices;
-        AttributeDataContainer &attributeDataContainer;
         std::vector<AnnunceCallback> annunceSignal;
         std::vector<SimpleDescCallback> simpleDescSignal;
         std::vector<BindTableResponseCallback> bindTableResponseSignal;
-        SingletonObjects &singletonObjects;
 
         // demo data
         RequestedAttributes requestedAttributes;
@@ -129,6 +127,7 @@ namespace zigbee {
     private:
         template<typename T>
         void sendData(const T &);
+
         template<typename T>
         void sendData(const T &, size_t size);
 
@@ -137,15 +136,19 @@ namespace zigbee {
         std::string strUsbError(int);
 
         void addSyntetichData();
-        std::vector<RequestedAttributes::Attribute> getAttributeToSend(NwkAddr nwkAddr, EndpointID endpoint, ClusterID cluster);
-        size_t calcTotalSize(std::vector<RequestedAttributes::Attribute> & attributes);
-        uint8_t * fillRawData(std::vector<RequestedAttributes::Attribute> & attributes, uint8_t * data);
+
+        std::vector<RequestedAttributes::Attribute>
+        getAttributeToSend(NwkAddr nwkAddr, EndpointID endpoint, ClusterID cluster);
+
+        size_t calcTotalSize(std::vector<RequestedAttributes::Attribute> &attributes);
+
+        uint8_t *fillRawData(std::vector<RequestedAttributes::Attribute> &attributes, uint8_t *data);
     };
 
     template<typename T>
     inline void zigbee::DomusEngineUSBDevice::sendData(const T &data) {
         sendData(data, sizeof(data));
-       }
+    }
 
     template<typename T>
     inline void zigbee::DomusEngineUSBDevice::sendData(const T &data, size_t size) {
@@ -156,7 +159,8 @@ namespace zigbee {
         if (result == 0) {
             BOOST_LOG_TRIVIAL(trace) << "request sent";
         } else {
-            BOOST_LOG_TRIVIAL(error) << "Error send data: " << strUsbError(result)<< ", transfered: " << transfered << " insteado of " << sizeof(T);
+            BOOST_LOG_TRIVIAL(error) << "Error send data: " << strUsbError(result) << ", transfered: " << transfered
+                                     << " insteado of " << sizeof(T);
         }
     }
 

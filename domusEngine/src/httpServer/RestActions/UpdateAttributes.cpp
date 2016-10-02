@@ -46,11 +46,12 @@ namespace zigbee {
          *
          */
         void UpdateAttributes::operator()(const PlaceHolders &&placeHolder,ServerRequest & request, Poco::Net::HTTPServerResponse &response) {
+            BOOST_LOG_TRIVIAL(info) << "UpdateAttributes";
             auto nwkAddr(placeHolder.get<NwkAddr>("device"));
             auto endpoint(placeHolder.get<EndpointID>("endpoint"));
             auto clusterId(placeHolder.get<ClusterID>("cluster"));
             auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
-            auto zEndpoint = zDevice.getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
+            auto zEndpoint = zDevice->getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
             if (zEndpoint.isInCluster(clusterId)) {
                 auto cluster(singletons.getClusters()->getCluster(nwkAddr,endpoint, clusterId));
 

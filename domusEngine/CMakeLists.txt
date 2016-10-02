@@ -26,7 +26,6 @@ find_package(Boost COMPONENTS system thread signals program_options filesystem l
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 include_directories(./include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR})
 
-
 file(GLOB src "src/*.cpp")
 file(GLOB srcZigbeeData "src/ZigbeeData/*.cpp")
 file(GLOB srcZigbeeDataPT "src/ZigbeeData/PropertyTree/*.cpp")
@@ -90,7 +89,7 @@ set(USB_SRC  src/usb/ActiveEPReqError.h
         src/Utils/AttributeWriterResult.h
         src/httpServer/ServerRequest.cpp
         src/httpServer/ServerRequest.h
-        src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp src/usb/DeviceInfoExecutor.h src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h src/httpServer/RestActions/ShowDeviceInfo.cpp src/httpServer/RestActions/ShowDeviceInfo.h src/Utils/Constant.cpp src/Utils/Constant.h)
+        src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp src/usb/DeviceInfoExecutor.h src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h src/httpServer/RestActions/ShowDeviceInfo.cpp src/httpServer/RestActions/ShowDeviceInfo.h src/Utils/Constant.cpp src/Utils/Constant.h src/usb/IEEEAddressResponseExecutor.h src/ZigbeeData/NewDeviceObserver.h src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h)
 
 set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a
@@ -162,7 +161,7 @@ add_library(domus_engine_static_lib STATIC
         src/httpServer/RestActions/ExecuteReset.cpp
         src/httpServer/RestActions/ExecuteReset.h
         src/Utils/Clusters.cpp
-        src/Utils/Clusters.h)
+        src/Utils/Clusters.h src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h)
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 

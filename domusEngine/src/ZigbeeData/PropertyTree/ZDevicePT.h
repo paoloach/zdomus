@@ -15,7 +15,7 @@ namespace zigbee {
 
   class ZDevicePT : public boost::property_tree::ptree {
   public:
-      ZDevicePT(const ZDevice &zDevice) noexcept;
+      ZDevicePT(ZDevice* zDevice) noexcept;
 
       virtual ~ZDevicePT() noexcept=default;
   };

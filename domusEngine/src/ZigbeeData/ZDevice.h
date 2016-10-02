@@ -14,6 +14,7 @@
 #include <zigbee/messageStructure/AnnunceMessage.h>
 #include <zigbee/messageStructure/SimpleDescMessage.h>
 #include <zigbee/NwkAddr.h>
+#include <set>
 
 #include "ZEndpoint.h"
 #include "ExtAddress.h"
@@ -21,60 +22,74 @@
 
 namespace zigbee {
 
-class ZDevice {
-public:
-	ZDevice();
-	ZDevice(const AnnunceMessage & message);
-	ZDevice(const ExtAddress  & extAddr, NwkAddr nwkAddr, uint8_t  capabilities, std::initializer_list<ZEndpoint> listEndpoint );
-	virtual ~ZDevice();
-public:
-	bool put(const SimpleDescMessage & simpleDescMsg );
+    class ZDevice {
+    public:
+        ZDevice();
 
-	ZEndpoint getEndpoint(EndpointID endpointId) const;
-	bool isEndpointPresents(EndpointID endpointId) const;
+        ZDevice(const AnnunceMessage &message);
 
-	bool isPan() const {
-		return capabilities & 0x01;
-	}
+        ZDevice(const ExtAddress &extAddr, NwkAddr nwkAddr, uint8_t capabilities,
+                std::initializer_list<ZEndpoint> listEndpoint);
 
-	bool isFullFunctionDevice() const {
-		return capabilities & 0x02;
-	}
+        ZDevice(const ExtAddress &extAddr, NwkAddr nwkAddr, std::set<NwkAddr> children);
 
-	bool isMainPower() const {
-		return capabilities & 0x04;
-	}
+        virtual ~ZDevice();
 
-	bool isDisabledRFOnIdle() const {
-		return capabilities & 0x08;
-	}
+    public:
+        bool put(const SimpleDescMessage &simpleDescMsg);
 
-	bool isSecure() const {
-		return capabilities & 0x40;
-	}
+        ZEndpoint getEndpoint(EndpointID endpointId) const;
 
-	uint8_t getCapabilities() const {
-		return capabilities;
-	}
+        bool isEndpointPresents(EndpointID endpointId) const;
 
-	const std::map<EndpointID, ZEndpoint>& getEndpoints() const {
-		return endpoints;
-	}
+        bool isPan() const {
+            return capabilities & 0x01;
+        }
 
-	ExtAddress getExtAddr() const {
-		return extAddr;
-	}
+        bool isFullFunctionDevice() const {
+            return capabilities & 0x02;
+        }
 
-	NwkAddr getNwkAddr() const {
-		return nwkAddr;
-	}
+        bool isMainPower() const {
+            return capabilities & 0x04;
+        }
 
-private:
-	ExtAddress   extAddr;
-	NwkAddr     nwkAddr;
-	uint8_t      capabilities;
-	std::map<EndpointID, ZEndpoint>	endpoints;
-};
+        bool isDisabledRFOnIdle() const {
+            return capabilities & 0x08;
+        }
+
+        bool isSecure() const {
+            return capabilities & 0x40;
+        }
+
+        uint8_t getCapabilities() const {
+            return capabilities;
+        }
+
+        const std::map<EndpointID, ZEndpoint> &getEndpoints() const {
+            return endpoints;
+        }
+
+        ExtAddress getExtAddr() const {
+            return extAddr;
+        }
+
+        NwkAddr getNwkAddr() const {
+            return nwkAddr;
+        }
+
+        std::set<NwkAddr> getChildren() {
+                return children;
+        };
+
+
+    private:
+        ExtAddress extAddr;
+        NwkAddr nwkAddr;
+        uint8_t capabilities;
+        std::map<EndpointID, ZEndpoint> endpoints;
+        std::set<NwkAddr> children;
+    };
 
 } /* namespace zigbee */
 

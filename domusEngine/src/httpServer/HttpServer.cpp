@@ -9,7 +9,7 @@
 
 #include <Poco/Net/HTTPServerParams.h>
 #include <Poco/Net/ServerSocket.h>
-
+#include <boost/log/trivial.hpp>
 #include "HttpServer.h"
 #include "DEHttpRequestHandlerFactory.h"
 
@@ -19,7 +19,7 @@ namespace http {
 
 using namespace Poco::Net;
 
-HttpServer::HttpServer(SingletonObjects & singletons) : singletons(singletons){
+HttpServer::HttpServer(SingletonObjects & singletons) {
 	requestFactory.reset( new DEHttpRequestHandlerFactory(singletons));
 	Poco::UInt16 port = 8080;
 	HTTPServerParams * params = new HTTPServerParams();
@@ -30,6 +30,8 @@ HttpServer::HttpServer(SingletonObjects & singletons) : singletons(singletons){
 
 	server.reset(new Poco::Net::HTTPServer(requestFactory.get(), svs, params));
 	server->start();
+
+	BOOST_LOG_TRIVIAL(info) << "----------- HTTP server started ----------";
 
 }
 

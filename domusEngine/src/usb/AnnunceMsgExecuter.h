@@ -12,10 +12,10 @@
 namespace zigbee {
     class AnnunceMsgExecuter : public Executor {
     private:
-        std::shared_ptr<ZDevices> zDevices;
+        ZDevices * zDevices;
         DomusEngineUSBDevice &usbDevice;
     public:
-        AnnunceMsgExecuter(std::shared_ptr<ZDevices> zDevices, DomusEngineUSBDevice &usbDevice) : zDevices(zDevices), usbDevice(usbDevice) { }
+        AnnunceMsgExecuter(ZDevices * zDevices, DomusEngineUSBDevice &usbDevice) : zDevices(zDevices), usbDevice(usbDevice) { }
 
         virtual void operator()(unsigned char *data, int) override {
             AnnunceMessage *annunceMessage = reinterpret_cast<AnnunceMessage *>(data);

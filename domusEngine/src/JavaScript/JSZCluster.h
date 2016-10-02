@@ -35,7 +35,7 @@ private:
 	typedef boost::tuple<PersistenceObject, std::shared_ptr<Cluster> > Value;
 public:
 	JSZCluster();
-	JSZCluster(const std::shared_ptr<ZDevices> & zDevices, const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const std::shared_ptr<JSZAttributeFactory> & jsZAttributeFactory, const std::shared_ptr<ClusterTypeFactory> & clusterFactory);
+	JSZCluster(ZDevices * zDevices, const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const std::shared_ptr<JSZAttributeFactory> & jsZAttributeFactory, const std::shared_ptr<ClusterTypeFactory> & clusterFactory);
 	virtual ~JSZCluster();
 public:
 	void setJSZEndpoint(const std::shared_ptr<JSZEndpoint> & jsZEndpoint);

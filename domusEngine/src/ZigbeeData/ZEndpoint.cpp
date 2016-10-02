@@ -29,7 +29,7 @@ ZEndpoint::ZEndpoint(const SimpleDescMessage & simpleDescMessage) : nwkAddr{simp
 }
 
 bool ZEndpoint::operator==(const ZEndpoint & other) {
-	return nwkAddr == other.nwkAddr && endpoint == other.endpoint && appProfId == other.appProfId && appDeviceId == other.appDeviceId && appDevVer == appDevVer
+	return nwkAddr == other.nwkAddr && endpoint == other.endpoint && appProfId == other.appProfId && appDeviceId == other.appDeviceId && appDevVer == other.appDevVer
 			&& inCluster == other.inCluster && outCluster == other.outCluster;
 }
 

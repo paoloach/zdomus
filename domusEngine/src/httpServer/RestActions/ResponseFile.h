@@ -20,10 +20,7 @@ class PlaceHolders;
 
 class ResponseFile : public DefaultActionHandler {
 public:
-	ResponseFile(SingletonObjects & singletons) noexcept : singletons(singletons){};
 	void operator()( ServerRequest& request, Poco::Net::HTTPServerResponse& response);
-private:
-	SingletonObjects & singletons;
 };
 
 } /* namespace http */

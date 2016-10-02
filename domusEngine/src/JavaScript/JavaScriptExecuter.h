@@ -49,7 +49,7 @@ private:
 private:
     V8Allocator v8Allocator;
     v8::Isolate::CreateParams createParams;
-	SingletonObjects & singletonObjects;
+//	SingletonObjects & singletonObjects;
 	Log & log;
 	v8::Isolate * isolate;
 	v8::UniquePersistent<v8::Context> context;

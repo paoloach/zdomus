@@ -14,7 +14,7 @@ void *V8Allocator::AllocateUninitialized(size_t length) {
     return malloc(length);
 }
 
-void V8Allocator::Free(void *data, size_t length) {
+void V8Allocator::Free(void *data, size_t ) {
     free(data);
 
 }

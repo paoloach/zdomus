@@ -23,7 +23,7 @@ namespace zigbee {
     public:
         virtual boost::any getValue() const override;
 
-        virtual std::string getStrValue() const {
+        virtual std::string getStrValue() const  override {
             return boost::lexical_cast<std::string>(value);
         }
 
@@ -34,7 +34,7 @@ namespace zigbee {
         }
 
     private:
-        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData);
+        virtual void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)  override ;
 
         virtual void internalSetValue(uint8_t *rawData) override;
 

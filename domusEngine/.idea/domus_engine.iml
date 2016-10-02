@@ -167,15 +167,15 @@
       <sourceFolder url="file://$MODULE_DIR$/src/json/json/json-forwards.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/FixedPathHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathReceived.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestActions.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathElement.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestActions.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PlaceHolders.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathReceived.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestPath.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestPath.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PathElement.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PlaceHolders.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/PlaceHolders.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestActions.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestQuery.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/RestParser/RestQuery.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/httpServer/HttpServer.h" isTestSource="false" />
@@ -251,6 +251,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/usb/UsbResponseExecutors.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/DeviceInfoExecutor.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/usbConfig.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/usb/IEEEAddressResponseExecutor.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/usb/AnnunceMsgExecuter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZAttribute.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZAttributeFactory.cpp" isTestSource="false" />
@@ -278,12 +279,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionOutOfRange.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionArgNoInteger.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionInvalidAttributeType.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionArgNoUInteger.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionWrongArgumentsNumber.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionArgNoBool.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionArgNoFunction.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionNoAttribute.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionOnlyOneArgument.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionInvalidAttributeType.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionArgNoBool.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionArgNoExtAddress.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionStream.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSException.cpp" isTestSource="false" />
@@ -301,7 +302,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionWrongArgumentsNumber.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionOnlyOneArgument.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionNoDevice.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionWrongArgumentsNumber.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionArgNoUInteger.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionArgNoUInteger.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionNoAttribute.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/Exceptions/JSExceptionArgNoString.h" isTestSource="false" />
@@ -312,11 +313,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZDevices.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JavaScriptData.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSDbManager.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JavaScriptExecuter.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSRestServer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZDevices.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSRow.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZCluster.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JavaScriptExecuter.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/V8Allocator.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSZEndpoint.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/JavaScript/JSRow.h" isTestSource="false" />
@@ -354,15 +355,20 @@
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/SingletonObjects.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/DeviceInfoDispatcher.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Utils/Clusters.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevice.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/RequestDevices.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/BindTable.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZEndpoint.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/RequestDevices.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/BindTable.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevices.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZEndpoint.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/TopologyCreation.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevice.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/AttributeData.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevice.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/NewDeviceObserver.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZEndpoint.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZElement.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/TopologyCreation.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZDevices.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/ZElement.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ZigbeeData/AttributeData.h" isTestSource="false" />
@@ -401,17 +407,17 @@
     <orderEntry type="module-library">
       <library name="Header Search Paths">
         <CLASSES>
-          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include" />
-          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include-fixed" />
           <root url="file:///usr/include" />
+          <root url="file:///usr/lib/clang/3.9.0/include" />
+          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5" />
           <root url="file:///usr/local/include" />
           <root url="file:///usr/local/v8" />
           <root url="file:///usr/local/zigbee/include" />
         </CLASSES>
         <SOURCES>
-          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include" />
-          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include-fixed" />
           <root url="file:///usr/include" />
+          <root url="file:///usr/lib/clang/3.9.0/include" />
+          <root url="file:///usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5" />
           <root url="file:///usr/local/include" />
           <root url="file:///usr/local/v8" />
           <root url="file:///usr/local/zigbee/include" />

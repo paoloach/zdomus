@@ -27,7 +27,7 @@ namespace  zigbee {
         }
 
         void ShowDeviceInfo::operator()(const zigbee::http::PlaceHolders &&placeHolder,
-                                                      zigbee::http::ServerRequest &request,
+                                                      zigbee::http::ServerRequest &,
                                                       Poco::Net::HTTPServerResponse &response) {
             response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
             device = placeHolder.get<NwkAddr>("device");

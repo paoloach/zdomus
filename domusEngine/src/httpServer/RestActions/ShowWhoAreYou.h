@@ -18,13 +18,9 @@ namespace zigbee {
 
         class ShowWhoAreYou : public ActionHandler {
         public:
-            ShowWhoAreYou(zigbee::SingletonObjects &singletons) noexcept  : singletons(singletons) { };
-
             void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
                             Poco::Net::HTTPServerResponse &response);
 
-        private:
-            SingletonObjects &singletons;
         };
 
     } /* namespace http */

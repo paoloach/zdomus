@@ -16,7 +16,7 @@ namespace zigbee {
 
         class ZDevicesPT : public boost::property_tree::ptree {
         public:
-            ZDevicesPT(std::shared_ptr<ZDevices> zDevices) noexcept;
+            ZDevicesPT(ZDevices *zDevices) noexcept;
             virtual ~ZDevicesPT() noexcept= default;
         };
 

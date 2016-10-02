@@ -12,9 +12,10 @@
 #include "../ZigbeeData/ZDevice.h"
 #include "JSZEndpoint.h"
 
-namespace zigbee {
-
 using namespace v8;
+using std::shared_ptr;
+
+namespace zigbee {
 
 JSZDevice::JSZDevice(ZDevices_P  zDevices,JSZEndpoint_P & jsEndpoint) :
 		zDevices(zDevices) , jsEndpoint(jsEndpoint){
@@ -63,7 +64,7 @@ void JSZDevice::initJsObjectsTemplate(v8::Isolate* isolate, Handle<Object> & glo
 Local<Object> JSZDevice::createInstance(v8::Isolate* isolate, const ExtAddress& extAddress) {
 	if (cache.count(extAddress) == 0) {
 		if (!zDevices->exists(extAddress)) {
-			std::stringstream stream { };
+			std::stringstream stream;
 			stream << "Unable to create an istance of zDevice with extended address " << extAddress;
 			Local<String> errorMsg = String::NewFromUtf8(isolate, stream.str().c_str());
 			isolate->ThrowException(errorMsg);
@@ -80,7 +81,7 @@ Local<Object> JSZDevice::createInstance(v8::Isolate* isolate, const ExtAddress& 
 			usedAddr = usedExtAddresses[extAddress];
 		}
 		zDeviceInstance->SetInternalField(0, External::New(isolate, usedAddr.get()));
-		zDeviceInstance->SetInternalField(1, External::New(isolate, zDevices.get()));
+		zDeviceInstance->SetInternalField(1, External::New(isolate, zDevices));
 		zDeviceInstance->SetInternalField(2, External::New(isolate, jsEndpoint.get()));
 		Persistent<Object, CopyablePersistentTraits<Object>> persitInstance { isolate, zDeviceInstance };
 		cache.insert( { extAddress, persitInstance });
@@ -124,37 +125,37 @@ void JSZDevice::constructor(const v8::FunctionCallbackInfo<v8::Value>& info) {
 void JSZDevice::jsIsFullFunctionDevice(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	ExtAddress * extAddress = getExtAddress(info);
 	ZDevices * zDevices = getZDevices(info);
-	const ZDevice & zDevice = zDevices->getDevice(*extAddress);
-	info.GetReturnValue().Set(zDevice.isFullFunctionDevice());
+	auto zDevice = zDevices->getDevice(*extAddress);
+	info.GetReturnValue().Set(zDevice->isFullFunctionDevice());
 }
 
 void JSZDevice::jsIsMainPoweredSource(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	ExtAddress * extAddress = getExtAddress(info);
 	ZDevices * zDevices = getZDevices(info);
-	const ZDevice & zDevice = zDevices->getDevice(*extAddress);
-	info.GetReturnValue().Set(zDevice.isMainPower());
+    auto zDevice = zDevices->getDevice(*extAddress);
+	info.GetReturnValue().Set(zDevice->isMainPower());
 }
 
 void JSZDevice::jsIsDisableRFInIdle(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	ExtAddress * extAddress = getExtAddress(info);
 	ZDevices * zDevices = getZDevices(info);
-	const ZDevice & zDevice = zDevices->getDevice(*extAddress);
-	info.GetReturnValue().Set(zDevice.isDisabledRFOnIdle());
+    auto zDevice = zDevices->getDevice(*extAddress);
+	info.GetReturnValue().Set(zDevice->isDisabledRFOnIdle());
 }
 
 void JSZDevice::jsIsSecureCapable(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	ExtAddress * extAddress = getExtAddress(info);
 	ZDevices * zDevices = getZDevices(info);
-	const ZDevice & zDevice = zDevices->getDevice(*extAddress);
-	info.GetReturnValue().Set(zDevice.isSecure());
+    auto zDevice = zDevices->getDevice(*extAddress);
+	info.GetReturnValue().Set(zDevice->isSecure());
 }
 
 void JSZDevice::jsGetEndpoints(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	ExtAddress * extAddress = getExtAddress(info);
 	ZDevices * zDevices = getZDevices(info);
 	JSZEndpoint * jsEndpoint = getJSEndpoint(info);
-	const ZDevice & zDevice = zDevices->getDevice(*extAddress);
-	const std::map<EndpointID, ZEndpoint> & endpoints = zDevice.getEndpoints();
+    auto zDevice = zDevices->getDevice(*extAddress);
+	const std::map<EndpointID, ZEndpoint> & endpoints = zDevice->getEndpoints();
 	Local<Array> jsEndpoints = Array::New(info.GetIsolate(), endpoints.size());
 	int index { 0 };
 	for (const auto & endpoint : endpoints) {
@@ -174,8 +175,8 @@ ZDevices * JSZDevice::getZDevices(const v8::FunctionCallbackInfo<v8::Value>& inf
 void JSZDevice::jsIsPan(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	ExtAddress * extAddress = getExtAddress(info);
 	ZDevices * zDevices = getZDevices(info);
-	const ZDevice & zDevice = zDevices->getDevice(*extAddress);
-	info.GetReturnValue().Set(zDevice.isPan());
+    auto zDevice = zDevices->getDevice(*extAddress);
+	info.GetReturnValue().Set(zDevice->isPan());
 }
 
 void JSZDevice::jsGetLongAddress(v8::Local<v8::String> , const v8::PropertyCallbackInfo<v8::Value>& info) {
@@ -188,9 +189,8 @@ void JSZDevice::jsGetLongAddress(v8::Local<v8::String> , const v8::PropertyCallb
 void JSZDevice::jsGetShortAddress(v8::Local<v8::String> , const v8::PropertyCallbackInfo<v8::Value>& info) {
 	ExtAddress * extAddress = getExtAddress(info);
 	ZDevices * zDevices = getZDevices(info);
-	const ZDevice & zDevice = zDevices->getDevice(*extAddress);
-
-	info.GetReturnValue().Set(zDevice.getNwkAddr().getId());
+    auto zDevice = zDevices->getDevice(*extAddress);
+	info.GetReturnValue().Set(zDevice->getNwkAddr().getId());
 }
 
 

@@ -10,6 +10,7 @@
 #include <Poco/Net/HTTPServerRequest.h>
 #include <zigbee/NwkAddr.h>
 #include <boost/lexical_cast.hpp>
+#include <boost/log/trivial.hpp>
 
 #include "ShowEndpoint.h"
 
@@ -24,12 +25,13 @@ namespace zigbee {
 
         void ShowEndpoint::operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
                                       Poco::Net::HTTPServerResponse &response) {
+            BOOST_LOG_TRIVIAL(info) << "ShowEndpoint";
             response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
             const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
             auto device(placeHolder.get<NwkAddr>("device"));
             auto endpoint(placeHolder.get<EndpointID>("endpoint"));
             auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(device));
-            producer.produce(response.send(), ZEndpointPT(zDevice.getEndpoint(endpoint)));
+            producer.produce(response.send(), ZEndpointPT(zDevice->getEndpoint(endpoint)));
         }
 
     } /* namespace http */

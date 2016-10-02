@@ -43,7 +43,7 @@ namespace zigbee {
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCL_boolean_Attribute *attribute) {
-        out << attribute->value ? "true" : "false";
+        out << (attribute->value ? "true" : "false");
         return out;
     }
 

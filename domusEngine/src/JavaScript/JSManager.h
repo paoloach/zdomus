@@ -46,7 +46,7 @@ public:
 	JSManager(SingletonObjects & singletonObjects);
 	virtual ~JSManager();
 private:
-	SingletonObjects & singletonObjects;
+	//SingletonObjects & singletonObjects;
 	std::map< std::shared_ptr<JavaScriptData>, std::shared_ptr<Task>> tasks;
 };
 

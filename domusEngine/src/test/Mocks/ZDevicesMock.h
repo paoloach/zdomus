@@ -25,9 +25,9 @@ public:
 	MOCK_METHOD1(put, void (const AnnunceMessage & ));
 	MOCK_METHOD1(put, void (const SimpleDescMessage & ));
 	MOCK_CONST_METHOD0(getNumDevices, int ());
-	MOCK_METHOD0(getDevices, std::vector<ZDevice> ());
-	MOCK_CONST_METHOD1(getDevice, const ZDevice & (const ExtAddress & extAddress));
-	MOCK_CONST_METHOD1(getDevice, const ZDevice & (NwkAddr nwkAddr));
+	MOCK_METHOD0(getDevices, std::vector<ZDevice *> ());
+	MOCK_CONST_METHOD1(getDevice, ZDevice * (const ExtAddress & extAddress));
+	MOCK_CONST_METHOD1(getDevice, ZDevice * (NwkAddr nwkAddr));
 	MOCK_CONST_METHOD1(exists, bool (const ExtAddress & extAddress));
 };
 

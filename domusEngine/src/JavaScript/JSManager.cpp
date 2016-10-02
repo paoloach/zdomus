@@ -18,8 +18,7 @@ using std::shared_ptr;
 using std::make_shared;
 using boost::system::error_code;
 
-JSManager::JSManager(SingletonObjects & singletonObjects) :
-		singletonObjects(singletonObjects){
+JSManager::JSManager(SingletonObjects & singletonObjects){
 	for (const auto & js : singletonObjects.getConfiguration()->getJavascriptData()) {
 		auto task = std::make_shared<Task>(singletonObjects, js.second);
 		tasks.insert( { js.second, task });

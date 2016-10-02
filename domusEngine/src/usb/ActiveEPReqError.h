@@ -13,11 +13,7 @@
 
 namespace zigbee {
     class ActiveEPReqError : public Executor {
-    private:
-        SingletonObjects &singletonObjects;
     public:
-        ActiveEPReqError(SingletonObjects & singletonObjects):singletonObjects{singletonObjects}{}
-
         virtual void operator()(unsigned char *data, int) override {
             ActiveEPErrorMessage * activeEPErrorMessage = reinterpret_cast<ActiveEPErrorMessage *>(data);
             int nwkAddr = activeEPErrorMessage->nwkAddr;

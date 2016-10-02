@@ -18,7 +18,7 @@ namespace zigbee {
     using namespace v8;
 
 
-    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log) : singletonObjects(singletonObjects), log(log) {
+    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log) : log(log) {
 
         clusterTypeFactory = std::make_shared<ClusterTypeFactory>();
         jsRow = std::make_shared<JSRow>();

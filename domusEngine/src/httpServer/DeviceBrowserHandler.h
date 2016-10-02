@@ -31,7 +31,7 @@ namespace zigbee {
                                        Poco::Net::HTTPServerResponse &response) override;
 
         private:
-            SingletonObjects &singletons;
+//            SingletonObjects &singletons;
             RestActions restGetActions;
             RestActions restPostActions;
             RestActions restDeleteActions;

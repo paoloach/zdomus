@@ -26,7 +26,6 @@ public:
 private:
 	std::unique_ptr<DEHttpRequestHandlerFactory> requestFactory;
 	std::unique_ptr<Poco::Net::HTTPServer> server;
-	SingletonObjects & singletons;
 };
 
 } /* namespace http */

@@ -69,7 +69,7 @@ namespace zigbee {
 
             std::stringstream stream{extendedAddress};
             stream >> extAddress;
-            ZDevices_P zDevicesP = zDevices;
+            std::shared_ptr<ZDevices> zDevicesP = zDevices;
             JSZEndpoint_P jsZEndpoint = jsEndpoint;
             std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             jsDevice = std::make_shared<JSZDevice>(zDevicesP, jsZEndpoint);

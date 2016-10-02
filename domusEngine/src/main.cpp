@@ -26,6 +26,7 @@
 #include "JavaScript/JSManager.h"
 #include "httpServer/DEHttpRequestHandlerFactory.h"
 #include "httpServer/HttpServer.h"
+#include "ZigbeeData/RequestDevices.h"
 
 using namespace zigbee;
 using namespace boost::program_options;
@@ -46,7 +47,7 @@ variables_map getVariableMap(size_t argc, char const *argv[]);
 
 void add1Demo(SingletonObjects  & singletons){
 
-    std::shared_ptr<ZDevices> zDevices = singletons.getZDevices();
+    auto zDevices = singletons.getZDevices();
 
     AnnunceMessage annunceMsg;
     annunceMsg.nwkAddr = 1234;
@@ -237,6 +238,14 @@ int main(int argc, const char *argv[]) {
         configurationFileName = vm[CONFIGURATION_OPTION].as<std::string>();
     }
     SingletonObjects singletons(std::move(configurationFileName),vm.count(DEMO_DATA));
+    auto zDevices = singletons.getZDevices();
+
+    TopologyCreation topologyCreation(singletons);
+    RequestDevices requestDevices(singletons);
+
+    zDevices->addObserver([&requestDevices](ZDevice * zDevice){requestDevices.request(zDevice);});
+
+    topologyCreation.create();
 
     enableDemo(vm, singletons);
 
@@ -244,7 +253,6 @@ int main(int argc, const char *argv[]) {
 
     std::remove(Server::socketPath.c_str());
 
-    //zigbee::Server s(singletons.getIO(), singletons.getZDevices(), singletons.getZigbeeDevice(),singletons.getAttributeDataContainer());
     singletons.getIO().run();
 
 

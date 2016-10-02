@@ -11,9 +11,9 @@
 namespace zigbee {
     class SimpleDescExecutor : public Executor {
     private:
-        std::shared_ptr<ZDevices> zDevices;
+        ZDevices * zDevices;
     public:
-        SimpleDescExecutor(std::shared_ptr<ZDevices> zDevices) : zDevices(zDevices) { }
+        SimpleDescExecutor(ZDevices* zDevices) : zDevices(zDevices) { }
 
         virtual void operator()(unsigned char *data, int) override {
             SimpleDescMessage *simpleDescMessage = reinterpret_cast<SimpleDescMessage *>(data);

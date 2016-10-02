@@ -25,6 +25,11 @@
 
 namespace zigbee {
 
+    enum ZDPRequestType {
+        SingleRequest=0,
+        Extended=1
+    };
+
     class ZigbeeDevice {
     public:
         ZigbeeDevice() = default;
@@ -44,6 +49,10 @@ namespace zigbee {
         virtual bool requestDevices() = 0;
 
         virtual void getUsbMessage() = 0;
+
+        virtual void requestActiveEndpoints(NwkAddr nwkAddr)=0;
+
+        virtual void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex)=0;
 
         virtual void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                       ZigbeeAttributeId attributeId) = 0;

@@ -23,28 +23,29 @@ namespace zigbee {
     static constexpr int MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY{100};
 
     SingletonObjects::SingletonObjects(std::string &&configurationFileName, bool demo) :
-            attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY} ,clusters{},attributeWriter{*this}{
+            attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY} ,clusters{},attributeWriter{*this}, topology{*this}{
 
         if (demo){
             BOOST_LOG_TRIVIAL(info) << "----------- DEMO MODE ----------";
         }
 
-        zDevices = std::make_shared<ZDevices>();
+        zDevices = std::make_unique<ZDevices>();
         if (libusb_init(&usbContext) != 0) {
             BOOST_LOG_TRIVIAL(error) << "Unable to initialize the libusb";
         } else {
             //libusb_set_debug(usbContext, 4);
             BOOST_LOG_TRIVIAL(error) << "Lib usb initialized";
 
-            zigbeeDevice = std::make_shared<DomusEngineUSBDevice>(io, zDevices, attributeDataContainer, *this,
+            zigbeeDevice = std::make_unique<DomusEngineUSBDevice>(io, *this,
                                                                   usbContext,
                                                                   USB_CLASS, VENDOR_ID, PRODUCT_ID, demo);
             if (zigbeeDevice->isPresent()) {
                 zigbeeDevice->enableLog();
-                zigbeeDevice->requestDevices();
+             //   zigbeeDevice->requestDevices();
                 sleep(1);
                 NwkAddr addr;
-                zigbeeDevice->requestBindTable(addr);
+               zigbeeDevice->requestBindTable(addr);
+                sleep(1);
             }
         }
 
@@ -62,7 +63,7 @@ namespace zigbee {
     }
 
     SingletonObjects::SingletonObjects() :
-            attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY}, attributeWriter{*this} {
+            attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY}, attributeWriter{*this}, topology{*this} {
 
     }
 } /* namespace zigbee */

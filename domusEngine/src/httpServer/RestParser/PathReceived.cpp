@@ -21,7 +21,7 @@ PathReceived::PathReceived(string && uri) noexcept {
 	if (queryDelim == std::string::npos) {
 		createElements(std::move(uri));
 	} else {
-		createElements(std::move(uri.substr(0, queryDelim)));
+		createElements(uri.substr(0, queryDelim));
 		auto queryString = uri.substr(queryDelim+1);
 		Separator separator("&");
 		Tokenizer tokens(queryString, separator);

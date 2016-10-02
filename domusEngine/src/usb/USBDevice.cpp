@@ -21,6 +21,7 @@
 #include <zigbee/messageStructure/UnbindRequest.h>
 #include <zigbee/messageStructure/ReadAttributeResponseErrorMsg.h>
 #include <zigbee/messageStructure/ReqDeviceInformation.h>
+#include <zigbee/messageStructure/IEEEAddressRequestMessage.h>
 #include <zcl/ZclAttributeUtils.h>
 
 
@@ -59,11 +60,9 @@ namespace zigbee {
 
 
     DomusEngineUSBDevice::DomusEngineUSBDevice(boost::asio::io_service &serviceIo_,
-                                               std::shared_ptr<ZDevices> &zDevices_,
-                                               AttributeDataContainer &attributeDataContainer_,
                                                SingletonObjects &singletonObjects, libusb_context *usbContext_,
-                                               int deviceClass_, int vendor_, int product_, bool demo) : ioService(
-            serviceIo_), timer{serviceIo_, CHECK_NEW_MESSAGE}, usbContext{usbContext_}, deviceClass{deviceClass_},
+                                               int deviceClass_, int vendor_, int product_, bool demo) :
+            timer{serviceIo_, CHECK_NEW_MESSAGE}, usbContext{usbContext_}, deviceClass{deviceClass_},
                                                                                                          vendorID{
                                                                                                                  vendor_},
                                                                                                          productID{
@@ -72,13 +71,7 @@ namespace zigbee {
                                                                                                          demo{demo},
                                                                                                          usbResponseExecuters{
                                                                                                                  singletonObjects,
-                                                                                                                 *this},
-                                                                                                         zDevices(
-                                                                                                                 zDevices_),
-                                                                                                         attributeDataContainer(
-                                                                                                                 attributeDataContainer_),
-                                                                                                         singletonObjects(
-                                                                                                                 singletonObjects) {
+                                                                                                                 *this} {
         device = nullptr;
         timer.async_wait(boost::bind(&DomusEngineUSBDevice::timerHandler, this, boost::asio::placeholders::error));
 
@@ -324,7 +317,6 @@ namespace zigbee {
         if (handle != nullptr) {
             std::stringstream stream;
             AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeId};
-            int transfered{};
 
             BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
             sendData(attributeValue);
@@ -357,7 +349,6 @@ namespace zigbee {
         if (handle != nullptr) {
             ComandSend comandSend{nwkAddrs, endpoint, cluster, comandId, data};
 
-            int transfered{};
             uint8_t *data = reinterpret_cast<uint8_t *>(&comandSend);
             std::stringstream sstream;
             for (size_t i = 0; i < sizeof(ComandSend); i++) {
@@ -372,7 +363,6 @@ namespace zigbee {
  * send request devices
  */
     bool DomusEngineUSBDevice::requestDevices() {
-        int transfered;
         if (handle == nullptr) {
             return false;
         }
@@ -385,7 +375,6 @@ namespace zigbee {
     }
 
     bool DomusEngineUSBDevice::enableLog() {
-        int transfered;
         if (handle == nullptr) {
             return false;
         }
@@ -407,7 +396,7 @@ namespace zigbee {
 
         int transfered{};
 
-        int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request),
+        libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request),
                                           &transfered, 1000);
         sendData(request);
     }
@@ -457,8 +446,6 @@ namespace zigbee {
 
         std::stringstream stream;
         AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeIds};
-        int transfered{};
-
         BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
 
         sendData(attributeValue, sizeof(GenericMessage) + sizeof(ZigbeeNwkAddress) + sizeof(ZigbeeEndpoint) + sizeof(ZigbeeClusterId) + sizeof(uint8_t) + sizeof(ZigbeeAttributeId) * attributeValue.numAttr);
@@ -469,8 +456,6 @@ namespace zigbee {
             return;
         }
         GenericMessage resetMessage{REQ_RESET};
-        int transfered{};
-
         sendData(resetMessage);
     }
 
@@ -494,7 +479,7 @@ namespace zigbee {
         message->type = 0;
         uint8_t *rawData = data + sizeof(ReadAttributeResponseMessage);
         BOOST_LOG_TRIVIAL(info) << "start attributes data: " << (void *) rawData;
-        uint8_t *endData = fillRawData(attributesToSend, rawData);
+        fillRawData(attributesToSend, rawData);
         usbResponseExecuters.execute(data, size);
         delete[]data;
     }
@@ -550,8 +535,14 @@ namespace zigbee {
             return;
         }
         ReqDeviceInformation message{networkId.getId()};
-        int transfered{};
+        sendData(message);
+    }
 
+    void DomusEngineUSBDevice::getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) {
+        if (handle == nullptr) {
+            return;
+        }
+        IEEEAddressRequestMessage message(nwkAddr.getId(), requestType, startIndex);
         sendData(message);
     }
 

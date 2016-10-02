@@ -37,11 +37,10 @@ namespace zigbee {
     using boost::lexical_cast;
     using std::string;
 
-    DeviceBrowserHandler::DeviceBrowserHandler(zigbee::SingletonObjects &singletons) :
-            singletons(singletons) {
+    DeviceBrowserHandler::DeviceBrowserHandler(zigbee::SingletonObjects &singletons) {
 
         restGetActions.addActions(RestPath {"/hello"}, ShowHello{});
-        restGetActions.addActions(RestPath {"/who_are_you"}, ShowWhoAreYou{singletons});
+        restGetActions.addActions(RestPath {"/who_are_you"}, ShowWhoAreYou{});
         restGetActions.addActions(RestPath {"/devices"}, ShowDevices{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}"}, ShowDevice{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}/info"}, ShowDeviceInfo{singletons});
@@ -50,7 +49,7 @@ namespace zigbee {
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/out/{cluster}"}, ShowOutCluster{singletons});
         restGetActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/attributes"}, ShowAttributeFactory{singletons});
         restGetActions.addActions(RestPath {"/binds"}, ShowBindTable{singletons});
-        restGetActions.setDefaultAction(ResponseFile(singletons));
+        restGetActions.setDefaultAction(ResponseFile());
 
         restPostActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/command/{command}"}, ExecuteCmd{singletons});
         restPostActions.addActions(RestPath {"/devices/{device}/endpoint/{endpoint}/cluster/in/{cluster}/attributes"}, UpdateAttributes{singletons});

@@ -12,6 +12,7 @@
 #include "ActiveEPReqError.h"
 #include "InfoMessageExecuter.h"
 #include "DeviceInfoExecutor.h"
+#include "IEEEAddressResponseExecutor.h"
 
 using std::make_unique;
 
@@ -21,9 +22,10 @@ zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonOb
     executors[ATTRIBUTE_VALUES] = make_unique<AttributeValuesExecuter>(singletonObjects);
     executors[BIND_TABLE] = make_unique<BindTableExecuter>(singletonObjects);
     executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(singletonObjects.getAttributeValueSignalMap());
-    executors[ACTIVE_EP_REQ_ERROR] = make_unique<ActiveEPReqError>(singletonObjects);
+    executors[ACTIVE_EP_REQ_ERROR] = make_unique<ActiveEPReqError>();
     executors[INFO_MESSAGE] = make_unique<InfoMessageExecuter>();
     executors[DEVICE_INFO] = make_unique<DeviceInfoExecutor>(singletonObjects);
+    executors[IEEE_ADDRESS_RESPONSE] = make_unique<IEEEAddressResponseExecutor>(singletonObjects);
 }
 
 void zigbee::UsbResponseExecutors::execute(unsigned char *data, int length) {

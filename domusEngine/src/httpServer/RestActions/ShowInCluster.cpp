@@ -12,6 +12,7 @@
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
 #include <boost/lexical_cast.hpp>
+#include <boost/log/trivial.hpp>
 
 #include "ShowInCluster.h"
 
@@ -26,13 +27,14 @@ namespace zigbee {
 
         void ShowInCluster::operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
                                        Poco::Net::HTTPServerResponse &response) {
+            BOOST_LOG_TRIVIAL(info) << "ShowInCluster";
             response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
             const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
             auto nwkAddr(placeHolder.get<NwkAddr>("device"));
             auto endpoint(placeHolder.get<EndpointID>("endpoint"));
             auto clusterId(placeHolder.get<ClusterID>("cluster"));
             auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
-            auto zEndpoint = zDevice.getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
+            auto zEndpoint = zDevice->getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
             if (zEndpoint.isInCluster(clusterId)) {
                 auto cluster = singletons.getClusters()->getCluster(nwkAddr, endpoint, clusterId);
                 producer.produce(response.send(), ClusterPT(cluster));

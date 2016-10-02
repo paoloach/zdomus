@@ -16,6 +16,7 @@
 #include "Clusters.h"
 #include "AttributeWriter.h"
 #include "Constant.h"
+#include "../ZigbeeData/TopologyCreation.h"
 
 struct libusb_context;
 
@@ -51,7 +52,7 @@ namespace zigbee {
     public:
         virtual std::shared_ptr<ZigbeeDevice> getZigbeeDevice() { return zigbeeDevice; }
 
-        virtual std::shared_ptr<ZDevices> getZDevices() { return zDevices; }
+        virtual ZDevices * getZDevices() { return zDevices.get(); }
 
         virtual std::shared_ptr<Configuration> getConfiguration() { return configuration; }
 
@@ -75,10 +76,12 @@ namespace zigbee {
 
         virtual Constant & getConstant() {return constant;}
 
+        virtual TopologyCreation & getTopology() {return topology;}
+
 
     private:
         boost::asio::io_service io;
-        std::shared_ptr<ZDevices> zDevices;
+        std::unique_ptr<ZDevices> zDevices;
         std::shared_ptr<ZigbeeDevice> zigbeeDevice;
         std::shared_ptr<Configuration> configuration;
         std::shared_ptr<JSManager> jsManager;
@@ -91,6 +94,7 @@ namespace zigbee {
         std::shared_ptr<Clusters> clusters;
         AttributeWriter attributeWriter;
         Constant constant;
+        TopologyCreation topology;
     };
 
 } /* namespace zigbee */

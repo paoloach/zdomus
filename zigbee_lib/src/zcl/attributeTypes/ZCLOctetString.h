@@ -21,7 +21,7 @@ namespace zigbee {
 
     public:
         virtual boost::any getValue() const override;
-        virtual std::string getStrValue() const {
+        virtual std::string getStrValue() const  override  {
             using boost::spirit::karma::int_;
             using boost::spirit::karma::generate_delimited;
             using boost::spirit::ascii::space;
