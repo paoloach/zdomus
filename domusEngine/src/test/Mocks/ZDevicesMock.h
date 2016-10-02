@@ -31,7 +31,6 @@ public:
 	MOCK_CONST_METHOD1(exists, bool (const ExtAddress & extAddress));
 };
 
-typedef shared_ptr_mock<ZDevices, ZDevicesMock> ZDevicesMock_P;
 
 } /* namespace test */
 } /* namespace zigbee */

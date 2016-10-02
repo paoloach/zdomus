@@ -23,7 +23,7 @@ JSZAttributeIEEEAddressTest::~JSZAttributeIEEEAddressTest() {
 
 void JSZAttributeIEEEAddressTest::SetUp() {
 	JSTest::SetUp();
-	jsZAttribute = std::make_shared<JSZAttributeIEEEAddress>(zDevices, zigbeeDevice, clusterTypeFactoryMock);
+	jsZAttribute = std::make_shared<JSZAttributeIEEEAddress>(zDevices.get(), zigbeeDevice, clusterTypeFactoryMock);
 	zclIEEEAddressAttributeMock = std::make_shared<ZCLIEEEAddressAttributeMock>();
 	zAttributeVariable = createZAttributeVariable("Z"+ZCLIEEEAddressAttribute::name() );
 	EXPECT_CALL(*zclIEEEAddressAttributeMock, getZCLType()).Times(AnyNumber()).WillOnce(Return(ZCLTypeDataType::ZCLTypeIEEEaddress));

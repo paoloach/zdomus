@@ -47,7 +47,7 @@ static AnnunceMessage ANNUNCE { annunceMsg1, 2, { 3, 4, 5, 6, 7, 8, 9, 10 }, 11 
 				Local<Object>  global = context->Global(); \
 
 
-JSEndpointTest::~JSEndpointTest() {
+JSEndpointTest::JSEndpointTest():zDevices{std::make_unique<ZDevicesMock>()} {
 }
 
 void JSEndpointTest::SetUp() {
@@ -57,7 +57,7 @@ void JSEndpointTest::SetUp() {
 	creatingZDeviceScript = stream.str();
 
 	extAddress = convertFromString(EXTENDED_ADDRESS);
-	ZDevices_P zDevicesP = zDevices;
+	auto zDevicesP = zDevices.get();
 	jsEndpoint = std::make_shared<JSZEndpoint>(zDevicesP);
 	JSZDevice_P jsZDeviceP = jszDevice;
 	createParams.array_buffer_allocator = &v8Allocator;
@@ -105,7 +105,7 @@ TEST_F( JSEndpointTest, createIstance) {
 	jsEndpoint->initJsObjectsTemplate(isolate, global);
 
 	EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
 	v8::Local<v8::Value> result = runScript(stream.str());
 	ASSERT_THAT(result.IsEmpty(), false);
@@ -122,7 +122,7 @@ TEST_F( JSEndpointTest, getEndpointId) {
 	jsEndpoint->initJsObjectsTemplate(isolate, global);
 
 	EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
 	v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.endpointId");
 	ASSERT_THAT(result.IsEmpty(), false);
@@ -137,7 +137,7 @@ TEST_F( JSEndpointTest, getProfileId) {
 	jsEndpoint->initJsObjectsTemplate(isolate, global);
 
 	EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillRepeatedly(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
 
 	v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.profileId");
 	ASSERT_THAT(result.IsEmpty(), false);
@@ -152,7 +152,7 @@ TEST_F( JSEndpointTest, getDeviceId) {
 	jsEndpoint->initJsObjectsTemplate(isolate, global);
 
 	EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillRepeatedly(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
 
 	v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.deviceId");
 	ASSERT_THAT(result.IsEmpty(), false);
@@ -167,7 +167,7 @@ TEST_F( JSEndpointTest, getDeviceVersion) {
 	jsEndpoint->initJsObjectsTemplate(isolate, global);
 
 	EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillRepeatedly(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
 
 	v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.deviceVersion");
 	ASSERT_THAT(result.IsEmpty(), false);

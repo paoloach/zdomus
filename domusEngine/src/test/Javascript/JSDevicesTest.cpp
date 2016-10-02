@@ -18,11 +18,11 @@ static  GenericMessage simpleeMsg {2};
 static  AnnunceMessage annunce1 {annunceMsg1,2,{3,4,5,6,7,8,9,10},11};
 static   AnnunceMessage annunce2 {annunceMsg1,102,{11,12,13,14,15,16,17,18},111};
 
-JSDevicesTest::~JSDevicesTest() {
+JSDevicesTest::JSDevicesTest() : zDevices{ std::make_unique<ZDevicesMock>()}{;
 }
 
 void JSDevicesTest::SetUp() {
-	jsDevices.reset(new JSZDevices{zDevices,jszDevice} );
+	jsDevices.reset(new JSZDevices{zDevices.get(),jszDevice} );
 	createParams.array_buffer_allocator = &v8Allocator;
 	isolate = v8::Isolate::New(createParams);
 }
@@ -87,7 +87,7 @@ TEST_F( JSDevicesTest, JSgetCountDevices) {
 TEST_F( JSDevicesTest, JSgetDevices) {
 	ZDevice zDevice1{annunce1};
 	ZDevice zDevice2{annunce2};
-	std::vector<ZDevice> devices {zDevice1, zDevice2};
+	std::vector<ZDevice *> devices {&zDevice1, &zDevice2};
 
 	Isolate::Scope isolate_scope(isolate);
 	Locker locker(isolate);

@@ -31,6 +31,10 @@ const std::string JSTest::EXTENDED_ADDRESS = "00-01-02-03-04-05-06-07";
 const std::vector<ClusterID> JSTest::IN_CLUSTERS { ClusterID { 1 }, ClusterID { 2 } };
 const std::vector<ClusterID> JSTest::OUT_CLUSTERS { ClusterID { 3 }, ClusterID { 4 } };
 
+	JSTest::JSTest():zDevices{std::make_unique<ZDevicesMock>()} {
+
+	}
+
 void JSTest::SetUp() {
     createParams.array_buffer_allocator = &v8Allocator;
 	isolate = v8::Isolate::New(createParams);
@@ -48,7 +52,7 @@ void JSTest::SetUp() {
 	jsLog = std::make_shared<JSLog>(log);
 
 	ON_CALL(*clusterTypeFactoryMock, getCluster(_,_,_,_)).WillByDefault(Return(defaultCluster));
-	ON_CALL(*zDevices, getDevice(extAddress)).WillByDefault(ReturnRef(defaultZDevice));
+	ON_CALL(*zDevices, getDevice(extAddress)).WillByDefault(Return(&defaultZDevice));
 	ON_CALL(*zDevices, exists(_)).WillByDefault(Return(false));
 	ON_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillByDefault(Return(zclAttributeMock));
 }

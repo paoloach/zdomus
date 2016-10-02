@@ -28,6 +28,7 @@ namespace test {
 
 class JSZClusterTest : public testing::Test{
 public:
+	JSZClusterTest();
 	virtual ~JSZClusterTest()=default;
 protected:
 	virtual void SetUp() override ;
@@ -40,7 +41,7 @@ protected:
 	std::unique_ptr<v8::Locker> locker;
 	std::string	creatingZDeviceScript;
 	v8::Isolate * isolate;
-	ZDevicesMock_P zDevices;
+	std::unique_ptr<ZDevicesMock>  zDevices;
 	ClusterTypeFactoryMock_P clusterTypeFactoryMock;
 	std::shared_ptr<ZigbeeDeviceMock> zigbeeDeviceMock;
 	std::shared_ptr<ZigbeeDevice> zigbeeDevice;

@@ -10,8 +10,11 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include "../../../src/ZigbeeData/ZDevices.h"
+
 
 #include "../../Utils/SingletonObjects.h"
+
 
 namespace zigbee {
 
@@ -21,7 +24,7 @@ public:
 	virtual ~SingletonObjectsMock();
 
 	MOCK_METHOD0(getZigbeeDevice, std::shared_ptr<ZigbeeDevice> ());
-	MOCK_METHOD0(getZDevices, std::shared_ptr<ZDevices> ());
+	MOCK_METHOD0(getZDevices, ZDevices * ());
 	MOCK_METHOD0(getConfiguration, std::shared_ptr<Configuration> ());
 	MOCK_METHOD0(getJSManage, std::shared_ptr<JSManager> () );
 	MOCK_METHOD0(getClusterTypeFactory, std::shared_ptr<ClusterTypeFactory>  () );

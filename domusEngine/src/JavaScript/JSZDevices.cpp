@@ -15,7 +15,7 @@ using std::shared_ptr;
 
 namespace zigbee {
 
-JSZDevices::JSZDevices(ZDevices_P  zDevices,JSZDevice_P  jsDevice) :
+JSZDevices::JSZDevices(ZDevices *  zDevices,JSZDevice_P  jsDevice) :
 		zDevices(zDevices), jsDevice(jsDevice) {
 }
 

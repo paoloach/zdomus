@@ -43,6 +43,7 @@ protected:
 	static constexpr uint32_t ATTRIBUTE1_ID { 3 };
 
 public:
+	JSTest();
 	virtual ~JSTest()=default;
 protected:
 	virtual void SetUp() override;
@@ -54,7 +55,7 @@ protected:
 	v8::Isolate::CreateParams createParams;
 	std::unique_ptr<v8::Locker> locker;
 	v8::Isolate * isolate;
-	ZDevicesMock_P zDevices;
+	std::unique_ptr<ZDevicesMock> zDevices;
 	ExtAddress extAddress;
 	ClusterTypeFactoryMock_P clusterTypeFactoryMock;
 	std::shared_ptr<ZigbeeDeviceMock> zigbeeDeviceMock;

@@ -90,6 +90,8 @@ namespace zigbee {
                     nwkAddrs,
                     const EndpointID endpoint, ClusterID
                     cluster, ZigbeeAttributeIds & attributeIds));
+            MOCK_METHOD1(requestActiveEndpoints, void(NwkAddr));
+            MOCK_METHOD3(getIEEEAddress, void(NwkAddr, ZDPRequestType, uint8_t));
         };
 
     }

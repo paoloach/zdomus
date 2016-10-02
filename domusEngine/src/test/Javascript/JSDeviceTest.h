@@ -22,7 +22,8 @@ namespace test {
 
 class JSDeviceTest : public testing::Test{
 public:
-	virtual ~JSDeviceTest();
+    JSDeviceTest();
+	virtual ~JSDeviceTest()=default;
 protected:
 	virtual void SetUp() override ;
 	virtual void TearDown() override ;
@@ -34,7 +35,7 @@ protected:
 	std::unique_ptr<v8::Locker> locker;
 	std::string	creatingZDeviceScript;
 	v8::Isolate * isolate;
-	ZDevicesMock_P zDevices;
+	std::unique_ptr<ZDevicesMock> zDevices;
 	JSZEndpointMock_P jsEndpoint;
 	JSZDevice_P jsDevice;
 	ExtAddress extAddress;

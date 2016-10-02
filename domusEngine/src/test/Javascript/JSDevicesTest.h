@@ -20,7 +20,8 @@ namespace test {
 
 class JSDevicesTest : public testing::Test{
 public:
-	virtual ~JSDevicesTest();
+    JSDevicesTest();
+	virtual ~JSDevicesTest()=default;
 protected:
 	virtual void SetUp() override ;
 	virtual void TearDown() override ;
@@ -29,7 +30,7 @@ protected:
 protected:
 	V8Allocator v8Allocator;
 	v8::Isolate::CreateParams createParams;
-	ZDevicesMock_P zDevices;
+    std::unique_ptr<ZDevicesMock> zDevices;
 	JSZDeviceMock_P jszDevice;
 	std::unique_ptr<JSZDevices> jsDevices;
 	v8::Isolate * isolate;

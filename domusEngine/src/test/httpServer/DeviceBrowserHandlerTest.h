@@ -22,49 +22,57 @@
 #include "ZDeviceFixture.h"
 
 namespace zigbee {
-namespace http {
-namespace test {
+    namespace http {
+        namespace test {
 
-class DeviceBrowserHandlerTest  : public ::testing::Test {
-public:
-	virtual ~DeviceBrowserHandlerTest();
-	DeviceBrowserHandlerTest();
-protected:
-	virtual void SetUp();
-	virtual void TearDown();
-protected:
-	std::shared_ptr<zigbee::test::ClusterMock> clusterMock;
-	std::shared_ptr<zigbee::test::ZCLAttributeMock> attributeMock;
-	zigbee::test::ZDevicesMock_P zDevicesMock;
-	std::shared_ptr<zigbee::test::ClusterTypeFactoryMock> clusterTypeFactoryMock;
-	SingletonObjectsMock singletonObjects;
-	std::shared_ptr<zigbee::test::ZigbeeDeviceMock> zigbeeDeviceMock;
-	std::shared_ptr<zigbee::ZigbeeDevice> zigbeeDevice;
-	std::stringstream outStream;
-	HTTPServerResponseMock response;
-	HTTPServerRequestMock request;
-	static ClusterID clusterInId ;
-	static ClusterID clusterOutId ;
-	bool attributeAvailable;
-	static constexpr int attributeId = 43;
-	static constexpr auto attributeName = "name";
-	static constexpr auto attributeReadOnly = false;
-	static constexpr auto attributeDataType = ZCLTypeDataType::ZCLType24bit;
-	static constexpr auto attributeUnsupported = true;
-	ZCLAttribute::Status attributeStatus;
+            class DeviceBrowserHandlerTest : public ::testing::Test {
+            public:
+                virtual ~DeviceBrowserHandlerTest();
 
-	void setExpectedCallForAttribute();
-	template <typename T>
-	std::string getRestForAttribute(T && t){
-		std::stringstream restPath;
-		restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/" << ZDeviceFixture::endpoint2_1.getEndpoint() << "/cluster/in/" << clusterInId << "/attribute/" << t;
-		return restPath.str();
-	}
-	std::string getRestForCmd(int cmd);
-};
+                DeviceBrowserHandlerTest();
 
-} /* namespace test */
-} /* namespace http */
+            protected:
+                virtual void SetUp();
+
+                virtual void TearDown();
+
+            protected:
+                std::shared_ptr<zigbee::test::ClusterMock> clusterMock;
+                std::shared_ptr<zigbee::test::ZCLAttributeMock> attributeMock;
+                std::unique_ptr<zigbee::test::ZDevicesMock> zDevicesMock;
+                std::shared_ptr<zigbee::test::ClusterTypeFactoryMock> clusterTypeFactoryMock;
+                SingletonObjectsMock singletonObjects;
+                std::shared_ptr<zigbee::test::ZigbeeDeviceMock> zigbeeDeviceMock;
+                std::shared_ptr<zigbee::ZigbeeDevice> zigbeeDevice;
+                std::stringstream outStream;
+                HTTPServerResponseMock response;
+                HTTPServerRequestMock request;
+                static ClusterID clusterInId;
+                static ClusterID clusterOutId;
+                bool attributeAvailable;
+                static constexpr int attributeId = 43;
+                static constexpr auto attributeName = "name";
+                static constexpr auto attributeReadOnly = false;
+                static constexpr auto attributeDataType = ZCLTypeDataType::ZCLType24bit;
+                static constexpr auto attributeUnsupported = true;
+                ZCLAttribute::Status attributeStatus;
+
+                void setExpectedCallForAttribute();
+
+                template<typename T>
+                std::string getRestForAttribute(T &&t) {
+                    std::stringstream restPath;
+                    restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/"
+                             << ZDeviceFixture::endpoint2_1.getEndpoint() << "/cluster/in/" << clusterInId
+                             << "/attribute/" << t;
+                    return restPath.str();
+                }
+
+                std::string getRestForCmd(int cmd);
+            };
+
+        } /* namespace test */
+    } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_TEST_HTTPSERVER_DEVICEBROWSERHANDLERTEST_H_ */

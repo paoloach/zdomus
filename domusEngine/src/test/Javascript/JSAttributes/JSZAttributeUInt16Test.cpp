@@ -24,10 +24,11 @@ namespace zigbee {
 
         void JSZAttributeUInt16Test::SetUp() {
             JSTest::SetUp();
-            jsZAttribute = std::make_shared<JSZAttributeUint16>(zDevices, zigbeeDevice, clusterTypeFactoryMock);
+            jsZAttribute = std::make_shared<JSZAttributeUint16>(zDevices.get(), zigbeeDevice, clusterTypeFactoryMock);
             zclUint16Attribute = std::make_shared<ZCLUint16AttributeMock>();
             zAttributeVariable = createZAttributeVariable("Z" + ZCLUint16AttributeMock::name());
-            EXPECT_CALL(*zclUint16Attribute, getZCLType()).Times(AnyNumber()).WillOnce(Return(ZCLTypeDataType::ZCLTypeUInt16));
+            EXPECT_CALL(*zclUint16Attribute, getZCLType()).Times(AnyNumber()).WillOnce(
+                    Return(ZCLTypeDataType::ZCLTypeUInt16));
         }
 
         void JSZAttributeUInt16Test::TearDown() {
@@ -100,7 +101,8 @@ namespace zigbee {
             Callbacks callbacks;
             EXPECT_CALL(*zclUint16Attribute, onChange(_)).WillOnce(Invoke(&callbacks, &Callbacks::add));
             EXPECT_CALL(*zclUint16Attribute, requestValue());
-            EXPECT_CALL(*zclUint16Attribute, removeOnChangeListener(_)).WillOnce(Invoke(&callbacks, &Callbacks::remove));
+            EXPECT_CALL(*zclUint16Attribute, removeOnChangeListener(_)).WillOnce(
+                    Invoke(&callbacks, &Callbacks::remove));
 
             requestValueWithCallbackTest(jsZAttribute, zclUint16Attribute, callbacks);
         }

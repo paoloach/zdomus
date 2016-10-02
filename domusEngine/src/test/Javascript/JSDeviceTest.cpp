@@ -61,7 +61,7 @@ namespace zigbee {
             info.GetReturnValue().Set(This->jsDevice->createInstance(This->isolate, extAddress));
         }
 
-        JSDeviceTest::~JSDeviceTest() {
+        JSDeviceTest::JSDeviceTest():zDevices{std::make_unique<ZDevicesMock>()} {
         }
 
         void JSDeviceTest::SetUp() {
@@ -69,7 +69,7 @@ namespace zigbee {
 
             std::stringstream stream{extendedAddress};
             stream >> extAddress;
-            std::shared_ptr<ZDevices> zDevicesP = zDevices;
+            auto zDevicesP = zDevices.get();
             JSZEndpoint_P jsZEndpoint = jsEndpoint;
             std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             jsDevice = std::make_shared<JSZDevice>(zDevicesP, jsZEndpoint);
@@ -156,7 +156,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.shortAddress");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -170,7 +170,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isPan();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -183,7 +183,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isPan();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -196,7 +196,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isFullFunctionDevice();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -209,7 +209,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isFullFunctionDevice();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -222,7 +222,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isMainPoweredSource();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -235,7 +235,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isMainPoweredSource();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -248,7 +248,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isDisableRFInIDLE();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -261,7 +261,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isDisableRFInIDLE();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -274,7 +274,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isSecureCapable();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -287,7 +287,7 @@ namespace zigbee {
             V8_SETUP
 
             EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isSecureCapable();");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -308,7 +308,7 @@ namespace zigbee {
 
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
 
-            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             EXPECT_CALL(*jsEndpoint, createInstance(isolate, extAddress, endpointId1)).WillOnce(
                     Return(objectEndpoint1));
             EXPECT_CALL(*jsEndpoint, createInstance(isolate, extAddress, endpointId2)).WillOnce(

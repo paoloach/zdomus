@@ -34,11 +34,12 @@ JavaScriptExecuterTest::~JavaScriptExecuterTest() {
 }
 
 void JavaScriptExecuterTest::SetUp() {
+	zDevices = std::make_unique<ZDevicesMock>();
 	zigbeeDevice = make_shared<ZigbeeDeviceMock>();
 	fixedPathContainer = make_shared<http::FixedPathContainer>();
 	extAddress = convertFromString(EXTENDED_ADDRESS);
 	EXPECT_CALL(singletonObjects, getZigbeeDevice()).Times(AnyNumber()).WillRepeatedly(Return(zigbeeDevice));
-	EXPECT_CALL(singletonObjects, getZDevices()).Times(AnyNumber()).WillRepeatedly(Return(zDevices));
+	EXPECT_CALL(singletonObjects, getZDevices()).Times(AnyNumber()).WillRepeatedly(Return(zDevices.get()));
 	EXPECT_CALL(singletonObjects, getFixedPathContainer()).Times(AnyNumber()).WillRepeatedly(Return(fixedPathContainer));
 }
 
@@ -81,7 +82,7 @@ TEST_F( JavaScriptExecuterTest, creating_attribute_ZCL_uint8) {
 	std::stringstream js;
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
-	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
 	string objectName = "Z" + ZCL_uint8_Attribute::name();
 
 	js << objectName << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << BASIC_CLUSTER << "," << APPLICATION_VERSION_ID << ");";
@@ -102,7 +103,7 @@ TEST_F( JavaScriptExecuterTest, creating_attribute_ZCL_uint8_log_type) {
 	std::stringstream js;
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
-	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
 	string objectName = "Z" + ZCL_uint8_Attribute::name();
 
 	js << "var a = " <<  objectName << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << BASIC_CLUSTER << "," << APPLICATION_VERSION_ID << ");";
@@ -127,7 +128,7 @@ TEST_F( JavaScriptExecuterTest, creating_attribute_ZCL_uint8_log_type_two_time) 
 	std::stringstream js;
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
-	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
 	string objectName = "Z" + ZCL_uint8_Attribute::name();
 
 	js << "var log = Log();";
@@ -159,7 +160,7 @@ TEST_F( JavaScriptExecuterTest, creating_invalid_attribute_ZCL_uint16) {
 	std::stringstream js;
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
-	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
 	string objectName = "Z" + ZCL_uint16_Attribute::name();
 
 	js << objectName << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << BASIC_CLUSTER << "," << APPLICATION_VERSION_ID << ");";
@@ -183,7 +184,7 @@ TEST_F( JavaScriptExecuterTest, creating_invalid_attribute_ZCL_uint16_and_then_v
 	std::stringstream jsRight;
 	jsExecuter = make_shared<JavaScriptExecuter>(singletonObjects, log);
 	EXPECT_CALL(*zDevices, exists(extAddress)).WillRepeatedly(Return(true));
-	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillRepeatedly(ReturnRef(zDevice));
+	EXPECT_CALL(*zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
 	string objectName_16uint = "Z" + ZCL_uint16_Attribute::name();
 	string objectName_8uint = "Z" + ZCL_uint8_Attribute::name();
 

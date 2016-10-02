@@ -17,27 +17,29 @@
 #include "../../JavaScript/JavaScriptExecuter.h"
 
 namespace zigbee {
-namespace test {
+    namespace test {
 
+        class JavaScriptExecuterTest : public testing::Test {
+        public:
+            virtual ~JavaScriptExecuterTest();
 
+        protected:
+            virtual void SetUp() override;
 
-class JavaScriptExecuterTest  : public  testing::Test{
-public:
-	virtual ~JavaScriptExecuterTest();
-protected:
-	virtual void SetUp() override;
-	virtual void TearDown() override;
-	ExtAddress convertFromString(const std::string& strExt);
-protected:
-	std::shared_ptr<ZigbeeDeviceMock> zigbeeDevice;
-	SingletonObjectsMock singletonObjects;
-	ZDevicesMock_P zDevices;
-	std::shared_ptr<JavaScriptExecuter> jsExecuter;
-	ExtAddress extAddress;
-	std::shared_ptr<http::FixedPathContainer> fixedPathContainer;
-};
+            virtual void TearDown() override;
 
-} /* namespace test */
+            ExtAddress convertFromString(const std::string &strExt);
+
+        protected:
+            std::shared_ptr<ZigbeeDeviceMock> zigbeeDevice;
+            SingletonObjectsMock singletonObjects;
+            std::unique_ptr<ZDevicesMock> zDevices;
+            std::shared_ptr<JavaScriptExecuter> jsExecuter;
+            ExtAddress extAddress;
+            std::shared_ptr<http::FixedPathContainer> fixedPathContainer;
+        };
+
+    } /* namespace test */
 } /* namespace zigbee */
 
 #endif /* SRC_TEST_JAVASCRIPT_JAVASCRIPTEXECUTERTEST_H_ */
