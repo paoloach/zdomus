@@ -26,8 +26,7 @@ namespace zigbee {
 
     }
 
-    ZCLIEEEAddressAttribute::~ZCLIEEEAddressAttribute() {
-    }
+    ZCLIEEEAddressAttribute::~ZCLIEEEAddressAttribute() = default;
 
     boost::any ZCLIEEEAddressAttribute::getValue() const {
         if (status != Available) {

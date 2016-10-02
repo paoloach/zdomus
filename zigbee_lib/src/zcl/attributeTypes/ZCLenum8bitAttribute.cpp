@@ -17,8 +17,7 @@ namespace zigbee {
         zclType = ZCLTypeDataType::ZCLTypeenum8;
     }
 
-    ZCL_enum8bit_Attribute::~ZCL_enum8bit_Attribute() {
-    }
+    ZCL_enum8bit_Attribute::~ZCL_enum8bit_Attribute() = default;
 
     void ZCL_enum8bit_Attribute::sendValue(uint8_t newValue) {
         sendValueToDevice(1, &newValue);

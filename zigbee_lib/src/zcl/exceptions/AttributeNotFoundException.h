@@ -12,8 +12,8 @@ namespace zigbee {
 
 class AttributeNotFoundException {
 public:
-	AttributeNotFoundException() noexcept {};
-	virtual ~AttributeNotFoundException() noexcept{};
+	AttributeNotFoundException() noexcept = default;;
+	virtual ~AttributeNotFoundException() noexcept= default;;
 };
 
 } /* namespace zigbee */

@@ -30,7 +30,7 @@ namespace zigbee {
         return boost::any(value);
     }
 
-    void ZCL_string_Attribute::sendValue(const std::string &newValue) {
+    void ZCL_string_Attribute::sendValue(const std::string & /*newValue*/) {
         uint8_t data[1 + value.length()];
         data[0] = (uint8_t) value.length();
         memcpy(data + 1, value.c_str(), value.length());

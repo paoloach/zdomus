@@ -24,8 +24,7 @@ namespace zigbee {
 
     }
 
-    ZCL_boolean_Attribute::~ZCL_boolean_Attribute() {
-    }
+    ZCL_boolean_Attribute::~ZCL_boolean_Attribute() = default;
 
     boost::any ZCL_boolean_Attribute::getValue() const {
         if (status != Available) {

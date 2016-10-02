@@ -34,8 +34,8 @@ public:
 		EmergencyMainConstPowerd=5,
 		EmergencyMainTransSwitch=6
 	};
-	virtual ClusterID getId() const override;
-	virtual std::string getClusterName() const override ;
+	ClusterID getId() const override;
+	std::string getClusterName() const override ;
 
 };
 

@@ -9,11 +9,10 @@
 
 namespace zigbee {
 
-OnOffLight::OnOffLight(SimpleDescMessage * simpleDesc) {
+OnOffLight::OnOffLight(SimpleDescMessage *  /*simpleDesc*/) {
 
 }
 
-OnOffLight::~OnOffLight() {
-}
+OnOffLight::~OnOffLight() = default;
 
 } /* namespace zigbee */

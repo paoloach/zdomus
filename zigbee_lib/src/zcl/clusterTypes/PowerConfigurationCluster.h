@@ -20,8 +20,8 @@ class PowerConfigurationCluster : public Cluster{
 public:
 	PowerConfigurationCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
 public:
-	virtual ClusterID getId() const override;
-	virtual std::string getClusterName() const override;
+	ClusterID getId() const override;
+	std::string getClusterName() const override;
 };
 
 } /* namespace zigbee */

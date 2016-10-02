@@ -25,8 +25,7 @@ namespace zigbee {
                 name{name} {
         }
 
-        virtual ~ClusterCmdParamsBase() {
-        }
+        virtual ~ClusterCmdParamsBase() = default;
 
         std::string getName() const {
             return name;
@@ -50,12 +49,12 @@ namespace zigbee {
                 ClusterCmdParamsBase{name} {
         }
 
-        virtual ~ClusterCmdParams() = default;
+        ~ClusterCmdParams() override = default;
     public:
-        virtual const ZCLTypeBase &getType() const {
+        const ZCLTypeBase &getType() const override {
             return dataType;
         }
-        virtual ZCLTypeDataType getZCLDataType() const {
+        ZCLTypeDataType getZCLDataType() const override {
             return dataType.getZCLDataType();
         }
 
@@ -70,16 +69,15 @@ namespace zigbee {
                 ClusterCmdParamsBase(std::move(name)) {
         }
 
-        virtual ~ClusterCmdListParams() {
-        }
+        ~ClusterCmdListParams() override = default;
 
     public:
 
-        virtual const ZCLTypeBase &getType() const {
+        const ZCLTypeBase &getType() const override {
             return dataArrayType;
         }
 
-        virtual ZCLTypeDataType getZCLDataType() const {
+        ZCLTypeDataType getZCLDataType() const override {
             return dataArrayType.getZCLDataType();
         }
 

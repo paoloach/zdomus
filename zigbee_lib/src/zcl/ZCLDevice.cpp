@@ -13,7 +13,6 @@ zclDevice::zclDevice(SimpleDescMessage * simpleDesc) :networkAddr(simpleDesc->nw
 
 }
 
-zclDevice::~zclDevice() {
-}
+zclDevice::~zclDevice() = default;
 
 } /* namespace zigbee */

@@ -8,7 +8,7 @@
 #ifndef ZCLTypeDATATYPE_H_
 #define ZCLTypeDATATYPE_H_
 
-#include <string.h>
+#include <cstring>
 #include <ostream>
 #include <vector>
 #include <map>
@@ -128,8 +128,7 @@ static const std::map<ZCLTypeDataType, std::string> names {
 
 class ZCLTypeBase {
 public:
-	virtual ~ZCLTypeBase() {
-	}
+	virtual ~ZCLTypeBase() = default;
 	;
 	virtual std::vector<uint8_t> getRaw(const std::string & data) const =0;
 	virtual std::vector<uint8_t> getRaw(const std::vector<std::string> & data) const=0;
@@ -150,7 +149,7 @@ public:
 		return std::vector<uint8_t> { };
 	}
 
-	virtual ZCLTypeDataType getZCLDataType() const override {
+	ZCLTypeDataType getZCLDataType() const override {
 		return z;
 	}
 };
@@ -177,7 +176,7 @@ public:
 		return std::vector<uint8_t> { };
 	}
 
-	virtual ZCLTypeDataType getZCLDataType() const override {
+	ZCLTypeDataType getZCLDataType() const override {
 		return ZCLTypeDataType::ZCLTypeArray;
 	}
 };
@@ -192,7 +191,7 @@ public:
 		std::vector<uint8_t> result;
 
 		ZCLType<arrayType> zclConverter;
-		for (std::string singleRawData : raw) {
+		for (const std::string& singleRawData : raw) {
 			std::vector<uint8_t> singleResult { zclConverter.getRaw(singleRawData) };
 			std::copy(singleResult.begin(), singleResult.end(), std::back_inserter(result));
 		}
@@ -202,7 +201,7 @@ public:
 		return std::vector<uint8_t> { };
 	}
 
-	virtual ZCLTypeDataType getZCLDataType() const override {
+	ZCLTypeDataType getZCLDataType() const override {
 		return ZCLTypeDataType::ZCLTypeArray;
 	}
 };
@@ -211,8 +210,8 @@ template<>
 inline std::vector<uint8_t> ZCLType<ZCLTypeDataType::ZCLTypeStringChar>::getRaw(const std::string & value) const {
 	std::vector<uint8_t> result;
 	result.push_back(value.length());
-	for (unsigned int i = 0; i < value.length(); ++i) {
-		result.push_back(value[i]);
+	for (char i : value) {
+		result.push_back(i);
 	}
 	return result;
 }
@@ -221,8 +220,8 @@ template<>
 inline std::vector<uint8_t> ZCLType<ZCLTypeDataType::ZCLTypeIEEEaddress>::getRaw(const std::vector<std::string> &octets) const {
 	std::vector<uint8_t> result;
 
-	for (std::string strOctet : octets) {
-		uint8_t octect = strtol(strOctet.c_str(), NULL, 16);
+	for (const std::string& strOctet : octets) {
+		uint8_t octect = strtol(strOctet.c_str(), nullptr, 16);
 		result.push_back(octect);
 	}
 	return result;
@@ -244,7 +243,7 @@ inline std::vector<uint8_t> ZCLType<ZCLTypeDataType::ZCLTypeIEEEaddress>::getRaw
 		if (!isxdigit(octet[0]) || !isxdigit(octet[1])) {
 			throw boost::bad_lexical_cast();
 		}
-		result.push_back(std::stoi(octet, 0, 16));
+		result.push_back(std::stoi(octet, nullptr, 16));
 	}
 
 	return result;

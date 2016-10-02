@@ -27,7 +27,7 @@ namespace zigbee {
         return boost::any(value);
     }
 
-    void ZCLOctetString::sendValue(const std::string &newValue) {
+    void ZCLOctetString::sendValue(const std::string & /*newValue*/) {
         uint8_t data[1 + value.size()];
         data[0] = (uint8_t) value.size();
         int i = 1;

@@ -124,7 +124,7 @@ namespace zigbee {
         virtual Cluster * getClusterParent(){return parent;};
 
         virtual ListenerOnChange onChange(std::function<void()> changeSignal) {
-            return callbacks.add(std::move(changeSignal));
+            return callbacks.add(changeSignal);
         };
 
         virtual void removeOnChangeListener(std::list<std::function<void()>>::iterator &listener) {
@@ -151,7 +151,7 @@ namespace zigbee {
         ZCLAttributeTmpl(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, int identifier,
                          std::experimental::string_view name, bool readOnly) : ZCLAttribute(zigbeeDevice, parent, identifier, T, name, readOnly) { }
 
-        virtual ZclAttributeRawValue &getAttributeRawValue() override { return zclAttributeRawValueImpl; }
+        ZclAttributeRawValue &getAttributeRawValue() override { return zclAttributeRawValueImpl; }
         static constexpr ZCLTypeDataType type = T;
     protected:
         ZclAttributeRawValueImpl<T> zclAttributeRawValueImpl;

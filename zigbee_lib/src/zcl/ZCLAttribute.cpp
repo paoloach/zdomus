@@ -14,7 +14,7 @@
 
 namespace zigbee {
 
-    ZCLAttributeNotAvailableException::ZCLAttributeNotAvailableException(Cluster *parent, int attributeId) {
+    ZCLAttributeNotAvailableException::ZCLAttributeNotAvailableException(Cluster *parent, int  /*attributeId*/) {
         std::stringstream stream;
         stream << "try to access to not yet available attribute of cluster " << parent->getClusterName() << ", endpoint " << parent->getEndpoint() <<
         ", node "

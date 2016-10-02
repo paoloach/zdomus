@@ -18,8 +18,8 @@ class IdentifyCluster : public Cluster {
 public:
 	IdentifyCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 public:
-	virtual ClusterID getId() const override;
-	virtual std::string getClusterName() const override;
+	ClusterID getId() const override;
+	std::string getClusterName() const override;
 public:
 };
 
