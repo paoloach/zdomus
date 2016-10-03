@@ -8,6 +8,7 @@
 #ifndef SRC_ZIGBEEDATA_ZENDPOINT_H_
 #define SRC_ZIGBEEDATA_ZENDPOINT_H_
 
+#include <utility>
 #include <vector>
 #include <zigbee/messageStructure/SimpleDescMessage.h>
 #include <zigbee/EndpointID.h>
@@ -20,8 +21,8 @@ class ZEndpoint {
 public:
 	ZEndpoint():endpoint{0},appProfId{0}, appDeviceId{0},appDevVer{0}{}
 	ZEndpoint(const SimpleDescMessage & simpleDescMessage);
-	ZEndpoint(NwkAddr nwkAddress, EndpointID endpointId, uint32_t profileId, uint32_t deviceId, uint32_t deviceVer, const std::vector<ClusterID> &  inClusters, const std::vector<ClusterID> & outClusters) :
-			nwkAddr(nwkAddress), endpoint(endpointId), appProfId(profileId), appDeviceId(deviceId), appDevVer(deviceVer) ,inCluster(inClusters), outCluster(outClusters){
+	ZEndpoint(NwkAddr nwkAddress, EndpointID endpointId, uint32_t profileId, uint32_t deviceId, uint32_t deviceVer, std::vector<ClusterID>   inClusters, std::vector<ClusterID>  outClusters) :
+			nwkAddr(nwkAddress), endpoint(endpointId), appProfId(profileId), appDeviceId(deviceId), appDevVer(deviceVer) ,inCluster(std::move(inClusters)), outCluster(std::move(outClusters)){
 	}
 	virtual ~ZEndpoint() = default;
 public:

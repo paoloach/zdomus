@@ -22,8 +22,7 @@ InvalidZDevice::InvalidZDevice(NwkAddr shortAddress) {
 	message = stream.str();
 }
 
-InvalidZDevice::~InvalidZDevice() {
-}
+InvalidZDevice::~InvalidZDevice() = default;
 
 } /* namespace zigbee */
 

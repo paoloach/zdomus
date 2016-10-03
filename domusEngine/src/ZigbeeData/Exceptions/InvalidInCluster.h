@@ -15,7 +15,7 @@ namespace zigbee {
   class InvalidInCluster  : public ZigbeeDeviceException {
   public:
       InvalidInCluster(NwkAddr nwkAddress,EndpointID endpoint, ClusterID wrongCluster);
-      virtual ~InvalidInCluster()=default;
+      ~InvalidInCluster() override =default;
   };
 }
 

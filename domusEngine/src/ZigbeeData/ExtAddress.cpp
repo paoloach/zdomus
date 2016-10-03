@@ -73,7 +73,7 @@ namespace zigbee {
               return stream;
           }
           try {
-              data[i] = std::stoi(digit, 0, 16);
+              data[i] = std::stoi(digit, nullptr, 16);
           } catch (std::invalid_argument &e) {
               std::cerr << "unable to convert " << digit << " to integer" << std::endl;
               stream.setstate(std::ios_base::failbit);
@@ -87,7 +87,7 @@ namespace zigbee {
       char digit[3]{0, 0, 0};
       stream >> digit[0] >> digit[1];
       try {
-          data[7] = std::stoi(digit, 0, 16);
+          data[7] = std::stoi(digit, nullptr, 16);
       } catch (std::invalid_argument &e) {
           std::cerr << "unable to convert " << digit << " to integer" << std::endl;
           stream.setstate(std::ios_base::failbit);

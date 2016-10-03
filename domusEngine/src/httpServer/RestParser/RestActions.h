@@ -8,6 +8,7 @@
 #ifndef SRC_HTTPSERVER_RESTPARSER_RESTACTIONS_H_
 #define SRC_HTTPSERVER_RESTPARSER_RESTACTIONS_H_
 
+#include <utility>
 #include <vector>
 #include <tuple>
 #include <functional>
@@ -32,7 +33,7 @@ private:
 	DefaultActionHandler defaultAction;
 public:
 	void addActions(RestPath && restPath,ActionHandler   f ) noexcept ;
-	void setDefaultAction(DefaultActionHandler f) noexcept {defaultAction = f;}
+	void setDefaultAction(DefaultActionHandler f) noexcept {defaultAction = std::move(f);}
 	void execute(PathReceived &&pathReceived,  ServerRequest& request, Poco::Net::HTTPServerResponse& response);
 };
 

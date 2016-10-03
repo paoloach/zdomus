@@ -15,11 +15,11 @@ namespace zigbee {
 
 class ZigbeeDeviceException : public std::exception{
 public:
-	ZigbeeDeviceException(const std::string & message);
+	ZigbeeDeviceException(std::string  message);
 	ZigbeeDeviceException(){};
-	virtual ~ZigbeeDeviceException();
+	~ZigbeeDeviceException() override;
 public:
-	virtual const char* what() const noexcept;
+	const char* what() const noexcept override;
 	std::string getMessage() const;
 protected:
 	std::string message;

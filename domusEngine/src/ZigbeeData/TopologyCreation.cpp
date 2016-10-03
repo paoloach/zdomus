@@ -84,7 +84,7 @@ namespace zigbee {
         }
     }
 
-    void TopologyCreation::addObserver(std::function<void()> observer) {
+    void TopologyCreation::addObserver(const std::function<void()>& observer) {
         observers.push_back(observer);
     }
 

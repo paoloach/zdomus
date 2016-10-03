@@ -24,7 +24,7 @@ ZEndpointPT::ZEndpointPT(const ZEndpoint& zEndpoint) noexcept{
 	add("device_version", zEndpoint.getAppDevVer());
 	int index=0;
 	for (auto cluster : zEndpoint.getInCluster()) {
-		inCluster.add(boost::lexical_cast<std::string>(index), cluster);
+		inCluster.add(std::to_string(index), cluster);
 		index++;
 	}
     if (!inCluster.empty()) {
@@ -32,7 +32,7 @@ ZEndpointPT::ZEndpointPT(const ZEndpoint& zEndpoint) noexcept{
     }
 	index=0;
 	for (auto cluster : zEndpoint.getOutCluster()) {
-		outCluster.add(boost::lexical_cast<std::string>(index), cluster);
+		outCluster.add(std::to_string(index), cluster);
 		index++;
 	}
     if (!outCluster.empty()) {

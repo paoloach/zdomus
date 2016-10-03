@@ -18,7 +18,7 @@ class InvalidZDevice : public ZigbeeDeviceException {
 public:
 	InvalidZDevice(const ExtAddress & extAddress);
 	InvalidZDevice(NwkAddr shortAddress);
-	virtual ~InvalidZDevice();
+	~InvalidZDevice() override;
 };
 
 } /* namespace zigbee */

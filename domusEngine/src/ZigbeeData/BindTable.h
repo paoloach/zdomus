@@ -5,7 +5,7 @@
 #ifndef DOMUS_ENGINE_BINDTABLE_H
 #define DOMUS_ENGINE_BINDTABLE_H
 
-#include <inttypes.h>
+#include <cinttypes>
 #include <set>
 #include <zigbee/messageStructure/ZAddrType.h>
 #include <zigbee/messageStructure/BindTableResponseMessage.h>

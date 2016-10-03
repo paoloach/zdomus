@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <utility>
 
 #include "ZDevice.h"
 #include "Exceptions/InvalidZEndpointException.h"
@@ -33,13 +34,10 @@ namespace zigbee {
     ZDevice::ZDevice(const ExtAddress &extAddr, NwkAddr nwkAddr, std::set<NwkAddr> children) : extAddr(extAddr),
                                                                                                nwkAddr(nwkAddr),
                                                                                                capabilities(0),
-                                                                                               children(children) {
+                                                                                               children(std::move(std::move(children))) {
 
     }
 
-
-    ZDevice::~ZDevice() {
-    }
 
     bool ZDevice::put(const SimpleDescMessage &simpleDescMsg) {
         ZEndpoint endpoint(simpleDescMsg);

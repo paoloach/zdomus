@@ -27,7 +27,7 @@ namespace zigbee {
             DeviceBrowserHandler(SingletonObjects &singletons);
 
         protected:
-            virtual void handleRequest(Poco::Net::HTTPServerRequest &request,
+            void handleRequest(Poco::Net::HTTPServerRequest &request,
                                        Poco::Net::HTTPServerResponse &response) override;
 
         private:

@@ -37,7 +37,7 @@ namespace zigbee {
 
         void addDevice(ZDevice *device);
 
-        void addObserver(std::function<void()> observer);
+        void addObserver(const std::function<void()>& observer);
 
     private:
         void manageRequest();

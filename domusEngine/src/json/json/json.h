@@ -123,7 +123,7 @@ license you like.
 
 #ifndef JSON_CONFIG_H_INCLUDED
 #define JSON_CONFIG_H_INCLUDED
-#include <stddef.h>
+#include <cstddef>
 #include <string> //typdef String
 
 /// If defined, indicates that json library is embedded in CppTL library.
@@ -256,8 +256,8 @@ license you like.
 #endif // if !defined(JSON_IS_AMALGAMATION)
 
 namespace Json {
-typedef int Int;
-typedef unsigned int UInt;
+using Int = int;
+using UInt = unsigned int;
 #if defined(JSON_NO_INT64)
 typedef int LargestInt;
 typedef unsigned int LargestUInt;
@@ -268,11 +268,11 @@ typedef unsigned int LargestUInt;
 typedef __int64 Int64;
 typedef unsigned __int64 UInt64;
 #else                 // if defined(_MSC_VER) // Other platforms, use long long
-typedef long long int Int64;
-typedef unsigned long long int UInt64;
+using Int64 = long long;
+using UInt64 = unsigned long long;
 #endif // if defined(_MSC_VER)
-typedef Int64 LargestInt;
-typedef UInt64 LargestUInt;
+using LargestInt = Int64;
+using LargestUInt = UInt64;
 #define JSON_HAS_INT64
 #endif // if defined(JSON_NO_INT64)
 #if JSONCPP_USING_SECURE_MEMORY
@@ -330,7 +330,7 @@ class Reader;
 class Features;
 
 // value.h
-typedef unsigned int ArrayIndex;
+using ArrayIndex = unsigned int;
 class StaticString;
 class Path;
 class PathArgument;
@@ -604,18 +604,18 @@ private:
 class JSON_API Value {
   friend class ValueIteratorBase;
 public:
-  typedef std::vector<JSONCPP_STRING> Members;
-  typedef ValueIterator iterator;
-  typedef ValueConstIterator const_iterator;
-  typedef Json::UInt UInt;
-  typedef Json::Int Int;
+  using Members = std::vector<std::string>;
+  using iterator = Json::ValueIterator;
+  using const_iterator = Json::ValueConstIterator;
+  using UInt = Json::UInt;
+  using Int = Json::Int;
 #if defined(JSON_HAS_INT64)
-  typedef Json::UInt64 UInt64;
-  typedef Json::Int64 Int64;
+  using UInt64 = Json::UInt64;
+  using Int64 = Json::Int64;
 #endif // defined(JSON_HAS_INT64)
-  typedef Json::LargestInt LargestInt;
-  typedef Json::LargestUInt LargestUInt;
-  typedef Json::ArrayIndex ArrayIndex;
+  using LargestInt = Json::LargestInt;
+  using LargestUInt = Json::LargestUInt;
+  using ArrayIndex = Json::ArrayIndex;
 
   static const Value& null;  ///< We regret this reference to a global instance; prefer the simpler Value().
   static const Value& nullRef;  ///< just a kludge for binary-compatibility; same as null
@@ -1097,8 +1097,8 @@ public:
   Value& make(Value& root) const;
 
 private:
-  typedef std::vector<const PathArgument*> InArgs;
-  typedef std::vector<PathArgument> Args;
+  using InArgs = std::vector<const PathArgument *>;
+  using Args = std::vector<PathArgument>;
 
   void makePath(const JSONCPP_STRING& path, const InArgs& in);
   void addPathInArg(const JSONCPP_STRING& path,
@@ -1115,10 +1115,10 @@ private:
  */
 class JSON_API ValueIteratorBase {
 public:
-  typedef std::bidirectional_iterator_tag iterator_category;
-  typedef unsigned int size_t;
-  typedef int difference_type;
-  typedef ValueIteratorBase SelfType;
+  using iterator_category = std::bidirectional_iterator_tag;
+  using size_t = unsigned int;
+  using difference_type = int;
+  using SelfType = Json::ValueIteratorBase;
 
   bool operator==(const SelfType& other) const { return isEqual(other); }
 
@@ -1182,12 +1182,12 @@ class JSON_API ValueConstIterator : public ValueIteratorBase {
   friend class Value;
 
 public:
-  typedef const Value value_type;
+  using value_type = const Json::Value;
   //typedef unsigned int size_t;
   //typedef int difference_type;
-  typedef const Value& reference;
-  typedef const Value* pointer;
-  typedef ValueConstIterator SelfType;
+  using reference = const Json::Value &;
+  using pointer = const Json::Value *;
+  using SelfType = Json::ValueConstIterator;
 
   ValueConstIterator();
   ValueConstIterator(ValueIterator const& other);
@@ -1232,12 +1232,12 @@ class JSON_API ValueIterator : public ValueIteratorBase {
   friend class Value;
 
 public:
-  typedef Value value_type;
-  typedef unsigned int size_t;
-  typedef int difference_type;
-  typedef Value& reference;
-  typedef Value* pointer;
-  typedef ValueIterator SelfType;
+  using value_type = Json::Value;
+  using size_t = unsigned int;
+  using difference_type = int;
+  using reference = Json::Value &;
+  using pointer = Json::Value *;
+  using SelfType = Json::ValueIterator;
 
   ValueIterator();
   explicit ValueIterator(const ValueConstIterator& other);
@@ -1340,8 +1340,8 @@ namespace Json {
  */
 class JSON_API Reader {
 public:
-  typedef char Char;
-  typedef const Char* Location;
+  using Char = char;
+  using Location = const Char *;
 
   /** \brief An error tagged with where in the JSON text it was encountered.
    *
@@ -1495,7 +1495,7 @@ private:
     Location extra_;
   };
 
-  typedef std::deque<ErrorInfo> Errors;
+  using Errors = std::deque<ErrorInfo>;
 
   bool readToken(Token& token);
   void skipSpaces();
@@ -1522,7 +1522,7 @@ private:
                                    Location& current,
                                    Location end,
                                    unsigned int& unicode);
-  bool addError(const JSONCPP_STRING& message, Token& token, Location extra = 0);
+  bool addError(const JSONCPP_STRING& message, Token& token, Location extra = nullptr);
   bool recoverFromError(TokenType skipUntilToken);
   bool addErrorAndRecover(const JSONCPP_STRING& message,
                           Token& token,
@@ -1536,7 +1536,7 @@ private:
   void addComment(Location begin, Location end, CommentPlacement placement);
   void skipCommentTokens(Token& token);
 
-  typedef std::stack<Value*> Nodes;
+  using Nodes = std::stack<Value *>;
   Nodes nodes_;
   Errors errors_;
   JSONCPP_STRING document_;
@@ -1554,7 +1554,7 @@ private:
  */
 class JSON_API CharReader {
 public:
-  virtual ~CharReader() {}
+  virtual ~CharReader() = default;
   /** \brief Read a Value from a <a HREF="http://www.json.org">JSON</a>
    document.
    * The document must be a UTF-8 encoded string containing the document to read.
@@ -1578,7 +1578,7 @@ public:
 
   class JSON_API Factory {
   public:
-    virtual ~Factory() {}
+    virtual ~Factory() = default;
     /** \brief Allocate a CharReader via operator new().
      * \throw std::exception if something goes wrong (e.g. invalid settings)
      */
@@ -1884,7 +1884,7 @@ class JSON_API FastWriter : public Writer {
 
 public:
   FastWriter();
-  ~FastWriter() JSONCPP_OVERRIDE {}
+  ~FastWriter() JSONCPP_OVERRIDE = default;
 
   void enableYAMLCompatibility();
 
@@ -1936,7 +1936,7 @@ private:
 class JSON_API StyledWriter : public Writer {
 public:
   StyledWriter();
-  ~StyledWriter() JSONCPP_OVERRIDE {}
+  ~StyledWriter() JSONCPP_OVERRIDE = default;
 
 public: // overridden from Writer
   /** \brief Serialize a Value in <a HREF="http://www.json.org">JSON</a> format.
@@ -1959,7 +1959,7 @@ private:
   bool hasCommentForValue(const Value& value);
   static JSONCPP_STRING normalizeEOL(const JSONCPP_STRING& text);
 
-  typedef std::vector<JSONCPP_STRING> ChildValues;
+  using ChildValues = std::vector<std::string>;
 
   ChildValues childValues_;
   JSONCPP_STRING document_;
@@ -1998,7 +1998,7 @@ private:
 class JSON_API StyledStreamWriter {
 public:
   StyledStreamWriter(JSONCPP_STRING indentation = "\t");
-  ~StyledStreamWriter() {}
+  ~StyledStreamWriter() = default;
 
 public:
   /** \brief Serialize a Value in <a HREF="http://www.json.org">JSON</a> format.
@@ -2023,7 +2023,7 @@ private:
   bool hasCommentForValue(const Value& value);
   static JSONCPP_STRING normalizeEOL(const JSONCPP_STRING& text);
 
-  typedef std::vector<JSONCPP_STRING> ChildValues;
+  using ChildValues = std::vector<std::string>;
 
   ChildValues childValues_;
   JSONCPP_OSTREAM* document_;
@@ -2077,7 +2077,7 @@ JSON_API JSONCPP_OSTREAM& operator<<(JSONCPP_OSTREAM&, const Value& root);
 #ifndef CPPTL_JSON_ASSERTIONS_H_INCLUDED
 #define CPPTL_JSON_ASSERTIONS_H_INCLUDED
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <sstream>
 
 #if !defined(JSON_IS_AMALGAMATION)
@@ -2096,7 +2096,7 @@ JSON_API JSONCPP_OSTREAM& operator<<(JSONCPP_OSTREAM&, const Value& root);
 
 # define JSON_FAIL_MESSAGE(message)                                            \
   {                                                                            \
-    JSONCPP_OSTRINGSTREAM oss; oss << message;                                    \
+    JSONCPP_OSTRINGSTREAM oss; oss << (message);                                    \
     Json::throwLogicError(oss.str());                                          \
     abort();                                                                   \
   }

@@ -19,11 +19,11 @@ ZEndpoint::ZEndpoint(const SimpleDescMessage & simpleDescMessage) : nwkAddr{simp
 
 	const uint16_t * clustersList = simpleDescMessage.clustersList;
 	for (int i = 0; i < simpleDescMessage.numInClusters; i++) {
-		inCluster.push_back(ClusterID(*clustersList));
+		inCluster.emplace_back(*clustersList);
 		clustersList++;
 	}
 	for (int i = 0; i < simpleDescMessage.numOutClusters; i++) {
-		outCluster.push_back(ClusterID(*clustersList));
+		outCluster.emplace_back(*clustersList);
 		clustersList++;
 	}
 }

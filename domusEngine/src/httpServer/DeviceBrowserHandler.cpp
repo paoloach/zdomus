@@ -34,8 +34,7 @@
 namespace zigbee {
   namespace http {
 
-    using boost::lexical_cast;
-    using std::string;
+       using std::string;
 
     DeviceBrowserHandler::DeviceBrowserHandler(zigbee::SingletonObjects &singletons) {
 

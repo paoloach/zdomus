@@ -14,7 +14,7 @@ namespace zigbee {
   class InvalidOutCluster  : public ZigbeeDeviceException {
   public:
       InvalidOutCluster(NwkAddr nwkAddress,EndpointID endpoint, ClusterID wrongCluster);
-      virtual ~InvalidOutCluster()=default;
+      ~InvalidOutCluster() override =default;
   };
 }
 

@@ -18,11 +18,11 @@ ClusterPT::ClusterPT(const std::shared_ptr<Cluster> & cluster) noexcept {
 	add("cluster id", cluster->getId());
 	add("cluster name", cluster->getClusterName());
 	for (auto attribute : cluster->getAttributes()) {
-		attributes.add(boost::lexical_cast<std::string>(attribute.id), attribute.name);
+		attributes.add(std::to_string(attribute.id), attribute.name);
 	}
 	push_back( { "attributes", attributes });
 	for (auto command : cluster->getCommands()) {
-		commands.add(boost::lexical_cast<std::string>(command.cmdId), command.name);
+		commands.add(std::to_string(command.cmdId), command.name);
 	}
 	push_back( { "commands", commands });
 

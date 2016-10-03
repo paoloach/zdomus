@@ -67,7 +67,7 @@ namespace zigbee {
         std::mutex mutexObserver;
     };
 
-    typedef ZDevices * ZDevices_P;
+    using ZDevices_P = zigbee::ZDevices *;
 
 } /* namespace zigbee */
 

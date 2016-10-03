@@ -5,7 +5,7 @@
 #ifndef DOMUS_ENGINE_BINDRESPONSE_H
 #define DOMUS_ENGINE_BINDRESPONSE_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <zigbee/zigbeeConfig.h>
 #include <zigbee/EndpointID.h>
 #include <zigbee/ClusterID.h>

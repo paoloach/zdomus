@@ -33,7 +33,7 @@ namespace zigbee {
 
         ZDevice(const ExtAddress &extAddr, NwkAddr nwkAddr, std::set<NwkAddr> children);
 
-        virtual ~ZDevice();
+        virtual ~ZDevice()=default;
 
     public:
         bool put(const SimpleDescMessage &simpleDescMsg);

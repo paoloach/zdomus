@@ -19,7 +19,7 @@ namespace zigbee {
 class InvalidZEndpointException  : public ZigbeeDeviceException {
 public:
 	InvalidZEndpointException(NwkAddr nwkAddress,EndpointID endpoint);
-	virtual ~InvalidZEndpointException()=default;
+	~InvalidZEndpointException() override =default;
 };
 
 } /* namespace zigbee */

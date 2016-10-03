@@ -5,16 +5,16 @@
  *      Author: Paolo Achdjian
  */
 
+#include <utility>
+
 #include "ZigbeeDeviceException.h"
 
 namespace zigbee {
 
-ZigbeeDeviceException::ZigbeeDeviceException(const std::string& message):message(message) {
+ZigbeeDeviceException::ZigbeeDeviceException(std::string  message):message(std::move(message)) {
 }
 
-ZigbeeDeviceException::~ZigbeeDeviceException() {
-}
-
+ZigbeeDeviceException::~ZigbeeDeviceException() = default;
 const char* ZigbeeDeviceException::what() const noexcept{
 	return message.c_str();
 }
