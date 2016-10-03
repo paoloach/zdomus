@@ -54,8 +54,6 @@ namespace zigbee {
     public:
         bool isPresent() override;
 
-        bool requestDevices() override;
-
         void getUsbMessage() override;
 
         void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;

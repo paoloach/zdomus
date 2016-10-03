@@ -46,8 +46,6 @@ namespace zigbee {
 
         virtual bool enableLog()=0;
 
-        virtual bool requestDevices() = 0;
-
         virtual void getUsbMessage() = 0;
 
         virtual void requestActiveEndpoints(NwkAddr nwkAddr)=0;

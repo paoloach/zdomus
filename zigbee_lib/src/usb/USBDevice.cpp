@@ -214,23 +214,6 @@ namespace zigbee {
   }
 
 
-/**
- * send request devices
- */
-  bool USBDevice::requestDevices() {
-      int transfered;
-      GenericMessage genericMessage;
-
-      genericMessage.msgCode = REQ_ALL_NODES;
-      int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, (unsigned char *) &genericMessage, sizeof(genericMessage), &transfered, 10);
-      if (result == 0) {
-          std::cout << "request sent" << std::endl;
-      } else {
-          std::cerr << strUsbError(result) << std::endl;
-      }
-      return false;
-  }
-
   void USBDevice::requestActiveEndpoints(NwkAddr nwkAddr) {
       ReqActiveEndpointsMessage request;
       request.nwkAddr = nwkAddr.getId();
