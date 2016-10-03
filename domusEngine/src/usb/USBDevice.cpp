@@ -58,20 +58,19 @@ namespace zigbee {
     static const uint8_t raw_1232_7_1026_0[] = {0x0, 0x00, 0x00, 0x29, 0x89, 8};
 
 
-
     DomusEngineUSBDevice::DomusEngineUSBDevice(boost::asio::io_service &serviceIo_,
                                                SingletonObjects &singletonObjects, libusb_context *usbContext_,
                                                int deviceClass_, int vendor_, int product_, bool demo) :
             timer{serviceIo_, CHECK_NEW_MESSAGE}, usbContext{usbContext_}, deviceClass{deviceClass_},
-                                                                                                         vendorID{
-                                                                                                                 vendor_},
-                                                                                                         productID{
-                                                                                                                 product_},
-                                                                                                         handle{nullptr},
-                                                                                                         demo{demo},
-                                                                                                         usbResponseExecuters{
-                                                                                                                 singletonObjects,
-                                                                                                                 *this} {
+            vendorID{
+                    vendor_},
+            productID{
+                    product_},
+            handle{nullptr},
+            demo{demo},
+            usbResponseExecuters{
+                    singletonObjects,
+                    *this} {
         device = nullptr;
         timer.async_wait(boost::bind(&DomusEngineUSBDevice::timerHandler, this, boost::asio::placeholders::error));
 
@@ -359,21 +358,6 @@ namespace zigbee {
         }
     }
 
-/**
- * send request devices
- */
-    bool DomusEngineUSBDevice::requestDevices() {
-        if (handle == nullptr) {
-            return false;
-        }
-        GenericMessage genericMessage;
-
-        genericMessage.msgCode = REQ_ALL_NODES;
-        BOOST_LOG_TRIVIAL(info) << "Request all nodes";
-        sendData(genericMessage);
-        return true;
-    }
-
     bool DomusEngineUSBDevice::enableLog() {
         if (handle == nullptr) {
             return false;
@@ -397,7 +381,7 @@ namespace zigbee {
         int transfered{};
 
         libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request),
-                                          &transfered, 1000);
+                             &transfered, 1000);
         sendData(request);
     }
 
@@ -448,7 +432,9 @@ namespace zigbee {
         AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeIds};
         BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
 
-        sendData(attributeValue, sizeof(GenericMessage) + sizeof(ZigbeeNwkAddress) + sizeof(ZigbeeEndpoint) + sizeof(ZigbeeClusterId) + sizeof(uint8_t) + sizeof(ZigbeeAttributeId) * attributeValue.numAttr);
+        sendData(attributeValue,
+                 sizeof(GenericMessage) + sizeof(ZigbeeNwkAddress) + sizeof(ZigbeeEndpoint) + sizeof(ZigbeeClusterId) +
+                 sizeof(uint8_t) + sizeof(ZigbeeAttributeId) * attributeValue.numAttr);
     }
 
     void DomusEngineUSBDevice::requestReset() {

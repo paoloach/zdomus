@@ -47,7 +47,6 @@ namespace zigbee {
     public:
         bool isPresent() override;
 
-        bool requestDevices() override;
 
         bool enableLog() override;
 
