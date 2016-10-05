@@ -17,6 +17,7 @@
 #include "AttributeWriter.h"
 #include "Constant.h"
 #include "../ZigbeeData/TopologyCreation.h"
+#include "DeviceInfoDispatcher.h"
 
 struct libusb_context;
 
@@ -38,8 +39,6 @@ namespace zigbee {
     class AttributeDataContainer;
 
     class AttributeWriter;
-
-    class DeviceInfoDispatcher;
 
     class SingletonObjects {
     public:
@@ -68,11 +67,11 @@ namespace zigbee {
 
         virtual AttributeValueSignalMap &getAttributeValueSignalMap() { return attributeValueSignalMap; }
 
-        virtual std::shared_ptr<Clusters> getClusters() { return clusters; };
+        virtual Clusters * getClusters() { return &clusters; };
 
         virtual AttributeWriter &getAttributeWriter() { return attributeWriter; }
 
-        virtual std::shared_ptr<DeviceInfoDispatcher> getDeviceInfoDispatcher() {return deviceInfoDispatcher;}
+        virtual DeviceInfoDispatcher * getDeviceInfoDispatcher() {return &deviceInfoDispatcher;}
 
         virtual Constant & getConstant() {return constant;}
 
@@ -85,13 +84,13 @@ namespace zigbee {
         std::shared_ptr<ZigbeeDevice> zigbeeDevice;
         std::shared_ptr<Configuration> configuration;
         std::shared_ptr<JSManager> jsManager;
-        std::shared_ptr<DeviceInfoDispatcher> deviceInfoDispatcher;
+        DeviceInfoDispatcher deviceInfoDispatcher;
         BindTable bindTable;
         zigbee::AttributeDataContainer attributeDataContainer;
         libusb_context *usbContext;
         std::shared_ptr<http::FixedPathContainer> fixedPathContainer;
         AttributeValueSignalMap attributeValueSignalMap;
-        std::shared_ptr<Clusters> clusters;
+        Clusters clusters;
         AttributeWriter attributeWriter;
         Constant constant;
         TopologyCreation topology;

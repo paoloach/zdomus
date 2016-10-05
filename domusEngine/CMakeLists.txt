@@ -14,8 +14,12 @@ set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
 set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O0 -std=c++14  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    ")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O0 -std=c++14  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK -fsanitize=address -fno-omit-frame-pointer ")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK   -fsanitize=address  -fsanitize=memory -fno-omit-frame-pointer  ")
+
+set(CMAKE_CXX_FLAG -fsanitize=address)
+
+
 
 add_custom_target(debug cmake -DCMAKE_BUILD_TYPE=Debug COMMAND make)
 add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
@@ -89,7 +93,7 @@ set(USB_SRC  src/usb/ActiveEPReqError.h
         src/Utils/AttributeWriterResult.h
         src/httpServer/ServerRequest.cpp
         src/httpServer/ServerRequest.h
-        src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp src/usb/DeviceInfoExecutor.h src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h src/httpServer/RestActions/ShowDeviceInfo.cpp src/httpServer/RestActions/ShowDeviceInfo.h src/Utils/Constant.cpp src/Utils/Constant.h src/usb/IEEEAddressResponseExecutor.h src/ZigbeeData/NewDeviceObserver.h src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h)
+        src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp src/usb/DeviceInfoExecutor.h src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h src/httpServer/RestActions/ShowDeviceInfo.cpp src/httpServer/RestActions/ShowDeviceInfo.h src/Utils/Constant.cpp src/Utils/Constant.h src/usb/IEEEAddressResponseExecutor.h src/ZigbeeData/NewDeviceObserver.h src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h src/httpServer/RestActions/ShowTopology.cpp src/httpServer/RestActions/ShowTopology.h)
 
 set(V8_LIBRARY
         ${V8_LIB_DIR}/libv8_libplatform.a

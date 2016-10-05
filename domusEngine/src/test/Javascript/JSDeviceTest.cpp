@@ -61,35 +61,30 @@ namespace zigbee {
             info.GetReturnValue().Set(This->jsDevice->createInstance(This->isolate, extAddress));
         }
 
-        JSDeviceTest::JSDeviceTest():zDevices{std::make_unique<ZDevicesMock>()} {
-        }
-
         void JSDeviceTest::SetUp() {
+            zDevices = std::make_unique<ZDevicesMock>();
             creatingZDeviceScript = "var a = " + std::string(JSZDEVICE) + "('" + extendedAddress + "');";
 
             std::stringstream stream{extendedAddress};
             stream >> extAddress;
             auto zDevicesP = zDevices.get();
             JSZEndpoint_P jsZEndpoint = jsEndpoint;
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             jsDevice = std::make_shared<JSZDevice>(zDevicesP, jsZEndpoint);
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             createParams.array_buffer_allocator = &v8Allocator;
             isolate = v8::Isolate::New(createParams);
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             isolate->Enter();
             locker.reset(new Locker{isolate});
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             ON_CALL(*jsEndpoint.get(), createInstance(_, _, _)).WillByDefault(Return(Local<Object>()));
         }
 
         void JSDeviceTest::TearDown() {
             locker.reset();
             isolate->Exit();
-            V8::VisitHandlesWithClassIds(isolate, new CheckEmptyPersistentHandleVisitor{});
+         //   V8::VisitHandlesWithClassIds(isolate, new CheckEmptyPersistentHandleVisitor{});
             jsDevice.reset();
 
             isolate->Dispose();
+            zDevices.reset();
         }
 
         v8::Local<v8::Value> JSDeviceTest::runScript(const std::string &script) {
@@ -99,17 +94,11 @@ namespace zigbee {
         }
 
         TEST_F(JSDeviceTest, createTemplate) {
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             HandleScope handle_scope(isolate);
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             Local<Context> context = Context::New(isolate, nullptr);
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             Context::Scope context_scope(context);
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             Handle<Object> global = context->Global();
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             jsDevice->initJsObjectsTemplate(isolate, global);
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
         }
 
         TEST_F(JSDeviceTest, createIstance) {

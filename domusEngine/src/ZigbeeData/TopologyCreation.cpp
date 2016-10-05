@@ -20,9 +20,11 @@ namespace zigbee {
     TopologyCreation::~TopologyCreation() {
         stop = true;
         auto zDevices = singletonObjects.getZDevices();
-        zDevices->removeObserver(observerCallback);
-        if (requestThread.joinable())
-            requestThread.join();
+        if (zDevices != nullptr) {
+            zDevices->removeObserver(observerCallback);
+            if (requestThread.joinable())
+                requestThread.join();
+        }
     }
 
     void TopologyCreation::create() {
@@ -84,7 +86,7 @@ namespace zigbee {
         }
     }
 
-    void TopologyCreation::addObserver(const std::function<void()>& observer) {
+    void TopologyCreation::addObserver(const std::function<void()> &observer) {
         observers.push_back(observer);
     }
 

@@ -48,6 +48,7 @@ namespace zigbee {
         virtual ZDevice* getDevice(const ExtAddress &extAddress) const;
 
         virtual ZDevice* getDevice(NwkAddr nwkAddress) const;
+        virtual ZDevice* getDeviceNoExcept(NwkAddr nwkAddress) const;
 
         virtual bool exists(const ExtAddress &extAddress) const;
 

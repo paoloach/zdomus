@@ -10,12 +10,10 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
-#include <boost/lexical_cast.hpp>
 #include <boost/log/trivial.hpp>
 
 #include "ShowOutCluster.h"
 
-#include "../RestParser/PlaceHolders.h"
 #include "../MediaTypeProducerFactory.h"
 #include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/PropertyTree/ClusterPT.h"
@@ -36,13 +34,15 @@ namespace zigbee {
             auto zEndpoint = zDevice->getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
             if (zEndpoint.isOutCluster(clusterId)) {
                 auto cluster = singletons.getClusters()->getCluster(nwkAddr, endpoint, clusterId);
-                producer.produce(response.send(), ClusterPT(cluster));
+                if (cluster) {
+                    producer.produce(response.send(), ClusterPT(cluster));
+                }
             } else {
                 std::stringstream message;
 
                 message << "ERROR: " << "cluster " << clusterId << " is not an OUT cluster of endpoint " <<
-                zEndpoint.getEndpoint() <<
-                " in the device with address " << zEndpoint.getNwkAddr();
+                        zEndpoint.getEndpoint() <<
+                        " in the device with address " << zEndpoint.getNwkAddr();
                 std::cerr << message.str() << std::endl;
                 response.send() << message.str();
                 response.setStatus(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);

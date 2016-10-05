@@ -27,7 +27,7 @@ static  GenericMessage annunceMsg1 {1};
 static  GenericMessage simpleeMsg {2};
 static  AnnunceMessage annunce1 {annunceMsg1,2,{3,4,5,6,7,8,9,10},11};
 static   AnnunceMessage annunce2 {annunceMsg1,102,{11,12,13,14,15,16,17,18},111};
-static   SimpleDescMessage simpleDesc1 {simpleeMsg, 2, 101, 102,103,104,105,106,2};
+static   SimpleDescMessage simpleDesc1 {simpleeMsg, 2 /*nwkAddr*/, 101/*endpoint*/, 102 /*appProfId*/,103 /*appDeviceId*/,104 /* appDevVer*/,1 /*numInClusters*/,1 /*numOutClusters*/,2,3};
 
 void ZDevicesTest::SetUp() {
 	std::stringstream stream;

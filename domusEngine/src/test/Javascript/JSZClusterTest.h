@@ -28,8 +28,7 @@ namespace test {
 
 class JSZClusterTest : public testing::Test{
 public:
-	JSZClusterTest();
-	virtual ~JSZClusterTest()=default;
+	~JSZClusterTest() override =default;
 protected:
 	virtual void SetUp() override ;
 	virtual void TearDown() override ;
@@ -45,7 +44,7 @@ protected:
 	ClusterTypeFactoryMock_P clusterTypeFactoryMock;
 	std::shared_ptr<ZigbeeDeviceMock> zigbeeDeviceMock;
 	std::shared_ptr<ZigbeeDevice> zigbeeDevice;
-	std::shared_ptr<JSZCluster> jsZCluster;
+	std::unique_ptr<JSZCluster> jsZCluster;
 	ExtAddress extAddress;
 	std::shared_ptr<ClusterMock> defaultCluster;
 	std::shared_ptr<ClusterMock> cluster;

@@ -23,7 +23,7 @@ namespace zigbee {
     static constexpr int MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY{100};
 
     SingletonObjects::SingletonObjects(std::string &&configurationFileName, bool demo) :
-            attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY} ,clusters{},attributeWriter{*this}, topology{*this}{
+            attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY} ,attributeWriter{*this}, topology{*this}{
 
         if (demo){
             BOOST_LOG_TRIVIAL(info) << "----------- DEMO MODE ----------";
@@ -56,8 +56,6 @@ namespace zigbee {
         fixedPathContainer = std::make_shared<http::FixedPathContainer>();
 
         jsManager = std::make_shared<JSManager>(*this);
-        clusters = std::make_shared<Clusters>(zigbeeDevice);
-        deviceInfoDispatcher = std::make_shared<DeviceInfoDispatcher>();
     }
 
     SingletonObjects::SingletonObjects() :

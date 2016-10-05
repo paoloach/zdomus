@@ -45,6 +45,15 @@ namespace zigbee {
         throw InvalidZDevice(nwkAddress);
     }
 
+    ZDevice *  ZDevices::getDeviceNoExcept(NwkAddr nwkAddress) const {
+        auto found = nwkAddrDevices.find(nwkAddress);
+        if (found != nwkAddrDevices.end()) {
+            return found->second;
+        }
+
+        return nullptr;
+    }
+
     void ZDevices::put(const AnnunceMessage &message) {
         ExtAddress extAddress(message.extAddr);
         auto device = make_unique<ZDevice>(message);

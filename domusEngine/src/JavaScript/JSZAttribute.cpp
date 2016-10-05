@@ -28,14 +28,14 @@ using std::shared_ptr;
 namespace zigbee {
 
 
-    std::map<ZCLAttribute::Status, std::string> JSZAttribute::statusMap = {{ZCLAttribute::Available, "available"},
+    std::map<ZCLAttribute::Status, std::string> JSZAttribute::statusMap = {{ZCLAttribute::Available,    "available"},
                                                                            {ZCLAttribute::NotAvailable, "notAvailable"},
                                                                            {
                                                                             ZCLAttribute::NotSupported, "notSupported"},
-                                                                           {ZCLAttribute::Requesting, "requesting"},
-                                                                           {ZCLAttribute::Undefined, "undefined"},};
+                                                                           {ZCLAttribute::Requesting,   "requesting"},
+                                                                           {ZCLAttribute::Undefined,    "undefined"},};
 
-    JSZAttribute::JSZAttribute(ZDevices * zDevices,
+    JSZAttribute::JSZAttribute(ZDevices *zDevices,
                                const std::shared_ptr<ZigbeeDevice> &zigbeeDevice,
                                const std::shared_ptr<ClusterTypeFactory> &clusterFactory, ZCLTypeDataType zclType) :
             zDevices(zDevices), zigbeeDevice(zigbeeDevice), clusterFactory(clusterFactory), zclType(zclType) {
@@ -143,9 +143,11 @@ namespace zigbee {
                 int identity = callback->GetIdentityHash();
                 auto cluster = attribute->getClusterParent();
                 JsCallbackParameters callbackParameters;
-                callbackParameters.nwkAddr = cluster->getNetworkAddress();
-                callbackParameters.endpointID = cluster->getEndpoint();
-                callbackParameters.clusterID = cluster->getId();
+                if (cluster != nullptr) {
+                    callbackParameters.nwkAddr = cluster->getNetworkAddress();
+                    callbackParameters.endpointID = cluster->getEndpoint();
+                    callbackParameters.clusterID = cluster->getId();
+                }
                 callbackParameters.attributeId = attribute->getIdentifier();
                 auto con = attribute->onChange([This, isolate, identity, callbackParameters]() {
                     This->changeSignalCallback(isolate, identity, callbackParameters);

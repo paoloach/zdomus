@@ -98,9 +98,8 @@ namespace zigbee {
         };
 
 
-        JSZClusterTest::JSZClusterTest():zDevices(std::make_unique<ZDevicesMock>()){}
-
         void JSZClusterTest::SetUp() {
+            zDevices = std::make_unique<ZDevicesMock>();
             createParams.array_buffer_allocator = &v8Allocator;
             isolate = v8::Isolate::New(createParams);
             isolate->Enter();
@@ -116,7 +115,7 @@ namespace zigbee {
             zigbeeDeviceMock = std::make_shared<ZigbeeDeviceMock>();
             zigbeeDevice = std::dynamic_pointer_cast<ZigbeeDevice>(zigbeeDeviceMock);
             std::shared_ptr<ClusterTypeFactory> clusterFactory = clusterTypeFactoryMock;
-            jsZCluster = std::make_shared<JSZCluster>(zDevices.get(), zigbeeDeviceMock, jsZAttributeFactory, clusterFactory);
+            jsZCluster = std::make_unique<JSZCluster>(zDevices.get(), zigbeeDeviceMock, jsZAttributeFactory, clusterFactory);
             extAddress = convertFromString(EXTENDED_ADDRESS);
             ON_CALL(*clusterTypeFactoryMock, getCluster(_, _, _, _)).WillByDefault(Return(defaultCluster));
             ON_CALL(*cluster, getAttribute(A<int>())).WillByDefault(Return(defaultZclAttribute));
@@ -137,6 +136,7 @@ namespace zigbee {
             defaultCluster.reset();
             zclAttribute.reset();
             cluster.reset();
+            zDevices.reset();
         }
 
         v8::Local<v8::Value> JSZClusterTest::runScript(const std::string &script) {

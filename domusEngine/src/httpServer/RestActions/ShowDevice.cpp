@@ -26,7 +26,8 @@ namespace zigbee {
             const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
             auto device(placeHolder.get<NwkAddr>("device"));
             BOOST_LOG_TRIVIAL(info) << "Request device configuration " << device;
-            producer.produce(response.send(), ZDevicePT(singletons.getZDevices()->getDevice(device)));
+            auto zDevice = singletons.getZDevices()->getDevice(device);
+            producer.produce(response.send(), ZDevicePT(zDevice));
         }
 
     } /* namespace http */

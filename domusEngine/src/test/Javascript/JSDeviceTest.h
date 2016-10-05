@@ -22,8 +22,7 @@ namespace test {
 
 class JSDeviceTest : public testing::Test{
 public:
-    JSDeviceTest();
-	virtual ~JSDeviceTest()=default;
+	~JSDeviceTest() override =default;
 protected:
 	virtual void SetUp() override ;
 	virtual void TearDown() override ;

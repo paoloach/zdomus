@@ -17,6 +17,7 @@
 #include "../Mocks/ClusterMock.h"
 #include "../Mocks/ZCLAttributeMock.h"
 #include "../Mocks/SingletonObjectsMock.h"
+#include "../Mocks/ClustersMock.h"
 #include "../Mocks/http/HTTPServerResponseMock.h"
 #include "../Mocks/http/HTTPServerRequestMock.h"
 #include "ZDeviceFixture.h"
@@ -27,28 +28,29 @@ namespace zigbee {
 
             class DeviceBrowserHandlerTest : public ::testing::Test {
             public:
-                virtual ~DeviceBrowserHandlerTest();
+                ~DeviceBrowserHandlerTest() override= default  ;
 
                 DeviceBrowserHandlerTest();
 
             protected:
-                virtual void SetUp();
+                void SetUp() override;
 
-                virtual void TearDown();
+                void TearDown() override;
 
             protected:
                 std::shared_ptr<zigbee::test::ClusterMock> clusterMock;
                 std::shared_ptr<zigbee::test::ZCLAttributeMock> attributeMock;
                 std::unique_ptr<zigbee::test::ZDevicesMock> zDevicesMock;
-                std::shared_ptr<zigbee::test::ClusterTypeFactoryMock> clusterTypeFactoryMock;
                 SingletonObjectsMock singletonObjects;
+                zigbee::test::ClustersMock clustersMock;
                 std::shared_ptr<zigbee::test::ZigbeeDeviceMock> zigbeeDeviceMock;
                 std::shared_ptr<zigbee::ZigbeeDevice> zigbeeDevice;
                 std::stringstream outStream;
                 HTTPServerResponseMock response;
                 HTTPServerRequestMock request;
-                static ClusterID clusterInId;
-                static ClusterID clusterOutId;
+                ClusterID clusterInId;
+                ClusterID clusterOutId;
+                ZEndpoint endpoint;
                 bool attributeAvailable;
                 static constexpr int attributeId = 43;
                 static constexpr auto attributeName = "name";
@@ -64,7 +66,7 @@ namespace zigbee {
                     std::stringstream restPath;
                     restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/"
                              << ZDeviceFixture::endpoint2_1.getEndpoint() << "/cluster/in/" << clusterInId
-                             << "/attribute/" << t;
+                             << "/attributes?id=" << t;
                     return restPath.str();
                 }
 

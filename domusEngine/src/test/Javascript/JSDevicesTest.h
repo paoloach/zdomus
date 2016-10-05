@@ -20,7 +20,6 @@ namespace test {
 
 class JSDevicesTest : public testing::Test{
 public:
-    JSDevicesTest();
 	virtual ~JSDevicesTest()=default;
 protected:
 	virtual void SetUp() override ;
