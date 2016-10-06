@@ -35,8 +35,8 @@ PathReceived::PathReceived(string && uri) noexcept {
 }
 void PathReceived::createElements(std::string&& uri) {
 	boost::filesystem::path path(uri);
-	for (auto element : path) {
-		if (element != "/" && element != "\\")
+	for (const auto& element : path) {
+		if (element != "/" && element != R"(\)")
 			elements.push_back(element.string());
 	}
 

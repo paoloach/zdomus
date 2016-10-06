@@ -22,7 +22,7 @@ using namespace Poco::Net;
 HttpServer::HttpServer(SingletonObjects & singletons) {
 	requestFactory.reset( new DEHttpRequestHandlerFactory(singletons));
 	Poco::UInt16 port = 8080;
-	HTTPServerParams * params = new HTTPServerParams();
+	auto * params = new HTTPServerParams();
 	params->setMaxQueued(100);
 	params->setMaxThreads(3);
 

@@ -13,8 +13,7 @@ namespace zigbee {
 namespace http {
 
 
-ApplicationJSONProducer::~ApplicationJSONProducer() noexcept {
-}
+ApplicationJSONProducer::~ApplicationJSONProducer() noexcept = default;
 
 Poco::Net::MediaType ApplicationJSONProducer::getMediaType() const noexcept {
 	return Poco::Net::MediaType("application","json");

@@ -29,7 +29,7 @@ TEST_F( PlaceHoldersTest, getPlaceholdersValue) {
 	PathReceived pathReceived { "/p1/p2/p3/p4" };
 	RestPath restPath { "/p1/{pl1}/p3/{pl2}" };
 
-	PlaceHolders placeHolders(std::move(restPath), std::move(pathReceived));
+	PlaceHolders placeHolders{std::move(restPath), std::move(pathReceived)};
 
 	ASSERT_THAT(placeHolders.get<std::string>("pl1"), Eq("p2"));
 	ASSERT_THAT(placeHolders.get<std::string>("pl2"), Eq("p4"));

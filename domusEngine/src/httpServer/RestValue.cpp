@@ -10,8 +10,7 @@
 namespace zigbee {
 namespace http {
 
-RestValue::~RestValue() {
-}
+RestValue::~RestValue() = default;
 
 } /* namespace http */
 } /* namespace zigbee */

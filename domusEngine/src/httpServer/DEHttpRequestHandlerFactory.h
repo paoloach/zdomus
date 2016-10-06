@@ -24,7 +24,7 @@ class DEHttpRequestHandlerFactory : public Poco::Net::HTTPRequestHandlerFactory{
 public:
 	DEHttpRequestHandlerFactory(SingletonObjects & singletons);
 protected:
-	virtual Poco::Net::HTTPRequestHandler *  createRequestHandler(const Poco::Net::HTTPServerRequest & request) override;
+	Poco::Net::HTTPRequestHandler *  createRequestHandler(const Poco::Net::HTTPServerRequest & request) override;
 protected:
 	SingletonObjects & singletons;
 };

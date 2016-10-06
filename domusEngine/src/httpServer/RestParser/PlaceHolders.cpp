@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <utility>
 
 #include "Exceptions/PlaceholderNotFound.h"
 #include "PlaceHolders.h"
@@ -17,7 +18,7 @@ PlaceHolders::PlaceHolders(RestPath&& restPath, PathReceived&& pathReceived) noe
 
 }
 
-PlaceHolders::PlaceHolders(const RestPath& restPath, PathReceived&& pathReceived) noexcept :restPath(restPath), pathReceived(std::move(pathReceived)){
+PlaceHolders::PlaceHolders(const RestPath &restPath, PathReceived&& pathReceived) noexcept :restPath(std::move(restPath)), pathReceived(std::move(pathReceived)){
 }
 
 std::string PlaceHolders::getInternal(std::string&& placeHolder) const  {

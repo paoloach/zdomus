@@ -11,13 +11,14 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem/path.hpp>
 #include <string>
+#include <utility>
 
 namespace zigbee {
 namespace http {
 
 class RestValue {
 public:
-	RestValue(const std::string & path, const std::string & value):path(path), value(value){}
+	RestValue(const std::string & path, std::string  value):path(path), value(std::move(value)){}
 	virtual ~RestValue();
 
 	const boost::filesystem::path & getPath() const {

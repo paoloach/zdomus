@@ -29,7 +29,6 @@
 using namespace Json;
 using namespace std::chrono;
 using std::string;
-using boost::tokenizer;
 using std::vector;
 
 namespace zigbee {

@@ -16,10 +16,10 @@ namespace http {
 
 class FixedPathHandler : public Poco::Net::HTTPRequestHandler {
 public:
-	FixedPathHandler(const std::string & value);
-	virtual ~FixedPathHandler();
+	FixedPathHandler(std::string  value);
+	~FixedPathHandler() override;
 protected:
-	virtual void handleRequest( Poco::Net::HTTPServerRequest & request,  Poco::Net::HTTPServerResponse & response) override;
+	void handleRequest( Poco::Net::HTTPServerRequest & request,  Poco::Net::HTTPServerResponse & response) override;
 private:
 	std::string value;
 };

@@ -15,8 +15,7 @@ namespace http {
 ApplicationJSONProducer MediaTypeProducerFactory::applicationJSONProducer;
 PlainTextProducer MediaTypeProducerFactory::plainTextProducer;
 
-MediaTypeProducerFactory::~MediaTypeProducerFactory() noexcept {
-}
+MediaTypeProducerFactory::~MediaTypeProducerFactory() noexcept = default;
 
 const MediaTypeProducer& MediaTypeProducerFactory::getMediaType(const std::string & mediaType)  noexcept{
 	if (mediaType == "application/json" ){

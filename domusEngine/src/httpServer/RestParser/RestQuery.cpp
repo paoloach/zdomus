@@ -18,7 +18,7 @@ zigbee::http::RestQuery::RestQuery(std::string &&queryString) {
         char_separator<char> sep(",");
         tokenizer<boost::char_separator<char>> tokens(queryString.substr(ugualPos+1),sep);
         for (const auto & token: tokens){
-            values.push_back(std::move(token));
+            values.push_back(token);
         }
     }
 

@@ -7,26 +7,27 @@
 
 #include <Poco/Net/MediaType.h>
 #include <Poco/Net/HTTPServerResponse.h>
+
+#include <utility>
 #include "FixedPathHandler.h"
 
 
 namespace zigbee {
-namespace http {
+    namespace http {
 
-FixedPathHandler::~FixedPathHandler() {
-}
+        FixedPathHandler::~FixedPathHandler() = default;
 
-FixedPathHandler::FixedPathHandler(const std::string& value):value(value) {
-}
+        FixedPathHandler::FixedPathHandler(std::string value) : value(std::move(value)) {
+        }
 
-void FixedPathHandler::handleRequest(Poco::Net::HTTPServerRequest& , Poco::Net::HTTPServerResponse& response) {
-	Poco::Net::MediaType mediaType("text","plain");
-	response.setContentType(mediaType);
-	response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+        void FixedPathHandler::handleRequest(Poco::Net::HTTPServerRequest &, Poco::Net::HTTPServerResponse &response) {
+            Poco::Net::MediaType mediaType("text", "plain");
+            response.setContentType(mediaType);
+            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
 
-	std::ostream & stream = response.send();
-	stream << "value";
-}
+            std::ostream &stream = response.send();
+            stream << "value";
+        }
 
-} /* namespace http */
+    } /* namespace http */
 } /* namespace zigbee */

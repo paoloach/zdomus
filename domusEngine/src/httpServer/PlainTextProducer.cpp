@@ -12,8 +12,7 @@
 namespace zigbee {
 namespace http {
 
-PlainTextProducer::~PlainTextProducer() noexcept {
-}
+PlainTextProducer::~PlainTextProducer() noexcept = default;
 
 Poco::Net::MediaType PlainTextProducer::getMediaType() const  noexcept {
 	return Poco::Net::MediaType("text", "plain");

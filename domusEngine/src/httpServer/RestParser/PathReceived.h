@@ -24,6 +24,8 @@ namespace zigbee {
             std::map<std::string, RestQuery> queryParams;
         public:
             PathReceived(std::string &&uri) noexcept;
+            PathReceived(PathReceived && other) = default;
+            PathReceived(const PathReceived & other) = default;
 
             auto begin() const noexcept -> decltype(elements.begin()) { return elements.begin(); }
 
