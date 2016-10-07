@@ -26,7 +26,7 @@ namespace zigbee {
             response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
 
             auto zDevices = singletons.getZDevices();
-            auto rootDevice = zDevices->getDevice(NwkAddr{0});
+            auto rootDevice = zDevices->getDeviceNoExcept(NwkAddr{0});
             Value root(objectValue);
 
             root["nwkId"] = Value(0);

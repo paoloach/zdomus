@@ -10,6 +10,7 @@
 
 #include <Poco/Net/HTTPServerRequest.h>
 #include <Poco/Net/SocketAddress.h>
+#include <Poco/Net/HTTPServerParams.h>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 

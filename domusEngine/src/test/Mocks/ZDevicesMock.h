@@ -28,6 +28,7 @@ public:
 	MOCK_METHOD0(getDevices, std::vector<ZDevice *> ());
 	MOCK_CONST_METHOD1(getDevice, ZDevice * (const ExtAddress & extAddress));
 	MOCK_CONST_METHOD1(getDevice, ZDevice * (NwkAddr nwkAddr));
+	MOCK_CONST_METHOD1(getDeviceNoExcept, ZDevice * (NwkAddr nwkAddr));
 	MOCK_CONST_METHOD1(exists, bool (const ExtAddress & extAddress));
 };
 

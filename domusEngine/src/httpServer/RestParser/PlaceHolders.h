@@ -20,6 +20,7 @@ namespace zigbee {
 
         class PlaceHolders {
         public:
+            PlaceHolders() = default;
             PlaceHolders(RestPath &&restPath, PathReceived &&pathReceived) noexcept;
 
             PlaceHolders(const RestPath &restPath, PathReceived &&pathReceived) noexcept;

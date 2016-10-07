@@ -59,7 +59,7 @@ else ()
     else ()
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp utils/AttributeWriterTest.cpp utils/AttributeWriterTest.h Mocks/ClustersMock.cpp Mocks/ClustersMock.h)
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp utils/AttributeWriterTest.cpp utils/AttributeWriterTest.h Mocks/ClustersMock.cpp Mocks/ClustersMock.h httpServer/RestActions/ShowTopologyTest.cpp httpServer/RestActions/ShowTopologyTest.h)
     endif ()
 endif ()
 

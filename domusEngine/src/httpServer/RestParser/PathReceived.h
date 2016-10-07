@@ -23,6 +23,7 @@ namespace zigbee {
             std::vector<std::string> elements;
             std::map<std::string, RestQuery> queryParams;
         public:
+            PathReceived() = default;
             PathReceived(std::string &&uri) noexcept;
             PathReceived(PathReceived && other) = default;
             PathReceived(const PathReceived & other) = default;
