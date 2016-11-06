@@ -17,7 +17,7 @@ namespace zigbee {
 
 class PressureMeasurementCluster : public Cluster{
 public:
-	PressureMeasurementCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	PressureMeasurementCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:
 	ClusterID getId() const override;
 	std::string getClusterName() const override;

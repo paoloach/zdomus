@@ -31,7 +31,7 @@ namespace zigbee {
     }
 
 
-    ZCLAttribute::ZCLAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, int attributeId, ZCLTypeDataType zclType,
+    ZCLAttribute::ZCLAttribute(ZigbeeDevice *  zigbeeDevice, Cluster *parent, int attributeId, ZCLTypeDataType zclType,
                                std::experimental::string_view name, bool readOnly) :
             zigbeeDevice(zigbeeDevice), parent(parent), identifier(attributeId), zclType(zclType), name(name), readOnly(readOnly) {
         status = NotAvailable;

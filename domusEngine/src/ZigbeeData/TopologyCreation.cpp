@@ -3,6 +3,7 @@
 //
 
 #include <chrono>
+#include <iomanip>
 #include <zigbee/ZigbeeDevice.h>
 #include <boost/log/trivial.hpp>
 #include "TopologyCreation.h"
@@ -50,7 +51,7 @@ namespace zigbee {
     }
 
     void TopologyCreation::manageRequest() {
-        seconds requestTimeout(300);
+        seconds requestTimeout(30);
         milliseconds sleepTime(100);
         auto zigbeeDevice = singletonObjects.getZigbeeDevice();
         while (!stop && (!toDo.empty() || !doing.empty())) {
@@ -67,18 +68,21 @@ namespace zigbee {
                 if (!stop) {
                     sleep(sleepTime);
                 }
-                auto now = system_clock::now();
-                std::set<NwkAddr> timeout;
-                for (auto &inDoing: doing) {
-                    if (now - inDoing.second > requestTimeout) {
-                        timeout.insert(inDoing.first);
-                        BOOST_LOG_TRIVIAL(warning) << "device " << inDoing.first << " does not respon";
-                    }
-                }
-                timeout.erase(timeout.begin(), timeout.end());
+
             }
             if (!stop)
                 sleep(sleepTime);
+            auto now = system_clock::now();
+            std::set<NwkAddr> timeout;
+            for (auto &inDoing: doing) {
+                if (now - inDoing.second > requestTimeout) {
+                    timeout.insert(inDoing.first);
+                    BOOST_LOG_TRIVIAL(warning) << "device " << std::hex<<inDoing.first << " does not respond";
+                    toDo.insert(inDoing.first);
+                }
+            }
+            for (const auto & key: timeout)
+                doing.erase(key);
         }
         BOOST_LOG_TRIVIAL(info) << "calling topology observer";
         for (auto &observer: observers) {

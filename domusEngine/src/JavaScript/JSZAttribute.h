@@ -38,7 +38,7 @@ namespace zigbee {
         static std::map<ZCLAttribute::Status, std::string> statusMap;
         using CallbackData = std::tuple<std::list<std::function<void()>>::iterator, ZCLAttribute *, v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>>>;
     public:
-        JSZAttribute( ZDevices * zDevices, const std::shared_ptr<ZigbeeDevice> &zigbeeDevice,
+        JSZAttribute( ZDevices * zDevices, ZigbeeDevice *zigbeeDevice,
                      const std::shared_ptr<ClusterTypeFactory> &clusterFactory,ZCLTypeDataType zclType);
         virtual ~JSZAttribute();
         ZCLTypeDataType getZCLType() {
@@ -68,7 +68,7 @@ namespace zigbee {
         CallbackData popCallbackData(int id);
     protected:
         ZDevices * zDevices;
-        std::shared_ptr<ZigbeeDevice> zigbeeDevice;
+        ZigbeeDevice * zigbeeDevice;
         std::shared_ptr<ClusterTypeFactory> clusterFactory;
 
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;

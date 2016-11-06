@@ -83,7 +83,7 @@ namespace zigbee {
         };
 
     public:
-        ZCLAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, int identifier, ZCLTypeDataType zclType,
+        ZCLAttribute(ZigbeeDevice *  zigbeeDevice, Cluster *parent, int identifier, ZCLTypeDataType zclType,
                      std::experimental::string_view name, bool readOnly);
 
         virtual ~ZCLAttribute() = default;
@@ -135,7 +135,7 @@ namespace zigbee {
         void sendValueToDevice(uint8_t dataLen, uint8_t *data);
 
     protected:
-        const std::shared_ptr<ZigbeeDevice> &zigbeeDevice;
+        ZigbeeDevice * zigbeeDevice;
         Cluster *parent;
         int identifier;
         Status status;
@@ -148,7 +148,7 @@ namespace zigbee {
     template<ZCLTypeDataType T>
     class ZCLAttributeTmpl : public ZCLAttribute {
     public:
-        ZCLAttributeTmpl(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, int identifier,
+        ZCLAttributeTmpl(ZigbeeDevice * zigbeeDevice, Cluster *parent, int identifier,
                          std::experimental::string_view name, bool readOnly) : ZCLAttribute(zigbeeDevice, parent, identifier, T, name, readOnly) { }
 
         ZclAttributeRawValue &getAttributeRawValue() override { return zclAttributeRawValueImpl; }

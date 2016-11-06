@@ -10,7 +10,7 @@
 
 namespace zigbee {
 
-    ZCL_string_Attribute::ZCL_string_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+    ZCL_string_Attribute::ZCL_string_Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                                ZigbeeClusterId identifier, std::experimental::string_view name,
                                                bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeStringChar>(zigbeeDevice, parent, identifier, name, readOnly) {

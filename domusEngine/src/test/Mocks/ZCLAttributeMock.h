@@ -18,7 +18,7 @@ namespace zigbee {
 
         class ZCLAttributeMock : public ZCLAttribute {
         public:
-            ZCLAttributeMock(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, int identifier,
+            ZCLAttributeMock( ZigbeeDevice * zigbeeDevice, Cluster *parent, int identifier,
                              ZCLTypeDataType zclType, const std::string &name, bool readOnly);
 
             virtual ~ZCLAttributeMock();

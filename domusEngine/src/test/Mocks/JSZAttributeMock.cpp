@@ -11,7 +11,7 @@
 namespace zigbee {
 namespace test {
 
-JSZAttributeMock::JSZAttributeMock():JSZAttribute(nullptr, std::shared_ptr<ZigbeeDevice>{},std::shared_ptr<ClusterTypeFactory>{}, ZCLTypeDataType::ZCLTypeInvalid ){
+JSZAttributeMock::JSZAttributeMock():JSZAttribute(nullptr, nullptr,std::shared_ptr<ClusterTypeFactory>{}, ZCLTypeDataType::ZCLTypeInvalid ){
 
 }
 

@@ -121,7 +121,7 @@ static std::vector<Cluster::AttributeDef> attributesDef{
 
 };
 
-MeteringCluster::MeteringCluster(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+MeteringCluster::MeteringCluster(ZigbeeDevice * zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
         Cluster(zigbeeDevice, endpoint, networkAddress) {
     createAttributes(attributesDef);
 

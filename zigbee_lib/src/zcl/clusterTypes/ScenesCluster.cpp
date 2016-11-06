@@ -21,7 +21,7 @@ static std::vector<Cluster::AttributeDef> attributesDef = {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeIEEEaddress, 5, "Last Configured By", true)
 		};
 
-ScenesCluster::ScenesCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+ScenesCluster::ScenesCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 		Cluster(zigbeeDevice, endpoint, networkAddress) {
 
 	createAttributes(attributesDef);

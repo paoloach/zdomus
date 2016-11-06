@@ -16,7 +16,7 @@ namespace zigbee {
 
 class RelativeHumidityMeasurementCluster : public Cluster{
 public:
-	RelativeHumidityMeasurementCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	RelativeHumidityMeasurementCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:
 	ClusterID getId() const override;
 	std::string getClusterName() const override;

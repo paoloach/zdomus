@@ -129,7 +129,6 @@ static const std::map<ZCLTypeDataType, std::string> names {
 class ZCLTypeBase {
 public:
 	virtual ~ZCLTypeBase() = default;
-	;
 	virtual std::vector<uint8_t> getRaw(const std::string & data) const =0;
 	virtual std::vector<uint8_t> getRaw(const std::vector<std::string> & data) const=0;
 	virtual std::vector<uint8_t> getRaw(uint64_t data) const=0;

@@ -18,7 +18,7 @@ namespace zigbee {
 
 class IlluminanceLevelSensingCluster : public Cluster {
 public:
-	IlluminanceLevelSensingCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	IlluminanceLevelSensingCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:
 	ClusterID getId() const override;
 	std::string getClusterName() const override;

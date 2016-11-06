@@ -10,12 +10,16 @@
 
 namespace zigbee {
 
-    ZCL_bitmap8bit_Attribute::ZCL_bitmap8bit_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+    ZCL_bitmap8bit_Attribute::ZCL_bitmap8bit_Attribute(ZigbeeDevice *zigbeeDevice, Cluster *parent,
+                                                       ZigbeeClusterId identifier,
                                                        std::experimental::string_view name, bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLType8bitBitmap>(zigbeeDevice, parent, identifier, name, readOnly) {
         if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) { setValue(rawData); });
+            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
+                                                    identifier,
+                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) {
+                                                        setValue(rawData);
+                                                    });
         }
     }
 

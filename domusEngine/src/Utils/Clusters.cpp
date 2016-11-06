@@ -8,7 +8,7 @@
 
 
 namespace zigbee {
-    Clusters::Clusters(std::shared_ptr<ZigbeeDevice> zigbeeDevice) : clusterTypeFactory{std::make_shared<ClusterTypeFactory>()},
+    Clusters::Clusters(ZigbeeDevice* zigbeeDevice) : clusterTypeFactory{std::make_shared<ClusterTypeFactory>()},
                                                                      zigbeeDevice{zigbeeDevice} {
 
     }

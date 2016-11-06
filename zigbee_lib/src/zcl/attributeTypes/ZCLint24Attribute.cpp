@@ -8,7 +8,7 @@
 
 namespace zigbee {
 
-    ZCLint24Attribute::ZCLint24Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+    ZCLint24Attribute::ZCLint24Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                          ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly)
             :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeSInt24>(zigbeeDevice, parent, identifier, name, readOnly) {

@@ -16,10 +16,10 @@ namespace zigbee {
             uint8_t raw[4];
         };
     public:
-        ZCLUTCTime(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+        ZCLUTCTime(ZigbeeDevice * zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                    std::experimental::string_view name, bool readOnly);
 
-        ~ZCLUTCTime() override = default;;
+        ~ZCLUTCTime() override = default;
     public:
         boost::any getValue() const override;
 

@@ -17,7 +17,7 @@ namespace zigbee {
 
 class LevelControlCluster : public Cluster{
 public:
-	LevelControlCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	LevelControlCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:
 	ClusterID getId() const override;
 	std::string getClusterName() const override;

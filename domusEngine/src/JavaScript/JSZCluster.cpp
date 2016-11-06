@@ -27,7 +27,7 @@ namespace zigbee {
     JSZCluster::JSZCluster() {
     }
 
-    JSZCluster::JSZCluster( ZDevices * zDevices, const std::shared_ptr<ZigbeeDevice> &zigbeeDevice,
+    JSZCluster::JSZCluster( ZDevices * zDevices, ZigbeeDevice *zigbeeDevice,
                            const std::shared_ptr<JSZAttributeFactory> &jsZAttributeFactory_,
                            const std::shared_ptr<ClusterTypeFactory> &clusterFactory) :
             zDevices(zDevices), zigbeeDevice(zigbeeDevice), clusterFactory(clusterFactory),

@@ -17,7 +17,7 @@ static std::vector<Cluster::AttributeDef> attributesDef {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeenum8, 4, "Light Sensor Type", true)
 		};
 
-IlluminanceMeasurementCluster::IlluminanceMeasurementCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+IlluminanceMeasurementCluster::IlluminanceMeasurementCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 				Cluster(zigbeeDevice, endpoint, networkAddress){
 	createAttributes(attributesDef);
 }

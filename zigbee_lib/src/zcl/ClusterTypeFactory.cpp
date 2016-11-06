@@ -30,7 +30,7 @@ namespace zigbee {
 
 using namespace std;
 
-shared_ptr<Cluster> ClusterTypeFactory::createCluster(ClusterID clusterId, std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) {
+shared_ptr<Cluster> ClusterTypeFactory::createCluster(ClusterID clusterId, ZigbeeDevice * zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) {
 
 	std::cout << "CLUSTERD ID: " << clusterId << std::endl;
 
@@ -77,7 +77,7 @@ shared_ptr<Cluster> ClusterTypeFactory::createCluster(ClusterID clusterId, std::
 
 }
 
-std::shared_ptr<Cluster> ClusterTypeFactory::getCluster(ClusterID clusterId, std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) {
+std::shared_ptr<Cluster> ClusterTypeFactory::getCluster(ClusterID clusterId, ZigbeeDevice * zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) {
 	return createCluster(clusterId, zigbeeDevice, endpoint, networkAddress) ;
 }
 

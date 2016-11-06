@@ -12,7 +12,7 @@
 
 namespace zigbee {
 
-    ZCLIEEEAddressAttribute::ZCLIEEEAddressAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+    ZCLIEEEAddressAttribute::ZCLIEEEAddressAttribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                                      ZigbeeClusterId identifier, std::experimental::string_view name,
                                                      bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeIEEEaddress>(zigbeeDevice, parent, identifier, name, readOnly) {

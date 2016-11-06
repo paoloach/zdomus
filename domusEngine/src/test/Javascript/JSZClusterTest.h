@@ -43,7 +43,7 @@ protected:
 	std::unique_ptr<ZDevicesMock>  zDevices;
 	ClusterTypeFactoryMock_P clusterTypeFactoryMock;
 	std::shared_ptr<ZigbeeDeviceMock> zigbeeDeviceMock;
-	std::shared_ptr<ZigbeeDevice> zigbeeDevice;
+	ZigbeeDevice * zigbeeDevice;
 	std::unique_ptr<JSZCluster> jsZCluster;
 	ExtAddress extAddress;
 	std::shared_ptr<ClusterMock> defaultCluster;

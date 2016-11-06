@@ -10,7 +10,7 @@
 namespace zigbee {
 namespace test {
 
-ZCLAttributeMock::ZCLAttributeMock(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, Cluster * parent,int identifier, ZCLTypeDataType zclType, const std::string & name, bool readOnly):
+ZCLAttributeMock::ZCLAttributeMock( ZigbeeDevice * zigbeeDevice, Cluster * parent,int identifier, ZCLTypeDataType zclType, const std::string & name, bool readOnly):
 		ZCLAttribute(zigbeeDevice, parent, identifier, zclType, name, readOnly){
 
 }

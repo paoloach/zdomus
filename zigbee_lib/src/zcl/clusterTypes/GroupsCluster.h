@@ -19,7 +19,7 @@ class GroupsCluster  : public Cluster{
 public: // Commands Params Types
 
 public:
-	GroupsCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	GroupsCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:
 	ClusterID getId() const override;
 	std::string getClusterName() const override;

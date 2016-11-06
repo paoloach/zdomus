@@ -17,7 +17,7 @@ namespace zigbee {
     using std::make_unique;
 
 
-    void JSZAttributeFactory::init(ZDevices *zDevices, const std::shared_ptr<ZigbeeDevice> &zigbeeDevice,
+    void JSZAttributeFactory::init(ZDevices *zDevices, ZigbeeDevice *zigbeeDevice,
                                    const std::shared_ptr<ClusterTypeFactory> &clusterFactory) {
 
         std::array<std::unique_ptr<JSZAttribute>, 17> data = {{make_unique<JSZAttribute8BitBitmap>(zDevices, zigbeeDevice, clusterFactory),

@@ -21,7 +21,7 @@ namespace zigbee {
             uint8_t raw[2];
         };
     public:
-        ZCLBitmap16bitAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+        ZCLBitmap16bitAttribute(ZigbeeDevice * zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                                 std::experimental::string_view name, bool readOnly);
 
     public:

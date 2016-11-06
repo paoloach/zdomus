@@ -10,7 +10,7 @@
 namespace zigbee {
 namespace test {
 
-ClusterMock::ClusterMock(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress) :Cluster(zigbeeDevice,endpoint, networkAddress){
+ClusterMock::ClusterMock(ZigbeeDevice * zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress) :Cluster(zigbeeDevice,endpoint, networkAddress){
 
 }
 

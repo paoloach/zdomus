@@ -15,7 +15,7 @@ namespace zigbee {
 
     class ZCL_uint8_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUInt8> {
     public:
-        ZCL_uint8_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+        ZCL_uint8_Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                             std::experimental::string_view name, bool readOnly);
 
     public:

@@ -21,7 +21,7 @@ static std::vector<Cluster::AttributeDef> attributesDef {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x14, "High Temp. Dwell Trip Point")
 };
 
-DeviceTemperatureConfiguration::DeviceTemperatureConfiguration(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+DeviceTemperatureConfiguration::DeviceTemperatureConfiguration(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 		Cluster(zigbeeDevice, endpoint, networkAddress) {
 	createAttributes(attributesDef);
 }

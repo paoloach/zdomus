@@ -18,7 +18,7 @@ static std::vector<Cluster::AttributeDef> attributesDef {
 };
 
 
-IdentifyCluster::IdentifyCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) : Cluster(zigbeeDevice, endpoint, networkAddress){
+IdentifyCluster::IdentifyCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) : Cluster(zigbeeDevice, endpoint, networkAddress){
 	createAttributes(attributesDef);
 
 	_commandsDef.emplace_back([=](std::vector<uint8_t> && ) { zigbeeDevice->sendCmd(networkAddress,  endpoint, IdentifyClusetrID, 0);}, 0, "Identify Command" );

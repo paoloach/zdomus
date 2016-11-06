@@ -8,6 +8,7 @@
 #ifndef USBDEVICE_H_
 #define USBDEVICE_H_
 
+#include <boost/log/trivial.hpp>
 #include <boost/signals2.hpp>
 #include <map>
 #include <boost/asio.hpp>
@@ -42,7 +43,7 @@ namespace zigbee {
                              libusb_context *usbContext,
                              int deviceClass, int vendorID, int productID, bool demo);
 
-        virtual ~DomusEngineUSBDevice() = default;
+        ~DomusEngineUSBDevice() override = default;
 
     public:
         bool isPresent() override;
@@ -62,7 +63,7 @@ namespace zigbee {
 
         void requestReset() override;
 
-        virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
+        void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                     ZigbeeAttributeId commandId,
                                     ZCLTypeDataType dataType, uint8_t dataValueLen,
                                     uint8_t *dataValue) override;
@@ -93,11 +94,11 @@ namespace zigbee {
 
         void requestActiveEndpoints(NwkAddr nwkAddr) override ;
 
-        virtual void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP,
+        void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP,
                                  ClusterID clusterID,
                                  const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
 
-        virtual void sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN],
+        void sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN],
                                    EndpointID outClusterEP, ClusterID clusterID,
                                    const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) override;
 
@@ -138,6 +139,8 @@ namespace zigbee {
 
         std::vector<RequestedAttributes::Attribute>
         getAttributeToSend(NwkAddr nwkAddr, EndpointID endpoint, ClusterID cluster);
+
+        void initDemoData();
 
         size_t calcTotalSize(std::vector<RequestedAttributes::Attribute> &attributes);
 

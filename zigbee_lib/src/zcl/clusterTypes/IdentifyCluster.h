@@ -16,7 +16,7 @@ namespace zigbee {
 
 class IdentifyCluster : public Cluster {
 public:
-	IdentifyCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	IdentifyCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 public:
 	ClusterID getId() const override;
 	std::string getClusterName() const override;

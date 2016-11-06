@@ -39,10 +39,11 @@ namespace zigbee {
             zigbeeDevice = std::make_unique<DomusEngineUSBDevice>(io, *this,
                                                                   usbContext,
                                                                   USB_CLASS, VENDOR_ID, PRODUCT_ID, demo);
+            clusters = Clusters{zigbeeDevice.get()};
             if (zigbeeDevice->isPresent()) {
                 zigbeeDevice->enableLog();
                 NwkAddr addr;
-               zigbeeDevice->requestBindTable(addr);
+              // zigbeeDevice->requestBindTable(addr);
                 sleep(1);
             }
         }

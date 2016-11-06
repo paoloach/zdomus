@@ -20,7 +20,7 @@ namespace zigbee {
 
     class Clusters {
     public:
-        Clusters(std::shared_ptr<ZigbeeDevice> zigbeeDevice);
+        Clusters(ZigbeeDevice* zigbeeDevice);
         Clusters()=default;
         virtual     std::shared_ptr<Cluster> getCluster(NwkAddr networkAddress, const EndpointID  endpoint,ClusterID clusterId);
 
@@ -28,7 +28,7 @@ namespace zigbee {
         typedef std::tuple<NwkAddr, EndpointID, ClusterID> Key;
 
         std::shared_ptr<ClusterTypeFactory> clusterTypeFactory;
-        std::shared_ptr<ZigbeeDevice> zigbeeDevice;
+        ZigbeeDevice* zigbeeDevice;
         std::map<Key, std::shared_ptr<Cluster> > clusters;
     };
 }

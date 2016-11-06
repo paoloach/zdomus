@@ -57,7 +57,7 @@ namespace zigbee {
     template<typename AttributeType, typename ParamType>
     class JSZAttributeTemplate : public JSZAttribute {
     public:
-        JSZAttributeTemplate(ZDevices * zDevices, const std::shared_ptr<ZigbeeDevice> &zigbeeDevice,
+        JSZAttributeTemplate(ZDevices * zDevices, ZigbeeDevice *zigbeeDevice,
                              const std::shared_ptr<ClusterTypeFactory> &clusterFactory) :
                 JSZAttribute(zDevices, zigbeeDevice, clusterFactory,AttributeType::type) {
         }

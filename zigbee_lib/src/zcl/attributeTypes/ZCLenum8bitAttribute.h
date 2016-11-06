@@ -15,15 +15,17 @@ namespace zigbee {
 
     class ZCL_enum8bit_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeenum8> {
     public:
-        ZCL_enum8bit_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+        ZCL_enum8bit_Attribute(ZigbeeDevice *zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                                std::experimental::string_view name, bool readOnly);
 
         ~ZCL_enum8bit_Attribute() override;
 
     public:
         virtual void sendValue(uint8_t newValue);
+
         boost::any getValue() const override;
-        std::string getStrValue() const  override {
+
+        std::string getStrValue() const override {
             return std::to_string(value);
         }
 
@@ -35,8 +37,8 @@ namespace zigbee {
             value = *rawData->data;
         }
 
-        void internalSetValue(uint8_t*rawData) override {
-            value =  *rawData;
+        void internalSetValue(uint8_t *rawData) override {
+            value = *rawData;
         }
 
 

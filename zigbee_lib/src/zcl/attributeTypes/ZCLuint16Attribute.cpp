@@ -11,7 +11,7 @@
 
 namespace zigbee {
 
-    ZCL_uint16_Attribute::ZCL_uint16_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+    ZCL_uint16_Attribute::ZCL_uint16_Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                                ZigbeeClusterId identifier, std::experimental::string_view name,
                                                bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUInt16>(zigbeeDevice, parent, identifier, name, readOnly) {

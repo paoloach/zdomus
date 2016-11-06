@@ -23,7 +23,7 @@ namespace zigbee {
 
 class BasicCluster : public Cluster{
 public:
-	BasicCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	BasicCluster(ZigbeeDevice * zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 public:
 	enum PowerSourceType {
 		Unknow =0,

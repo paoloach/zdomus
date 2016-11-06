@@ -59,7 +59,7 @@ protected:
 	ExtAddress extAddress;
 	ClusterTypeFactoryMock_P clusterTypeFactoryMock;
 	std::shared_ptr<ZigbeeDeviceMock> zigbeeDeviceMock;
-	std::shared_ptr<ZigbeeDevice> zigbeeDevice;
+	ZigbeeDevice * zigbeeDevice;
 	std::shared_ptr<ClusterMock> defaultCluster;
 	std::shared_ptr<ClusterMock> cluster;
 	std::shared_ptr<ZCLAttributeMock> zclAttributeMock;

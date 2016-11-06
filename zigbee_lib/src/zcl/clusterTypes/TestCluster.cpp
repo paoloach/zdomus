@@ -42,7 +42,7 @@ namespace zigbee {
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt32, 31, "test31", true)
     };
 
-    TestCluster::TestCluster(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+    TestCluster::TestCluster(ZigbeeDevice * zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
             Cluster(zigbeeDevice, endpoint, networkAddress) {
         createAttributes(attributesDef);
 

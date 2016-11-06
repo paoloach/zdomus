@@ -17,7 +17,7 @@ namespace zigbee {
 
 class On_Off_Cluster: public Cluster{
 public:
-	On_Off_Cluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	On_Off_Cluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:
 	ClusterID getId() const override;
 	std::string getClusterName() const override;

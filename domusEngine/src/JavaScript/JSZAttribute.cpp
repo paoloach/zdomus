@@ -36,7 +36,7 @@ namespace zigbee {
                                                                            {ZCLAttribute::Undefined,    "undefined"},};
 
     JSZAttribute::JSZAttribute(ZDevices *zDevices,
-                               const std::shared_ptr<ZigbeeDevice> &zigbeeDevice,
+                               ZigbeeDevice * zigbeeDevice,
                                const std::shared_ptr<ClusterTypeFactory> &clusterFactory, ZCLTypeDataType zclType) :
             zDevices(zDevices), zigbeeDevice(zigbeeDevice), clusterFactory(clusterFactory), zclType(zclType) {
     }

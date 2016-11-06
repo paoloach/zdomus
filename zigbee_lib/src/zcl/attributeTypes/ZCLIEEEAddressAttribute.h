@@ -20,7 +20,7 @@ namespace zigbee {
             uint8_t raw[8];
         };
     public:
-        ZCLIEEEAddressAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+        ZCLIEEEAddressAttribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                 ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
 
         ~ZCLIEEEAddressAttribute() override;

@@ -39,7 +39,7 @@ namespace zigbee {
     public:
         JSZCluster();
 
-        JSZCluster(ZDevices *zDevices, const std::shared_ptr<ZigbeeDevice> &zigbeeDevice,
+        JSZCluster(ZDevices *zDevices, ZigbeeDevice *zigbeeDevice,
                    const std::shared_ptr<JSZAttributeFactory> &jsZAttributeFactory,
                    const std::shared_ptr<ClusterTypeFactory> &clusterFactory);
 
@@ -84,9 +84,9 @@ namespace zigbee {
         static void weakCallback(const v8::WeakCallbackData<v8::Object, JSZCluster> &data);
 
     private:
-        ZDevices * zDevices;
+        ZDevices *zDevices;
         std::shared_ptr<JSZEndpoint> jsZEndpoint;
-        std::shared_ptr<ZigbeeDevice> zigbeeDevice;
+        ZigbeeDevice *zigbeeDevice;
         std::shared_ptr<ClusterTypeFactory> clusterFactory;
         std::shared_ptr<JSZAttributeFactory> jsZAttributeFactory;
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;

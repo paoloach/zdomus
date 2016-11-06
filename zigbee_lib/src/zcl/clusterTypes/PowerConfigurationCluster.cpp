@@ -27,7 +27,7 @@ static std::vector<Cluster::AttributeDef> attributesDef = {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 0x36, "Battery Voltage Min Threshold")
 };
 
-PowerConfigurationCluster::PowerConfigurationCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+PowerConfigurationCluster::PowerConfigurationCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 		Cluster(zigbeeDevice, endpoint, networkAddress) {
 	createAttributes(attributesDef);
 

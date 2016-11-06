@@ -20,7 +20,7 @@ namespace test {
 
 class ClusterMock: public Cluster {
 public:
-	ClusterMock(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress);
+	ClusterMock(ZigbeeDevice * zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress);
 	ClusterMock();
 	virtual ~ClusterMock();
 

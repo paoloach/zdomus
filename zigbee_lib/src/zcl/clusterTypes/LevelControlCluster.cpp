@@ -19,7 +19,7 @@ static std::vector<Cluster::AttributeDef> attributesDef {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 2, "On/Off Transiction Time"),
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 3, "On Level") };
 
-LevelControlCluster::LevelControlCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+LevelControlCluster::LevelControlCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 		Cluster(zigbeeDevice, endpoint, networkAddress) {
 	createAttributes(attributesDef);
 

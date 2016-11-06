@@ -148,7 +148,7 @@ namespace zigbee {
 
     };
 
-    ElectricalMeasurementCluster::ElectricalMeasurementCluster(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+    ElectricalMeasurementCluster::ElectricalMeasurementCluster(ZigbeeDevice * zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
             Cluster(zigbeeDevice, endpoint, networkAddress) {
         createAttributes(attributesDef);
 

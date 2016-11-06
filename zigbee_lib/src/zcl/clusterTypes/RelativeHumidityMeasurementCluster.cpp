@@ -16,7 +16,7 @@ static std::vector<Cluster::AttributeDef> attributesDef = {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 3, "Tollerance", true)
 };
 
-RelativeHumidityMeasurementCluster::RelativeHumidityMeasurementCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+RelativeHumidityMeasurementCluster::RelativeHumidityMeasurementCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 												Cluster(zigbeeDevice, endpoint, networkAddress){
 	createAttributes(attributesDef);
 }

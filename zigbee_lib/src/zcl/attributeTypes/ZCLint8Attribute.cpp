@@ -8,7 +8,7 @@
 #include "../Cluster.h"
 
 namespace zigbee {
-    ZCLint8Attribute::ZCLint8Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+    ZCLint8Attribute::ZCLint8Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                        ZigbeeClusterId identifier, std::experimental::string_view name,
                                        bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeSInt8>(zigbeeDevice, parent, identifier, name, readOnly){

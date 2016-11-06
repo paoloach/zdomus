@@ -16,7 +16,7 @@ namespace zigbee {
 
 class OccupancySensingCluster : public Cluster{
 public:
-	OccupancySensingCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
+	OccupancySensingCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:
 	ClusterID getId() const override;
 	std::string getClusterName() const override;

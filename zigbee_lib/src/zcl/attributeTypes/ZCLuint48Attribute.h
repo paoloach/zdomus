@@ -16,7 +16,7 @@ namespace zigbee {
             uint8_t raw[8];
         };
     public:
-        ZCLuint48Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+        ZCLuint48Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                            std::experimental::string_view name, bool readOnly);
 
     public:

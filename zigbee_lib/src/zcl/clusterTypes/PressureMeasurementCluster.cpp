@@ -21,7 +21,7 @@ static std::vector<Cluster::AttributeDef> attributesDef {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 0x14, "Scale", true)
 		};
 
-PressureMeasurementCluster::PressureMeasurementCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+PressureMeasurementCluster::PressureMeasurementCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 								Cluster(zigbeeDevice, endpoint, networkAddress) {
 
 	createAttributes(attributesDef);

@@ -13,7 +13,7 @@ namespace zigbee {
 using std::make_shared;
 static std::vector<Cluster::AttributeDef> attributesDef { Cluster::AttributeDef(ZCLTypeDataType::ZCLType8bitBitmap, 0, "Name Support", true), };
 
-GroupsCluster::GroupsCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+GroupsCluster::GroupsCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 		Cluster(zigbeeDevice, endpoint, networkAddress) {
 	createAttributes(attributesDef);
 

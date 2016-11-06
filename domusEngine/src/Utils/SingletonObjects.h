@@ -49,7 +49,7 @@ namespace zigbee {
         virtual ~SingletonObjects() = default;
 
     public:
-        virtual std::shared_ptr<ZigbeeDevice> getZigbeeDevice() { return zigbeeDevice; }
+        virtual ZigbeeDevice* getZigbeeDevice() { return zigbeeDevice.get(); }
 
         virtual ZDevices * getZDevices() { return zDevices.get(); }
 
@@ -81,7 +81,7 @@ namespace zigbee {
     private:
         boost::asio::io_service io;
         std::unique_ptr<ZDevices> zDevices;
-        std::shared_ptr<ZigbeeDevice> zigbeeDevice;
+        std::unique_ptr<ZigbeeDevice> zigbeeDevice;
         std::shared_ptr<Configuration> configuration;
         std::shared_ptr<JSManager> jsManager;
         DeviceInfoDispatcher deviceInfoDispatcher;

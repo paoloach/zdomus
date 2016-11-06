@@ -26,7 +26,7 @@ static std::vector<Cluster::AttributeDef> attributesDef {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLType8bitBitmap, 0x14, "Disable Local Config")
 };
 
-BasicCluster::BasicCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+BasicCluster::BasicCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 		Cluster(zigbeeDevice, endpoint, networkAddress) {
 	createAttributes(attributesDef);
 

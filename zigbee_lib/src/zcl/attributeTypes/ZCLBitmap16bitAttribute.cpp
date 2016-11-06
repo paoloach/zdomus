@@ -9,7 +9,7 @@
 
 namespace zigbee {
 
-    ZCLBitmap16bitAttribute::ZCLBitmap16bitAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+    ZCLBitmap16bitAttribute::ZCLBitmap16bitAttribute(ZigbeeDevice * zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                                                      std::experimental::string_view name, bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLType16bitBitmap>(zigbeeDevice, parent, identifier, name, readOnly) {
         if (zigbeeDevice) {

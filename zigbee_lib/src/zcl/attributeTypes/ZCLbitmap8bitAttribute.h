@@ -16,11 +16,12 @@ namespace zigbee {
 
     class ZCL_bitmap8bit_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLType8bitBitmap> {
     public:
-        ZCL_bitmap8bit_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+        ZCL_bitmap8bit_Attribute(ZigbeeDevice *zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                                  std::experimental::string_view name, bool readOnly);
 
     public:
         boost::any getValue() const override;
+
         std::string getStrValue() const override {
             return std::to_string(value);
         }
@@ -34,7 +35,7 @@ namespace zigbee {
         }
 
     private:
-        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
+        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) override;
 
         void internalSetValue(uint8_t *rawData) override;
 

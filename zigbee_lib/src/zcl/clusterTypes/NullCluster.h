@@ -14,7 +14,7 @@ namespace zigbee {
 
 class NullCluster : public Cluster {
 public:
-	NullCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress,ClusterID clusterId);
+	NullCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress,ClusterID clusterId);
 public:
 	ClusterID getId() const override;
 	std::string getClusterName() const override;

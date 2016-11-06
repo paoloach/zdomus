@@ -7,7 +7,7 @@
 
 namespace zigbee {
 
-    ZCLOctetString::ZCLOctetString(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+    ZCLOctetString::ZCLOctetString(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                    ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeStringOctect>(zigbeeDevice, parent, identifier, name, readOnly){
         if (zigbeeDevice) {

@@ -77,7 +77,7 @@ namespace zigbee {
         class TestCluster1 : public ClusterMock {
         public:
             virtual ~TestCluster1() =default;
-            TestCluster1(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress,
+            TestCluster1(ZigbeeDevice * zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress,
                          const std::shared_ptr<ClusterCmdParamsBase> &cmdParam1,
                          const std::shared_ptr<ClusterCmdParamsBase> &cmdParam2, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam3) :
                     ClusterMock(zigbeeDevice, endpoint, networkAddress) {

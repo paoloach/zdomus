@@ -18,7 +18,7 @@ namespace zigbee {
 
 class TestCluster : public Cluster {
 public:
-    TestCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
+    TestCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
 public:
     ClusterID getId() const override;
     std::string getClusterName() const override;

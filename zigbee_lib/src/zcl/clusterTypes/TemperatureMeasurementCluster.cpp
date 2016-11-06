@@ -16,7 +16,7 @@ static std::vector<Cluster::AttributeDef> attributesDef = {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 3, "Tollerance", true)
 		};
 
-TemperatureMeasurementCluster::TemperatureMeasurementCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+TemperatureMeasurementCluster::TemperatureMeasurementCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 						Cluster(zigbeeDevice, endpoint, networkAddress){
 
 	createAttributes(attributesDef);

@@ -9,7 +9,7 @@
 
 namespace zigbee {
 
-NullCluster::NullCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress, ClusterID clusterId):
+NullCluster::NullCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress, ClusterID clusterId):
 	Cluster(zigbeeDevice, endpoint, networkAddress), clusterId(clusterId){
 }
 

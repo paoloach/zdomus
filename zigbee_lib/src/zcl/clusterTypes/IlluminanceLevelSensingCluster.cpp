@@ -15,7 +15,7 @@ static std::vector<Cluster::AttributeDef> attributesDef {
 		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x10, "Illuminance Target Level", true)
 		};
 
-IlluminanceLevelSensingCluster::IlluminanceLevelSensingCluster(const std::shared_ptr<ZigbeeDevice> & zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
+IlluminanceLevelSensingCluster::IlluminanceLevelSensingCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
 				Cluster(zigbeeDevice, endpoint, networkAddress){
 
 	createAttributes(attributesDef);

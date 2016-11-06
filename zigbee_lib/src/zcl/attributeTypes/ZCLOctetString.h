@@ -14,7 +14,7 @@
 namespace zigbee {
     class ZCLOctetString : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeStringOctect> {
     public:
-        ZCLOctetString(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
+        ZCLOctetString(ZigbeeDevice * zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                        std::experimental::string_view name, bool readOnly);
 
         ~ZCLOctetString() override = default;

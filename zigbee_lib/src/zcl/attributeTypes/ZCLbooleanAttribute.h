@@ -15,14 +15,15 @@ namespace zigbee {
 
     class ZCL_boolean_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeBool> {
     public:
-        ZCL_boolean_Attribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+        ZCL_boolean_Attribute(ZigbeeDevice *zigbeeDevice, Cluster *parent,
                               ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
 
         ~ZCL_boolean_Attribute() override;
 
     public:
         boost::any getValue() const override;
-        std::string getStrValue() const  override  {
+
+        std::string getStrValue() const override {
             return boost::lexical_cast<std::string>(value);
         }
 
@@ -33,9 +34,9 @@ namespace zigbee {
         }
 
     private:
-        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
+        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) override;
 
-        void internalSetValue(uint8_t * rawData) override;
+        void internalSetValue(uint8_t *rawData) override;
 
         friend std::ostream &operator<<(std::ostream &out, const ZCL_boolean_Attribute *);
 

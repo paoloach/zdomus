@@ -10,7 +10,7 @@
 
 namespace zigbee {
 
-    ZCLBitmap32bitAttribute::ZCLBitmap32bitAttribute(const std::shared_ptr<ZigbeeDevice> &zigbeeDevice, Cluster *parent,
+    ZCLBitmap32bitAttribute::ZCLBitmap32bitAttribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                                      ZigbeeClusterId identifier, std::experimental::string_view name,
                                                      bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLType32bitBitmap>(zigbeeDevice, parent, identifier, name, readOnly){
