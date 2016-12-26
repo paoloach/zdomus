@@ -36,7 +36,7 @@ private:
 	static void checkSingleParam(const std::string & methodName, const v8::FunctionCallbackInfo<v8::Value>& info);
 	static void checkTwoParam(const std::string & methodName, const v8::FunctionCallbackInfo<v8::Value>& info);
 	static void checkStringParam(const std::string & methodName, const v8::FunctionCallbackInfo<v8::Value>& info, uint32_t index);
-	static void weakCallback(const v8::WeakCallbackData<v8::Object, JSRow>& data);
+	static void weakCallback(const v8::WeakCallbackInfo<JSRow>& data);
 };
 
 

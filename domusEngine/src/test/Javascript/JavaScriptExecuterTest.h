@@ -31,7 +31,7 @@ namespace zigbee {
             ExtAddress convertFromString(const std::string &strExt);
 
         protected:
-            std::shared_ptr<ZigbeeDeviceMock> zigbeeDevice;
+            std::unique_ptr<ZigbeeDeviceMock> zigbeeDevice;
             SingletonObjectsMock singletonObjects;
             std::unique_ptr<ZDevicesMock> zDevices;
             std::shared_ptr<JavaScriptExecuter> jsExecuter;

@@ -81,7 +81,7 @@ namespace zigbee {
 
         static void checkIdCmd(const v8::FunctionCallbackInfo<v8::Value> &info);
 
-        static void weakCallback(const v8::WeakCallbackData<v8::Object, JSZCluster> &data);
+        static void weakCallback(const v8::WeakCallbackInfo<JSZCluster> &data);
 
     private:
         ZDevices *zDevices;

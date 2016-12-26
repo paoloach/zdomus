@@ -43,8 +43,7 @@ namespace zigbee {
                 std::unique_ptr<zigbee::test::ZDevicesMock> zDevicesMock;
                 SingletonObjectsMock singletonObjects;
                 zigbee::test::ClustersMock clustersMock;
-                std::shared_ptr<zigbee::test::ZigbeeDeviceMock> zigbeeDeviceMock;
-                std::shared_ptr<zigbee::ZigbeeDevice> zigbeeDevice;
+                std::unique_ptr<zigbee::test::ZigbeeDeviceMock> zigbeeDevice;
                 std::stringstream outStream;
                 HTTPServerResponseMock response;
                 HTTPServerRequestMock request;

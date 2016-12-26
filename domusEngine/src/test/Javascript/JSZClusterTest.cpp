@@ -104,18 +104,17 @@ namespace zigbee {
             isolate = v8::Isolate::New(createParams);
             isolate->Enter();
             locker.reset(new Locker{isolate});
-
-            defaultCluster = make_shared<ClusterMock>(zigbeeDeviceMock, ENDPOINT_ID, NWK_ADDRESS);
-            defaultZclAttribute = make_shared<ZCLAttributeMock>(zigbeeDeviceMock, defaultCluster.get(), -1, ZCLTypeDataType::ZCLTypeInvalid, "", true);
-            cluster = make_shared<TestCluster1>(zigbeeDeviceMock, ENDPOINT_ID, NWK_ADDRESS, COMAND_PARAM_UINT16, COMAND_PARAM_STRING, COMAND_PARAM_LIST_UINT16);
-            zclAttributeMock = make_shared<ZCLAttributeMock>(zigbeeDeviceMock, cluster.get(), ATTRIBUTE1_ID, ZCLTypeDataType::ZCLTypeUInt16, ATTRIBUTE1_NAME, true);
+            zigbeeDevice = std::make_unique<ZigbeeDeviceMock>();
+            defaultCluster = make_shared<ClusterMock>(zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS);
+            defaultZclAttribute = make_shared<ZCLAttributeMock>(zigbeeDevice.get(), defaultCluster.get(), -1, ZCLTypeDataType::ZCLTypeInvalid, "", true);
+            cluster = make_shared<TestCluster1>(zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS, COMAND_PARAM_UINT16, COMAND_PARAM_STRING, COMAND_PARAM_LIST_UINT16);
+            zclAttributeMock = make_shared<ZCLAttributeMock>(zigbeeDevice.get(), cluster.get(), ATTRIBUTE1_ID, ZCLTypeDataType::ZCLTypeUInt16, ATTRIBUTE1_NAME, true);
             zclAttribute = std::dynamic_pointer_cast<ZCLAttribute>(zclAttributeMock);
             jsZAttributeFactory = std::make_shared<JSZAttributeFactoryMock>();
 
-            zigbeeDeviceMock = std::make_shared<ZigbeeDeviceMock>();
-            zigbeeDevice = std::dynamic_pointer_cast<ZigbeeDevice>(zigbeeDeviceMock);
+
             std::shared_ptr<ClusterTypeFactory> clusterFactory = clusterTypeFactoryMock;
-            jsZCluster = std::make_unique<JSZCluster>(zDevices.get(), zigbeeDeviceMock, jsZAttributeFactory, clusterFactory);
+            jsZCluster = std::make_unique<JSZCluster>(zDevices.get(), zigbeeDevice.get(), jsZAttributeFactory, clusterFactory);
             extAddress = convertFromString(EXTENDED_ADDRESS);
             ON_CALL(*clusterTypeFactoryMock, getCluster(_, _, _, _)).WillByDefault(Return(defaultCluster));
             ON_CALL(*cluster, getAttribute(A<int>())).WillByDefault(Return(defaultZclAttribute));
@@ -175,7 +174,7 @@ namespace zigbee {
 
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(*clusterTypeFactoryMock.get(), getCluster(CLUSTER_ID, zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
+            EXPECT_CALL(*clusterTypeFactoryMock.get(), getCluster(CLUSTER_ID, zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
 
 
             v8::Local<v8::Value> result = runScript(stream.str());
@@ -202,10 +201,9 @@ namespace zigbee {
 
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(clusterReal));
+            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(clusterReal));
             EXPECT_CALL(*cluster, getAttribute(ATTRIBUTE1_ID)).WillOnce(Return(zclAttribute));
             EXPECT_CALL(*jsZAttributeFactory, createAttributeInstance(isolate, zclAttribute)).WillOnce(Return(expectedObject));
-           // EXPECT_CALL(*zigbeeDeviceMock, registerForAttributeValue(_, _, _, _, _)).Times(AtLeast(2));
 
             v8::Local<v8::Value> result = runScript(stream.str());
             ASSERT_THAT(result.IsEmpty(), false);
@@ -227,7 +225,7 @@ namespace zigbee {
 
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
+            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
             EXPECT_CALL(*cluster, executeComand(COMAND0_ID, _));
             EXPECT_CALL(*cluster, getCmdParams(COMAND0_ID)).WillOnce(Return(std::vector<std::shared_ptr<ClusterCmdParamsBase>> {}));
 
@@ -250,7 +248,7 @@ namespace zigbee {
 
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
+            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
             EXPECT_CALL(*cluster, executeComand(COMAND1_ID,
                                                 HasArgument<uint16_t, const char *, ZCLTypeDataType::ZCLTypeUInt16, ZCLTypeDataType::ZCLTypeStringChar>(COMAND1_ARG0,
                                                                                                                                                         COMAND1_ARG1)));
@@ -277,7 +275,7 @@ namespace zigbee {
 
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
+            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
 
             EXPECT_CALL(*cluster, executeComand(COMAND2_ID, HasArraysArgument<uint16_t, ZCLTypeDataType::ZCLTypeUInt16>({data1, data2})));
             EXPECT_CALL(*cluster, getCmdParams(COMAND2_ID)).WillOnce(Return(std::vector<std::shared_ptr<ClusterCmdParamsBase>> {argList}));

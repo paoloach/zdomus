@@ -10,6 +10,7 @@
 
 #include <boost/asio/io_service.hpp>
 #include <memory>
+#include <zigbee/ZigbeeDevice.h>
 #include "../IO/AttributeDataContainer.h"
 #include "../ZigbeeData/BindTable.h"
 #include "../usb/AttributeValuesSignalMap.h"
@@ -27,8 +28,6 @@ namespace zigbee {
         class FixedPathContainer;
     }
     class ClusterTypeFactory;
-
-    class ZigbeeDevice;
 
     class ZDevices;
 

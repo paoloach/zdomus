@@ -18,8 +18,8 @@ extern unsigned int natives_blob_bin_len;
 extern unsigned char snapshot_blob_bin[];
 extern unsigned int snapshot_blob_bin_len;
 
-static void initV8(int argc, char* argv[]) {
-	V8::InitializeICU();
+static void initV8(int argc, char *argv[]) {
+    V8::InitializeICUDefaultLocation(argv[0]);
 
 	StartupData nativeBlob;
 	nativeBlob.data = (char *)natives_blob_bin;
@@ -31,22 +31,43 @@ static void initV8(int argc, char* argv[]) {
 	snapshotBlob.raw_size = snapshot_blob_bin_len;
 	V8::SetSnapshotDataBlob(&snapshotBlob);
 
-    Platform* platform = platform::CreateDefaultPlatform();
+
+    Platform *platform = platform::CreateDefaultPlatform();
     V8::InitializePlatform(platform);
     V8::Initialize();
+
+
+
+
+
+//	V8::InitializeICU();
+//
+//	StartupData nativeBlob;
+//	nativeBlob.data = (char *)natives_blob_bin;
+//	nativeBlob.raw_size = natives_blob_bin_len;
+//	V8::SetNativesDataBlob(&nativeBlob);
+//
+//	StartupData snapshotBlob;
+//	snapshotBlob.data = (char *)snapshot_blob_bin;
+//	snapshotBlob.raw_size = snapshot_blob_bin_len;
+//	V8::SetSnapshotDataBlob(&snapshotBlob);
+//
+//    Platform* platform = platform::CreateDefaultPlatform();
+//    V8::InitializePlatform(platform);
+//    V8::Initialize();
 }
 
 static void exitV8() {
-	V8::Dispose();
-	V8::ShutdownPlatform();
+    V8::Dispose();
+    V8::ShutdownPlatform();
 }
 
-int main( int argc, char *argv[]) {
-	initV8(argc, argv);
-	::testing::InitGoogleMock( &argc, argv );
-	int result {RUN_ALL_TESTS( )};
-	exitV8();
-	return result;
+int main(int argc, char *argv[]) {
+    initV8(argc, argv);
+    ::testing::InitGoogleMock(&argc, argv);
+    int result{RUN_ALL_TESTS()};
+    exitV8();
+    return result;
 }
 
 

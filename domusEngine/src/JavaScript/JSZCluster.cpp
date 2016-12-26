@@ -109,13 +109,10 @@ namespace zigbee {
         return zClusterInstance;
     }
 
-    void JSZCluster::weakCallback(const v8::WeakCallbackData<v8::Object, JSZCluster> &data) {
+    void JSZCluster::weakCallback(const v8::WeakCallbackInfo<JSZCluster> &data) {
 
         JSZCluster *This = data.GetParameter();
-        Local<Object> value = data.GetValue();
-
-        Local<External> wrap = Local<External>::Cast(value->GetInternalField(1));
-        Cluster *cluster = (Cluster *) wrap->Value();
+        Cluster *cluster = (Cluster *) data.GetInternalField(1);
 
         NwkAddr nwkAddress = cluster->getNetworkAddress();
         EndpointID endpointId = cluster->getEndpoint();

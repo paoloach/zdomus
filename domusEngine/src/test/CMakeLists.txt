@@ -18,9 +18,31 @@ file(GLOB testJavascriptAttributes "Javascript/JSAttributes/*.cpp")
 file(GLOB testHttpServer "httpServer/*.cpp")
 file(GLOB testRestParser "httpServer/RestParser/*.cpp")
 
-set(V8_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/v8)
-set(V8_INCLUDE_DIR ${V8_DIR} ${V8_DIR}/include)
-set(V8_LIB_DIR ${V8_DIR}/lib)
+
+set(V8_DIR  ${CMAKE_BINARY_DIR}/v8)
+set(V8_INCLUDE_DIR ${CMAKE_BINARY_DIR}/v8/include)
+if (CMAKE_BUILD_TYPE MATCHES "Debug")
+    set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)
+    set(V8_LIBRARY
+            v8_libplatform
+            v8_libbase
+            icui18n
+            icuuc
+            v8
+            )
+else()
+    set(V8_LIB_DIR ${V8_DIR}/lib_x64.release)
+    set(V8_LIBRARY
+            v8_libplatform
+            v8_libbase
+            icui18n
+            icuuc
+            v8
+            )
+endif()
+
+
+
 set(ZIGBEE_LIB_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/zigbee)
 set(ZIGBEELIB_INCLUDE_DIR ${ZIGBEE_LIB_DIR}/include)
 set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
@@ -44,12 +66,12 @@ link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     if (CMAKE_C_COMPILER MATCHES "arm")
         set(V8_BLOB
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/native_blob.cpp
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/snapshot_blob.cpp)
-    else ()
-        set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/native_blob.cpp
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/snapshot_blob.cpp)
+    else ()
+        set(V8_BLOB
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/native_blob.cpp
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/snapshot_blob.cpp)
     endif ()
 else ()
     if (CMAKE_C_COMPILER MATCHES "arm")
@@ -80,17 +102,6 @@ add_executable(domus_engine_test
         ${V8_BLOB}
         )
 
-
-set(V8_LIBRARY
-        ${V8_LIB_DIR}/libv8_libplatform.a
-        ${V8_LIB_DIR}/libv8_base.a
-        ${V8_LIB_DIR}/libv8_libbase.a
-        ${V8_LIB_DIR}/libv8_external_snapshot.a
-        ${V8_LIB_DIR}/libv8_nosnapshot.a
-        ${V8_LIB_DIR}/libicui18n.a
-        ${V8_LIB_DIR}/libicuuc.a
-        ${V8_LIB_DIR}/libicudata.a
-        )
 
 SET(LIBS zigbeeLib
         usb-1.0

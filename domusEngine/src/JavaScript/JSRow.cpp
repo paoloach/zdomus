@@ -57,7 +57,7 @@ v8::Local<v8::Object> JSRow::createInstance(v8::Isolate* isolate, std::shared_pt
 	dbRowInstance->SetInternalField(1, External::New(isolate, this));
 
 	newObject.Reset(isolate, dbRowTemplate->NewInstance() );
-	newObject.SetWeak(this, weakCallback);
+	newObject.SetWeak(this, weakCallback,WeakCallbackType::kParameter);
 	v8::Persistent<v8::Object,v8::CopyablePersistentTraits<v8::Object>> persistObject;
 	persistObject.Reset(isolate, newObject);
 	createdObject.insert( {dbRow, persistObject} );
@@ -148,14 +148,12 @@ void JSRow::checkTwoParam(const std::string& methodName, const v8::FunctionCallb
 	}
 }
 
-void JSRow::weakCallback(const v8::WeakCallbackData<v8::Object, JSRow>& data) {
+void JSRow::weakCallback(const v8::WeakCallbackInfo<JSRow>& data) {
 
 	std::cout << "Called weakCallback" << std::endl;
 	JSRow * This = data.GetParameter();
-	Local<Object> value = data.GetValue();
 
-	Local<External> wrap = Local<External>::Cast(value->GetInternalField(0));
-	std::shared_ptr<DBRow> dbRow((DBRow *) wrap->Value());
+	std::shared_ptr<DBRow> dbRow((DBRow *) data.GetInternalField(0));
 
 	This->createdObject.erase(dbRow);
 }

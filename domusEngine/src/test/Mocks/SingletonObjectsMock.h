@@ -24,7 +24,7 @@ namespace zigbee {
 
         virtual ~SingletonObjectsMock();
 
-        MOCK_METHOD0(getZigbeeDevice, ZigbeeDevic *>());
+        MOCK_METHOD0(getZigbeeDevice, ZigbeeDevice *());
 
         MOCK_METHOD0(getZDevices, ZDevices * ());
 

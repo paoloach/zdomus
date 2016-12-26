@@ -45,8 +45,7 @@ namespace zigbee {
 
             void DeviceBrowserHandlerTest::SetUp() {
                 zDevicesMock = std::make_unique<zigbee::test::ZDevicesMock>();
-                zigbeeDeviceMock = std::make_shared<zigbee::test::ZigbeeDeviceMock>();
-                zigbeeDevice = std::dynamic_pointer_cast<zigbee::ZigbeeDevice>(zigbeeDeviceMock);
+                zigbeeDevice = std::make_unique<zigbee::test::ZigbeeDeviceMock>();
                 clusterMock = std::make_shared<zigbee::test::ClusterMock>();
                 attributeMock = std::make_shared<zigbee::test::ZCLAttributeMock>(nullptr, nullptr, 0,
                                                                                  ZCLTypeDataType::ZCLTypeInvalid,
@@ -57,7 +56,7 @@ namespace zigbee {
                 attributeStatus = ZCLAttribute::Available;
                 EXPECT_CALL(singletonObjects, getZDevices()).Times(AnyNumber()).WillOnce(
                         Return(zDevicesMock.get()));
-                EXPECT_CALL(singletonObjects, getZigbeeDevice()).Times(AnyNumber()).WillOnce(Return(zigbeeDeviceMock));
+                EXPECT_CALL(singletonObjects, getZigbeeDevice()).Times(AnyNumber()).WillOnce(Return(zigbeeDevice.get()));
                 EXPECT_CALL(singletonObjects, getClusters()).Times(AnyNumber()).WillOnce(Return(&clustersMock));
             }
 

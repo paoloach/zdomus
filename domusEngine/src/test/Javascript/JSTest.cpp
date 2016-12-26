@@ -4,7 +4,7 @@
  *  Created on: 09/gen/2015
  *      Author: Paolo Achdjian
  */
-
+#include <memory>
 #include "JSTest.h"
 
 #include "../Mocks/ClusterMock.h"
@@ -43,8 +43,8 @@ void JSTest::SetUp() {
 
 	extAddress = convertFromString(EXTENDED_ADDRESS);
 
-	zigbeeDeviceMock = make_shared<ZigbeeDeviceMock>();
-	zigbeeDevice = std::dynamic_pointer_cast<ZigbeeDevice>(zigbeeDeviceMock);
+	zigbeeDeviceMock = std::make_unique<ZigbeeDeviceMock>();
+	zigbeeDevice = zigbeeDeviceMock.get();
 
 	defaultCluster = make_shared<ClusterMock>();
 	defaultZclAttribute = make_shared<ZCLAttributeMock>(zigbeeDevice, defaultCluster.get(), -1, ZCLTypeDataType::ZCLTypeInvalid, "", true);

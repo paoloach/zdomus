@@ -47,29 +47,30 @@ using namespace v8;
 
 void add1Demo(SingletonObjects  & singletons);
 
-void initV8() {
-    V8::InitializeICU();
+void initV8(int argc, const char *argv[]) {
+    V8::InitializeICUDefaultLocation(argv[0]);
+ //   V8::InitializeExternalStartupData(argv[0]);
 
 
     StartupData nativeBlob;
-    nativeBlob.data = (char *)natives_blob_bin;
+    nativeBlob.data = (char *) natives_blob_bin;
     nativeBlob.raw_size = natives_blob_bin_len;
     V8::SetNativesDataBlob(&nativeBlob);
 
     StartupData snapshotBlob;
-    snapshotBlob.data = (char *)snapshot_blob_bin;
+    snapshotBlob.data = (char *) snapshot_blob_bin;
     snapshotBlob.raw_size = snapshot_blob_bin_len;
     V8::SetSnapshotDataBlob(&snapshotBlob);
+
 
     Platform* platform = platform::CreateDefaultPlatform();
     V8::InitializePlatform(platform);
     V8::Initialize();
-
 }
 
 void enableDemo(const variables_map &vm, SingletonObjects  & singletons){
     if (vm.count(DEMO_DATA)) {
-        add1Demo(singletons);
+//        add1Demo(singletons);
     }
 }
 
@@ -80,7 +81,7 @@ void exitV8() {
 
 int main(int argc, const char *argv[]) {
 
-    initV8();
+    initV8(argc, argv);
     std::string configurationFileName = DEFAULT_CONFIG_FILE;
 
     ClusterTypeFactory clusterTypeFactory;
