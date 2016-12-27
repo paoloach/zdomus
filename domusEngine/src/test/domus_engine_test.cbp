@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="domus_engine_test"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;CMake Files\src\;CMake Files\src\test\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/paolo/workspace/zdomus/domusEngine/src/test"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="domus_engine_test">
+				<Option output="/home/paolo/workspace/zdomus/domusEngine/src/test/build/domus_engine_test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/paolo/workspace/zdomus/domusEngine/src/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/usr/include/postgresql"/>
+					<Add directory="/usr/include/postgresql/server"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
+					<Add directory="/usr/local/zigbee/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="domus_engine_test/fast">
+				<Option output="/home/paolo/workspace/zdomus/domusEngine/src/test/build/domus_engine_test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/paolo/workspace/zdomus/domusEngine/src/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/usr/include/postgresql"/>
+					<Add directory="/usr/include/postgresql/server"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
+					<Add directory="/usr/local/zigbee/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdGetUpdateTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdGetUpdateTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdRequestAttributeTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdRequestAttributeTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdSendCmdTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdSendCmdTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdUpdateAttributeTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdUpdateAttributeTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/ComandFactoryTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/ComandFactoryTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/ResponseCreatorTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/ResponseCreatorTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Configuration/ConfigurationTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Configuration/ConfigurationTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/AttributeDataContainerTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/AttributeDataContainerTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/DataPropertyTreeMatcher.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/DataPropertyTreeMatcher.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSAttributeTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeStringTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSBaseTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSBaseTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSDBTableTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSDBTableTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSDeviceTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSDeviceTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSDevicesTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSDevicesTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSEndpointTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSEndpointTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSLogTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSLogTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSRowTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSRowTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSZClusterTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSZClusterTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JavaScriptExecuterTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JavaScriptExecuterTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/AttributeDataContainerMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/AttributeDataContainerMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ClusterMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ClusterMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ClusterTypeFactoryMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ClusterTypeFactoryMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ClustersMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ClustersMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ComandMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ComandMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/DBTableFactoryMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/DBTableFactoryMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/DBTableMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/DBTableMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZAttributeFactoryMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZAttributeFactoryMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZAttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZAttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZDeviceMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZDeviceMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZEndpointMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZEndpointMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/SingletonObjectsMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/SingletonObjectsMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLAttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLAttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLIEEEAddressAttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLIEEEAddressAttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUInt24AttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUInt24AttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUint16AttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUint16AttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUint8AttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUint8AttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLbitmap8bitAttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLbitmap8bitAttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLbooleanAttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLbooleanAttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLenum8bitAttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLenum8bitAttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLint16AttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLint16AttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLstringAttributeMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLstringAttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZDevicesMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZDevicesMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZigbeeDeviceMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZigbeeDeviceMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/HTTPServerRequestMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/HTTPServerRequestMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/HTTPServerResponseMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/HTTPServerResponseMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/ZigbeeData/ExtAddressTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/ZigbeeData/ExtAddressTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/ZigbeeData/ZDevicesTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/ZigbeeData/ZDevicesTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/DeviceBrowserHandlerTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/DeviceBrowserHandlerTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/PathTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/PathTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/PathElementTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/PathParserTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/PlaceHoldersTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/PlaceHoldersTest.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/RestActionsTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/RestPathTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/RestQueryTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/ZDeviceFixture.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/ZDeviceFixture.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/main.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/v8_blob/x64-debug/native_blob.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/v8_blob/x64-debug/snapshot_blob.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\googletest\googlemock\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\googletest\googlemock\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\googletest\googletest\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\googletest\googletest\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\googletest\googletest\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/cmake/internal_utils.cmake">
+			<Option virtualFolder="CMake Files\googletest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/cmake/internal_utils.cmake">
+			<Option virtualFolder="CMake Files\googletest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/cmake/internal_utils.cmake">
+			<Option virtualFolder="CMake Files\googletest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\test\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\test\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

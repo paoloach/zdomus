@@ -5,8 +5,8 @@ add_subdirectory(googletest/googlemock)
 add_subdirectory(src/test)
 
 
-set(V8_DIR  ${CMAKE_BINARY_DIR}/v8)
-set(V8_INCLUDE_DIR ${CMAKE_BINARY_DIR}/v8/include)
+set(V8_DIR ${CMAKE_BINARY_DIR}/v8)
+set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/v8/include)
 
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)
@@ -17,17 +17,31 @@ if (CMAKE_BUILD_TYPE MATCHES "Debug")
             icuuc
             v8
             )
-else()
-    set(V8_LIB_DIR ${V8_DIR}/lib_x64.release)
-    set(V8_LIBRARY
-            v8_libplatform
-            v8_libbase
-            icui18n
-            icuuc
-            v8
-            )
-endif()
+else ()
+    if (CMAKE_C_COMPILER MATCHES "arm")
+        set(Boost_USE_STATIC_LIBS        ON)
+        set(V8_LIB_DIR ${V8_DIR}/lib_arm.release)
+        set(V8_LIBRARY
+                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libicui18n.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libicuuc.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_base.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_external_snapshot.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_libbase.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_libplatform.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_libsampler.a
+                )
+    else ()
 
+        set(V8_LIB_DIR ${V8_DIR}/lib_x64.release)
+        set(V8_LIBRARY
+                v8_libplatform
+                v8_libbase
+                icui18n
+                icuuc
+                v8
+                )
+    endif ()
+endif ()
 
 
 set(ZIGBEE_LIB_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/zigbee)
@@ -39,14 +53,11 @@ set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O0 -std=c++14  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
 
-set(CMAKE_CXX_FLAG -fsanitize=address)
-
-
-
 add_custom_target(debug cmake -DCMAKE_BUILD_TYPE=Debug COMMAND make)
 add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
 
 find_package(PostgreSQL)
+
 find_package(Boost COMPONENTS system thread signals program_options filesystem log REQUIRED)
 
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
@@ -91,7 +102,7 @@ else ()
     endif ()
 endif ()
 
-set(USB_SRC  src/usb/ActiveEPReqError.h
+set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h
         src/usb/AttributeValueReqError.cpp
         src/usb/AttributeValueReqError.h
@@ -116,7 +127,6 @@ set(USB_SRC  src/usb/ActiveEPReqError.h
         src/httpServer/ServerRequest.cpp
         src/httpServer/ServerRequest.h
         src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp src/usb/DeviceInfoExecutor.h src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h src/httpServer/RestActions/ShowDeviceInfo.cpp src/httpServer/RestActions/ShowDeviceInfo.h src/Utils/Constant.cpp src/Utils/Constant.h src/usb/IEEEAddressResponseExecutor.h src/ZigbeeData/NewDeviceObserver.h src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h src/httpServer/RestActions/ShowTopology.cpp src/httpServer/RestActions/ShowTopology.h src/usb/UsbDemoData.cpp)
-
 
 
 add_library(javascript_lib OBJECT

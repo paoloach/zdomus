@@ -20,7 +20,7 @@ file(GLOB testRestParser "httpServer/RestParser/*.cpp")
 
 
 set(V8_DIR  ${CMAKE_BINARY_DIR}/v8)
-set(V8_INCLUDE_DIR ${CMAKE_BINARY_DIR}/v8/include)
+set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/include)
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)
     set(V8_LIBRARY
@@ -31,15 +31,30 @@ if (CMAKE_BUILD_TYPE MATCHES "Debug")
             v8
             )
 else()
-    set(V8_LIB_DIR ${V8_DIR}/lib_x64.release)
-    set(V8_LIBRARY
-            v8_libplatform
-            v8_libbase
-            icui18n
-            icuuc
-            v8
-            )
-endif()
+    if (CMAKE_C_COMPILER MATCHES "arm")
+        set(Boost_USE_STATIC_LIBS        ON)
+        set(V8_LIB_DIR ${V8_DIR}/lib_arm.release)
+        set(V8_LIBRARY
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/lib_arm.release/libicui18n.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/lib_arm.release/libicuuc.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/lib_arm.release/libv8_base.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/lib_arm.release/libv8_external_snapshot.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/lib_arm.release/libv8_libbase.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/lib_arm.release/libv8_libplatform.a
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/lib_arm.release/libv8_libsampler.a
+                )
+    else ()
+
+        set(V8_LIB_DIR ${V8_DIR}/lib_x64.release)
+        set(V8_LIBRARY
+                v8_libplatform
+                v8_libbase
+                icui18n
+                icuuc
+                v8
+                )
+    endif ()
+endif ()
 
 
 
