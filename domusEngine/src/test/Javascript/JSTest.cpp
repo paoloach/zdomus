@@ -51,14 +51,13 @@ void JSTest::SetUp() {
 	cluster = make_shared<ClusterMock>();
 	jsLog = std::make_shared<JSLog>(log);
 
-	ON_CALL(*clusterTypeFactoryMock, getCluster(_,_,_,_)).WillByDefault(Return(defaultCluster));
+	ON_CALL(clusterTypeFactoryMock, getCluster(_,_,_,_)).WillByDefault(Return(defaultCluster));
 	ON_CALL(*zDevices, getDevice(extAddress)).WillByDefault(Return(&defaultZDevice));
 	ON_CALL(*zDevices, exists(_)).WillByDefault(Return(false));
 	ON_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillByDefault(Return(zclAttributeMock));
 }
 
 void JSTest::TearDown() {
-	clusterTypeFactoryMock.reset();
 	locker.reset();
 	jsLog->resetPersistences();
 	isolate->Exit();

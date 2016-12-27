@@ -45,7 +45,7 @@ namespace zigbee {
 
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
+            EXPECT_CALL(clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
             EXPECT_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillOnce(Return(attributeMock));
 
             v8::Local<v8::Value> result = runScript(stream.str());
@@ -65,7 +65,7 @@ namespace zigbee {
         void JSAttributeTest::setInitExpectation(ZDevice &zDevice, const std::shared_ptr<ZCLAttribute> &attributeMock) {
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(*clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
+            EXPECT_CALL(clusterTypeFactoryMock, getCluster(CLUSTER_ID, zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS)).WillOnce(Return(cluster));
             EXPECT_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillOnce(Return(attributeMock));
         }
 

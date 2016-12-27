@@ -35,8 +35,8 @@ protected:
 	std::string	creatingZDeviceScript;
 	v8::Isolate * isolate;
 	std::unique_ptr<ZDevicesMock> zDevices;
-	JSZEndpointMock_P jsEndpoint;
-	JSZDevice_P jsDevice;
+	JSZEndpointMock jsEndpoint;
+	std::unique_ptr<JSZDevice> jsDevice;
 	ExtAddress extAddress;
 };
 

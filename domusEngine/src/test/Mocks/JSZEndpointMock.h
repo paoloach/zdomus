@@ -24,7 +24,6 @@ public:
 	MOCK_METHOD3(createInstance, v8::Local<v8::Object> (v8::Isolate* isolate, const ExtAddress & extAddress,EndpointID endpointId));
 };
 
-typedef shared_ptr_mock<JSZEndpoint,JSZEndpointMock> JSZEndpointMock_P;
 
 } /* namespace test */
 } /* namespace zigbee */

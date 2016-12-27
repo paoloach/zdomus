@@ -56,17 +56,17 @@ private:
 	std::string jsCode;
 	std::thread jsThread;
 	NotifyEnd notifyEnd;
-	std::shared_ptr<ClusterTypeFactory>  clusterTypeFactory;
-	JSZDevice_P jsZDevice;
-	JSZEndpoint_P jsZEndpoint;
-	JSZDevices_P jszDevices;
+	std::unique_ptr<ClusterTypeFactory>  clusterTypeFactory;
+	std::unique_ptr<JSZDevice> jsZDevice;
+	std::unique_ptr<JSZEndpoint> jsZEndpoint;
+	std::unique_ptr<JSZDevices> jszDevices;
 	DBTableFactory dbTableFactory;
-	std::shared_ptr<JSZAttributeFactory>  jsZAttributeFactory;
-	std::shared_ptr<JSZCluster> jsZCluster;
-	std::shared_ptr<JSLog> jsLog;
-	std::shared_ptr<JSRestServer> jsRestServer;
-	std::shared_ptr<JSRow> jsRow;
-	std::shared_ptr<JSDBTable> jsDBTable;
+	std::unique_ptr<JSZAttributeFactory>  jsZAttributeFactory;
+	std::unique_ptr<JSZCluster> jsZCluster;
+	std::unique_ptr<JSLog> jsLog;
+	std::unique_ptr<JSRestServer> jsRestServer;
+	std::unique_ptr<JSRow> jsRow;
+	std::unique_ptr<JSDBTable> jsDBTable;
 
 };
 

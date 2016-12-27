@@ -30,7 +30,7 @@ protected:
 	V8Allocator v8Allocator;
 	v8::Isolate::CreateParams createParams;
     std::unique_ptr<ZDevicesMock> zDevices;
-	JSZDeviceMock_P jszDevice;
+	JSZDeviceMock jszDevice;
 	std::unique_ptr<JSZDevices> jsDevices;
 	v8::Isolate * isolate;
 };

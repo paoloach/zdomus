@@ -16,25 +16,26 @@
 namespace zigbee {
 
     using namespace v8;
+    using std::make_unique;
 
 
     JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log) : log(log) {
 
-        clusterTypeFactory = std::make_shared<ClusterTypeFactory>();
-        jsRow = std::make_shared<JSRow>();
-        jsDBTable = std::make_shared<JSDBTable>(dbTableFactory, jsRow, log);
-        jsZEndpoint = std::make_shared<JSZEndpoint>(singletonObjects.getZDevices());
-        jsZDevice = std::make_shared<JSZDevice>(singletonObjects.getZDevices(), jsZEndpoint);
-        jsLog = std::make_shared<JSLog>(log);
-        jsRestServer = std::make_shared<JSRestServer>(singletonObjects.getFixedPathContainer(), log);
-        jszDevices = std::make_shared<JSZDevices>(singletonObjects.getZDevices(), jsZDevice);
-        jsZAttributeFactory = std::make_shared<JSZAttributeFactory>();
-        jsZCluster = std::make_shared<JSZCluster>(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), jsZAttributeFactory,
-                                                  clusterTypeFactory);
+        clusterTypeFactory = make_unique<ClusterTypeFactory>();
+        jsRow = make_unique<JSRow>();
+        jsDBTable = make_unique<JSDBTable>(dbTableFactory, jsRow.get(), log);
+        jsZEndpoint = make_unique<JSZEndpoint>(singletonObjects.getZDevices());
+        jsZDevice = make_unique<JSZDevice>(singletonObjects.getZDevices(), jsZEndpoint.get());
+        jsLog = make_unique<JSLog>(log);
+        jsRestServer = make_unique<JSRestServer>(singletonObjects.getFixedPathContainer(), log);
+        jszDevices = make_unique<JSZDevices>(singletonObjects.getZDevices(), jsZDevice.get());
+        jsZAttributeFactory = make_unique<JSZAttributeFactory>();
+        jsZCluster = make_unique<JSZCluster>(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), jsZAttributeFactory.get(),
+                                                  clusterTypeFactory.get());
         createParams.array_buffer_allocator = &v8Allocator;
         isolate = v8::Isolate::New(createParams);
 
-        jsZAttributeFactory->init(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), clusterTypeFactory);
+        jsZAttributeFactory->init(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), clusterTypeFactory.get());
         Isolate::Scope isolate_scope(isolate);
         Locker locker(isolate);
         HandleScope handle_scope(isolate);

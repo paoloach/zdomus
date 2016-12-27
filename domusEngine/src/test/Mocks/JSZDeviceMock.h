@@ -26,7 +26,6 @@ public:
 
 };
 
-typedef shared_ptr_mock<JSZDevice,JSZDeviceMock> JSZDeviceMock_P;
 
 } /* namespace test */
 } /* namespace zigbee */

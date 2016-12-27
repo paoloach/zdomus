@@ -57,7 +57,7 @@ protected:
 	v8::Isolate * isolate;
 	std::unique_ptr<ZDevicesMock> zDevices;
 	ExtAddress extAddress;
-	ClusterTypeFactoryMock_P clusterTypeFactoryMock;
+	ClusterTypeFactoryMock clusterTypeFactoryMock;
 	std::unique_ptr<ZigbeeDeviceMock> zigbeeDeviceMock;
 	ZigbeeDevice * zigbeeDevice;
 	std::shared_ptr<ClusterMock> defaultCluster;

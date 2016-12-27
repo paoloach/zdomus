@@ -23,38 +23,43 @@
 #include "../../JavaScript/V8Allocator.h"
 
 namespace zigbee {
-namespace test {
+    namespace test {
 
 
-class JSZClusterTest : public testing::Test{
-public:
-	~JSZClusterTest() override =default;
-protected:
-	virtual void SetUp() override ;
-	virtual void TearDown() override ;
-	v8::Local<v8::Value> runScript(const std::string& script);
-	static ExtAddress convertFromString(const std::string & strExt);
-protected:
-	V8Allocator v8Allocator;
-	v8::Isolate::CreateParams createParams;
-	std::unique_ptr<v8::Locker> locker;
-	std::string	creatingZDeviceScript;
-	v8::Isolate * isolate;
-	std::unique_ptr<ZDevicesMock>  zDevices;
-	ClusterTypeFactoryMock_P clusterTypeFactoryMock;
-	std::unique_ptr<ZigbeeDeviceMock> zigbeeDevice;
-	std::unique_ptr<JSZCluster> jsZCluster;
-	ExtAddress extAddress;
-	std::shared_ptr<ClusterMock> defaultCluster;
-	std::shared_ptr<ClusterMock> cluster;
-	std::shared_ptr<ZCLAttributeMock> zclAttributeMock;
-	std::shared_ptr<ZCLAttribute> zclAttribute;
-	std::shared_ptr<JSZAttributeFactoryMock> jsZAttributeFactory;
-	std::shared_ptr<ZCLAttributeMock> defaultZclAttribute;
-	ZDevice defaultZDevice;
-};
+        class JSZClusterTest : public testing::Test {
+        public:
+            ~JSZClusterTest() override = default;
 
-} /* namespace test */
+        protected:
+            virtual void SetUp() override;
+
+            virtual void TearDown() override;
+
+            v8::Local<v8::Value> runScript(const std::string &script);
+
+            static ExtAddress convertFromString(const std::string &strExt);
+
+        protected:
+            V8Allocator v8Allocator;
+            v8::Isolate::CreateParams createParams;
+            std::unique_ptr<v8::Locker> locker;
+            std::string creatingZDeviceScript;
+            v8::Isolate *isolate;
+            std::unique_ptr<ZDevicesMock> zDevices;
+            ClusterTypeFactoryMock clusterTypeFactoryMock;
+            std::unique_ptr<ZigbeeDeviceMock> zigbeeDevice;
+            std::unique_ptr<JSZCluster> jsZCluster;
+            ExtAddress extAddress;
+            std::shared_ptr<ClusterMock> defaultCluster;
+            std::shared_ptr<ClusterMock> cluster;
+            std::shared_ptr<ZCLAttributeMock> zclAttributeMock;
+            std::shared_ptr<ZCLAttribute> zclAttribute;
+            JSZAttributeFactoryMock jsZAttributeFactory;
+            std::shared_ptr<ZCLAttributeMock> defaultZclAttribute;
+            ZDevice defaultZDevice;
+        };
+
+    } /* namespace test */
 } /* namespace zigbee */
 
 #endif /* SRC_TEST_JAVASCRIPT_JSZCLUSTERTEST_H_ */

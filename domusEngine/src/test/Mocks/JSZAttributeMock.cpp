@@ -9,14 +9,14 @@
 
 
 namespace zigbee {
-namespace test {
+    namespace test {
 
-JSZAttributeMock::JSZAttributeMock():JSZAttribute(nullptr, nullptr,std::shared_ptr<ClusterTypeFactory>{}, ZCLTypeDataType::ZCLTypeInvalid ){
+        JSZAttributeMock::JSZAttributeMock() : JSZAttribute(nullptr, nullptr, nullptr, ZCLTypeDataType::ZCLTypeInvalid) {
 
-}
+        }
 
-JSZAttributeMock::~JSZAttributeMock() {
-}
+        JSZAttributeMock::~JSZAttributeMock() {
+        }
 
-} /* namespace test */
+    } /* namespace test */
 } /* namespace zigbee */

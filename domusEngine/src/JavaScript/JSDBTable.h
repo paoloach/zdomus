@@ -21,8 +21,8 @@ class Log;
 
 class JSDBTable {
 public:
-	JSDBTable(DBTableFactory & dbTableFactory, const std::shared_ptr<JSRow> & jsRow,Log & log );
-	virtual ~JSDBTable();
+	JSDBTable(DBTableFactory & dbTableFactory, JSRow *jsRow,Log & log );
+	virtual ~JSDBTable() = default;
 public:
 	virtual void initJsObjectsTemplate(v8::Isolate * isolate, v8::Handle<v8::Object> & global);
 	virtual v8::Local<v8::Object> createInstance(v8::Isolate* isolate, const std::string & tableName);
@@ -46,7 +46,7 @@ protected:
 
 private:
 	DBTableFactory &  dbTableFactory;
-	std::shared_ptr<JSRow>  jsRow;
+	JSRow *  jsRow;
 	v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
 	Log & log;
 };

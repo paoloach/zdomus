@@ -29,8 +29,8 @@ protected:
 
 protected:
 	DBTableFactoryMock dbTableFactoryMock;
-	std::shared_ptr<JSDBTable> jsDBTable;
-	std::shared_ptr<JSRow> jsRow;
+    std::unique_ptr<JSRow> jsRow;
+	std::unique_ptr<JSDBTable> jsDBTable;
 	DBTableMock dbTable;
 	Log log;
 

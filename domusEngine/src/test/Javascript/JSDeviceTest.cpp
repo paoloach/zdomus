@@ -68,13 +68,12 @@ namespace zigbee {
             std::stringstream stream{extendedAddress};
             stream >> extAddress;
             auto zDevicesP = zDevices.get();
-            JSZEndpoint_P jsZEndpoint = jsEndpoint;
-            jsDevice = std::make_shared<JSZDevice>(zDevicesP, jsZEndpoint);
+            jsDevice = std::make_unique<JSZDevice>(zDevicesP, &jsEndpoint);
             createParams.array_buffer_allocator = &v8Allocator;
             isolate = v8::Isolate::New(createParams);
             isolate->Enter();
             locker.reset(new Locker{isolate});
-            ON_CALL(*jsEndpoint.get(), createInstance(_, _, _)).WillByDefault(Return(Local<Object>()));
+            ON_CALL(jsEndpoint, createInstance(_, _, _)).WillByDefault(Return(Local<Object>()));
         }
 
         void JSDeviceTest::TearDown() {
@@ -298,9 +297,9 @@ namespace zigbee {
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
 
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(*jsEndpoint, createInstance(isolate, extAddress, endpointId1)).WillOnce(
+            EXPECT_CALL(jsEndpoint, createInstance(isolate, extAddress, endpointId1)).WillOnce(
                     Return(objectEndpoint1));
-            EXPECT_CALL(*jsEndpoint, createInstance(isolate, extAddress, endpointId2)).WillOnce(
+            EXPECT_CALL(jsEndpoint, createInstance(isolate, extAddress, endpointId2)).WillOnce(
                     Return(objectEndpoint2));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.getEndpoints();");

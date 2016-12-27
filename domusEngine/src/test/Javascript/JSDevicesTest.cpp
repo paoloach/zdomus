@@ -19,7 +19,7 @@ namespace zigbee {
 
         void JSDevicesTest::SetUp() {
             zDevices = std::make_unique<ZDevicesMock>();
-            jsDevices = std::make_unique<JSZDevices>(zDevices.get(), jszDevice);
+            jsDevices = std::make_unique<JSZDevices>(zDevices.get(), &jszDevice);
             createParams.array_buffer_allocator = &v8Allocator;
             isolate = v8::Isolate::New(createParams);
         }
@@ -48,7 +48,7 @@ namespace zigbee {
             Local<Object> global = context->Global();
 
 
-            EXPECT_CALL(*jszDevice.get(), initJsObjectsTemplate(isolate, global));
+            EXPECT_CALL(jszDevice, initJsObjectsTemplate(isolate, global));
             jsDevices->initJsObjectsIstances(isolate, global);
             jsDevices->resetIstances();
         }
@@ -66,7 +66,7 @@ namespace zigbee {
             Local<Context> context = Context::New(isolate, nullptr, global);
             Context::Scope context_scope(context);
             Local<Object> lGlobal = context->Global();
-            EXPECT_CALL(*jszDevice.get(), initJsObjectsTemplate(isolate, lGlobal));
+            EXPECT_CALL(jszDevice, initJsObjectsTemplate(isolate, lGlobal));
             jsDevices->initJsObjectsIstances(isolate, lGlobal);
 
             EXPECT_CALL(*zDevices.get(), getNumDevices()).WillOnce(Return(COUNT_DEVICES));
@@ -97,7 +97,7 @@ namespace zigbee {
             Local<Context> context = Context::New(isolate, nullptr, global);
             Context::Scope context_scope(context);
             Local<Object> lGlobal = context->Global();
-            EXPECT_CALL(*jszDevice.get(), initJsObjectsTemplate(isolate, lGlobal));
+            EXPECT_CALL(jszDevice, initJsObjectsTemplate(isolate, lGlobal));
             jsDevices->initJsObjectsIstances(isolate, lGlobal);
 
             Local<v8::Object> defaultObj = Object::New(isolate);
@@ -105,11 +105,11 @@ namespace zigbee {
             Local<v8::Object> expectedJSZDevice2 = Object::New(isolate);
 
 
-            ON_CALL(*jszDevice.get(), createInstance(_, _)).WillByDefault(Return(defaultObj));
+            ON_CALL(jszDevice, createInstance(_, _)).WillByDefault(Return(defaultObj));
             EXPECT_CALL(*zDevices.get(), getDevices()).WillOnce(Return(devices));
-            EXPECT_CALL(*jszDevice.get(), createInstance(isolate, zDevice1.getExtAddr())).WillOnce(
+            EXPECT_CALL(jszDevice, createInstance(isolate, zDevice1.getExtAddr())).WillOnce(
                     Return(expectedJSZDevice1));
-            EXPECT_CALL(*jszDevice.get(), createInstance(isolate, zDevice2.getExtAddr())).WillOnce(
+            EXPECT_CALL(jszDevice, createInstance(isolate, zDevice2.getExtAddr())).WillOnce(
                     Return(expectedJSZDevice2));
 
             v8::Local<v8::Value> result = runScript("zDevices.getDevices();");
@@ -142,16 +142,16 @@ namespace zigbee {
             Local<Context> context = Context::New(isolate, nullptr, global);
             Context::Scope context_scope(context);
             Local<Object> lGlobal = context->Global();
-            EXPECT_CALL(*jszDevice.get(), initJsObjectsTemplate(isolate, lGlobal));
+            EXPECT_CALL(jszDevice, initJsObjectsTemplate(isolate, lGlobal));
             jsDevices->initJsObjectsIstances(isolate, lGlobal);
 
             Local<v8::Object> defaultObj = Object::New(isolate);
             Local<v8::Object> expectedJSZDevice = Object::New(isolate);
 
 
-            ON_CALL(*jszDevice.get(), createInstance(_, _)).WillByDefault(Return(defaultObj));
+            ON_CALL(jszDevice, createInstance(_, _)).WillByDefault(Return(defaultObj));
             EXPECT_CALL(*zDevices.get(), exists(zDevice.getExtAddr())).WillOnce(Return(true));
-            EXPECT_CALL(*jszDevice.get(), createInstance(isolate, zDevice.getExtAddr())).WillOnce(
+            EXPECT_CALL(jszDevice, createInstance(isolate, zDevice.getExtAddr())).WillOnce(
                     Return(expectedJSZDevice));
 
             stream << "zDevices.getDevice('" << zDevice.getExtAddr() << "');";
@@ -180,13 +180,13 @@ namespace zigbee {
             Local<Context> context = Context::New(isolate, nullptr, global);
             Context::Scope context_scope(context);
             Local<Object> lGlobal = context->Global();
-            EXPECT_CALL(*jszDevice.get(), initJsObjectsTemplate(isolate, lGlobal));
+            EXPECT_CALL(jszDevice, initJsObjectsTemplate(isolate, lGlobal));
             jsDevices->initJsObjectsIstances(isolate, lGlobal);
 
             Local<v8::Object> defaultObj = Object::New(isolate);
 
 
-            ON_CALL(*jszDevice.get(), createInstance(_, _)).WillByDefault(Return(defaultObj));
+            ON_CALL(jszDevice, createInstance(_, _)).WillByDefault(Return(defaultObj));
             EXPECT_CALL(*zDevices.get(), exists(zDevice.getExtAddr())).WillOnce(Return(false));
 
             TryCatch trycatch{};

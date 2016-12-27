@@ -57,12 +57,14 @@ namespace zigbee {
     template<typename AttributeType, typename ParamType>
     class JSZAttributeTemplate : public JSZAttribute {
     public:
-        JSZAttributeTemplate(ZDevices * zDevices, ZigbeeDevice *zigbeeDevice,
-                             const std::shared_ptr<ClusterTypeFactory> &clusterFactory) :
-                JSZAttribute(zDevices, zigbeeDevice, clusterFactory,AttributeType::type) {
+        JSZAttributeTemplate(ZDevices *zDevices, ZigbeeDevice *zigbeeDevice,
+                             ClusterTypeFactory *clusterFactory) :
+                JSZAttribute(zDevices, zigbeeDevice, clusterFactory, AttributeType::type) {
         }
+
         virtual ~JSZAttributeTemplate() {
         }
+
     public:
         void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) override {
             v8::Local<v8::String> jsZAttributeClassName = v8::String::NewFromUtf8(isolate, getName().c_str());
@@ -71,7 +73,10 @@ namespace zigbee {
             v8::Local<v8::String> valueAttribute = v8::String::NewFromUtf8(isolate, VALUE);
             // method
 
-            v8::Local<v8::FunctionTemplate> zAttributeFunctionTemplate = v8::FunctionTemplate::New(isolate, constructor, v8::External::New(isolate, this));
+            v8::Local<v8::FunctionTemplate> zAttributeFunctionTemplate = v8::FunctionTemplate::New(isolate, constructor,
+                                                                                                   v8::External::New(
+                                                                                                           isolate,
+                                                                                                           this));
             zAttributeFunctionTemplate->SetClassName(jsZAttributeClassName);
             v8::Local<v8::ObjectTemplate> zAttributeClusterInstanceTemplate = zAttributeFunctionTemplate->InstanceTemplate();
 
@@ -102,7 +107,8 @@ namespace zigbee {
             }
         }
 
-        static void setValue(v8::Local<v8::String>, v8::Local<v8::Value> value, const v8::PropertyCallbackInfo<void> &info) {
+        static void
+        setValue(v8::Local<v8::String>, v8::Local<v8::Value> value, const v8::PropertyCallbackInfo<void> &info) {
             v8::Isolate *isolate = info.GetIsolate();
             try {
                 v8::Local<v8::Object> self = info.Holder();
@@ -121,10 +127,10 @@ namespace zigbee {
     typedef JSZAttributeTemplate<ZCLBitmap32bitAttribute, ParamUInt32<0, 0xFF> > JSZAttribute32BitBitmap;
     typedef JSZAttributeTemplate<ZCL_boolean_Attribute, ParamBool> JSZAttributeBool;
     typedef JSZAttributeTemplate<ZCLIEEEAddressAttribute, ParamIEEEAddress> JSZAttributeIEEEAddress;
-    typedef JSZAttributeTemplate<ZCLint8Attribute, ParamInt32<-0x7F,0x7F> >JSZAttributeInt8;
-    typedef JSZAttributeTemplate<ZCL_int16_Attribute, ParamInt32<-0x7FFF,0x7FFF>> JSZAttributeInt16;
-    typedef JSZAttributeTemplate<ZCLint24Attribute, ParamInt32<-0x7FFFFF,0x7FFFFF>> JSZAttributeInt24;
-    typedef JSZAttributeTemplate<ZCL_int32_Attribute, ParamInt32<-0x7FFFFFFF,0x7FFFFFFF>> JSZAttributeInt32;
+    typedef JSZAttributeTemplate<ZCLint8Attribute, ParamInt32<-0x7F, 0x7F> > JSZAttributeInt8;
+    typedef JSZAttributeTemplate<ZCL_int16_Attribute, ParamInt32<-0x7FFF, 0x7FFF>> JSZAttributeInt16;
+    typedef JSZAttributeTemplate<ZCLint24Attribute, ParamInt32<-0x7FFFFF, 0x7FFFFF>> JSZAttributeInt24;
+    typedef JSZAttributeTemplate<ZCL_int32_Attribute, ParamInt32<-0x7FFFFFFF, 0x7FFFFFFF>> JSZAttributeInt32;
 
     typedef JSZAttributeTemplate<ZCLOctetString, ParamString> JSZAttributeOctectString;
     typedef JSZAttributeTemplate<ZCL_string_Attribute, ParamString> JSZAttributeString;
@@ -138,7 +144,6 @@ namespace zigbee {
     typedef JSZAttributeTemplate<ZCLuint48Attribute, ParamUInt32<0, 0xFFFFFFFF>> JSZAttributeUint48;
 
     typedef JSZAttributeTemplate<ZCLUTCTime, ParamUInt32<0, 0xFFFFFFFF>> JSZAttributeTCTime;
-
 
 
 } /* namespace zigbee */

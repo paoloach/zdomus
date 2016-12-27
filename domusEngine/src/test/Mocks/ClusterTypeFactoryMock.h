@@ -26,7 +26,6 @@ public:
 	MOCK_METHOD4(getCluster, std::shared_ptr<Cluster> (ClusterID clusterId, ZigbeeDevice * zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress));
 };
 
-typedef shared_ptr_mock<ClusterTypeFactory,ClusterTypeFactoryMock> ClusterTypeFactoryMock_P;
 
 } /* namespace test */
 } /* namespace zigbee */

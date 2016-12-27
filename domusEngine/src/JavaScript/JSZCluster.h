@@ -40,10 +40,10 @@ namespace zigbee {
         JSZCluster();
 
         JSZCluster(ZDevices *zDevices, ZigbeeDevice *zigbeeDevice,
-                   const std::shared_ptr<JSZAttributeFactory> &jsZAttributeFactory,
-                   const std::shared_ptr<ClusterTypeFactory> &clusterFactory);
+                   JSZAttributeFactory * jsZAttributeFactory,
+                   ClusterTypeFactory * clusterFactory);
 
-        virtual ~JSZCluster();
+        virtual ~JSZCluster() = default;
 
     public:
         void setJSZEndpoint(const std::shared_ptr<JSZEndpoint> &jsZEndpoint);
@@ -87,8 +87,8 @@ namespace zigbee {
         ZDevices *zDevices;
         std::shared_ptr<JSZEndpoint> jsZEndpoint;
         ZigbeeDevice *zigbeeDevice;
-        std::shared_ptr<ClusterTypeFactory> clusterFactory;
-        std::shared_ptr<JSZAttributeFactory> jsZAttributeFactory;
+        ClusterTypeFactory * clusterFactory;
+        JSZAttributeFactory * jsZAttributeFactory;
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
         std::map<ExtAddress, std::shared_ptr<ExtAddress> > usedExtAddresses;
         std::map<Key, Value> usedCluster;

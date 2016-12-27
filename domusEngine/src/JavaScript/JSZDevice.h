@@ -22,7 +22,7 @@ class JSZEndpoint;
 class JSZDevice {
 public:
 	JSZDevice(){};
-	JSZDevice(ZDevices_P  zDevices, std::shared_ptr<JSZEndpoint> & jsEndpoint);
+	JSZDevice(ZDevices_P  zDevices, JSZEndpoint * jsEndpoint);
 	virtual ~JSZDevice();
 public:
 	virtual void initJsObjectsTemplate(v8::Isolate * isolate, v8::Handle<v8::Object> & global );
@@ -45,7 +45,7 @@ private:
 	static JSZEndpoint * getJSEndpoint(const v8::FunctionCallbackInfo<v8::Value>& info);
 private:
 	ZDevices_P  zDevices;
-	std::shared_ptr<JSZEndpoint> jsEndpoint;
+	JSZEndpoint * jsEndpoint;
 
 	v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
 	std::map<ExtAddress, std::shared_ptr<ExtAddress> > usedExtAddresses;

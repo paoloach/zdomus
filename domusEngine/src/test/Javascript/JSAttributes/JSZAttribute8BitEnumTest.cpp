@@ -23,7 +23,7 @@ namespace zigbee {
 
         void JSZAttribute8BitEnumTest::SetUp() {
             JSTest::SetUp();
-            jsZAttribute = std::make_shared<JSZAttribute8BitEnum>(zDevices.get(), zigbeeDevice, clusterTypeFactoryMock);
+            jsZAttribute = std::make_shared<JSZAttribute8BitEnum>(zDevices.get(), zigbeeDevice, &clusterTypeFactoryMock);
             zcl_enum8bit_AttributeMock = std::make_shared<ZCL_enum8bit_AttributeMock>();
             zAttributeVariable = createZAttributeVariable("Z" + ZCL_enum8bit_Attribute::name());
             EXPECT_CALL(*zcl_enum8bit_AttributeMock, getZCLType()).Times(AnyNumber()).WillOnce(

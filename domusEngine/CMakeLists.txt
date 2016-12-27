@@ -146,7 +146,7 @@ add_library(javascript_lib OBJECT
         src/JavaScript/JSZEndpoint.cpp
         src/JavaScript/V8anyConverter.cpp
         src/JavaScript/V8Allocator.cpp
-        src/JavaScript/V8Allocator.h)
+        src/JavaScript/V8Allocator.h src/JavaScript/JSZEndpoints.cpp src/JavaScript/JSZEndpoints.h)
 
 add_library(domus_engine_static_lib STATIC
         ${USB_SRC}

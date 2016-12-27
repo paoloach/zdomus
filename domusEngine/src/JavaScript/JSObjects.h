@@ -12,6 +12,7 @@
 static constexpr const char * JSZDEVICES = "zDevices";
 static constexpr const char * JSZDEVICE = "zDevice";
 static constexpr const char * JSZENDPOINT = "zEndpoint";
+static constexpr const char * JSZENDPOINTS = "zEndpoints";
 static constexpr const char * JSZCLUSTER = "zCluster";
 static constexpr const char * JSLOG = "Log";
 static constexpr const char * JSDBTABLE = "DbTable";
@@ -40,7 +41,9 @@ static constexpr const char * ENDPOINT = "endpointId";
 static constexpr const char * PROFILEID = "profileId";
 static constexpr const char * DEVICEID = "deviceId";
 static constexpr const char * DEVICE_VERSION = "deviceVersion";
-// zEndpoint methods
+
+// zEndpoints methods
+static constexpr const char * GET_ENDPOINTS_WITH_CLUSTER = "getEndpointsWithCluster";
 
 // zCluster methods
 static constexpr const char * GET_PROPERTY_BY_ID = "getProperyById";

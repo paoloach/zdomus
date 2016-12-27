@@ -32,7 +32,6 @@ namespace zigbee {
         Local<String> profileIdAttribute = String::NewFromUtf8(isolate, PROFILEID);
         Local<String> deviceIdAttribute = String::NewFromUtf8(isolate, DEVICEID);
         Local<String> deviceVersionAttribute = String::NewFromUtf8(isolate, DEVICE_VERSION);
-        // methods
 
         Local<FunctionTemplate> zEndpoinFunctionTemplate = FunctionTemplate::New(isolate, constructor,
                                                                                  External::New(isolate, this));
