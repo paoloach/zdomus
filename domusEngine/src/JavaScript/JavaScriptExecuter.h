@@ -17,6 +17,7 @@
 #include "JSZDevices.h"
 #include "JSZDevice.h"
 #include "JSZEndpoint.h"
+#include "JSZEndpoints.h"
 #include "JSZAttributeFactory.h"
 #include "JSZCluster.h"
 #include "JSRow.h"
@@ -30,45 +31,52 @@
 
 namespace zigbee {
 
-class ZigbeeDevice;
-class SingletonObjects;
+    class ZigbeeDevice;
 
-class JavaScriptExecuter {
-public:
-	typedef boost::signals2::signal<void ()> NotifyEnd;
-	typedef NotifyEnd::slot_type OnEnd;
-public:
-	JavaScriptExecuter(SingletonObjects & singletonObjects, Log & log );
-	virtual ~JavaScriptExecuter();
-public:
-	void run(const std::string & jsCode);
-	void join();
-	boost::signals2::connection notificationEnd(const OnEnd & onEnd);
-private:
-	void runThread();
-private:
-    V8Allocator v8Allocator;
-    v8::Isolate::CreateParams createParams;
-//	SingletonObjects & singletonObjects;
-	Log & log;
-	v8::Isolate * isolate;
-	v8::UniquePersistent<v8::Context> context;
-	std::string jsCode;
-	std::thread jsThread;
-	NotifyEnd notifyEnd;
-	std::unique_ptr<ClusterTypeFactory>  clusterTypeFactory;
-	std::unique_ptr<JSZDevice> jsZDevice;
-	std::unique_ptr<JSZEndpoint> jsZEndpoint;
-	std::unique_ptr<JSZDevices> jszDevices;
-	DBTableFactory dbTableFactory;
-	std::unique_ptr<JSZAttributeFactory>  jsZAttributeFactory;
-	std::unique_ptr<JSZCluster> jsZCluster;
-	std::unique_ptr<JSLog> jsLog;
-	std::unique_ptr<JSRestServer> jsRestServer;
-	std::unique_ptr<JSRow> jsRow;
-	std::unique_ptr<JSDBTable> jsDBTable;
+    class SingletonObjects;
 
-};
+    class JavaScriptExecuter {
+    public:
+        typedef boost::signals2::signal<void()> NotifyEnd;
+        typedef NotifyEnd::slot_type OnEnd;
+    public:
+        JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log);
+
+        virtual ~JavaScriptExecuter();
+
+    public:
+        void run(const std::string &jsCode);
+
+        void join();
+
+        boost::signals2::connection notificationEnd(const OnEnd &onEnd);
+
+    private:
+        void runThread();
+
+    private:
+        V8Allocator v8Allocator;
+        v8::Isolate::CreateParams createParams;
+        Log &log;
+        v8::Isolate *isolate;
+        v8::UniquePersistent<v8::Context> context;
+        std::string jsCode;
+        std::thread jsThread;
+        NotifyEnd notifyEnd;
+        std::unique_ptr<ClusterTypeFactory> clusterTypeFactory;
+        std::unique_ptr<JSZDevice> jsZDevice;
+        std::unique_ptr<JSZEndpoint> jsZEndpoint;
+        std::unique_ptr<JSZDevices> jszDevices;
+        DBTableFactory dbTableFactory;
+        std::unique_ptr<JSZAttributeFactory> jsZAttributeFactory;
+        std::unique_ptr<JSZCluster> jsZCluster;
+        std::unique_ptr<JSLog> jsLog;
+        std::unique_ptr<JSRestServer> jsRestServer;
+        std::unique_ptr<JSRow> jsRow;
+        std::unique_ptr<JSDBTable> jsDBTable;
+        std::unique_ptr<JSZEndpoints> jsZEndpoints;
+
+    };
 
 } /* namespace zigbee */
 

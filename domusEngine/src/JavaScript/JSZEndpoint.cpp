@@ -18,11 +18,8 @@ using std::shared_ptr;
 
 namespace zigbee {
 
-    JSZEndpoint::JSZEndpoint(ZDevices_P zDevices) :
+    JSZEndpoint::JSZEndpoint(ZDevices * zDevices) :
             zDevices(zDevices) {
-    }
-
-    JSZEndpoint::~JSZEndpoint() {
     }
 
     void JSZEndpoint::initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) {

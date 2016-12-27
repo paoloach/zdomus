@@ -25,6 +25,7 @@ namespace zigbee {
         jsRow = make_unique<JSRow>();
         jsDBTable = make_unique<JSDBTable>(dbTableFactory, jsRow.get(), log);
         jsZEndpoint = make_unique<JSZEndpoint>(singletonObjects.getZDevices());
+        jsZEndpoints = make_unique<JSZEndpoints>(singletonObjects,jsZEndpoint.get());
         jsZDevice = make_unique<JSZDevice>(singletonObjects.getZDevices(), jsZEndpoint.get());
         jsLog = make_unique<JSLog>(log);
         jsRestServer = make_unique<JSRestServer>(singletonObjects.getFixedPathContainer(), log);
@@ -43,12 +44,14 @@ namespace zigbee {
         Handle<ObjectTemplate> global = ObjectTemplate::New();
 
         jszDevices->initJsObjectsTemplate(isolate, global);
+        jsZEndpoints->initJsObjectsTemplate(isolate, global);
 
         Local<Context> lContext = Context::New(isolate, nullptr, global);
         Context::Scope context_scope(lContext);
         Local<Object> contextGlobal = lContext->Global();
         jszDevices->initJsObjectsIstances(isolate, contextGlobal);
         jsZEndpoint->initJsObjectsTemplate(isolate, contextGlobal);
+        jsZEndpoints->initJsObjectsInstance(isolate);
         jsZCluster->initJsObjectsTemplate(isolate, contextGlobal);
         jsZAttributeFactory->initJsObjectsTemplate(isolate, contextGlobal);
         jsLog->initJsObjectsTemplate(isolate, contextGlobal);
@@ -62,6 +65,7 @@ namespace zigbee {
 
     JavaScriptExecuter::~JavaScriptExecuter() {
         jszDevices->resetIstances();
+        jsZEndpoints->resetInstance();
         jsZCluster->resetPersistences();
         jsZEndpoint->resetPersistences();
         jsZAttributeFactory->resetPersistences();

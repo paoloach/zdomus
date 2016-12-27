@@ -9,9 +9,12 @@
 #include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
+    class JSZEndpoint;
+
     class JSZEndpoints {
     public:
-        JSZEndpoints(SingletonObjects &singletonObjects) :singletonObjects(singletonObjects){
+        JSZEndpoints(SingletonObjects &singletonObjects, JSZEndpoint *jszEndpoint) : singletonObjects(singletonObjects),
+                                                                                     jszEndpoint(jszEndpoint) {
 
         }
 
@@ -22,14 +25,19 @@ namespace zigbee {
 
         void initJsObjectsInstance(v8::Isolate *isolate);
 
-        void resetIstances();
+        void resetInstance();
+
     private:
         static JSZEndpoints *getThis(const v8::FunctionCallbackInfo<v8::Value> &info);
+
         static void getZEndpoints(v8::Local<v8::String>, const v8::PropertyCallbackInfo<v8::Value> &info);
-        static void getEndpointsWithCluster(const v8::FunctionCallbackInfo<v8::Value> &info) ;
+
+        static void getEndpointsWithCluster(const v8::FunctionCallbackInfo<v8::Value> &info);
+
     private:
         v8::UniquePersistent<v8::Object> zEndpointsInstance;
         SingletonObjects &singletonObjects;
+        JSZEndpoint *jszEndpoint;
     };
 
 } /* namespace zigbee */

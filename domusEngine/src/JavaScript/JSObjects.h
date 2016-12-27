@@ -43,7 +43,7 @@ static constexpr const char * DEVICEID = "deviceId";
 static constexpr const char * DEVICE_VERSION = "deviceVersion";
 
 // zEndpoints methods
-static constexpr const char * GET_ENDPOINTS_WITH_CLUSTER = "getEndpointsWithCluster";
+static constexpr const char * GET_ENDPOINTS_WITH_IN_CLUSTER = "getEndpointsWithInCluster";
 
 // zCluster methods
 static constexpr const char * GET_PROPERTY_BY_ID = "getProperyById";

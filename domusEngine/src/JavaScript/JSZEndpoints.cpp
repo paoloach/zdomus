@@ -2,8 +2,12 @@
 // Created by paolo on 27/12/16.
 //
 
+#include "../ZigbeeData/ZDevices.h"
 #include "JSZEndpoints.h"
+#include "JSZEndpoint.h"
 #include "JSObjects.h"
+#include "Exceptions/JSExceptionOnlyOneArgument.h"
+#include "Exceptions/JSExceptionArgNoUInteger.h"
 
 using namespace v8;
 using std::shared_ptr;
@@ -17,7 +21,7 @@ namespace zigbee {
     }
 
     void JSZEndpoints::initJsObjectsInstance(Isolate *isolate) {
-        Local<String> fnGetEndpointsWithCluster = String::NewFromUtf8(isolate, GET_ENDPOINTS_WITH_CLUSTER);
+        Local<String> fnGetEndpointsWithCluster = String::NewFromUtf8(isolate, GET_ENDPOINTS_WITH_IN_CLUSTER);
 
         Local<ObjectTemplate> objTemplate = ObjectTemplate::New();
         objTemplate->SetInternalFieldCount(1);
@@ -48,6 +52,39 @@ namespace zigbee {
     void JSZEndpoints::getEndpointsWithCluster(const v8::FunctionCallbackInfo<v8::Value> &info) {
         JSZEndpoints *This = getThis(info);
 
-       // info.GetReturnValue().Set(This->zDevices->getNumDevices());
+        if (info.Length() != 1) {
+            throw JSExceptionOnlyOneArgument(GET_ENDPOINTS_WITH_IN_CLUSTER);
+        }
+
+        Local<Value> arg0 = info[0];
+        if (!arg0->IsUint32()){
+            throw JSExceptionArgNoUInteger(GET_ENDPOINTS_WITH_IN_CLUSTER);
+        }
+
+        ClusterID clusterId { arg0->Int32Value()};
+        ZDevices *  zDevices = This->singletonObjects.getZDevices();
+        Isolate * isolate = info.GetIsolate();
+        std::vector<Local<Object>> endpoints;
+        for (auto & device: zDevices->getDevices()){
+            for (auto & endpoint: device->getEndpoints()){
+                if (endpoint.second.hasInCluster(clusterId)){
+                    endpoints.push_back(This->jszEndpoint->createInstance(isolate, device->getExtAddr(), endpoint.first));
+                };
+            }
+        }
+
+
+        auto result = Array::New(isolate, endpoints.size());
+        int index=0;
+        for(auto & endpoint: endpoints){
+            result->Set(index, endpoint);
+            index++;
+        }
+
+        info.GetReturnValue().Set(result);
+    }
+
+    void JSZEndpoints::resetInstance() {
+        zEndpointsInstance.Reset();
     }
 }
