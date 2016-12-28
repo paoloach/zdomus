@@ -63,18 +63,18 @@ namespace zigbee {
         std::string jsCode;
         std::thread jsThread;
         NotifyEnd notifyEnd;
-        std::unique_ptr<ClusterTypeFactory> clusterTypeFactory;
-        std::unique_ptr<JSZDevice> jsZDevice;
-        std::unique_ptr<JSZEndpoint> jsZEndpoint;
-        std::unique_ptr<JSZDevices> jszDevices;
+        ClusterTypeFactory clusterTypeFactory;
+        JSZAttributeFactory jsZAttributeFactory;
         DBTableFactory dbTableFactory;
-        std::unique_ptr<JSZAttributeFactory> jsZAttributeFactory;
-        std::unique_ptr<JSZCluster> jsZCluster;
-        std::unique_ptr<JSLog> jsLog;
-        std::unique_ptr<JSRestServer> jsRestServer;
-        std::unique_ptr<JSRow> jsRow;
-        std::unique_ptr<JSDBTable> jsDBTable;
-        std::unique_ptr<JSZEndpoints> jsZEndpoints;
+        JSLog jsLog;
+        JSRow jsRow;
+        JSZCluster jsZCluster;
+        JSZDevice jsZDevice;
+        JSZEndpoint jsZEndpoint;
+        JSZDevices jszDevices;
+        JSRestServer jsRestServer;
+        JSDBTable jsDBTable;
+        JSZEndpoints jsZEndpoints;
 
     };
 

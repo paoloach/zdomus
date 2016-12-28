@@ -21,7 +21,7 @@ if (prop == null){
 	var table = DbTable('temperature');
 	var time=0;
   }else{
-	log.info('alcun device');
+	log.info('any device');
 	
   }
 } else {

@@ -28,7 +28,7 @@ namespace zigbee {
                 if (js->hasError()){
                     BOOST_LOG_TRIVIAL(error) << "The configuration " << js->getName() << " has error and is skipped";
                 } else {
-                    BOOST_LOG_TRIVIAL(trace) << "Added configuraion " << js->getName();
+                    BOOST_LOG_TRIVIAL(info) << "Added configuraion " << js->getName();
                     jsDatas.insert({js->getName(), js});
                 }
             }

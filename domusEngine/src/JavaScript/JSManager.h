@@ -25,30 +25,34 @@
 
 namespace zigbee {
 
-class ZigbeeDevice;
-class SingletonObjects;
+    class ZigbeeDevice;
 
-class JSManager {
-private:
-	class Task {
-	public:
-		Task(SingletonObjects & singletonObjects,  const std::shared_ptr<JavaScriptData> & js);
+    class SingletonObjects;
 
-		void timerHandler(const boost::system::error_code& error);
-		void endJS();
+    class JSManager {
+    private:
+        class Task {
+        public:
+            Task(SingletonObjects &singletonObjects, const std::shared_ptr<JavaScriptData> &js);
 
-		Log log;
-		boost::asio::deadline_timer  timer;
-		std::shared_ptr<JavaScriptData> js;
-		JavaScriptExecuter jsExecuter;
-	};
-public:
-	JSManager(SingletonObjects & singletonObjects);
-	virtual ~JSManager();
-private:
-	//SingletonObjects & singletonObjects;
-	std::map< std::shared_ptr<JavaScriptData>, std::shared_ptr<Task>> tasks;
-};
+            void timerHandler(const boost::system::error_code &error);
+
+            void endJS();
+
+            Log log;
+            boost::asio::deadline_timer timer;
+            std::shared_ptr<JavaScriptData> js;
+            JavaScriptExecuter jsExecuter;
+        };
+
+    public:
+        JSManager(SingletonObjects &singletonObjects);
+
+        virtual ~JSManager() = default;
+
+    private:
+        std::map<std::shared_ptr<JavaScriptData>, std::shared_ptr<Task>> tasks;
+    };
 
 } /* namespace zigbee */
 

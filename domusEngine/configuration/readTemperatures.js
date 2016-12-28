@@ -3,9 +3,9 @@
  */
 var log=Log();
 var endpoints = zEndpoints.getEndpointsWithInCluster(0x402);
-Log.info("endpoints size: " + endpoints.length);
+log.info("endpoints size: " + endpoints.length);
 for (let endpoint of endpoints){
     var cluster = endpoint.getCluster(0x402);
     var temp = cluster.getProperyById(0);
-    Log.info("temperature: " + temp);
+    log.info("temperature: " + temp);
 }

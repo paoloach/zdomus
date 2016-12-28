@@ -19,65 +19,77 @@ namespace zigbee {
     using std::make_unique;
 
 
-    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log) : log(log) {
+    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log) : log(log),
+                                                                                           jsLog(log),
+                                                                                           jsZCluster(
+                                                                                                   singletonObjects.getZDevices(),
+                                                                                                   singletonObjects.getZigbeeDevice(),
+                                                                                                   &jsZAttributeFactory,
+                                                                                                   &clusterTypeFactory),
+                                                                                           jsDBTable(dbTableFactory,
+                                                                                                     &jsRow, log),
+                                                                                           jsZEndpoint(
+                                                                                                   singletonObjects.getZDevices(),
+                                                                                                   &jsZCluster),
+                                                                                           jsZEndpoints(
+                                                                                                   singletonObjects,
+                                                                                                   &jsZEndpoint),
+                                                                                           jsZDevice(
+                                                                                                   singletonObjects.getZDevices(),
+                                                                                                   &jsZEndpoint),
+                                                                                           jsRestServer(
+                                                                                                   singletonObjects.getFixedPathContainer(),
+                                                                                                   log),
+                                                                                           jszDevices(
+                                                                                                   singletonObjects.getZDevices(),
+                                                                                                   &jsZDevice) {
 
-        clusterTypeFactory = make_unique<ClusterTypeFactory>();
-        jsZCluster = make_unique<JSZCluster>(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), jsZAttributeFactory.get(),
-                                             clusterTypeFactory.get());
-        jsRow = make_unique<JSRow>();
-        jsDBTable = make_unique<JSDBTable>(dbTableFactory, jsRow.get(), log);
-        jsZEndpoint = make_unique<JSZEndpoint>(singletonObjects.getZDevices(),jsZCluster.get() );
-        jsZEndpoints = make_unique<JSZEndpoints>(singletonObjects,jsZEndpoint.get());
-        jsZDevice = make_unique<JSZDevice>(singletonObjects.getZDevices(), jsZEndpoint.get());
-        jsLog = make_unique<JSLog>(log);
-        jsRestServer = make_unique<JSRestServer>(singletonObjects.getFixedPathContainer(), log);
-        jszDevices = make_unique<JSZDevices>(singletonObjects.getZDevices(), jsZDevice.get());
-        jsZAttributeFactory = make_unique<JSZAttributeFactory>();
 
         createParams.array_buffer_allocator = &v8Allocator;
         isolate = v8::Isolate::New(createParams);
 
-        jsZAttributeFactory->init(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), clusterTypeFactory.get());
+        jsZAttributeFactory.init(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(),
+                                 &clusterTypeFactory);
         Isolate::Scope isolate_scope(isolate);
         Locker locker(isolate);
         HandleScope handle_scope(isolate);
 
         Handle<ObjectTemplate> global = ObjectTemplate::New();
 
-        jszDevices->initJsObjectsTemplate(isolate, global);
-        jsZEndpoints->initJsObjectsTemplate(isolate, global);
+        jszDevices.initJsObjectsTemplate(isolate, global);
+        jsZEndpoints.initJsObjectsTemplate(isolate, global);
 
         Local<Context> lContext = Context::New(isolate, nullptr, global);
         Context::Scope context_scope(lContext);
         Local<Object> contextGlobal = lContext->Global();
-        jszDevices->initJsObjectsIstances(isolate, contextGlobal);
-        jsZEndpoint->initJsObjectsTemplate(isolate, contextGlobal);
-        jsZEndpoints->initJsObjectsInstance(isolate);
-        jsZCluster->initJsObjectsTemplate(isolate, contextGlobal);
-        jsZAttributeFactory->initJsObjectsTemplate(isolate, contextGlobal);
-        jsLog->initJsObjectsTemplate(isolate, contextGlobal);
-        jsRestServer->initJsObjectsTemplate(isolate, contextGlobal);
-        jsRow->initJsObjectsTemplate(isolate, contextGlobal);
-        jsDBTable->initJsObjectsTemplate(isolate, contextGlobal);
+        jszDevices.initJsObjectsIstances(isolate, contextGlobal);
+        jsZEndpoint.initJsObjectsTemplate(isolate, contextGlobal);
+        jsZEndpoints.initJsObjectsInstance(isolate);
+        jsZCluster.initJsObjectsTemplate(isolate, contextGlobal);
+        jsZAttributeFactory.initJsObjectsTemplate(isolate, contextGlobal);
+        jsLog.initJsObjectsTemplate(isolate, contextGlobal);
+        jsRestServer.initJsObjectsTemplate(isolate, contextGlobal);
+        jsRow.initJsObjectsTemplate(isolate, contextGlobal);
+        jsDBTable.initJsObjectsTemplate(isolate, contextGlobal);
         context.Reset(isolate, lContext);
 
 
     }
 
     JavaScriptExecuter::~JavaScriptExecuter() {
-        jszDevices->resetIstances();
-        jsZEndpoints->resetInstance();
-        jsZCluster->resetPersistences();
-        jsZEndpoint->resetPersistences();
-        jsZAttributeFactory->resetPersistences();
-        jsZDevice->resetPersistences();
-        jsLog->resetPersistences();
-        jsRestServer->resetPersistences();
-        jsRow->resetPersistences();
-        jsDBTable->resetPersistences();
+        jszDevices.resetIstances();
+        jsZEndpoints.resetInstance();
+        jsZCluster.resetPersistences();
+        jsZEndpoint.resetPersistences();
+        jsZAttributeFactory.resetPersistences();
+        jsZDevice.resetPersistences();
+        jsLog.resetPersistences();
+        jsRestServer.resetPersistences();
+        jsRow.resetPersistences();
+        jsDBTable.resetPersistences();
         context.Reset();
         isolate->Dispose();
-        jszDevices.reset();
+        jszDevices.resetIstances();
     }
 
     void JavaScriptExecuter::runThread() {
