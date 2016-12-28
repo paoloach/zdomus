@@ -173,7 +173,6 @@ namespace zigbee {
         }
         uint32_t propertyId = info[0]->ToUint32()->Value();
         Cluster *cluster = getCluster(info);
-        BOOST_LOG_TRIVIAL(info) << "Cluster at " << (void *) cluster;
         JSZCluster *This = getThis(info);
         std::shared_ptr<ZCLAttribute> attribute = cluster->getAttribute(propertyId);
         auto attributeValue = This->jsZAttributeFactory->createAttributeInstance(isolate, attribute);

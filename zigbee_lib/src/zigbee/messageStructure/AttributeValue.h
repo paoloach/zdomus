@@ -9,7 +9,9 @@
 #define ATTRIBUTEVALUE_H_
 
 #include <ostream>
+#include <array>
 #include <stdint.h>
+#include <boost/endian/conversion.hpp>
 #include "../zigbeeConfig.h"
 #include "../ZigbeeTypes.h"
 #include "GenericMessage.h"
@@ -36,6 +38,27 @@ namespace zigbee {
         AttributeValue() : nwkAddr(0), endpoint(0), cluster(0), numAttr(0) {
             generticDataMsg.msgCode = REQ_ATTRIBUTE_VALUES;
         }
+
+        std::vector<uint8_t> serialize(){
+            std::vector<uint8_t> buffer(7+numAttr*2);
+
+            buffer[0] = REQ_ATTRIBUTE_VALUES;
+            buffer[1] = nwkAddr&0xFF;
+            buffer[2] = (nwkAddr>>8)&0xFF;
+            buffer[3] = endpoint;
+            buffer[4] = cluster&0xFF;
+            buffer[5] = (cluster>>8)&0xFF;
+            buffer[6] = numAttr;
+            auto iter = buffer.begin()+7;
+            for (int i=0; i< numAttr; i++){
+                *iter = attribute[i] & 0xFF;
+                iter++;
+                *iter = (attribute[i]  >> 8)& 0xFF;
+                iter++;
+            }
+
+            return buffer;
+        };
 
         GenericMessage generticDataMsg;
         ZigbeeNwkAddress nwkAddr;

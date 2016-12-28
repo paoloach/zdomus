@@ -161,14 +161,28 @@ namespace zigbee {
 
     void DomusEngineUSBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                                 ZigbeeAttributeId attributeId) {
-        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster
+        BOOST_LOG_TRIVIAL(info) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster
                                  << ", " << attributeId << ")";
         if (handle != nullptr) {
             std::stringstream stream;
             AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeId};
 
             BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
-            sendData(attributeValue);
+
+            auto serializeData = attributeValue.serialize();
+            std::unique_ptr<uint8_t >data(new uint8_t[serializeData.size()]);
+            std::copy(serializeData.begin(), serializeData.end(), data.get());
+
+            int transfered;
+
+            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, data.get(),
+                                              serializeData.size(), &transfered, 1000);
+            if (result == 0) {
+                BOOST_LOG_TRIVIAL(trace) << "request sent";
+            } else {
+                BOOST_LOG_TRIVIAL(error) << "Error send data: " << strUsbError(result) << ", transfered: " << transfered
+                                         << " insteado of " << serializeData.size();
+            }
         }
     }
 

@@ -155,7 +155,6 @@ namespace zigbee {
                 This->mapFunction.insert({identity, std::make_tuple(con, attribute, persistenteObject)});
             }
             attribute->requestValue();
-            BOOST_LOG_TRIVIAL(info) << "requesting for attribute at " << (void*)attribute;
         } catch (std::exception &excp) {
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());
             isolate->ThrowException(errorMsg);
