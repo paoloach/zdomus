@@ -14,18 +14,24 @@
 
 namespace zigbee {
 
-class JavaScriptData {
-public:
-	JavaScriptData(boost::property_tree::ptree & properties);
-public:
-	std::string getCode() const {return code;}
-	boost::posix_time::time_duration  getPeriod() const {return period;}
-	std::string getName() const {return name;}
-private:
-	std::string name;
-	std::string code;
-	boost::posix_time::time_duration period;
-};
+    class JavaScriptData {
+    public:
+        JavaScriptData(boost::property_tree::ptree &properties);
+
+    public:
+        std::string getCode() const { return code; }
+
+        boost::posix_time::time_duration getPeriod() const { return period; }
+
+        std::string getName() const { return name; }
+
+        bool hasError() const {return error;}
+    private:
+        std::string name;
+        std::string code;
+        boost::posix_time::time_duration period;
+        bool error;
+    };
 
 } /* namespace zigbee */
 
