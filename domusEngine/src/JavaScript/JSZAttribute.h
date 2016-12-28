@@ -17,6 +17,7 @@
 #include <zcl/ZCLAttribute.h>
 #include "v8.h"
 #include "../ZigbeeData/ExtAddress.h"
+#include "../Utils/SingletonObjects.h"
 
 
 namespace zigbee {
@@ -41,8 +42,7 @@ namespace zigbee {
         static std::map<ZCLAttribute::Status, std::string> statusMap;
         using CallbackData = std::tuple<std::list<std::function<void()>>::iterator, ZCLAttribute *, v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>>>;
     public:
-        JSZAttribute(ZDevices *zDevices, ZigbeeDevice *zigbeeDevice, ClusterTypeFactory *clusterFactory,
-                     ZCLTypeDataType zclType);
+        JSZAttribute(SingletonObjects * singletonObjects,  ZCLTypeDataType zclType);
 
         virtual ~JSZAttribute();
 
@@ -92,9 +92,7 @@ namespace zigbee {
         CallbackData popCallbackData(int id);
 
     protected:
-        ZDevices *zDevices;
-        ZigbeeDevice *zigbeeDevice;
-        ClusterTypeFactory *clusterFactory;
+        SingletonObjects *singletonObjects;
 
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
         std::map<ExtAddress, std::shared_ptr<ExtAddress> > usedExtAddresses;

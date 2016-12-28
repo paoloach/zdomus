@@ -109,7 +109,7 @@ namespace zigbee {
                     BOOST_LOG_TRIVIAL(error) << "Unable to claim interface 0: " << strUsbError(result);
                 }
             } else {
-                BOOST_LOG_TRIVIAL(error) << "device not found";
+                //BOOST_LOG_TRIVIAL(error) << "device not found";
             }
         }
         return device != nullptr;

@@ -24,7 +24,7 @@ namespace zigbee {
 
         void JSZAttributeUInt16Test::SetUp() {
             JSTest::SetUp();
-            jsZAttribute = std::make_shared<JSZAttributeUint16>(zDevices.get(), zigbeeDevice, &clusterTypeFactoryMock);
+            jsZAttribute = std::make_shared<JSZAttributeUint16>(&singletonObjectsMock);
             zclUint16Attribute = std::make_shared<ZCLUint16AttributeMock>();
             zAttributeVariable = createZAttributeVariable("Z" + ZCLUint16AttributeMock::name());
             EXPECT_CALL(*zclUint16Attribute, getZCLType()).Times(AnyNumber()).WillOnce(

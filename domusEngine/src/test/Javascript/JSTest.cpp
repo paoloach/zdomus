@@ -12,72 +12,75 @@
 #include "../Mocks/ZigbeeDeviceMock.h"
 
 namespace zigbee {
-namespace test {
+    namespace test {
 
-using std::make_shared;
-using namespace v8;
-using namespace testing;
+        using std::make_shared;
+        using namespace v8;
+        using namespace testing;
 
-constexpr NwkAddr JSTest::NWK_ADDRESS;
-constexpr EndpointID JSTest::ENDPOINT_ID;
-constexpr ClusterID JSTest::CLUSTER_ID;
-constexpr uint32_t JSTest::PROFILE_ID;
-constexpr uint32_t JSTest::DEVICE_ID;
-constexpr uint32_t JSTest::DEVICE_VER;
-constexpr uint32_t JSTest::ATTRIBUTE0_ID;
-constexpr uint32_t JSTest::ATTRIBUTE1_ID;
+        constexpr NwkAddr JSTest::NWK_ADDRESS;
+        constexpr EndpointID JSTest::ENDPOINT_ID;
+        constexpr ClusterID JSTest::CLUSTER_ID;
+        constexpr uint32_t JSTest::PROFILE_ID;
+        constexpr uint32_t JSTest::DEVICE_ID;
+        constexpr uint32_t JSTest::DEVICE_VER;
+        constexpr uint32_t JSTest::ATTRIBUTE0_ID;
+        constexpr uint32_t JSTest::ATTRIBUTE1_ID;
 
-const std::string JSTest::EXTENDED_ADDRESS = "00-01-02-03-04-05-06-07";
-const std::vector<ClusterID> JSTest::IN_CLUSTERS { ClusterID { 1 }, ClusterID { 2 } };
-const std::vector<ClusterID> JSTest::OUT_CLUSTERS { ClusterID { 3 }, ClusterID { 4 } };
+        const std::string JSTest::EXTENDED_ADDRESS = "00-01-02-03-04-05-06-07";
+        const std::vector<ClusterID> JSTest::IN_CLUSTERS{ClusterID {1}, ClusterID {2}};
+        const std::vector<ClusterID> JSTest::OUT_CLUSTERS{ClusterID {3}, ClusterID {4}};
 
-	JSTest::JSTest():zDevices{std::make_unique<ZDevicesMock>()} {
+        JSTest::JSTest() : zDevices{std::make_unique<ZDevicesMock>()} {
 
-	}
+        }
 
-void JSTest::SetUp() {
-    createParams.array_buffer_allocator = &v8Allocator;
-	isolate = v8::Isolate::New(createParams);
-	isolate->Enter();
-	locker.reset(new Locker { isolate });
+        void JSTest::SetUp() {
+            createParams.array_buffer_allocator = &v8Allocator;
+            isolate = v8::Isolate::New(createParams);
+            isolate->Enter();
+            locker.reset(new Locker{isolate});
 
-	extAddress = convertFromString(EXTENDED_ADDRESS);
+            extAddress = convertFromString(EXTENDED_ADDRESS);
 
-	zigbeeDeviceMock = std::make_unique<ZigbeeDeviceMock>();
-	zigbeeDevice = zigbeeDeviceMock.get();
+            zigbeeDeviceMock = std::make_unique<ZigbeeDeviceMock>();
+            zigbeeDevice = zigbeeDeviceMock.get();
 
-	defaultCluster = make_shared<ClusterMock>();
-	defaultZclAttribute = make_shared<ZCLAttributeMock>(zigbeeDevice, defaultCluster.get(), -1, ZCLTypeDataType::ZCLTypeInvalid, "", true);
-	cluster = make_shared<ClusterMock>();
-	jsLog = std::make_shared<JSLog>(log);
+            defaultCluster = make_shared<ClusterMock>();
+            defaultZclAttribute = make_shared<ZCLAttributeMock>(zigbeeDevice, defaultCluster.get(), -1,
+                                                                ZCLTypeDataType::ZCLTypeInvalid, "", true);
+            cluster = make_shared<ClusterMock>();
+            jsLog = std::make_shared<JSLog>(log);
 
-	ON_CALL(clusterTypeFactoryMock, getCluster(_,_,_,_)).WillByDefault(Return(defaultCluster));
-	ON_CALL(*zDevices, getDevice(extAddress)).WillByDefault(Return(&defaultZDevice));
-	ON_CALL(*zDevices, exists(_)).WillByDefault(Return(false));
-	ON_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillByDefault(Return(zclAttributeMock));
-}
+            ON_CALL(singletonObjectsMock, getZDevices()).WillByDefault(Return(zDevices.get()));
+            ON_CALL(singletonObjectsMock, getClusters()).WillByDefault(Return(&clustersMock));
+            ON_CALL(clustersMock, getCluster(_, _, _)).WillByDefault(Return(defaultCluster));
+            ON_CALL(*zDevices, getDevice(extAddress)).WillByDefault(Return(&defaultZDevice));
+            ON_CALL(*zDevices, exists(_)).WillByDefault(Return(false));
+            ON_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillByDefault(Return(zclAttributeMock));
+        }
 
-void JSTest::TearDown() {
-	locker.reset();
-	jsLog->resetPersistences();
-	isolate->Exit();
-	isolate->Dispose();
-	defaultZclAttribute.reset();
-	defaultCluster.reset();
-}
+        void JSTest::TearDown() {
+            locker.reset();
+            jsLog->resetPersistences();
+            isolate->Exit();
+            isolate->Dispose();
+            defaultZclAttribute.reset();
+            defaultCluster.reset();
+        }
 
-v8::Local<v8::Value> JSTest::runScript(const std::string& script) {
-	Local<String> source = String::NewFromUtf8(isolate, script.c_str());
-	Local<Script> jsScript = Script::Compile(source);
-	return jsScript->Run();
-}
+        v8::Local<v8::Value> JSTest::runScript(const std::string &script) {
+            Local<String> source = String::NewFromUtf8(isolate, script.c_str());
+            Local<Script> jsScript = Script::Compile(source);
+            return jsScript->Run();
+        }
 
-ExtAddress JSTest::convertFromString(const std::string& strExt) {
-	ExtAddress extAddress { };
-	std::stringstream stream { strExt };
-	stream >> extAddress;
-	return extAddress;
-}
+        ExtAddress JSTest::convertFromString(const std::string &strExt) {
+            ExtAddress extAddress{};
+            std::stringstream stream{strExt};
+            stream >> extAddress;
+            return extAddress;
+        }
 
-} /* namespace test */
+    } /* namespace test */
 } /* namespace zigbee */

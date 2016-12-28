@@ -11,7 +11,7 @@
 namespace zigbee {
     namespace test {
 
-        JSZAttributeMock::JSZAttributeMock() : JSZAttribute(nullptr, nullptr, nullptr, ZCLTypeDataType::ZCLTypeInvalid) {
+        JSZAttributeMock::JSZAttributeMock() : JSZAttribute(nullptr, ZCLTypeDataType::ZCLTypeInvalid) {
 
         }
 

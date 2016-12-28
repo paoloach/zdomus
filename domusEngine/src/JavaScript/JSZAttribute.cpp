@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <boost/log/trivial.hpp>
 #include <boost/bind.hpp>
 #include "JSZAttribute.h"
 #include <zcl/ZCLAttribute.h>
@@ -35,10 +36,8 @@ namespace zigbee {
                                                                            {ZCLAttribute::Requesting,   "requesting"},
                                                                            {ZCLAttribute::Undefined,    "undefined"},};
 
-    JSZAttribute::JSZAttribute(ZDevices *zDevices,
-                               ZigbeeDevice * zigbeeDevice,
-                               ClusterTypeFactory * clusterFactory, ZCLTypeDataType zclType) :
-            zDevices(zDevices), zigbeeDevice(zigbeeDevice), clusterFactory(clusterFactory), zclType(zclType) {
+    JSZAttribute::JSZAttribute(SingletonObjects * singletonObjects, ZCLTypeDataType zclType) :
+            singletonObjects(singletonObjects), zclType(zclType) {
     }
 
     JSZAttribute::~JSZAttribute() {
@@ -156,6 +155,7 @@ namespace zigbee {
                 This->mapFunction.insert({identity, std::make_tuple(con, attribute, persistenteObject)});
             }
             attribute->requestValue();
+            BOOST_LOG_TRIVIAL(info) << "requesting for attribute at " << (void*)attribute;
         } catch (std::exception &excp) {
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());
             isolate->ThrowException(errorMsg);
@@ -264,10 +264,10 @@ namespace zigbee {
     std::shared_ptr<ZCLAttribute>
     JSZAttribute::getZCLAttribute(const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId,
                                   uint32_t attributeId) {
-        if (!zDevices->exists(extAddress)) {
+        if (!singletonObjects->getZDevices()->exists(extAddress)) {
             throw JSExceptionNoDevice(extAddress);
         }
-        auto zDevice = zDevices->getDevice(extAddress);
+        auto zDevice = singletonObjects->getZDevices()->getDevice(extAddress);
         if (!zDevice->isEndpointPresents(endpointId)) {
             throw JSExceptionNoEndpoint(extAddress, endpointId);
         }
@@ -275,8 +275,7 @@ namespace zigbee {
         if (!zEndpoint.hasInCluster(clusterId)) {
             throw JSExceptionNoInCluster(extAddress, endpointId, clusterId);
         }
-        std::shared_ptr<Cluster> cluster = clusterFactory->getCluster(clusterId, zigbeeDevice, endpointId,
-                                                                      zDevice->getNwkAddr());
+        std::shared_ptr<Cluster> cluster = singletonObjects->getClusters()->getCluster(zDevice->getNwkAddr(),endpointId, clusterId);
         std::shared_ptr<ZCLAttribute> attribute = cluster->getAttribute(attributeId);
         if (!attribute) {
             throw JSExceptionNoAttribute(extAddress, endpointId, clusterId, attributeId);

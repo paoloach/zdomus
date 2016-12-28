@@ -15,10 +15,11 @@
 #include "../Mocks/JSZAttributeMock.h"
 #include "../Mocks/ZDevicesMock.h"
 #include "../Mocks/ZigbeeDeviceMock.h"
-#include "../Mocks/ClusterTypeFactoryMock.h"
 #include "../Mocks/ClusterMock.h"
 #include "../Mocks/ZCLAttributeMock.h"
 #include "../Mocks/JSZAttributeFactoryMock.h"
+#include "../Mocks/SingletonObjectsMock.h"
+#include "../Mocks/ClustersMock.h"
 #include "../../JavaScript/JSZCluster.h"
 #include "../../JavaScript/V8Allocator.h"
 
@@ -45,9 +46,10 @@ namespace zigbee {
             std::unique_ptr<v8::Locker> locker;
             std::string creatingZDeviceScript;
             v8::Isolate *isolate;
-            std::unique_ptr<ZDevicesMock> zDevices;
-            ClusterTypeFactoryMock clusterTypeFactoryMock;
-            std::unique_ptr<ZigbeeDeviceMock> zigbeeDevice;
+            SingletonObjectsMock singletonObjectsMock;
+            ZDevicesMock zDevices;
+            ClustersMock clusters;
+            ZigbeeDeviceMock zigbeeDevice;
             std::unique_ptr<JSZCluster> jsZCluster;
             ExtAddress extAddress;
             std::shared_ptr<ClusterMock> defaultCluster;

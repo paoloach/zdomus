@@ -11,7 +11,6 @@
 #include <v8.h>
 #include <thread>
 #include <boost/signals2.hpp>
-#include <zcl/ClusterTypeFactory.h>
 
 #include "../ZigbeeData/ZDevices.h"
 #include "JSZDevices.h"
@@ -63,7 +62,6 @@ namespace zigbee {
         std::string jsCode;
         std::thread jsThread;
         NotifyEnd notifyEnd;
-        ClusterTypeFactory clusterTypeFactory;
         JSZAttributeFactory jsZAttributeFactory;
         DBTableFactory dbTableFactory;
         JSLog jsLog;

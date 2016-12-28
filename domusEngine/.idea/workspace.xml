@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" line="43" mnemonic="1" />
+  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" buildAllGenerated="true">
     <generated>
       <config projectName="domus_engine" targetName="gmock" />
@@ -22,15 +25,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/configuration/testConfiguration1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/domusEngine.xml" afterPath="$PROJECT_DIR$/configuration/domusEngine.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/readTemperatures.js" afterPath="$PROJECT_DIR$/configuration/readTemperatures.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/test.js" afterPath="$PROJECT_DIR$/configuration/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Configuration/Configuration.cpp" afterPath="$PROJECT_DIR$/src/Configuration/Configuration.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSManager.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSManager.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZCluster.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZCluster.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSTest.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" afterPath="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/USBDevice.cpp" afterPath="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
     </list>
     <list id="6d7fd051-39e6-4a54-8d96-2f07f7972514" name="googletest" comment="">
@@ -10898,74 +10922,54 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="readTemperatures.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configuration/readTemperatures.js">
+      <file leaf-file-name="JSZAttributeUInt24Test.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+            <state relative-caret-position="308">
+              <caret line="25" column="85" lean-forward="false" selection-start-line="25" selection-start-column="85" selection-end-line="25" selection-end-column="85" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JSAttributeTest.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="644">
+              <caret line="48" column="114" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="114" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JavaScriptExecuterTest.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="402">
+              <caret line="208" column="116" lean-forward="false" selection-start-line="208" selection-start-column="116" selection-end-line="208" selection-end-column="116" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BasicCluster.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/zigbee/include/zcl/clusterTypes/BasicCluster.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JSTest.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSTest.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="952">
+              <caret line="68" column="63" lean-forward="true" selection-start-line="68" selection-start-column="63" selection-end-line="68" selection-end-column="63" />
               <folding>
-                <element signature="e#0#40#0" expanded="false" />
+                <element signature="e#159#183#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZCluster.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="183" column="0" lean-forward="false" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JavaScriptExecuter.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="91" column="35" lean-forward="false" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JavaScriptExecuter.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="72" column="19" lean-forward="false" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSLog.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSLog.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configuration/test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSManager.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSManager.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="742">
-              <caret line="53" column="43" lean-forward="false" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -10981,8 +10985,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>add1Demo</find>
-      <find>RequestedAttributes::</find>
       <find>requestedAttributes</find>
       <find>DataDemo</find>
       <find>std::shared_ptr&lt;ZigbeeDevice&gt;</find>
@@ -11011,6 +11013,8 @@
       <find>jsEndpoint</find>
       <find>*jsEndpoint</find>
       <find>*zDevices.get()</find>
+      <find>zDevices, zigbeeDevice, clusterFactory</find>
+      <find>singletonObjects</find>
     </findStrings>
     <replaceStrings>
       <replace>EXPECT_CALL(clustersMock</replace>
@@ -11020,6 +11024,7 @@
       <replace>clusterTypeFactoryMock</replace>
       <replace>jsEndpoint</replace>
       <replace>zDevices</replace>
+      <replace>singletonObjects</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -11028,35 +11033,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/Mocks/JSZDeviceMock.h" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSDevicesTest.h" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSDevicesTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Mocks/ClusterTypeFactoryMock.h" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSTest.h" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSDBTableTest.h" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSDBTableTest.cpp" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSZDevice.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSDeviceTest.h" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JSDeviceTest.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZEndpoints.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZEndpoints.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSEndpointsTest.h" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSEndpointsTest.cpp" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSObjects.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZEndpoint.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp" />
@@ -11071,14 +11051,39 @@
         <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptData.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptData.cpp" />
-        <option value="$PROJECT_DIR$/configuration/domusEngine.xml" />
         <option value="$PROJECT_DIR$/src/Configuration/Configuration.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSManager.h" />
         <option value="$PROJECT_DIR$/configuration/test.js" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" />
+        <option value="$PROJECT_DIR$/configuration/domusEngine.xml" />
         <option value="$PROJECT_DIR$/configuration/readTemperatures.js" />
+        <option value="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZCluster.h" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSTest.h" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" />
       </list>
     </option>
   </component>
@@ -11153,6 +11158,124 @@
               <option name="myItemId" value="External Libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zigbee" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zcl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zcl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CmdParams" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zcl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="clusterTypes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Header Search Paths" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -11175,6 +11298,130 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="usb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Mocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Javascript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Javascript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JSAttributes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -11193,6 +11440,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="JavaScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JSZAttributes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -11241,11 +11524,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/configuration" />
       <recent name="$PROJECT_DIR$/build" />
       <recent name="$PROJECT_DIR$/src/ZigbeeData" />
       <recent name="$PROJECT_DIR$/src/Utils" />
       <recent name="/usr/local/zigbee/include/zigbee/messageStructure" />
-      <recent name="$PROJECT_DIR$/src/test" />
     </key>
   </component>
   <component name="RunManager" selected="Google Test.DomusEngineTest">
@@ -11262,6 +11545,10 @@
       <method />
     </configuration>
     <configuration default="false" name="JSEndpointTest.getCluster" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JSEndpointTest" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JavaScriptExecuterTest" TEST_METHOD="creating_attribute_ZCL_uint8" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
     </configuration>
@@ -11467,7 +11754,7 @@
       <envs />
       <method />
     </configuration>
-    <list size="12">
+    <list size="13">
       <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
       <item index="1" class="java.lang.String" itemvalue="Application.debug" />
       <item index="2" class="java.lang.String" itemvalue="Application.domus_engine" />
@@ -11480,13 +11767,15 @@
       <item index="9" class="java.lang.String" itemvalue="Google Test.JSDeviceTest::getEndpoints" />
       <item index="10" class="java.lang.String" itemvalue="Google Test.All in JSEndpointsTest" />
       <item index="11" class="java.lang.String" itemvalue="Google Test.JSEndpointTest.getCluster" />
+      <item index="12" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.creating_attribute_ZCL_uint8" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Google Test.JSEndpointTest.getCluster" />
-        <item index="1" class="java.lang.String" itemvalue="Google Test.All in JSEndpointsTest" />
-        <item index="2" class="java.lang.String" itemvalue="Google Test.JSDeviceTest::getEndpoints" />
-        <item index="3" class="java.lang.String" itemvalue="Google Test.All in JSDBTableTest" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.creating_attribute_ZCL_uint8" />
+        <item index="1" class="java.lang.String" itemvalue="Google Test.JSEndpointTest.getCluster" />
+        <item index="2" class="java.lang.String" itemvalue="Google Test.All in JSEndpointsTest" />
+        <item index="3" class="java.lang.String" itemvalue="Google Test.JSDeviceTest::getEndpoints" />
+        <item index="4" class="java.lang.String" itemvalue="Google Test.All in JSDBTableTest" />
       </list>
     </recent_temporary>
   </component>
@@ -11560,14 +11849,7 @@
       <workItem from="1481918146338" duration="1028000" />
       <workItem from="1482688637569" duration="37198000" />
       <workItem from="1482842234225" duration="23322000" />
-      <workItem from="1482919396941" duration="2093000" />
-    </task>
-    <task id="LOCAL-00018" summary="reformatted code">
-      <created>1460871289877</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1460871289877</updated>
+      <workItem from="1482919396941" duration="9346000" />
     </task>
     <task id="LOCAL-00019" summary="Added request to application start in order to get all the zigbee devices registred">
       <created>1460871342594</created>
@@ -11905,33 +12187,31 @@
       <option name="project" value="LOCAL" />
       <updated>1482915560180</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="refactoring">
+      <created>1482921595451</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1482921595457</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_JSEndpointsTest - 2016.12.27 at 17h 55m 42s.xml">
-      <configuration name="All in JSEndpointsTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="All_in_JSEndpointsTest - 2016.12.27 at 18h 37m 24s.xml">
-      <configuration name="All in JSEndpointsTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="All_in_JSEndpointsTest - 2016.12.27 at 18h 40m 19s.xml">
-      <configuration name="All in JSEndpointsTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="All_in_JSEndpointsTest - 2016.12.27 at 18h 40m 59s.xml">
-      <configuration name="All in JSEndpointsTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="DomusEngineTest - 2016.12.27 at 18h 42m 27s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="DomusEngineTest - 2016.12.28 at 08h 24m 28s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
     <history-entry file="DomusEngineTest - 2016.12.28 at 11h 27m 18s.xml">
       <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JSEndpointTest_getCluster - 2016.12.28 at 08h 21m 48s.xml">
-      <configuration name="JSEndpointTest.getCluster" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="DomusEngineTest - 2016.12.28 at 14h 18m 52s.xml">
+      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="DomusEngineTest - 2016.12.28 at 14h 34m 15s.xml">
+      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="DomusEngineTest - 2016.12.28 at 14h 35m 47s.xml">
+      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="DomusEngineTest - 2016.12.28 at 14h 36m 42s.xml">
+      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
     <history-entry file="JSEndpointTest_getCluster - 2016.12.28 at 08h 22m 35s.xml">
       <configuration name="JSEndpointTest.getCluster" configurationId="CMakeGoogleTestRunConfigurationType" />
@@ -11939,9 +12219,18 @@
     <history-entry file="JSEndpointTest_getCluster - 2016.12.28 at 08h 24m 07s.xml">
       <configuration name="JSEndpointTest.getCluster" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
+    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.28 at 14h 20m 15s.xml">
+      <configuration name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.28 at 14h 24m 32s.xml">
+      <configuration name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.28 at 14h 34m 08s.xml">
+      <configuration name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="318922000" />
+    <option name="totallyTimeSpent" value="326175000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -11958,12 +12247,12 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21077655" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3259177" sideWeight="0.48230323" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3259177" sideWeight="0.48230323" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24944812" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3259177" sideWeight="0.5176968" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34149054" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31590655" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31590655" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24052632" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -11997,7 +12286,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/googletest" />
     </ignored-roots>
-    <MESSAGE value="fix convertion from attributes list to json" />
     <MESSAGE value="add method to attributes in order to return the value as string" />
     <MESSAGE value="modified GET devices in order to return only the device with endpoins" />
     <MESSAGE value="fix test compilation" />
@@ -12022,14 +12310,22 @@
     <MESSAGE value="Added javascript method in order to retrieve all but the endpoints with a given in-cluster" />
     <MESSAGE value="Added javascript method in order to retrieve a cluster object from an Endpoint object" />
     <MESSAGE value="Better configuration error handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Better configuration error handling" />
+    <MESSAGE value="refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp</url>
+          <line>156</line>
+          <option name="timeStamp" value="243" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="243" />
+      <option name="time" value="244" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeGoogleTestRunConfigurationType">
@@ -12044,278 +12340,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSDevicesTest.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="34" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZEndpoints.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="13" column="10" lean-forward="false" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSDeviceTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="74" column="18" lean-forward="true" selection-start-line="74" selection-start-column="18" selection-end-line="74" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zigbee/NwkAddr.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZDevice.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="30" column="32" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ExtAddress.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="17" column="10" lean-forward="false" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZDevices.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="127" column="45" lean-forward="false" selection-start-line="127" selection-start-column="45" selection-end-line="127" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="136" column="45" lean-forward="false" selection-start-line="136" selection-start-column="45" selection-end-line="136" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="53" column="34" lean-forward="false" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="199" column="25" lean-forward="true" selection-start-line="199" selection-start-column="25" selection-end-line="199" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSDevicesTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="66" column="50" lean-forward="true" selection-start-line="65" selection-start-column="12" selection-end-line="66" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSEndpointsTest.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="31" column="43" lean-forward="false" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZDevices.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="813">
-          <caret line="65" column="34" lean-forward="false" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSEndpointsTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ZEndpoint.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-330">
-          <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/v8/include/v8.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1157">
-          <caret line="3448" column="6" lean-forward="false" selection-start-line="3448" selection-start-column="6" selection-end-line="3448" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZEndpoint.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="60" column="48" lean-forward="false" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZEndpointMock.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="24" column="24" lean-forward="false" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZCluster.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZEndpointMock.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZClusterMock.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="10" column="49" lean-forward="false" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZAttributeFactoryMock.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/googletest/googlemock/include/gmock/gmock-generated-function-mockers.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="674" column="8" lean-forward="false" selection-start-line="674" selection-start-column="8" selection-end-line="674" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZDeviceMock.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="53" column="71" lean-forward="false" selection-start-line="53" selection-start-column="71" selection-end-line="53" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZClusterMock.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="23" column="49" lean-forward="false" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSEndpointTest.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="41" column="24" lean-forward="false" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSEndpointTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="111" column="18" lean-forward="false" selection-start-line="111" selection-start-column="18" selection-end-line="111" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/boost/throw_exception.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/httpServer/RestParser/PathElementTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="16" column="45" lean-forward="false" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1834">
-          <caret line="131" column="62" lean-forward="false" selection-start-line="131" selection-start-column="62" selection-end-line="131" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptData.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="27" column="44" lean-forward="false" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/configuration/domusEngine.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptData.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="42" column="66" lean-forward="false" selection-start-line="42" selection-start-column="66" selection-end-line="42" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Configuration/Configuration.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="8" column="40" lean-forward="true" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Configuration/Configuration.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="23" column="79" lean-forward="false" selection-start-line="23" selection-start-column="79" selection-end-line="23" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JSManager.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="742">
@@ -12348,14 +12372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSObjects.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/configuration/test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
@@ -12382,24 +12398,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configuration/readTemperatures.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="183" column="0" lean-forward="false" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JSLog.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -12408,18 +12406,361 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/configuration/testConfiguration1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configuration/domusEngine.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSObjects.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="57" column="59" lean-forward="false" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configuration/readTemperatures.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/RequestedAttributes.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/RequestedAttributes.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils/Clusters.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="22" column="41" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="41" column="10" lean-forward="false" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="72" column="19" lean-forward="false" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
+        <state relative-caret-position="180">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zcl/ZCLAttribute.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zcl/CmdParams/ClusterCmdParams.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="17" column="10" lean-forward="false" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZCluster.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="16" column="43" lean-forward="false" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+          <folding>
+            <marker date="1482929072742" expanded="true" signature="533:3028" ph="{...}" />
+            <marker date="1482929072742" expanded="true" signature="659:3024" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="94" column="24" lean-forward="false" selection-start-line="94" selection-start-column="8" selection-end-line="94" selection-end-column="24" />
+          <folding>
+            <element signature="e#168#185#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="60" column="69" lean-forward="true" selection-start-line="60" selection-start-column="69" selection-end-line="60" selection-end-column="69" />
+          <folding>
+            <element signature="e#1621#1665#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="542">
+          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="30" column="61" lean-forward="true" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="27" column="79" lean-forward="true" selection-start-line="27" selection-start-column="79" selection-end-line="27" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="13" column="67" lean-forward="false" selection-start-line="13" selection-start-column="67" selection-end-line="13" selection-end-column="67" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="91" column="35" lean-forward="false" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
+        <state relative-caret-position="588">
+          <caret line="48" column="34" lean-forward="false" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Mocks/ClusterMock.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="28" column="43" lean-forward="false" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="43" />
+          <folding>
+            <element signature="e#88#120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Mocks/SingletonObjectsMock.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Mocks/ClustersMock.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="21" column="34" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="50" lean-forward="false" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="27" column="89" lean-forward="true" selection-start-line="27" selection-start-column="68" selection-end-line="27" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="25" column="87" lean-forward="false" selection-start-line="25" selection-start-column="87" selection-end-line="25" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="25" column="83" lean-forward="false" selection-start-line="25" selection-start-column="83" selection-end-line="25" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="25" column="82" lean-forward="false" selection-start-line="25" selection-start-column="82" selection-end-line="25" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="25" column="84" lean-forward="false" selection-start-line="25" selection-start-column="84" selection-end-line="25" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="26" column="85" lean-forward="false" selection-start-line="26" selection-start-column="85" selection-end-line="26" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="25" column="84" lean-forward="false" selection-start-line="25" selection-start-column="84" selection-end-line="25" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="26" column="85" lean-forward="false" selection-start-line="26" selection-start-column="85" selection-end-line="26" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="19" column="42" lean-forward="false" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="25" column="85" lean-forward="false" selection-start-line="25" selection-start-column="85" selection-end-line="25" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="103" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSTest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="68" column="63" lean-forward="true" selection-start-line="68" selection-start-column="63" selection-end-line="68" selection-end-column="63" />
+          <folding>
+            <element signature="e#159#183#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="55" column="94" lean-forward="true" selection-start-line="55" selection-start-column="94" selection-end-line="55" selection-end-column="94" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="36" column="38" lean-forward="false" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+          <folding>
+            <element signature="e#207#231#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="277" column="40" lean-forward="false" selection-start-line="277" selection-start-column="33" selection-end-line="277" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="48" column="114" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="114" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/zigbee/include/zcl/clusterTypes/BasicCluster.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="208" column="116" lean-forward="false" selection-start-line="208" selection-start-column="116" selection-end-line="208" selection-end-column="116" />
           <folding />
         </state>
       </provider>

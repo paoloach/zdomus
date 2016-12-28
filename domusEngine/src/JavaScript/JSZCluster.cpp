@@ -5,6 +5,8 @@
  *      Author: Paolo Achdjian
  */
 
+#include <boost/log/trivial.hpp>
+#include <zcl/Cluster.h>
 #include "JSObjects.h"
 #include "JSZCluster.h"
 #include "JSZAttribute.h"
@@ -12,7 +14,6 @@
 #include "Exceptions/JSException.h"
 #include "JSZAttributeFactory.h"
 #include "Exceptions/JSExceptionArgNoExtAddress.h"
-#include "Exceptions/JSExceptionArgNoUInteger.h"
 #include "Exceptions/JSExceptionWrongArgumentsNumber.h"
 #include "Exceptions/JSExceptionNoDevice.h"
 #include "Exceptions/JSExceptionNoInCluster.h"
@@ -24,18 +25,10 @@ using std::shared_ptr;
 
 namespace zigbee {
 
-    JSZCluster::JSZCluster() {
-    }
-
-    JSZCluster::JSZCluster( ZDevices * zDevices, ZigbeeDevice *zigbeeDevice,
-                           JSZAttributeFactory *jsZAttributeFactory_,
-                           ClusterTypeFactory * clusterFactory) :
-            zDevices(zDevices), zigbeeDevice(zigbeeDevice), clusterFactory(clusterFactory),
+    JSZCluster::JSZCluster(JSZAttributeFactory *jsZAttributeFactory_,
+                           SingletonObjects *singletonObjects) :
+            singletonObjects(singletonObjects),
             jsZAttributeFactory(jsZAttributeFactory_) {
-    }
-
-    void JSZCluster::setJSZEndpoint(const std::shared_ptr<JSZEndpoint> &jsZEndpoint) {
-        this->jsZEndpoint = jsZEndpoint;
     }
 
     void JSZCluster::initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) {
@@ -63,10 +56,10 @@ namespace zigbee {
     JSZCluster::createInstance(v8::Isolate *isolate, const ExtAddress &extAddress, EndpointID endpointId,
                                ClusterID clusterId) {
 
-        if (!zDevices->exists(extAddress)) {
+        if (!singletonObjects->getZDevices()->exists(extAddress)) {
             throw JSExceptionNoDevice(extAddress);
         }
-        auto zDevice = zDevices->getDevice(extAddress);
+        auto zDevice = singletonObjects->getZDevices()->getDevice(extAddress);
 
         NwkAddr nwkAddress = zDevice->getNwkAddr();
         Key key(nwkAddress, endpointId, clusterId);
@@ -89,8 +82,9 @@ namespace zigbee {
 
         zClusterInstance->SetInternalField(0, External::New(isolate, this));
 
-        std::shared_ptr<Cluster> cluster = clusterFactory->getCluster(clusterId, zigbeeDevice, endpointId,
-                                                                      zDevice->getNwkAddr());
+        std::shared_ptr<Cluster> cluster = singletonObjects->getClusters()->getCluster(nwkAddress,
+                                                                                       endpointId,
+                                                                                       clusterId);
         zClusterInstance->SetInternalField(1, External::New(isolate, cluster.get()));
 
         std::shared_ptr<ExtAddress> usedAddr = getPersistenceExtAddress(extAddress);
@@ -179,9 +173,11 @@ namespace zigbee {
         }
         uint32_t propertyId = info[0]->ToUint32()->Value();
         Cluster *cluster = getCluster(info);
+        BOOST_LOG_TRIVIAL(info) << "Cluster at " << (void *) cluster;
         JSZCluster *This = getThis(info);
         std::shared_ptr<ZCLAttribute> attribute = cluster->getAttribute(propertyId);
-        info.GetReturnValue().Set(This->jsZAttributeFactory->createAttributeInstance(isolate, attribute));
+        auto attributeValue = This->jsZAttributeFactory->createAttributeInstance(isolate, attribute);
+        info.GetReturnValue().Set(attributeValue);
     }
 
     std::shared_ptr<ExtAddress> JSZCluster::getPersistenceExtAddress(const ExtAddress &extAddress) {

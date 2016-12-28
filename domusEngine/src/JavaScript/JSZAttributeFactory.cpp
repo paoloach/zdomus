@@ -17,26 +17,25 @@ namespace zigbee {
     using std::make_unique;
 
 
-    void JSZAttributeFactory::init(ZDevices *zDevices, ZigbeeDevice *zigbeeDevice,
-                                   ClusterTypeFactory *clusterFactory) {
+    void JSZAttributeFactory::init(SingletonObjects * singletonObjects) {
 
-        std::array<std::unique_ptr<JSZAttribute>, 17> data = {{make_unique<JSZAttribute8BitBitmap>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttribute16BitBitmap>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttribute32BitBitmap>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeBool>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeIEEEAddress>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeInt8>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeInt16>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeInt24>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeInt32>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeOctectString>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeString>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttribute8BitEnum>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeUint8>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeUint16>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeUint24>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeUint32>(zDevices, zigbeeDevice, clusterFactory),
-                              make_unique<JSZAttributeUint48>(zDevices, zigbeeDevice, clusterFactory)
+        std::array<std::unique_ptr<JSZAttribute>, 17> data = {{make_unique<JSZAttribute8BitBitmap>(singletonObjects),
+                              make_unique<JSZAttribute16BitBitmap>(singletonObjects),
+                              make_unique<JSZAttribute32BitBitmap>(singletonObjects),
+                              make_unique<JSZAttributeBool>(singletonObjects),
+                              make_unique<JSZAttributeIEEEAddress>(singletonObjects),
+                              make_unique<JSZAttributeInt8>(singletonObjects),
+                              make_unique<JSZAttributeInt16>(singletonObjects),
+                              make_unique<JSZAttributeInt24>(singletonObjects),
+                              make_unique<JSZAttributeInt32>(singletonObjects),
+                              make_unique<JSZAttributeOctectString>(singletonObjects),
+                              make_unique<JSZAttributeString>(singletonObjects),
+                              make_unique<JSZAttribute8BitEnum>(singletonObjects),
+                              make_unique<JSZAttributeUint8>(singletonObjects),
+                              make_unique<JSZAttributeUint16>(singletonObjects),
+                              make_unique<JSZAttributeUint24>(singletonObjects),
+                              make_unique<JSZAttributeUint32>(singletonObjects),
+                              make_unique<JSZAttributeUint48>(singletonObjects)
                       }
         };
 

@@ -12,10 +12,11 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 #include <memory>
-#include <zcl/ClusterTypeFactory.h>
 #include <zigbee/EndpointID.h>
 #include <zigbee/ClusterID.h>
+#include <zcl/CmdParams/ClusterCmdParams.h>
 
+#include "../Utils/SingletonObjects.h"
 #include "../ZigbeeData/ZDevices.h"
 #include "JSZDevice.h"
 #include "../ZigbeeData/ExtAddress.h"
@@ -37,17 +38,14 @@ namespace zigbee {
         typedef v8::Persistent<v8::Object, v8::CopyablePersistentTraits<v8::Object>> PersistenceObject;
         typedef boost::tuple<PersistenceObject, std::shared_ptr<Cluster> > Value;
     public:
-        JSZCluster();
+        JSZCluster()=default;
 
-        JSZCluster(ZDevices *zDevices, ZigbeeDevice *zigbeeDevice,
-                   JSZAttributeFactory * jsZAttributeFactory,
-                   ClusterTypeFactory * clusterFactory);
+        JSZCluster(JSZAttributeFactory * jsZAttributeFactory,
+                   SingletonObjects * singletonObjects);
 
         virtual ~JSZCluster() = default;
 
     public:
-        void setJSZEndpoint(const std::shared_ptr<JSZEndpoint> &jsZEndpoint);
-
         virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global);
 
         virtual v8::Local<v8::Object>
@@ -84,10 +82,7 @@ namespace zigbee {
         static void weakCallback(const v8::WeakCallbackInfo<JSZCluster> &data);
 
     private:
-        ZDevices *zDevices;
-        std::shared_ptr<JSZEndpoint> jsZEndpoint;
-        ZigbeeDevice *zigbeeDevice;
-        ClusterTypeFactory * clusterFactory;
+        SingletonObjects * singletonObjects;
         JSZAttributeFactory * jsZAttributeFactory;
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
         std::map<ExtAddress, std::shared_ptr<ExtAddress> > usedExtAddresses;

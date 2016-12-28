@@ -57,9 +57,8 @@ namespace zigbee {
     template<typename AttributeType, typename ParamType>
     class JSZAttributeTemplate : public JSZAttribute {
     public:
-        JSZAttributeTemplate(ZDevices *zDevices, ZigbeeDevice *zigbeeDevice,
-                             ClusterTypeFactory *clusterFactory) :
-                JSZAttribute(zDevices, zigbeeDevice, clusterFactory, AttributeType::type) {
+        JSZAttributeTemplate(SingletonObjects * singletonObjects) :
+                JSZAttribute(singletonObjects, AttributeType::type) {
         }
 
         virtual ~JSZAttributeTemplate() {

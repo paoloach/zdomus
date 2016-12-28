@@ -22,10 +22,8 @@ namespace zigbee {
     JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log) : log(log),
                                                                                            jsLog(log),
                                                                                            jsZCluster(
-                                                                                                   singletonObjects.getZDevices(),
-                                                                                                   singletonObjects.getZigbeeDevice(),
                                                                                                    &jsZAttributeFactory,
-                                                                                                   &clusterTypeFactory),
+                                                                                                   &singletonObjects),
                                                                                            jsDBTable(dbTableFactory,
                                                                                                      &jsRow, log),
                                                                                            jsZEndpoint(
@@ -48,8 +46,7 @@ namespace zigbee {
         createParams.array_buffer_allocator = &v8Allocator;
         isolate = v8::Isolate::New(createParams);
 
-        jsZAttributeFactory.init(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(),
-                                 &clusterTypeFactory);
+        jsZAttributeFactory.init(&singletonObjects);
         Isolate::Scope isolate_scope(isolate);
         Locker locker(isolate);
         HandleScope handle_scope(isolate);

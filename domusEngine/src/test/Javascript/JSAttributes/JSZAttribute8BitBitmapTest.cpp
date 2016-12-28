@@ -25,8 +25,7 @@ namespace zigbee {
 
         void JSZAttribute8BitBitmapTest::SetUp() {
             JSTest::SetUp();
-            jsZAttribute = std::make_shared<JSZAttribute8BitBitmap>(zDevices.get(), zigbeeDevice,
-                                                                    &clusterTypeFactoryMock);
+            jsZAttribute = std::make_shared<JSZAttribute8BitBitmap>(&singletonObjectsMock);
             zcl_bitmap8bit_AttributeMock = std::make_shared<ZCL_bitmap8bit_AttributeMock>();
             zAttributeVariable = createZAttributeVariable("Z" + ZCL_bitmap8bit_Attribute::name());
             EXPECT_CALL(*zcl_bitmap8bit_AttributeMock, getZCLType()).Times(AnyNumber()).WillRepeatedly(
