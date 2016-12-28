@@ -8,16 +8,53 @@ file(GLOB test "*.cpp")
 file(GLOB testZigbeeData "ZigbeeData/*.cpp")
 file(GLOB testIO "IO/*.cpp")
 file(GLOB testUtils "Utils/*.cpp")
-file(GLOB testMocks "Mocks/*.cpp")
 file(GLOB testMocksHttp "Mocks/http/*.cpp")
 file(GLOB testComand "Comand/*.cpp")
 file(GLOB testConfiguration "Configuration/*.cpp")
 file(GLOB testDatabase "Database/*.cpp")
-file(GLOB testJavascript "Javascript/*.cpp")
 file(GLOB testJavascriptAttributes "Javascript/JSAttributes/*.cpp")
 file(GLOB testHttpServer "httpServer/*.cpp")
 file(GLOB testRestParser "httpServer/RestParser/*.cpp")
 
+SET(SRC_TEST_JAVASCRIPT Javascript/ClusterCmdArgumentMatcher.h Javascript/ClusterCmdArrayArgumentMatcher.h
+        Javascript/JavaScriptExecuterTest.cpp Javascript/JavaScriptExecuterTest.h
+        Javascript/JSBaseTest.cpp Javascript/JSEndpointTest.h
+        Javascript/JSDBTableTest.cpp Javascript/JSDBTableTest.h
+        Javascript/JSDevicesTest.cpp Javascript/JSDevicesTest.h
+        Javascript/JSDeviceTest.cpp Javascript/JSDeviceTest.h
+        Javascript/JSEndpointsTest.cpp Javascript/JSEndpointsTest.h
+        Javascript/JSEndpointTest.h Javascript/JSEndpointTest.cpp
+        Javascript/JSLogTest.cpp Javascript/JSLogTest.h
+        Javascript/JSRowTest.cpp Javascript/JSRowTest.h
+        Javascript/JSTest.cpp Javascript/JSTest.h
+        Javascript/JSZClusterTest.cpp Javascript/JSZClusterTest.h)
+
+SET(SRC_TEST_MOCK Mocks/AttributeDataContainerMock.cpp Mocks/AttributeDataContainerMock.h
+        Mocks/ClusterMock.cpp Mocks/ClusterMock.h
+        Mocks/ClustersMock.cpp Mocks/ClustersMock.h
+        Mocks/ClusterTypeFactoryMock.cpp Mocks/ClusterTypeFactoryMock.h
+        Mocks/ComandMock.cpp Mocks/ComandMock.h
+        Mocks/DBTableFactoryMock.cpp Mocks/DBTableFactoryMock.h
+        Mocks/DBTableMock.cpp Mocks/DBTableMock.h
+        Mocks/JSZClusterMock.cpp Mocks/JSZClusterMock.h
+        Mocks/JSZAttributeFactoryMock.cpp Mocks/JSZAttributeFactoryMock.h
+        Mocks/JSZAttributeMock.cpp Mocks/JSZAttributeMock.cpp
+        Mocks/JSZEndpointMock.cpp Mocks/JSZAttributeMock.h
+        Mocks/JSZDeviceMock.cpp Mocks/JSZDeviceMock.h
+        Mocks/JSZEndpointMock.cpp Mocks/JSZEndpointMock.h
+        Mocks/SingletonObjectsMock.cpp Mocks/SingletonObjectsMock.h
+        Mocks/ZCLAttributeMock.cpp Mocks/ZCLAttributeMock.h
+        Mocks/ZCLbitmap8bitAttributeMock.cpp Mocks/ZCLbitmap8bitAttributeMock.h
+        Mocks/ZCLbooleanAttributeMock.cpp Mocks/ZCLbooleanAttributeMock.h
+        Mocks/ZCLenum8bitAttributeMock.cpp Mocks/ZCLenum8bitAttributeMock.h
+        Mocks/ZCLIEEEAddressAttributeMock.cpp Mocks/ZCLIEEEAddressAttributeMock.h
+        Mocks/ZCLint16AttributeMock.cpp Mocks/ZCLint16AttributeMock.h
+        Mocks/ZCLstringAttributeMock.cpp Mocks/ZCLstringAttributeMock.h
+        Mocks/ZCLUint8AttributeMock.cpp Mocks/ZCLUint8AttributeMock.cpp
+        Mocks/ZCLUint16AttributeMock.cpp Mocks/ZCLUint16AttributeMock.h
+        Mocks/ZCLUInt24AttributeMock.cpp Mocks/ZCLUInt24AttributeMock.h
+        Mocks/ZDevicesMock.cpp Mocks/ZDevicesMock.h
+        Mocks/ZigbeeDeviceMock.cpp Mocks/ZigbeeDeviceMock.h)
 
 set(V8_DIR  ${CMAKE_BINARY_DIR}/v8)
 set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/include)
@@ -96,17 +133,17 @@ else ()
     else ()
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp utils/AttributeWriterTest.cpp utils/AttributeWriterTest.h Mocks/ClustersMock.cpp Mocks/ClustersMock.h httpServer/RestActions/ShowTopologyTest.cpp httpServer/RestActions/ShowTopologyTest.h Javascript/JSEndpointsTest.cpp Javascript/JSEndpointsTest.h)
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp )
     endif ()
 endif ()
 
 add_executable(domus_engine_test
         main.cpp
-        ${testJavascript}
+        ${SRC_TEST_JAVASCRIPT}
         ${testZigbeeData}
         ${testIO}
         ${testUtils}
-        ${testMocks}
+        ${SRC_TEST_MOCK}
         ${testComand}
         #        ${testDatabase}
         ${testConfiguration}

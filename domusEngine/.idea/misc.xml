@@ -7,6 +7,9 @@
       <file path="$PROJECT_DIR$/cmake-build-debug/CMakeFiles" />
     </excludeRoots>
   </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>

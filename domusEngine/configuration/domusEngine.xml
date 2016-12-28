@@ -8,3 +8,9 @@
     <period>00:00:03</period>
     <name>test</name>
 </javascript>
+
+<javascript>
+    <filename>/home/paolo/workspace/zdomus/domusEngine/configuration/readTemperatures.js</filename>
+    <period>00:00:30</period>
+    <name>readTemperatures</name>
+</javascript>

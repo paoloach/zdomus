@@ -130,6 +130,12 @@
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/DataPropertyTreeMatcher.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/ClusterCmdArgumentMatcher.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/ClusterCmdArrayArgumentMatcher.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
 			<Option target="domus_engine_test"/>
 		</Unit>
@@ -308,6 +314,12 @@
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZAttributeMock.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZClusterMock.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZClusterMock.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/JSZDeviceMock.cpp">

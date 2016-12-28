@@ -47,8 +47,6 @@ namespace zigbee {
                 Local<Object>  global = context->Global(); \
 
 
-        JSEndpointTest::JSEndpointTest() : zDevices{std::make_unique<ZDevicesMock>()} {
-        }
 
         void JSEndpointTest::SetUp() {
             std::stringstream stream{};
@@ -57,8 +55,7 @@ namespace zigbee {
             creatingZDeviceScript = stream.str();
 
             extAddress = convertFromString(EXTENDED_ADDRESS);
-            auto zDevicesP = zDevices.get();
-            jsEndpoint = std::make_unique<JSZEndpoint>(zDevicesP);
+            jsEndpoint = std::make_unique<JSZEndpoint>(&zDevices, &jszClusterMock);
             createParams.array_buffer_allocator = &v8Allocator;
             isolate = v8::Isolate::New(createParams);
 
@@ -103,8 +100,8 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
+            EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(stream.str());
             ASSERT_THAT(result.IsEmpty(), false);
@@ -120,8 +117,8 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
+            EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.endpointId");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -135,8 +132,8 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
+            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
+            EXPECT_CALL(zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.profileId");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -150,8 +147,8 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
+            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
+            EXPECT_CALL(zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.deviceId");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -165,14 +162,31 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
+            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
+            EXPECT_CALL(zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.deviceVersion");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUint32(), true);
-            ASSERT_THAT(result->Uint32Value(), DEVICE_VER);
+            ASSERT_THAT(result, Integer::New(isolate, DEVICE_VER).As<Object>());
         }
+
+
+        TEST_F(JSEndpointTest, getCluster) {
+            ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
+            ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
+            int clusterId = 23;
+            V8_SETUP
+            jsEndpoint->initJsObjectsTemplate(isolate, global);
+            Local<Object> cluster = Integer::New(isolate, 23).As<Object>();
+
+            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
+            EXPECT_CALL(zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
+            EXPECT_CALL(jszClusterMock, createInstance(isolate, extAddress, ENDPOINT_ID, ClusterID(clusterId))).WillOnce(Return(cluster));
+
+            v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.getCluster(" + std::to_string(clusterId) + ");");
+            ASSERT_THAT(result.IsEmpty(), false);
+            ASSERT_THAT(result, cluster);
+        }
+
 
     } /* namespace test */
 } /* namespace zigbee */

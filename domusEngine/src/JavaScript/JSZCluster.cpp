@@ -120,6 +120,10 @@ namespace zigbee {
         This->usedCluster.erase(key);
     }
 
+    // Constructor:
+    //   param1: extented adderess
+    //   param2: endpointId
+    //   param3: clusterId
     void JSZCluster::constructor(const v8::FunctionCallbackInfo<v8::Value> &info) {
         if (info.IsConstructCall()) {
             return;

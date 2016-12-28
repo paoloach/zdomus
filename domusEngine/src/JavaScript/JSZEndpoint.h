@@ -19,12 +19,13 @@
 namespace zigbee {
 
     class JSZDevice;
+    class JSZCluster;
 
     class JSZEndpoint {
     public:
         JSZEndpoint() = default;
 
-        JSZEndpoint(ZDevices* zDevices);
+        JSZEndpoint(ZDevices* zDevices, JSZCluster * jsZCluster);
 
         virtual ~JSZEndpoint() = default;
 
@@ -47,11 +48,17 @@ namespace zigbee {
 
         void static jsDeviceVersion(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> &info);
 
+        void static jsGetCluster(const v8::FunctionCallbackInfo<v8::Value> &info);
+
         static ExtAddress *getExtAddress(const v8::PropertyCallbackInfo<v8::Value> &info);
+        static ExtAddress *getExtAddress(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static ZDevices *getZDevices(const v8::PropertyCallbackInfo<v8::Value> &info);
 
         static uint32_t getEndpointId(const v8::PropertyCallbackInfo<v8::Value> &info);
+        static uint32_t getEndpointId(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+        static JSZEndpoint * getThis(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static ZDevices *getZDevices(const v8::FunctionCallbackInfo<v8::Value> &info);
 
@@ -68,6 +75,7 @@ namespace zigbee {
         ZDevices_P zDevices;
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
         std::map<ExtAddress, std::shared_ptr<ExtAddress> > usedExtAddresses;
+        JSZCluster * jsZCluster;
     };
 
 } /* namespace zigbee */

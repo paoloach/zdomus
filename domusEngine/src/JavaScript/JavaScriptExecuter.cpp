@@ -22,17 +22,18 @@ namespace zigbee {
     JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log) : log(log) {
 
         clusterTypeFactory = make_unique<ClusterTypeFactory>();
+        jsZCluster = make_unique<JSZCluster>(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), jsZAttributeFactory.get(),
+                                             clusterTypeFactory.get());
         jsRow = make_unique<JSRow>();
         jsDBTable = make_unique<JSDBTable>(dbTableFactory, jsRow.get(), log);
-        jsZEndpoint = make_unique<JSZEndpoint>(singletonObjects.getZDevices());
+        jsZEndpoint = make_unique<JSZEndpoint>(singletonObjects.getZDevices(),jsZCluster.get() );
         jsZEndpoints = make_unique<JSZEndpoints>(singletonObjects,jsZEndpoint.get());
         jsZDevice = make_unique<JSZDevice>(singletonObjects.getZDevices(), jsZEndpoint.get());
         jsLog = make_unique<JSLog>(log);
         jsRestServer = make_unique<JSRestServer>(singletonObjects.getFixedPathContainer(), log);
         jszDevices = make_unique<JSZDevices>(singletonObjects.getZDevices(), jsZDevice.get());
         jsZAttributeFactory = make_unique<JSZAttributeFactory>();
-        jsZCluster = make_unique<JSZCluster>(singletonObjects.getZDevices(), singletonObjects.getZigbeeDevice(), jsZAttributeFactory.get(),
-                                                  clusterTypeFactory.get());
+
         createParams.array_buffer_allocator = &v8Allocator;
         isolate = v8::Isolate::New(createParams);
 

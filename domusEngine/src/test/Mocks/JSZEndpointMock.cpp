@@ -8,13 +8,13 @@
 #include "JSZEndpointMock.h"
 
 namespace zigbee {
-namespace test {
+    namespace test {
 
-JSZEndpointMock::JSZEndpointMock() {
-}
+        JSZEndpointMock::JSZEndpointMock() {
+        }
 
-JSZEndpointMock::~JSZEndpointMock() {
-}
+        JSZEndpointMock::~JSZEndpointMock() {
+        }
 
-} /* namespace test */
+    } /* namespace test */
 } /* namespace zigbee */

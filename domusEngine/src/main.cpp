@@ -47,7 +47,7 @@ using namespace v8;
 
 void add1Demo(SingletonObjects  & singletons);
 
-void initV8(int argc, const char *argv[]) {
+void initV8(int , const char *argv[]) {
     V8::InitializeICUDefaultLocation(argv[0]);
  //   V8::InitializeExternalStartupData(argv[0]);
 
@@ -68,7 +68,7 @@ void initV8(int argc, const char *argv[]) {
     V8::Initialize();
 }
 
-void enableDemo(const variables_map &vm, SingletonObjects  & singletons){
+void enableDemo(const variables_map &vm, SingletonObjects  & ){
     if (vm.count(DEMO_DATA)) {
 //        add1Demo(singletons);
     }
