@@ -48,6 +48,8 @@ namespace zigbee {
 
         void static jsDeviceVersion(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> &info);
 
+        void static jsNetworkId(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> &info);
+
         void static jsGetCluster(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static ExtAddress *getExtAddress(const v8::PropertyCallbackInfo<v8::Value> &info);

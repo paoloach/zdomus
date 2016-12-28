@@ -41,6 +41,7 @@ static constexpr const char * ENDPOINT = "endpointId";
 static constexpr const char * PROFILEID = "profileId";
 static constexpr const char * DEVICEID = "deviceId";
 static constexpr const char * DEVICE_VERSION = "deviceVersion";
+static constexpr const char * NETWORK_ID = "networkId";
 // zEndpoint method
 static constexpr const char * GET_CLUSTER = "getCluster";
 

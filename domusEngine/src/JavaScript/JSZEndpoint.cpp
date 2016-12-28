@@ -30,6 +30,7 @@ namespace zigbee {
         Local<String> profileIdAttribute = String::NewFromUtf8(isolate, PROFILEID);
         Local<String> deviceIdAttribute = String::NewFromUtf8(isolate, DEVICEID);
         Local<String> deviceVersionAttribute = String::NewFromUtf8(isolate, DEVICE_VERSION);
+        Local<String> networkIdAttribute = String::NewFromUtf8(isolate, NETWORK_ID);
         // methods
         Local<String> getClusterMethod = String::NewFromUtf8(isolate, GET_CLUSTER);
 
@@ -47,6 +48,8 @@ namespace zigbee {
         zEndpoinInstanceTemplate->SetAccessor(deviceIdAttribute, jsDeviceId, nullptr, Handle<Value>(), ALL_CAN_READ,
                                               ReadOnly);
         zEndpoinInstanceTemplate->SetAccessor(deviceVersionAttribute, jsDeviceVersion, nullptr, Handle<Value>(),
+                                              ALL_CAN_READ, ReadOnly);
+        zEndpoinInstanceTemplate->SetAccessor(networkIdAttribute, jsDeviceVersion, nullptr, Handle<Value>(),
                                               ALL_CAN_READ, ReadOnly);
         zEndpoinInstanceTemplate->Set(getClusterMethod, FunctionTemplate::New(isolate, jsGetCluster));
         // functions
@@ -156,6 +159,13 @@ namespace zigbee {
     void JSZEndpoint::jsDeviceVersion(v8::Local<v8::String>, const v8::PropertyCallbackInfo<v8::Value> &info) {
         ZEndpoint zEndpoint = getZEndpoint(info);
         info.GetReturnValue().Set(zEndpoint.getAppDevVer());
+    }
+
+    void  JSZEndpoint::jsNetworkId(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> &info) {
+        ExtAddress *extAddress = getExtAddress(info);
+        ZDevices *zDevices = getZDevices(info);
+        auto zDevice = zDevices->getDevice(*extAddress);
+        info.GetReturnValue().Set(zDevice->getNwkAddr().getId());
     }
 
     ZEndpoint JSZEndpoint::getZEndpoint(const v8::PropertyCallbackInfo<v8::Value> &info) {
