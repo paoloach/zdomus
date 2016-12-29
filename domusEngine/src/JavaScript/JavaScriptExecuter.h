@@ -27,6 +27,7 @@
 #include "../Database/DBTableFactory.h"
 #include "../httpServer/FixedPathContainer.h"
 #include "V8Allocator.h"
+#include "GlobalJSFunctions.h"
 
 namespace zigbee {
 
@@ -67,12 +68,13 @@ namespace zigbee {
         JSLog jsLog;
         JSRow jsRow;
         JSZCluster jsZCluster;
-        JSZDevice jsZDevice;
-        JSZEndpoint jsZEndpoint;
-        JSZDevices jszDevices;
-        JSRestServer jsRestServer;
         JSDBTable jsDBTable;
+        JSZEndpoint jsZEndpoint;
         JSZEndpoints jsZEndpoints;
+        JSZDevice jsZDevice;
+        JSRestServer jsRestServer;
+        JSZDevices jszDevices;
+        GlobalJSFunctions globalJSFunctions;
 
     };
 

@@ -123,7 +123,7 @@ namespace zigbee {
             uint32_t clusterId = info[0]->ToUint32()->Value();
             ExtAddress *extAddress = getExtAddress(info);
             uint32_t endpointID = getEndpointId(info);
-            Local<Object> cluster = This->jsZCluster->createInstance(isolate, *extAddress, EndpointID{endpointID}, ClusterID{clusterId});
+            Local<Object> cluster = This->jsZCluster->createInstance(isolate, *extAddress, EndpointID{(int)endpointID}, ClusterID{(int)clusterId});
             info.GetReturnValue().Set(cluster);
 
         } catch (JSException &jsException) {
@@ -152,7 +152,7 @@ namespace zigbee {
         info.GetReturnValue().Set(zEndpoint.getAppDevVer());
     }
 
-    void JSZEndpoint::jsNetworkId(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> &info) {
+    void JSZEndpoint::jsNetworkId(v8::Local<v8::String> , const v8::PropertyCallbackInfo<v8::Value> &info) {
         ExtAddress *extAddress = getExtAddress(info);
         ZDevices *zDevices = getZDevices(info);
         auto zDevice = zDevices->getDevice(*extAddress);

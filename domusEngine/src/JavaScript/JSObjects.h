@@ -8,6 +8,10 @@
 #ifndef SRC_JAVASCRIPT_JSOBJECTS_H_
 #define SRC_JAVASCRIPT_JSOBJECTS_H_
 
+
+// Functions
+static constexpr const char * JSWAIT = "wait";
+
 // Objects
 static constexpr const char * JSZDEVICES = "zDevices";
 static constexpr const char * JSZDEVICE = "zDevice";

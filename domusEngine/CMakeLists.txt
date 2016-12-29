@@ -126,7 +126,16 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/Utils/AttributeWriterResult.h
         src/httpServer/ServerRequest.cpp
         src/httpServer/ServerRequest.h
-        src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp src/usb/DeviceInfoExecutor.h src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h src/httpServer/RestActions/ShowDeviceInfo.cpp src/httpServer/RestActions/ShowDeviceInfo.h src/Utils/Constant.cpp src/Utils/Constant.h src/usb/IEEEAddressResponseExecutor.h src/ZigbeeData/NewDeviceObserver.h src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h src/httpServer/RestActions/ShowTopology.cpp src/httpServer/RestActions/ShowTopology.h src/usb/UsbDemoData.cpp)
+        src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp
+        src/usb/DeviceInfoExecutor.h
+        src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
+        src/httpServer/RestActions/ShowDeviceInfo.cpp src/httpServer/RestActions/ShowDeviceInfo.h
+        src/Utils/Constant.cpp src/Utils/Constant.h
+        src/usb/IEEEAddressResponseExecutor.h
+        src/ZigbeeData/NewDeviceObserver.h
+        src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
+        src/httpServer/RestActions/ShowTopology.cpp src/httpServer/RestActions/ShowTopology.h
+        src/usb/UsbDemoData.cpp)
 
 
 add_library(javascript_lib OBJECT
@@ -146,7 +155,9 @@ add_library(javascript_lib OBJECT
         src/JavaScript/JSZEndpoint.cpp
         src/JavaScript/V8anyConverter.cpp
         src/JavaScript/V8Allocator.cpp
-        src/JavaScript/V8Allocator.h src/JavaScript/JSZEndpoints.cpp src/JavaScript/JSZEndpoints.h)
+        src/JavaScript/V8Allocator.h
+        src/JavaScript/JSZEndpoints.cpp src/JavaScript/JSZEndpoints.h
+        src/JavaScript/GlobalJSFunctions.cpp src/JavaScript/GlobalJSFunctions.h)
 
 add_library(domus_engine_static_lib STATIC
         ${USB_SRC}
@@ -189,6 +200,8 @@ add_library(domus_engine_static_lib STATIC
         src/httpServer/RestActions/ExecuteReset.h
         src/Utils/Clusters.cpp
         src/Utils/Clusters.h src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h)
+
+
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
 

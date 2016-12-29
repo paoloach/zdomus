@@ -53,6 +53,7 @@ namespace zigbee {
         jsRestServer.initJsObjectsTemplate(isolate, contextGlobal);
         jsRow.initJsObjectsTemplate(isolate, contextGlobal);
         jsDBTable.initJsObjectsTemplate(isolate, contextGlobal);
+        globalJSFunctions.initFunctions(isolate, contextGlobal);
         context.Reset(isolate, lContext);
     }
 
