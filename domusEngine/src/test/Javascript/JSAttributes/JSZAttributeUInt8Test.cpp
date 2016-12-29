@@ -23,7 +23,7 @@ namespace zigbee {
 
         void JSZAttributeUInt8Test::SetUp() {
             JSTest::SetUp();
-            jsZAttribute = std::make_shared<JSZAttributeUint8>(&singletonObjectsMock);
+            jsZAttribute = std::make_shared<JSZAttributeUint8>(&singletonObjectsMock, fifo);
             zclUint8AttributeMock = std::make_shared<ZCLUint8AttributeMock>();
             zAttributeVariable = createZAttributeVariable("Z" + ZCLUint8AttributeMock::name());
             EXPECT_CALL(*zclUint8AttributeMock, getZCLType()).Times(AnyNumber()).WillOnce(

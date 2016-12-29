@@ -23,7 +23,7 @@ namespace zigbee {
 
         void JSZAttributeBooleanTest::SetUp() {
             JSTest::SetUp();
-            jsZAttribute = std::make_shared<JSZAttributeBool>(&singletonObjectsMock);
+            jsZAttribute = std::make_shared<JSZAttributeBool>(&singletonObjectsMock, fifo);
             zcl_boolean_AttributeMock = std::make_shared<ZCL_boolean_AttributeMock>();
             zAttributeVariable = createZAttributeVariable("Z" + ZCL_boolean_Attribute::name());
             EXPECT_CALL(*zcl_boolean_AttributeMock, getZCLType()).Times(AnyNumber()).WillOnce(

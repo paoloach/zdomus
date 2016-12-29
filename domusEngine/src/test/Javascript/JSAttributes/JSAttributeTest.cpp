@@ -178,38 +178,38 @@ namespace zigbee {
             ASSERT_THAT(result->IsUndefined(), true);
         }
 
-        void JSAttributeTest::requestValueWithCallbackTest(std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock,
-                                                           Callbacks &changeSignal) {
-            ZDevice zDevice{createZDevice()};
-            std::stringstream stream;
-            stream << "var f = function (){\n";
-            stream << "    var log = Log();\n";
-            stream << "    log.info('callback called')";
-            stream << "};";
-            stream << zAttributeVariable << "a.requestValue(f);";
-            V8_SETUP
-            jsZAttribute->initJsObjectsTemplate(isolate, global);
-            jsLog->initJsObjectsTemplate(isolate, global);
-
-            setInitExpectation(zDevice, attributeMock);
-
-            TryCatch tryCatch;
-            v8::Local<v8::Value> result = runScript(stream.str());
-            if (tryCatch.HasCaught()) {
-                String::Utf8Value value(tryCatch.Message()->Get());
-            }
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUndefined(), true);
-
-            changeSignal();
-
-            result = runScript("");
-
-            ASSERT_THAT(log.empty(), false);
-            Log::LogData logData = log.get();
-            ASSERT_THAT(logData.msg, StrEq("callback called"));
-            ASSERT_THAT(log.empty(), true);
-        }
+//        void JSAttributeTest::requestValueWithCallbackTest(std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock,
+//                                                           Callbacks &changeSignal) {
+//            ZDevice zDevice{createZDevice()};
+//            std::stringstream stream;
+//            stream << "var f = function (){\n";
+//            stream << "    var log = Log();\n";
+//            stream << "    log.info('callback called')";
+//            stream << "};";
+//            stream << zAttributeVariable << "a.requestValue(f);";
+//            V8_SETUP
+//            jsZAttribute->initJsObjectsTemplate(isolate, global);
+//            jsLog->initJsObjectsTemplate(isolate, global);
+//
+//            setInitExpectation(zDevice, attributeMock);
+//
+//            TryCatch tryCatch;
+//            v8::Local<v8::Value> result = runScript(stream.str());
+//            if (tryCatch.HasCaught()) {
+//                String::Utf8Value value(tryCatch.Message()->Get());
+//            }
+//            ASSERT_THAT(result.IsEmpty(), false);
+//            ASSERT_THAT(result->IsUndefined(), true);
+//
+//            changeSignal();
+//
+//            result = runScript("");
+//
+//            ASSERT_THAT(log.empty(), false);
+//            Log::LogData logData = log.get();
+//            ASSERT_THAT(logData.msg, StrEq("callback called"));
+//            ASSERT_THAT(log.empty(), true);
+//        }
 
         void JSAttributeTest::requestValueWithCallbackTestOnlyFirstTime(std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock,
                                                                         Callbacks &changeSignal) {

@@ -10,8 +10,8 @@
 
 namespace zigbee {
     namespace test {
-
-        JSZAttributeMock::JSZAttributeMock() : JSZAttribute(nullptr, ZCLTypeDataType::ZCLTypeInvalid) {
+        static JSCallbackFifo fifo;
+        JSZAttributeMock::JSZAttributeMock() : JSZAttribute(nullptr, fifo, ZCLTypeDataType::ZCLTypeInvalid) {
 
         }
 

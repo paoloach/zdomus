@@ -39,7 +39,7 @@ namespace zigbee {
             ZDevice createZDevice();
             void setInitExpectation(ZDevice &zDevice, const std::shared_ptr<ZCLAttribute> &attributeMock);
             std::string createZAttributeVariable(const std::string &attributeName);
-
+            JSCallbackFifo fifo;
 
         };
 

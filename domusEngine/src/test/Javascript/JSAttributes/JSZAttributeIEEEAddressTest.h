@@ -13,21 +13,24 @@
 
 namespace zigbee {
 
-class JSZAttribute;
-namespace test {
+    class JSZAttribute;
+    namespace test {
 
-class JSZAttributeIEEEAddressTest : public JSAttributeTest{
-public:
-	virtual ~JSZAttributeIEEEAddressTest();
-protected:
-	virtual void SetUp() override;
-	virtual void TearDown() override;
-protected:
-	std::shared_ptr<JSZAttribute> jsZAttribute;
-	std::shared_ptr<ZCLIEEEAddressAttributeMock> zclIEEEAddressAttributeMock;
-};
+        class JSZAttributeIEEEAddressTest : public JSAttributeTest {
+        public:
+            virtual ~JSZAttributeIEEEAddressTest()=default;
 
-} /* namespace test */
+        protected:
+            virtual void SetUp() override;
+
+            virtual void TearDown() override;
+
+        protected:
+            std::shared_ptr<JSZAttribute> jsZAttribute;
+            std::shared_ptr<ZCLIEEEAddressAttributeMock> zclIEEEAddressAttributeMock;
+        };
+
+    } /* namespace test */
 } /* namespace zigbee */
 
 #endif /* SRC_TEST_JAVASCRIPT_JSATTRIBUTES_JSZATTRIBUTEIEEEADDRESSTEST_H_ */
