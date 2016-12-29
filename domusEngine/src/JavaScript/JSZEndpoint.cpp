@@ -43,7 +43,7 @@ namespace zigbee {
         zEndpoinInstanceTemplate->SetAccessor(profileIdAttribute, jsProfileId, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
         zEndpoinInstanceTemplate->SetAccessor(deviceIdAttribute, jsDeviceId, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
         zEndpoinInstanceTemplate->SetAccessor(deviceVersionAttribute, jsDeviceVersion, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
-        zEndpoinInstanceTemplate->SetAccessor(networkIdAttribute, jsDeviceVersion, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
+        zEndpoinInstanceTemplate->SetAccessor(networkIdAttribute, jsNetworkId, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
         zEndpoinInstanceTemplate->Set(getClusterMethod, FunctionTemplate::New(isolate, jsGetCluster));
         // functions
         global->Set(jszEndpointClassName, zEndpoinFunctionTemplate->GetFunction());
