@@ -12,12 +12,14 @@
 
 namespace zigbee {
 
-class JSExceptionArgNoInteger: public JSException {
-public:
-	JSExceptionArgNoInteger(const std::string & instanceName, uint32_t argumentIndex);
-	JSExceptionArgNoInteger(const std::string & methodName);
-	virtual ~JSExceptionArgNoInteger();
-};
+    class JSExceptionArgNoInteger : public JSException {
+    public:
+        JSExceptionArgNoInteger(std::string &instanceName, uint32_t argumentIndex);
+
+        JSExceptionArgNoInteger(const std::string &methodName);
+
+        virtual ~JSExceptionArgNoInteger()=default;
+    };
 
 } /* namespace zigbee */
 

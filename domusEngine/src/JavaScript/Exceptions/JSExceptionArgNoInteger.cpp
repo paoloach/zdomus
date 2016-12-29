@@ -5,23 +5,15 @@
  *      Author: Paolo Achdjian
  */
 
-#include <sstream>
 #include "JSExceptionArgNoInteger.h"
 
 namespace zigbee {
+    JSExceptionArgNoInteger::JSExceptionArgNoInteger(std::string &instanceName, uint32_t argumentIndex) {
+        message = "Unable to create an instance of " + instanceName + " because the argument " + std::to_string(argumentIndex) + " must be an signed integer";
+    }
 
-JSExceptionArgNoInteger::JSExceptionArgNoInteger(const std::string& instanceName, uint32_t argumentIndex) {
-	std::stringstream stream;
-	stream << "Unable to create an instance of " << instanceName << " because the argument " << argumentIndex << " must be an signed integer";
-	message = stream.str();
-}
-
-JSExceptionArgNoInteger::~JSExceptionArgNoInteger() {
-}
-zigbee::JSExceptionArgNoInteger::JSExceptionArgNoInteger(const std::string & methodName) {
-	std::stringstream stream;
-	stream << "Invalid parameter: is request a signed integer to assign to attribute " << methodName;
-	message = stream.str();
-}
+    zigbee::JSExceptionArgNoInteger::JSExceptionArgNoInteger(const std::string &methodName) {
+        message = "Invalid parameter: is request a signed integer to assign to attribute " + methodName;
+    }
 
 } /* namespace zigbee */
