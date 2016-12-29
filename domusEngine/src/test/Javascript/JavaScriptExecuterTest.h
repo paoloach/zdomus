@@ -22,7 +22,7 @@ namespace zigbee {
 
         class JavaScriptExecuterTest : public testing::Test {
         public:
-            virtual ~JavaScriptExecuterTest();
+            virtual ~JavaScriptExecuterTest()=default;
 
         protected:
             virtual void SetUp() override;
@@ -36,7 +36,7 @@ namespace zigbee {
             SingletonObjectsMock singletonObjects;
             ClustersMock clustersMock;
             std::unique_ptr<ZDevicesMock> zDevices;
-            std::shared_ptr<JavaScriptExecuter> jsExecuter;
+            std::unique_ptr<JavaScriptExecuter> jsExecuter;
             ExtAddress extAddress;
             std::shared_ptr<http::FixedPathContainer> fixedPathContainer;
         };

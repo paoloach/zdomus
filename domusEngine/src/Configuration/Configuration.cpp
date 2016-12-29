@@ -24,12 +24,12 @@ namespace zigbee {
             read_xml(config, configuration);
             auto javascripts = configuration.equal_range(JAVASCRIPT_NAME);
             for (; javascripts.first != javascripts.second; javascripts.first++) {
-                auto js = std::make_shared<JavaScriptData>(javascripts.first->second);
-                if (js->hasError()){
-                    BOOST_LOG_TRIVIAL(error) << "The configuration " << js->getName() << " has error and is skipped";
+                JavaScriptData js(javascripts.first->second);
+                if (js.hasError()){
+                    BOOST_LOG_TRIVIAL(error) << "The configuration " << js.getName() << " has error and is skipped";
                 } else {
-                    BOOST_LOG_TRIVIAL(info) << "Added configuraion " << js->getName();
-                    jsDatas.insert({js->getName(), js});
+                    BOOST_LOG_TRIVIAL(info) << "Added configuraion " << js.getName();
+                    jsDatas.insert({js.getName(), js});
                 }
             }
         } catch (const ptree_error &e) {

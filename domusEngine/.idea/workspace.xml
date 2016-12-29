@@ -26,19 +26,18 @@
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" afterPath="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/readTemperatures.js" afterPath="$PROJECT_DIR$/configuration/readTemperatures.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Configuration/Configuration.cpp" afterPath="$PROJECT_DIR$/src/Configuration/Configuration.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Configuration/Configuration.h" afterPath="$PROJECT_DIR$/src/Configuration/Configuration.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSManager.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSManager.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Configuration/ConfigurationTest.cpp" afterPath="$PROJECT_DIR$/src/test/Configuration/ConfigurationTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h" />
     </list>
     <list id="6d7fd051-39e6-4a54-8d96-2f07f7972514" name="googletest" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" afterPath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" />
@@ -10905,102 +10904,88 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="JSZAttributeIEEEAddressTest.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp">
+      <file leaf-file-name="JavaScriptExecuter.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="22" column="96" lean-forward="false" selection-start-line="22" selection-start-column="90" selection-end-line="22" selection-end-column="96" />
+            <state relative-caret-position="430">
+              <caret line="100" column="54" lean-forward="false" selection-start-line="100" selection-start-column="54" selection-end-line="100" selection-end-column="54" />
+              <folding>
+                <element signature="e#96#128#0" expanded="true" />
+                <marker date="1483034750756" expanded="true" signature="3224:3714" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JSZAttribute.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="559">
+              <caret line="160" column="60" lean-forward="false" selection-start-line="160" selection-start-column="60" selection-end-line="160" selection-end-column="60" />
+              <folding>
+                <marker date="1483034730357" expanded="true" signature="748:14259" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="1463:1728" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="1909:3425" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="3514:3684" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="3812:4391" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="4477:5501" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="5602:5809" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="8007:8228" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="8342:9139" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="9227:9713" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="9803:10291" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="10377:10999" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="11089:11577" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="11661:12219" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="12306:12791" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="12835:12876" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="13076:13994" ph="{...}" />
+                <marker date="1483034730357" expanded="true" signature="14065:14256" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JSZAttribute.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="433">
+              <caret line="103" column="17" lean-forward="false" selection-start-line="103" selection-start-column="17" selection-end-line="103" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JSZAttribute8BitBitmapTest.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp">
+      <file leaf-file-name="JSCallbackFifo.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="27" column="95" lean-forward="false" selection-start-line="27" selection-start-column="95" selection-end-line="27" selection-end-column="95" />
+            <state relative-caret-position="448">
+              <caret line="32" column="43" lean-forward="false" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
+              <folding>
+                <element signature="e#117#132#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="domusEngine.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/configuration/domusEngine.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JSZAttributeBooleanTest.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp">
+      <file leaf-file-name="readTemperatures.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/configuration/readTemperatures.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="25" column="89" lean-forward="false" selection-start-line="25" selection-start-column="89" selection-end-line="25" selection-end-column="89" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZAttributeInt16Test.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="25" column="90" lean-forward="false" selection-start-line="25" selection-start-column="90" selection-end-line="25" selection-end-column="90" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZAttributeStringTest.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="26" column="91" lean-forward="false" selection-start-line="26" selection-start-column="91" selection-end-line="26" selection-end-column="91" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZAttributeUInt8Test.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="25" column="90" lean-forward="false" selection-start-line="25" selection-start-column="90" selection-end-line="25" selection-end-column="90" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZAttributeUInt16Test.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="114" column="12" lean-forward="false" selection-start-line="114" selection-start-column="12" selection-end-line="114" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZAttributeUInt24Test.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="25" column="91" lean-forward="false" selection-start-line="25" selection-start-column="91" selection-end-line="25" selection-end-column="91" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSAttributeTest.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="213" column="66" lean-forward="false" selection-start-line="213" selection-start-column="66" selection-end-line="213" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZAttribute8BitEnumTest.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="25" column="93" lean-forward="false" selection-start-line="25" selection-start-column="93" selection-end-line="25" selection-end-column="93" />
-              <folding />
+            <state relative-caret-position="392">
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#40#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -11016,7 +11001,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>DataDemo</find>
       <find>std::shared_ptr&lt;ZigbeeDevice&gt;</find>
       <find>Request active endpons</find>
       <find>stream</find>
@@ -11046,6 +11030,7 @@
       <find>zDevices, zigbeeDevice, clusterFactory</find>
       <find>singletonObjects</find>
       <find>event</find>
+      <find>make_shared&lt;JavaScriptExecuter&gt;(singletonObjects, log);</find>
     </findStrings>
     <replaceStrings>
       <replace>EXPECT_CALL(clustersMock</replace>
@@ -11056,6 +11041,7 @@
       <replace>jsEndpoint</replace>
       <replace>zDevices</replace>
       <replace>singletonObjects</replace>
+      <replace>make_unique&lt;JavaScriptExecuter&gt;(singletonObjects,seconds(10), log);</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -11064,17 +11050,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptData.cpp" />
-        <option value="$PROJECT_DIR$/src/Configuration/Configuration.cpp" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSManager.h" />
-        <option value="$PROJECT_DIR$/configuration/test.js" />
         <option value="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSTest.h" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h" />
-        <option value="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" />
         <option value="/usr/local/zigbee/include/zigbee/messageStructure/AttributeValue.h" />
         <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
         <option value="$PROJECT_DIR$/src/Database/DBTable.cpp" />
@@ -11088,20 +11068,14 @@
         <option value="$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSObjects.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/GlobalJSFunctions.h" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/GlobalJSFunctions.cpp" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributes/JSZAttributeTemplate.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZAttributeFactory.cpp" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSLog.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZCluster.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp" />
-        <option value="$PROJECT_DIR$/configuration/readTemperatures.js" />
         <option value="$PROJECT_DIR$/src/test/Mocks/JSZAttributeMock.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.h" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h" />
@@ -11115,6 +11089,18 @@
         <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" />
+        <option value="$PROJECT_DIR$/src/Configuration/Configuration.h" />
+        <option value="$PROJECT_DIR$/src/Configuration/Configuration.cpp" />
+        <option value="$PROJECT_DIR$/src/test/Configuration/ConfigurationTest.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSManager.h" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h" />
+        <option value="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h" />
+        <option value="$PROJECT_DIR$/configuration/readTemperatures.js" />
       </list>
     </option>
   </component>
@@ -11410,6 +11396,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Configuration" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="JavaScript" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -11429,6 +11437,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Database" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Configuration" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -11484,15 +11510,7 @@
       <recent name="/usr/local/zigbee/include/zigbee/messageStructure" />
     </key>
   </component>
-  <component name="RunManager" selected="Google Test.DomusEngineTest">
-    <configuration default="false" name="All in JSDBTableTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JSDBTableTest" TEST_MODE="SUITE_TEST">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="JSDeviceTest::getEndpoints" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JSDeviceTest" TEST_METHOD="getEndpoints" TEST_MODE="SUITE_TEST">
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Application.domus_engine">
     <configuration default="false" name="All in JSEndpointsTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JSEndpointsTest" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
@@ -11502,6 +11520,14 @@
       <method />
     </configuration>
     <configuration default="false" name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JavaScriptExecuterTest" TEST_METHOD="creating_attribute_ZCL_uint8" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="All in JavaScriptExecuterTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JavaScriptExecuterTest" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8_log_type_two_time" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JavaScriptExecuterTest" TEST_METHOD="creating_attribute_ZCL_uint8_log_type_two_time" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
     </configuration>
@@ -11716,19 +11742,19 @@
       <item index="5" class="java.lang.String" itemvalue="Application.release" />
       <item index="6" class="java.lang.String" itemvalue="Application.javascript_lib" />
       <item index="7" class="java.lang.String" itemvalue="Google Test.DomusEngineTest" />
-      <item index="8" class="java.lang.String" itemvalue="Google Test.All in JSDBTableTest" />
-      <item index="9" class="java.lang.String" itemvalue="Google Test.JSDeviceTest::getEndpoints" />
-      <item index="10" class="java.lang.String" itemvalue="Google Test.All in JSEndpointsTest" />
-      <item index="11" class="java.lang.String" itemvalue="Google Test.JSEndpointTest.getCluster" />
-      <item index="12" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.creating_attribute_ZCL_uint8" />
+      <item index="8" class="java.lang.String" itemvalue="Google Test.All in JSEndpointsTest" />
+      <item index="9" class="java.lang.String" itemvalue="Google Test.JSEndpointTest.getCluster" />
+      <item index="10" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.creating_attribute_ZCL_uint8" />
+      <item index="11" class="java.lang.String" itemvalue="Google Test.All in JavaScriptExecuterTest" />
+      <item index="12" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.creating_attribute_ZCL_uint8_log_type_two_time" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.creating_attribute_ZCL_uint8" />
-        <item index="1" class="java.lang.String" itemvalue="Google Test.JSEndpointTest.getCluster" />
-        <item index="2" class="java.lang.String" itemvalue="Google Test.All in JSEndpointsTest" />
-        <item index="3" class="java.lang.String" itemvalue="Google Test.JSDeviceTest::getEndpoints" />
-        <item index="4" class="java.lang.String" itemvalue="Google Test.All in JSDBTableTest" />
+        <item index="0" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.creating_attribute_ZCL_uint8_log_type_two_time" />
+        <item index="1" class="java.lang.String" itemvalue="Google Test.All in JavaScriptExecuterTest" />
+        <item index="2" class="java.lang.String" itemvalue="Google Test.JavaScriptExecuterTest.creating_attribute_ZCL_uint8" />
+        <item index="3" class="java.lang.String" itemvalue="Google Test.JSEndpointTest.getCluster" />
+        <item index="4" class="java.lang.String" itemvalue="Google Test.All in JSEndpointsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -11802,14 +11828,7 @@
       <workItem from="1481918146338" duration="1028000" />
       <workItem from="1482688637569" duration="37198000" />
       <workItem from="1482842234225" duration="23322000" />
-      <workItem from="1482919396941" duration="40801000" />
-    </task>
-    <task id="LOCAL-00028" summary="Split the usb message response in classes, each for every response type">
-      <created>1462864060601</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1462864060601</updated>
+      <workItem from="1482919396941" duration="47037000" />
     </task>
     <task id="LOCAL-00029" summary="reformatted">
       <created>1462864144904</created>
@@ -12147,43 +12166,50 @@
       <option name="project" value="LOCAL" />
       <updated>1483015676314</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="fix tests">
+      <created>1483016987662</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1483016987663</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DomusEngineTest - 2016.12.28 at 14h 34m 15s.xml">
+    <history-entry file="All_in_JavaScriptExecuterTest - 2016.12.29 at 18h 51m 21s.xml">
+      <configuration name="All in JavaScriptExecuterTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="All_in_JavaScriptExecuterTest - 2016.12.29 at 18h 52m 00s.xml">
+      <configuration name="All in JavaScriptExecuterTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="All_in_JavaScriptExecuterTest - 2016.12.29 at 18h 53m 21s.xml">
+      <configuration name="All in JavaScriptExecuterTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="DomusEngineTest - 2016.12.29 at 18h 57m 33s.xml">
       <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DomusEngineTest - 2016.12.28 at 14h 35m 47s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="DomusEngineTest - 2016.12.28 at 14h 36m 42s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="DomusEngineTest - 2016.12.29 at 08h 52m 36s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="DomusEngineTest - 2016.12.29 at 14h 06m 06s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="DomusEngineTest - 2016.12.29 at 14h 07m 55s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="DomusEngineTest - 2016.12.29 at 14h 09m 26s.xml">
-      <configuration name="DomusEngineTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.28 at 14h 20m 15s.xml">
+    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.29 at 18h 45m 19s.xml">
       <configuration name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.28 at 14h 24m 32s.xml">
+    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.29 at 18h 46m 52s.xml">
       <configuration name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.28 at 14h 34m 08s.xml">
+    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.29 at 18h 47m 53s.xml">
       <configuration name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8 - 2016.12.29 at 18h 49m 29s.xml">
+      <configuration name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8_log_type_two_time - 2016.12.29 at 18h 54m 05s.xml">
+      <configuration name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8_log_type_two_time" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JavaScriptExecuterTest_creating_attribute_ZCL_uint8_log_type_two_time - 2016.12.29 at 18h 57m 02s.xml">
+      <configuration name="JavaScriptExecuterTest.creating_attribute_ZCL_uint8_log_type_two_time" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="357630000" />
+    <option name="totallyTimeSpent" value="363866000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -12205,7 +12231,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3259177" sideWeight="0.5176968" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34149054" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34149054" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2769744" sideWeight="0.48526317" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24052632" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -12246,7 +12272,6 @@
     <MESSAGE value="quality management" />
     <MESSAGE value="remove zigbee requestDevices" />
     <MESSAGE value="Remove some not more use files" />
-    <MESSAGE value="fix tests" />
     <MESSAGE value="cland-tidy" />
     <MESSAGE value="Topology test" />
     <MESSAGE value="Refactoring&#10;fix" />
@@ -12264,14 +12289,22 @@
     <MESSAGE value="reformatting" />
     <MESSAGE value="Add javascript global function wait" />
     <MESSAGE value="fix some issues about js callback function" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix some issues about js callback function" />
+    <MESSAGE value="fix tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp</url>
+          <line>93</line>
+          <option name="timeStamp" value="261" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="261" />
+      <option name="time" value="266" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeGoogleTestRunConfigurationType">
@@ -12286,61 +12319,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSRow.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="31" column="68" lean-forward="true" selection-start-line="31" selection-start-column="68" selection-end-line="31" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/postgresql/libpq-fe.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="377" column="17" lean-forward="false" selection-start-line="377" selection-start-column="17" selection-end-line="377" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZDevices.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="44" column="42" lean-forward="false" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="42" />
-          <folding>
-            <marker date="1482836816584" expanded="false" signature="97:173" ph="..." />
-            <marker date="1482836816584" expanded="true" signature="236:5068" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="361:368" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="444:452" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="547:843" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="929:1881" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="1968:2145" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="2232:2409" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="2500:2859" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="2949:3067" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="3152:3581" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="3695:3908" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="3947:3988" ph="{...}" />
-            <marker date="1482836816584" expanded="true" signature="4072:5065" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZEndpoint.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="54" column="90" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/Exceptions/JSExceptionOnlyOneArgument.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/Exceptions/JSExceptionOnlyOneArgument.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -12469,28 +12447,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="19" column="46" lean-forward="false" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
-          <folding>
-            <element signature="e#117#132#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/configuration/temperature.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
           <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/configuration/domusEngine.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -12545,16 +12505,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configuration/readTemperatures.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="14" column="36" lean-forward="false" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JSDBTable.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
@@ -12571,70 +12521,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="171" column="0" lean-forward="false" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
-          <folding>
-            <element signature="e#90#109#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptData.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="16" column="10" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSManager.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="53" column="41" lean-forward="false" selection-start-line="53" selection-start-column="41" selection-end-line="53" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="15" selection-end-line="82" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="112" column="16" lean-forward="false" selection-start-line="112" selection-start-column="8" selection-end-line="112" selection-end-column="16" />
-          <folding>
-            <element signature="e#96#128#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSManager.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="22" column="56" lean-forward="false" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Utils/SingletonObjects.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
           <caret line="54" column="51" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="45" column="8" lean-forward="false" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -12663,14 +12553,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="22" column="96" lean-forward="false" selection-start-line="22" selection-start-column="90" selection-end-line="22" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -12679,42 +12561,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp">
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="27" column="95" lean-forward="false" selection-start-line="27" selection-start-column="95" selection-end-line="27" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="25" column="89" lean-forward="false" selection-start-line="25" selection-start-column="89" selection-end-line="25" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="25" column="90" lean-forward="false" selection-start-line="25" selection-start-column="90" selection-end-line="25" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="26" column="91" lean-forward="false" selection-start-line="26" selection-start-column="91" selection-end-line="26" selection-end-column="91" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="25" column="90" lean-forward="false" selection-start-line="25" selection-start-column="90" selection-end-line="25" selection-end-column="90" />
+        <state relative-caret-position="103">
+          <caret line="213" column="66" lean-forward="false" selection-start-line="213" selection-start-column="66" selection-end-line="213" selection-end-column="66" />
           <folding />
         </state>
       </provider>
@@ -12735,11 +12585,197 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="213" column="66" lean-forward="false" selection-start-line="213" selection-start-column="66" selection-end-line="213" selection-end-column="66" />
+        <state relative-caret-position="308">
+          <caret line="25" column="90" lean-forward="false" selection-start-line="25" selection-start-column="90" selection-end-line="25" selection-end-column="90" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="26" column="91" lean-forward="false" selection-start-line="26" selection-start-column="91" selection-end-line="26" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="25" column="90" lean-forward="false" selection-start-line="25" selection-start-column="90" selection-end-line="25" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="25" column="89" lean-forward="false" selection-start-line="25" selection-start-column="89" selection-end-line="25" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="27" column="95" lean-forward="false" selection-start-line="27" selection-start-column="95" selection-end-line="27" selection-end-column="95" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="22" column="96" lean-forward="false" selection-start-line="22" selection-start-column="90" selection-end-line="22" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Configuration/Configuration.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="23" column="55" lean-forward="false" selection-start-line="23" selection-start-column="55" selection-end-line="23" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Configuration/Configuration.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="31" column="39" lean-forward="false" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Configuration/ConfigurationTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptData.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="31" column="48" lean-forward="true" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSManager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSManager.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="43" column="40" lean-forward="true" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="50" column="15" lean-forward="false" selection-start-line="50" selection-start-column="15" selection-end-line="50" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="24" column="53" lean-forward="false" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="155" column="0" lean-forward="true" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="103" column="17" lean-forward="false" selection-start-line="103" selection-start-column="17" selection-end-line="103" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="559">
+          <caret line="160" column="60" lean-forward="false" selection-start-line="160" selection-start-column="60" selection-end-line="160" selection-end-column="60" />
+          <folding>
+            <marker date="1483034730357" expanded="true" signature="748:14259" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="1463:1728" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="1909:3425" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="3514:3684" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="3812:4391" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="4477:5501" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="5602:5809" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="8007:8228" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="8342:9139" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="9227:9713" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="9803:10291" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="10377:10999" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="11089:11577" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="11661:12219" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="12306:12791" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="12835:12876" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="13076:13994" ph="{...}" />
+            <marker date="1483034730357" expanded="true" signature="14065:14256" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="100" column="54" lean-forward="false" selection-start-line="100" selection-start-column="54" selection-end-line="100" selection-end-column="54" />
+          <folding>
+            <element signature="e#96#128#0" expanded="true" />
+            <marker date="1483034750756" expanded="true" signature="3224:3714" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="32" column="43" lean-forward="false" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
+          <folding>
+            <element signature="e#117#132#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configuration/domusEngine.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configuration/readTemperatures.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

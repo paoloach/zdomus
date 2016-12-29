@@ -158,9 +158,9 @@ namespace zigbee {
     }
 
     void
-    JSZAttribute::changeSignalCallback(v8::Isolate *, int identity, JsCallbackParameters callbackParameters) {
+    JSZAttribute::changeSignalCallback(v8::Isolate * isolate, int identity, JsCallbackParameters callbackParameters) {
         if (mapFunction.count(identity) > 0) {
-            callbackFifo.add([identity,callbackParameters,this] (v8::Isolate * isolate){this->jsCallback(identity, callbackParameters, isolate);});
+            callbackFifo.add(isolate, [identity,callbackParameters,this] (v8::Isolate * isolate){this->jsCallback(identity, callbackParameters, isolate);});
         }
     }
 

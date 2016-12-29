@@ -21,36 +21,28 @@ namespace zigbee {
 
     JSManager::JSManager(SingletonObjects &singletonObjects) {
         for (const auto &js : singletonObjects.getConfiguration()->getJavascriptData()) {
-            auto task = std::make_shared<Task>(singletonObjects, js.second);
-            tasks.insert({js.second, task});
+            auto task = std::make_unique<Task>(singletonObjects, js.second);
+            tasks.push_back(std::move(task));
         }
 
     }
 
-    JSManager::Task::Task(SingletonObjects &singletonObjects, const std::shared_ptr<JavaScriptData> &js) :
-            timer(singletonObjects.getIO(), js->getPeriod()), js(js), jsExecuter(singletonObjects, log) {
-        jsExecuter.notificationEnd(boost::bind(&Task::endJS, this));
-
-        jsExecuter.run(js->getCode());
+    JSManager::Task::Task(SingletonObjects &singletonObjects, const JavaScriptData &js) : js(js), jsExecuter(singletonObjects, js.getPeriod(), log) {
+        jsExecuter.run(js.getCode());
     }
 
-    void JSManager::Task::endJS() {
-        timer.expires_from_now(js->getPeriod());
-        timer.async_wait(boost::bind(&Task::timerHandler, this, boost::asio::placeholders::error));
-    }
-
-    void JSManager::Task::timerHandler(const error_code &) {
-        jsExecuter.join();
-        Log::LogData logData = log.get();
-        if (!logData.msg.empty())
-            BOOST_LOG_TRIVIAL(info) << js->getName() << ":" << logData.msg;
-        while (!logData.msg.empty()) {
-            logData = log.get();
-            if (!logData.msg.empty())
-                BOOST_LOG_TRIVIAL(info) << js->getName() << ":" << logData.msg;
-        }
-        BOOST_LOG_TRIVIAL(info) << "executing " << js->getName();
-        jsExecuter.run(js->getCode());
-    }
+//    void JSManager::Task::timerHandler(const error_code &) {
+//        jsExecuter.join();
+//        Log::LogData logData = log.get();
+//        if (!logData.msg.empty())
+//            BOOST_LOG_TRIVIAL(info) << js.getName() << ":" << logData.msg;
+//        while (!logData.msg.empty()) {
+//            logData = log.get();
+//            if (!logData.msg.empty())
+//                BOOST_LOG_TRIVIAL(info) << js.getName() << ":" << logData.msg;
+//        }
+//        BOOST_LOG_TRIVIAL(info) << "executing " << js.getName();
+//        jsExecuter.run(js.getCode());
+//    }
 
 } /* namespace zigbee */

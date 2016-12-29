@@ -33,15 +33,10 @@ namespace zigbee {
     private:
         class Task {
         public:
-            Task(SingletonObjects &singletonObjects, const std::shared_ptr<JavaScriptData> &js);
-
-            void timerHandler(const boost::system::error_code &error);
-
-            void endJS();
+            Task(SingletonObjects &singletonObjects, const JavaScriptData &js);
 
             Log log;
-            boost::asio::deadline_timer timer;
-            std::shared_ptr<JavaScriptData> js;
+            const JavaScriptData & js;
             JavaScriptExecuter jsExecuter;
         };
 
@@ -51,7 +46,7 @@ namespace zigbee {
         virtual ~JSManager() = default;
 
     private:
-        std::map<std::shared_ptr<JavaScriptData>, std::shared_ptr<Task>> tasks;
+        std::vector<std::unique_ptr<Task>> tasks;
     };
 
 } /* namespace zigbee */

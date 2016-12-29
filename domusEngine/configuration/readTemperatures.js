@@ -28,9 +28,6 @@ if (endpoints.length > 0 ) {
         log.info("Requesting temp");
         temp.requestValue(fnReq);
     }
-    log.info("waiting for 5 seconds");
-    var a = wait(5000);
-
 }
 
 

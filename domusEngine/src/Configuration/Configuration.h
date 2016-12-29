@@ -21,12 +21,12 @@ class Configuration {
 public:
 	Configuration(std::istream & config);
 public:
-	const std::multimap< std::string,std::shared_ptr<JavaScriptData>> & getJavascriptData() const{
+	const std::multimap< std::string,JavaScriptData> & getJavascriptData() const{
 		return jsDatas;
 	}
 private:
 	boost::property_tree::ptree configuration;
-	std::multimap< std::string, std::shared_ptr<JavaScriptData> > jsDatas;
+	std::multimap< std::string, JavaScriptData > jsDatas;
 };
 
 } /* namespace zigbee */
