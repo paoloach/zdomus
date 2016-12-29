@@ -28,6 +28,7 @@
 #include "../httpServer/FixedPathContainer.h"
 #include "V8Allocator.h"
 #include "GlobalJSFunctions.h"
+#include "JSCallbackFifo.h"
 
 namespace zigbee {
 
@@ -75,6 +76,7 @@ namespace zigbee {
         JSRestServer jsRestServer;
         JSZDevices jszDevices;
         GlobalJSFunctions globalJSFunctions;
+        JSCallbackFifo callbackFifo;
 
     };
 

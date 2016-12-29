@@ -18,6 +18,7 @@
 #include "v8.h"
 #include "../ZigbeeData/ExtAddress.h"
 #include "../Utils/SingletonObjects.h"
+#include "JSCallbackFifo.h"
 
 
 namespace zigbee {
@@ -42,7 +43,8 @@ namespace zigbee {
         static std::map<ZCLAttribute::Status, std::string> statusMap;
         using CallbackData = std::tuple<std::list<std::function<void()>>::iterator, ZCLAttribute *, v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>>>;
     public:
-        JSZAttribute(SingletonObjects * singletonObjects,  ZCLTypeDataType zclType);
+        JSZAttribute(SingletonObjects * singletonObjects, JSCallbackFifo & jsCallbackFifo,  ZCLTypeDataType zclType):
+        singletonObjects(singletonObjects), callbackFifo(jsCallbackFifo), zclType(zclType){}
 
         virtual ~JSZAttribute();
 
@@ -52,6 +54,7 @@ namespace zigbee {
 
         std::shared_ptr<ZCLAttribute>
         getZCLAttribute(const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId, uint32_t attributeId);
+        void jsCallback(int identity, JsCallbackParameters callbackParameters, v8::Isolate * isolate);
 
     public:
         virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) = 0;
@@ -98,6 +101,7 @@ namespace zigbee {
         std::map<ExtAddress, std::shared_ptr<ExtAddress> > usedExtAddresses;
         std::map<int, CallbackData> mapFunction;
         std::mutex mapFunctionMutex;
+        JSCallbackFifo & callbackFifo;
         ZCLTypeDataType zclType;
     };
 

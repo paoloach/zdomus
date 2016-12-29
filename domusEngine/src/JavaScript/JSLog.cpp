@@ -5,6 +5,8 @@
  *      Author: Paolo Achdjian
  */
 
+
+#include <boost/log/trivial.hpp>
 #include "JSLog.h"
 
 #include "JSObjects.h"
@@ -74,18 +76,21 @@ void JSLog::constructor(const v8::FunctionCallbackInfo<v8::Value>& info) {
 
 void JSLog::debug(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	std::string msg = getMessage(info);
+    BOOST_LOG_TRIVIAL(debug) << msg;
 	Log * log = getLog(info);
 	log->debug(msg);
 }
 
 void JSLog::info(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	std::string msg = getMessage(info);
+    BOOST_LOG_TRIVIAL(info) << msg;
 	Log * log = getLog(info);
 	log->info(msg);
 }
 
 void JSLog::warning(const v8::FunctionCallbackInfo<v8::Value>& info) {
 	std::string msg = getMessage(info);
+    BOOST_LOG_TRIVIAL(warning) << msg;
 	Log * log = getLog(info);
 	log->warning(msg);
 }

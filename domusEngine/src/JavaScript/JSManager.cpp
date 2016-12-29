@@ -49,7 +49,7 @@ namespace zigbee {
             if (!logData.msg.empty())
                 BOOST_LOG_TRIVIAL(info) << js->getName() << ":" << logData.msg;
         }
-        BOOST_LOG_TRIVIAL(trace) << "executing " << js->getName();
+        BOOST_LOG_TRIVIAL(info) << "executing " << js->getName();
         jsExecuter.run(js->getCode());
     }
 

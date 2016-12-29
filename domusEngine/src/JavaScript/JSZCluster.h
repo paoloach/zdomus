@@ -38,18 +38,16 @@ namespace zigbee {
         typedef v8::Persistent<v8::Object, v8::CopyablePersistentTraits<v8::Object>> PersistenceObject;
         typedef boost::tuple<PersistenceObject, std::shared_ptr<Cluster> > Value;
     public:
-        JSZCluster()=default;
+        JSZCluster() = default;
 
-        JSZCluster(JSZAttributeFactory * jsZAttributeFactory,
-                   SingletonObjects * singletonObjects);
+        JSZCluster(JSZAttributeFactory *jsZAttributeFactory, SingletonObjects *singletonObjects);
 
         virtual ~JSZCluster() = default;
 
     public:
         virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global);
 
-        virtual v8::Local<v8::Object>
-        createInstance(v8::Isolate *isolate, const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId);
+        virtual v8::Local<v8::Object> createInstance(v8::Isolate *isolate, const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId);
 
         virtual void resetPersistences();
 
@@ -60,8 +58,7 @@ namespace zigbee {
 
         static void jsExecuteCmdById(const v8::FunctionCallbackInfo<v8::Value> &info);
 
-        static void
-        checkConstructorValidArgument(v8::Isolate *isolate, const v8::FunctionCallbackInfo<v8::Value> &info);
+        static void checkConstructorValidArgument(v8::Isolate *isolate, const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static ExtAddress getExtAddressFromArg(const v8::FunctionCallbackInfo<v8::Value> &info, int index);
 
@@ -71,19 +68,17 @@ namespace zigbee {
 
         static JSZCluster *getThis(const v8::FunctionCallbackInfo<v8::Value> &info);
 
-        static void checkArgument(const v8::FunctionCallbackInfo<v8::Value> &info, unsigned int index,
-                                  const std::shared_ptr<ClusterCmdParamsBase> &cmdParam);
+        static void checkArgument(const v8::FunctionCallbackInfo<v8::Value> &info, unsigned int index, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam);
 
-        static std::vector<uint8_t>
-        addArgument(v8::Local<v8::Value> value, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam);
+        static std::vector<uint8_t> addArgument(v8::Local<v8::Value> value, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam);
 
         static void checkIdCmd(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static void weakCallback(const v8::WeakCallbackInfo<JSZCluster> &data);
 
     private:
-        SingletonObjects * singletonObjects;
-        JSZAttributeFactory * jsZAttributeFactory;
+        SingletonObjects *singletonObjects;
+        JSZAttributeFactory *jsZAttributeFactory;
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
         std::map<ExtAddress, std::shared_ptr<ExtAddress> > usedExtAddresses;
         std::map<Key, Value> usedCluster;

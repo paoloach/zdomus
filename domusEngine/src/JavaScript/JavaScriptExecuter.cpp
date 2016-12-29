@@ -5,6 +5,7 @@
  *      Author: Paolo Achdjian
  */
 
+#include <boost/log/trivial.hpp>
 #include <iostream>
 #include <functional>
 #include <v8.h>
@@ -31,7 +32,7 @@ namespace zigbee {
         createParams.array_buffer_allocator = &v8Allocator;
         isolate = v8::Isolate::New(createParams);
 
-        jsZAttributeFactory.init(&singletonObjects);
+        jsZAttributeFactory.init(&singletonObjects, callbackFifo);
         Isolate::Scope isolate_scope(isolate);
         Locker locker(isolate);
         HandleScope handle_scope(isolate);
@@ -74,8 +75,6 @@ namespace zigbee {
     }
 
     void JavaScriptExecuter::runThread() {
-
-
         Isolate::Scope isolate_scope(isolate);
         Locker locker(isolate);
 
@@ -87,15 +86,21 @@ namespace zigbee {
         Local<String> source = String::NewFromUtf8(isolate, jsCode.c_str());
         Local<Script> script = Script::Compile(source);
         TryCatch tryCatch;
-        Local<Value> result = script->Run();
+        MaybeLocal<Value> result = script->Run(lContext);
         if (tryCatch.HasCaught()) {
             String::Utf8Value utf8Message(tryCatch.Message()->Get());
             log.error(*utf8Message);
             tryCatch.Reset();
         } else {
-            String::Utf8Value utf8(result);
+            //String::Utf8Value utf8(result);
         }
+        while(callbackFifo.size() > 0) {
+            auto fn = callbackFifo.get();
+            fn(isolate);
+        }
+
         Unlocker unlocker(isolate);
+        BOOST_LOG_TRIVIAL(info) << "End script";
         notifyEnd();
     }
 

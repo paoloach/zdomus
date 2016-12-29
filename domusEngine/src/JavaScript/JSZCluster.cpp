@@ -25,10 +25,8 @@ using std::shared_ptr;
 
 namespace zigbee {
 
-    JSZCluster::JSZCluster(JSZAttributeFactory *jsZAttributeFactory_,
-                           SingletonObjects *singletonObjects) :
-            singletonObjects(singletonObjects),
-            jsZAttributeFactory(jsZAttributeFactory_) {
+    JSZCluster::JSZCluster(JSZAttributeFactory *jsZAttributeFactory_, SingletonObjects *singletonObjects) : singletonObjects(singletonObjects),
+                                                                                                            jsZAttributeFactory(jsZAttributeFactory_) {
     }
 
     void JSZCluster::initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) {
@@ -37,8 +35,7 @@ namespace zigbee {
         Local<String> getProperyByIdMethod = String::NewFromUtf8(isolate, GET_PROPERTY_BY_ID);
         Local<String> executeCmdByIdMethod = String::NewFromUtf8(isolate, EXECUTE_CMD_BY_ID);
 
-        Local<FunctionTemplate> zClusterFunctionTemplate = FunctionTemplate::New(isolate, constructor,
-                                                                                 External::New(isolate, this));
+        Local<FunctionTemplate> zClusterFunctionTemplate = FunctionTemplate::New(isolate, constructor, External::New(isolate, this));
         zClusterFunctionTemplate->SetClassName(jszClusterClassName);
         Local<ObjectTemplate> zClusterInstanceTemplate = zClusterFunctionTemplate->InstanceTemplate();
 
@@ -52,9 +49,7 @@ namespace zigbee {
         functionTemplate.Reset(isolate, zClusterFunctionTemplate);
     }
 
-    v8::Local<v8::Object>
-    JSZCluster::createInstance(v8::Isolate *isolate, const ExtAddress &extAddress, EndpointID endpointId,
-                               ClusterID clusterId) {
+    v8::Local<v8::Object> JSZCluster::createInstance(v8::Isolate *isolate, const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId) {
 
         if (!singletonObjects->getZDevices()->exists(extAddress)) {
             throw JSExceptionNoDevice(extAddress);
@@ -76,15 +71,12 @@ namespace zigbee {
             throw JSExceptionNoInCluster(extAddress, endpointId, clusterId);
         }
 
-        Local<ObjectTemplate> zClusterTemplate = Local<FunctionTemplate>::New(isolate,
-                                                                              functionTemplate)->InstanceTemplate();
+        Local<ObjectTemplate> zClusterTemplate = Local<FunctionTemplate>::New(isolate, functionTemplate)->InstanceTemplate();
         Local<Object> zClusterInstance = zClusterTemplate->NewInstance();
 
         zClusterInstance->SetInternalField(0, External::New(isolate, this));
 
-        std::shared_ptr<Cluster> cluster = singletonObjects->getClusters()->getCluster(nwkAddress,
-                                                                                       endpointId,
-                                                                                       clusterId);
+        std::shared_ptr<Cluster> cluster = singletonObjects->getClusters()->getCluster(nwkAddress, endpointId, clusterId);
         zClusterInstance->SetInternalField(1, External::New(isolate, cluster.get()));
 
         std::shared_ptr<ExtAddress> usedAddr = getPersistenceExtAddress(extAddress);
@@ -126,7 +118,14 @@ namespace zigbee {
         try {
             JSZCluster *This = (JSZCluster *) (Local<External>::Cast(info.Data())->Value());
             checkConstructorValidArgument(isolate, info);
-            ExtAddress extAddress = getExtAddressFromArg(info, 0);
+            ExtAddress extAddress;
+            if (info[0]->IsUint32()) {
+                NwkAddr nwkAddr(info[0].As<v8::Integer>()->Value());
+                auto device = This->singletonObjects->getZDevices()->getDevice(nwkAddr);
+                extAddress = device->getExtAddr();
+            } else {
+                extAddress = getExtAddressFromArg(info, 0);
+            }
             EndpointID endpointId(info[1].As<v8::Integer>()->Value());
             ClusterID clusterId(info[2].As<v8::Integer>()->Value());
 
@@ -142,7 +141,7 @@ namespace zigbee {
             throw JSExceptionWrongArgumentsNumber(JSZCLUSTER, info.Length(), 3);
         }
         Local<v8::Value> arg0 = info[0];
-        if (!arg0->IsString()) {
+        if (!arg0->IsString() && !arg0->IsUint32()) {
             throw JSExceptionArgNoExtAddress(JSZCLUSTER, 1);
         }
         Local<v8::Value> arg1 = info[1];
@@ -223,8 +222,7 @@ namespace zigbee {
         return (JSZCluster *) wrap->Value();
     }
 
-    void JSZCluster::checkArgument(const v8::FunctionCallbackInfo<v8::Value> &info, unsigned int index,
-                                   const std::shared_ptr<ClusterCmdParamsBase> &cmdParam) {
+    void JSZCluster::checkArgument(const v8::FunctionCallbackInfo<v8::Value> &info, unsigned int index, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam) {
         if (info.Length() <= ((int) index + 1)) {
             stringstream stream;
             stream << EXECUTE_CMD_BY_ID << " needs almost " << index << " arguments where the first is the cmd";
@@ -279,14 +277,12 @@ namespace zigbee {
                 break;
             default:
                 stringstream stream;
-                stream << EXECUTE_CMD_BY_ID << " needs as argument " << index << " a type "
-                       << cmdParam->getZCLDataType() << " the it is not managed";
+                stream << EXECUTE_CMD_BY_ID << " needs as argument " << index << " a type " << cmdParam->getZCLDataType() << " the it is not managed";
                 throw JSException(stream.str());
         }
     }
 
-    std::vector<uint8_t>
-    JSZCluster::addArgument(v8::Local<v8::Value> value, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam) {
+    std::vector<uint8_t> JSZCluster::addArgument(v8::Local<v8::Value> value, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam) {
         if (value->IsUint32()) {
             return cmdParam->getType().getRaw(value->ToUint32()->Value());
         }
@@ -307,8 +303,7 @@ namespace zigbee {
             return cmdParam->getType().getRaw(strArray);
         }
         stringstream stream;
-        stream << "To " << EXECUTE_CMD_BY_ID << " it is passed an invalid argument instead of type "
-               << cmdParam->getZCLDataType();
+        stream << "To " << EXECUTE_CMD_BY_ID << " it is passed an invalid argument instead of type " << cmdParam->getZCLDataType();
         throw JSException(stream.str());
     }
 
@@ -319,8 +314,7 @@ namespace zigbee {
     void JSZCluster::checkIdCmd(const v8::FunctionCallbackInfo<v8::Value> &info) {
         if (info.Length() == 0) {
             stringstream stream;
-            stream << EXECUTE_CMD_BY_ID
-                   << " needs almost one argument: an integer for the cmd id followed by possibly parameters";
+            stream << EXECUTE_CMD_BY_ID << " needs almost one argument: an integer for the cmd id followed by possibly parameters";
             throw JSException(stream.str());
         }
     }

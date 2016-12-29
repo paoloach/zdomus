@@ -37,6 +37,8 @@
 
 #include <zcl/attributeTypes/ZCLUTCTime.h>
 
+#include "../JSCallbackFifo.h"
+
 #include "../../ZigbeeData/ExtAddress.h"
 #include "../JSZAttribute.h"
 #include "../JSObjects.h"
@@ -57,12 +59,10 @@ namespace zigbee {
     template<typename AttributeType, typename ParamType>
     class JSZAttributeTemplate : public JSZAttribute {
     public:
-        JSZAttributeTemplate(SingletonObjects * singletonObjects) :
-                JSZAttribute(singletonObjects, AttributeType::type) {
+        JSZAttributeTemplate(SingletonObjects *singletonObjects, JSCallbackFifo &callbackFifo) : JSZAttribute(singletonObjects, callbackFifo, AttributeType::type) {
         }
 
-        virtual ~JSZAttributeTemplate() {
-        }
+        virtual ~JSZAttributeTemplate() = default;
 
     public:
         void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) override {
@@ -72,10 +72,7 @@ namespace zigbee {
             v8::Local<v8::String> valueAttribute = v8::String::NewFromUtf8(isolate, VALUE);
             // method
 
-            v8::Local<v8::FunctionTemplate> zAttributeFunctionTemplate = v8::FunctionTemplate::New(isolate, constructor,
-                                                                                                   v8::External::New(
-                                                                                                           isolate,
-                                                                                                           this));
+            v8::Local<v8::FunctionTemplate> zAttributeFunctionTemplate = v8::FunctionTemplate::New(isolate, constructor, v8::External::New(isolate, this));
             zAttributeFunctionTemplate->SetClassName(jsZAttributeClassName);
             v8::Local<v8::ObjectTemplate> zAttributeClusterInstanceTemplate = zAttributeFunctionTemplate->InstanceTemplate();
 
@@ -106,8 +103,7 @@ namespace zigbee {
             }
         }
 
-        static void
-        setValue(v8::Local<v8::String>, v8::Local<v8::Value> value, const v8::PropertyCallbackInfo<void> &info) {
+        static void setValue(v8::Local<v8::String>, v8::Local<v8::Value> value, const v8::PropertyCallbackInfo<void> &info) {
             v8::Isolate *isolate = info.GetIsolate();
             try {
                 v8::Local<v8::Object> self = info.Holder();

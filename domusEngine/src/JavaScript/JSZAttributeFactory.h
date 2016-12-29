@@ -28,7 +28,7 @@ namespace zigbee {
         virtual ~JSZAttributeFactory() = default;
 
     public:
-        virtual void init(SingletonObjects * singletonObjects);
+        virtual void init(SingletonObjects * singletonObjects, JSCallbackFifo & jsCallbackFifo);
 
         virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global);
 
