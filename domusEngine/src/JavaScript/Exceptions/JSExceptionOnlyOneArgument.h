@@ -12,11 +12,12 @@
 
 namespace zigbee {
 
-class JSExceptionOnlyOneArgument: public JSException {
-public:
-	JSExceptionOnlyOneArgument(const std::string & methodName);
-	virtual ~JSExceptionOnlyOneArgument();
-};
+    class JSExceptionOnlyOneArgument : public JSException {
+    public:
+        JSExceptionOnlyOneArgument(const std::string &methodName);
+
+        virtual ~JSExceptionOnlyOneArgument() = default;
+    };
 
 } /* namespace zigbee */
 

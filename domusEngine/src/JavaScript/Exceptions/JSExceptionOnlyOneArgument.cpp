@@ -10,13 +10,11 @@
 
 namespace zigbee {
 
-JSExceptionOnlyOneArgument::JSExceptionOnlyOneArgument(const std::string& methodName) {
-	std::stringstream stream;
-	stream << "Unable to call method " << methodName << " because it need only one argument";
-	message = stream.str();
-}
+    JSExceptionOnlyOneArgument::JSExceptionOnlyOneArgument(const std::string &methodName) {
+        std::stringstream stream;
+        stream << "Unable to call method " << methodName << " because it need only one argument";
+        message = stream.str();
+    }
 
-JSExceptionOnlyOneArgument::~JSExceptionOnlyOneArgument() {
-}
 
 } /* namespace zigbee */
