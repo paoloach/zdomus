@@ -19,8 +19,7 @@ using std::shared_ptr;
 
 namespace zigbee {
 
-    JSZEndpoint::JSZEndpoint(ZDevices * zDevices, JSZCluster * jsZCluster) :
-            zDevices(zDevices) ,jsZCluster(jsZCluster){
+    JSZEndpoint::JSZEndpoint(ZDevices *zDevices, JSZCluster *jsZCluster) : zDevices(zDevices), jsZCluster(jsZCluster) {
     }
 
     void JSZEndpoint::initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) {
@@ -34,23 +33,17 @@ namespace zigbee {
         // methods
         Local<String> getClusterMethod = String::NewFromUtf8(isolate, GET_CLUSTER);
 
-        Local<FunctionTemplate> zEndpoinFunctionTemplate = FunctionTemplate::New(isolate, constructor,
-                                                                                 External::New(isolate, this));
+        Local<FunctionTemplate> zEndpoinFunctionTemplate = FunctionTemplate::New(isolate, constructor, External::New(isolate, this));
         zEndpoinFunctionTemplate->SetClassName(jszEndpointClassName);
         Local<ObjectTemplate> zEndpoinInstanceTemplate = zEndpoinFunctionTemplate->InstanceTemplate();
 
         zEndpoinInstanceTemplate->SetInternalFieldCount(4);
         // attributes
-        zEndpoinInstanceTemplate->SetAccessor(endpointIdAttribute, jsEndpointId, nullptr, Handle<Value>(), ALL_CAN_READ,
-                                              ReadOnly);
-        zEndpoinInstanceTemplate->SetAccessor(profileIdAttribute, jsProfileId, nullptr, Handle<Value>(), ALL_CAN_READ,
-                                              ReadOnly);
-        zEndpoinInstanceTemplate->SetAccessor(deviceIdAttribute, jsDeviceId, nullptr, Handle<Value>(), ALL_CAN_READ,
-                                              ReadOnly);
-        zEndpoinInstanceTemplate->SetAccessor(deviceVersionAttribute, jsDeviceVersion, nullptr, Handle<Value>(),
-                                              ALL_CAN_READ, ReadOnly);
-        zEndpoinInstanceTemplate->SetAccessor(networkIdAttribute, jsDeviceVersion, nullptr, Handle<Value>(),
-                                              ALL_CAN_READ, ReadOnly);
+        zEndpoinInstanceTemplate->SetAccessor(endpointIdAttribute, jsEndpointId, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
+        zEndpoinInstanceTemplate->SetAccessor(profileIdAttribute, jsProfileId, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
+        zEndpoinInstanceTemplate->SetAccessor(deviceIdAttribute, jsDeviceId, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
+        zEndpoinInstanceTemplate->SetAccessor(deviceVersionAttribute, jsDeviceVersion, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
+        zEndpoinInstanceTemplate->SetAccessor(networkIdAttribute, jsDeviceVersion, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
         zEndpoinInstanceTemplate->Set(getClusterMethod, FunctionTemplate::New(isolate, jsGetCluster));
         // functions
         global->Set(jszEndpointClassName, zEndpoinFunctionTemplate->GetFunction());
@@ -58,18 +51,16 @@ namespace zigbee {
         functionTemplate.Reset(isolate, zEndpoinFunctionTemplate);
     }
 
-    v8::Local<v8::Object>
-    JSZEndpoint::createInstance(v8::Isolate *isolate, const ExtAddress &extAddress, EndpointID endpointId) {
+    v8::Local<v8::Object> JSZEndpoint::createInstance(v8::Isolate *isolate, const ExtAddress &extAddress, EndpointID endpointId) {
         if (!zDevices->exists(extAddress)) {
             throw JSExceptionNoDevice(extAddress);
         }
-        auto zDevice= zDevices->getDevice(extAddress);
+        auto zDevice = zDevices->getDevice(extAddress);
         if (!zDevice->isEndpointPresents(endpointId)) {
             throw JSExceptionNoEndpoint(extAddress, endpointId);
         }
 
-        Local<ObjectTemplate> zEndpointTemplate = Local<FunctionTemplate>::New(isolate,
-                                                                               functionTemplate)->InstanceTemplate();
+        Local<ObjectTemplate> zEndpointTemplate = Local<FunctionTemplate>::New(isolate, functionTemplate)->InstanceTemplate();
         Local<Object> zEndpointInstance = zEndpointTemplate->NewInstance();
         std::shared_ptr<ExtAddress> usedAddr = getPersistenceExtAddress(extAddress);
         zEndpointInstance->SetInternalField(0, External::New(isolate, usedAddr.get()));
@@ -122,13 +113,13 @@ namespace zigbee {
     void JSZEndpoint::jsGetCluster(const v8::FunctionCallbackInfo<v8::Value> &info) {
         Isolate *isolate = info.GetIsolate();
         try {
-            if (info.Length() != 1 || !info[0]->IsUint32()){
+            if (info.Length() != 1 || !info[0]->IsUint32()) {
                 std::stringstream stream;
                 stream << GET_CLUSTER << " needs only one argument: an integer for the cluster";
                 throw JSException(stream.str());
             }
             std::vector<uint8_t> data;
-            JSZEndpoint * This = getThis(info);
+            JSZEndpoint *This = getThis(info);
             uint32_t clusterId = info[0]->ToUint32()->Value();
             ExtAddress *extAddress = getExtAddress(info);
             uint32_t endpointID = getEndpointId(info);
@@ -161,7 +152,7 @@ namespace zigbee {
         info.GetReturnValue().Set(zEndpoint.getAppDevVer());
     }
 
-    void  JSZEndpoint::jsNetworkId(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> &info) {
+    void JSZEndpoint::jsNetworkId(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> &info) {
         ExtAddress *extAddress = getExtAddress(info);
         ZDevices *zDevices = getZDevices(info);
         auto zDevice = zDevices->getDevice(*extAddress);
@@ -210,6 +201,7 @@ namespace zigbee {
         Local<Integer> endpointId = self->GetInternalField(2).As<Integer>();
         return endpointId->Value();
     }
+
     uint32_t JSZEndpoint::getEndpointId(const v8::FunctionCallbackInfo<v8::Value> &info) {
         Local<Object> self = info.Holder();
         Local<Integer> endpointId = self->GetInternalField(2).As<Integer>();

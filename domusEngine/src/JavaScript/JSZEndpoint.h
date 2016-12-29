@@ -19,21 +19,21 @@
 namespace zigbee {
 
     class JSZDevice;
+
     class JSZCluster;
 
     class JSZEndpoint {
     public:
         JSZEndpoint() = default;
 
-        JSZEndpoint(ZDevices* zDevices, JSZCluster * jsZCluster);
+        JSZEndpoint(ZDevices *zDevices, JSZCluster *jsZCluster);
 
         virtual ~JSZEndpoint() = default;
 
     public:
         virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global);
 
-        virtual v8::Local<v8::Object>
-        createInstance(v8::Isolate *isolate, const ExtAddress &extAddress, EndpointID endpointId);
+        virtual v8::Local<v8::Object> createInstance(v8::Isolate *isolate, const ExtAddress &extAddress, EndpointID endpointId);
 
         virtual void resetPersistences();
 
@@ -53,21 +53,22 @@ namespace zigbee {
         void static jsGetCluster(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static ExtAddress *getExtAddress(const v8::PropertyCallbackInfo<v8::Value> &info);
+
         static ExtAddress *getExtAddress(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static ZDevices *getZDevices(const v8::PropertyCallbackInfo<v8::Value> &info);
 
         static uint32_t getEndpointId(const v8::PropertyCallbackInfo<v8::Value> &info);
+
         static uint32_t getEndpointId(const v8::FunctionCallbackInfo<v8::Value> &info);
 
-        static JSZEndpoint * getThis(const v8::FunctionCallbackInfo<v8::Value> &info);
+        static JSZEndpoint *getThis(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static ZDevices *getZDevices(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static ExtAddress getExtAddressFromArg(const v8::FunctionCallbackInfo<v8::Value> &info, int index);
 
-        static void
-        checkConstructorValidArgument(v8::Isolate *isolate, const v8::FunctionCallbackInfo<v8::Value> &info);
+        static void checkConstructorValidArgument(v8::Isolate *isolate, const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static ZEndpoint getZEndpoint(const v8::PropertyCallbackInfo<v8::Value> &info);
 
@@ -77,7 +78,7 @@ namespace zigbee {
         ZDevices_P zDevices;
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
         std::map<ExtAddress, std::shared_ptr<ExtAddress> > usedExtAddresses;
-        JSZCluster * jsZCluster;
+        JSZCluster *jsZCluster;
     };
 
 } /* namespace zigbee */

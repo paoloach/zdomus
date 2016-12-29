@@ -19,28 +19,13 @@ namespace zigbee {
     using std::make_unique;
 
 
-    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log) : log(log),
-                                                                                           jsLog(log),
-                                                                                           jsZCluster(
-                                                                                                   &jsZAttributeFactory,
-                                                                                                   &singletonObjects),
-                                                                                           jsDBTable(dbTableFactory,
-                                                                                                     &jsRow, log),
-                                                                                           jsZEndpoint(
-                                                                                                   singletonObjects.getZDevices(),
-                                                                                                   &jsZCluster),
-                                                                                           jsZEndpoints(
-                                                                                                   singletonObjects,
-                                                                                                   &jsZEndpoint),
-                                                                                           jsZDevice(
-                                                                                                   singletonObjects.getZDevices(),
-                                                                                                   &jsZEndpoint),
-                                                                                           jsRestServer(
-                                                                                                   singletonObjects.getFixedPathContainer(),
-                                                                                                   log),
-                                                                                           jszDevices(
-                                                                                                   singletonObjects.getZDevices(),
-                                                                                                   &jsZDevice) {
+    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, Log &log) : log(log), jsLog(log), jsZCluster(&jsZAttributeFactory, &singletonObjects),
+                                                                                           jsDBTable(dbTableFactory, &jsRow, log),
+                                                                                           jsZEndpoint(singletonObjects.getZDevices(), &jsZCluster),
+                                                                                           jsZEndpoints(singletonObjects, &jsZEndpoint),
+                                                                                           jsZDevice(singletonObjects.getZDevices(), &jsZEndpoint),
+                                                                                           jsRestServer(singletonObjects.getFixedPathContainer(), log),
+                                                                                           jszDevices(singletonObjects.getZDevices(), &jsZDevice) {
 
 
         createParams.array_buffer_allocator = &v8Allocator;
@@ -69,8 +54,6 @@ namespace zigbee {
         jsRow.initJsObjectsTemplate(isolate, contextGlobal);
         jsDBTable.initJsObjectsTemplate(isolate, contextGlobal);
         context.Reset(isolate, lContext);
-
-
     }
 
     JavaScriptExecuter::~JavaScriptExecuter() {
