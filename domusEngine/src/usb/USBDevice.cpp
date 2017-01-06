@@ -29,29 +29,26 @@ namespace zigbee {
     static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::milliseconds(10);
 
 
-    DomusEngineUSBDevice::DomusEngineUSBDevice(boost::asio::io_service &serviceIo_,
-                                               SingletonObjects &singletonObjects, libusb_context *usbContext_,
-                                               int deviceClass_, int vendor_, int product_, bool demo) :
-            timer{serviceIo_, CHECK_NEW_MESSAGE}, usbContext{usbContext_}, deviceClass{deviceClass_},
+    DomusEngineUSBDevice::DomusEngineUSBDevice( SingletonObjects &singletonObjects, libusb_context *usbContext_,
+                                               int deviceClass_, int vendor_, int product_, bool demo) :stop(false),
+            usbContext{usbContext_}, deviceClass{deviceClass_},
             vendorID{vendor_}, productID{product_}, handle{nullptr}, demo{demo},
             usbResponseExecuters{singletonObjects, *this} {
         device = nullptr;
-        timer.async_wait([this](const boost::system::error_code &e) { this->timerHandler(e); });
+        getMessageTh = std::thread([this]{this->timerHandler();});
         initDemoData();
     }
 
 
-    void DomusEngineUSBDevice::timerHandler(const boost::system::error_code &) {
-        if (isPresent()) {
-            getUsbMessage();
+    void DomusEngineUSBDevice::timerHandler() {
+        while(!stop) {
+            if (isPresent()) {
+                getUsbMessage();
+            }
+            usleep(1000);
         }
-        timer.expires_from_now(CHECK_NEW_MESSAGE);
-        timer.async_wait([this](const boost::system::error_code &e) { this->timerHandler(e); });
     }
 
-    void emptySlot() {
-
-    }
 
     std::string DomusEngineUSBDevice::strUsbError(int error) {
         switch (error) {

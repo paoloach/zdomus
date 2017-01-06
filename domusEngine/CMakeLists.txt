@@ -102,6 +102,19 @@ else ()
     endif ()
 endif ()
 
+
+SET(SRC_SERIAL_DRIVER
+        src/serialDriver/InvalidResponseSerialExecutor.h
+        src/serialDriver/IEEEAddressResponseErrorSerialExecutor.h src/serialDriver/AnnunceSerialExecutor.h
+        src/serialDriver/SerialResponseExecutor.cpp src/serialDriver/SerialResponseExecutor.h
+        src/serialDriver/SerialExecutor.h
+        src/serialDriver/IEEEAddressResponseSerialExecutor.h
+        src/serialDriver/SimpleDescSerialExecutor.h
+        src/serialDriver/ActiveEndpointErrorExecutor.h
+        src/serialDriver/BindTableSerialExecuter.h
+        src/serialDriver/ReadAttributeResponseErrorSerial.h
+        src/serialDriver/ReadAttributeResponseSerial.h)
+
 set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h
         src/usb/AttributeValueReqError.cpp
@@ -135,7 +148,7 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/ZigbeeData/NewDeviceObserver.h
         src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
         src/httpServer/RestActions/ShowTopology.cpp src/httpServer/RestActions/ShowTopology.h
-        src/usb/UsbDemoData.cpp)
+        src/usb/UsbDemoData.cpp )
 
 
 add_library(javascript_lib OBJECT
@@ -161,6 +174,7 @@ add_library(javascript_lib OBJECT
 
 add_library(domus_engine_static_lib STATIC
         ${USB_SRC}
+        ${SRC_SERIAL_DRIVER}
         ${srcZigbeeData}
         ${srcZigbeeDataPT}
         ${srcIO}
@@ -199,7 +213,7 @@ add_library(domus_engine_static_lib STATIC
         src/httpServer/RestActions/ExecuteReset.cpp
         src/httpServer/RestActions/ExecuteReset.h
         src/Utils/Clusters.cpp
-        src/Utils/Clusters.h src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h)
+        src/Utils/Clusters.h src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h)
 
 
 add_executable(domus_engine src/main.cpp ${V8_BLOB})

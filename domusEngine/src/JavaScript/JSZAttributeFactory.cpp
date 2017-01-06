@@ -49,7 +49,7 @@ namespace zigbee {
         }
     }
 
-    v8::Local<v8::Object> JSZAttributeFactory::createAttributeInstance(v8::Isolate *isolate, std::shared_ptr<ZCLAttribute> attribute) {
+    v8::Local<v8::Object> JSZAttributeFactory::createAttributeInstance(v8::Isolate *isolate, ZCLAttribute * attribute) {
         for (auto &jszlAttribute: attributes) {
             if (jszlAttribute->getZCLType() == attribute->getZCLType()) {
                 return jszlAttribute->createInstance(isolate, attribute);

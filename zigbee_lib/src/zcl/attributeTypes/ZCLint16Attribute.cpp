@@ -5,6 +5,7 @@
  *      Author: Paolo Achdjian
  */
 
+#include <boost/log/trivial.hpp>
 #include <boost/endian/conversion.hpp>
 #include "ZCLint16Attribute.h"
 #include "../Cluster.h"

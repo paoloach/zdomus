@@ -38,7 +38,6 @@ namespace zigbee {
 
     }
 
-
     bool ZDevice::put(const SimpleDescMessage &simpleDescMsg) {
         ZEndpoint endpoint(simpleDescMsg);
         EndpointID endpoindId(simpleDescMsg.endpoint);
@@ -54,7 +53,6 @@ namespace zigbee {
             return true;
         }
     }
-
 
     ZEndpoint ZDevice::getEndpoint(EndpointID endpointId) const {
         auto found = endpoints.find(endpointId);

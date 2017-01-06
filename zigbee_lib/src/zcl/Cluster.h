@@ -155,26 +155,26 @@ namespace zigbee {
 
         virtual void executeComand(uint32_t cmd, std::vector<uint8_t> data);
 
-        virtual std::shared_ptr<ZCLAttribute> getAttribute(int id) const;
+        virtual ZCLAttribute * getAttribute(int id) const;
 
-        virtual std::shared_ptr<ZCLAttribute> getAttribute(std::experimental::string_view name) const;
+        virtual ZCLAttribute * getAttribute(std::experimental::string_view name) const;
 
     protected:
         template<typename tp_attrType>
-        std::shared_ptr<ZCLAttribute> createAttribute(const AttributeDef &attributeDef) {
-            return std::make_shared<tp_attrType>(zigbeeDevice, this, attributeDef.id, attributeDef.name,
+        std::unique_ptr<ZCLAttribute> createAttribute(const AttributeDef &attributeDef) {
+            return std::make_unique<tp_attrType>(zigbeeDevice, this, attributeDef.id, attributeDef.name,
                                                  attributeDef.readOnly);
         }
 
         void printRawData(const std::vector<uint8_t> &data);
 
     private:
-        std::shared_ptr<ZCLAttribute> createAttribute(const AttributeDef &attributeDef);
+        std::unique_ptr<ZCLAttribute> createAttribute(const AttributeDef &attributeDef);
 
     protected:
         std::vector<CommandDef> _commandsDef;
         std::vector<AttributeDef> _attributesDef;
-        std::vector<std::shared_ptr<ZCLAttribute> > attributes;
+        std::vector<std::unique_ptr<ZCLAttribute> > attributes;
         ZigbeeDevice *zigbeeDevice;
         const EndpointID endpoint;
         NwkAddr networkAddress;

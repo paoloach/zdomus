@@ -39,6 +39,7 @@ static constexpr auto DEMO_DATA = "demo";
 static constexpr auto HELP = "help";
 static constexpr auto DEFAULT_CONFIG_FILE = "/home/paolo/workspace_luna/domus_engine_copy/configuration/domusEngine.xml";
 static constexpr auto LOGGIN_SETTINGS="logging";
+static constexpr auto ZDRIVER="zdriver";
 
 
 variables_map getVariableMap(size_t argc, char const *argv[]);
@@ -90,7 +91,7 @@ int main(int argc, const char *argv[]) {
     if (vm.count("configuration")) {
         configurationFileName = vm[CONFIGURATION_OPTION].as<std::string>();
     }
-    SingletonObjects singletons(std::move(configurationFileName),vm.count(DEMO_DATA));
+    SingletonObjects singletons(std::move(configurationFileName),vm.count(DEMO_DATA), vm[ZDRIVER].as<std::string>());
     auto zDevices = singletons.getZDevices();
 
     TopologyCreation topologyCreation(singletons);
@@ -104,7 +105,7 @@ int main(int argc, const char *argv[]) {
 
     auto server = new http::HttpServer(singletons);
 
-    singletons.getIO().run();
+    while (true);
 
 
     exitV8();
@@ -118,6 +119,7 @@ variables_map getVariableMap(size_t argc, char const *argv[]) {
             (HELP, "help")
             (CONFIGURATION_OPTION, value<std::string>(), "configuration file")
             (LOGGIN_SETTINGS, value<boost::log::trivial::severity_level>(&logSeverity), "Logging settings")
+            (ZDRIVER, value<std::string>(), "driver for zigbee device")
             (DEMO_DATA, "enable demo data");
 
 

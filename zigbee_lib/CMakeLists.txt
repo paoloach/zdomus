@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 project(zigbee_lib)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC -DBOOST_ALL_DYN_LINK -g3")
 
+find_package(Boost COMPONENTS system thread signals program_options filesystem log REQUIRED)
 
 set (GMOCK_DIR googletest/googlemock)
 set (GTEST_DIR googletest/googletest)
@@ -128,10 +129,15 @@ add_executable(zigbeeLibTest  ${zigbeeSrcTest} )
 
 #target_include_directories(zigbeeLibTest ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
 
-target_link_libraries(zigbeeLibTest ${GMOCK_LIBS} zigbeeLib  pthread)
+target_link_libraries(zigbeeLibTest ${GMOCK_LIBS} zigbeeLib ${Boost_SIGNALS_LIBRARY_RELEASE}
+        ${Boost_THREAD_LIBRARY_RELEASE}
+        ${Boost_SYSTEM_LIBRARY_RELEASE}
+        ${Boost_FILESYSTEM_LIBRARY_RELEASE}
+        ${Boost_LOG_LIBRARY_RELEASE}
+        ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}  pthread)
 
 
-target_link_libraries(zigbeeLib usb-1.0)
+target_link_libraries(zigbeeLib usb-1.0  ${Boost_LOG_LIBRARY_RELEASE})
 
 set_property(TARGET zigbeeLib PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
 set_target_properties(zigbeeLib PROPERTIES PUBLIC_HEADER "${zigbee_header}" )

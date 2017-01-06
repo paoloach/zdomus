@@ -22,7 +22,7 @@ public:
 	virtual ~JSZAttributeFactoryMock();
 
 	MOCK_METHOD3(init, void (ZDevices * zDevices, ZigbeeDevice * zigbeeDevice,const std::shared_ptr<ClusterTypeFactory> & clusterFactory));
-	MOCK_METHOD2(createAttributeInstance, v8::Local<v8::Object> (v8::Isolate* isolate, std::shared_ptr<ZCLAttribute> attribute ));
+	MOCK_METHOD2(createAttributeInstance, v8::Local<v8::Object> (v8::Isolate* isolate, ZCLAttribute * attribute ));
 };
 
 } /* namespace test */

@@ -76,7 +76,8 @@ namespace zigbee {
 
         zClusterInstance->SetInternalField(0, External::New(isolate, this));
 
-        std::shared_ptr<Cluster> cluster = singletonObjects->getClusters()->getCluster(nwkAddress, endpointId, clusterId);
+        Clusters * clusters = singletonObjects->getClusters();
+        std::shared_ptr<Cluster> cluster = clusters->getCluster(nwkAddress, endpointId, clusterId);
         zClusterInstance->SetInternalField(1, External::New(isolate, cluster.get()));
 
         std::shared_ptr<ExtAddress> usedAddr = getPersistenceExtAddress(extAddress);
@@ -173,7 +174,7 @@ namespace zigbee {
         uint32_t propertyId = info[0]->ToUint32()->Value();
         Cluster *cluster = getCluster(info);
         JSZCluster *This = getThis(info);
-        std::shared_ptr<ZCLAttribute> attribute = cluster->getAttribute(propertyId);
+        ZCLAttribute * attribute = cluster->getAttribute(propertyId);
         auto attributeValue = This->jsZAttributeFactory->createAttributeInstance(isolate, attribute);
         info.GetReturnValue().Set(attributeValue);
     }

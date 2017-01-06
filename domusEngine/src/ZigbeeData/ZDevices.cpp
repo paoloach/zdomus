@@ -77,6 +77,14 @@ namespace zigbee {
         }
     }
 
+    void ZDevices::put(const ZEndpoint &zEndpoint){
+        auto device = nwkAddrDevices.find(zEndpoint.getNwkAddr());
+        if (device != nwkAddrDevices.end()) {
+            device->second->put(zEndpoint);
+            tokenUpdate++;
+        }
+    }
+
     ptree ZDevices::getDifferences(uint32_t token) {
         ptree result{};
 
@@ -147,7 +155,7 @@ namespace zigbee {
         auto iterDevice = ieeeAddrDevices.find(ieeeAddressResponse.ieeeAddr);
         auto device = std::make_unique<ZDevice>(ieeeAddressResponse.ieeeAddr, ieeeAddressResponse.nwkAddr,
                                                 ieeeAddressResponse.children);
-        BOOST_LOG_TRIVIAL(info) << "Arrived device " << ieeeAddressResponse.ieeeAddr << " ("<< ieeeAddressResponse.nwkAddr << ") with " << ieeeAddressResponse.children.size() << " children";
+        BOOST_LOG_TRIVIAL(info) << "Arrived device " << ieeeAddressResponse.ieeeAddr << " ("<< ieeeAddressResponse.nwkAddr << ") with " << std::dec << ieeeAddressResponse.children.size() << " children";
 
         if (iterDevice == ieeeAddrDevices.end()) {
             ieeeAddrDevices.insert(std::make_pair(ieeeAddressResponse.ieeeAddr, std::move(device)));

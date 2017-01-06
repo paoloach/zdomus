@@ -63,9 +63,9 @@ namespace zigbee {
             type = T;
         }
 
-        void operator()(const std::string &) override { }
+        void operator()(const std::string &) override {}
 
-        void operator()(int64_t) override { }
+        void operator()(int64_t) override {}
     };
 
     class ZCLAttribute {
@@ -83,7 +83,7 @@ namespace zigbee {
         };
 
     public:
-        ZCLAttribute(ZigbeeDevice *  zigbeeDevice, Cluster *parent, int identifier, ZCLTypeDataType zclType,
+        ZCLAttribute(ZigbeeDevice *zigbeeDevice, Cluster *parent, int identifier, ZCLTypeDataType zclType,
                      std::experimental::string_view name, bool readOnly);
 
         virtual ~ZCLAttribute() = default;
@@ -107,6 +107,8 @@ namespace zigbee {
 
         virtual void setValue(AttributeResponse &attributeResponse);
 
+        virtual void setValue(uint8_t status, uint8_t dataType, uint8_t *rawData);
+
         virtual void requestValue();
 
         virtual bool isAvailable() const { return status == Available; }
@@ -121,7 +123,7 @@ namespace zigbee {
 
         virtual bool isReadOnly() const { return readOnly; }
 
-        virtual Cluster * getClusterParent(){return parent;};
+        virtual Cluster *getClusterParent() { return parent; };
 
         virtual ListenerOnChange onChange(std::function<void()> changeSignal) {
             return callbacks.add(changeSignal);
@@ -135,7 +137,7 @@ namespace zigbee {
         void sendValueToDevice(uint8_t dataLen, uint8_t *data);
 
     protected:
-        ZigbeeDevice * zigbeeDevice;
+        ZigbeeDevice *zigbeeDevice;
         Cluster *parent;
         int identifier;
         Status status;
@@ -148,10 +150,13 @@ namespace zigbee {
     template<ZCLTypeDataType T>
     class ZCLAttributeTmpl : public ZCLAttribute {
     public:
-        ZCLAttributeTmpl(ZigbeeDevice * zigbeeDevice, Cluster *parent, int identifier,
-                         std::experimental::string_view name, bool readOnly) : ZCLAttribute(zigbeeDevice, parent, identifier, T, name, readOnly) { }
+        ZCLAttributeTmpl(ZigbeeDevice *zigbeeDevice, Cluster *parent, int identifier,
+                         std::experimental::string_view name, bool readOnly) : ZCLAttribute(zigbeeDevice, parent,
+                                                                                            identifier, T, name,
+                                                                                            readOnly) {}
 
         ZclAttributeRawValue &getAttributeRawValue() override { return zclAttributeRawValueImpl; }
+
         static constexpr ZCLTypeDataType type = T;
     protected:
         ZclAttributeRawValueImpl<T> zclAttributeRawValueImpl;
@@ -161,7 +166,7 @@ namespace zigbee {
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeStringChar>::operator()(const std::string &str) {
         rawData.push_back(str.length());
-        for (char c: str){
+        for (char c: str) {
             rawData.push_back(static_cast<uint8_t >(c));
         }
     }
@@ -169,116 +174,117 @@ namespace zigbee {
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLType8bitBitmap>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLType16bitBitmap>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint)value >> 8)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint) value >> 8) & 0xFF));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLType32bitBitmap>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 8)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 16)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 24)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 8) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 16) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 24) & 0xFF));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeBool>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeenum8>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeSInt8>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeSInt16>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 8)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 8) & 0xFF));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeSInt24>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 8)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 16)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 8) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 16) & 0xFF));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeSInt32>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 8)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 16)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 24)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 8) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 16) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 24) & 0xFF));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeUInt8>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeUInt16>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 8)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 8) & 0xFF));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeUInt24>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 8)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 16)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 8) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 16) & 0xFF));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeUInt32>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 8)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 16)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 24)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 8) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 16) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 24) & 0xFF));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeUInt48>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint64_t)value >> 8)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint64_t)value >> 16)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint64_t)value >> 24)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint64_t)value >> 32)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint64_t)value >> 40)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint64_t) value >> 8) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint64_t) value >> 16) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint64_t) value >> 24) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint64_t) value >> 32) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint64_t) value >> 40) & 0xFF));
     }
 
     template<>
     inline void ZclAttributeRawValueImpl<ZCLTypeDataType::ZCLTypeUTCTime>::operator()(int64_t value) {
-        value = boost::endian::native_to_little( value);
+        value = boost::endian::native_to_little(value);
         rawData.push_back(static_cast<uint8_t >(value));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 8)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 16)&0xFF));
-        rawData.push_back(static_cast<uint8_t >(((uint32_t)value >> 24)&0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 8) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 16) & 0xFF));
+        rawData.push_back(static_cast<uint8_t >(((uint32_t) value >> 24) & 0xFF));
     }
 
 

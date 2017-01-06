@@ -15,6 +15,7 @@ using namespace ::testing;
 
 static constexpr std::array<uint8_t, Z_EXTADDR_LEN>  data {1,2,3,4,100,101,102,10};
 
+
 ExtAddressTest::ExtAddressTest() {
 	extAddress=nullptr;
 }

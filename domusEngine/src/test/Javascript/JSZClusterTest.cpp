@@ -15,7 +15,7 @@
 
 namespace zigbee {
 
-    std::ostream  & operator<<(std::ostream & out,  std::shared_ptr<ZCLAttribute> &  attribute){
+    std::ostream  & operator<<(std::ostream & out,  ZCLAttribute *  attribute){
         out << "attribute" << attribute->getName();
         return out;
     }

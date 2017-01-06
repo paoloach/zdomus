@@ -35,7 +35,7 @@ namespace zigbee {
 
             void attributeReceived(int attributeId, int status);
 
-            void send(Poco::Net::HTTPServerResponse &response, std::vector<std::shared_ptr<ZCLAttribute>> &&attributes);
+            void send(Poco::Net::HTTPServerResponse &response, std::vector< ZCLAttribute * > &&attributes);
 
         private:
             bool isAllAttributeArrived() const;

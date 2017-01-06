@@ -52,7 +52,7 @@ namespace zigbee {
             return zclType;
         }
 
-        std::shared_ptr<ZCLAttribute>
+        ZCLAttribute *
         getZCLAttribute(const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId, uint32_t attributeId);
         void jsCallback(int identity, JsCallbackParameters callbackParameters, v8::Isolate * isolate);
 
@@ -63,10 +63,12 @@ namespace zigbee {
 
         virtual void resetPersistence();
 
-        v8::Local<v8::Object> createInstance(v8::Isolate *isolate, std::shared_ptr<ZCLAttribute> &zclAttribute);
+        v8::Local<v8::Object> createInstance(v8::Isolate *isolate, ZCLAttribute * zclAttribute);
 
     protected:
         static void constructor(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+        static void jsValue(v8::Local<v8::String>, const v8::PropertyCallbackInfo<v8::Value> &info) ;
 
         static ExtAddress getExtAddressFromArg(const v8::FunctionCallbackInfo<v8::Value> &info);
 

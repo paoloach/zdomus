@@ -17,7 +17,7 @@ class ZCLAttribute;
 
 class AttributePT : public boost::property_tree::ptree {
 public:
-	AttributePT(const std::shared_ptr<ZCLAttribute> & cluster);
+	AttributePT(ZCLAttribute *  attribute);
 };
 
 } /* namespace zigbee */

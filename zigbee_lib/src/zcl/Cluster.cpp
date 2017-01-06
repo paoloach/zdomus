@@ -55,7 +55,7 @@ void Cluster::executeComand(uint32_t cmdId,  std::vector<uint8_t> data) {
 	}
 }
 
-std::shared_ptr<ZCLAttribute> Cluster::createAttribute(const AttributeDef & attributeDef) {
+std::unique_ptr<ZCLAttribute> Cluster::createAttribute(const AttributeDef & attributeDef) {
 	switch (attributeDef.type) {
 		case ZCLTypeDataType::ZCLTypeenum8:
 			return createAttribute<ZCL_enum8bit_Attribute>(attributeDef);
@@ -99,19 +99,19 @@ std::shared_ptr<ZCLAttribute> Cluster::createAttribute(const AttributeDef & attr
 	}
 }
 
-std::shared_ptr<ZCLAttribute> Cluster::getAttribute(int id) const {
+ZCLAttribute * Cluster::getAttribute(int id) const {
 	for (auto & attribute : attributes) {
 		if (attribute->getIdentifier() == id) {
-			return attribute;
+			return attribute.get();
 		}
 	}
-	return std::shared_ptr<ZCLAttribute>();
+	return nullptr;
 }
 
-std::shared_ptr<ZCLAttribute> Cluster::getAttribute(std::experimental::string_view name) const {
+ZCLAttribute * Cluster::getAttribute(std::experimental::string_view name) const {
 	for (auto & attribute : attributes) {
 		if (attribute->getName() == name) {
-			return attribute;
+			return attribute.get();
 		}
 	}
 	throw AttributeNotFoundException();

@@ -47,7 +47,7 @@ namespace zigbee {
                 auto zigbeeDevice = singletons.getZigbeeDevice();
                 auto cluster(singletons.getClusters()->getCluster(nwkAddr, endpoint, clusterId));
                 ZigbeeAttributeIds attributesId(placeHolder.getQueryParams<ZigbeeAttributeId>("id"));
-                vector<std::shared_ptr<ZCLAttribute>> attributes;
+                vector<ZCLAttribute *> attributes;
                 attributesArrived = std::vector<std::atomic<bool >>(attributesId.size());
 
                 int index = 0;
@@ -93,7 +93,7 @@ namespace zigbee {
         }
 
         void ShowAttribute::send(Poco::Net::HTTPServerResponse &response,
-                                 std::vector<std::shared_ptr<ZCLAttribute>> &&attributes) {
+                                 std::vector<ZCLAttribute * > &&attributes) {
             response.setContentType(Poco::Net::MediaType("application", "json"));
             response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_OK);
             Value root(arrayValue);

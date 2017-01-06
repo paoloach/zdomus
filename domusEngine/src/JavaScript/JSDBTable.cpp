@@ -24,8 +24,7 @@ namespace zigbee {
     using namespace v8;
     using boost::any;
 
-    JSDBTable::JSDBTable(DBTableFactory &dbTableFactory, JSRow *jsRow, Log &log) :
-            dbTableFactory(dbTableFactory), jsRow(jsRow), log(log) {
+    JSDBTable::JSDBTable(DBTableFactory &dbTableFactory, JSRow *jsRow, Log &log) : dbTableFactory(dbTableFactory), jsRow(jsRow), log(log) {
 
     }
 
@@ -37,8 +36,7 @@ namespace zigbee {
         Local<String> findMethod = String::NewFromUtf8(isolate, FIND);
         Local<String> insertMethod = String::NewFromUtf8(isolate, INSERT);
 
-        Local<FunctionTemplate> logFunctionTemplate = FunctionTemplate::New(isolate, constructor,
-                                                                            External::New(isolate, this));
+        Local<FunctionTemplate> logFunctionTemplate = FunctionTemplate::New(isolate, constructor, External::New(isolate, this));
         logFunctionTemplate->SetClassName(jsDbTableClassName);
         Local<ObjectTemplate> dbTableInstanceTemplate = logFunctionTemplate->InstanceTemplate();
 
@@ -54,8 +52,7 @@ namespace zigbee {
     }
 
     Local<Object> JSDBTable::createInstance(Isolate *isolate, const string &tableName) {
-        Local<ObjectTemplate> dbTableTemplate = Local<FunctionTemplate>::New(isolate,
-                                                                             functionTemplate)->InstanceTemplate();
+        Local<ObjectTemplate> dbTableTemplate = Local<FunctionTemplate>::New(isolate, functionTemplate)->InstanceTemplate();
         Local<Object> dbTableInstance = dbTableTemplate->NewInstance();
 
         DBTable *dbTable = dbTableFactory.getTable(tableName);
@@ -209,8 +206,7 @@ namespace zigbee {
         }
     }
 
-    void JSDBTable::checkStringParam(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info,
-                                     uint32_t index) {
+    void JSDBTable::checkStringParam(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info, uint32_t index) {
         if (!info[0]->IsString()) {
             throw JSExceptionArgNoString(methodName, index);
         }

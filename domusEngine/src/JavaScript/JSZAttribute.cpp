@@ -31,8 +31,7 @@ namespace zigbee {
 
     std::map<ZCLAttribute::Status, std::string> JSZAttribute::statusMap = {{ZCLAttribute::Available,    "available"},
                                                                            {ZCLAttribute::NotAvailable, "notAvailable"},
-                                                                           {
-                                                                            ZCLAttribute::NotSupported, "notSupported"},
+                                                                           {ZCLAttribute::NotSupported, "notSupported"},
                                                                            {ZCLAttribute::Requesting,   "requesting"},
                                                                            {ZCLAttribute::Undefined,    "undefined"},};
 
@@ -46,8 +45,7 @@ namespace zigbee {
 
     }
 
-    void JSZAttribute::initJsObjectsTemplate(v8::Isolate *isolate,
-                                             const v8::Local<v8::FunctionTemplate> &zAttributeFunctionTemplate) {
+    void JSZAttribute::initJsObjectsTemplate(v8::Isolate *isolate, const v8::Local<v8::FunctionTemplate> &zAttributeFunctionTemplate) {
         Local<String> requestValueMethod = String::NewFromUtf8(isolate, REQUEST_VALUE);
         Local<String> isAvailableMethod = String::NewFromUtf8(isolate, IS_AVAILABLE);
         Local<String> isUnsupportedMethod = String::NewFromUtf8(isolate, IS_UNSUPPORTED);
@@ -55,6 +53,8 @@ namespace zigbee {
         Local<String> getIdentifierMethod = String::NewFromUtf8(isolate, GET_IDENTIFIER);
         Local<String> getNameMethod = String::NewFromUtf8(isolate, GET_NAME);
         Local<String> isReadOnlyMethod = String::NewFromUtf8(isolate, IS_READONLY);
+
+        Local<String> valueProperty = String::NewFromUtf8(isolate, VALUE);
 
         Local<ObjectTemplate> zAttributeClusterInstanceTemplate = zAttributeFunctionTemplate->InstanceTemplate();
 
@@ -66,6 +66,8 @@ namespace zigbee {
         zAttributeClusterInstanceTemplate->Set(getIdentifierMethod, FunctionTemplate::New(isolate, jsGetIdentifier));
         zAttributeClusterInstanceTemplate->Set(getNameMethod, FunctionTemplate::New(isolate, jsGetName));
         zAttributeClusterInstanceTemplate->Set(isReadOnlyMethod, FunctionTemplate::New(isolate, jsIsReadOnly));
+
+        zAttributeClusterInstanceTemplate->SetAccessor(valueProperty, jsValue, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
     }
 
     void JSZAttribute::validateParams(const v8::FunctionCallbackInfo<v8::Value> &info) {
@@ -74,15 +76,14 @@ namespace zigbee {
         }
     }
 
-    v8::Local<v8::Object>
-    JSZAttribute::createInstance(v8::Isolate *isolate, std::shared_ptr<ZCLAttribute> &zclAttribute) {
+    v8::Local<v8::Object> JSZAttribute::createInstance(v8::Isolate *isolate, ZCLAttribute *zclAttribute) {
         if (zclAttribute->getZCLType() != getZCLType()) {
             throw JSExceptionInvalidAttributeType(getName(), zclAttribute->getZCLType(), getZCLType());
         }
         Local<ObjectTemplate> zAttributeT = Local<FunctionTemplate>::New(isolate, functionTemplate)->InstanceTemplate();
         Local<Object> zAttributeInstance = zAttributeT->NewInstance();
 
-        zAttributeInstance->SetInternalField(0, External::New(isolate, zclAttribute.get()));
+        zAttributeInstance->SetInternalField(0, External::New(isolate, zclAttribute));
         zAttributeInstance->SetInternalField(1, External::New(isolate, this));
         return zAttributeInstance;
     }
@@ -100,8 +101,7 @@ namespace zigbee {
             uint32_t attributeId = info[3].As<v8::Integer>()->Value();
             JSZAttribute *This = (JSZAttribute *) (Local<External>::Cast(info.Data())->Value());
 
-            std::shared_ptr<ZCLAttribute> zclAttribute = This->getZCLAttribute(extAddress, endpointId, clusterId,
-                                                                               attributeId);
+            ZCLAttribute *zclAttribute = This->getZCLAttribute(extAddress, endpointId, clusterId, attributeId);
 
             info.GetReturnValue().Set(This->createInstance(isolate, zclAttribute));
         } catch (std::exception &excp) {
@@ -116,6 +116,52 @@ namespace zigbee {
         ExtAddress extAddress{};
         stream >> extAddress;
         return extAddress;
+    }
+
+    void JSZAttribute::jsValue(v8::Local<v8::String>, const v8::PropertyCallbackInfo<v8::Value> &info) {
+        Isolate *isolate = info.GetIsolate();
+        try {
+            Local<Object> self = info.Holder();
+            Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+            auto attribute = (ZCLAttribute *) wrap->Value();
+            boost::any value = attribute->getValue();
+            switch (attribute->getZCLType()) {
+                case ZCLTypeDataType::ZCLTypeSInt8:
+                case ZCLTypeDataType::ZCLTypeSInt16:
+                case ZCLTypeDataType::ZCLTypeSInt24:
+                case ZCLTypeDataType::ZCLTypeSInt32: {
+                    int32_t iValue = boost::any_cast<int32_t>(value);
+                    info.GetReturnValue().Set(iValue);
+                }
+                    break;
+                case ZCLTypeDataType::ZCLTypeSInt40:
+                case ZCLTypeDataType::ZCLTypeSInt48:
+                case ZCLTypeDataType::ZCLTypeSInt56:
+                case ZCLTypeDataType::ZCLTypeSInt64: {
+                    double dValue = boost::any_cast<double>(value);
+                    info.GetReturnValue().Set(Integer::New(isolate, dValue));
+                }
+                    break;
+                case ZCLTypeDataType::ZCLTypeUInt8:
+                case ZCLTypeDataType::ZCLTypeUInt16:
+                case ZCLTypeDataType::ZCLTypeUInt24:
+                case ZCLTypeDataType::ZCLTypeUInt32: {
+                    uint32_t iValue = boost::any_cast<uint32_t>(value);
+                    info.GetReturnValue().Set(iValue);
+                }
+                    break;
+                case ZCLTypeDataType::ZCLTypeUInt40:
+                case ZCLTypeDataType::ZCLTypeUInt48:
+                case ZCLTypeDataType::ZCLTypeUInt56:
+                case ZCLTypeDataType::ZCLTypeUInt64: {
+                    double dValue = boost::any_cast<double>(value);
+                    info.GetReturnValue().Set(Integer::New(isolate, dValue));
+                }
+                    break;
+            }
+        } catch (std::exception &e) {
+            BOOST_LOG_TRIVIAL(error) << "Error reading attribute value: " << e.what();
+        }
     }
 
     void JSZAttribute::jsRequestValue(const v8::FunctionCallbackInfo<v8::Value> &info) {
@@ -157,18 +203,18 @@ namespace zigbee {
         }
     }
 
-    void
-    JSZAttribute::changeSignalCallback(v8::Isolate * isolate, int identity, JsCallbackParameters callbackParameters) {
+    void JSZAttribute::changeSignalCallback(v8::Isolate *isolate, int identity, JsCallbackParameters callbackParameters) {
         if (mapFunction.count(identity) > 0) {
-            callbackFifo.add(isolate, [identity,callbackParameters,this] (v8::Isolate * isolate){this->jsCallback(identity, callbackParameters, isolate);});
+            callbackFifo.add(isolate, [identity, callbackParameters, this](v8::Isolate *isolate) { this->jsCallback(identity, callbackParameters, isolate); });
         }
     }
 
-    void JSZAttribute::jsCallback(int identity, JsCallbackParameters callbackParameters, v8::Isolate * isolate) {
+    void JSZAttribute::jsCallback(int identity, JsCallbackParameters callbackParameters, v8::Isolate *isolate) {
         CallbackData callbackData = popCallbackData(identity);
 
         Local<Value> object = Local<Value>::New(isolate, std::get<2>(callbackData));
         Local<Function> callback = Local<Function>::Cast(object);
+        BOOST_LOG_TRIVIAL(info) << "callback is null: " <<  callback.IsEmpty();
         String::Utf8Value name(callback->GetInferredName());
 
         Local<Value> argv[4];
@@ -261,9 +307,7 @@ namespace zigbee {
         functionTemplate.Reset();
     }
 
-    std::shared_ptr<ZCLAttribute>
-    JSZAttribute::getZCLAttribute(const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId,
-                                  uint32_t attributeId) {
+    ZCLAttribute *JSZAttribute::getZCLAttribute(const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId, uint32_t attributeId) {
         if (!singletonObjects->getZDevices()->exists(extAddress)) {
             throw JSExceptionNoDevice(extAddress);
         }
@@ -275,8 +319,8 @@ namespace zigbee {
         if (!zEndpoint.hasInCluster(clusterId)) {
             throw JSExceptionNoInCluster(extAddress, endpointId, clusterId);
         }
-        std::shared_ptr<Cluster> cluster = singletonObjects->getClusters()->getCluster(zDevice->getNwkAddr(),endpointId, clusterId);
-        std::shared_ptr<ZCLAttribute> attribute = cluster->getAttribute(attributeId);
+        std::shared_ptr<Cluster> cluster = singletonObjects->getClusters()->getCluster(zDevice->getNwkAddr(), endpointId, clusterId);
+        ZCLAttribute *attribute = cluster->getAttribute(attributeId);
         if (!attribute) {
             throw JSExceptionNoAttribute(extAddress, endpointId, clusterId, attributeId);
         }

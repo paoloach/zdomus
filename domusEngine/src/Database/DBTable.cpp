@@ -9,11 +9,9 @@
 #include <iostream>
 #include <boost/spirit/include/karma.hpp>
 #include "DBTable.h"
-#include "DBRow.h"
 #include "DBDataConverter.h"
 #include "Exceptions/DBExceptionNoServer.h"
 #include "Exceptions/DBExceptionNoTable.h"
-#include "Exceptions/DBExceptionResultNotSet.h"
 #include "Exceptions/DBExceptionQueryError.h"
 
 namespace zigbee {
@@ -21,11 +19,6 @@ namespace zigbee {
     using std::stringstream;
     using std::shared_ptr;
     using namespace boost::spirit::karma;
-
-    static constexpr const char *server = "localhost:5432";
-    static constexpr const char *database = "domusEngine";
-    static constexpr const char *user = "DomusEngine";
-    static constexpr const char *password = "DomusEngine";
 
     std::shared_ptr<DBRow> DBTable::makeDBRow(PGresult *resultSet, uint index) {
         std::shared_ptr<DBRow> dbRow = std::make_shared<DBRow>();
@@ -63,8 +56,7 @@ namespace zigbee {
             paramsValue[i] = DBDataConverter::getStringValue(paramAnyValues[i]);
         }
 
-        PGresult *insertResult = PQexecParams(conn, insertStream.str().c_str(), paramName.size(), nullptr, paramsValue,
-                                              nullptr, nullptr, 0);
+        PGresult *insertResult = PQexecParams(conn, insertStream.str().c_str(), paramName.size(), nullptr, paramsValue, nullptr, nullptr, 0);
         for (uint i = 0; i < paramAnyValues.size(); i++) {
             free(paramsValue[i]);
         }
@@ -84,44 +76,23 @@ namespace zigbee {
 
         std::string checkTableStream;
         checkTableStream = "SELECT EXISTS (SELECT 1 FROM   pg_catalog.pg_class c  JOIN   pg_catalog.pg_namespace n ON n.oid = c.relnamespace  ";
-        checkTableStream +=
-                " WHERE  n.nspname = 'public'   AND    c.relname = '" + tableName + "' AND    c.relkind = 'r');";
+        checkTableStream += " WHERE  n.nspname = 'public'   AND    c.relname = '" + tableName + "' AND    c.relkind = 'r');";
 
         PGresult *result = PQexecParams(conn, checkTableStream.c_str(), 0, nullptr, nullptr, nullptr, nullptr, 1);
         ExecStatusType status = PQresultStatus(result);
         if (status != PGRES_TUPLES_OK) {
-            throw DBExceptionNoServer(server, database, PQresultErrorMessage(result));
+            throw DBExceptionNoServer(PQresultErrorMessage(result));
         }
         char *field = PQgetvalue(result, 0, 0);
         bool tableExist = *(bool *) (field);
         PQclear(result);
         if (!tableExist) {
-            PQreset(conn);
-            conn = nullptr;
-            throw DBExceptionNoTable(server, database, tableName);
+            throw DBExceptionNoTable(tableName);
         }
     }
 
-    DBTable::DBTable(const std::string &tableName) :
-            tableName(tableName) {
+    DBTable::DBTable(const std::string &tableName, PGconn *conn) : tableName(tableName), conn(conn) {
         resultSet = nullptr;
-        std::stringstream connectionStream;
-
-//	connectionStream << "postgresql://" << user << "@" << server << "/" << database;
-//
-//	conn = PQconnectdb(connectionStream.str().c_str());
-
-        connectionStream << "hostaddr = '127.0.0.1' dbname = " << database << " user = " << user << " password = "
-                         << password;
-        conn = PQconnectdb(connectionStream.str().c_str());
-
-        if (conn == nullptr) {
-            throw DBExceptionNoServer(server, database);
-        }
-
-        if (PQstatus(conn) != CONNECTION_OK) {
-            throw DBExceptionNoServer(server, database, PQerrorMessage(conn));
-        }
 
         checkTableName(tableName);
         currentIndex = 0;
@@ -136,10 +107,6 @@ namespace zigbee {
     DBTable::~DBTable() {
         if (resultSet != nullptr) {
             PQclear(resultSet);
-        }
-        if (conn != nullptr) {
-            std::cout << "free connection " << this << std::endl;
-            PQreset(conn);
         }
     }
 

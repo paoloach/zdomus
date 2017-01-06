@@ -43,7 +43,7 @@ namespace zigbee {
     public:
         SingletonObjects();
 
-        SingletonObjects(std::string &&configurationFileName, bool demo);
+        SingletonObjects(std::string &&configurationFileName, bool demo, std::string  driverName);
 
         virtual ~SingletonObjects() = default;
 
@@ -57,8 +57,6 @@ namespace zigbee {
         virtual std::shared_ptr<JSManager> getJSManage() { return jsManager; }
 
         virtual std::shared_ptr<http::FixedPathContainer> getFixedPathContainer() { return fixedPathContainer; }
-
-        virtual boost::asio::io_service &getIO() { return io; }
 
         virtual AttributeDataContainer &getAttributeDataContainer() { return attributeDataContainer; }
 

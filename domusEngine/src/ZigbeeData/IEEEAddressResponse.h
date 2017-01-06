@@ -10,7 +10,7 @@
 #include "ExtAddress.h"
 
 namespace zigbee {
-    struct  IEEEAddrResp {
+struct  IEEEAddrResp {
         ExtAddress ieeeAddr;
         NwkAddr nwkAddr;
         uint8_t startIndex;

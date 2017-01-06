@@ -12,6 +12,7 @@
 #include <boost/lexical_cast.hpp>
 #include <ostream>
 #include <istream>
+#include <iomanip>
 #include <zigbee/ZigbeeTypes.h>
 
 namespace zigbee {
@@ -63,7 +64,7 @@ private:
 };
 
 inline std::ostream & operator<<(std::ostream & out, const NwkAddr & address){
-	out << address.address;
+	out << std::hex <<  std::uppercase << std::setfill('0') << std::setw(4) << address.address;
 	return out;
 }
 

@@ -16,6 +16,10 @@ file(GLOB testJavascriptAttributes "Javascript/JSAttributes/*.cpp")
 file(GLOB testHttpServer "httpServer/*.cpp")
 file(GLOB testRestParser "httpServer/RestParser/*.cpp")
 
+
+SET(SRC_TEST_SERIAL_DRIVER serialDriver/IEEEAddressResponseSerialExecutorTest.cpp
+        serialDriver/IEEEAddressResponseSerialExecutorTest.h)
+
 SET(SRC_TEST_JAVASCRIPT Javascript/ClusterCmdArgumentMatcher.h Javascript/ClusterCmdArrayArgumentMatcher.h
         Javascript/JavaScriptExecuterTest.cpp Javascript/JavaScriptExecuterTest.h
         Javascript/JSBaseTest.cpp Javascript/JSEndpointTest.h
@@ -145,6 +149,7 @@ add_executable(domus_engine_test
         ${testUtils}
         ${SRC_TEST_MOCK}
         ${testComand}
+        ${SRC_TEST_SERIAL_DRIVER}
         #        ${testDatabase}
         ${testConfiguration}
         ${testJavascriptAttributes}

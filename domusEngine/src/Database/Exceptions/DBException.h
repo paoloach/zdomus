@@ -13,21 +13,22 @@
 
 namespace zigbee {
 
-class DBException: public std::exception {
-public:
-	DBException() {
-	}
-	DBException(const std::string & message) :
-			message(message) {
-	}
-	virtual ~DBException() noexcept {
-	}
-	virtual const char* what() const noexcept {
-		return message.c_str();
-	}
-protected:
-	std::string message;
-};
+    class DBException : public std::exception {
+    public:
+        DBException() = default;
+
+        DBException(const std::string &message) : message(message) {
+        }
+
+        virtual ~DBException() noexcept = default;
+
+        virtual const char *what() const noexcept {
+            return message.c_str();
+        }
+
+    protected:
+        std::string message;
+    };
 
 } /* namespace zigbee */
 

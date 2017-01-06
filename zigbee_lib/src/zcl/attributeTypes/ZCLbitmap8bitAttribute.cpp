@@ -10,7 +10,7 @@
 
 namespace zigbee {
 
-    ZCL_bitmap8bit_Attribute::ZCL_bitmap8bit_Attribute(ZigbeeDevice *zigbeeDevice, Cluster *parent,
+    ZCL_bitmap8bit_Attribute::ZCL_bitmap8bit_Attribute(ZigbeeDevice *   zigbeeDevice, Cluster *parent,
                                                        ZigbeeClusterId identifier,
                                                        std::experimental::string_view name, bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLType8bitBitmap>(zigbeeDevice, parent, identifier, name, readOnly) {

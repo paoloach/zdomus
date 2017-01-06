@@ -34,6 +34,7 @@ namespace zigbee {
         virtual void put(const AnnunceMessage &message);
 
         virtual void put(const SimpleDescMessage &message);
+        virtual void put(const ZEndpoint &message);
 
         virtual void put(const BindResponse &message);
 

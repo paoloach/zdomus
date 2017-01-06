@@ -33,7 +33,7 @@ namespace zigbee {
         virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global);
 
         virtual v8::Local<v8::Object>
-        createAttributeInstance(v8::Isolate *isolate, std::shared_ptr<ZCLAttribute> attribute);
+        createAttributeInstance(v8::Isolate *isolate, ZCLAttribute * attribute);
 
         virtual void resetPersistences();
 

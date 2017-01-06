@@ -5,26 +5,24 @@
  *      Author: Paolo Achdjian
  */
 
-#include <sstream>
 #include "DBExceptionNoServer.h"
 
 namespace zigbee {
 
-DBExceptionNoServer::DBExceptionNoServer(const std::string& address, const std::string& db) {
-	std::stringstream stream;
+    DBExceptionNoServer::DBExceptionNoServer() {
+        message = "Unable to connect to database";
+    }
 
-	stream << "Unable to connect to database " << db << " on server " << address;
-	message = stream.str();
-}
+    DBExceptionNoServer::DBExceptionNoServer(const std::string &cause) {
+        message = "Unable to connect to database because: " + cause;
+    }
 
-DBExceptionNoServer::~DBExceptionNoServer() {
-}
+    DBExceptionNoServer::DBExceptionNoServer(const std::string &server, const std::string &dbName, const std::string &cause) {
+        message = "Unable to connect to database " + dbName + " at " + server + " because: " + cause;
+    }
 
-DBExceptionNoServer::DBExceptionNoServer(const std::string& address, const std::string& db, const std::string& cause) {
-	std::stringstream stream;
-
-	stream << "Unable to connect to database " << db << " on server " << address << " because: " << cause;
-	message = stream.str();
-}
+    DBExceptionNoServer::DBExceptionNoServer(const std::string &server, const std::string &dbName) {
+        message = "Unable to connect to database " + dbName + " at " + server;
+    }
 } /* namespace zigbee */
 

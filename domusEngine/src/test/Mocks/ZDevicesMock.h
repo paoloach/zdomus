@@ -30,6 +30,7 @@ public:
 	MOCK_CONST_METHOD1(getDevice, ZDevice * (NwkAddr nwkAddr));
 	MOCK_CONST_METHOD1(getDeviceNoExcept, ZDevice * (NwkAddr nwkAddr));
 	MOCK_CONST_METHOD1(exists, bool (const ExtAddress & extAddress));
+    MOCK_METHOD1(addDeviceInfo,  void (const IEEEAddrResp &ieeeAddressResponse));
 };
 
 

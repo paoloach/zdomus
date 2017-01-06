@@ -31,13 +31,13 @@
 					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include-fixed"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include-fixed"/>
 					<Add directory="/usr/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5/backward"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test"/>
@@ -60,13 +60,13 @@
 					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include-fixed"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include-fixed"/>
 					<Add directory="/usr/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/5.4.0/include/g++-v5/backward"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test/fast"/>
@@ -476,6 +476,12 @@
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/main.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/serialDriver/IEEEAddressResponseSerialExecutorTest.cpp">
+			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/serialDriver/IEEEAddressResponseSerialExecutorTest.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/v8_blob/x64-debug/native_blob.cpp">

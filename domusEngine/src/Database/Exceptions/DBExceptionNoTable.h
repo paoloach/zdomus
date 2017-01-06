@@ -12,12 +12,13 @@
 
 namespace zigbee {
 
-class DBExceptionNoTable: public DBException {
-public:
-	DBExceptionNoTable(const std::string & address, const std::string & db, const std::string & tableName);
-	virtual ~DBExceptionNoTable();
+    class DBExceptionNoTable : public DBException {
+    public:
+        DBExceptionNoTable(const std::string &tableName);
 
-};
+        virtual ~DBExceptionNoTable() noexcept = default;
+
+    };
 
 } /* namespace zigbee */
 

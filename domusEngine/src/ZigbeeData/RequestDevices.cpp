@@ -29,6 +29,6 @@ void zigbee::RequestDevices::request(zigbee::ZDevice *zDevice) {
         return;
     }
     auto zigbeeDevice = singletonObjects.getZigbeeDevice();
-    BOOST_LOG_TRIVIAL(info) << "Observer callback requesting " << zDevice->getNwkAddr();
+    BOOST_LOG_TRIVIAL(info) << "Observer callback requesting " << std::hex << zDevice->getNwkAddr();
     zigbeeDevice->requestActiveEndpoints(zDevice->getNwkAddr());
 }

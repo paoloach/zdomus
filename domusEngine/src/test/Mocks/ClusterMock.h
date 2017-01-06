@@ -28,8 +28,8 @@ public:
 	MOCK_CONST_METHOD0(getClusterName, std::string () );
 	MOCK_METHOD2(createAttributes, void (const Cluster::AttributeDef * attributesDef, int size) );
 	MOCK_METHOD1(createAttributes, void (const std::vector<AttributeDef> & attributesDef) ) ;
-	MOCK_CONST_METHOD1(getAttribute, std::shared_ptr<ZCLAttribute> (int id) );
-	MOCK_CONST_METHOD1(getAttribute, std::shared_ptr<ZCLAttribute> (std::experimental::string_view  name) );
+	MOCK_CONST_METHOD1(getAttribute, ZCLAttribute *(int id) );
+	MOCK_CONST_METHOD1(getAttribute, ZCLAttribute * (std::experimental::string_view  name) );
 	MOCK_METHOD2(executeComand, void (uint32_t cmd, std::vector<uint8_t>  data));
 	MOCK_CONST_METHOD0(getAttributes, std::vector<AttributeDef> ());
 	MOCK_CONST_METHOD0(getCommands, std::vector<CommandDef> ());

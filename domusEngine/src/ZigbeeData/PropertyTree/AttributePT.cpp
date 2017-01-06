@@ -11,7 +11,7 @@
 namespace zigbee {
 
 
-AttributePT::AttributePT(const std::shared_ptr<ZCLAttribute>& attribute) {
+AttributePT::AttributePT(ZCLAttribute * attribute) {
 	add("id", attribute->getIdentifier());
 	add("name", attribute->getName());
 	add("readOnly", attribute->isReadOnly());

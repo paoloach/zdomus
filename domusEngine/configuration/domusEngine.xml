@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <javascript>
     <filename>/home/paolo/workspace/zdomus/domusEngine/configuration/readTemperatures.js</filename>
-    <period>00:00:30</period>
+    <period>00:00:05</period>
     <name>readTemperatures</name>
 </javascript>

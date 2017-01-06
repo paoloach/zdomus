@@ -37,6 +37,9 @@ namespace zigbee {
 
     public:
         bool put(const SimpleDescMessage &simpleDescMsg);
+        void put(const ZEndpoint &zEndpoint){
+            endpoints[zEndpoint.getEndpoint()] = zEndpoint;
+        }
 
         ZEndpoint getEndpoint(EndpointID endpointId) const;
 

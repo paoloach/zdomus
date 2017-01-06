@@ -35,7 +35,7 @@ namespace zigbee {
         }
 
         void JSAttributeTest::createIstanceTest(const std::string &attributeName, std::shared_ptr<JSZAttribute> &jsZAttribute,
-                                                std::shared_ptr<ZCLAttribute> attributeMock) {
+                                                ZCLAttribute * attributeMock) {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream stream{};
@@ -63,14 +63,14 @@ namespace zigbee {
             return ZDevice {extAddress, NWK_ADDRESS, 0, {zEndpoint}};
         }
 
-        void JSAttributeTest::setInitExpectation(ZDevice &zDevice, const std::shared_ptr<ZCLAttribute> &attributeMock) {
+        void JSAttributeTest::setInitExpectation(ZDevice &zDevice, const ZCLAttribute * attributeMock) {
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(cluster));
             EXPECT_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillOnce(Return(attributeMock));
         }
 
-        void JSAttributeTest::isAvailableTest(bool availableStatus, std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock) {
+        void JSAttributeTest::isAvailableTest(bool availableStatus, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream{};
             stream << zAttributeVariable << "a.isAvailable();";
@@ -85,7 +85,7 @@ namespace zigbee {
             ASSERT_THAT(result->BooleanValue(), availableStatus);
         }
 
-        void JSAttributeTest::isUnsupportedTest(bool availableStatus, std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock) {
+        void JSAttributeTest::isUnsupportedTest(bool availableStatus, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream{};
             stream << zAttributeVariable << "a.isUnsupported();";
@@ -101,7 +101,7 @@ namespace zigbee {
         }
 
         void JSAttributeTest::getStatusTest(ZCLAttribute::Status statusExpected, std::shared_ptr<JSZAttribute> &jsZAttribute,
-                                            std::shared_ptr<ZCLAttribute> attributeMock) {
+                                            ZCLAttribute * attributeMock) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream{};
             stream << zAttributeVariable << "a.getStatus();";
@@ -118,7 +118,7 @@ namespace zigbee {
             ASSERT_THAT(*status, StrEq(expectedStatusValue));
         }
 
-        void JSAttributeTest::getIdentifierTest(std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock) {
+        void JSAttributeTest::getIdentifierTest(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream{};
             stream << zAttributeVariable << "a.getIdentifier();";
@@ -133,7 +133,7 @@ namespace zigbee {
             ASSERT_THAT(result->Uint32Value(), Eq(ATTRIBUTE0_ID));
         }
 
-        void JSAttributeTest::getNameTest(const std::string &expectedName, std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock) {
+        void JSAttributeTest::getNameTest(const std::string &expectedName, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream{};
             stream << zAttributeVariable << "a.getName();";
@@ -149,7 +149,7 @@ namespace zigbee {
             ASSERT_THAT(*name, StrEq(expectedName));
         }
 
-        void JSAttributeTest::isReadonlyTest(bool readOnlyExpected, std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock) {
+        void JSAttributeTest::isReadonlyTest(bool readOnlyExpected, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream{};
             stream << zAttributeVariable << "a.isReadOnly();";
@@ -164,7 +164,7 @@ namespace zigbee {
             ASSERT_THAT(result->BooleanValue(), Eq(readOnlyExpected));
         }
 
-        void JSAttributeTest::requestValueTest(std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock) {
+        void JSAttributeTest::requestValueTest(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream{};
             stream << zAttributeVariable << "a.requestValue();";
@@ -178,7 +178,7 @@ namespace zigbee {
             ASSERT_THAT(result->IsUndefined(), true);
         }
 
-//        void JSAttributeTest::requestValueWithCallbackTest(std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock,
+//        void JSAttributeTest::requestValueWithCallbackTest(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock,
 //                                                           Callbacks &changeSignal) {
 //            ZDevice zDevice{createZDevice()};
 //            std::stringstream stream;
@@ -211,7 +211,7 @@ namespace zigbee {
 //            ASSERT_THAT(log.empty(), true);
 //        }
 
-        void JSAttributeTest::requestValueWithCallbackTestOnlyFirstTime(std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock,
+        void JSAttributeTest::requestValueWithCallbackTestOnlyFirstTime(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock,
                                                                         Callbacks &changeSignal) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream;
@@ -247,7 +247,7 @@ namespace zigbee {
             ASSERT_THAT(log.empty(), true);
         }
 
-        void JSAttributeTest::requestValueWithCallbackTestTwoTime(std::shared_ptr<JSZAttribute> &jsZAttribute, std::shared_ptr<ZCLAttribute> attributeMock,
+        void JSAttributeTest::requestValueWithCallbackTestTwoTime(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock,
                                                                   Callbacks &changeSignal) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream;

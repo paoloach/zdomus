@@ -113,8 +113,7 @@ namespace zigbee {
             jsRow->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(
-                    Throw(DBExceptionNoTable("Server", "Database", tableName)));
+            EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Throw(DBExceptionNoTable(tableName)));
 
             stream << "var table=" << JSDBTABLE << "('" << tableName << "');";
             stream << "table;";

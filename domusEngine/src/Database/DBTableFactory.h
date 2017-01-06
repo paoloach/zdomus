@@ -9,17 +9,21 @@
 #define SRC_DATABASE_DBTABLEFACTORY_H_
 
 #include <string>
-
+#include <libpq-fe.h>
 namespace zigbee {
 
-class DBTable;
+    class DBTable;
 
-class DBTableFactory {
-public:
-	virtual ~DBTableFactory();
-public:
-	virtual DBTable * getTable(const std::string & tableName) const;
-};
+    class DBTableFactory {
+    public:
+        DBTableFactory();
+        virtual ~DBTableFactory()=default;
+
+    public:
+        virtual DBTable *getTable(const std::string &tableName) const;
+    private:
+        PGconn *conn;
+    };
 
 } /* namespace zigbee */
 
