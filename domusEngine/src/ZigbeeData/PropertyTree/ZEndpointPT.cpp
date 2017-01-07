@@ -17,7 +17,7 @@ ZEndpointPT::ZEndpointPT(const ZEndpoint& zEndpoint) noexcept{
 	ptree  inCluster;
 	ptree outCluster;
 
-	add("short_address", zEndpoint.getNwkAddr());
+	add("short_address", zEndpoint.getNwkAddr().getId());
 	add("endpoint_id", zEndpoint.getEndpoint());
 	add("profile_id", zEndpoint.getAppProfId());
 	add("device_id", zEndpoint.getAppDeviceId());

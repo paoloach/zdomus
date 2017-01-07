@@ -50,7 +50,7 @@ public class ZDevices implements GetDevice.Listener, GetEndpoint.Listener {
     public void addDevice(@NonNull  String shortAddress, @NonNull String extAddress){
         int nwkAddress;
         try {
-            nwkAddress = Integer.parseInt(shortAddress);
+            nwkAddress = Integer.parseInt(shortAddress,16);
 
             if (!devices.containsKey(nwkAddress)) {
                 ZDevice zDevice = new ZDevice();

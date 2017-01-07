@@ -214,18 +214,19 @@ namespace zigbee {
 
         Local<Value> object = Local<Value>::New(isolate, std::get<2>(callbackData));
         Local<Function> callback = Local<Function>::Cast(object);
-        BOOST_LOG_TRIVIAL(info) << "callback is null: " <<  callback.IsEmpty();
-        String::Utf8Value name(callback->GetInferredName());
+        if (!callback.IsEmpty()) {
+            String::Utf8Value name(callback->GetInferredName());
 
-        Local<Value> argv[4];
-        argv[0] = v8::Int32::New(isolate, callbackParameters.nwkAddr.getId());
-        argv[1] = v8::Int32::New(isolate, callbackParameters.endpointID.getId());
-        argv[2] = v8::Int32::New(isolate, callbackParameters.clusterID.getId());
-        argv[3] = v8::Int32::New(isolate, callbackParameters.attributeId);
+            Local<Value> argv[4];
+            argv[0] = v8::Int32::New(isolate, callbackParameters.nwkAddr.getId());
+            argv[1] = v8::Int32::New(isolate, callbackParameters.endpointID.getId());
+            argv[2] = v8::Int32::New(isolate, callbackParameters.clusterID.getId());
+            argv[3] = v8::Int32::New(isolate, callbackParameters.attributeId);
 
-        callback->CallAsFunction(object, 4, argv);
-        get<1>(callbackData)->removeOnChangeListener(get<0>(callbackData));
-        get<2>(callbackData).Reset();
+            callback->CallAsFunction(object, 4, argv);
+            get<1>(callbackData)->removeOnChangeListener(get<0>(callbackData));
+            get<2>(callbackData).Reset();
+        }
     }
 
     void JSZAttribute::jsIsAvailable(const v8::FunctionCallbackInfo<v8::Value> &info) {

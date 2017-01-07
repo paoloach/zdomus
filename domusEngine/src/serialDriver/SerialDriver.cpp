@@ -21,7 +21,8 @@ namespace zigbee {
     static const boost::posix_time::time_duration WEAKUP_TIMER = boost::posix_time::seconds(1);
 
     SerialDriver::SerialDriver(const std::string &port, boost::asio::io_service &io, SingletonObjects &singletonObjects) : singletonObjects(singletonObjects), port(port),
-                                                                                                                           serialPort(io),serialResponseExecutor(singletonObjects) {
+                                                                                                                           serialPort(io),
+                                                                                                                           serialResponseExecutor(singletonObjects) {
         try {
             serialPort.open(port);
 
@@ -47,7 +48,7 @@ namespace zigbee {
 
     SerialDriver::~SerialDriver() {
         serialPort.close();
-        stop=true;
+        stop = true;
         readThread.join();
     }
 
@@ -55,10 +56,10 @@ namespace zigbee {
 
         char c;
 
-        while(!stop) {
+        while (!stop) {
             try {
                 serialPort.read_some(buffer(&c, 1));
-                if (c != '\n'){
+                if (c != '\n') {
                     message += c;
                 } else {
                     BOOST_LOG_TRIVIAL(info) << message;
@@ -80,35 +81,52 @@ namespace zigbee {
         return false;
     }
 
-    void SerialDriver::getUsbMessage() {
-
-    }
-
     void SerialDriver::getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) {
         if (serialPort.is_open()) {
             stringstream stream;
-            stream << "IEEE: " << hex << uppercase << setfill('0') << setw(4) << nwkAddr.getId() << ", " << (requestType == SingleRequest ? '0' : '1') << ", " << setw(2) << (int)startIndex << "\n";
+            stream << "IEEE: " << hex << uppercase << setfill('0') << setw(4) << nwkAddr.getId() << ", " << (requestType == SingleRequest ? '0' : '1') << ", " << setw(2)
+                   << (int) startIndex << "\n";
             std::string data = stream.str();
             serialPort.write_some(buffer(data));
             BOOST_LOG_TRIVIAL(info) << "Send requesT: " << data;
         }
-     }
+    }
 
     void SerialDriver::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) {
         if (serialPort.is_open()) {
             stringstream stream;
-            stream << "RA: " << hex << uppercase << setfill('0') << setw(4) << nwkAddrs.getId() << ", " << setw(2)<< (int)endpoint.getId() << ", " << setw(4) << cluster.getId() << ", "  << setw(4) << attributeId << "\n";
+            stream << "RA: " << hex << uppercase << setfill('0') << setw(4) << nwkAddrs.getId() << ", " << setw(2) << (int) endpoint.getId() << ", " << setw(4) << cluster.getId()
+                   << ", " << setw(4) << attributeId << "\n";
             std::string data = stream.str();
+            BOOST_LOG_TRIVIAL(info) << "Request: " << data;
             serialPort.write_some(buffer(data));
         }
     }
 
+    // RAS: networkid, endpointId, clusterId, attributesNum, first attributed id, ..., last attribute id
+    //       4 digits, 2 digits  ,  4 digits, 2 digits     ,  4 digits          , ...,    4  digits
     void SerialDriver::requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds &attributeIds) {
+        if (serialPort.is_open()) {
+            stringstream stream;
+            stream << "RAS: " << hex << uppercase << setfill('0') << setw(4) << nwkAddrs.getId() << ", " << setw(2) << (int) endpoint.getId() << ", " << setw(4) << cluster.getId()
+                   << ", " << setw(2) << attributeIds.size();
+            for (auto &attributeId: attributeIds) {
+                stream  << ", " << hex << setw(4) << attributeId;
+                usleep(100000);
+            }
+            stream << "\n";
+            std::string data = stream.str();
 
+            BOOST_LOG_TRIVIAL(info) << "Request: (size:  " << data.size() << ") " << data;
+            serialPort.write_some(buffer(data));
+
+        }
     }
 
     void SerialDriver::requestReset() {
-
+        if (serialPort.is_open()) {
+            serialPort.write_some(buffer("RESET:\n"));
+        }
     }
 
     void SerialDriver::writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType, uint8_t dataValueLen,
@@ -116,8 +134,19 @@ namespace zigbee {
 
     }
 
+    // Send message: SC: networkid, endpointId, clusterId, commandId, dataLen  , data
+    //                   4 digits ,  2 digits ,  4 digits,  4 digits,  2 digits,  n*2 digits, where n=dataLen
     void SerialDriver::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t> data) {
-
+        if (serialPort.is_open()) {
+            stringstream stream;
+            stream << "SC: " << hex << uppercase << setfill('0') << setw(4) << nwkAddrs.getId() << ", " << setw(2) << (int) endpoint.getId() << ", " << setw(4) << cluster.getId()
+                   << ", " << setw(4) << commandId << setw(2) << data.size() << ", ";
+            for(uint8_t value: data){
+                stream << hex << uppercase << setfill('0') << setw(2) << (uint32_t)value;
+            }
+            std::string data = stream.str();
+            serialPort.write_some(buffer(data));
+        }
     }
 
     void SerialDriver::registerForAttributeCmd(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeCmdId, const std::function<void()>) {
@@ -129,9 +158,9 @@ namespace zigbee {
     // Send message: AE: networkid
     //                    4digit
     void SerialDriver::requestActiveEndpoints(NwkAddr nwkAddr) {
-        if (serialPort.is_open()){
+        if (serialPort.is_open()) {
             stringstream stream;
-            stream << "AE: " << hex <<  uppercase << setfill('0') << setw(4) << nwkAddr.getId() << "\n";
+            stream << "AE: " << hex << uppercase << setfill('0') << setw(4) << nwkAddr.getId() << "\n";
             std::string data = stream.str();
             serialPort.write_some(buffer(data));
         }

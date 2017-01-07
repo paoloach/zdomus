@@ -51,7 +51,7 @@ namespace zigbee {
 
         bool enableLog() override;
 
-        void getUsbMessage() override;
+        void getUsbMessage();
 
         void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) override;
 

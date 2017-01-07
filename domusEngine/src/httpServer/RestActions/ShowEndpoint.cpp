@@ -26,11 +26,14 @@ namespace zigbee {
         void ShowEndpoint::operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
                                       Poco::Net::HTTPServerResponse &response) {
             BOOST_LOG_TRIVIAL(info) << "ShowEndpoint";
+
+            PlaceHolders ss (placeHolder);
+
             response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
             const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
-            auto device(placeHolder.get<NwkAddr>("device"));
-            auto endpoint(placeHolder.get<EndpointID>("endpoint"));
-            auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(device));
+            auto device(ss.get<NwkAddr>("device"));
+            auto endpoint(ss.get<EndpointID>("endpoint"));
+            auto zDevice = singletons.getZDevices()->getDevice(device);
             producer.produce(response.send(), ZEndpointPT(zDevice->getEndpoint(endpoint)));
         }
 

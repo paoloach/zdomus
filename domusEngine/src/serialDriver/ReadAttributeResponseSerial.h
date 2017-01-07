@@ -48,24 +48,32 @@ namespace zigbee {
                     uint8_t attributeLen{std::stoi(*tokIter, nullptr, 16)};
                     tokIter++;
                     std::string rawData = *tokIter;
-                    if (attributeLen*2 == rawData.size()) {
+                    if (attributeLen * 2 == rawData.size()) {
                         uint8_t data[attributeLen];
-                        for (int i = 0; i < attributeLen; i++){
-                            data[i] = std::stoi(rawData.substr(2*i, 2*i+2), nullptr, 16);
+                        for (int i = 0; i < attributeLen; i++) {
+                            data[i] = std::stoi(rawData.substr(2 * i, 2), nullptr, 16);
                         }
-                        Clusters * clusters =singletons.getClusters();
+                        Clusters *clusters = singletons.getClusters();
 
                         auto cluster = clusters->getCluster(nwkAddr, endpointId, clusterId);
-                        Cluster * pCluster = cluster.get();
+                        Cluster *pCluster = cluster.get();
                         volatile auto attribute = pCluster->getAttribute(attributeId);
                         attribute->setValue(status, attributeType, data);
+
+                        auto &attributeValueSignalMap = singletons.getAttributeValueSignalMap();
+                        AttributeKey key{nwkAddr, endpointId.getId(), clusterId.getId(), attributeId};
+                        if (attributeValueSignalMap.count(key) > 0) {
+                            attributeValueSignalMap.execute(key, 0);
+                        }
+                        BOOST_LOG_TRIVIAL(info) << "arrived attribute from  network id=" << nwkAddr << ", endpoint=" << endpointId << ", cluster=" << clusterId << ", attribute="
+                                                << attributeId;
                     } else {
                         BOOST_LOG_TRIVIAL(error) << "Error on requesting attribute value from  network id=" << nwkAddr << ", endpoint=" << endpointId << ", cluster=" << clusterId
                                                  << ", attribute=" << attributeId << ", cause: data length differs from attribute effective length";
                     }
                 } else {
                     BOOST_LOG_TRIVIAL(error) << "Error on requesting attribute value from  network id=" << nwkAddr << ", endpoint=" << endpointId << ", cluster=" << clusterId
-                                             << ", attribute=" << attributeId    << ", cause: " << status;
+                                             << ", attribute=" << attributeId << ", cause: " << status;
                 }
             } catch (boost::bad_lexical_cast &e) {
                 BOOST_LOG_TRIVIAL(error) << "Unable to parse the message: " << e.what();

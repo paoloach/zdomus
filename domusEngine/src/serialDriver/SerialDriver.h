@@ -21,8 +21,6 @@ namespace zigbee {
 
         bool enableLog() override;
 
-        void getUsbMessage() override;
-
         void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) override;
 
         void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
