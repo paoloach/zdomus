@@ -129,9 +129,26 @@ namespace zigbee {
         }
     }
 
-    void SerialDriver::writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType, uint8_t dataValueLen,
+    // Send message: WA: networkid, endpointId, clusterId, attributeId, dataType, , dataLen  ,         data
+    //                   4 digits ,  2 digits ,  4 digits,  4 digits  ,  2 digits ,  2 digits,  n*2 digits, where n=dataLen
+    void SerialDriver::writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId, ZCLTypeDataType dataType, uint8_t dataValueLen,
                                       uint8_t *dataValue) {
+        if (serialPort.is_open()) {
+            stringstream stream;
+            stream << "WA: " << hex << uppercase << setfill('0') << setw(4) << nwkAddrs.getId() << ", " << setw(2) << (int) endpoint.getId() << ", " << setw(4) << cluster.getId()
+                   << ", " << setw(4) << attributeId << ", "  << setw(2) << (int)dataType <<", " << setw(2) << (int)dataValueLen;
+            if (dataValueLen > 0) {
+                stream << ", ";
 
+                for (int i=0; i < dataValueLen; i++) {
+                    stream << hex << uppercase << setfill('0') << setw(2) << (uint32_t) dataValue[i];
+                }
+            }
+            stream << '\n';
+            std::string data = stream.str();
+            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
+            serialPort.write_some(buffer(data));
+        }
     }
 
     // Send message: SC: networkid, endpointId, clusterId, commandId, dataLen  , data
@@ -140,19 +157,19 @@ namespace zigbee {
         if (serialPort.is_open()) {
             stringstream stream;
             stream << "SC: " << hex << uppercase << setfill('0') << setw(4) << nwkAddrs.getId() << ", " << setw(2) << (int) endpoint.getId() << ", " << setw(4) << cluster.getId()
-                   << ", " << setw(4) << commandId << setw(2) << data.size() << ", ";
-            for(uint8_t value: data){
-                stream << hex << uppercase << setfill('0') << setw(2) << (uint32_t)value;
+                   << ", " << setw(4) << commandId  <<", " << setw(2) << data.size();
+            if (data.size() > 0) {
+                stream << ", ";
+
+                for (uint8_t value: data) {
+                    stream << hex << uppercase << setfill('0') << setw(2) << (uint32_t) value;
+                }
             }
+            stream << '\n';
             std::string data = stream.str();
+            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
             serialPort.write_some(buffer(data));
         }
-    }
-
-    void SerialDriver::registerForAttributeCmd(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeCmdId, const std::function<void()>) {
-    }
-
-    void SerialDriver::registerForAttributeValue(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeId, const ZigbeeDevice::NewAttributeValueCallback) {
     }
 
     // Send message: AE: networkid
@@ -162,26 +179,79 @@ namespace zigbee {
             stringstream stream;
             stream << "AE: " << hex << uppercase << setfill('0') << setw(4) << nwkAddr.getId() << "\n";
             std::string data = stream.str();
+            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
             serialPort.write_some(buffer(data));
         }
     }
 
-    void
-    SerialDriver::sendReqBind(NwkAddr destAddr, const uint8_t *outClusterAddr, EndpointID outClusterEP, ClusterID clusterID, const uint8_t *inClusterAddr, EndpointID inClusterEp) {
+
+    // Send message: BI: network id, extend address,  endpointId, clusterId, extend address, endpoint Id
+    //                    4 digits ,  16 digits    ,    2 digits,  4 digits,  16 digits    ,   2 digits
+    void SerialDriver::sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID, const uint8_t inClusterAddr[Z_EXTADDR_LEN],
+                     EndpointID inClusterEp) {
+        if (serialPort.is_open()) {
+            stringstream stream;
+            stream << "BI: " << hex << uppercase << setfill('0') << setw(4) << destAddr.getId() << ", ";
+            for (int i=0; i < Z_EXTADDR_LEN; i++){
+                stream << hex << uppercase << setfill('0') << setw(2) << outClusterAddr[i];
+            }
+            stream << ", " << (int)outClusterEP.getId() << ", " << setw(4) << clusterID.getId() <<", ";
+            for (int i=0; i < Z_EXTADDR_LEN; i++){
+                stream << hex << uppercase << setfill('0') << setw(2) << inClusterAddr[i];
+            }
+            stream << ", " << (int)inClusterEp.getId();
+
+            std::string data = stream.str();
+            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
+            serialPort.write_some(buffer(data));
+        }
 
     }
 
-    void SerialDriver::sendReqUnbind(NwkAddr destAddr, const uint8_t *outClusterAddr, EndpointID outClusterEP, ClusterID clusterID, const uint8_t *inClusterAddr,
-                                     EndpointID inClusterEp) {
+    // Send message: UBI: network id, extend address,  endpointId, clusterId, extend address, endpoint Id
+    //                    4 digits ,  16 digits    ,    2 digits,  4 digits,  16 digits    ,   2 digits
+    void SerialDriver::sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID, const uint8_t inClusterAddr[Z_EXTADDR_LEN],
+                       EndpointID inClusterEp) {
+        if (serialPort.is_open()) {
+            stringstream stream;
+            stream << "UBI: " << hex << uppercase << setfill('0') << setw(4) << destAddr.getId() << ", ";
+            for (int i=0; i < Z_EXTADDR_LEN; i++){
+                stream << hex << uppercase << setfill('0') << setw(2) << outClusterAddr[i];
+            }
+            stream << ", " << (int)outClusterEP.getId() << ", " << setw(4) << clusterID.getId() <<", ";
+            for (int i=0; i < Z_EXTADDR_LEN; i++){
+                stream << hex << uppercase << setfill('0') << setw(2) << inClusterAddr[i];
+            }
+            stream << ", " << (int)inClusterEp.getId();
 
+            std::string data = stream.str();
+            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
+            serialPort.write_some(buffer(data));
+        }
     }
 
+    // Send message: DI: networkId
+    //                    4 digits
     void SerialDriver::sendReqDeviceInfo(NwkAddr networkId) {
-
+        if (serialPort.is_open()) {
+            stringstream stream;
+            stream << "DI: " << hex << uppercase << setfill('0') << setw(4) << networkId.getId() << "\n";
+            std::string data = stream.str();
+            BOOST_LOG_TRIVIAL(info) << "Send request: " << data;
+            serialPort.write_some(buffer(data));
+        }
     }
 
-    void SerialDriver::requestBindTable(NwkAddr nwkAddrs) {
-
+    // Send message: BT network ID
+    //                   4 digits
+    void SerialDriver::requestBindTable(NwkAddr networkId) {
+        if (serialPort.is_open()) {
+            stringstream stream;
+            stream << "BI: " << hex << uppercase << setfill('0') << setw(4) << networkId.getId() << "\n";
+            std::string data = stream.str();
+            BOOST_LOG_TRIVIAL(info) << "Send request: " << data;
+            serialPort.write_some(buffer(data));
+        }
     }
 
 

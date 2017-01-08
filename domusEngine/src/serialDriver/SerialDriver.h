@@ -46,9 +46,9 @@ namespace zigbee {
             bindTableResponseSignal.push_back(subscriber);
         }
 
-        void registerForAttributeCmd(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeCmdId, const std::function<void()>) override;
+        void registerForAttributeCmd(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeCmdId, const std::function<void()>) override{};
 
-        void registerForAttributeValue(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeId, const NewAttributeValueCallback) override;
+        void registerForAttributeValue(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeId, const NewAttributeValueCallback) override{};
 
         void requestActiveEndpoints(NwkAddr nwkAddr) override;
 

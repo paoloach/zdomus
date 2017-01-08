@@ -28,7 +28,7 @@ namespace zigbee {
         auto endpoint(placeHolder.get<EndpointID>("endpoint"));
         auto clusterId(placeHolder.get<ClusterID>("cluster"));
         auto command(placeHolder.get<int>("command"));
-        auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
+        auto zDevice = singletons.getZDevices()->getDevice(nwkAddr);
         auto zEndpoint = zDevice->getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
         if (zEndpoint.isInCluster(clusterId)) {
             std::vector<uint8_t> cmdParams{};

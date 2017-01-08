@@ -12,6 +12,7 @@
 #include "BindTableSerialExecuter.h"
 #include "ReadAttributeResponseErrorSerial.h"
 #include "ReadAttributeResponseSerial.h"
+#include "DeviceInfoSerialExecutor.h"
 
 namespace  zigbee {
     SerialResponseExecutor::SerialResponseExecutor(SingletonObjects &singletonObjects) {
@@ -24,6 +25,7 @@ namespace  zigbee {
         executors[CmdType::ReadAttributeError] = std::make_unique<ReadAttributeResponseErrorSerial>(singletonObjects);
         executors[CmdType::ReadAttribute] = std::make_unique<ReadAttributeResponseSerial>(singletonObjects);
         executors[CmdType::Invalid]  = std::make_unique<InvalidResponseSerialExecutor>();
+        executors[CmdType::DeviceInfo] = std::make_unique<DeviceInfoSerialExecutor>(singletonObjects);
     }
 
     void SerialResponseExecutor::execute(const std::string &str) {
@@ -55,6 +57,9 @@ namespace  zigbee {
         }
         if (str.substr(0,4) == "RA: ") {
             return CmdType::ReadAttribute;
+        }
+        if (str.substr(0,4) == "DI: ") {
+            return CmdType::DeviceInfo;
         }
         return CmdType::Invalid;
     }

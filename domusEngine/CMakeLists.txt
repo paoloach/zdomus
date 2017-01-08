@@ -113,7 +113,7 @@ SET(SRC_SERIAL_DRIVER
         src/serialDriver/ActiveEndpointErrorExecutor.h
         src/serialDriver/BindTableSerialExecuter.h
         src/serialDriver/ReadAttributeResponseErrorSerial.h
-        src/serialDriver/ReadAttributeResponseSerial.h)
+        src/serialDriver/ReadAttributeResponseSerial.h src/serialDriver/DeviceInfoSerialExecutor.h)
 
 set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h
