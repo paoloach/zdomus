@@ -102,6 +102,8 @@ else ()
     endif ()
 endif ()
 
+SET(SRC_DEMO_DRIVER
+        src/DemoDriver/DemoDevice.cpp src/DemoDriver/DemoDevice.h)
 
 SET(SRC_SERIAL_DRIVER
         src/serialDriver/InvalidResponseSerialExecutor.h
@@ -216,7 +218,7 @@ add_library(domus_engine_static_lib STATIC
         src/Utils/Clusters.h src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h)
 
 
-add_executable(domus_engine src/main.cpp ${V8_BLOB})
+add_executable(domus_engine src/main.cpp ${V8_BLOB} ${SRC_DEMO_DRIVER})
 
 
 SET(LIBS zigbeeLib

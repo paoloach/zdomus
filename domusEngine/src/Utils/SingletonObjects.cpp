@@ -15,8 +15,8 @@
 #include "../Configuration/Configuration.h"
 #include "../httpServer/FixedPathContainer.h"
 #include "../JavaScript/JSManager.h"
-#include "DeviceInfoDispatcher.h"
 #include "../serialDriver/SerialDriver.h"
+#include "../DemoDriver/DemoDevice.h"
 
 namespace zigbee {
 
@@ -44,6 +44,8 @@ namespace zigbee {
 
                 zigbeeDevice = std::make_unique<DomusEngineUSBDevice>( *this, usbContext, USB_CLASS, VENDOR_ID, PRODUCT_ID, demo);
             }
+        } else if (driverName == "demo") {
+            zigbeeDevice = std::make_unique<DemoDevice>(*this);
         } else {
             BOOST_LOG_TRIVIAL(error) << "Driver available: usb, serial";
         }

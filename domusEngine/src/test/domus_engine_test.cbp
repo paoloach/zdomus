@@ -31,13 +31,13 @@
 					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include-fixed"/>
 					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/backward"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test"/>
@@ -60,13 +60,13 @@
 					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include-fixed"/>
 					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/backward"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test/fast"/>
