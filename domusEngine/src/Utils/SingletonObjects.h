@@ -43,7 +43,7 @@ namespace zigbee {
     public:
         SingletonObjects();
 
-        SingletonObjects(std::string &&configurationFileName, bool demo, std::string  driverName);
+        SingletonObjects(std::string &&configurationFileName, std::string  driverName);
 
         virtual ~SingletonObjects() = default;
 

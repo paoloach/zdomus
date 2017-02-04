@@ -328,6 +328,7 @@ namespace zigbee {
                     assignBasicCluster(cluster, attributeIds, NKW2_5_0);
                     return;
                 } else if (clusterId.getId() == ClustersId::TEMPERATURE_MEASUREMENT) {
+                    BOOST_LOG_TRIVIAL(info) << "request attribute temmerature cluster for " << nwkAddrs << ":" << endpoint;
                     assignTemperatureMeasureCluster(cluster, attributeIds, 23);
                     return;
                 }
@@ -360,6 +361,7 @@ namespace zigbee {
                     assignBasicCluster(cluster, attributeIds, NKW3_7_0);
                     return;
                 } else if (clusterId.getId() == ClustersId::TEMPERATURE_MEASUREMENT) {
+                    BOOST_LOG_TRIVIAL(info) << "request attribute temmerature cluster for " << nwkAddrs << ":" << endpoint;
                     assignTemperatureMeasureCluster(cluster, attributeIds, 23);
                     return;
                 }

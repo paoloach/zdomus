@@ -29,19 +29,24 @@ namespace zigbee {
     static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::milliseconds(10);
 
 
-    DomusEngineUSBDevice::DomusEngineUSBDevice( SingletonObjects &singletonObjects, libusb_context *usbContext_,
-                                               int deviceClass_, int vendor_, int product_, bool demo) :stop(false),
-            usbContext{usbContext_}, deviceClass{deviceClass_},
-            vendorID{vendor_}, productID{product_}, handle{nullptr}, demo{demo},
-            usbResponseExecuters{singletonObjects, *this} {
+    DomusEngineUSBDevice::DomusEngineUSBDevice(SingletonObjects &singletonObjects, libusb_context *usbContext_, int deviceClass_, int vendor_, int product_) : stop(false),
+                                                                                                                                                               usbContext{
+                                                                                                                                                                       usbContext_},
+                                                                                                                                                               deviceClass{
+                                                                                                                                                                       deviceClass_},
+                                                                                                                                                               vendorID{vendor_},
+                                                                                                                                                               productID{product_},
+                                                                                                                                                               handle{nullptr},
+                                                                                                                                                               usbResponseExecuters{
+                                                                                                                                                                       singletonObjects,
+                                                                                                                                                                       *this} {
         device = nullptr;
-        getMessageTh = std::thread([this]{this->timerHandler();});
-        initDemoData();
+        getMessageTh = std::thread([this] { this->timerHandler(); });
     }
 
 
     void DomusEngineUSBDevice::timerHandler() {
-        while(!stop) {
+        while (!stop) {
             if (isPresent()) {
                 getUsbMessage();
             }
@@ -75,7 +80,7 @@ namespace zigbee {
  * find in the usb tree if the device is present
  */
     bool DomusEngineUSBDevice::isPresent() {
-        if (device != nullptr || demo) {
+        if (device != nullptr) {
             return true;
         } else {
             libusb_device **devices{};
@@ -86,8 +91,7 @@ namespace zigbee {
             for (int index = 0; index < devicesNum; index++) {
                 libusb_device_descriptor deviceDescriptor;
                 libusb_get_device_descriptor(devices[index], &deviceDescriptor);
-                if (deviceDescriptor.bDeviceClass == deviceClass && deviceDescriptor.idVendor == vendorID &&
-                    deviceDescriptor.idProduct == productID) {
+                if (deviceDescriptor.bDeviceClass == deviceClass && deviceDescriptor.idVendor == vendorID && deviceDescriptor.idProduct == productID) {
                     device = devices[index];
                     libusb_ref_device((libusb_device *) device);
                     int result = libusb_open((libusb_device *) device, (libusb_device_handle **) &handle);
@@ -118,20 +122,15 @@ namespace zigbee {
     void DomusEngineUSBDevice::getUsbMessage() {
         unsigned char data[64]{};
         int transfered{};
-        if (demo && !requestedAttributes.empty()) {
-            addSyntetichData();
-        }
         if (device) {
             int result = libusb_bulk_transfer(handle, BULK_ENDPOINT_IN, data, sizeof(data), &transfered, 100);
             if (result == 0) {
-                BOOST_LOG_TRIVIAL(info) << "new data arrived from endpoint " << (int) BULK_ENDPOINT_IN << ",  size "
-                                        << transfered;
+                BOOST_LOG_TRIVIAL(info) << "new data arrived from endpoint " << (int) BULK_ENDPOINT_IN << ",  size " << transfered;
                 usbResponseExecuters.execute(data, transfered);
             } else if (result == LIBUSB_ERROR_TIMEOUT) {
                 // no data
             } else {
-                BOOST_LOG_TRIVIAL(error) << "from endpoint " << std::hex << (int) BULK_ENDPOINT_IN << " Transfered: "
-                                         << transfered;
+                BOOST_LOG_TRIVIAL(error) << "from endpoint " << std::hex << (int) BULK_ENDPOINT_IN << " Transfered: " << transfered;
                 BOOST_LOG_TRIVIAL(error) << strUsbError(result);
                 if (libusb_reset_device(handle) != 0) {
                     handle = nullptr;
@@ -140,8 +139,7 @@ namespace zigbee {
             }
             result = libusb_bulk_transfer(handle, LOG_ENDPOINT_IN, data, sizeof(data), &transfered, 100);
             if (result == 0) {
-                BOOST_LOG_TRIVIAL(trace) << "new data arrived from endpoint " << std::hex << (int) LOG_ENDPOINT_IN
-                                         << ",  size " << transfered;
+                BOOST_LOG_TRIVIAL(trace) << "new data arrived from endpoint " << std::hex << (int) LOG_ENDPOINT_IN << ",  size " << transfered;
                 usbResponseExecuters.execute(data, transfered);
             } else if (result == LIBUSB_ERROR_TIMEOUT) {
                 // no data
@@ -156,10 +154,8 @@ namespace zigbee {
         }
     }
 
-    void DomusEngineUSBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
-                                                ZigbeeAttributeId attributeId) {
-        BOOST_LOG_TRIVIAL(info) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster
-                                 << ", " << attributeId << ")";
+    void DomusEngineUSBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) {
+        BOOST_LOG_TRIVIAL(info) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << attributeId << ")";
         if (handle != nullptr) {
             std::stringstream stream;
             AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeId};
@@ -167,25 +163,23 @@ namespace zigbee {
             BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
 
             auto serializeData = attributeValue.serialize();
-            std::unique_ptr<uint8_t >data(new uint8_t[serializeData.size()]);
+            std::unique_ptr<uint8_t> data(new uint8_t[serializeData.size()]);
             std::copy(serializeData.begin(), serializeData.end(), data.get());
 
             int transfered;
 
-            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, data.get(),
-                                              serializeData.size(), &transfered, 1000);
+            int result = libusb_bulk_transfer((libusb_device_handle *) handle, BULK_ENDPOINT_OUT, data.get(), serializeData.size(), &transfered, 1000);
             if (result == 0) {
                 BOOST_LOG_TRIVIAL(trace) << "request sent";
             } else {
-                BOOST_LOG_TRIVIAL(error) << "Error send data: " << strUsbError(result) << ", transfered: " << transfered
-                                         << " insteado of " << serializeData.size();
+                BOOST_LOG_TRIVIAL(error) << "Error send data: " << strUsbError(result) << ", transfered: " << transfered << " insteado of " << serializeData.size();
             }
         }
     }
 
-    void DomusEngineUSBDevice::writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
-                                              ZigbeeAttributeId attrId, ZCLTypeDataType dataType, uint8_t dataValueLen,
-                                              uint8_t *dataValue) {
+    void
+    DomusEngineUSBDevice::writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attrId, ZCLTypeDataType dataType, uint8_t dataValueLen,
+                                         uint8_t *dataValue) {
         BOOST_LOG_TRIVIAL(debug) << "USBDevice write attribute to cluster " << std::endl;
         if (handle != nullptr) {
             WriteAttributeValueMsg writeAttributeValue{};
@@ -201,11 +195,8 @@ namespace zigbee {
         }
     }
 
-    void
-    DomusEngineUSBDevice::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId comandId,
-                                  std::vector<uint8_t> data) {
-        BOOST_LOG_TRIVIAL(debug) << "USBDevice send cmd to cluster (" << nwkAddrs << ", " << endpoint << ", " << cluster
-                                 << ", " << comandId << ")";
+    void DomusEngineUSBDevice::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId comandId, std::vector<uint8_t> data) {
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice send cmd to cluster (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << comandId << ")";
         if (handle != nullptr) {
             ComandSend comandSend{nwkAddrs, endpoint, cluster, comandId, data};
 
@@ -241,14 +232,12 @@ namespace zigbee {
 
         int transfered{};
 
-        libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request),
-                             &transfered, 1000);
+        libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request), &transfered, 1000);
         sendData(request);
     }
 
 
-    void DomusEngineUSBDevice::sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN],
-                                           EndpointID outClusterEP, ClusterID clusterID,
+    void DomusEngineUSBDevice::sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
                                            const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
         if (handle == nullptr) {
             return;
@@ -258,8 +247,7 @@ namespace zigbee {
         sendData(bindRequest);
     }
 
-    void DomusEngineUSBDevice::sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN],
-                                             EndpointID outClusterEP, ClusterID clusterID,
+    void DomusEngineUSBDevice::sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
                                              const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
         if (handle == nullptr) {
             return;
@@ -279,23 +267,19 @@ namespace zigbee {
         sendData(request);
     }
 
-    void DomusEngineUSBDevice::requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
-                                                 ZigbeeAttributeIds &attributeIds) {
-        requestedAttributes = RequestedAttributes(nwkAddrs, endpoint, cluster, attributeIds);
+    void DomusEngineUSBDevice::requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds &attributeIds) {
         if (handle == nullptr) {
             return;
         }
-        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster
-                                 << ", " << "attribute: " << attributeIds << ")";
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << "attribute: " << attributeIds << ")";
 
 
         std::stringstream stream;
         AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeIds};
         BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
 
-        sendData(attributeValue,
-                 sizeof(GenericMessage) + sizeof(ZigbeeNwkAddress) + sizeof(ZigbeeEndpoint) + sizeof(ZigbeeClusterId) +
-                 sizeof(uint8_t) + sizeof(ZigbeeAttributeId) * attributeValue.numAttr);
+        sendData(attributeValue, sizeof(GenericMessage) + sizeof(ZigbeeNwkAddress) + sizeof(ZigbeeEndpoint) + sizeof(ZigbeeClusterId) + sizeof(uint8_t) +
+                                 sizeof(ZigbeeAttributeId) * attributeValue.numAttr);
     }
 
     void DomusEngineUSBDevice::requestReset() {
@@ -306,76 +290,6 @@ namespace zigbee {
         sendData(resetMessage);
     }
 
-    void DomusEngineUSBDevice::addSyntetichData() {
-        RequestedAttributes::Attribute &firstAttr = requestedAttributes.attributes[0];
-        NwkAddr nwkAddr = firstAttr.nwkAddrs;
-        EndpointID endpoint = firstAttr.endpoint;
-        ClusterID cluster = firstAttr.clusterID;
-
-        std::vector<RequestedAttributes::Attribute> attributesToSend{getAttributeToSend(nwkAddr, endpoint, cluster)};
-        size_t size = calcTotalSize(attributesToSend) + sizeof(ReadAttributeResponseMessage);
-
-        auto *data = new uint8_t[size];
-        ReadAttributeResponseMessage *message = reinterpret_cast<ReadAttributeResponseMessage *>(data);
-        message->networkAddr = nwkAddr.getId();
-        message->endpoint = endpoint.getId();
-        message->clusterId = cluster.getId();
-        message->generticDataMsg = ATTRIBUTE_VALUES;
-        message->numAttributes = attributesToSend.size();
-        message->panId = 0;
-        message->type = 0;
-        uint8_t *rawData = data + sizeof(ReadAttributeResponseMessage);
-        BOOST_LOG_TRIVIAL(info) << "start attributes data: " << (void *) rawData;
-        fillRawData(attributesToSend, rawData);
-        usbResponseExecuters.execute(data, size);
-        delete[]data;
-    }
-
-    std::vector<RequestedAttributes::Attribute>
-    DomusEngineUSBDevice::getAttributeToSend(NwkAddr nwkAddr, EndpointID endpoint, ClusterID cluster) {
-        std::vector<RequestedAttributes::Attribute> attributesToSend;
-        std::vector<RequestedAttributes::Attribute> attributesRemained;
-
-        for (auto &attribute: requestedAttributes.attributes) {
-            if (attribute.nwkAddrs == nwkAddr && attribute.endpoint == endpoint && attribute.clusterID == cluster) {
-                attributesToSend.push_back(attribute);
-            } else {
-                attributesRemained.push_back(attribute);
-            }
-        }
-        requestedAttributes.attributes = attributesRemained;
-        return attributesToSend;
-    }
-
-    size_t DomusEngineUSBDevice::calcTotalSize(std::vector<RequestedAttributes::Attribute> &attributes) {
-        size_t totaleSize = 0;
-        for (auto &attribute: attributes) {
-            const uint8_t *raw = attributeRawData[attribute];
-            const AttributeResponse *response = reinterpret_cast<const AttributeResponse *>(raw);
-            const uint8_t *rawData = raw + sizeof(AttributeResponse);
-            size_t size =
-                    ZclAttributeUtils::zclGetAttrDataLength(response->dataType, rawData) + sizeof(AttributeResponse);
-            BOOST_LOG_TRIVIAL(info) << "id: " << attribute.attributeId << ", dataType: " << (int) response->dataType
-                                    << ",  size: " << size;
-            totaleSize += size;
-        }
-        return totaleSize;
-    }
-
-    uint8_t *DomusEngineUSBDevice::fillRawData(std::vector<RequestedAttributes::Attribute> &attributes, uint8_t *data) {
-        for (auto &attribute: attributes) {
-            const uint8_t *raw = attributeRawData[attribute];
-            const AttributeResponse *response = reinterpret_cast<const AttributeResponse *>(raw);
-            const uint8_t *rawData = raw + sizeof(AttributeResponse);
-            size_t size =
-                    ZclAttributeUtils::zclGetAttrDataLength(response->dataType, rawData) + sizeof(AttributeResponse);
-            BOOST_LOG_TRIVIAL(info) << "id: " << attribute.attributeId << ", dataType: " << (int) response->dataType
-                                    << ",copy size: " << size;
-            memcpy(data, raw, size);
-            data += size;
-        }
-        return data;
-    }
 
     void DomusEngineUSBDevice::sendReqDeviceInfo(NwkAddr networkId) {
         if (handle == nullptr) {

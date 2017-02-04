@@ -150,7 +150,7 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/ZigbeeData/NewDeviceObserver.h
         src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
         src/httpServer/RestActions/ShowTopology.cpp src/httpServer/RestActions/ShowTopology.h
-        src/usb/UsbDemoData.cpp )
+        )
 
 
 add_library(javascript_lib OBJECT

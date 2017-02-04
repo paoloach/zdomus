@@ -22,17 +22,13 @@ namespace zigbee {
 
     static constexpr int MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY{100};
 
-    SingletonObjects::SingletonObjects(std::string &&configurationFileName, bool demo, std::string  driverName) :
-            attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY} ,attributeWriter{*this}, topology{*this}{
-
-        if (demo){
-            BOOST_LOG_TRIVIAL(info) << "----------- DEMO MODE ----------";
-        }
+    SingletonObjects::SingletonObjects(std::string &&configurationFileName, std::string driverName) : attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY},
+                                                                                                      attributeWriter{*this}, topology{*this} {
 
         zDevices = std::make_unique<ZDevices>();
 
 
-        if (driverName == "serial"){
+        if (driverName == "serial") {
             zigbeeDevice = std::make_unique<SerialDriver>("/dev/ttyUSB0", io, *this);
         } else if (driverName == "usb") {
 
@@ -42,7 +38,7 @@ namespace zigbee {
                 //libusb_set_debug(usbContext, 4);
                 BOOST_LOG_TRIVIAL(error) << "Lib usb initialized";
 
-                zigbeeDevice = std::make_unique<DomusEngineUSBDevice>( *this, usbContext, USB_CLASS, VENDOR_ID, PRODUCT_ID, demo);
+                zigbeeDevice = std::make_unique<DomusEngineUSBDevice>(*this, usbContext, USB_CLASS, VENDOR_ID, PRODUCT_ID);
             }
         } else if (driverName == "demo") {
             zigbeeDevice = std::make_unique<DemoDevice>(*this);
@@ -70,8 +66,7 @@ namespace zigbee {
         jsManager = std::make_shared<JSManager>(*this);
     }
 
-    SingletonObjects::SingletonObjects() :
-            attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY}, attributeWriter{*this}, topology{*this} {
+    SingletonObjects::SingletonObjects() : attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY}, attributeWriter{*this}, topology{*this} {
 
     }
 } /* namespace zigbee */

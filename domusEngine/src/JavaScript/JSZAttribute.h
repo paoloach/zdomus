@@ -54,7 +54,7 @@ namespace zigbee {
 
         ZCLAttribute *
         getZCLAttribute(const ExtAddress &extAddress, EndpointID endpointId, ClusterID clusterId, uint32_t attributeId);
-        void jsCallback(int identity, JsCallbackParameters callbackParameters, v8::Isolate * isolate);
+        void jsCallback(std::tuple<int, int> key, JsCallbackParameters callbackParameters, v8::Isolate * isolate);
 
     public:
         virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) = 0;
@@ -92,16 +92,16 @@ namespace zigbee {
         initJsObjectsTemplate(v8::Isolate *isolate, const v8::Local<v8::FunctionTemplate> &zAttributeFunctionTemplate);
 
 
-        void changeSignalCallback(v8::Isolate *isolate, int identity, JsCallbackParameters callbackParameters);
+        void changeSignalCallback(v8::Isolate *isolate, std::tuple<int , int> key, JsCallbackParameters callbackParameters);
 
-        CallbackData popCallbackData(int id);
+        CallbackData popCallbackData(std::tuple<int , int> key);
 
     protected:
         SingletonObjects *singletonObjects;
 
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
         std::map<ExtAddress, std::shared_ptr<ExtAddress> > usedExtAddresses;
-        std::map<int, CallbackData> mapFunction;
+        std::map<std::tuple<int, int>, CallbackData> mapFunction;
         std::mutex mapFunctionMutex;
         JSCallbackFifo & callbackFifo;
         ZCLTypeDataType zclType;

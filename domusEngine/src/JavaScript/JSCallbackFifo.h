@@ -5,6 +5,7 @@
 #ifndef DOMUS_ENGINE_JSCALLBACKFIFO_H
 #define DOMUS_ENGINE_JSCALLBACKFIFO_H
 
+#include <boost/log/trivial.hpp>
 #include <v8.h>
 #include <queue>
 #include <map>
@@ -16,7 +17,6 @@ namespace zigbee {
     class JSCallbackFifo {
     public:
         void add(v8::Isolate *isolate, std::function<void(v8::Isolate *)> &&fn) {
-
             fifo[isolate].push(fn);
         }
 

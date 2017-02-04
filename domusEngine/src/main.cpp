@@ -35,7 +35,6 @@ extern unsigned char snapshot_blob_bin[];
 extern unsigned int snapshot_blob_bin_len;
 
 static constexpr auto CONFIGURATION_OPTION = "configuration";
-static constexpr auto DEMO_DATA = "demo";
 static constexpr auto HELP = "help";
 static constexpr auto DEFAULT_CONFIG_FILE = "/home/paolo/workspace_luna/domus_engine_copy/configuration/domusEngine.xml";
 static constexpr auto LOGGIN_SETTINGS="logging";
@@ -45,8 +44,6 @@ static constexpr auto ZDRIVER="zdriver";
 variables_map getVariableMap(size_t argc, char const *argv[]);
 
 using namespace v8;
-
-void add1Demo(SingletonObjects  & singletons);
 
 void initV8(int , const char *argv[]) {
     V8::InitializeICUDefaultLocation(argv[0]);
@@ -69,12 +66,6 @@ void initV8(int , const char *argv[]) {
     V8::Initialize();
 }
 
-void enableDemo(const variables_map &vm, SingletonObjects  & ){
-    if (vm.count(DEMO_DATA)) {
-//        add1Demo(singletons);
-    }
-}
-
 void exitV8() {
     v8::V8::Dispose();
     v8::V8::ShutdownPlatform();
@@ -91,7 +82,7 @@ int main(int argc, const char *argv[]) {
     if (vm.count("configuration")) {
         configurationFileName = vm[CONFIGURATION_OPTION].as<std::string>();
     }
-    SingletonObjects singletons(std::move(configurationFileName),vm.count(DEMO_DATA), vm[ZDRIVER].as<std::string>());
+    SingletonObjects singletons(std::move(configurationFileName), vm[ZDRIVER].as<std::string>());
     auto zDevices = singletons.getZDevices();
 
     TopologyCreation topologyCreation(singletons);
@@ -100,8 +91,6 @@ int main(int argc, const char *argv[]) {
     zDevices->addObserver([&requestDevices](ZDevice * zDevice){requestDevices.request(zDevice);});
 
     topologyCreation.create();
-
-    enableDemo(vm, singletons);
 
     auto server = new http::HttpServer(singletons);
 
@@ -119,8 +108,7 @@ variables_map getVariableMap(size_t argc, char const *argv[]) {
             (HELP, "help")
             (CONFIGURATION_OPTION, value<std::string>(), "configuration file")
             (LOGGIN_SETTINGS, value<boost::log::trivial::severity_level>(&logSeverity), "Logging settings")
-            (ZDRIVER, value<std::string>(), "driver for zigbee device")
-            (DEMO_DATA, "enable demo data");
+            (ZDRIVER, value<std::string>(), "driver for zigbee device (usb, serial, demo)");
 
 
     variables_map vm{};

@@ -2,7 +2,7 @@
  * Created by paolo on 27/12/16.
  */
 
-var fnReq = function (nwkId, endpointId, clusterId, attrId) {
+var tempArrived = function (nwkId, endpointId, clusterId, attrId) {
 
     var table = DbTable('Temperatures');
     var cluster = zCluster(nwkId, endpointId, clusterId);
@@ -21,8 +21,8 @@ if (endpoints.length > 0 ) {
     for (let endpoint of endpoints) {
         var cluster = endpoint.getCluster(0x402);
         var temp = cluster.getProperyById(0);
-        log.info("Requesting temp");
-        temp.requestValue(fnReq);
+        log.info("Requesting temp to " + endpoint.networkId + ":" + endpoint.endpointId);
+        temp.requestValue(tempArrived);
     }
 }
 

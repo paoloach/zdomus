@@ -38,7 +38,7 @@ namespace zigbee {
 
     class DomusEngineUSBDevice : public ZigbeeDevice {
     public:
-        DomusEngineUSBDevice(SingletonObjects &singletonObjects, libusb_context *usbContext, int deviceClass, int vendorID, int productID, bool demo);
+        DomusEngineUSBDevice(SingletonObjects &singletonObjects, libusb_context *usbContext, int deviceClass, int vendorID, int productID);
 
         ~DomusEngineUSBDevice() override {
             stop = true;
@@ -105,15 +105,10 @@ namespace zigbee {
         int productID;
         libusb_device *device;
         libusb_device_handle *handle;
-        bool demo;
         UsbResponseExecutors usbResponseExecuters;
         std::vector<AnnunceCallback> annunceSignal;
         std::vector<SimpleDescCallback> simpleDescSignal;
         std::vector<BindTableResponseCallback> bindTableResponseSignal;
-
-        // demo data
-        RequestedAttributes requestedAttributes;
-        std::map<RequestedAttributes::Attribute, const uint8_t *> attributeRawData;
 
     private:
         template<typename T>
@@ -126,15 +121,8 @@ namespace zigbee {
 
         std::string strUsbError(int);
 
-        void addSyntetichData();
-
         std::vector<RequestedAttributes::Attribute> getAttributeToSend(NwkAddr nwkAddr, EndpointID endpoint, ClusterID cluster);
 
-        void initDemoData();
-
-        size_t calcTotalSize(std::vector<RequestedAttributes::Attribute> &attributes);
-
-        uint8_t *fillRawData(std::vector<RequestedAttributes::Attribute> &attributes, uint8_t *data);
     };
 
     template<typename T>
