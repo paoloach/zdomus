@@ -129,7 +129,7 @@ namespace zigbee {
             return callbacks.add(changeSignal);
         };
 
-        virtual void removeOnChangeListener(std::list<std::function<void()>>::iterator &listener) {
+        virtual void removeOnChangeListener(ListenerOnChange &listener) {
             callbacks.remove(listener);
         }
 
