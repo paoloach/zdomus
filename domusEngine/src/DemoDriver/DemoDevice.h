@@ -68,7 +68,7 @@ namespace zigbee {
 // internal function
         void assignBasicCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, std::array<std::vector<uint8_t>, 8> &data);
 
-        void assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, int16_t temp);
+        void assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, int16_t temp, int delay);
         void assignOnOffCluster(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds);
 
         void runDemoThread();
@@ -81,6 +81,7 @@ namespace zigbee {
         std::thread demoThread;
 
         std::map<std::tuple<NwkAddr, EndpointID, ClusterID, int>, int> intValuesMap;
+        std::vector< std::tuple<int32_t, std::function< void()> > > posponedCallbacks;
 
         std::random_device rd;
         std::mt19937 e1;

@@ -71,6 +71,16 @@ namespace zigbee {
                     }
                 }
             }
+            std::vector< std::tuple<int32_t, std::function< void()> > > remainCallbacks;
+            for (auto & callback: posponedCallbacks){
+                std::get<0>(callback)--;
+                if (std::get<0>(callback) <= 0){
+                    std::get<1>(callback)();
+                } else {
+                    remainCallbacks.push_back(callback);
+                }
+            }
+            posponedCallbacks = remainCallbacks;
         }
     }
 
@@ -226,13 +236,17 @@ namespace zigbee {
         }
     }
 
-    void DemoDevice::assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, int16_t temp) {
+    void DemoDevice::assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, int16_t temp, int delay) {
         for (auto &&attributeId : attributeIds) {
             auto attribute = cluster->getAttribute(attributeId);
             if (attributeId == 0) {
                 std::normal_distribution<> normal_dist(temp, 2);
                 uint16_t value = boost::endian::native_to_little(temp * 100 + normal_dist(e1));
-                attribute->setValue(0, typeSINT16, (uint8_t *) &value);
+                if (delay > 0){
+                    posponedCallbacks.emplace_back(delay, [attribute, value](){attribute->setValue(0, typeSINT16, (uint8_t *) &value);})  ;
+                } else {
+                    attribute->setValue(0, typeSINT16, (uint8_t *) &value);
+                }
             } else if (attributeId == 1) {
                 uint16_t value = boost::endian::native_to_little(-2000);
                 attribute->setValue(0, typeSINT16, (uint8_t *) &value);
@@ -329,7 +343,7 @@ namespace zigbee {
                     return;
                 } else if (clusterId.getId() == ClustersId::TEMPERATURE_MEASUREMENT) {
                     BOOST_LOG_TRIVIAL(info) << "request attribute temmerature cluster for " << nwkAddrs << ":" << endpoint;
-                    assignTemperatureMeasureCluster(cluster, attributeIds, 23);
+                    assignTemperatureMeasureCluster(cluster, attributeIds, 23, 0);
                     return;
                 }
 
@@ -362,7 +376,7 @@ namespace zigbee {
                     return;
                 } else if (clusterId.getId() == ClustersId::TEMPERATURE_MEASUREMENT) {
                     BOOST_LOG_TRIVIAL(info) << "request attribute temmerature cluster for " << nwkAddrs << ":" << endpoint;
-                    assignTemperatureMeasureCluster(cluster, attributeIds, 23);
+                    assignTemperatureMeasureCluster(cluster, attributeIds, 23, 4);
                     return;
                 }
 

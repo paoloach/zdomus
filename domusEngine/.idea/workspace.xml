@@ -23,23 +23,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/JSExtension.md" afterPath="$PROJECT_DIR$/configuration/JSExtension.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSObjects.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSObjects.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSRestServer.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSRestServer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSRestServer.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSRestServer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptData.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptData.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptData.h" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptData.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" afterPath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils/SingletonObjects.h" afterPath="$PROJECT_DIR$/src/Utils/SingletonObjects.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestValue.h" afterPath="$PROJECT_DIR$/src/httpServer/RestValue.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/Callbacks.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/Callbacks.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../zigbee_lib/src/zcl/ZCLAttribute.h" afterPath="$PROJECT_DIR$/../zigbee_lib/src/zcl/ZCLAttribute.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DemoDriver/DemoDevice.cpp" afterPath="$PROJECT_DIR$/src/DemoDriver/DemoDevice.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DemoDriver/DemoDevice.h" afterPath="$PROJECT_DIR$/src/DemoDriver/DemoDevice.h" />
     </list>
     <list id="6d7fd051-39e6-4a54-8d96-2f07f7972514" name="googletest" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" afterPath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" />
@@ -10906,16 +10891,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="functional" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/functional">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="2126" column="0" lean-forward="false" selection-start-line="2126" selection-start-column="0" selection-end-line="2126" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="JSZAttribute.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp">
           <provider selected="true" editor-type-id="text-editor">
@@ -10976,16 +10951,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Callbacks.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../zigbee_lib/src/zcl/Callbacks.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="JSCallbackFifo.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.cpp">
           <provider selected="true" editor-type-id="text-editor">
@@ -10998,11 +10963,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JSCallbackFifo.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JSCallbackFifo.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="22" column="12" lean-forward="false" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+            <state relative-caret-position="392">
+              <caret line="34" column="75" lean-forward="true" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DemoDevice.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DemoDriver/DemoDevice.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="245" column="58" lean-forward="false" selection-start-line="245" selection-start-column="58" selection-end-line="245" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DemoDevice.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DemoDriver/DemoDevice.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="434">
+              <caret line="83" column="85" lean-forward="false" selection-start-line="83" selection-start-column="68" selection-end-line="83" selection-end-column="85" />
               <folding />
             </state>
           </provider>
@@ -11102,12 +11087,10 @@
         <option value="$PROJECT_DIR$/src/serialDriver/SerialDriver.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/src/Utils/Clusters.cpp" />
-        <option value="$PROJECT_DIR$/src/DemoDriver/DemoDevice.h" />
         <option value="$PROJECT_DIR$/src/usb/USBDevice.h" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
         <option value="$PROJECT_DIR$/src/usb/USBDevice.cpp" />
         <option value="$PROJECT_DIR$/configuration/domusEngine.xml" />
-        <option value="$PROJECT_DIR$/src/DemoDriver/DemoDevice.cpp" />
         <option value="$PROJECT_DIR$/configuration/readTemperatures.js" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSObjects.h" />
         <option value="$PROJECT_DIR$/configuration/JSExtension.md" />
@@ -11124,6 +11107,8 @@
         <option value="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h" />
+        <option value="$PROJECT_DIR$/src/DemoDriver/DemoDevice.h" />
+        <option value="$PROJECT_DIR$/src/DemoDriver/DemoDevice.cpp" />
       </list>
     </option>
   </component>
@@ -11245,7 +11230,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="httpServer" />
+              <option name="myItemId" value="DemoDriver" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -11701,14 +11686,7 @@
       <workItem from="1486275385080" duration="128000" />
       <workItem from="1486276636259" duration="2947000" />
       <workItem from="1486317794653" duration="13574000" />
-      <workItem from="1486413373859" duration="3805000" />
-    </task>
-    <task id="LOCAL-00035" summary="Removed test">
-      <created>1464854642304</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1464854642304</updated>
+      <workItem from="1486413373859" duration="4672000" />
     </task>
     <task id="LOCAL-00036" summary="fix retrieve multiple attributes">
       <created>1464854678364</created>
@@ -12046,7 +12024,14 @@
       <option name="project" value="LOCAL" />
       <updated>1486187664424</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="Using std::mutex::condition_variable instead of pulling events">
+      <created>1486452603641</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1486452603642</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -12082,7 +12067,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="539073000" />
+    <option name="totallyTimeSpent" value="539940000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -12098,12 +12083,12 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24471635" sideWeight="0.478125" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24471635" sideWeight="0.478125" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25695217" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.237581" sideWeight="0.521875" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run Dashboard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27586207" sideWeight="0.4796619" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27586207" sideWeight="0.4796619" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18971062" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24052632" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -12139,7 +12124,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/googletest" />
     </ignored-roots>
-    <MESSAGE value="quality management" />
     <MESSAGE value="remove zigbee requestDevices" />
     <MESSAGE value="Remove some not more use files" />
     <MESSAGE value="cland-tidy" />
@@ -12164,7 +12148,8 @@
     <MESSAGE value="Added missing serial comands" />
     <MESSAGE value="Added demo zdriver" />
     <MESSAGE value="Remove demo flag&#10;fix jsattribute callback" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove demo flag&#10;fix jsattribute callback" />
+    <MESSAGE value="Using std::mutex::condition_variable instead of pulling events" />
+    <option name="LAST_COMMIT_MESSAGE" value="Using std::mutex::condition_variable instead of pulling events" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -12249,13 +12234,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DemoDriver/DemoDevice.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="71" column="33" lean-forward="false" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/usb/USBDevice.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -12281,13 +12259,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DemoDriver/DemoDevice.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="364" column="0" lean-forward="false" selection-start-line="364" selection-start-column="0" selection-end-line="364" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -12447,6 +12418,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -12570,8 +12542,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JSCallbackFifo.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="22" column="12" lean-forward="false" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+        <state relative-caret-position="392">
+          <caret line="34" column="75" lean-forward="true" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DemoDriver/DemoDevice.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="83" column="85" lean-forward="false" selection-start-line="83" selection-start-column="68" selection-end-line="83" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DemoDriver/DemoDevice.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="245" column="58" lean-forward="false" selection-start-line="245" selection-start-column="58" selection-end-line="245" selection-end-column="58" />
           <folding />
         </state>
       </provider>
