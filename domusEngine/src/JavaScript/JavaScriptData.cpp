@@ -7,6 +7,7 @@
 
 #include <boost/log/trivial.hpp>
 #include <iostream>
+#include <chrono>
 
 #include "JavaScriptData.h"
 #include "jsonFields.h"
@@ -28,7 +29,7 @@ namespace zigbee {
                 std::string filename = properties.get<std::string>(FILENAME_NAME);
                 std::ifstream fileStream(filename);
                 if (fileStream.fail()) {
-                    std::cerr << "unable to read file " << filename << std::endl;
+                    BOOST_LOG_TRIVIAL(error) <<  "unable to read file " << filename;
                 }
                 fileStream.seekg(0, std::ios::end);
                 size_t size = fileStream.tellg();
@@ -38,7 +39,11 @@ namespace zigbee {
             } else {
                 code = properties.get<std::string>(CODE_NAME);
             }
-            period = properties.get<boost::posix_time::time_duration>(PERIOD_NAME);
+            auto xmlPeriod = properties.get<boost::posix_time::time_duration>(PERIOD_NAME);
+
+            period = std::chrono::seconds(xmlPeriod.seconds());
+            BOOST_LOG_TRIVIAL(info) << "Period for " << name << ": " << period.count() << " seconds";
+
         } catch (const ptree_error &e) {
             BOOST_LOG_TRIVIAL(error) << "missing tag " << e.what();
             error=true;

@@ -11,6 +11,7 @@
 #include <string>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/date_time.hpp>
+#include <chrono>
 
 namespace zigbee {
 
@@ -21,7 +22,7 @@ namespace zigbee {
     public:
         std::string getCode() const { return code; }
 
-        boost::posix_time::time_duration getPeriod() const { return period; }
+        std::chrono::seconds  getPeriod() const { return period; }
 
         std::string getName() const { return name; }
 
@@ -29,7 +30,7 @@ namespace zigbee {
     private:
         std::string name;
         std::string code;
-        boost::posix_time::time_duration period;
+        std::chrono::seconds  period;
         bool error;
     };
 

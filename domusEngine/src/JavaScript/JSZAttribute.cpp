@@ -185,21 +185,19 @@ namespace zigbee {
                 persistenteObject.Reset(isolate, info[0]);
 
                 Local<Function> callback = Local<Function>::Cast(info[0]);
-                int identity = callback->GetIdentityHash();
+
                 auto cluster = attribute->getClusterParent();
-                JsCallbackParameters callbackParameters;
+
                 if (cluster != nullptr) {
-                    callbackParameters.nwkAddr = cluster->getNetworkAddress();
-                    callbackParameters.endpointID = cluster->getEndpoint();
-                    callbackParameters.clusterID = cluster->getId();
+                    auto param = std::make_shared<JsCallbackParameters>(cluster, attribute->getIdentifier(), make_tuple(self->GetIdentityHash(), callback->GetIdentityHash()));
+
+                    auto con = attribute->onChange([This, isolate, param]()  mutable {
+                        This->changeSignalCallback(isolate, param);
+                    });
+                    This->mapFunction.insert({param->key, std::make_tuple(con, attribute, persistenteObject)});
+                    std::lock_guard<std::mutex> lock(This->mapFunctionMutex);
+
                 }
-                callbackParameters.attributeId = attribute->getIdentifier();
-                auto key = make_tuple(self->GetIdentityHash(), identity);
-                auto con = attribute->onChange([This, isolate, key, callbackParameters]() {
-                    This->changeSignalCallback(isolate, key, callbackParameters);
-                });
-                std::lock_guard<std::mutex> lock(This->mapFunctionMutex);
-                This->mapFunction.insert({key, std::make_tuple(con, attribute, persistenteObject)});
             }
             attribute->requestValue();
         } catch (std::exception &excp) {
@@ -208,30 +206,29 @@ namespace zigbee {
         }
     }
 
-    void JSZAttribute::changeSignalCallback(v8::Isolate *isolate, tuple<int, int> key, JsCallbackParameters callbackParameters) {
-        if (mapFunction.count(key) > 0) {
-            callbackFifo.add(isolate, [key, callbackParameters, this](v8::Isolate *isolate) { this->jsCallback(key, callbackParameters, isolate); });
+    void JSZAttribute::changeSignalCallback(v8::Isolate *isolate, std::shared_ptr<JsCallbackParameters> callbackParameters) {
+        if (mapFunction.count(callbackParameters->key) > 0) {
+            callbackFifo.add(isolate, [callbackParameters, this](v8::Isolate *isolate)  mutable {
+                this->jsCallback(callbackParameters, isolate);
+            });
         }
     }
 
-    void JSZAttribute::jsCallback(tuple<int, int> key, JsCallbackParameters callbackParameters, v8::Isolate *isolate) {
-
-
-        CallbackData callbackData = popCallbackData(key);
+    void JSZAttribute::jsCallback(std::shared_ptr<JsCallbackParameters> callbackParameters, v8::Isolate *isolate) {
+        CallbackData callbackData = popCallbackData(callbackParameters->key);
 
         Local<Value> object = Local<Value>::New(isolate, std::get<2>(callbackData));
         Local<Function> callback = Local<Function>::Cast(object);
 
         if (!callback.IsEmpty()) {
-
             String::Utf8Value name(callback->GetInferredName());
             BOOST_LOG_TRIVIAL(info) << "calling " << *name;
 
             Local<Value> argv[4];
-            argv[0] = v8::Int32::New(isolate, callbackParameters.nwkAddr.getId());
-            argv[1] = v8::Int32::New(isolate, callbackParameters.endpointID.getId());
-            argv[2] = v8::Int32::New(isolate, callbackParameters.clusterID.getId());
-            argv[3] = v8::Int32::New(isolate, callbackParameters.attributeId);
+            argv[0] = v8::Int32::New(isolate, callbackParameters->nwkAddr.getId());
+            argv[1] = v8::Int32::New(isolate, callbackParameters->endpointID.getId());
+            argv[2] = v8::Int32::New(isolate, callbackParameters->clusterID.getId());
+            argv[3] = v8::Int32::New(isolate, callbackParameters->attributeId);
 
             callback->CallAsFunction(object, 4, argv);
             get<1>(callbackData)->removeOnChangeListener(get<0>(callbackData));
@@ -340,9 +337,14 @@ namespace zigbee {
 
     JSZAttribute::CallbackData JSZAttribute::popCallbackData(std::tuple<int, int> key) {
         std::lock_guard<std::mutex> lock(mapFunctionMutex);
-        CallbackData callbackData = std::move(mapFunction[key]);
-        mapFunction.erase(key);
-        return callbackData;
+        if (mapFunction.count(key) > 0) {
+            CallbackData callbackData = std::move(mapFunction[key]);
+            mapFunction.erase(key);
+            return callbackData;
+        } else {
+            BOOST_LOG_TRIVIAL(warning) << "Key non trovata";
+            return CallbackData{};
+        }
     }
 
 } /* namespace zigbee */

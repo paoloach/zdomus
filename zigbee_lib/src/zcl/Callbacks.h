@@ -26,6 +26,8 @@ namespace zigbee {
             data.erase(listener);
         }
 
+        auto size() {return data.size();}
+
         void operator()() {
             std::list<std::function<void()>> dataTmp(data);
             for(auto & callback: dataTmp){

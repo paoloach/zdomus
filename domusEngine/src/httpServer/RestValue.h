@@ -14,34 +14,35 @@
 #include <utility>
 
 namespace zigbee {
-namespace http {
+    namespace http {
 
-class RestValue {
-public:
-	RestValue(const std::string & path, std::string  value):path(path), value(std::move(value)){}
-	virtual ~RestValue();
+        class RestValue {
+        public:
+            RestValue(const std::string &path, std::string value) : path(path), value(std::move(value)) {}
 
-	const boost::filesystem::path & getPath() const {
-		return path;
-	}
+            virtual ~RestValue();
 
-	const std::string& getValue() const {
-		return value;
-	}
+            const boost::filesystem::path &getPath() const {
+                return path;
+            }
 
-	template <typename t>
-	void set(const boost::filesystem::path & path, t value){
-		this->path = path;
-		this->value = boost::lexical_cast<std::string>(value);
-	}
+            const std::string &getValue() const {
+                return value;
+            }
+
+            template<typename t>
+            void set(const boost::filesystem::path &path, t value) {
+                this->path = path;
+                this->value = boost::lexical_cast<std::string>(value);
+            }
 
 
-private:
-	boost::filesystem::path path;
-	std::string value;
-};
+        private:
+            boost::filesystem::path path;
+            std::string value;
+        };
 
-} /* namespace http */
+    } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTVALUE_H_ */

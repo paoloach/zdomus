@@ -12,6 +12,7 @@
 #include <zcl/Cluster.h>
 #include "../Utils/SingletonObjects.h"
 #include "JavaScriptExecuter.h"
+#include <chrono>
 
 namespace zigbee {
 
@@ -19,15 +20,15 @@ namespace zigbee {
     using std::make_unique;
     using namespace boost::posix_time;
 
-    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, time_duration period, Log &log) : period(period), log(log), jsLog(log),
-                                                                                                                 jsZCluster(&jsZAttributeFactory, &singletonObjects),
-                                                                                                                 jsDBTable(dbTableFactory, &jsRow, log),
-                                                                                                                 jsZEndpoint(singletonObjects.getZDevices(), &jsZCluster),
-                                                                                                                 jsZEndpoints(singletonObjects, &jsZEndpoint),
-                                                                                                                 jsZDevice(singletonObjects.getZDevices(), &jsZEndpoint),
-                                                                                                                 jsRestServer(singletonObjects.getFixedPathContainer(), log),
-                                                                                                                 jszDevices(singletonObjects.getZDevices(), &jsZDevice),
-                                                                                                                 stop(false) {
+    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, std::chrono::seconds period, Log &log) : period(period), log(log), jsLog(log),
+                                                                                                                        jsZCluster(&jsZAttributeFactory, &singletonObjects),
+                                                                                                                        jsDBTable(dbTableFactory, &jsRow, log),
+                                                                                                                        jsZEndpoint(singletonObjects.getZDevices(), &jsZCluster),
+                                                                                                                        jsZEndpoints(singletonObjects, &jsZEndpoint),
+                                                                                                                        jsZDevice(singletonObjects.getZDevices(), &jsZEndpoint),
+                                                                                                                        jsRestServer(singletonObjects.getFixedPathContainer(), log),
+                                                                                                                        jszDevices(singletonObjects.getZDevices(), &jsZDevice),
+                                                                                                                        stop(false) {
 
         createParams.array_buffer_allocator = &v8Allocator;
         isolate = v8::Isolate::New(createParams);
@@ -85,25 +86,19 @@ namespace zigbee {
 
         Local<String> source = String::NewFromUtf8(isolate, jsCode.c_str());
         Local<Script> script = Script::Compile(source);
+        auto nextTime = std::chrono::system_clock::now() +period;
         while (!stop) {
-            ptime nextTime(second_clock::local_time()+period);
             TryCatch tryCatch;
-            MaybeLocal<Value> result = script->Run(lContext);
+            script->Run(lContext);
             if (tryCatch.HasCaught()) {
                 String::Utf8Value utf8Message(tryCatch.Message()->Get());
                 log.error(*utf8Message);
                 tryCatch.Reset();
-            } else {
-                //String::Utf8Value utf8(result);
-            }
-            while (nextTime > second_clock::local_time() && !stop) {
-                while (callbackFifo.size(isolate) > 0) {
-                    auto fn = callbackFifo.get(isolate);
-                    fn(isolate);
-                }
-                sleep(1);
             }
 
+            auto wait = std::chrono::duration_cast<std::chrono::seconds>(nextTime - std::chrono::system_clock::now());
+            callbackFifo.execute(isolate, wait);
+            nextTime =  nextTime + period;
         }
 
         Unlocker unlocker(isolate);
@@ -118,7 +113,7 @@ namespace zigbee {
 
     void JavaScriptExecuter::run(const std::string &jsCode) {
         this->jsCode = jsCode;
-        jsThread = std::thread([this]{runThread();});
+        jsThread = std::thread([this] { runThread(); });
     }
 
     boost::signals2::connection JavaScriptExecuter::notificationEnd(const OnEnd &onEnd) {

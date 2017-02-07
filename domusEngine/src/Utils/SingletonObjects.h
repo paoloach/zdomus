@@ -19,6 +19,7 @@
 #include "Constant.h"
 #include "../ZigbeeData/TopologyCreation.h"
 #include "DeviceInfoDispatcher.h"
+#include "../httpServer/FixedPathContainer.h"
 
 struct libusb_context;
 
@@ -56,7 +57,7 @@ namespace zigbee {
 
         virtual std::shared_ptr<JSManager> getJSManage() { return jsManager; }
 
-        virtual std::shared_ptr<http::FixedPathContainer> getFixedPathContainer() { return fixedPathContainer; }
+        virtual http::FixedPathContainer* getFixedPathContainer() { return &fixedPathContainer; }
 
         virtual AttributeDataContainer &getAttributeDataContainer() { return attributeDataContainer; }
 
@@ -85,7 +86,7 @@ namespace zigbee {
         BindTable bindTable;
         zigbee::AttributeDataContainer attributeDataContainer;
         libusb_context *usbContext;
-        std::shared_ptr<http::FixedPathContainer> fixedPathContainer;
+        http::FixedPathContainer fixedPathContainer;
         AttributeValueSignalMap attributeValueSignalMap;
         Clusters clusters;
         AttributeWriter attributeWriter;

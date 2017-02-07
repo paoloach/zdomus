@@ -15,6 +15,7 @@
 #include <memory>
 #include <experimental/string_view>
 #include <boost/endian/conversion.hpp>
+#include <boost/log/trivial.hpp>
 #include <utility>
 
 #include "../zigbee/ZigbeeDevice.h"
@@ -125,12 +126,14 @@ namespace zigbee {
 
         virtual Cluster *getClusterParent() { return parent; };
 
-        virtual ListenerOnChange onChange(std::function<void()> changeSignal) {
+        virtual ListenerOnChange onChange(std::function<void()> && changeSignal) {
             return callbacks.add(changeSignal);
         };
 
         virtual void removeOnChangeListener(ListenerOnChange &listener) {
+
             callbacks.remove(listener);
+            BOOST_LOG_TRIVIAL(info) << "remain " << callbacks.size() << " elements";
         }
 
     protected:

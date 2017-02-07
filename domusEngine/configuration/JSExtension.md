@@ -1,3 +1,21 @@
+zDevices
+    methods
+        getCountDevices() --> int --> number of devices;
+        getDevices() --> zDevices --> the global instance of object zDevices
+        getDevice(extendedAddress) --> zDevice --> A zDevice object of the given extendedAddress
+
+zDevice
+    attributes
+        longAddress
+        shortAddress
+    methods
+        isPan
+        isFullFunctionDevice
+        isMainPoweredSource
+        isDisableRFInIDLE
+        isSecureCapable
+        getEndpoints() --> return an array of Endpoint object
+
 Endpoint
     attributes
         endpointId

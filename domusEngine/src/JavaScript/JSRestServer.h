@@ -14,28 +14,38 @@
 
 namespace zigbee {
 
-class Log;
+    class Log;
 
-class JSRestServer {
-public:
-	JSRestServer(std::shared_ptr<http::FixedPathContainer> fixedPathContainer, Log & log);
-	virtual ~JSRestServer();
-public:
-	virtual void initJsObjectsTemplate(v8::Isolate * isolate, v8::Handle<v8::Object> & global);
-	virtual v8::Local<v8::Object> createInstance(v8::Isolate* isolate);
-	virtual void resetPersistences();
-protected:
-	static void constructor(const v8::FunctionCallbackInfo<v8::Value>& info);
-	static void addPathMethod(const v8::FunctionCallbackInfo<v8::Value>& info);
-	static Log*   getLog(const v8::FunctionCallbackInfo<v8::Value>& info);
-	static http::FixedPathContainer*   getContainer(const v8::FunctionCallbackInfo<v8::Value>& info);
-private:
-	static void checkStringParam(const std::string& methodName, const v8::FunctionCallbackInfo<v8::Value>& info, uint32_t index);
-private:
-	std::shared_ptr<http::FixedPathContainer> fixedPathContainer;
-	Log & log;
-	v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
-};
+    class JSRestServer {
+    public:
+        JSRestServer(http::FixedPathContainer * fixedPathContainer, Log &log): fixedPathContainer(fixedPathContainer), log(log) {}
+
+        virtual ~JSRestServer()=default;
+
+    public:
+        virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global);
+
+        virtual v8::Local<v8::Object> createInstance(v8::Isolate *isolate);
+
+        virtual void resetPersistences();
+
+    protected:
+        static void constructor(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+        static void addPathMethod(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+        static Log *getLog(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+        static http::FixedPathContainer *getContainer(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+    private:
+        static void checkStringParam(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info, uint32_t index);
+
+    private:
+        http::FixedPathContainer * fixedPathContainer;
+        Log &log;
+        v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
+    };
 
 } /* namespace zigbee */
 

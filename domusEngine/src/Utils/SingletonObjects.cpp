@@ -61,8 +61,6 @@ namespace zigbee {
             exit(-1);
         }
         configuration = std::make_shared<Configuration>(streamConfig);
-        fixedPathContainer = std::make_shared<http::FixedPathContainer>();
-
         jsManager = std::make_shared<JSManager>(*this);
     }
 

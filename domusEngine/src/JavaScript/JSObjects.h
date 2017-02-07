@@ -28,7 +28,7 @@ static constexpr const char * JSRESTSERVER = "RestServer";
 static constexpr const char * GETCOUNTDEVICES = "getCountDevices";
 static constexpr const char * GETDEVICES = "getDevices";
 static constexpr const char * GETDEVICE = "getDevice";
-static constexpr const char * GETENDPOINTS = "getEndpoints";
+
 
 // zDevice attributes
 static constexpr const char * GETLONGADDRESS = "longAddress";
@@ -39,6 +39,7 @@ static constexpr const char * IS_FFD = "isFullFunctionDevice";
 static constexpr const char * IS_POWEREDSOURCE = "isMainPoweredSource";
 static constexpr const char * IS_DISABLE_RF_IDLE = "isDisableRFInIDLE";
 static constexpr const char * IS_SECURE_CAPABILITY = "isSecureCapable";
+static constexpr const char * GETENDPOINTS = "getEndpoints";
 
 // zEndpoint attributes
 static constexpr const char * ENDPOINT = "endpointId";

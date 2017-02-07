@@ -41,7 +41,7 @@ namespace zigbee {
         typedef boost::signals2::signal<void()> NotifyEnd;
         typedef NotifyEnd::slot_type OnEnd;
     public:
-        JavaScriptExecuter(SingletonObjects &singletonObjects, boost::posix_time::time_duration period, Log &log);
+        JavaScriptExecuter(SingletonObjects &singletonObjects, std::chrono::seconds period, Log &log);
 
         virtual ~JavaScriptExecuter();
 
@@ -56,7 +56,7 @@ namespace zigbee {
         void runThread();
 
     private:
-        boost::posix_time::time_duration period;
+        std::chrono::seconds period;
         V8Allocator v8Allocator;
         v8::Isolate::CreateParams createParams;
         Log &log;
