@@ -13,12 +13,6 @@ The Javascript run with special extensions in order to accede to all the zigbee 
 For example the following Javascript save on database the temperature of all the zigbee sensors that offer a temperature service:
 
 
-```ruby
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
-```
-
 ```javascript
 var tempArrived = function (nwkId, endpointId, clusterId, attrId) {
   # This function is called when a sensor respond.
