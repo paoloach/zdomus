@@ -12,7 +12,7 @@ The Javascript run with special extensions in order to accede to all the zigbee 
 
 For example the following Javascript save on database the temperature of all the zigbee sensors that offer a temperature service:
 
-
+'
 var tempArrived = function (nwkId, endpointId, clusterId, attrId) {
   # This function is called when a sensor respond.
   # Save the temperature value into the database
@@ -25,7 +25,7 @@ var tempArrived = function (nwkId, endpointId, clusterId, attrId) {
     table.insert(row);
 }
 
-# cluster 0x402 are the temperature service
+  # cluster 0x402 are the temperature service
 var endpoints = zEndpoints.getEndpointsWithInCluster(0x402);
 if (endpoints.length > 0 ) {
     for (let endpoint of endpoints) {
@@ -35,7 +35,7 @@ if (endpoints.length > 0 ) {
         temp.requestValue(tempArrived);
     }
 }
-
+'
 
 
 If you want also export a REST service to get the temperature, is enough to register a REST path and a callback
