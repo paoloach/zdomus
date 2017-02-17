@@ -109,14 +109,13 @@ namespace zigbee {
             isolate->Enter();
             locker.reset(new Locker{isolate});
             defaultCluster = std::make_shared<ClusterMock>(&zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS);
-            defaultZclAttribute = std::make_shared<ZCLAttributeMock>(&zigbeeDevice, defaultCluster.get(), -1, ZCLTypeDataType::ZCLTypeInvalid, "", true);
+            defaultZclAttribute = std::make_unique<ZCLAttributeMock>(&zigbeeDevice, defaultCluster.get(), -1, ZCLTypeDataType::ZCLTypeInvalid, "", true);
             cluster = std::make_shared<TestCluster1>(&zigbeeDevice, ENDPOINT_ID, NWK_ADDRESS, COMAND_PARAM_UINT16, COMAND_PARAM_STRING, COMAND_PARAM_LIST_UINT16);
-            zclAttributeMock = std::make_shared<ZCLAttributeMock>(&zigbeeDevice, cluster.get(), ATTRIBUTE1_ID, ZCLTypeDataType::ZCLTypeUInt16, ATTRIBUTE1_NAME, true);
-            zclAttribute = std::dynamic_pointer_cast<ZCLAttribute>(zclAttributeMock);
+            zclAttributeMock = std::make_unique<ZCLAttributeMock>(&zigbeeDevice, cluster.get(), ATTRIBUTE1_ID, ZCLTypeDataType::ZCLTypeUInt16, ATTRIBUTE1_NAME, true);
 
             jsZCluster = make_unique<JSZCluster>(&jsZAttributeFactory, &singletonObjectsMock);
             extAddress = convertFromString(EXTENDED_ADDRESS);
-            ON_CALL(*cluster, getAttribute(A<int>())).WillByDefault(Return(defaultZclAttribute));
+            ON_CALL(*cluster, getAttribute(A<int>())).WillByDefault(Return(defaultZclAttribute.get()));
         }
 
         void JSZClusterTest::TearDown() {
@@ -131,6 +130,7 @@ namespace zigbee {
         }
 
         v8::Local<v8::Value> JSZClusterTest::runScript(const std::string &script) {
+            std::cout << "script: " << script << std::endl;
             Local<String> source = String::NewFromUtf8(isolate, script.c_str());
             Local<Script> jsScript = Script::Compile(source);
             return jsScript->Run();
@@ -144,13 +144,9 @@ namespace zigbee {
         }
 
         TEST_F(JSZClusterTest, createTemplate) {
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             HandleScope handle_scope(isolate);
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             Local<Context> context = Context::New(isolate, nullptr);
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
             Context::Scope context_scope(context);
-            std::cout << __FILE__ << ":" << __LINE__ << std::endl;
 
             Handle<Object> global = context->Global();
             jsZCluster->initJsObjectsTemplate(isolate, global);
@@ -160,7 +156,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream stream{};
-            stream << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << CLUSTER_ID << ");";
+            stream << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << (int)ENDPOINT_ID.getId() << ", " << CLUSTER_ID << ");";
             V8_SETUP
             jsZCluster->initJsObjectsTemplate(isolate, global);
 
@@ -181,7 +177,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream stream{};
-            stream << "var a = " << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << CLUSTER_ID << ");a.getProperyById(" << ATTRIBUTE1_ID <<
+            stream << "var a = " << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << (int)ENDPOINT_ID.getId() << ", " << CLUSTER_ID << ");a.getProperyById(" << ATTRIBUTE1_ID <<
             ");";
             V8_SETUP
             jsZCluster->initJsObjectsTemplate(isolate, global);
@@ -194,8 +190,8 @@ namespace zigbee {
             EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             EXPECT_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(cluster));
-            EXPECT_CALL(*cluster, getAttribute(ATTRIBUTE1_ID)).WillOnce(Return(zclAttributeMock));
-            EXPECT_CALL(jsZAttributeFactory, createAttributeInstance(isolate, zclAttribute)).WillOnce(Return(expectedObject));
+            EXPECT_CALL(*cluster, getAttribute(ATTRIBUTE1_ID)).WillOnce(Return(zclAttributeMock.get()));
+            EXPECT_CALL(jsZAttributeFactory, createAttributeInstance(isolate, zclAttributeMock.get())).WillOnce(Return(expectedObject));
 
             v8::Local<v8::Value> result = runScript(stream.str());
             ASSERT_THAT(result.IsEmpty(), false);
@@ -210,7 +206,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream stream{};
-            stream << "var a = " << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << CLUSTER_ID << ");";
+            stream << "var a = " << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << (int)ENDPOINT_ID.getId() << ", " << CLUSTER_ID << ");";
             stream << "a.executeCmdById(" << COMAND0_ID << ");";
             V8_SETUP
             jsZCluster->initJsObjectsTemplate(isolate, global);
@@ -233,7 +229,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream stream{};
-            stream << "var a = " << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << CLUSTER_ID << ");";
+            stream << "var a = " << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << (int)ENDPOINT_ID.getId() << ", " << CLUSTER_ID << ");";
             stream << "a.executeCmdById(" << COMAND1_ID << "," << COMAND1_ARG0 << ",'" << COMAND1_ARG1 << "');";
             V8_SETUP
             jsZCluster->initJsObjectsTemplate(isolate, global);
@@ -260,7 +256,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream stream{};
-            stream << "var a = " << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << CLUSTER_ID << ");";
+            stream << "var a = " << JSZCLUSTER << "('" << EXTENDED_ADDRESS << "', " << (int)ENDPOINT_ID.getId() << ", " << CLUSTER_ID << ");";
             stream << "a.executeCmdById(" << COMAND2_ID << ",[" << data1 << "," << data2 << "]);";
             V8_SETUP
             jsZCluster->initJsObjectsTemplate(isolate, global);

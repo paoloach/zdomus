@@ -31,7 +31,7 @@ HttpServer::HttpServer(SingletonObjects & singletons) {
 	server.reset(new Poco::Net::HTTPServer(requestFactory.get(), svs, params));
 	server->start();
 
-	BOOST_LOG_TRIVIAL(info) << "----------- HTTP server started ----------";
+	BOOST_LOG_TRIVIAL(info) << "----------- HTTP server started on port " << port << " ----------";
 
 }
 

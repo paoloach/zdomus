@@ -37,7 +37,7 @@ namespace zigbee {
             void isReadonlyTest(bool readOnlyExpected, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
 
             ZDevice createZDevice();
-            void setInitExpectation(ZDevice &zDevice, const ZCLAttribute * &attributeMock);
+            void setInitExpectation(ZDevice &zDevice, ZCLAttribute * attributeMock);
             std::string createZAttributeVariable(const std::string &attributeName);
             JSCallbackFifo fifo;
 

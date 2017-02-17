@@ -47,17 +47,17 @@ namespace zigbee {
             zigbeeDevice = zigbeeDeviceMock.get();
 
             defaultCluster = make_shared<ClusterMock>();
-            defaultZclAttribute = make_shared<ZCLAttributeMock>(zigbeeDevice, defaultCluster.get(), -1,
+            defaultZclAttribute = std::make_unique<ZCLAttributeMock>(zigbeeDevice, defaultCluster.get(), -1,
                                                                 ZCLTypeDataType::ZCLTypeInvalid, "", true);
             cluster = make_shared<ClusterMock>();
             jsLog = std::make_shared<JSLog>(log);
 
-            ON_CALL(singletonObjectsMock, getZDevices()).WillByDefault(Return(zDevices.get()));
-            ON_CALL(singletonObjectsMock, getClusters()).WillByDefault(Return(&clustersMock));
+            EXPECT_CALL(singletonObjectsMock, getZDevices()).Times(AtLeast(0)).WillRepeatedly(Return(zDevices.get()));
+            EXPECT_CALL(singletonObjectsMock, getClusters()).Times(AtLeast(0)).WillRepeatedly(Return(&clustersMock));
             ON_CALL(clustersMock, getCluster(_, _, _)).WillByDefault(Return(defaultCluster));
             ON_CALL(*zDevices, getDevice(extAddress)).WillByDefault(Return(&defaultZDevice));
             ON_CALL(*zDevices, exists(_)).WillByDefault(Return(false));
-            ON_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillByDefault(Return(zclAttributeMock));
+            ON_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillByDefault(Return(zclAttributeMock.get()));
         }
 
         void JSTest::TearDown() {

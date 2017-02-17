@@ -27,7 +27,7 @@ namespace zigbee {
 
         protected:
             std::shared_ptr<JSZAttribute> jsZAttribute;
-            std::shared_ptr<ZCLIEEEAddressAttributeMock> zclIEEEAddressAttributeMock;
+            ZCLIEEEAddressAttributeMock zclIEEEAddressAttributeMock;
         };
 
     } /* namespace test */

@@ -14,6 +14,11 @@ var tempArrived = function (nwkId, endpointId, clusterId, attrId) {
     table.insert(row);
 }
 
+var response = function(placeholders) {
+    log.info("Called callback response with network id: " + placeholders.networdid);
+    return "Response OK\n\n";
+}
+
 var log = Log();
 var endpoints = zEndpoints.getEndpointsWithInCluster(0x402);
 log.info("endpoints with temperature cluster: " + endpoints.length);
@@ -25,6 +30,9 @@ if (endpoints.length > 0 ) {
         temp.requestValue(tempArrived);
     }
 }
+
+var restServer = RestServer();
+restServer.addPath("/temperature/{networdid}", response);
 
 
 

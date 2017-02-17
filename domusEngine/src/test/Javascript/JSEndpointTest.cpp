@@ -51,7 +51,7 @@ namespace zigbee {
         void JSEndpointTest::SetUp() {
             std::stringstream stream{};
 
-            stream << "var a = " << JSZENDPOINT << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ");";
+            stream << "var a = " << JSZENDPOINT << "('" << EXTENDED_ADDRESS << "', " << (int)ENDPOINT_ID.getId() << ");";
             creatingZDeviceScript = stream.str();
 
             extAddress = convertFromString(EXTENDED_ADDRESS);
@@ -96,7 +96,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream stream{};
-            stream << JSZENDPOINT << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ");";
+            stream << JSZENDPOINT << "('" << EXTENDED_ADDRESS << "', " << (int)ENDPOINT_ID.getId() << ");";
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 

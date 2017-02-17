@@ -19,6 +19,7 @@
 #include "PlaceHolders.h"
 #include "PathReceived.h"
 #include "../ServerRequest.h"
+#include "../ExternalRestPath.h"
 
 namespace zigbee {
 namespace http {
@@ -31,7 +32,10 @@ class RestActions {
 private:
 	Actions actions;
 	DefaultActionHandler defaultAction;
+    ExternalRestPath  * fixedPathContainer;
 public:
+    RestActions(ExternalRestPath * fixedPathContainer):fixedPathContainer(fixedPathContainer){}
+    RestActions(): fixedPathContainer(nullptr){}
 	void addActions(RestPath && restPath,ActionHandler   f ) noexcept ;
 	void setDefaultAction(DefaultActionHandler f) noexcept {defaultAction = std::move(f);}
 	void execute(PathReceived &&pathReceived,  ServerRequest& request, Poco::Net::HTTPServerResponse& response);

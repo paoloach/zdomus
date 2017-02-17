@@ -20,7 +20,7 @@
 #include "JavaScriptExecuter.h"
 #include "../ZigbeeData/ZDevices.h"
 #include "../Utils/Log.h"
-#include "../httpServer/FixedPathContainer.h"
+#include "../httpServer/ExternalRestPath.h"
 
 
 namespace zigbee {

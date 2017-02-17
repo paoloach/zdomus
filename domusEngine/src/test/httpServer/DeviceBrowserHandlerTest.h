@@ -39,7 +39,7 @@ namespace zigbee {
 
             protected:
                 std::shared_ptr<zigbee::test::ClusterMock> clusterMock;
-                std::shared_ptr<zigbee::test::ZCLAttributeMock> attributeMock;
+                std::unique_ptr<zigbee::test::ZCLAttributeMock> attributeMock;
                 std::unique_ptr<zigbee::test::ZDevicesMock> zDevicesMock;
                 SingletonObjectsMock singletonObjects;
                 zigbee::test::ClustersMock clustersMock;

@@ -34,7 +34,7 @@ namespace zigbee {
 
         MOCK_METHOD0(getClusterTypeFactory, std::shared_ptr<ClusterTypeFactory>());
 
-        MOCK_METHOD0(getFixedPathContainer, std::shared_ptr<http::FixedPathContainer>());
+        MOCK_METHOD0(getFixedPathContainer, http::ExternalRestPath *());
 
         MOCK_METHOD0(getIO, boost::asio::io_service & ());
 

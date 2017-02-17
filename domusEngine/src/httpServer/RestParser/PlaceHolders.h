@@ -24,6 +24,10 @@ namespace zigbee {
             PlaceHolders(RestPath &&restPath, PathReceived &&pathReceived) noexcept;
 
             PlaceHolders(const RestPath &restPath, PathReceived &&pathReceived) noexcept;
+            PlaceHolders(const RestPath restPath, PathReceived pathReceived) noexcept;
+
+
+            std::vector<std::tuple<std::string,std::string>> getPlaceholders();
 
             template<typename T, typename P>
             T get(P &&placeholderName) const;

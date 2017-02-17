@@ -70,8 +70,8 @@ namespace zigbee {
             ZigbeeDevice *zigbeeDevice;
             std::shared_ptr<ClusterMock> defaultCluster;
             std::shared_ptr<ClusterMock> cluster;
-            std::shared_ptr<ZCLAttributeMock> zclAttributeMock;
-            std::shared_ptr<ZCLAttributeMock> defaultZclAttribute;
+            std::unique_ptr<ZCLAttributeMock> zclAttributeMock;
+            std::unique_ptr<ZCLAttributeMock> defaultZclAttribute;
             ZDevice defaultZDevice;
             std::shared_ptr<JSLog> jsLog;
             Log log;

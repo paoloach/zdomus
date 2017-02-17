@@ -14,21 +14,26 @@
 #include "../../Configuration/Configuration.h"
 
 namespace zigbee {
-namespace test {
+    namespace test {
 
-class ConfigurationTest : public ::testing::Test{
-public:
-	virtual ~ConfigurationTest();
-protected:
-	virtual void SetUp() ;
-	virtual void TearDown() ;
-protected:
-	std::string getConfigWith1JS();
-	std::string getConfigWithTwoJS();
-	std::shared_ptr<Configuration> conf;
-};
+        class ConfigurationTest : public ::testing::Test {
+        public:
+            virtual ~ConfigurationTest();
 
-} /* namespace test */
+        protected:
+            virtual void SetUp();
+
+            virtual void TearDown();
+
+        protected:
+            std::string getConfigWith1JS();
+
+            std::string getConfigWithTwoJS();
+
+            std::shared_ptr<Configuration> conf;
+        };
+
+    } /* namespace test */
 } /* namespace zigbee */
 
 #endif /* SRC_TEST_CONFIGURATIONTEST_H_ */

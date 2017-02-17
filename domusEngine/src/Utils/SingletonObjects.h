@@ -19,15 +19,12 @@
 #include "Constant.h"
 #include "../ZigbeeData/TopologyCreation.h"
 #include "DeviceInfoDispatcher.h"
-#include "../httpServer/FixedPathContainer.h"
+#include "../httpServer/ExternalRestPath.h"
 
 struct libusb_context;
 
 namespace zigbee {
 
-    namespace http {
-        class FixedPathContainer;
-    }
     class ClusterTypeFactory;
 
     class ZDevices;
@@ -57,7 +54,7 @@ namespace zigbee {
 
         virtual std::shared_ptr<JSManager> getJSManage() { return jsManager; }
 
-        virtual http::FixedPathContainer* getFixedPathContainer() { return &fixedPathContainer; }
+        virtual http::ExternalRestPath* getFixedPathContainer() { return &fixedPathContainer; }
 
         virtual AttributeDataContainer &getAttributeDataContainer() { return attributeDataContainer; }
 
@@ -76,6 +73,7 @@ namespace zigbee {
         virtual TopologyCreation & getTopology() {return topology;}
 
 
+
     private:
         boost::asio::io_service io;
         std::unique_ptr<ZDevices> zDevices;
@@ -86,7 +84,7 @@ namespace zigbee {
         BindTable bindTable;
         zigbee::AttributeDataContainer attributeDataContainer;
         libusb_context *usbContext;
-        http::FixedPathContainer fixedPathContainer;
+        http::ExternalRestPath fixedPathContainer;
         AttributeValueSignalMap attributeValueSignalMap;
         Clusters clusters;
         AttributeWriter attributeWriter;

@@ -13,7 +13,7 @@
 #include "../usb/usbConfig.h"
 #include "../usb/USBDevice.h"
 #include "../Configuration/Configuration.h"
-#include "../httpServer/FixedPathContainer.h"
+#include "../httpServer/ExternalRestPath.h"
 #include "../JavaScript/JSManager.h"
 #include "../serialDriver/SerialDriver.h"
 #include "../DemoDriver/DemoDevice.h"

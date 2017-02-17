@@ -13,7 +13,7 @@
 #include "FixedPathHandler.h"
 #include "DeviceBrowserHandler.h"
 #include "../Utils/SingletonObjects.h"
-#include "FixedPathContainer.h"
+#include "ExternalRestPath.h"
 
 namespace zigbee {
 namespace http {

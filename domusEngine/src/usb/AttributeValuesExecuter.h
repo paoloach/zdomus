@@ -39,8 +39,6 @@ namespace zigbee {
 
                 size_t dataLen = ZclAttributeUtils::zclGetAttrDataLength(response->dataType, rawData);
                 log << ", dataLen: " << dataLen;
-                auto zigbeeDevice =singletonObjects.getZigbeeDevice();
-
                 std::shared_ptr<Cluster> cluster{singletonObjects.getClusters()->getCluster(NwkAddr{readAttributeResponseMessage->networkAddr},
                                                                         EndpointID{readAttributeResponseMessage->endpoint},
                                                                         ClusterID{readAttributeResponseMessage->clusterId}

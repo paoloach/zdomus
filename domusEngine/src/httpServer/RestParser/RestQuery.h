@@ -13,11 +13,19 @@ namespace zigbee {
     namespace http {
         class RestQuery {
         public:
-            RestQuery(){};
-            RestQuery(std::string && queryString);
+            RestQuery() {};
+
+            RestQuery(std::string &&queryString);
+
         public:
             std::string name;
             std::vector<std::string> values;
+
+            operator std::string() const ;
+
+
+            friend bool operator==(const RestQuery &a, const RestQuery &b);
+            friend bool operator<(const RestQuery &a, const RestQuery &b);
         };
     }
 }

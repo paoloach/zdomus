@@ -16,6 +16,8 @@ zDevice
         isSecureCapable
         getEndpoints() --> return an array of Endpoint object
 
+zEndpoint -> global istance to ZEndpoints
+
 Endpoint
     attributes
         endpointId
@@ -44,3 +46,6 @@ Attribute
         getName() --> the name
         isReadOnly() --> bool
 
+RestServer
+    addPath(path, value) --> a path that the server will respond by a GET request. If value is a String or a number the return value is that value.
+                             If value is a function, it will called and the return value is return by the server

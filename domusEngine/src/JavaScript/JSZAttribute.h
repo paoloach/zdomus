@@ -80,6 +80,8 @@ namespace zigbee {
 
         static void jsValue(v8::Local<v8::String>, const v8::PropertyCallbackInfo<v8::Value> &info);
 
+        static void setJSValue(v8::Local<v8::String> property, v8::Local<v8::Value> value,  const v8::PropertyCallbackInfo<void>& info);
+
         static ExtAddress getExtAddressFromArg(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static void validateParams(const v8::FunctionCallbackInfo<v8::Value> &info);

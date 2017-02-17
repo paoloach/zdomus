@@ -26,7 +26,7 @@ namespace zigbee {
                                                                                                                         jsZEndpoint(singletonObjects.getZDevices(), &jsZCluster),
                                                                                                                         jsZEndpoints(singletonObjects, &jsZEndpoint),
                                                                                                                         jsZDevice(singletonObjects.getZDevices(), &jsZEndpoint),
-                                                                                                                        jsRestServer(singletonObjects.getFixedPathContainer(), log),
+                                                                                                                        jsRestServer(singletonObjects.getFixedPathContainer(), log,&callbackFifo ),
                                                                                                                         jszDevices(singletonObjects.getZDevices(), &jsZDevice),
                                                                                                                         stop(false) {
 

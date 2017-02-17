@@ -24,7 +24,6 @@ public:
 	MOCK_METHOD1(sendValue, void (uint64_t newValue));
 	MOCK_CONST_METHOD0(getValue, boost::any () );
 	MOCK_METHOD1(internalSetValue, void (std::shared_ptr<AttributeStatusRecord> rawData));
-	MOCK_METHOD0(getZCLType, ZCLTypeDataType () );
 	MOCK_METHOD1(setValue, void (std::shared_ptr<AttributeStatusRecord> rawData));
 	MOCK_METHOD0(requestValue, void ());
 	MOCK_CONST_METHOD0(isAvailable, bool () );

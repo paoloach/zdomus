@@ -10,7 +10,11 @@
 
 #include <v8.h>
 #include <memory>
-#include "../httpServer/FixedPathContainer.h"
+#include <map>
+#include <condition_variable>
+#include <mutex>
+#include "JSCallbackFifo.h"
+#include "../httpServer/ExternalRestPath.h"
 
 namespace zigbee {
 
@@ -18,7 +22,7 @@ namespace zigbee {
 
     class JSRestServer {
     public:
-        JSRestServer(http::FixedPathContainer * fixedPathContainer, Log &log): fixedPathContainer(fixedPathContainer), log(log) {}
+        JSRestServer(http::ExternalRestPath * fixedPathContainer, Log &log, JSCallbackFifo * jsCallbackFifo): fixedPathContainer(fixedPathContainer), log(log), jsCallbackFifo(jsCallbackFifo) {}
 
         virtual ~JSRestServer()=default;
 
@@ -33,18 +37,25 @@ namespace zigbee {
         static void constructor(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static void addPathMethod(const v8::FunctionCallbackInfo<v8::Value> &info);
+                void addPathMethodInternal(const v8::FunctionCallbackInfo<v8::Value> &info);
 
-        static Log *getLog(const v8::FunctionCallbackInfo<v8::Value> &info);
-
-        static http::FixedPathContainer *getContainer(const v8::FunctionCallbackInfo<v8::Value> &info);
+        static JSRestServer * getThis(const v8::FunctionCallbackInfo<v8::Value> &info);
 
     private:
         static void checkStringParam(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info, uint32_t index);
+        std::string callback(v8::Isolate *isolate, int functionId,http::ExternalRestPath::CallbackArgs & args);
+        void asyncCallback(v8::Isolate *, int functionId, http::ExternalRestPath::CallbackArgs args);
 
     private:
-        http::FixedPathContainer * fixedPathContainer;
+        http::ExternalRestPath * fixedPathContainer;
         Log &log;
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
+        JSCallbackFifo * jsCallbackFifo;
+        std::map<int, v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>>> callbackMap;
+        std::map<int, std::string> results;
+        std::map<int, std::unique_ptr<std::condition_variable>> conditionVariables;
+        std::mutex mutex;
+
     };
 
 } /* namespace zigbee */

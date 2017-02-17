@@ -9,9 +9,9 @@ namespace zigbee {
         using namespace testing;
         using std::string;
         static ExtAddress expectedExtAddress = {0x01, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x33};
-        static NwkAddr expectedNwkAddr{3456};
-        static NwkAddr expectedChild1{343};
-        static NwkAddr expectedChild2{123};
+        static NwkAddr expectedNwkAddr{0x3456};
+        static NwkAddr expectedChild1{0x343};
+        static NwkAddr expectedChild2{0x123};
 
         MATCHER_P2(HasZeroChild, expextedExtAddr, expectedNwkId, "zero child message") {
             return arg.ieeeAddr == expextedExtAddr && arg.nwkAddr == expectedNwkId && arg.children.size() == 0;

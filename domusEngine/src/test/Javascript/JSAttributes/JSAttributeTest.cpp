@@ -39,7 +39,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream stream{};
-            stream << attributeName << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << CLUSTER_ID << "," << ATTRIBUTE0_ID << ");";
+            stream << attributeName << "('" << EXTENDED_ADDRESS << "', " << (int)ENDPOINT_ID.getId() << ", " << CLUSTER_ID << "," << ATTRIBUTE0_ID << ");";
             V8_SETUP
             jsZAttribute->initJsObjectsTemplate(isolate, global);
 
@@ -63,7 +63,7 @@ namespace zigbee {
             return ZDevice {extAddress, NWK_ADDRESS, 0, {zEndpoint}};
         }
 
-        void JSAttributeTest::setInitExpectation(ZDevice &zDevice, const ZCLAttribute * attributeMock) {
+        void JSAttributeTest::setInitExpectation(ZDevice &zDevice, ZCLAttribute * attributeMock) {
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(cluster));
@@ -292,7 +292,7 @@ namespace zigbee {
 
         std::string JSAttributeTest::createZAttributeVariable(const std::string &attributeName) {
             std::stringstream stream{};
-            stream << "var a=" << attributeName << "('" << EXTENDED_ADDRESS << "', " << ENDPOINT_ID << ", " << CLUSTER_ID << "," << ATTRIBUTE0_ID << ");";
+            stream << "var a=" << attributeName << "('" << EXTENDED_ADDRESS << "', " << (int)ENDPOINT_ID.getId() << ", " << CLUSTER_ID << "," << ATTRIBUTE0_ID << ");";
             return stream.str();
         }
 

@@ -16,13 +16,13 @@ namespace test {
 
 class JSZAttributeUInt24Test : public JSAttributeTest{
 public:
-	virtual ~JSZAttributeUInt24Test();
+	virtual ~JSZAttributeUInt24Test() = default;
 protected:
 	virtual void SetUp() override;
 	virtual void TearDown() override;
 protected:
 	std::shared_ptr<JSZAttribute> jsZAttribute;
-	std::shared_ptr<ZCLUInt24AttributeMock> zclUInt24AttributeMock;
+	ZCLUInt24AttributeMock zclUInt24AttributeMock;
 };
 
 } /* namespace test */

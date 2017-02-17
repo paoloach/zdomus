@@ -25,7 +25,7 @@
 #include "JSLog.h"
 #include "JSRestServer.h"
 #include "../Database/DBTableFactory.h"
-#include "../httpServer/FixedPathContainer.h"
+#include "../httpServer/ExternalRestPath.h"
 #include "V8Allocator.h"
 #include "GlobalJSFunctions.h"
 #include "JSCallbackFifo.h"

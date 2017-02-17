@@ -11,7 +11,7 @@
 #include <memory>
 #include <Poco/Net/HTTPServer.h>
 #include "DEHttpRequestHandlerFactory.h"
-#include "FixedPathContainer.h"
+#include "ExternalRestPath.h"
 #include "../ZigbeeData/ZDevices.h"
 #include <zcl/ClusterTypeFactory.h>
 #include "../Utils/SingletonObjects.h"

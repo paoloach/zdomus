@@ -22,7 +22,7 @@ protected:
 	virtual void TearDown() override;
 protected:
 	std::shared_ptr<JSZAttribute> jsZAttribute;
-	std::shared_ptr<ZCLUint8AttributeMock> zclUint8AttributeMock;
+	ZCLUint8AttributeMock zclUint8AttributeMock;
 };
 
 } /* namespace test */

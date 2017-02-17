@@ -9,6 +9,7 @@
 #define SRC_HTTPSERVER_RESTPARSER_RESTPATH_H_
 
 #include <vector>
+#include <iostream>
 
 #include "PathReceived.h"
 #include "PathElement.h"
@@ -30,11 +31,23 @@ namespace zigbee {
 
         public:
             bool operator==(const PathReceived &pathReceived) const noexcept;
+            bool operator==(const RestPath &pathReceived) const noexcept;
 
             auto begin() const noexcept -> decltype(elements.begin()) { return elements.begin(); }
 
             auto end() const noexcept -> decltype(elements.end()) { return elements.end(); }
+
+            std::vector<std::string> getAllPlaceholders();
+
         };
+
+
+        inline std::ostream & operator <<(std::ostream & out, const RestPath & restPath){
+            for(auto & pathElement: restPath){
+                out << "/" << pathElement;
+            }
+            return out;
+        }
 
     } /* namespace http */
 } /* namespace zigbee */

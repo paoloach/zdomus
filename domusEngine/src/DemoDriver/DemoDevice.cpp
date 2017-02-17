@@ -184,7 +184,7 @@ namespace zigbee {
 
     }
 
-    void DemoDevice::getIEEEAddress(zigbee::NwkAddr nwkAddr, zigbee::ZDPRequestType requestType, uint8_t startIndex) {
+    void DemoDevice::getIEEEAddress(zigbee::NwkAddr nwkAddr, zigbee::ZDPRequestType , uint8_t ) {
         auto zDevices = singletonObjects.getZDevices();
         IEEEAddrResp message;
 
@@ -297,7 +297,7 @@ namespace zigbee {
                     } else {
                         val = 0;
                     }
-                    uint8_t data[2] = {(val >> 8), val & 0xFF};
+                    uint8_t data[2] = {static_cast<uint8_t >(val >> 8), static_cast<uint8_t >(val & 0xFF)};
 
                     auto attribute = cluster->getAttribute(attributeId);
                     attribute->setValue(0, typeUINT16, data);
@@ -395,12 +395,12 @@ namespace zigbee {
 
     }
 
-    void DemoDevice::writeAttribute(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, zigbee::ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType,
-                                    uint8_t dataValueLen, uint8_t *dataValue) {
+    void DemoDevice::writeAttribute(zigbee::NwkAddr , const zigbee::EndpointID , zigbee::ClusterID , ZigbeeAttributeId , ZCLTypeDataType ,
+                                    uint8_t , uint8_t *) {
 
     }
 
-    void DemoDevice::sendCmd(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, zigbee::ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t> data) {
+    void DemoDevice::sendCmd(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, zigbee::ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t> ) {
         if (nwkAddrs == NWK_ADDR1) {
             if (endpoint == 4) {
                 if (cluster == ClustersId::ON_OFF_CLUSTER) {
@@ -494,14 +494,14 @@ namespace zigbee {
 
 
     void
-    DemoDevice::sendReqBind(zigbee::NwkAddr destAddr, const uint8_t *outClusterAddr, zigbee::EndpointID outClusterEP, zigbee::ClusterID clusterID, const uint8_t *inClusterAddr,
-                            zigbee::EndpointID inClusterEp) {
+    DemoDevice::sendReqBind(zigbee::NwkAddr , const uint8_t *, zigbee::EndpointID , zigbee::ClusterID , const uint8_t *,
+                            zigbee::EndpointID ) {
 
     }
 
     void
-    DemoDevice::sendReqUnbind(zigbee::NwkAddr destAddr, const uint8_t *outClusterAddr, zigbee::EndpointID outClusterEP, zigbee::ClusterID clusterID, const uint8_t *inClusterAddr,
-                              zigbee::EndpointID inClusterEp) {
+    DemoDevice::sendReqUnbind(zigbee::NwkAddr , const uint8_t *, zigbee::EndpointID , zigbee::ClusterID , const uint8_t *,
+                              zigbee::EndpointID ) {
 
     }
 
@@ -533,7 +533,7 @@ namespace zigbee {
 
     }
 
-    void DemoDevice::requestBindTable(zigbee::NwkAddr nwkAddrs) {
+    void DemoDevice::requestBindTable(zigbee::NwkAddr ) {
 
     }
 
@@ -549,13 +549,13 @@ namespace zigbee {
 
     }
 
-    void DemoDevice::registerForAttributeCmd(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, zigbee::ClusterID cluster, ZigbeeAttributeCmdId cmdId,
+    void DemoDevice::registerForAttributeCmd(zigbee::NwkAddr , const zigbee::EndpointID , zigbee::ClusterID , ZigbeeAttributeCmdId ,
                                              const std::function<void()>) {
 
     }
 
-    void DemoDevice::registerForAttributeValue(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, zigbee::ClusterID cluster, ZigbeeAttributeId attributeId,
-                                               const zigbee::ZigbeeDevice::NewAttributeValueCallback subscriber) {
+    void DemoDevice::registerForAttributeValue(zigbee::NwkAddr , const zigbee::EndpointID , zigbee::ClusterID , ZigbeeAttributeId ,
+                                               const zigbee::ZigbeeDevice::NewAttributeValueCallback ) {
 
     }
 

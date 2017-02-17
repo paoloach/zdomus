@@ -8,6 +8,7 @@
 #include <iostream>
 #include <boost/log/trivial.hpp>
 #include <boost/bind.hpp>
+#include <boost/endian/conversion.hpp>
 #include "JSZAttribute.h"
 #include <zcl/ZCLAttribute.h>
 #include <zcl/ClusterTypeFactory.h>
@@ -69,7 +70,7 @@ namespace zigbee {
         zAttributeClusterInstanceTemplate->Set(getNameMethod, FunctionTemplate::New(isolate, jsGetName));
         zAttributeClusterInstanceTemplate->Set(isReadOnlyMethod, FunctionTemplate::New(isolate, jsIsReadOnly));
 
-        zAttributeClusterInstanceTemplate->SetAccessor(valueProperty, jsValue, nullptr, Handle<Value>(), ALL_CAN_READ, ReadOnly);
+        zAttributeClusterInstanceTemplate->SetAccessor(valueProperty, jsValue, setJSValue, Handle<Value>(), ALL_CAN_READ, ReadOnly);
     }
 
     void JSZAttribute::validateParams(const v8::FunctionCallbackInfo<v8::Value> &info) {
@@ -120,6 +121,12 @@ namespace zigbee {
         return extAddress;
     }
 
+    void JSZAttribute::setJSValue(v8::Local<v8::String> property, v8::Local<v8::Value>, const v8::PropertyCallbackInfo<void> &) {
+        String::Utf8Value name(property);
+        BOOST_LOG_TRIVIAL(info) << "Assign property: " << *name;
+    }
+
+
     void JSZAttribute::jsValue(v8::Local<v8::String>, const v8::PropertyCallbackInfo<v8::Value> &info) {
         Isolate *isolate = info.GetIsolate();
         try {
@@ -128,38 +135,50 @@ namespace zigbee {
             auto attribute = (ZCLAttribute *) wrap->Value();
             boost::any value = attribute->getValue();
             switch (attribute->getZCLType()) {
+                case ZCLTypeDataType::ZCLTypeStringChar: {
+                    std::string sValue = boost::any_cast<std::string>(value);
+                    auto jsString = v8::String::NewFromUtf8(isolate, sValue.c_str());
+                    info.GetReturnValue().Set(jsString);
+                }
+                    break;
+                case ZCLTypeDataType::ZCLTypeBool:
+                    info.GetReturnValue().Set(boost::any_cast<bool>(value));
+                    break;
                 case ZCLTypeDataType::ZCLTypeSInt8:
                 case ZCLTypeDataType::ZCLTypeSInt16:
                 case ZCLTypeDataType::ZCLTypeSInt24:
-                case ZCLTypeDataType::ZCLTypeSInt32: {
-                    int32_t iValue = boost::any_cast<int32_t>(value);
-                    info.GetReturnValue().Set(iValue);
-                }
+                case ZCLTypeDataType::ZCLTypeSInt32:
+                    info.GetReturnValue().Set(boost::any_cast<int32_t>(value));
                     break;
                 case ZCLTypeDataType::ZCLTypeSInt40:
                 case ZCLTypeDataType::ZCLTypeSInt48:
                 case ZCLTypeDataType::ZCLTypeSInt56:
-                case ZCLTypeDataType::ZCLTypeSInt64: {
-                    double dValue = boost::any_cast<double>(value);
-                    info.GetReturnValue().Set(Integer::New(isolate, dValue));
-                }
+                case ZCLTypeDataType::ZCLTypeSInt64:
+                    info.GetReturnValue().Set(Integer::New(isolate, boost::any_cast<double>(value)));
                     break;
+                case ZCLTypeDataType::ZCLType8bitBitmap:
+                case ZCLTypeDataType::ZCLTypeenum8:
+                case ZCLTypeDataType::ZCLType16bitBitmap:
+                case ZCLTypeDataType::ZCLTypeenum16:
                 case ZCLTypeDataType::ZCLTypeUInt8:
                 case ZCLTypeDataType::ZCLTypeUInt16:
                 case ZCLTypeDataType::ZCLTypeUInt24:
-                case ZCLTypeDataType::ZCLTypeUInt32: {
-                    uint32_t iValue = boost::any_cast<uint32_t>(value);
-                    info.GetReturnValue().Set(iValue);
-                }
+                case ZCLTypeDataType::ZCLTypeUInt32:
+                    info.GetReturnValue().Set(boost::any_cast<uint32_t>(value));
                     break;
                 case ZCLTypeDataType::ZCLTypeUInt40:
                 case ZCLTypeDataType::ZCLTypeUInt48:
                 case ZCLTypeDataType::ZCLTypeUInt56:
-                case ZCLTypeDataType::ZCLTypeUInt64: {
-                    double dValue = boost::any_cast<double>(value);
-                    info.GetReturnValue().Set(Integer::New(isolate, dValue));
-                }
+                case ZCLTypeDataType::ZCLTypeUInt64:
+                    info.GetReturnValue().Set(Integer::New(isolate, boost::any_cast<double>(value)));
                     break;
+                case ZCLTypeDataType::ZCLTypeIEEEaddress: {
+                    uint64_t ieeeAddress = boost::any_cast<uint64_t>(value);
+                    uint64_t bigIeeeAddr = boost::endian::native_to_big(ieeeAddress);
+                    ExtAddress extAddress((uint8_t *) &bigIeeeAddr);
+                    info.GetReturnValue().Set(String::NewFromUtf8(isolate, extAddress.asString().c_str()));
+                    break;
+                }
                 default:
                     break;
             }

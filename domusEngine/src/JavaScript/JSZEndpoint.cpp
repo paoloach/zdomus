@@ -79,6 +79,7 @@ namespace zigbee {
             checkConstructorValidArgument(isolate, info);
             JSZEndpoint *This = (JSZEndpoint *) (Local<External>::Cast(info.Data())->Value());
             ExtAddress extAddress = getExtAddressFromArg(info, 0);
+
             uint32_t endpointId = info[1].As<v8::Integer>()->Value();
 
             info.GetReturnValue().Set(This->createInstance(info.GetIsolate(), extAddress, EndpointID(endpointId)));

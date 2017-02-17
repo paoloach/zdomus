@@ -47,17 +47,15 @@ namespace zigbee {
                 zDevicesMock = std::make_unique<zigbee::test::ZDevicesMock>();
                 zigbeeDevice = std::make_unique<zigbee::test::ZigbeeDeviceMock>();
                 clusterMock = std::make_shared<zigbee::test::ClusterMock>();
-                attributeMock = std::make_shared<zigbee::test::ZCLAttributeMock>(nullptr, nullptr, 0,
-                                                                                 ZCLTypeDataType::ZCLTypeInvalid,
-                                                                                 "mock", false);
+                attributeMock = std::make_unique<zigbee::test::ZCLAttributeMock>(nullptr, nullptr, 0, ZCLTypeDataType::ZCLTypeInvalid, "mock", false);
                 EXPECT_CALL(response, send()).Times(AtMost(1)).WillOnce(ReturnRef(outStream));
                 request.setMethod("GET");
                 attributeAvailable = true;
                 attributeStatus = ZCLAttribute::Available;
-                EXPECT_CALL(singletonObjects, getZDevices()).Times(AnyNumber()).WillOnce(
-                        Return(zDevicesMock.get()));
+                EXPECT_CALL(singletonObjects, getZDevices()).Times(AnyNumber()).WillOnce(Return(zDevicesMock.get()));
                 EXPECT_CALL(singletonObjects, getZigbeeDevice()).Times(AnyNumber()).WillOnce(Return(zigbeeDevice.get()));
                 EXPECT_CALL(singletonObjects, getClusters()).Times(AnyNumber()).WillOnce(Return(&clustersMock));
+                EXPECT_CALL(singletonObjects, getFixedPathContainer()).Times(AnyNumber()).WillOnce(Return(nullptr));
             }
 
             void DeviceBrowserHandlerTest::TearDown() {
@@ -65,8 +63,7 @@ namespace zigbee {
             }
 
             TEST_F(DeviceBrowserHandlerTest, allDevicesText) {
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI("/devices");
                 std::vector<ZDevice *> devices = {&ZDeviceFixture::zDevice1, &ZDeviceFixture::zDevice2};
@@ -76,13 +73,12 @@ namespace zigbee {
 
                 ASSERT_THAT(response.getStatus(), Poco::Net::HTTPResponse::HTTP_OK);
                 std::string resultString = outStream.str();
-                ASSERT_THAT(resultString, Eq("1=10-11-12-13-14-15-16-17\n11=20-21-22-23-24-25-26-27\n"));
+                ASSERT_THAT(resultString, Eq("0001=10-11-12-13-14-15-16-17\n000B=20-21-22-23-24-25-26-27\n"));
             }
 
             TEST_F(DeviceBrowserHandlerTest, allDevicesJSON) {
                 std::stringstream expectedStream;
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI("/devices");
 
@@ -94,8 +90,7 @@ namespace zigbee {
 
                 ASSERT_THAT(response.getStatus(), Poco::Net::HTTPResponse::HTTP_OK);
                 std::string resultString = outStream.str();
-                expectedStream << "{\"1\":\"" << ZDeviceFixture::zDevice1.getExtAddr() << "\",\"11\":\""
-                               << ZDeviceFixture::zDevice2.getExtAddr() << "\"}\n";
+                expectedStream << "{\"0001\":\"" << ZDeviceFixture::zDevice1.getExtAddr() << "\",\"000B\":\"" << ZDeviceFixture::zDevice2.getExtAddr() << "\"}\n";
                 ASSERT_THAT(resultString, Eq(expectedStream.str()));
             }
 
@@ -103,20 +98,18 @@ namespace zigbee {
                 std::stringstream restPath;
                 std::stringstream expectedStream;
                 restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr();
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI(restPath.str());
                 std::vector<ZDevice *> devices = {&ZDeviceFixture::zDevice1, &ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
 
                 deviceBrowserHandler->handleRequest(request, response);
 
                 ASSERT_THAT(response.getStatus(), Poco::Net::HTTPResponse::HTTP_OK);
                 std::string resultString = outStream.str();
                 expectedStream << "extended_address=" << ZDeviceFixture::zDevice1.getExtAddr() << std::endl;
-                expectedStream << "short_address=" << std::dec << ZDeviceFixture::zDevice1.getNwkAddr() << std::endl;
+                expectedStream << "short_address=" << std::dec << ZDeviceFixture::zDevice1.getNwkAddr().getId() << std::endl;
                 expectedStream << "capability=" << (int) ZDeviceFixture::zDevice1.getCapabilities() << std::endl;
                 expectedStream << "[endpoints]" << std::endl;
                 int index = 0;
@@ -124,21 +117,19 @@ namespace zigbee {
                     expectedStream << index << "=" << endpoint.first << std::endl;
                     index++;
                 }
-                ASSERT_THAT(resultString, expectedStream.str() );
+                ASSERT_THAT(resultString, expectedStream.str());
             }
 
             TEST_F(DeviceBrowserHandlerTest, oneDeviceJSON) {
                 std::stringstream restPath;
                 std::stringstream expectedStream;
                 restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr();
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI(restPath.str());
                 request.setContentType(MEDIA_TYPE_JSON);
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
 
                 deviceBrowserHandler->handleRequest(request, response);
 
@@ -146,9 +137,9 @@ namespace zigbee {
                 std::string resultString = outStream.str();
 
                 expectedStream << "{\"extended_address\":\"" << ZDeviceFixture::zDevice1.getExtAddr() << "\",";
-                expectedStream << "\"short_address\":\"" << ZDeviceFixture::zDevice1.getNwkAddr() << "\",";
+                expectedStream << "\"short_address\":\"" << ZDeviceFixture::zDevice1.getNwkAddr().getId() << "\",";
                 expectedStream << "\"capability\":\"" << (int) ZDeviceFixture::zDevice1.getCapabilities() << "\",";
-                expectedStream << "\"endpoints\":{\"0\":\"11\",\"1\":\"21\"}}\n";
+                expectedStream << "\"endpoints\":{\"0\":\"0B\",\"1\":\"15\"}}\n";
                 ASSERT_THAT(resultString, expectedStream.str());
             }
 
@@ -157,8 +148,7 @@ namespace zigbee {
                 NwkAddr invalidDevice{123};
 
                 restPath << "/devices/" << invalidDevice;
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI(restPath.str());
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
@@ -172,15 +162,12 @@ namespace zigbee {
                 std::stringstream restPath;
                 std::stringstream expectedStream;
 
-                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/"
-                         << endpoint.getEndpoint();
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/" << std::dec << endpoint.getEndpoint();
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI(restPath.str());
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
 
                 deviceBrowserHandler->handleRequest(request, response);
 
@@ -188,7 +175,7 @@ namespace zigbee {
                 std::string resultString = outStream.str();
                 expectedStream << "short_address=" << endpoint.getNwkAddr() << std::endl;
                 expectedStream << "endpoint_id=" << endpoint.getEndpoint() << std::endl;
-                expectedStream << "profile_id=" << (int) endpoint.getAppProfId() << std::endl;
+                expectedStream << "profile_id=" << std::dec << (int) endpoint.getAppProfId() << std::endl;
                 expectedStream << "device_id=" << (int) endpoint.getAppDeviceId() << std::endl;
                 expectedStream << "device_version=" << (int) endpoint.getAppDevVer() << std::endl;
                 expectedStream << "[input_clusters]" << std::endl;
@@ -211,16 +198,13 @@ namespace zigbee {
                 std::stringstream restPath;
                 std::stringstream expectedStream;
 
-                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/"
-                         << endpoint.getEndpoint();
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/" << endpoint.getEndpoint();
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI(restPath.str());
                 request.setContentType(MEDIA_TYPE_JSON);
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
 
                 deviceBrowserHandler->handleRequest(request, response);
 
@@ -229,7 +213,7 @@ namespace zigbee {
 
                 expectedStream << "{\"short_address\":\"" << endpoint.getNwkAddr() << "\",";
                 expectedStream << "\"endpoint_id\":\"" << endpoint.getEndpoint() << "\",";
-                expectedStream << "\"profile_id\":\"" << (int) endpoint.getAppProfId() << "\",";
+                expectedStream << "\"profile_id\":\"" << std::dec << (int) endpoint.getAppProfId() << "\",";
                 expectedStream << "\"device_id\":\"" << (int) endpoint.getAppDeviceId() << "\",";
                 expectedStream << "\"device_version\":\"" << (int) endpoint.getAppDevVer() << "\",";
                 expectedStream << "\"input_clusters\":{\"0\":\"7\",\"1\":\"8\",\"2\":\"9\"},";
@@ -243,18 +227,14 @@ namespace zigbee {
 
                 auto clusterMock = std::make_shared<zigbee::test::ClusterMock>();
 
-                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/"
-                         << endpoint.getEndpoint() << "/cluster/in/" << clusterInId;
+                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/" << endpoint.getEndpoint() << "/cluster/in/" << clusterInId;
                 request.setURI(restPath.str());
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 HTTPServerRequestMock request("GET", restPath.str());
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
-                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(),
-                                                     clusterInId)).WillOnce(Return(clusterMock));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(), clusterInId)).WillOnce(Return(clusterMock));
 
                 EXPECT_CALL(*clusterMock, getId()).WillOnce(Return(ZDeviceFixture::clusterId));
                 EXPECT_CALL(*clusterMock, getClusterName()).WillOnce(Return(ZDeviceFixture::clusterName));
@@ -285,18 +265,14 @@ namespace zigbee {
 
                 auto clusterMock = std::make_shared<zigbee::test::ClusterMock>();
 
-                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/"
-                         << endpoint.getEndpoint() << "/cluster/in/" << clusterInId;
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/" << endpoint.getEndpoint() << "/cluster/in/" << clusterInId;
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI(restPath.str());
                 request.setContentType(MEDIA_TYPE_JSON);
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
-                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(),
-                                                     clusterInId)).WillOnce(Return(clusterMock));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(), clusterInId)).WillOnce(Return(clusterMock));
 
                 EXPECT_CALL(*clusterMock, getId()).WillOnce(Return(ZDeviceFixture::clusterId));
                 EXPECT_CALL(*clusterMock, getClusterName()).WillOnce(Return(ZDeviceFixture::clusterName));
@@ -310,19 +286,13 @@ namespace zigbee {
                 expectedStream << "{\"cluster id\":\"" << ZDeviceFixture::clusterId << "\",";
                 expectedStream << "\"cluster name\":\"" << ZDeviceFixture::clusterName << "\",";
                 expectedStream << "\"attributes\":{";
-                expectedStream << "\"" << ZDeviceFixture::attribute1.id << "\":\"" << ZDeviceFixture::attribute1.name
-                               << "\",";
-                expectedStream << "\"" << ZDeviceFixture::attribute2.id << "\":\"" << ZDeviceFixture::attribute2.name
-                               << "\",";
-                expectedStream << "\"" << ZDeviceFixture::attribute3.id << "\":\"" << ZDeviceFixture::attribute3.name
-                               << "\"},";
+                expectedStream << "\"" << ZDeviceFixture::attribute1.id << "\":\"" << ZDeviceFixture::attribute1.name << "\",";
+                expectedStream << "\"" << ZDeviceFixture::attribute2.id << "\":\"" << ZDeviceFixture::attribute2.name << "\",";
+                expectedStream << "\"" << ZDeviceFixture::attribute3.id << "\":\"" << ZDeviceFixture::attribute3.name << "\"},";
                 expectedStream << "\"commands\":{";
-                expectedStream << "\"" << ZDeviceFixture::command1.cmdId << "\":\"" << ZDeviceFixture::command1.name
-                               << "\",";
-                expectedStream << "\"" << ZDeviceFixture::command2.cmdId << "\":\"" << ZDeviceFixture::command2.name
-                               << "\",";
-                expectedStream << "\"" << ZDeviceFixture::command3.cmdId << "\":\"" << ZDeviceFixture::command3.name
-                               << "\"}}\n";
+                expectedStream << "\"" << ZDeviceFixture::command1.cmdId << "\":\"" << ZDeviceFixture::command1.name << "\",";
+                expectedStream << "\"" << ZDeviceFixture::command2.cmdId << "\":\"" << ZDeviceFixture::command2.name << "\",";
+                expectedStream << "\"" << ZDeviceFixture::command3.cmdId << "\":\"" << ZDeviceFixture::command3.name << "\"}}\n";
 
                 ASSERT_THAT(resultString, expectedStream.str());
             }
@@ -333,17 +303,13 @@ namespace zigbee {
 
                 auto clusterMock = std::make_shared<zigbee::test::ClusterMock>();
 
-                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/"
-                         << endpoint.getEndpoint() << "/cluster/out/" << clusterOutId;
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/" << endpoint.getEndpoint() << std::dec << "/cluster/out/" << clusterOutId;
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI(restPath.str());
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
-                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(),
-                                                     clusterOutId)).WillOnce(Return(clusterMock));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(), clusterOutId)).WillOnce(Return(clusterMock));
 
                 EXPECT_CALL(*clusterMock, getId()).WillOnce(Return(ZDeviceFixture::clusterId));
                 EXPECT_CALL(*clusterMock, getClusterName()).WillOnce(Return(ZDeviceFixture::clusterName));
@@ -374,18 +340,14 @@ namespace zigbee {
 
                 auto clusterMock = std::make_shared<zigbee::test::ClusterMock>();
 
-                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/"
-                         << endpoint.getEndpoint() << "/cluster/out/" << clusterOutId;
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/" << endpoint.getEndpoint() << std::dec << "/cluster/out/" << clusterOutId;
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 request.setURI(restPath.str());
                 request.setContentType(MEDIA_TYPE_JSON);
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
-                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(),
-                                                     clusterOutId)).WillOnce(Return(clusterMock));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(), clusterOutId)).WillOnce(Return(clusterMock));
 
                 EXPECT_CALL(*clusterMock, getId()).WillOnce(Return(ZDeviceFixture::clusterId));
                 EXPECT_CALL(*clusterMock, getClusterName()).WillOnce(Return(ZDeviceFixture::clusterName));
@@ -399,40 +361,28 @@ namespace zigbee {
                 expectedStream << "{\"cluster id\":\"" << ZDeviceFixture::clusterId << "\",";
                 expectedStream << "\"cluster name\":\"" << ZDeviceFixture::clusterName << "\",";
                 expectedStream << "\"attributes\":{";
-                expectedStream << "\"" << ZDeviceFixture::attribute1.id << "\":\"" << ZDeviceFixture::attribute1.name
-                               << "\",";
-                expectedStream << "\"" << ZDeviceFixture::attribute2.id << "\":\"" << ZDeviceFixture::attribute2.name
-                               << "\",";
-                expectedStream << "\"" << ZDeviceFixture::attribute3.id << "\":\"" << ZDeviceFixture::attribute3.name
-                               << "\"},";
+                expectedStream << "\"" << ZDeviceFixture::attribute1.id << "\":\"" << ZDeviceFixture::attribute1.name << "\",";
+                expectedStream << "\"" << ZDeviceFixture::attribute2.id << "\":\"" << ZDeviceFixture::attribute2.name << "\",";
+                expectedStream << "\"" << ZDeviceFixture::attribute3.id << "\":\"" << ZDeviceFixture::attribute3.name << "\"},";
                 expectedStream << "\"commands\":{";
-                expectedStream << "\"" << ZDeviceFixture::command1.cmdId << "\":\"" << ZDeviceFixture::command1.name
-                               << "\",";
-                expectedStream << "\"" << ZDeviceFixture::command2.cmdId << "\":\"" << ZDeviceFixture::command2.name
-                               << "\",";
-                expectedStream << "\"" << ZDeviceFixture::command3.cmdId << "\":\"" << ZDeviceFixture::command3.name
-                               << "\"}}\n";
+                expectedStream << "\"" << ZDeviceFixture::command1.cmdId << "\":\"" << ZDeviceFixture::command1.name << "\",";
+                expectedStream << "\"" << ZDeviceFixture::command2.cmdId << "\":\"" << ZDeviceFixture::command2.name << "\",";
+                expectedStream << "\"" << ZDeviceFixture::command3.cmdId << "\":\"" << ZDeviceFixture::command3.name << "\"}}\n";
 
                 ASSERT_THAT(resultString, expectedStream.str());
             }
 
 
-
-
             TEST_F(DeviceBrowserHandlerTest, executeCmdWithoutParams) {
                 int cmd = 3;
                 auto restPath = getRestForCmd(cmd);
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
 
                 HTTPServerRequestMock request("POST", restPath);
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
-                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(),
-                                                     clusterInId)).WillOnce(Return(clusterMock));
-                EXPECT_CALL(*clusterMock, getCmdParams(cmd)).WillOnce(
-                        Return(std::vector<std::shared_ptr<ClusterCmdParamsBase>> {}));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(), clusterInId)).WillOnce(Return(clusterMock));
+                EXPECT_CALL(*clusterMock, getCmdParams(cmd)).WillOnce(Return(std::vector<std::shared_ptr<ClusterCmdParamsBase>> {}));
 
                 EXPECT_CALL(*clusterMock, executeComand(cmd, std::vector<uint8_t> {}));
                 //EXPECT_CALL(*clusterMock,executeComand(_, _));
@@ -444,28 +394,21 @@ namespace zigbee {
 
             TEST_F(DeviceBrowserHandlerTest, executeCmdParams) {
                 uint32_t cmd = 3;
-                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(
-                        new DeviceBrowserHandler(singletonObjects));
+                std::unique_ptr<Poco::Net::HTTPRequestHandler> deviceBrowserHandler(new DeviceBrowserHandler(singletonObjects));
                 int param1{23};
                 std::string param2{"param2"};
                 auto cmdParam1 = std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("param1");
                 auto cmdParam2 = std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeStringChar>>("param2");
-                Cluster::CommandDef comand{[](std::vector<uint8_t> &&) {}, cmd, "test comand",
-                                           cmdParam1,
-                                           cmdParam2
-                };
+                Cluster::CommandDef comand{[](std::vector<uint8_t> &&) {}, cmd, "test comand", cmdParam1, cmdParam2};
 
                 std::stringstream streamParams;
                 streamParams << "?param1=" << param1 << "&param2=" << param2;
                 auto restPath = getRestForCmd(cmd) + streamParams.str();
                 HTTPServerRequestMock request("POST", restPath);
                 std::vector<ZDevice> devices = {ZDeviceFixture::zDevice1, ZDeviceFixture::zDevice2};
-                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(
-                        Return(&ZDeviceFixture::zDevice1));
-                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(),
-                                                     clusterInId)).WillOnce(Return(clusterMock));
-                EXPECT_CALL(*clusterMock, getCmdParams(cmd)).WillOnce(
-                        Return(std::vector<std::shared_ptr<ClusterCmdParamsBase>> {cmdParam1, cmdParam2}));
+                EXPECT_CALL(*zDevicesMock, getDevice(ZDeviceFixture::zDevice1.getNwkAddr())).WillOnce(Return(&ZDeviceFixture::zDevice1));
+                EXPECT_CALL(clustersMock, getCluster(ZDeviceFixture::zDevice1.getNwkAddr(), endpoint.getEndpoint(), clusterInId)).WillOnce(Return(clusterMock));
+                EXPECT_CALL(*clusterMock, getCmdParams(cmd)).WillOnce(Return(std::vector<std::shared_ptr<ClusterCmdParamsBase>> {cmdParam1, cmdParam2}));
 
                 std::vector<uint8_t> expectedVectorData{cmdParam1->getType().getRaw(param1)};
                 auto param2Data = cmdParam2->getType().getRaw(param2);
@@ -485,17 +428,16 @@ namespace zigbee {
 
 
             void DeviceBrowserHandlerTest::setExpectedCallForAttribute() {
-                EXPECT_CALL(*clusterMock, getAttribute(ZDeviceFixture::attribute1.name)).Times(AtLeast(0)).WillOnce(
-                        Return(attributeMock));
-                EXPECT_CALL(*clusterMock, getAttribute(attributeId)).Times(AtLeast(0)).WillOnce(Return(attributeMock));
+                EXPECT_CALL(*clusterMock, getAttribute(ZDeviceFixture::attribute1.name)).Times(AtLeast(0)).WillOnce(Return(attributeMock.get()));
+                EXPECT_CALL(*clusterMock, getAttribute(attributeId)).Times(AtLeast(0)).WillOnce(Return(attributeMock.get()));
                 EXPECT_CALL(*attributeMock, requestValue());
                 EXPECT_CALL(*attributeMock, getIdentifier()).WillOnce(Return(attributeId));
                 EXPECT_CALL(*attributeMock, getName()).WillOnce(Return(attributeName));
                 EXPECT_CALL(*attributeMock, isReadOnly()).WillOnce(Return(attributeReadOnly));
                 EXPECT_CALL(*attributeMock, getZCLType()).WillOnce(Return(attributeDataType));
                 if (attributeAvailable) {
-                    EXPECT_CALL(*attributeMock, isAvailable()).Times(AtLeast(4)).WillOnce(Return(false)).WillOnce(
-                            Return(false)).WillOnce(Return(false)).WillRepeatedly(Return(true));
+                    EXPECT_CALL(*attributeMock, isAvailable()).Times(AtLeast(4)).WillOnce(Return(false)).WillOnce(Return(false)).WillOnce(Return(false)).WillRepeatedly(
+                            Return(true));
                 } else {
                     EXPECT_CALL(*attributeMock, isAvailable()).Times(AtLeast(2)).WillRepeatedly(Return(true));
                 }
@@ -507,9 +449,8 @@ namespace zigbee {
 
             std::string DeviceBrowserHandlerTest::getRestForCmd(int cmd) {
                 std::stringstream restPath;
-                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/"
-                         << ZDeviceFixture::endpoint2_1.getEndpoint() << "/cluster/in/" << clusterInId << "/command/"
-                         << cmd;
+                restPath << "/devices/" << ZDeviceFixture::zDevice1.getNwkAddr() << "/endpoint/" << ZDeviceFixture::endpoint2_1.getEndpoint() << "/cluster/in/" << clusterInId
+                         << "/command/" << cmd;
                 return restPath.str();
             }
 

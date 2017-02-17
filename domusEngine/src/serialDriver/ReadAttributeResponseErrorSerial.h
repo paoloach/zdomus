@@ -30,9 +30,9 @@ namespace zigbee {
                 tokIter++;
                 int endpointID{std::stoi(*tokIter, nullptr, 16)};
                 tokIter++;
-                ZigbeeClusterId clusterId{std::stoi(*tokIter, nullptr, 16)};
+                ZigbeeClusterId clusterId{static_cast<uint16_t >(std::stoi(*tokIter, nullptr, 16))};
                 tokIter++;
-                ZigbeeAttributeId attribute{std::stoi(*tokIter, nullptr, 16)};
+                ZigbeeAttributeId attribute{static_cast<uint16_t >(std::stoi(*tokIter, nullptr, 16))};
                 tokIter++;
                 int status{std::stoi(*tokIter, nullptr, 16)};
                 BOOST_LOG_TRIVIAL(error) << "Error on requesting attribute value from  network id=" << nwkAddr << ", endpoint=" << endpointID << ", cluster="<< clusterId << ", attribute="<< attribute << ", cause: " << status;

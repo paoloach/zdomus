@@ -102,8 +102,10 @@ else ()
     endif ()
 endif ()
 
+SET(SRC_EXCEPTION src/Exception/PathNotFound.h src/Exception/Timeout.h)
+
 SET(SRC_DEMO_DRIVER
-        src/DemoDriver/DemoDevice.cpp src/DemoDriver/DemoDevice.h)
+        src/DemoDriver/DemoDevice.cpp src/DemoDriver/DemoDevice.h )
 
 SET(SRC_SERIAL_DRIVER
         src/serialDriver/InvalidResponseSerialExecutor.h
@@ -177,6 +179,7 @@ add_library(javascript_lib OBJECT
 add_library(domus_engine_static_lib STATIC
         ${USB_SRC}
         ${SRC_SERIAL_DRIVER}
+        ${SRC_DEMO_DRIVER}
         ${srcZigbeeData}
         ${srcZigbeeDataPT}
         ${srcIO}
@@ -193,6 +196,7 @@ add_library(domus_engine_static_lib STATIC
         ${srcRestParser}
         ${srcRestActions}
         $<TARGET_OBJECTS:javascript_lib>
+        ${SRC_EXCEPTION}
         src/httpServer/RestActions/ShowBindTable.cpp
         src/httpServer/RestActions/ShowBindTable.h
         src/httpServer/RestActions/ExecuteBind.cpp
@@ -218,7 +222,7 @@ add_library(domus_engine_static_lib STATIC
         src/Utils/Clusters.h src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h)
 
 
-add_executable(domus_engine src/main.cpp ${V8_BLOB} ${SRC_DEMO_DRIVER})
+add_executable(domus_engine src/main.cpp ${V8_BLOB} )
 
 
 SET(LIBS zigbeeLib

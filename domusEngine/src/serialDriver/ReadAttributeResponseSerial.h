@@ -38,18 +38,19 @@ namespace zigbee {
                 tokIter++;
                 ClusterID clusterId{std::stoi(*tokIter, nullptr, 16)};
                 tokIter++;
-                ZigbeeAttributeId attributeId{std::stoi(*tokIter, nullptr, 16)};
+                ZigbeeAttributeId attributeId{static_cast<uint16_t >(std::stoi(*tokIter, nullptr, 16))};
                 tokIter++;
-                uint8_t status{std::stoi(*tokIter, nullptr, 16)};
+                uint8_t status{static_cast<uint8_t >(std::stoi(*tokIter, nullptr, 16))};
                 if (status == 0) {
+
                     tokIter++;
-                    uint8_t attributeType{std::stoi(*tokIter, nullptr, 16)};
+                    uint8_t attributeType{static_cast<uint8_t >(std::stoi(*tokIter, nullptr, 16))};
                     tokIter++;
-                    uint8_t attributeLen{std::stoi(*tokIter, nullptr, 16)};
+                    uint8_t attributeLen{static_cast<uint8_t >(std::stoi(*tokIter, nullptr, 16))};
                     tokIter++;
                     std::string rawData = *tokIter;
                     if (attributeLen * 2 == rawData.size()) {
-                        uint8_t data[attributeLen];
+                        uint8_t  data[256];
                         for (int i = 0; i < attributeLen; i++) {
                             data[i] = std::stoi(rawData.substr(2 * i, 2), nullptr, 16);
                         }
