@@ -112,6 +112,7 @@ set(GTEST_LIB_DIR ${GTEST_DIR}/lib/.libs)
 set(GTEST_LIBS gtest gtest_main)
 set(GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
 
+add_compile_options("-DBOOST_ALL_DYN_LINK")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g3 -O0 -std=c++14 -fno-omit-frame-pointer -DBOOST_ALL_DYN_LINK")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g3 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK")
 

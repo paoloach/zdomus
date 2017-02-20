@@ -2,17 +2,17 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="domus_engine" targetName="gmock" />
-      <config projectName="domus_engine" targetName="test_empty" />
-      <config projectName="domus_engine" targetName="release" />
-      <config projectName="domus_engine" targetName="gmock_main" />
       <config projectName="domus_engine" targetName="gtest_main" />
       <config projectName="domus_engine" targetName="gtest" />
       <config projectName="domus_engine" targetName="domus_engine" />
-      <config projectName="domus_engine" targetName="domus_engine_static_lib" />
       <config projectName="domus_engine" targetName="domus_engine_test" />
+      <config projectName="domus_engine" targetName="test_empty" />
       <config projectName="domus_engine" targetName="javascript_lib" />
+      <config projectName="domus_engine" targetName="gmock" />
       <config projectName="domus_engine" targetName="debug" />
+      <config projectName="domus_engine" targetName="release" />
+      <config projectName="domus_engine" targetName="gmock_main" />
+      <config projectName="domus_engine" targetName="domus_engine_static_lib" />
     </generated>
   </component>
   <component name="CMakeSettings" ADDITIONAL_BUILD_OPTIONS="-j8">
@@ -21,96 +21,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="added posponed getValue for temperature in the demo device">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Exception/PathNotFound.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Exception/Timeout.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/ExternalRestPath.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/httpServer/ExternalRestPath.h" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/httpServer/FixedPathContainer.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/httpServer/FixedPathContainer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/httpServer/RestValue.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/httpServer/RestValue.h" afterPath="" />
+    <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Toolchain-RasberryPi.cmake" afterPath="$PROJECT_DIR$/../Toolchain-RasberryPi.cmake" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/JSExtension.md" afterPath="$PROJECT_DIR$/configuration/JSExtension.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/domusEngine.xml" afterPath="$PROJECT_DIR$/configuration/domusEngine.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/readTemperatures.js" afterPath="$PROJECT_DIR$/configuration/readTemperatures.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DemoDriver/DemoDevice.cpp" afterPath="$PROJECT_DIR$/src/DemoDriver/DemoDevice.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSManager.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSManager.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSRestServer.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSRestServer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSRestServer.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSRestServer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSZAttribute.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" afterPath="$PROJECT_DIR$/src/Utils/SingletonObjects.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils/SingletonObjects.h" afterPath="$PROJECT_DIR$/src/Utils/SingletonObjects.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp" afterPath="$PROJECT_DIR$/src/ZigbeeData/PropertyTree/ZEndpointPT.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/DEHttpRequestHandlerFactory.cpp" afterPath="$PROJECT_DIR$/src/httpServer/DEHttpRequestHandlerFactory.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" afterPath="$PROJECT_DIR$/src/httpServer/DeviceBrowserHandler.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/HttpServer.cpp" afterPath="$PROJECT_DIR$/src/httpServer/HttpServer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/HttpServer.h" afterPath="$PROJECT_DIR$/src/httpServer/HttpServer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/PathElement.h" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/PathElement.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.h" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/PathReceived.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/PlaceHolders.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/RestActions.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/RestActions.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/RestActions.h" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/RestActions.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/RestPath.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/RestPath.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/RestPath.h" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/RestPath.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.cpp" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.h" afterPath="$PROJECT_DIR$/src/httpServer/RestParser/RestQuery.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/serialDriver/ReadAttributeResponseErrorSerial.h" afterPath="$PROJECT_DIR$/src/serialDriver/ReadAttributeResponseErrorSerial.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/serialDriver/ReadAttributeResponseSerial.h" afterPath="$PROJECT_DIR$/src/serialDriver/ReadAttributeResponseSerial.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/CMakeLists.txt" afterPath="$PROJECT_DIR$/src/test/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Configuration/ConfigurationTest.cpp" afterPath="$PROJECT_DIR$/src/test/Configuration/ConfigurationTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Configuration/ConfigurationTest.h" afterPath="$PROJECT_DIR$/src/test/Configuration/ConfigurationTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitBitmapTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttribute8BitEnumTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeBooleanTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeIEEEAddressTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeInt16Test.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeStringTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt16Test.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt8Test.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSEndpointTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSEndpointTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/SingletonObjectsMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/SingletonObjectsMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLIEEEAddressAttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLIEEEAddressAttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLUInt24AttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLUInt24AttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLUint16AttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLUint16AttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLUint8AttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLUint8AttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLbitmap8bitAttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLbitmap8bitAttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLbooleanAttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLbooleanAttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLenum8bitAttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLenum8bitAttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLint16AttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLint16AttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/ZCLstringAttributeMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/ZCLstringAttributeMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/ZigbeeData/ZDevicesTest.cpp" afterPath="$PROJECT_DIR$/src/test/ZigbeeData/ZDevicesTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/httpServer/DeviceBrowserHandlerTest.cpp" afterPath="$PROJECT_DIR$/src/test/httpServer/DeviceBrowserHandlerTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/httpServer/DeviceBrowserHandlerTest.h" afterPath="$PROJECT_DIR$/src/test/httpServer/DeviceBrowserHandlerTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/httpServer/RestParser/PlaceHoldersTest.cpp" afterPath="$PROJECT_DIR$/src/test/httpServer/RestParser/PlaceHoldersTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/httpServer/ZDeviceFixture.cpp" afterPath="$PROJECT_DIR$/src/test/httpServer/ZDeviceFixture.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/serialDriver/IEEEAddressResponseSerialExecutorTest.cpp" afterPath="$PROJECT_DIR$/src/test/serialDriver/IEEEAddressResponseSerialExecutorTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" afterPath="$PROJECT_DIR$/src/usb/AttributeValuesExecuter.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/domus_engine_test.cbp" afterPath="$PROJECT_DIR$/src/test/domus_engine_test.cbp" />
     </list>
     <list id="6d7fd051-39e6-4a54-8d96-2f07f7972514" name="googletest" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" afterPath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" />
@@ -10976,78 +10892,7 @@
     <favorites_list name="domus_engine" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="JSEndpointTest.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSEndpointTest.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2">
-              <caret line="98" column="101" lean-forward="false" selection-start-line="98" selection-start-column="101" selection-end-line="98" selection-end-column="101" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZEndpoint.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="82" column="56" lean-forward="false" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="56" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JavaScriptExecuterTest.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1930">
-              <caret line="216" column="107" lean-forward="false" selection-start-line="216" selection-start-column="107" selection-end-line="216" selection-end-column="107" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSAttributeTest.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3690">
-              <caret line="294" column="115" lean-forward="false" selection-start-line="294" selection-start-column="115" selection-end-line="294" selection-end-column="115" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZCluster.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSZClusterTest.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1254">
-              <caret line="258" column="114" lean-forward="false" selection-start-line="258" selection-start-column="114" selection-end-line="258" selection-end-column="114" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EndpointID.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/zigbee/include/zigbee/EndpointID.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -11058,7 +10903,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>RestValue</find>
       <find>Local&lt;Context&gt;</find>
       <find>JSZAttribute</find>
       <find>callbackFifo</find>
@@ -11088,6 +10932,7 @@
       <find>outStream</find>
       <find>ENDPOINT_ID</find>
       <find>&lt;&lt; ENDPOINT_ID &lt;&lt;</find>
+      <find>V8_LIBRARY</find>
     </findStrings>
     <replaceStrings>
       <replace>EXPECT_CALL(clustersMock</replace>
@@ -11134,8 +10979,6 @@
         <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.h" />
         <option value="$PROJECT_DIR$/src/test/httpServer/DeviceBrowserHandlerTest.h" />
         <option value="$PROJECT_DIR$/src/test/httpServer/RestParser/PlaceHoldersTest.cpp" />
-        <option value="$PROJECT_DIR$/src/test/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/src/test/ZigbeeData/ZDevicesTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/serialDriver/IEEEAddressResponseSerialExecutorTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/Mocks/ZCLbitmap8bitAttributeMock.h" />
@@ -11173,6 +11016,8 @@
         <option value="$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/test/CMakeLists.txt" />
       </list>
     </option>
   </component>
@@ -11258,6 +11103,56 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="v8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib_x64.release" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib_arm.release" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domus_engine" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domusEngine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -11277,214 +11172,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Mocks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Javascript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Javascript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JSAttributes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="httpServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Configuration" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JavaScript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="httpServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="httpServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RestParser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="httpServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RestActions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domus_engine" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domusEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="configuration" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -11601,6 +11288,7 @@
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="ReactNative" factoryName="React Native">
@@ -11658,25 +11346,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Attests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="domus_engine" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -11706,15 +11375,10 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="domus_engine" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -11727,16 +11391,9 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="domus_engine" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
@@ -11749,18 +11406,10 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="domus_engine" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="testToRun" value="" />
-      <option name="keywords" value="" />
-      <option name="params" value="" />
-      <option name="USE_PARAM" value="false" />
-      <option name="USE_KEYWORD" value="false" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
@@ -11830,6 +11479,25 @@
         <item index="4" class="java.lang.String" itemvalue="Google Test.All in JSZAttribute8BitEnumTest" />
       </list>
     </recent_temporary>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="domus_engine" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
   </component>
   <component name="RuntimeDashboard">
     <option name="ruleStates">
@@ -11928,14 +11596,9 @@
       <workItem from="1486317794653" duration="13574000" />
       <workItem from="1486413373859" duration="28852000" />
       <workItem from="1486932582266" duration="20255000" />
-      <workItem from="1487310366066" duration="6991000" />
-    </task>
-    <task id="LOCAL-00037" summary="fix mock for ZCLAttribute and ZigbeeDevice">
-      <created>1464855408705</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1464855408705</updated>
+      <workItem from="1487310366066" duration="7658000" />
+      <workItem from="1487485221984" duration="3611000" />
+      <workItem from="1487611492351" duration="395000" />
     </task>
     <task id="LOCAL-00038" summary="Fix CMakeLists in order to use the global variable for install path">
       <created>1464855448677</created>
@@ -12273,7 +11936,14 @@
       <option name="project" value="LOCAL" />
       <updated>1486453416151</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Allowrd the javascript rest object to call a callback when the reset is called">
+      <created>1487352377778</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1487352377779</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -12309,7 +11979,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="591366000" />
+    <option name="totallyTimeSpent" value="596039000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -12322,28 +11992,27 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
-    <editor active="true" />
     <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20042872" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24471635" sideWeight="0.478125" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25917685" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25917685" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.237581" sideWeight="0.521875" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run Dashboard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4015573" sideWeight="0.4796619" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19506967" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24052632" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3592881" sideWeight="0.48473683" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24471635" sideWeight="0.478125" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run Dashboard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4015573" sideWeight="0.4796619" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973205" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3403782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3592881" sideWeight="0.48473683" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -12366,7 +12035,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/googletest" />
     </ignored-roots>
-    <MESSAGE value="Remove some not more use files" />
     <MESSAGE value="cland-tidy" />
     <MESSAGE value="Topology test" />
     <MESSAGE value="Refactoring&#10;fix" />
@@ -12391,7 +12059,8 @@
     <MESSAGE value="Remove demo flag&#10;fix jsattribute callback" />
     <MESSAGE value="Using std::mutex::condition_variable instead of pulling events" />
     <MESSAGE value="added posponed getValue for temperature in the demo device" />
-    <option name="LAST_COMMIT_MESSAGE" value="added posponed getValue for temperature in the demo device" />
+    <MESSAGE value="Allowrd the javascript rest object to call a callback when the reset is called" />
+    <option name="LAST_COMMIT_MESSAGE" value="Allowrd the javascript rest object to call a callback when the reset is called" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -12456,20 +12125,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSZAttributeUInt24Test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="24" column="9" lean-forward="false" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/zigbee/include/zcl/ZCLDataType.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="57" column="21" lean-forward="false" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ZigbeeData/ExtAddress.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
@@ -12631,7 +12286,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12639,7 +12293,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23590">
           <caret line="1685" column="0" lean-forward="false" selection-start-line="1685" selection-start-column="0" selection-end-line="1685" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12647,7 +12300,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12655,7 +12307,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
           <caret line="57" column="57" lean-forward="false" selection-start-line="57" selection-start-column="57" selection-end-line="57" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12663,7 +12314,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
           <caret line="48" column="76" lean-forward="true" selection-start-line="48" selection-start-column="76" selection-end-line="48" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12671,7 +12321,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12679,7 +12328,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12687,9 +12335,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-          <folding>
-            <marker date="1487351919000" expanded="true" signature="303:1811" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -12697,7 +12342,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="599" column="0" lean-forward="false" selection-start-line="599" selection-start-column="0" selection-end-line="599" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12705,7 +12349,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12713,7 +12356,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12721,7 +12363,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="43" column="11" lean-forward="false" selection-start-line="43" selection-start-column="11" selection-end-line="43" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12729,7 +12370,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="27" column="15" lean-forward="false" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12737,7 +12377,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="21" column="77" lean-forward="false" selection-start-line="21" selection-start-column="67" selection-end-line="21" selection-end-column="77" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12745,7 +12384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
           <caret line="4387" column="8" lean-forward="false" selection-start-line="4387" selection-start-column="8" selection-end-line="4387" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12753,7 +12391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
           <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12761,7 +12398,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="19" column="47" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12769,7 +12405,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="36" column="51" lean-forward="false" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12777,7 +12412,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12785,13 +12419,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
           <caret line="342" column="135" lean-forward="false" selection-start-line="342" selection-start-column="135" selection-end-line="342" selection-end-column="135" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file:///usr/local/zigbee/include/zigbee/EndpointID.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
+        <state relative-caret-position="378">
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
@@ -12799,15 +12432,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZCluster.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
+        <state relative-caret-position="1820">
           <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSZClusterTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1254">
+        <state relative-caret-position="3612">
           <caret line="258" column="114" lean-forward="false" selection-start-line="258" selection-start-column="114" selection-end-line="258" selection-end-column="114" />
           <folding />
         </state>
@@ -12815,32 +12447,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSEndpointTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
+        <state relative-caret-position="1372">
           <caret line="98" column="101" lean-forward="false" selection-start-line="98" selection-start-column="101" selection-end-line="98" selection-end-column="101" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
+        <state relative-caret-position="1148">
           <caret line="82" column="56" lean-forward="false" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1930">
+        <state relative-caret-position="3024">
           <caret line="216" column="107" lean-forward="false" selection-start-line="216" selection-start-column="107" selection-end-line="216" selection-end-column="107" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3690">
+        <state relative-caret-position="843">
           <caret line="294" column="115" lean-forward="false" selection-start-line="294" selection-start-column="115" selection-end-line="294" selection-end-column="115" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="114" column="19" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="34" column="32" lean-forward="false" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
           <folding />
         </state>
       </provider>

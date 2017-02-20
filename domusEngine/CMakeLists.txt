@@ -18,7 +18,8 @@ if (CMAKE_BUILD_TYPE MATCHES "Debug")
             v8
             )
 else ()
-    if (CMAKE_C_COMPILER MATCHES "arm")
+    if (BUILD_V8_VERSION MATCHES "arm")
+        message ( "Using v8 ARM version" )
         set(Boost_USE_STATIC_LIBS        ON)
         set(V8_LIB_DIR ${V8_DIR}/lib_arm.release)
         set(V8_LIBRARY
@@ -31,7 +32,7 @@ else ()
                 ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_libsampler.a
                 )
     else ()
-
+        message ( "Using v8 x64 version" )
         set(V8_LIB_DIR ${V8_DIR}/lib_x64.release)
         set(V8_LIBRARY
                 v8_libplatform
