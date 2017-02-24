@@ -22,38 +22,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb30876a-ee4e-4ceb-a071-4aa0507637ea" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/JavaScript/JSResultSet.h" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/Javascript/JSLogTest.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/Javascript/JSLogTest.h" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/JSExtension.md" afterPath="$PROJECT_DIR$/configuration/JSExtension.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration/readTemperatures.js" afterPath="$PROJECT_DIR$/configuration/readTemperatures.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Database/DBRow.cpp" afterPath="$PROJECT_DIR$/src/Database/DBRow.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Database/DBRow.h" afterPath="$PROJECT_DIR$/src/Database/DBRow.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Database/DBTable.cpp" afterPath="$PROJECT_DIR$/src/Database/DBTable.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Database/DBTable.h" afterPath="$PROJECT_DIR$/src/Database/DBTable.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSDBTable.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSDBTable.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSDBTable.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSDBTable.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSLog.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSLog.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSLog.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSLog.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSManager.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSManager.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSManager.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSObjects.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSObjects.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSRestServer.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSRestServer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSRestServer.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSRestServer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSRow.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSRow.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSRow.h" afterPath="$PROJECT_DIR$/src/JavaScript/JSRow.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" afterPath="$PROJECT_DIR$/src/JavaScript/JavaScriptExecuter.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/CMakeLists.txt" afterPath="$PROJECT_DIR$/src/test/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSDBTableTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSDBTableTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSDBTableTest.h" afterPath="$PROJECT_DIR$/src/test/Javascript/JSDBTableTest.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JSTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JSTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" afterPath="$PROJECT_DIR$/src/test/Javascript/JavaScriptExecuterTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/Mocks/DBTableMock.h" afterPath="$PROJECT_DIR$/src/test/Mocks/DBTableMock.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/domus_engine_test.cbp" afterPath="$PROJECT_DIR$/src/test/domus_engine_test.cbp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp" afterPath="$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp" />
     </list>
     <list id="6d7fd051-39e6-4a54-8d96-2f07f7972514" name="googletest" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" afterPath="$PROJECT_DIR$/googletest/googletest/scripts/gen_gtest_pred_impl.py" />
@@ -10920,54 +10891,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="JSExtension.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/configuration/JSExtension.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="JSResultSet.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="27" column="67" lean-forward="true" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSObjects.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSObjects.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="83" column="46" lean-forward="false" selection-start-line="83" selection-start-column="39" selection-end-line="83" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSDBTable.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSDBTable.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="148" column="31" lean-forward="false" selection-start-line="148" selection-start-column="26" selection-end-line="148" selection-end-column="31" />
+            <state relative-caret-position="82">
+              <caret line="98" column="44" lean-forward="true" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
               <folding>
-                <element signature="e#87#109#0" expanded="true" />
+                <element signature="e#40#72#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JSRow.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSRow.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="107" column="54" lean-forward="false" selection-start-line="107" selection-start-column="54" selection-end-line="107" selection-end-column="54" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -10975,28 +10906,60 @@
       <file leaf-file-name="V8anyConverter.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/JavaScript/V8anyConverter.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+            <state relative-caret-position="180">
+              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBTableMock.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/Mocks/DBTableMock.h">
+      <file leaf-file-name="DBRow.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Database/DBRow.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+            <state relative-caret-position="186">
+              <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBTable.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Database/DBTable.h">
+      <file leaf-file-name="JSRow.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSRow.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="19" column="10" lean-forward="false" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+            <state relative-caret-position="194">
+              <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JSRow.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JavaScript/JSRow.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="26" column="93" lean-forward="true" selection-start-line="26" selection-start-column="93" selection-end-line="26" selection-end-column="93" />
+              <folding>
+                <element signature="e#146#161#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="v8.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v8/include/v8.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="5426" column="48" lean-forward="false" selection-start-line="5426" selection-start-column="48" selection-end-line="5426" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readTemperatures.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/configuration/readTemperatures.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="33" column="22" lean-forward="false" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -11013,7 +10976,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getFixedPathContainer</find>
       <find>zcl_enum8bit_AttributeMock</find>
       <find>, zcl_boolean_AttributeMock</find>
       <find>, zclIEEEAddressAttributeMock</find>
@@ -11043,6 +11005,7 @@
       <find>SRC_TEST_JAVASCRIPT</find>
       <find>log</find>
       <find>utf8</find>
+      <find>json</find>
     </findStrings>
     <replaceStrings>
       <replace>EXPECT_CALL(clustersMock</replace>
@@ -11099,7 +11062,6 @@
         <option value="$PROJECT_DIR$/src/test/Javascript/JSEndpointTest.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSZEndpoint.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSAttributes/JSAttributeTest.cpp" />
-        <option value="$PROJECT_DIR$/configuration/readTemperatures.js" />
         <option value="$PROJECT_DIR$/src/Database/DBRow.cpp" />
         <option value="$PROJECT_DIR$/src/Database/DBRow.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSRow.h" />
@@ -11110,7 +11072,6 @@
         <option value="$PROJECT_DIR$/src/Database/DBTable.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSDBTable.cpp" />
         <option value="$PROJECT_DIR$/src/test/Javascript/JSDBTableTest.h" />
-        <option value="$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSResultSet.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSLog.h" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSLog.cpp" />
@@ -11128,6 +11089,8 @@
         <option value="$PROJECT_DIR$/src/test/Javascript/JSDBTableTest.cpp" />
         <option value="$PROJECT_DIR$/src/JavaScript/JSObjects.h" />
         <option value="$PROJECT_DIR$/configuration/JSExtension.md" />
+        <option value="$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp" />
+        <option value="$PROJECT_DIR$/configuration/readTemperatures.js" />
       </list>
     </option>
   </component>
@@ -11436,7 +11399,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Google Test.DomusEngineTest">
+  <component name="RunManager" selected="Application.domus_enginedemo">
     <configuration default="false" name="All in JSZAttributeIEEEAddressTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="domus_engine" TARGET_NAME="domus_engine_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="domus_engine" RUN_TARGET_NAME="domus_engine_test" TEST_CLASS="JSZAttributeIEEEAddressTest" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
@@ -11814,14 +11777,7 @@
       <workItem from="1486932582266" duration="20255000" />
       <workItem from="1487310366066" duration="7658000" />
       <workItem from="1487485221984" duration="3611000" />
-      <workItem from="1487611492351" duration="18726000" />
-    </task>
-    <task id="LOCAL-00039" summary="Add reset cmd">
-      <created>1465033796369</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1465033796369</updated>
+      <workItem from="1487611492351" duration="22269000" />
     </task>
     <task id="LOCAL-00040" summary="Add response to rest reset request">
       <created>1465034315577</created>
@@ -12159,7 +12115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1487611922749</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="add javascript object DbResultSet">
+      <created>1487921280401</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1487921280401</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -12195,7 +12158,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="614370000" />
+    <option name="totallyTimeSpent" value="617913000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -12211,12 +12174,12 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24471635" sideWeight="0.478125" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24471635" sideWeight="0.478125" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2580645" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.237581" sideWeight="0.521875" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run Dashboard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3381535" sideWeight="0.4796619" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3381535" sideWeight="0.4796619" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32703003" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20042872" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3403782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -12252,7 +12215,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/googletest" />
     </ignored-roots>
-    <MESSAGE value="Topology test" />
     <MESSAGE value="Refactoring&#10;fix" />
     <MESSAGE value="Refactoring&#10;fix&#10;add v8 libreries inside project" />
     <MESSAGE value="work in progress" />
@@ -12277,7 +12239,8 @@
     <MESSAGE value="added posponed getValue for temperature in the demo device" />
     <MESSAGE value="Allowrd the javascript rest object to call a callback when the reset is called" />
     <MESSAGE value="fix rasberry toolchain" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix rasberry toolchain" />
+    <MESSAGE value="add javascript object DbResultSet" />
+    <option name="LAST_COMMIT_MESSAGE" value="add javascript object DbResultSet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -12303,15 +12266,30 @@
           <option name="timeStamp" value="392" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/JavaScript/V8anyConverter.cpp</url>
-          <line>47</line>
-          <option name="timeStamp" value="396" />
+          <url>file://$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp</url>
+          <line>99</line>
+          <option name="timeStamp" value="402" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp</url>
+          <line>107</line>
+          <option name="timeStamp" value="403" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/JavaScript/JSRow.cpp</url>
+          <line>43</line>
+          <option name="timeStamp" value="404" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/JavaScript/JSRow.cpp</url>
+          <line>61</line>
+          <option name="timeStamp" value="405" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="399" />
+      <option name="time" value="406" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeGoogleTestRunConfigurationType">
@@ -12435,16 +12413,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/DBRow.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding>
-            <element signature="e#83#115#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/zigbee/include/zigbee/EndpointID.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -12453,36 +12421,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configuration/readTemperatures.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="23" column="85" lean-forward="false" selection-start-line="23" selection-start-column="85" selection-end-line="23" selection-end-column="85" />
-          <folding>
-            <marker date="1487661667959" expanded="true" signature="552:957" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/bits/stl_map.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="979" column="6" lean-forward="false" selection-start-line="979" selection-start-column="6" selection-end-line="979" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/bits/unique_ptr.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="327" column="6" lean-forward="false" selection-start-line="327" selection-start-column="6" selection-end-line="327" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/DBRow.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="17" column="10" lean-forward="false" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -12525,14 +12467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="100" column="21" lean-forward="false" selection-start-line="100" selection-start-column="21" selection-end-line="100" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSRow.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="39" column="96" lean-forward="false" selection-start-line="39" selection-start-column="96" selection-end-line="39" selection-end-column="96" />
           <folding />
         </state>
       </provider>
@@ -12593,7 +12527,7 @@
         <state relative-caret-position="168">
           <caret line="12" column="33" lean-forward="true" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
           <folding>
-            <element signature="e#90#115#0" expanded="true" />
+            <element signature="e#90#115#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -12662,14 +12596,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/v8/include/v8.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="2599" column="27" lean-forward="false" selection-start-line="2599" selection-start-column="18" selection-end-line="2599" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Javascript/JSDBTableTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="388">
@@ -12691,7 +12617,7 @@
         <state relative-caret-position="322">
           <caret line="33" column="44" lean-forward="false" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="44" />
           <folding>
-            <element signature="e#180#219#0" expanded="true" />
+            <element signature="e#180#219#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -12704,37 +12630,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="27" column="67" lean-forward="true" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSRow.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="107" column="54" lean-forward="false" selection-start-line="107" selection-start-column="54" selection-end-line="107" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/JavaScript/JSDBTable.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
           <caret line="148" column="31" lean-forward="false" selection-start-line="148" selection-start-column="26" selection-end-line="148" selection-end-column="31" />
           <folding>
-            <element signature="e#87#109#0" expanded="true" />
+            <element signature="e#87#109#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaScript/V8anyConverter.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -12742,6 +12644,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="616">
           <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v8/include/v8.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="5426" column="48" lean-forward="false" selection-start-line="5426" selection-start-column="48" selection-end-line="5426" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/gcc/x86_64-pc-linux-gnu/6.3.0/include/g++-v6/bits/unique_ptr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="157" column="16" lean-forward="false" selection-start-line="157" selection-start-column="16" selection-end-line="157" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/DBRow.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="17" column="10" lean-forward="false" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSRow.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="26" column="93" lean-forward="true" selection-start-line="26" selection-start-column="93" selection-end-line="26" selection-end-column="93" />
+          <folding>
+            <element signature="e#146#161#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/V8anyConverter.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Database/DBRow.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSRow.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaScript/JSResultSet.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="98" column="44" lean-forward="true" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
+          <folding>
+            <element signature="e#40#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configuration/readTemperatures.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="33" column="22" lean-forward="false" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
           <folding />
         </state>
       </provider>

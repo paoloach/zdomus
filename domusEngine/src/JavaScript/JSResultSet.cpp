@@ -83,7 +83,7 @@ namespace zigbee {
 
     PGresult *JSResultSet::getPGResult(const v8::FunctionCallbackInfo<v8::Value> &info) {
         Local<Object> self = info.Holder();
-        Local<External> wrap = Local<External>::Cast(self->GetInternalField(3));
+        Local<External> wrap = Local<External>::Cast(self->GetInternalField(1));
         PGresult *result = static_cast<PGresult *>( wrap->Value());
         if (result == nullptr) {
             throw JSException("Internal error: invalid instance of JSResultSet");
@@ -96,13 +96,13 @@ namespace zigbee {
         try {
             int currentIndex = info.Holder()->GetInternalField(2)->Int32Value();
             int maxResult = info.Holder()->GetInternalField(3)->Int32Value();
-            if (currentIndex < maxResult - 1) {
+            if (currentIndex < maxResult ) {
                 currentIndex++;
                 info.Holder()->SetInternalField(2, v8::Int32::New(isolate, currentIndex));
                 auto result = getPGResult(info);
                 auto jsRow = getJsRow(info);
 
-                info.GetReturnValue().Set(jsRow->createInstance(isolate, makeDBRow(result, currentIndex)));
+                info.GetReturnValue().Set(jsRow->createInstance(isolate, makeDBRow(result, currentIndex-1)));
             }
         } catch (std::exception &excp) {
             BOOST_LOG_TRIVIAL(error) << excp.what();
