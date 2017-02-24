@@ -35,7 +35,6 @@ namespace zigbee {
         public:
             Task(SingletonObjects &singletonObjects, const JavaScriptData &js);
 
-            Log log;
             const JavaScriptData & js;
             JavaScriptExecuter jsExecuter;
         };

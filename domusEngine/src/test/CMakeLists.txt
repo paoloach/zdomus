@@ -28,7 +28,6 @@ SET(SRC_TEST_JAVASCRIPT Javascript/ClusterCmdArgumentMatcher.h Javascript/Cluste
         Javascript/JSDeviceTest.cpp Javascript/JSDeviceTest.h
         Javascript/JSEndpointsTest.cpp Javascript/JSEndpointsTest.h
         Javascript/JSEndpointTest.h Javascript/JSEndpointTest.cpp
-        Javascript/JSLogTest.cpp Javascript/JSLogTest.h
         Javascript/JSRowTest.cpp Javascript/JSRowTest.h
         Javascript/JSTest.cpp Javascript/JSTest.h
         Javascript/JSZClusterTest.cpp Javascript/JSZClusterTest.h)

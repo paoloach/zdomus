@@ -14,42 +14,52 @@
 
 namespace zigbee {
 
-class DBTableFactory;
-class DBTable;
-class JSRow;
-class Log;
+    class DBTableFactory;
 
-class JSDBTable {
-public:
-	JSDBTable(DBTableFactory & dbTableFactory, JSRow *jsRow,Log & log );
-	virtual ~JSDBTable() = default;
-public:
-	virtual void initJsObjectsTemplate(v8::Isolate * isolate, v8::Handle<v8::Object> & global);
-	virtual v8::Local<v8::Object> createInstance(v8::Isolate* isolate, const std::string & tableName);
-	virtual void resetPersistences();
-protected:
-	static void checkConstructorParams(const v8::FunctionCallbackInfo<v8::Value>& info);
-	static void constructor(const v8::FunctionCallbackInfo<v8::Value>& info);
-	static void nextRow(const v8::FunctionCallbackInfo<v8::Value>& info);
-	static void previousRow(const v8::FunctionCallbackInfo<v8::Value>& info);
-	static void find(const v8::FunctionCallbackInfo<v8::Value>& info);
-	static void insert(const v8::FunctionCallbackInfo<v8::Value>& info);
+    class DBTable;
+
+    class JSRow;
+    class JSResultSet;
+
+    class JSDBTable {
+    public:
+        JSDBTable(DBTableFactory &dbTableFactory, JSRow *jsRow, JSResultSet * resultSet);
+
+        virtual ~JSDBTable() = default;
+
+    public:
+        virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global);
+
+        virtual v8::Local<v8::Object> createInstance(v8::Isolate *isolate, const std::string &tableName);
+
+        virtual void resetPersistences();
+
+    protected:
+        static void checkConstructorParams(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+        static void constructor(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+        static void find(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+        static void insert(const v8::FunctionCallbackInfo<v8::Value> &info);
 
 
-	static DBTable *  getDbTable(const v8::FunctionCallbackInfo<v8::Value>& info);
-	static JSDBTable *  getJSDbTable(const v8::FunctionCallbackInfo<v8::Value>& info);
+        static DBTable *getDbTable(const v8::FunctionCallbackInfo<v8::Value> &info);
 
-	static void checkSingleParam(const std::string & methodName, const v8::FunctionCallbackInfo<v8::Value>& info);
-	static void check2Params(const std::string & methodName, const v8::FunctionCallbackInfo<v8::Value>& info);
-	static void checkStringParam(const std::string & methodName, const v8::FunctionCallbackInfo<v8::Value>& info, uint32_t index);
+        static JSDBTable *getJSDbTable(const v8::FunctionCallbackInfo<v8::Value> &info);
+
+        static void checkSingleParam(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info);
 
 
-private:
-	DBTableFactory &  dbTableFactory;
-	JSRow *  jsRow;
-	v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
-	Log & log;
-};
+        static void checkStringParam(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info, uint32_t index);
+
+
+    private:
+        DBTableFactory &dbTableFactory;
+        JSRow *jsRow;
+        JSResultSet * jsResult;
+        v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
+    };
 
 } /* namespace zigbee */
 

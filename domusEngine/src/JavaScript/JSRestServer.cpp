@@ -8,9 +8,7 @@
 #include "JSRestServer.h"
 #include "JSObjects.h"
 #include "Exceptions/JSExceptionOnlyTwoArguments.h"
-#include "Exceptions/JSException.h"
 #include "Exceptions/JSExceptionArgNoString.h"
-#include <boost/log/trivial.hpp>
 #include "../Utils/Log.h"
 #include "../Exception/Timeout.h"
 
@@ -152,7 +150,12 @@ namespace zigbee {
                 }
                 Local<Value> jsArgs[1] = {jsPlaceHolders};
 
+                TryCatch tryCatch;
+
                 MaybeLocal<Value> result = callback->CallAsFunction(context, object, 1, jsArgs);
+                if (tryCatch.HasCaught()){
+                    BOOST_LOG_TRIVIAL(error) << "javascipt function " << *name << " return an exception: " << *String::Utf8Value( tryCatch.Message()->Get());
+                }
                 if (!result.IsEmpty()){
                     String::Utf8Value valueUtf8(result.ToLocalChecked()->ToString());
                     results[functionId] = *valueUtf8;

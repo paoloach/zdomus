@@ -232,12 +232,6 @@
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSEndpointsTest.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSLogTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSLogTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSRowTest.cpp">
 			<Option target="domus_engine_test"/>
 		</Unit>

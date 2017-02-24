@@ -15,7 +15,16 @@ var tempArrived = function (nwkId, endpointId, clusterId, attrId) {
 }
 
 var response = function(placeholders) {
+    var log = Log();
     log.info("Called callback response with network id: " + placeholders.networdid);
+
+    var table = DbTable('Temperatures');
+    var row = table.find("time < '" + placeholders.data + "'");
+    do {
+        log.info( "value: " + row.getValue('value') + ", time: " + row.getValue('time') );
+        row  = table.nextRow();
+    } while (row != null);
+
     return "Response OK\n\n";
 }
 
@@ -32,7 +41,7 @@ if (endpoints.length > 0 ) {
 }
 
 var restServer = RestServer();
-restServer.addPath("/temperature/{networdid}", response);
+restServer.addPath("/temperature/{networdid}/after/{data}", response);
 
 
 

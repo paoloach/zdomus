@@ -21,6 +21,7 @@
 #include "JSZCluster.h"
 #include "JSRow.h"
 #include "JSDBTable.h"
+#include "JSResultSet.h"
 #include "../Utils/Log.h"
 #include "JSLog.h"
 #include "JSRestServer.h"
@@ -41,7 +42,7 @@ namespace zigbee {
         typedef boost::signals2::signal<void()> NotifyEnd;
         typedef NotifyEnd::slot_type OnEnd;
     public:
-        JavaScriptExecuter(SingletonObjects &singletonObjects, std::chrono::seconds period, Log &log);
+        JavaScriptExecuter(SingletonObjects &singletonObjects, std::chrono::seconds period);
 
         virtual ~JavaScriptExecuter();
 
@@ -59,7 +60,6 @@ namespace zigbee {
         std::chrono::seconds period;
         V8Allocator v8Allocator;
         v8::Isolate::CreateParams createParams;
-        Log &log;
         v8::Isolate *isolate;
         v8::UniquePersistent<v8::Context> context;
         std::string jsCode;
@@ -69,8 +69,9 @@ namespace zigbee {
         DBTableFactory dbTableFactory;
         JSLog jsLog;
         JSRow jsRow;
-        JSZCluster jsZCluster;
+        JSResultSet jsResultSet;
         JSDBTable jsDBTable;
+        JSZCluster jsZCluster;
         JSZEndpoint jsZEndpoint;
         JSZEndpoints jsZEndpoints;
         JSZDevice jsZDevice;

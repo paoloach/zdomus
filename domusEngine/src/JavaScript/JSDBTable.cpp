@@ -7,15 +7,14 @@
 
 #include "JSDBTable.h"
 #include "JSObjects.h"
+#include <boost/log/trivial.hpp>
 
 #include "../Database/DBTableFactory.h"
 #include "../Database/DBTable.h"
 #include "Exceptions/JSExceptionArgNoString.h"
 #include "Exceptions/JSExceptionOnlyOneArgument.h"
-#include "Exceptions/JSExceptionOnlyTwoArguments.h"
 #include "JSRow.h"
-#include "V8anyConverter.h"
-#include "../Utils/Log.h"
+#include "JSResultSet.h"
 
 namespace zigbee {
 
@@ -24,15 +23,13 @@ namespace zigbee {
     using namespace v8;
     using boost::any;
 
-    JSDBTable::JSDBTable(DBTableFactory &dbTableFactory, JSRow *jsRow, Log &log) : dbTableFactory(dbTableFactory), jsRow(jsRow), log(log) {
+    JSDBTable::JSDBTable(DBTableFactory &dbTableFactory, JSRow *jsRow, JSResultSet *resultSet) : dbTableFactory(dbTableFactory), jsRow(jsRow), jsResult(resultSet) {
 
     }
 
     void JSDBTable::initJsObjectsTemplate(v8::Isolate *isolate, Handle<Object> &global) {
         Local<String> jsDbTableClassName = String::NewFromUtf8(isolate, JSDBTABLE);
         // methods
-        Local<String> nextRowMethod = String::NewFromUtf8(isolate, NEXTROW);
-        Local<String> previousRowMethod = String::NewFromUtf8(isolate, PREVIOUSROW);
         Local<String> findMethod = String::NewFromUtf8(isolate, FIND);
         Local<String> insertMethod = String::NewFromUtf8(isolate, INSERT);
 
@@ -43,8 +40,6 @@ namespace zigbee {
         dbTableInstanceTemplate->SetInternalFieldCount(2);
         // functions
         dbTableInstanceTemplate->Set(insertMethod, FunctionTemplate::New(isolate, insert));
-        dbTableInstanceTemplate->Set(nextRowMethod, FunctionTemplate::New(isolate, nextRow));
-        dbTableInstanceTemplate->Set(previousRowMethod, FunctionTemplate::New(isolate, previousRow));
         dbTableInstanceTemplate->Set(findMethod, FunctionTemplate::New(isolate, find));
         global->Set(jsDbTableClassName, logFunctionTemplate->GetFunction());
 
@@ -90,43 +85,7 @@ namespace zigbee {
             info.GetReturnValue().Set(This->createInstance(isolate, *tableName));
         } catch (std::exception &excp) {
             if (This != nullptr) {
-                This->log.error(excp.what());
-            }
-            v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());
-            isolate->ThrowException(errorMsg);
-        }
-    }
-
-    void JSDBTable::nextRow(const v8::FunctionCallbackInfo<v8::Value> &info) {
-        Isolate *isolate = info.GetIsolate();
-        JSDBTable *This = nullptr;
-        try {
-            This = getJSDbTable(info);
-            DBTable *dbTable = getDbTable(info);
-
-            std::shared_ptr<DBRow> dbRow(dbTable->nextRow());
-            info.GetReturnValue().Set(This->jsRow->createInstance(isolate, dbRow));
-        } catch (std::exception &excp) {
-            if (This != nullptr) {
-                This->log.error(excp.what());
-            }
-            v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());
-            isolate->ThrowException(errorMsg);
-        }
-    }
-
-    void JSDBTable::previousRow(const v8::FunctionCallbackInfo<v8::Value> &info) {
-        Isolate *isolate = info.GetIsolate();
-        JSDBTable *This = nullptr;
-        try {
-            This = getJSDbTable(info);
-
-            DBTable *dbTable = getDbTable(info);
-
-            info.GetReturnValue().Set(This->jsRow->createInstance(isolate, dbTable->previousRow()));
-        } catch (std::exception &excp) {
-            if (This != nullptr) {
-                This->log.error(excp.what());
+                BOOST_LOG_TRIVIAL(error) << excp.what();
             }
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());
             isolate->ThrowException(errorMsg);
@@ -144,10 +103,10 @@ namespace zigbee {
 
             DBTable *dbTable = getDbTable(info);
 
-            info.GetReturnValue().Set(This->jsRow->createInstance(isolate, dbTable->find(*fieldName)));
+            info.GetReturnValue().Set(This->jsResult->createInstance(isolate, dbTable->find(*fieldName)));
         } catch (std::exception &excp) {
             if (This != nullptr) {
-                This->log.error(excp.what());
+                BOOST_LOG_TRIVIAL(error) << excp.what();
             }
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());
             isolate->ThrowException(errorMsg);
@@ -168,12 +127,6 @@ namespace zigbee {
             throw JSException("Internal error: invalid instance of dbTable");
         }
         return dbTable;
-    }
-
-    void JSDBTable::check2Params(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info) {
-        if (info.Length() != 2) {
-            throw JSExceptionOnlyTwoArguments(methodName);
-        }
     }
 
     JSDBTable *JSDBTable::getJSDbTable(const v8::FunctionCallbackInfo<v8::Value> &info) {
@@ -199,7 +152,7 @@ namespace zigbee {
             dbTable->insert(row);
         } catch (std::exception &excp) {
             if (This != nullptr) {
-                This->log.error(excp.what());
+                BOOST_LOG_TRIVIAL(error) << excp.what();
             }
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());
             isolate->ThrowException(errorMsg);

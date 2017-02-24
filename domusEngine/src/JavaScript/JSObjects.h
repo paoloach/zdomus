@@ -20,6 +20,7 @@ static constexpr const char * JSZENDPOINTS = "zEndpoints";
 static constexpr const char * JSZCLUSTER = "zCluster";
 static constexpr const char * JSLOG = "Log";
 static constexpr const char * JSDBTABLE = "DbTable";
+static constexpr const char * JSRESULT_SET = "DbResultSet";
 static constexpr const char * JSDBMANAGER = "DbManager";
 static constexpr const char * JSDBROW = "DbRow";
 static constexpr const char * JSRESTSERVER = "RestServer";
@@ -76,10 +77,12 @@ static constexpr const char * WARN="warn";
 static constexpr const char * ERROR="error";
 
 // DbTable methods
-static constexpr const char * NEXTROW="nextRow";
-static constexpr const char * PREVIOUSROW="previousRow";
 static constexpr const char * FIND="find";
 static constexpr const char * INSERT="insert";
+
+// DbResultSet method
+static constexpr const char * NEXTROW="nextRow";
+static constexpr const char * PREVIOUSROW="previousRow";
 
 //DBRow methods
 static constexpr const char * GET_VALUE="getValue";

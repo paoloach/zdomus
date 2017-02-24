@@ -55,23 +55,21 @@ namespace zigbee {
                 Context::Scope context_scope(context);\
                 Local<Object>  global = context->Global();
 
-        JSDBTableTest::~JSDBTableTest() {
-        }
-
         void JSDBTableTest::SetUp() {
             JSBaseTest::SetUp();
 
             jsRow = std::make_unique<JSRow>();
-            jsDBTable = std::make_unique<JSDBTable>(dbTableFactoryMock, jsRow.get(), log);
+            jsResultSet = std::make_unique<JSResultSet>(jsRow.get());
+
+            jsDBTable = std::make_unique<JSDBTable>(dbTableFactoryMock, jsRow.get(), jsResultSet.get());
 
             ON_CALL(dbTableFactoryMock, getTable(_)).WillByDefault(Return(nullptr));
-            ON_CALL(dbTable, find_(_)).WillByDefault(Return(nullptr));
-            ON_CALL(dbTable, nextRow_()).WillByDefault(Return(nullptr));
-            ON_CALL(dbTable, previousRow_()).WillByDefault(Return(nullptr));
+            ON_CALL(dbTable, find(_)).WillByDefault(Return(nullptr));
         }
 
         void JSDBTableTest::TearDown() {
             jsDBTable->resetPersistences();
+            jsResultSet->resetPersistences();
             jsRow->resetPersistences();
             JSBaseTest::TearDown();
         }
@@ -83,6 +81,7 @@ namespace zigbee {
 
             Handle<Object> global = context->Global();
             jsRow->initJsObjectsTemplate(isolate, global);
+            jsResultSet->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
         }
 
@@ -92,6 +91,7 @@ namespace zigbee {
             stringstream stream;
             V8_SETUP
             jsRow->initJsObjectsTemplate(isolate, global);
+            jsResultSet->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
 
             EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Return(&dbTable));
@@ -111,6 +111,7 @@ namespace zigbee {
             stringstream stream;
             V8_SETUP
             jsRow->initJsObjectsTemplate(isolate, global);
+            jsResultSet->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
 
             EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Throw(DBExceptionNoTable(tableName)));
@@ -120,8 +121,6 @@ namespace zigbee {
             TryCatch tryCatch{};
             runScript(stream.str());
             ASSERT_TRUE(tryCatch.HasCaught());
-            Log::LogData logData = log.get();
-            ASSERT_THAT(logData.msg, HasSubstr(tableName));
 
         }
 
@@ -129,13 +128,14 @@ namespace zigbee {
             string tableName = "table name";
             string query = "this s  a query";
             stringstream stream;
-            DBRow *expectedRow = new DBRow();
+            PGresult * expectedRow = nullptr;
             V8_SETUP
             jsRow->initJsObjectsTemplate(isolate, global);
+            jsResultSet->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
 
             EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Return(&dbTable));
-            EXPECT_CALL(dbTable, find_(query)).WillOnce(Return(expectedRow));
+            EXPECT_CALL(dbTable, find(query)).WillOnce(Return(expectedRow));
 
             stream << "var table=" << JSDBTABLE << "('" << tableName << "');";
             stream << "table.find('" << query << "');";
@@ -143,46 +143,12 @@ namespace zigbee {
             v8::Local<v8::Value> result = runScript(stream.str());
             ASSERT_FALSE(result.IsEmpty());
             ASSERT_FALSE(tryCatch.HasCaught());
+            ASSERT_TRUE(result->IsObject());
+            auto object = result.As<Object>();
+            std::string name ( *String::Utf8Value(object));
+            ASSERT_THAT(name, "[object DbResultSet]");
         }
 
-
-        TEST_F(JSDBTableTest, nextRow) {
-            string tableName = "table name";
-            stringstream stream;
-            DBRow *expectedRow = new DBRow();
-            V8_SETUP
-            jsRow->initJsObjectsTemplate(isolate, global);
-            jsDBTable->initJsObjectsTemplate(isolate, global);
-
-            EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Return(&dbTable));
-            EXPECT_CALL(dbTable, nextRow_()).WillOnce(Return(expectedRow));
-
-            stream << "var table=" << JSDBTABLE << "('" << tableName << "');";
-            stream << "table.nextRow();";
-            TryCatch tryCatch{};
-            v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_FALSE(result.IsEmpty());
-            ASSERT_FALSE(tryCatch.HasCaught());
-        }
-
-        TEST_F(JSDBTableTest, previousRow) {
-            string tableName = "table name";
-            stringstream stream;
-            DBRow *expectedRow = new DBRow();
-            V8_SETUP
-            jsRow->initJsObjectsTemplate(isolate, global);
-            jsDBTable->initJsObjectsTemplate(isolate, global);
-
-            EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Return(&dbTable));
-            EXPECT_CALL(dbTable, previousRow_()).WillOnce(Return(expectedRow));
-
-            stream << "var table=" << JSDBTABLE << "('" << tableName << "');";
-            stream << "table.previousRow();";
-            TryCatch tryCatch{};
-            v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_FALSE(result.IsEmpty());
-            ASSERT_FALSE(tryCatch.HasCaught());
-        }
 
         TEST_F(JSDBTableTest, insert) {
             string tableName = "table name";
@@ -191,6 +157,7 @@ namespace zigbee {
             string value = "value";
             V8_SETUP
             jsRow->initJsObjectsTemplate(isolate, global);
+            jsResultSet->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
 
             EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Return(&dbTable));

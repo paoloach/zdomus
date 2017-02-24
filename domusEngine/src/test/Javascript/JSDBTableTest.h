@@ -13,6 +13,7 @@
 #include "JSBaseTest.h"
 #include "../Mocks/DBTableMock.h"
 #include "../../JavaScript/JSRow.h"
+#include "../../JavaScript/JSResultSet.h"
 #include "../../Utils/Log.h"
 
 namespace zigbee {
@@ -21,7 +22,7 @@ namespace test {
 
 class JSDBTableTest : public JSBaseTest {
 public:
-	virtual ~JSDBTableTest();
+	virtual ~JSDBTableTest()=default;
 protected:
 	virtual void SetUp() override ;
 	virtual void TearDown() override ;
@@ -30,9 +31,10 @@ protected:
 protected:
 	DBTableFactoryMock dbTableFactoryMock;
     std::unique_ptr<JSRow> jsRow;
+    std::unique_ptr<JSResultSet> jsResultSet;
 	std::unique_ptr<JSDBTable> jsDBTable;
 	DBTableMock dbTable;
-	Log log;
+
 
 };
 

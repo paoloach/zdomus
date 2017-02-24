@@ -7,10 +7,8 @@
 
 #include <boost/log/trivial.hpp>
 #include <iostream>
-#include <functional>
 
 #include "JSManager.h"
-#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
 
@@ -27,22 +25,9 @@ namespace zigbee {
 
     }
 
-    JSManager::Task::Task(SingletonObjects &singletonObjects, const JavaScriptData &js) : js(js), jsExecuter(singletonObjects, js.getPeriod(), log) {
+    JSManager::Task::Task(SingletonObjects &singletonObjects, const JavaScriptData &js) : js(js), jsExecuter(singletonObjects, js.getPeriod()) {
         jsExecuter.run(js.getCode());
     }
 
-//    void JSManager::Task::timerHandler(const error_code &) {
-//        jsExecuter.join();
-//        Log::LogData logData = log.get();
-//        if (!logData.msg.empty())
-//            BOOST_LOG_TRIVIAL(info) << js.getName() << ":" << logData.msg;
-//        while (!logData.msg.empty()) {
-//            logData = log.get();
-//            if (!logData.msg.empty())
-//                BOOST_LOG_TRIVIAL(info) << js.getName() << ":" << logData.msg;
-//        }
-//        BOOST_LOG_TRIVIAL(info) << "executing " << js.getName();
-//        jsExecuter.run(js.getCode());
-//    }
 
 } /* namespace zigbee */

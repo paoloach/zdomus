@@ -15,18 +15,22 @@
 
 namespace zigbee {
 
-class DBRow {
-public:
-	DBRow();
-	virtual ~DBRow();
-public:
-	boost::any getValue(const std::string & fieldName);
-	void setValue(const std::string & fieldName, const boost::any & any);
-	std::vector<std::string> getFieldsName() const;
-	std::vector<boost::any> getFieldsValue() const;
-private:
-	std::map<std::string, boost::any> values;
-};
+    class DBRow {
+    public:
+        virtual ~DBRow() = default;
+
+    public:
+        boost::any getValue(const std::string &fieldName);
+
+        void setValue(const std::string &fieldName, const boost::any &any);
+
+        std::vector<std::string> getFieldsName() const;
+
+        std::vector<boost::any> getFieldsValue() const;
+
+    private:
+        std::map<std::string, boost::any> values;
+    };
 
 } /* namespace zigbee */
 

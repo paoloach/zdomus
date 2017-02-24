@@ -175,7 +175,9 @@ add_library(javascript_lib OBJECT
         src/JavaScript/V8Allocator.cpp
         src/JavaScript/V8Allocator.h
         src/JavaScript/JSZEndpoints.cpp src/JavaScript/JSZEndpoints.h
-        src/JavaScript/GlobalJSFunctions.cpp src/JavaScript/GlobalJSFunctions.h src/JavaScript/JSCallbackFifo.cpp src/JavaScript/JSCallbackFifo.h)
+        src/JavaScript/GlobalJSFunctions.cpp src/JavaScript/GlobalJSFunctions.h
+        src/JavaScript/JSCallbackFifo.cpp src/JavaScript/JSCallbackFifo.h
+        src/JavaScript/JSResultSet.cpp src/JavaScript/JSResultSet.h)
 
 add_library(domus_engine_static_lib STATIC
         ${USB_SRC}

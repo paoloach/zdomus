@@ -50,7 +50,7 @@ namespace zigbee {
             defaultZclAttribute = std::make_unique<ZCLAttributeMock>(zigbeeDevice, defaultCluster.get(), -1,
                                                                 ZCLTypeDataType::ZCLTypeInvalid, "", true);
             cluster = make_shared<ClusterMock>();
-            jsLog = std::make_shared<JSLog>(log);
+            jsLog = std::make_shared<JSLog>();
 
             EXPECT_CALL(singletonObjectsMock, getZDevices()).Times(AtLeast(0)).WillRepeatedly(Return(zDevices.get()));
             EXPECT_CALL(singletonObjectsMock, getClusters()).Times(AtLeast(0)).WillRepeatedly(Return(&clustersMock));

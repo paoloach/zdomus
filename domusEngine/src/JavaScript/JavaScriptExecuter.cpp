@@ -20,13 +20,14 @@ namespace zigbee {
     using std::make_unique;
     using namespace boost::posix_time;
 
-    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, std::chrono::seconds period, Log &log) : period(period), log(log), jsLog(log),
+    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, std::chrono::seconds period) : period(period),
+                                                                                                                        jsResultSet(&jsRow),
+                                                                                                                        jsDBTable(dbTableFactory, &jsRow, &jsResultSet),
                                                                                                                         jsZCluster(&jsZAttributeFactory, &singletonObjects),
-                                                                                                                        jsDBTable(dbTableFactory, &jsRow, log),
                                                                                                                         jsZEndpoint(singletonObjects.getZDevices(), &jsZCluster),
                                                                                                                         jsZEndpoints(singletonObjects, &jsZEndpoint),
                                                                                                                         jsZDevice(singletonObjects.getZDevices(), &jsZEndpoint),
-                                                                                                                        jsRestServer(singletonObjects.getFixedPathContainer(), log,&callbackFifo ),
+                                                                                                                        jsRestServer(singletonObjects.getFixedPathContainer(), &callbackFifo ),
                                                                                                                         jszDevices(singletonObjects.getZDevices(), &jsZDevice),
                                                                                                                         stop(false) {
 
@@ -54,6 +55,7 @@ namespace zigbee {
         jsLog.initJsObjectsTemplate(isolate, contextGlobal);
         jsRestServer.initJsObjectsTemplate(isolate, contextGlobal);
         jsRow.initJsObjectsTemplate(isolate, contextGlobal);
+        jsResultSet.initJsObjectsTemplate(isolate, contextGlobal);
         jsDBTable.initJsObjectsTemplate(isolate, contextGlobal);
         globalJSFunctions.initFunctions(isolate, contextGlobal);
         context.Reset(isolate, lContext);
@@ -69,6 +71,7 @@ namespace zigbee {
         jsLog.resetPersistences();
         jsRestServer.resetPersistences();
         jsRow.resetPersistences();
+        jsResultSet.resetPersistences();
         jsDBTable.resetPersistences();
         context.Reset();
         isolate->Dispose();
@@ -92,7 +95,7 @@ namespace zigbee {
             script->Run(lContext);
             if (tryCatch.HasCaught()) {
                 String::Utf8Value utf8Message(tryCatch.Message()->Get());
-                log.error(*utf8Message);
+                BOOST_LOG_TRIVIAL(error) << *utf8Message;
                 tryCatch.Reset();
             }
 

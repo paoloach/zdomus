@@ -6,7 +6,7 @@
  */
 
 #include <sstream>
-#include <iostream>
+#include <boost/log/trivial.hpp>
 #include <boost/spirit/include/karma.hpp>
 #include "DBTable.h"
 #include "DBDataConverter.h"
@@ -19,25 +19,6 @@ namespace zigbee {
     using std::stringstream;
     using std::shared_ptr;
     using namespace boost::spirit::karma;
-
-    std::shared_ptr<DBRow> DBTable::makeDBRow(PGresult *resultSet, uint index) {
-        std::shared_ptr<DBRow> dbRow = std::make_shared<DBRow>();
-
-        int fieldCount = PQnfields(resultSet);
-
-        for (int colIndex = 0; colIndex < fieldCount; colIndex++) {
-            std::string fieldName = PQfname(resultSet, colIndex);
-            if (PQgetisnull(resultSet, index, colIndex) == 0) {
-                DBDataConverter::DBData dbData(resultSet, index, colIndex);
-                boost::any value = DBDataConverter::getAnyValue(dbData);
-                dbRow->setValue(fieldName, value);
-            } else {
-                dbRow->setValue(fieldName, boost::any());
-            }
-        }
-        return dbRow;
-
-    }
 
     void DBTable::insert(DBRow *dbRow) {
         std::stringstream insertStream;
@@ -92,61 +73,30 @@ namespace zigbee {
     }
 
     DBTable::DBTable(const std::string &tableName, PGconn *conn) : tableName(tableName), conn(conn) {
-        resultSet = nullptr;
-
         checkTableName(tableName);
         currentIndex = 0;
     }
 
     DBTable::DBTable() {
         conn = nullptr;
-        resultSet = nullptr;
         currentIndex = 0;
     }
 
-    DBTable::~DBTable() {
-        if (resultSet != nullptr) {
-            PQclear(resultSet);
-        }
-    }
-
-    std::shared_ptr<DBRow> DBTable::nextRow() {
-        uint maxResult = PQntuples(resultSet);
-        if (currentIndex == maxResult - 1) {
-            return std::shared_ptr<DBRow>();
-        } else {
-            currentIndex++;
-            return makeDBRow(resultSet, currentIndex);
-        }
-    }
-
-    std::shared_ptr<DBRow> DBTable::previousRow() {
-        if (currentIndex == 0) {
-            return std::shared_ptr<DBRow>();
-        } else {
-            currentIndex--;
-            return makeDBRow(resultSet, currentIndex);
-        }
-    }
-
-    std::shared_ptr<DBRow> DBTable::find(const std::string &filter) {
+    PGresult * DBTable::find(const std::string &filter) {
         std::string query = "select * from public.\"" + tableName + "\"";
         if (!filter.empty()) {
             query += " where " + filter;
         }
         query += ";";
-        if (resultSet != nullptr) {
-            PQclear(resultSet);
-        }
-        resultSet = PQexecParams(conn, query.c_str(), 0, nullptr, nullptr, nullptr, nullptr, 0);
+        BOOST_LOG_TRIVIAL(info) << "Search query: " << query;
+        PGresult * resultSet = PQexecParams(conn, query.c_str(), 0, nullptr, nullptr, nullptr, nullptr, 0);
         ExecStatusType status = PQresultStatus(resultSet);
         switch (status) {
             case PGRES_COMMAND_OK:
             case PGRES_EMPTY_QUERY:
-                return std::unique_ptr<DBRow>();
+                return resultSet;
             case PGRES_TUPLES_OK:
-                currentIndex = 0;
-                return makeDBRow(resultSet, 0);
+                return resultSet;
             default:
                 throw DBExceptionQueryError(query, tableName, PQresultErrorMessage(resultSet));
         }

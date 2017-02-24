@@ -5,43 +5,39 @@
  *      Author: Paolo Achdjian
  */
 
-#include <iostream>
+#include <boost/log/trivial.hpp>
 #include "DBRow.h"
 
 namespace zigbee {
 
-DBRow::DBRow() {
-}
 
-DBRow::~DBRow() {
-}
+    boost::any DBRow::getValue(const std::string &fieldName) {
+        if (values.count(fieldName)) {
+            return values[fieldName];
+        }
+        BOOST_LOG_TRIVIAL(error) << "Unable to find field: " << fieldName;
+        return boost::any {};
+    }
 
-boost::any DBRow::getValue(const std::string& fieldName) {
-	if (values.count(fieldName)) {
-		return values[fieldName];
-	}
-	return boost::any { };
-}
+    void DBRow::setValue(const std::string &fieldName, const boost::any &any) {
+        values[fieldName] = any;
+    }
 
-void DBRow::setValue(const std::string& fieldName, const boost::any& any) {
-	values[fieldName] = any;
-}
-
-std::vector<std::string> DBRow::getFieldsName() const {
-	std::vector<std::string> fieldsName;
-	for (auto value : values) {
-		fieldsName.push_back(value.first);
-	}
-	return fieldsName;
-}
+    std::vector<std::string> DBRow::getFieldsName() const {
+        std::vector<std::string> fieldsName;
+        for (auto value : values) {
+            fieldsName.push_back(value.first);
+        }
+        return fieldsName;
+    }
 
 
-std::vector<boost::any> DBRow::getFieldsValue() const {
-	std::vector<boost::any> fieldsValue;
-	for (auto value : values) {
-		fieldsValue.push_back( value.second);
-	}
-	return fieldsValue;
-}
+    std::vector<boost::any> DBRow::getFieldsValue() const {
+        std::vector<boost::any> fieldsValue;
+        for (auto value : values) {
+            fieldsValue.push_back(value.second);
+        }
+        return fieldsValue;
+    }
 
 } /* namespace zigbee */

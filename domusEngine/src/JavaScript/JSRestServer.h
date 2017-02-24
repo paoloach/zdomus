@@ -22,7 +22,7 @@ namespace zigbee {
 
     class JSRestServer {
     public:
-        JSRestServer(http::ExternalRestPath * fixedPathContainer, Log &log, JSCallbackFifo * jsCallbackFifo): fixedPathContainer(fixedPathContainer), log(log), jsCallbackFifo(jsCallbackFifo) {}
+        JSRestServer(http::ExternalRestPath * fixedPathContainer, JSCallbackFifo * jsCallbackFifo): fixedPathContainer(fixedPathContainer), jsCallbackFifo(jsCallbackFifo) {}
 
         virtual ~JSRestServer()=default;
 
@@ -48,7 +48,6 @@ namespace zigbee {
 
     private:
         http::ExternalRestPath * fixedPathContainer;
-        Log &log;
         v8::UniquePersistent<v8::FunctionTemplate> functionTemplate;
         JSCallbackFifo * jsCallbackFifo;
         std::map<int, v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>>> callbackMap;
