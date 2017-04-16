@@ -39,9 +39,10 @@ namespace zigbee {
             } else {
                 code = properties.get<std::string>(CODE_NAME);
             }
-            auto xmlPeriod = properties.get<boost::posix_time::time_duration>(PERIOD_NAME);
+            auto xmlPeriodString = properties.get<std::string>(PERIOD_NAME);
+            auto xmlPeriod = boost::posix_time::duration_from_string(xmlPeriodString);
 
-            period = std::chrono::seconds(xmlPeriod.seconds());
+            period = std::chrono::seconds(xmlPeriod.total_seconds());
             BOOST_LOG_TRIVIAL(info) << "Period for " << name << ": " << period.count() << " seconds";
 
         } catch (const ptree_error &e) {
