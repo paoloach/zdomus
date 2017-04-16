@@ -150,7 +150,7 @@ public class DeviceAdapter implements ListAdapter, DomusEngine.EndpointListener 
 
 
     private boolean addEndpoint(ZEndpoint zEndpoint) {
-        Element newElement = new Element(zEndpoint.short_address, zEndpoint.endpoint_id);
+        Element newElement = new Element(zEndpoint.getShortAddress(), zEndpoint.getEndpointId());
         if (elements.indexOf(newElement) < 0) {
             elements.add(newElement);
             return true;

@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Paolo Achdjian on 15/04/16.
  */
-public class RequestIdentify extends DomusEngineRest  {
+public class RequestIdentify extends DomusEngineRest {
     private final int nwkAddress;
     private final int endpoint;
 
@@ -22,6 +22,6 @@ public class RequestIdentify extends DomusEngineRest  {
 
     @Override
     public void run() {
-         post("/devices/"+nwkAddress+"/endpoint/"+endpoint+"/cluster/in/3/command/0");
+        post("/devices/" + Integer.toString(nwkAddress, 16) + "/endpoint/" + Integer.toString(endpoint, 16) + "/cluster/in/3/command/0");
     }
 }

@@ -32,7 +32,7 @@ public class RequestQuality extends DomusEngineRest implements Stoppable {
 
     @Override
     public void run() {
-        String body = get("/devices/" + networkId + "/info");
+        String body = get("/devices/" + Integer.toString(networkId,16) + "/info");
         if (body != null && !toStop) {
             if (!body.isEmpty()) {
                 ObjectMapper mapper = new ObjectMapper();

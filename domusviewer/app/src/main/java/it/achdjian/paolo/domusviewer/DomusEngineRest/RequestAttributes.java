@@ -38,11 +38,11 @@ public class RequestAttributes extends DomusEngineRest implements Stoppable {
     @Override
     public void run() {
         StringBuilder builder = new StringBuilder("/devices/").
-                append(networkId).
+                append(Integer.toString(networkId,16)).
                 append("/endpoint/").
-                append(endpointId).
+                append(Integer.toString(endpointId,16)).
                 append("/cluster/in/").
-                append(clusterId).
+                append(Integer.toString(clusterId,16)).
                 append("/attributes?id=").append(TextUtils.join(",", attributes));
         String body = getLongRead(builder.toString());
         if (body != null && toStop==false) {

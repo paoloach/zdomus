@@ -21,7 +21,10 @@ public class ZDevice {
     public ZDevice(JSonDevice json) {
         short_address = json.short_address;
         extended_address = json.extended_address;
-        requestingEndpoint.addAll(json.endpoints.values());
+        for(String value: json.endpoints.values()){
+            requestingEndpoint.add(Integer.parseInt(value,16));
+        }
+
         capability = json.capability;
     }
 
@@ -38,7 +41,9 @@ public class ZDevice {
     }
 
     public void merge(JSonDevice zDevice) {
-        requestingEndpoint.addAll(zDevice.endpoints.values());
+        for(String value: zDevice.endpoints.values()) {
+            requestingEndpoint.add(Integer.parseInt(value,16));
+        }
     }
 
     public Collection<ZEndpoint> getEndpoins(){

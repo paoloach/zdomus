@@ -20,6 +20,10 @@ file(GLOB testRestParser "httpServer/RestParser/*.cpp")
 SET(SRC_TEST_SERIAL_DRIVER serialDriver/IEEEAddressResponseSerialExecutorTest.cpp
         serialDriver/IEEEAddressResponseSerialExecutorTest.h)
 
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O0 -std=c++14  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
+
+
 SET(SRC_TEST_JAVASCRIPT Javascript/ClusterCmdArgumentMatcher.h Javascript/ClusterCmdArrayArgumentMatcher.h
         Javascript/JavaScriptExecuterTest.cpp Javascript/JavaScriptExecuterTest.h
         Javascript/JSBaseTest.cpp Javascript/JSEndpointTest.h
@@ -170,6 +174,7 @@ SET(LIBS zigbeeLib
         #       PocoData
         PocoFoundation
         ${V8_LIBRARY}
+        ${Boost_SIGNALS_LIBRARY_RELEASE}
         ${Boost_THREAD_LIBRARY_RELEASE}
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}

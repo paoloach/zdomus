@@ -7,8 +7,8 @@ import java.util.Map;
  * Created by Paolo Achdjian on 18/04/16.
  */
 public class ZEndpoint {
-    public int short_address;
-    public int endpoint_id;
+    public String short_address;
+    public String endpoint_id;
     public int profile_id;
     public int device_id;
     public int device_version;
@@ -30,5 +30,13 @@ public class ZEndpoint {
             }
         }
         return  false;
+    }
+
+    public int getShortAddress() {
+        return Integer.parseInt(short_address,16);
+    }
+
+    public int getEndpointId(){
+        return Integer.parseInt(endpoint_id,16);
     }
 }

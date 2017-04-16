@@ -26,7 +26,7 @@ import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
  * Created by Paolo Achdjian on 30/08/16.
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class TempSensors implements  DomusEngine.EndpointListener{
+public class TempSensors implements DomusEngine.EndpointListener {
     @Bean
     DomusEngine domusEngine;
     @Bean
@@ -35,17 +35,17 @@ public class TempSensors implements  DomusEngine.EndpointListener{
     ActivityManager activityManager;
 
 
-    private Set<EndpointObserver> EndpointObserver =new HashSet<>();
+    private Set<EndpointObserver> EndpointObserver = new HashSet<>();
     private List<Element> tempSensors = new ArrayList<>();
     private Set<Element> selectedElements = new HashSet<>();
 
     @AfterInject
     void init() {
         ZDevices zDevices = domusEngine.getDevices();
-        for(ZDevice zDevice: zDevices.getDevices()){
-            for(ZEndpoint endpoint: zDevice.getEndpoins()){
-                if (endpoint.device_id == Constants.ZCL_HA_DEVICEID_TEMPERATURE_SENSOR){
-                    Element newElement = new Element(endpoint.short_address, endpoint.endpoint_id);
+        for (ZDevice zDevice : zDevices.getDevices()) {
+            for (ZEndpoint endpoint : zDevice.getEndpoins()) {
+                if (endpoint.device_id == Constants.ZCL_HA_DEVICEID_TEMPERATURE_SENSOR) {
+                    Element newElement = new Element(endpoint.getShortAddress(), endpoint.getEndpointId());
                     tempSensors.add(newElement);
                 }
             }
@@ -71,37 +71,37 @@ public class TempSensors implements  DomusEngine.EndpointListener{
     }
 
     @Nullable
-    public Element getSelected(){
-        if (selectedElements.isEmpty()){
+    public Element getSelected() {
+        if (selectedElements.isEmpty()) {
             return null;
         }
-        return  selectedElements.iterator().next();
+        return selectedElements.iterator().next();
     }
 
     public boolean someUnused() {
-        boolean unused=false;
-        for(Element element: tempSensors){
-            if (tempSensorLocationDS.getRoom(element.network,element.endpoint)==null){
-                unused=true;
+        boolean unused = false;
+        for (Element element : tempSensors) {
+            if (tempSensorLocationDS.getRoom(element.network, element.endpoint) == null) {
+                unused = true;
             }
         }
-        return  unused;
+        return unused;
     }
 
-    public void addObserver(EndpointObserver observer){
+    public void addObserver(EndpointObserver observer) {
         if (observer != null) {
             EndpointObserver.add(observer);
         }
     }
 
-    public void removeObserver(EndpointObserver endpointObserver){
+    public void removeObserver(EndpointObserver endpointObserver) {
         EndpointObserver.remove(endpointObserver);
     }
 
     @Override
     public void newEndpoint(final ZEndpoint endpoint) {
-        if (endpoint.device_id == Constants.ZCL_HA_DEVICEID_TEMPERATURE_SENSOR){
-            Element newElement = new Element(endpoint.short_address, endpoint.endpoint_id);
+        if (endpoint.device_id == Constants.ZCL_HA_DEVICEID_TEMPERATURE_SENSOR) {
+            Element newElement = new Element(endpoint.getShortAddress(), endpoint.getEndpointId());
             tempSensors.add(newElement);
             activityManager.runOnActivityThread(new Runnable() {
                 @Override

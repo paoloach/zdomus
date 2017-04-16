@@ -84,17 +84,17 @@ public class ZDevices implements GetDevice.Listener, GetEndpoint.Listener {
 
     @Override
     public void newEndpoint(ZEndpoint zEndpoint) {
-        if (devices.containsKey(zEndpoint.short_address)){
-            ZDevice existingDevice = devices.get(zEndpoint.short_address);
+        if (devices.containsKey(zEndpoint.getShortAddress())){
+            ZDevice existingDevice = devices.get(zEndpoint.getShortAddress());
             for (DomusEngine.EndpointListener listener : listeners) {
                 listener.newEndpoint(zEndpoint);
             }
-            existingDevice.endpoints.put(zEndpoint.endpoint_id, zEndpoint);
-            existingDevice.requestingEndpoint.remove(zEndpoint.endpoint_id);
+            existingDevice.endpoints.put(zEndpoint.getEndpointId(), zEndpoint);
+            existingDevice.requestingEndpoint.remove(zEndpoint.getEndpointId());
             if (!existingDevice.requestingEndpoint.isEmpty()) {
                 Integer endpoint = existingDevice.requestingEndpoint.iterator().next();
                 Handler handler = new Handler(looper);
-                handler.post(new GetEndpoint(sharedPreferences,connected,zEndpoint.short_address, endpoint, this));
+                handler.post(new GetEndpoint(sharedPreferences,connected,zEndpoint.getShortAddress(), endpoint, this));
             }
         } else {
             Log.e(TAG,"received an endpoint (" + zEndpoint.endpoint_id + ") description of a not previous declared device: " + zEndpoint.short_address);

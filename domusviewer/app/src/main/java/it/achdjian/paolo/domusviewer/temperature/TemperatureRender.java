@@ -18,7 +18,7 @@ import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 /**
  * Created by Paolo Achdjian on 20/07/16.
  */
-public class TemperatureRender extends RajawaliRenderer implements  EndpointObserver{
+public class TemperatureRender extends RajawaliRenderer implements EndpointObserver {
     private static final double TEMPERATURE_UPDATE = 5;
 
     private Rooms rooms;
@@ -42,7 +42,7 @@ public class TemperatureRender extends RajawaliRenderer implements  EndpointObse
 
     public TemperatureRender(Context context, boolean registerForResources) {
         super(context, registerForResources);
-        tempSensorLocationDS=null;
+        tempSensorLocationDS = null;
         temperatures = null;
     }
 
@@ -81,7 +81,7 @@ public class TemperatureRender extends RajawaliRenderer implements  EndpointObse
 
     @Override
     public void onRender(final long elapsedTime, final double deltaTime) {
-            time += deltaTime;
+        time += deltaTime;
         if (time > nextTempUpdate.get()) {
             nextTempUpdate.set(nextTempUpdate.get() + TEMPERATURE_UPDATE);
             for (RoomObject room : rooms.rooms) {
@@ -90,7 +90,7 @@ public class TemperatureRender extends RajawaliRenderer implements  EndpointObse
         } else {
             if (roomToUpdate != null) {
                 roomToUpdate.setTemperature(temperatures.getTemperature(roomToUpdate.name));
-                roomToUpdate=null;
+                roomToUpdate = null;
             }
         }
         if (time > nextUpdate) {
@@ -122,7 +122,7 @@ public class TemperatureRender extends RajawaliRenderer implements  EndpointObse
 
     @Override
     public void newDevice(ZEndpoint endpoint) {
-        String room = tempSensorLocationDS.getRoom(endpoint.short_address, endpoint.endpoint_id);
+        String room = tempSensorLocationDS.getRoom(Integer.parseInt(endpoint.short_address, 16), Integer.parseInt(endpoint.endpoint_id, 16));
         if (room != null) {
             temperatures.invalidate(room);
         }

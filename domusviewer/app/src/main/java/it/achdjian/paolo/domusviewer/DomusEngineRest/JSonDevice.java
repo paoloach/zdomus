@@ -14,5 +14,5 @@ public class JSonDevice {
     public int short_address;
     public String extended_address;
     public int capability;
-    public Map<Integer,Integer> endpoints = new HashMap<>();
+    public Map<Integer,String> endpoints = new HashMap<>();
 }
