@@ -1,6 +1,6 @@
 package it.achdjian.paolo.domusviewer.utils;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,13 +18,13 @@ import it.achdjian.paolo.domusviewer.other.ZDeviceInfoClick;
 @EBean
 public class ElementViewFactory {
     @RootContext
-    AppCompatActivity activity;
+    Context context;
     @Bean
     ZDeviceInfoClick zDeviceInfoClick;
     @Bean
     IdentifyListener identifyListener;
 
     public ElementView createElementView(ViewGroup parent, int layoutId, Element element, View oldView){
-        return new ElementView(activity, zDeviceInfoClick, identifyListener, parent, layoutId, element,oldView);
+        return new ElementView(context, zDeviceInfoClick, identifyListener, parent, layoutId, element,oldView);
     }
 }

@@ -104,7 +104,7 @@ public class DeviceAdapter implements ListAdapter, DomusEngine.EndpointListener 
         }
         Element element = elements.get(position);
         TextView mainText = (TextView) result.findViewById(R.id.mainText);
-        String text = element.network + ":" + element.endpoint;
+        String text = String.format("%04X:%02X",element.network,element.endpoint);
         mainText.setText(text);
 
         RelativeLayout infoLayout = (RelativeLayout) result.findViewById(R.id.deviceInfo);

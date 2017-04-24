@@ -88,6 +88,10 @@ namespace zigbee {
                     send(response, std::move(attributes));
                 }
             } else {
+                BOOST_LOG_TRIVIAL(error) << "Available in clusters are";
+                for(auto & inCluster: zEndpoint.getInCluster()){
+                    BOOST_LOG_TRIVIAL(error) << inCluster.getId();
+                }
                 throwWrongCluster(response, clusterId, endpoint, nwkAddr);
             }
         }

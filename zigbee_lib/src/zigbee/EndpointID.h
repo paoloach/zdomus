@@ -27,9 +27,7 @@ namespace zigbee {
                 endpointId(endpointId) {
         }
 
-        explicit EndpointID(const std::string &endpointSrc) {
-            this->endpointId = std::stoul(endpointSrc, 0, 16);
-        }
+        explicit EndpointID(const std::string &endpointSrc) :endpointId (std::stoul(endpointSrc, 0, 16)){};
 
         constexpr EndpointID(const EndpointID &endpointId) = default;
 

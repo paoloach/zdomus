@@ -39,12 +39,12 @@ public class TemperatureCache extends CacheLoader<String, Optional<Integer>> imp
     @AfterInject
     public void init() {
         cache = CacheBuilder.newBuilder()
-                .expireAfterWrite(1, TimeUnit.MINUTES)
+                .expireAfterWrite(5, TimeUnit.SECONDS)
                 .build(this);
     }
 
     public Optional<Integer> getTemperature(@NonNull String roomName){
-        return  cache.getUnchecked(roomName);
+        return cache.getUnchecked(roomName);
     }
 
 

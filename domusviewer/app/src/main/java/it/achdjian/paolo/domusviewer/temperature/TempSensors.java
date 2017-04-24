@@ -1,12 +1,12 @@
 package it.achdjian.paolo.domusviewer.temperature;
 
-import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,8 +35,9 @@ public class TempSensors implements DomusEngine.EndpointListener {
     ActivityManager activityManager;
 
 
-    private Set<EndpointObserver> EndpointObserver = new HashSet<>();
+    private Set<EndpointObserver> endpointObserver = new HashSet<>();
     private List<Element> tempSensors = new ArrayList<>();
+    private List<Element> unusedTempSensor = new ArrayList<>();
     private Set<Element> selectedElements = new HashSet<>();
 
     @AfterInject
@@ -53,16 +54,17 @@ public class TempSensors implements DomusEngine.EndpointListener {
         domusEngine.addEndpointListener(this);
     }
 
-    public int count() {
-        return tempSensors.size();
+    @Nullable
+    public Element get(int position) {
+        return (position >= 0 && position < tempSensors.size()) ? tempSensors.get(position) : null;
     }
 
     @Nullable
-    public Element get(int position) {
-        return (position >= 0 & position < tempSensors.size()) ? tempSensors.get(position) : null;
+    public Element getUnused(int position) {
+        return (position >= 0 && position < unusedTempSensor.size()) ? unusedTempSensor.get(position) : null;
     }
 
-    public void selected(Element element, boolean selected) {
+    public void selected(@NonNull Element element, boolean selected) {
         if (selected) {
             selectedElements.add(element);
         } else {
@@ -79,34 +81,28 @@ public class TempSensors implements DomusEngine.EndpointListener {
     }
 
     public boolean someUnused() {
-        boolean unused = false;
-        for (Element element : tempSensors) {
-            if (tempSensorLocationDS.getRoom(element.network, element.endpoint) == null) {
-                unused = true;
-            }
-        }
-        return unused;
+        return countUnused() > 0;
     }
 
-    public void addObserver(EndpointObserver observer) {
+    public void addObserver(@Nullable EndpointObserver observer) {
         if (observer != null) {
-            EndpointObserver.add(observer);
+            endpointObserver.add(observer);
         }
     }
 
-    public void removeObserver(EndpointObserver endpointObserver) {
-        EndpointObserver.remove(endpointObserver);
+    public void removeObserver(@NonNull EndpointObserver endpointObserver) {
+        this.endpointObserver.remove(endpointObserver);
     }
 
     @Override
-    public void newEndpoint(final ZEndpoint endpoint) {
+    public void newEndpoint(final @NonNull ZEndpoint endpoint) {
         if (endpoint.device_id == Constants.ZCL_HA_DEVICEID_TEMPERATURE_SENSOR) {
             Element newElement = new Element(endpoint.getShortAddress(), endpoint.getEndpointId());
             tempSensors.add(newElement);
             activityManager.runOnActivityThread(new Runnable() {
                 @Override
                 public void run() {
-                    for (it.achdjian.paolo.domusviewer.temperature.EndpointObserver endpointOvserver : EndpointObserver) {
+                    for (it.achdjian.paolo.domusviewer.temperature.EndpointObserver endpointOvserver : endpointObserver) {
                         endpointOvserver.newDevice(endpoint);
                     }
                 }
@@ -114,4 +110,15 @@ public class TempSensors implements DomusEngine.EndpointListener {
 
         }
     }
+
+    public int countUnused() {
+        unusedTempSensor.clear();
+        for (Element element: tempSensors){
+            if (tempSensorLocationDS.getRoom(element.network, element.endpoint)==null){
+                unusedTempSensor.add(element);
+            }
+        }
+        return unusedTempSensor.size();
+    }
+
 }

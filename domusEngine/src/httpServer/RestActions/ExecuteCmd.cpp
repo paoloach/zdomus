@@ -33,7 +33,7 @@ namespace zigbee {
         if (zEndpoint.isInCluster(clusterId)) {
             std::vector<uint8_t> cmdParams{};
             response.setStatus(Poco::Net::HTTPResponse::HTTP_NO_CONTENT);
-            response.send() << "comand sent\n";
+            response.send() << "command sent\n";
             auto cluster(singletons.getClusters()->getCluster(nwkAddr,endpoint, clusterId));
 
             auto params = cluster->getCmdParams(command);
@@ -45,6 +45,10 @@ namespace zigbee {
 
             cluster->executeComand(command, cmdParams);
         } else {
+            BOOST_LOG_TRIVIAL(error) << "Available in clusters are";
+            for(auto & inCluster: zEndpoint.getInCluster()){
+                BOOST_LOG_TRIVIAL(error) << inCluster.getId();
+            }
             throwWrongCluster(response, clusterId, endpoint, nwkAddr);
         }
     }

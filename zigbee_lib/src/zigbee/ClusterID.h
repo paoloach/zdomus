@@ -12,8 +12,8 @@
 #include <zigbee/ZigbeeTypes.h>
 
 #include <string>
-#include <boost/lexical_cast.hpp>
 #include <ostream>
+#include <iomanip>
 #include <istream>
 
 namespace zigbee {
@@ -27,7 +27,7 @@ public:
 	}
 
 
-	explicit ClusterID(const std::string & clusterSrc):clusterID( boost::lexical_cast<int>(clusterSrc) ) {
+	explicit ClusterID(const std::string & clusterSrc):clusterID( std::stoul(clusterSrc, 0, 16) ) {
 	}
 
 	constexpr ClusterID(const ClusterID & other)= default;
@@ -63,12 +63,12 @@ private:
 };
 
 inline std::ostream & operator<<(std::ostream & out, const ClusterID & clusterId){
-	out << clusterId.clusterID;
+	out << std::hex << std::uppercase << std::setfill('0') << std::setw(4) << clusterId.clusterID << std::dec;
 	return out;
 }
 
 inline std::istream & operator>>( std::istream & in, ClusterID & clusterId){
-	in >> clusterId.clusterID;
+	in >> std::hex >> clusterId.clusterID>> std::dec;
 	return in;
 }
 

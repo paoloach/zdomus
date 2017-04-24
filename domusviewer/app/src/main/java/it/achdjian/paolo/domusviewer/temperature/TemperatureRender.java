@@ -1,15 +1,15 @@
 package it.achdjian.paolo.domusviewer.temperature;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.google.common.util.concurrent.AtomicDouble;
 
 import org.rajawali3d.cameras.Camera;
-import org.rajawali3d.cameras.Camera2D;
 import org.rajawali3d.math.vector.Vector3;
-import org.rajawali3d.renderer.RajawaliRenderer;
+import org.rajawali3d.renderer.Renderer;
 import org.rajawali3d.util.ObjectColorPicker;
 
 import it.achdjian.paolo.domusviewer.database.TempSensorLocationDS;
@@ -18,7 +18,7 @@ import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
 /**
  * Created by Paolo Achdjian on 20/07/16.
  */
-public class TemperatureRender extends RajawaliRenderer implements EndpointObserver {
+public class TemperatureRender extends Renderer implements EndpointObserver {
     private static final double TEMPERATURE_UPDATE = 5;
 
     private Rooms rooms;
@@ -27,20 +27,19 @@ public class TemperatureRender extends RajawaliRenderer implements EndpointObser
     private double time = 0;
     private double nextUpdate = 1;
     private final AtomicDouble nextTempUpdate = new AtomicDouble(0);
-    private final Vector3 lookAt = new Vector3(0, 0, -10);
-    private final Vector3 cameraPos = new Vector3(0, 0, 20);
-    private ObjectColorPicker mPicker;
+    private ObjectColorPicker picker;
     private RoomObject roomToUpdate;
+    private double rot = 0;
 
 
-    public TemperatureRender(Context context, Rooms rooms, TemperatureCache temperatures, TempSensorLocationDS tempSensorLocationDS) {
+    public TemperatureRender(@NonNull Context context, @NonNull Rooms rooms, @NonNull TemperatureCache temperatures, @NonNull TempSensorLocationDS tempSensorLocationDS) {
         super(context);
         this.rooms = rooms;
         this.tempSensorLocationDS = tempSensorLocationDS;
         this.temperatures = temperatures;
     }
 
-    public TemperatureRender(Context context, boolean registerForResources) {
+    public TemperatureRender(@NonNull Context context, boolean registerForResources) {
         super(context, registerForResources);
         tempSensorLocationDS = null;
         temperatures = null;
@@ -49,47 +48,42 @@ public class TemperatureRender extends RajawaliRenderer implements EndpointObser
     @Override
     protected void initScene() {
 
-        mPicker = new ObjectColorPicker(this);
+        picker = new ObjectColorPicker(this);
 
-        Camera2D camera2D = new Camera2D();
         rooms.initScene();
-
-        Vector3 max = new Vector3(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
-        Vector3 min = new Vector3(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         for (int i = 0; i < rooms.countRooms(); i++) {
             RoomObject room = rooms.getRoom(0, i);
             if (room != null) {
-                getCurrentScene().addChild(room.object3D);
-                getCurrentScene().addLight(room.light);
-                mPicker.registerObject(room.object3D);
+                room.initScene(getCurrentScene(), getContext(), picker);
+
             }
         }
-        Vector3 size = rooms.getSize(0);
-        Log.d(getClass().getName(), "max: " + max + ", min: " + min + ", size: " + size);
+        Vector3 maxRooms = rooms.getMax(0);
+        Vector3 minRooms = rooms.getMin(0);
+        Log.d(getClass().getName(), "max: " + maxRooms + ", min: " + minRooms );
         Camera camera = getCurrentCamera();
-        //camera = camera2D;
+        Vector3 lookAt = new Vector3(0,0, minRooms.z);
         camera.setLookAt(lookAt);
+        Vector3 cameraPos = new Vector3((maxRooms.x +minRooms.x)/2,(maxRooms.y +minRooms.y)/2, maxRooms.z + 15);
         camera.setPosition(cameraPos);
-        camera2D.setWidth(size.x);
-        camera2D.setHeight(size.y);
-        camera2D.setProjectionMatrix(1, 1);
         getCurrentScene().switchCamera(camera);
-        mPicker.setOnObjectPickedListener(rooms);
-
+        picker.setOnObjectPickedListener(rooms);
+        mSurface.requestRenderUpdate();
     }
 
     @Override
     public void onRender(final long elapsedTime, final double deltaTime) {
         time += deltaTime;
+        rot++;
         if (time > nextTempUpdate.get()) {
             nextTempUpdate.set(nextTempUpdate.get() + TEMPERATURE_UPDATE);
             for (RoomObject room : rooms.rooms) {
-                room.setTemperature(temperatures.getTemperature(room.name));
+                room.setTemperature(temperatures.getTemperature(room.name).orNull());
             }
         } else {
             if (roomToUpdate != null) {
-                roomToUpdate.setTemperature(temperatures.getTemperature(roomToUpdate.name));
+                roomToUpdate.setTemperature(temperatures.getTemperature(roomToUpdate.name).orNull());
                 roomToUpdate = null;
             }
         }
@@ -110,7 +104,7 @@ public class TemperatureRender extends RajawaliRenderer implements EndpointObser
     }
 
     public void getObjectAt(float x, float y) {
-        mPicker.getObjectAt(x, y);
+        picker.getObjectAt(x, y);
     }
 
     public void notifyFirstTemperature(String room) {

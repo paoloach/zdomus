@@ -1,6 +1,7 @@
 package it.achdjian.paolo.domusviewer.utils;
 
-import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public class ElementView {
     public RelativeLayout infoLayout;
     public Element element;
 
-    public ElementView(Activity activity, ZDeviceInfoClick zDeviceInfoClick, IdentifyListener identifyListener, ViewGroup parent, int layoutId, Element element,View oldView) {
+    public ElementView(Context activity, ZDeviceInfoClick zDeviceInfoClick, IdentifyListener identifyListener, ViewGroup parent, int layoutId, Element element, View oldView) {
         this.element = element;
         if (oldView == null) {
             LayoutInflater inflater = LayoutInflater.from(activity);
@@ -41,8 +42,8 @@ public class ElementView {
         infoLayout.setTag(R.id.element_value, element);
         infoLayout.setTag(R.id.element_view, this);
 
-
-        mainText.setText(element.network + ":" + element.endpoint);
+        mainText.setTextColor(Color.BLACK);
+        mainText.setText(String.format("%04X:%02X",element.network, element.endpoint));
 
         view.setTag(R.id.element_value, element);
         view.setTag(R.id.element_view, this);

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.rajawali3d.Object3D;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.achdjian.paolo.domusviewer.R;
+import it.achdjian.paolo.domusviewer.database.TempSensorLocationDS;
 
 /**
  * Created by Paolo Achdjian on 29/08/16.
@@ -31,10 +33,12 @@ public class Rooms implements OnObjectPickedListener {
 
     @RootContext
     Context context;
+    @Bean
+    TempSensorLocationDS tempSensorLocationDS;
 
     public final List<RoomObject> rooms = new ArrayList<>();
     private final List<List<String>> planes = new ArrayList<>();
-    private final List<SelectedRoomObserver> roomObservers = new ArrayList<>();
+    private final List<RoomObserver> roomObservers = new ArrayList<>();
 
     @AfterInject
     public void init() {
@@ -53,8 +57,8 @@ public class Rooms implements OnObjectPickedListener {
             Log.d(getClass().getName(), "num objects: " + mObjectGroup.getNumChildren());
             for (int i = 0; i < mObjectGroup.getNumChildren(); i++) {
                 Object3D child = mObjectGroup.getChildAt(i);
-                rooms.add(new RoomObject(child));
-
+                RoomObject room = new RoomObject(child, tempSensorLocationDS);
+                rooms.add(room);
             }
         } catch (ParsingException e) {
             e.printStackTrace();
@@ -79,13 +83,12 @@ public class Rooms implements OnObjectPickedListener {
     }
 
     @NonNull
-    public Vector3 getSize(int planeIndex) {
+    public Vector3 getMin(int planeIndex) {
         if (planeIndex < 0 || planeIndex >= planes.size()) {
             throw new RuntimeException("Plane index out of range: " + planeIndex);
         }
 
         List<String> planeRooms = planes.get(planeIndex);
-        Vector3 max = new Vector3(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
         Vector3 min = new Vector3(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         for (String roomName : planeRooms) {
@@ -93,36 +96,70 @@ public class Rooms implements OnObjectPickedListener {
 
             if (room != null) {
                 BoundingBox boundingBox = room.object3D.getGeometry().getBoundingBox();
-                Vector3 childMax = boundingBox.getMax();
                 Vector3 childMin = boundingBox.getMin();
-
-                max.x = Math.max(max.x, childMax.x);
-                max.y = Math.max(max.y, childMax.y);
-                max.z = Math.max(max.z, childMax.z);
 
                 min.x = Math.min(min.x, childMin.x);
                 min.y = Math.min(min.y, childMin.y);
                 min.z = Math.min(min.z, childMin.z);
             }
         }
-        return new Vector3(max.x - min.x, max.y - min.y, max.z - min.z);
+        return min;
+    }
+
+    @NonNull
+    public Vector3 getMax(int planeIndex) {
+        if (planeIndex < 0 || planeIndex >= planes.size()) {
+            throw new RuntimeException("Plane index out of range: " + planeIndex);
+        }
+
+        List<String> planeRooms = planes.get(planeIndex);
+        Vector3 max = new Vector3(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
+
+        for (String roomName : planeRooms) {
+            RoomObject room = getRoom(roomName);
+
+            if (room != null) {
+                BoundingBox boundingBox = room.object3D.getGeometry().getBoundingBox();
+                Vector3 childMax = boundingBox.getMax();
+                max.x = Math.max(max.x, childMax.x);
+                max.y = Math.max(max.y, childMax.y);
+                max.z = Math.max(max.z, childMax.z);
+            }
+        }
+        return max;
     }
 
     @Override
     public void onObjectPicked(Object3D object) {
-        Log.d(getClass().getName(), "Pick object: " + object.getName());
-        String roomSelected=null;
+        RoomObject roomSelected = null;
         for (RoomObject roomObject : rooms) {
             if (roomObject.object3D == object) {
                 roomObject.select();
-                roomSelected = roomObject.name;
-            } else {
-                roomObject.unselect();
+                roomSelected = roomObject;
+            }
+            if (roomObject.trashLabel == object) {
+                Log.d(getClass().getName(), "Remove sensor of " + roomObject.name);
+                roomObject.removeTemperature();
+                for (RoomObserver roomObserver : roomObservers) {
+                    roomObserver.sensorAssignmentChange(roomObject.name);
+                }
             }
         }
-        for (SelectedRoomObserver roomObserver : roomObservers) {
-            roomObserver.selected(roomSelected);
+        if (roomSelected != null) {
+            for (RoomObject roomObject : rooms) {
+                if (roomObject != roomSelected) {
+                    roomObject.deselect();
+                }
+            }
+            for (RoomObserver roomObserver : roomObservers) {
+                roomObserver.selected(roomSelected.name);
+            }
         }
+    }
+
+    @Override
+    public void onNoObjectPicked() {
+
     }
 
     @Nullable
@@ -142,7 +179,7 @@ public class Rooms implements OnObjectPickedListener {
                 return roomObject;
             }
         }
-        Log.e(getClass().getName(),"Room " + room + " not found");
+        Log.e(getClass().getName(), "Room " + room + " not found");
         return null;
     }
 
@@ -152,11 +189,13 @@ public class Rooms implements OnObjectPickedListener {
         }
     }
 
-    public void addObserver(SelectedRoomObserver observer) {
+    public void addObserver(RoomObserver observer) {
         roomObservers.add(observer);
     }
 
-    public void removeObserver(SelectedRoomObserver observer) {
+    public void removeObserver(RoomObserver observer) {
         roomObservers.remove(observer);
     }
+
+
 }
