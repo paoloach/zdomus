@@ -1,5 +1,20 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.7)
+include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
+
 project(domus_engine)
+
+
+ExternalProject_Add(pistache
+        GIT_REPOSITORY https://github.com/oktal/pistache.git
+        GIT_SUBMODULES
+        PREFIX ${CMAKE_CURRENT_BINARY_DIR}/pistache
+        INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/libs
+        UPDATE_COMMAND "" # Skip annoying updates for every build
+        INSTALL_COMMAND ""
+        )
+
+set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache-build/src/libnet_static.a)
+
 
 add_subdirectory(googletest/googlemock)
 add_subdirectory(src/test)
@@ -19,8 +34,8 @@ if (CMAKE_BUILD_TYPE MATCHES "Debug")
             )
 else ()
     if (BUILD_V8_VERSION MATCHES "arm")
-        message ( "Using v8 ARM version" )
-        set(Boost_USE_STATIC_LIBS        ON)
+        message("Using v8 ARM version")
+        set(Boost_USE_STATIC_LIBS ON)
         set(V8_LIB_DIR ${V8_DIR}/lib_arm.release)
         set(V8_LIBRARY
                 ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libicui18n.a
@@ -32,7 +47,7 @@ else ()
                 ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_libsampler.a
                 )
     else ()
-        message ( "Using v8 x64 version" )
+        message("Using v8 x64 version")
         set(V8_LIB_DIR ${V8_DIR}/lib_x64.release)
         set(V8_LIBRARY
                 v8_libplatform
@@ -105,8 +120,12 @@ endif ()
 
 SET(SRC_EXCEPTION src/Exception/PathNotFound.h src/Exception/Timeout.h)
 
+SET(SRC_HTTP src/httpServer/RestHandler.cpp src/httpServer/RestHandler.h)
+
+
 SET(SRC_DEMO_DRIVER
-        src/DemoDriver/DemoDevice.cpp src/DemoDriver/DemoDevice.h )
+        src/DemoDriver/DemoDevice.cpp src/DemoDriver/DemoDevice.h)
+
 
 SET(SRC_SERIAL_DRIVER
         src/serialDriver/InvalidResponseSerialExecutor.h
@@ -138,21 +157,15 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/USBDevice.h
         src/usb/UsbResponseExecutors.cpp
         src/usb/UsbResponseExecutors.h
-        src/httpServer/RestActions/UpdateAttributes.cpp
-        src/httpServer/RestActions/UpdateAttributes.h
         src/Utils/AttributeWriterResult.cpp
         src/Utils/AttributeWriterResult.h
-        src/httpServer/ServerRequest.cpp
-        src/httpServer/ServerRequest.h
         src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp
         src/usb/DeviceInfoExecutor.h
         src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
-        src/httpServer/RestActions/ShowDeviceInfo.cpp src/httpServer/RestActions/ShowDeviceInfo.h
         src/Utils/Constant.cpp src/Utils/Constant.h
         src/usb/IEEEAddressResponseExecutor.h
         src/ZigbeeData/NewDeviceObserver.h
         src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
-        src/httpServer/RestActions/ShowTopology.cpp src/httpServer/RestActions/ShowTopology.h
         )
 
 
@@ -177,10 +190,12 @@ add_library(javascript_lib OBJECT
         src/JavaScript/JSZEndpoints.cpp src/JavaScript/JSZEndpoints.h
         src/JavaScript/GlobalJSFunctions.cpp src/JavaScript/GlobalJSFunctions.h
         src/JavaScript/JSCallbackFifo.cpp src/JavaScript/JSCallbackFifo.h
-        src/JavaScript/JSResultSet.cpp src/JavaScript/JSResultSet.h)
+        src/JavaScript/JSResultSet.cpp src/JavaScript/JSResultSet.h src/JavaScript/JSRestParam.cpp src/JavaScript/JSRestParam.h)
+
 
 add_library(domus_engine_static_lib STATIC
         ${USB_SRC}
+        ${SRC_HTTP}
         ${SRC_SERIAL_DRIVER}
         ${SRC_DEMO_DRIVER}
         ${srcZigbeeData}
@@ -200,10 +215,6 @@ add_library(domus_engine_static_lib STATIC
         ${srcRestActions}
         $<TARGET_OBJECTS:javascript_lib>
         ${SRC_EXCEPTION}
-        src/httpServer/RestActions/ShowBindTable.cpp
-        src/httpServer/RestActions/ShowBindTable.h
-        src/httpServer/RestActions/ExecuteBind.cpp
-        src/httpServer/RestActions/ExecuteBind.h
         src/ZigbeeData/Exceptions/InvalidOutCluster.cpp
         src/ZigbeeData/Exceptions/InvalidOutCluster.h
         src/ZigbeeData/Exceptions/InvalidInCluster.cpp
@@ -215,28 +226,23 @@ add_library(domus_engine_static_lib STATIC
         src/json/jsoncpp.cpp
         src/json/json/json-forwards.h
         src/json/json/json.h
-        src/httpServer/RestActions/ShowAttributeFactory.cpp
-        src/httpServer/RestActions/ShowAttributeFactory.h
-        src/httpServer/RestParser/RestQuery.cpp
-        src/httpServer/RestParser/RestQuery.h
-        src/httpServer/RestActions/ExecuteReset.cpp
-        src/httpServer/RestActions/ExecuteReset.h
         src/Utils/Clusters.cpp
         src/Utils/Clusters.h src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h)
 
 
-add_executable(domus_engine src/main.cpp ${V8_BLOB} )
+add_executable(domus_engine src/main.cpp ${V8_BLOB})
 
+add_dependencies(domus_engine pistache)
 
 SET(LIBS zigbeeLib
         usb-1.0
         pq
-        PocoNet
-        PocoUtil
-        PocoXML
-        #con     PocoZip
-        #     PocoData
-        PocoFoundation
+        # PocoNet
+        # PocoUtil
+        # PocoXML
+        # PocoZip
+        # PocoData
+        # PocoFoundation
         ${V8_LIBRARY}
         ${Boost_SIGNALS_LIBRARY_RELEASE}
         ${Boost_THREAD_LIBRARY_RELEASE}
@@ -244,6 +250,7 @@ SET(LIBS zigbeeLib
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
         ${Boost_LOG_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
+        ${PISTACHE_LIB}
         dl
         pthread
         )

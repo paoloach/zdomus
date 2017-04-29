@@ -38,7 +38,6 @@ namespace zigbee {
             std::unique_ptr<ZDevicesMock> zDevices;
             std::unique_ptr<JavaScriptExecuter> jsExecuter;
             ExtAddress extAddress;
-            http::ExternalRestPath fixedPathContainer;
         };
 
     } /* namespace test */

@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.opengl.GLES20;
 import android.support.annotation.NonNull;
 
+import com.google.common.base.Optional;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.rajawali3d.Object3D;
 import org.rajawali3d.bounds.BoundingBox;
@@ -21,22 +23,23 @@ import it.achdjian.paolo.domusviewer.database.TempSensorLocationDS;
  * Created by Paolo Achdjian on 29/08/16.
  */
 public class RoomObject {
+    public final Object3D object3D;
+    private final TempSensorLocationDS tempSensorLocationDS;
+    private final TemperatureCache temperatureCache;
     private Scene scene;
     private ObjectColorPicker picker;
     public String name;
     public Material material;
     public SpotLight light;
-    public final Object3D object3D;
-    private final TempSensorLocationDS tempSensorLocationDS;
     public boolean selected;
-    public Integer temperature;
     public Vector3 mean;
     public TemperatureLabel temperatureLabel;
     public TrashLabel trashLabel;
 
-    public RoomObject(@NonNull Object3D object3D, @NonNull TempSensorLocationDS tempSensorLocationDS) {
+    public RoomObject(@NonNull Object3D object3D, @NonNull TempSensorLocationDS tempSensorLocationDS, @NonNull TemperatureCache temperatureCache) {
         this.object3D = object3D;
         this.tempSensorLocationDS = tempSensorLocationDS;
+        this.temperatureCache = temperatureCache;
 
         object3D.setBlendingEnabled(true);
         object3D.setDepthTestEnabled(true);
@@ -59,7 +62,7 @@ public class RoomObject {
     }
 
     public void initLabels(@NonNull Context context) {
-        temperatureLabel = new TemperatureLabel(this);
+        temperatureLabel = new TemperatureLabel(this, temperatureCache);
         scene.addChild(temperatureLabel);
         trashLabel = new TrashLabel(context, this, Color.BLACK);
         scene.addChild(trashLabel);
@@ -111,34 +114,36 @@ public class RoomObject {
 
     public void select() {
         selected = true;
-        if (temperature == null) {
+        Optional<Integer> temperature = temperatureCache.getTemperature(name);
+        if (!temperature.isPresent()) {
             material.setColor(Rooms.SELECTED_COLOR);
         } else {
-            setTemperature(temperature);
+            updateTemp();
         }
     }
 
     public void deselect() {
         selected = false;
-        if (temperature == null) {
+        Optional<Integer> temperature = temperatureCache.getTemperature(name);
+        if (!temperature.isPresent()) {
             material.setColor(Rooms.DEFAULT_COLOR);
         } else {
-            setTemperature(temperature);
+            updateTemp();
         }
     }
 
-    public void setTemperature(Integer temp) {
-        if (temp != null && material != null) {
-            temperature = temp;
-            int color = TemperatureColorMap.getColor(temperature);
-            if (selected) {
-                color = ~(color & 0xFFFFFF);
-            }
-            material.setColor(color);
-            material.enableLighting(true);
-            material.setDiffuseMethod(new DiffuseMethod.Lambert());
-            if (temperatureLabel != null) {
-                temperatureLabel.setTemperature(temp / 100.0f, color);
+    public void updateTemp() {
+        if (temperatureLabel != null && material != null) {
+            Optional<Integer> temp = temperatureCache.getTemperature(name);
+            if (temp.isPresent()) {
+                int color = TemperatureColorMap.getColor(temp.get());
+                if (selected) {
+                    color = ~(color & 0xFFFFFF);
+                }
+                material.setColor(color);
+                material.enableLighting(true);
+                material.setDiffuseMethod(new DiffuseMethod.Lambert());
+                temperatureLabel.setTemperature(temp.get() / 100.0f, color);
             }
         }
     }
@@ -148,11 +153,12 @@ public class RoomObject {
         tempSensorLocationDS.removeTempSensorLocation(name);
         scene.removeChild(temperatureLabel);
         temperatureLabel.destroy();
-        temperatureLabel=null;
+        temperatureLabel = null;
 
         scene.removeChild(trashLabel);
         picker.unregisterObject(trashLabel);
         trashLabel.destroy();
-        trashLabel=null;
+        trashLabel = null;
+        material.setColor(Rooms.DEFAULT_COLOR);
     }
 }

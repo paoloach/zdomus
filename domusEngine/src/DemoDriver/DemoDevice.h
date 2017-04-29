@@ -9,6 +9,7 @@
 #include <thread>
 #include <random>
 #include "../ZigbeeData/ZDevices.h"
+#include "../usb/AttributeValuesSignalMap.h"
 
 namespace zigbee {
 
@@ -16,26 +17,26 @@ namespace zigbee {
 
     class DemoDevice : public ZigbeeDevice {
     public:
-        DemoDevice(SingletonObjects &singletonObjects);
+        explicit DemoDevice(SingletonObjects &singletonObjects);
 
         virtual ~DemoDevice() = default;
 
     private:
-        virtual bool isPresent() override;
+        bool isPresent() override;
 
-        virtual bool enableLog() override;
+        bool enableLog() override;
 
-        virtual void requestActiveEndpoints(NwkAddr nwkAddr) override;
+        void requestActiveEndpoints(NwkAddr nwkAddr) override;
 
-        virtual void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) override;
+        void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) override;
 
-        virtual void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
+        void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
 
-        virtual void requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds &attributeIds) override;
+        void requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds &attributeIds) override;
 
-        virtual void requestReset() override;
+        void requestReset() override;
 
-        virtual void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType, uint8_t dataValueLen,
+        void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType, uint8_t dataValueLen,
                                     uint8_t *dataValue) override;
 
         virtual void
@@ -68,7 +69,9 @@ namespace zigbee {
 // internal function
         void assignBasicCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, std::array<std::vector<uint8_t>, 8> &data);
 
-        void assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, int16_t temp, int delay);
+        void assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, AttributeValueSignalMap &attributeValueSignalMap, int16_t temp,
+                                             int delay);
+
         void assignOnOffCluster(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds);
 
         void runDemoThread();
@@ -81,7 +84,7 @@ namespace zigbee {
         std::thread demoThread;
 
         std::map<std::tuple<NwkAddr, EndpointID, ClusterID, int>, int> intValuesMap;
-        std::vector< std::tuple<int32_t, std::function< void()> > > posponedCallbacks;
+        std::vector<std::tuple<int32_t, std::function<void()> > > posponedCallbacks;
 
         std::random_device rd;
         std::mt19937 e1;

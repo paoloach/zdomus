@@ -1,6 +1,7 @@
 package it.achdjian.paolo.domusviewer.temperature;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.common.base.Optional;
 import com.google.common.cache.CacheBuilder;
@@ -10,6 +11,7 @@ import com.google.common.cache.LoadingCache;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.Trace;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,19 +41,21 @@ public class TemperatureCache extends CacheLoader<String, Optional<Integer>> imp
     @AfterInject
     public void init() {
         cache = CacheBuilder.newBuilder()
-                .expireAfterWrite(5, TimeUnit.SECONDS)
+                .expireAfterWrite(5, TimeUnit.MINUTES)
                 .build(this);
     }
-
+    @Trace(tag="REST")
     public Optional<Integer> getTemperature(@NonNull String roomName){
         return cache.getUnchecked(roomName);
     }
 
 
     @Override
+    @Trace(tag="REST")
     public Optional<Integer> load(@NonNull String roomName) throws Exception {
         Element element = tempSensorLocationDS.getElement(roomName);
         if (element != null) {
+
             domusEngine.requestAttributes(this, element.network, element.endpoint, Constants.TEMPERATURE_MEASUREMENT, 0);
             if (!values.containsKey(roomName)) {
                 return Optional.absent();
@@ -63,6 +67,7 @@ public class TemperatureCache extends CacheLoader<String, Optional<Integer>> imp
     }
 
     @Override
+    @Trace(tag="REST")
     public void newAttributes(int networkId, int endpointId, List<JSonAttribute> attributes) {
         for (final JSonAttribute attribute : attributes) {
             if (attribute.isSupported && attribute.isAvailable && attribute.id == 0) {

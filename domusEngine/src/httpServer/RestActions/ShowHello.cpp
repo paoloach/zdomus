@@ -5,23 +5,22 @@
  *      Author: Paolo Achdjian
  */
 
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
-#include <Poco/Net/MediaType.h>
+#include <pistache/http_header.h>
 
 #include "ShowHello.h"
 
+
 namespace zigbee {
     namespace http {
+        using namespace Net::Rest;
+        using namespace Net::Http;
+        using namespace Net::Http::Header;
 
-        void ShowHello::operator()(const PlaceHolders &&, ServerRequest &, Poco::Net::HTTPServerResponse &response) {
-            Poco::Net::MediaType mediaType("text", "plain");
-            response.setContentType(mediaType);
-            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
 
-            response.send() << "Hello\n";
+        Net::Rest::Route::Result ShowHello::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+            response.send(Code::Ok, "Hello\n",MIME(Text, Plain));
+            return Net::Rest::Route::Result::Ok;
         }
-
     } /* namespace http */
 } /* namespace zigbee */
 

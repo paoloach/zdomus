@@ -3,34 +3,31 @@
 //
 
 #include <boost/log/trivial.hpp>
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ZigbeeDevice.h>
 #include <thread>
 
 #include "../MediaTypeProducerFactory.h"
 #include "../../Utils/SingletonObjects.h"
-#include "../../Utils/DeviceInfoDispatcher.h"
 #include "../../ZigbeeData/PropertyTree/ZDevicesPT.h"
 
 #include "ShowDeviceInfo.h"
-#include "../../json/json/json.h"
 
 using namespace std::chrono;
 using namespace Json;
 
-namespace  zigbee {
-    namespace  http {
+namespace zigbee {
+    namespace http {
+        using namespace Net::Rest;
+        using namespace Net::Http;
+        using namespace Net::Http::Header;
+
         ShowDeviceInfo::~ShowDeviceInfo() {
             singletons.getDeviceInfoDispatcher()->remove(this, device);
         }
 
-        void ShowDeviceInfo::operator()(const zigbee::http::PlaceHolders &&placeHolder,
-                                                      zigbee::http::ServerRequest &,
-                                                      Poco::Net::HTTPServerResponse &response) {
-            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-            device = placeHolder.get<NwkAddr>("device");
+        Net::Rest::Route::Result ShowDeviceInfo::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+            device = request.param(":device").as<NwkAddr>();
             BOOST_LOG_TRIVIAL(info) << "Request device info " << device;
             auto zigbeeDevice = singletons.getZigbeeDevice();
             auto constants = singletons.getConstant();
@@ -44,17 +41,16 @@ namespace  zigbee {
                 auto start = system_clock::now();
                 while (!resultPresent) {
                     std::this_thread::sleep_for(duration);
-                    milliseconds elapsed =  duration_cast<std::chrono::milliseconds>(system_clock::now()- start);
-                    if (elapsed > milliseconds(constants.requestTimeout) ){
-                        response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
-                        response.send() << "data timeout\n";
-                        return;
+                    milliseconds elapsed = duration_cast<std::chrono::milliseconds>(system_clock::now() - start);
+                    if (elapsed > milliseconds(constants.requestTimeout)) {
+                        response.send(Code::Bad_Request, "data timeout\n\r");
+                        return Net::Rest::Route::Result::Ok;
                     }
                 }
                 sendJSON(response);
             }
-            response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_INTERNAL_SERVER_ERROR);
-            response.send() << "zigbee device not connected\n";
+            response.send(Code::Internal_Server_Error, "zigbee device not connected\n\r");
+            return Net::Rest::Route::Result::Ok;
         }
 
         void ShowDeviceInfo::newDeviceInfo(zigbee::DeviceInfoMessage *deviceInfo) {
@@ -64,9 +60,7 @@ namespace  zigbee {
             }
         }
 
-        void ShowDeviceInfo::sendJSON(Poco::Net::HTTPServerResponse &response) {
-            response.setContentType(Poco::Net::MediaType("application", "json"));
-            response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_OK);
+        void ShowDeviceInfo::sendJSON(Net::Http::ResponseWriter &response) {
             Value root(objectValue);
 
             root["nwkAddr"] = Value(deviceInfoMessage.nwkAddr);
@@ -77,9 +71,12 @@ namespace  zigbee {
             root["txCounter"] = Value(deviceInfoMessage.txCounter);
             root["txCost"] = Value(deviceInfoMessage.txCost);
             root["rxLqi"] = Value(deviceInfoMessage.rxLqi);
-            response.send() << root << "\n";
-        }
 
+            std::stringstream output;
+            output << root << "\n\r";
+
+            response.send(Code::Ok, output.str(), MIME(Application, Json));
+        }
 
 
     }

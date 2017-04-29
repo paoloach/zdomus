@@ -15,10 +15,6 @@ namespace http {
 
 ApplicationJSONProducer::~ApplicationJSONProducer() noexcept = default;
 
-Poco::Net::MediaType ApplicationJSONProducer::getMediaType() const noexcept {
-	return Poco::Net::MediaType("application","json");
-}
-
 void ApplicationJSONProducer::produce(std::ostream& ostream, const boost::property_tree::ptree& properties) const noexcept {
 	boost::property_tree::json_parser::write_json(ostream, properties, false);
 }

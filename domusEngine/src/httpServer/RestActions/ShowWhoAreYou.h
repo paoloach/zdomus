@@ -8,7 +8,8 @@
 #ifndef SRC_HTTPSERVER_RESTACTIONS_SHOWWHOAREYOU_H_
 #define SRC_HTTPSERVER_RESTACTIONS_SHOWWHOAREYOU_H_
 
-#include "../RestParser/RestActions.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 
 namespace zigbee {
 
@@ -16,10 +17,9 @@ namespace zigbee {
 
     namespace http {
 
-        class ShowWhoAreYou : public ActionHandler {
+        class ShowWhoAreYou {
         public:
-            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
-                            Poco::Net::HTTPServerResponse &response);
+            Net::Rest::Route::Result  operator()(const Net::Rest::Request& request, Net::Http::ResponseWriter response);
 
         };
 

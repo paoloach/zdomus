@@ -14,10 +14,6 @@ namespace http {
 
 PlainTextProducer::~PlainTextProducer() noexcept = default;
 
-Poco::Net::MediaType PlainTextProducer::getMediaType() const  noexcept {
-	return Poco::Net::MediaType("text", "plain");
-}
-
 void PlainTextProducer::produce(std::ostream& ostream, const boost::property_tree::ptree& properties) const noexcept {
 	boost::property_tree::ini_parser::write_ini(ostream, properties, 0);
 }

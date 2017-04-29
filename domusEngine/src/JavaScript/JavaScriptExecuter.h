@@ -26,7 +26,6 @@
 #include "JSLog.h"
 #include "JSRestServer.h"
 #include "../Database/DBTableFactory.h"
-#include "../httpServer/ExternalRestPath.h"
 #include "V8Allocator.h"
 #include "GlobalJSFunctions.h"
 #include "JSCallbackFifo.h"
@@ -75,6 +74,7 @@ namespace zigbee {
         JSZEndpoint jsZEndpoint;
         JSZEndpoints jsZEndpoints;
         JSZDevice jsZDevice;
+        JSRestParam jsRestParam;
         JSRestServer jsRestServer;
         JSZDevices jszDevices;
         GlobalJSFunctions globalJSFunctions;

@@ -1,8 +1,6 @@
 //
 // Created by paolo on 03/04/16.
 //
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
@@ -16,24 +14,24 @@
 #include "../../ZigbeeData/Exceptions/InvalidOutCluster.h"
 #include "../../ZigbeeData/Exceptions/InvalidInCluster.h"
 
-
-void zigbee::http::ExecuteBind::operator()(const zigbee::http::PlaceHolders &&placeHolder, ServerRequest &, Poco::Net::HTTPServerResponse &response) {
+Net::Rest::Route::Result zigbee::http::ExecuteBind::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
     BOOST_LOG_TRIVIAL(info) << "ExecuteBind";
-    auto srcDevice(placeHolder.get<NwkAddr>("srcDevice"));
-    auto srcEndpoint(placeHolder.get<EndpointID>("srcEndpoint"));
-    auto clusterId(placeHolder.get<ClusterID>("cluster"));
-    auto dstDevice(placeHolder.get<NwkAddr>("dstDevice"));
-    auto dstEndpoint(placeHolder.get<EndpointID>("dstEndpoint"));
+
+    auto srcDevice = request.param(":srcDevice").as<NwkAddr>();
+    auto srcEndpoint = request.param(":srcEndpoint").as<EndpointID>();
+    auto clusterId = request.param(":cluster").as<ClusterID>();
+    auto dstDevice = request.param(":dstDevice").as<NwkAddr>();
+    auto dstEndpoint = request.param(":dstEndpoint").as<EndpointID>();
 
     auto srcZDevice = singletons.getZDevices()->getDevice(srcDevice);
     auto srcZEndpoint = srcZDevice->getEndpoint(srcEndpoint);
-    if (!srcZEndpoint.isOutCluster(clusterId)){
+    if (!srcZEndpoint.isOutCluster(clusterId)) {
         throw InvalidOutCluster(srcDevice, srcEndpoint, clusterId);
     }
 
     auto dstZDevice = singletons.getZDevices()->getDevice(dstDevice);
     auto dstZEndpoint = dstZDevice->getEndpoint(dstEndpoint);
-    if (!dstZEndpoint.isInCluster(clusterId)){
+    if (!dstZEndpoint.isInCluster(clusterId)) {
         throw InvalidInCluster(srcDevice, srcEndpoint, clusterId);
     }
 
@@ -43,11 +41,10 @@ void zigbee::http::ExecuteBind::operator()(const zigbee::http::PlaceHolders &&pl
     } else {
         singletons.getZigbeeDevice()->sendReqUnbind(coordinator, srcZDevice->getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice->getExtAddr().asArray(), dstEndpoint);
     }
+    std::stringstream stream;
+    stream << "Cluster " << clusterId << " binded " << srcDevice << ":" << srcEndpoint << " with " << dstDevice << ":" << dstEndpoint << std::endl;
 
-    Poco::Net::MediaType mediaType("text","plain");
-    response.setContentType(mediaType);
-    response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-
-    response.send() << "Cluster " << clusterId << " binded " << srcDevice << ":" << srcEndpoint << " with " << dstDevice << ":" << dstEndpoint << std::endl;
+    response.send(Net::Http::Code::Ok, stream.str(), MIME(Text, Plain));
+    return Net::Rest::Route::Result::Ok;
 }
 

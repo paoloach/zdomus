@@ -8,11 +8,13 @@
 #ifndef SRC_HTTPSERVER_RESTACTIONS_SHOWATTRIBUTE_H_
 #define SRC_HTTPSERVER_RESTACTIONS_SHOWATTRIBUTE_H_
 
-#include "../RestParser/RestActions.h"
-#include "ClusterThrowingException.h"
 #include <atomic>
 #include <zcl/ZCLAttribute.h>
 #include <iostream>
+
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
+#include "ClusterThrowingException.h"
 
 namespace zigbee {
 
@@ -20,9 +22,7 @@ namespace zigbee {
 
     namespace http {
 
-        class PlaceHolders;
-
-        class ShowAttribute : public ActionHandler, public ClusterThrowingException {
+        class ShowAttribute : public ClusterThrowingException {
         private:
             std::vector<std::atomic<bool >> attributesArrived;
             std::map<int, int> mapAttributes;
@@ -31,11 +31,11 @@ namespace zigbee {
         public:
             ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) {};
 
-            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request, Poco::Net::HTTPServerResponse &response);
+            void operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter & response);
 
             void attributeReceived(int attributeId, int status);
 
-            void send(Poco::Net::HTTPServerResponse &response, std::vector< ZCLAttribute * > &&attributes);
+            void send(Net::Http::ResponseWriter & response, std::vector< ZCLAttribute * > &&attributes);
 
         private:
             bool isAllAttributeArrived() const;

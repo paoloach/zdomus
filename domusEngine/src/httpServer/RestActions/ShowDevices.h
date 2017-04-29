@@ -8,7 +8,8 @@
 #ifndef SRC_HTTPSERVER_RESTACTIONS_SHOWDEVICES_H_
 #define SRC_HTTPSERVER_RESTACTIONS_SHOWDEVICES_H_
 
-#include "../RestParser/RestActions.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 
 namespace zigbee {
 
@@ -16,15 +17,11 @@ namespace zigbee {
 
     namespace http {
 
-        class PlaceHolders;
-
-        class ShowDevices : public ActionHandler {
+        class ShowDevices {
         public:
             ShowDevices(SingletonObjects &singletons) noexcept : singletons(singletons) { };
 
-            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
-                            Poco::Net::HTTPServerResponse &response);
-
+            Net::Rest::Route::Result  operator()(const Net::Rest::Request& request, Net::Http::ResponseWriter response);
         private:
             SingletonObjects &singletons;
         };

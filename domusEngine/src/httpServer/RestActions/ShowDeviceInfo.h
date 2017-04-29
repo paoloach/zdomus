@@ -5,7 +5,9 @@
 #ifndef DOMUS_ENGINE_SHOWDEVICEINFO_H
 #define DOMUS_ENGINE_SHOWDEVICEINFO_H
 
-#include "../RestParser/RestActions.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
+
 #include "../../Utils/DeviceInfoDispatcher.h"
 
 namespace zigbee {
@@ -13,15 +15,13 @@ namespace zigbee {
     class SingletonObjects;
 
     namespace http {
-        class ShowDeviceInfo : public ActionHandler, public DeviceInfoDispatcher::DeviceInfoObserver {
+        class ShowDeviceInfo :  public DeviceInfoDispatcher::DeviceInfoObserver {
         public:
             ShowDeviceInfo(SingletonObjects &singletons) noexcept : singletons(singletons) {};
             ~ShowDeviceInfo();
-            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
-                            Poco::Net::HTTPServerResponse &response);
-
+            Net::Rest::Route::Result  operator()(const Net::Rest::Request& request, Net::Http::ResponseWriter response);
             void newDeviceInfo(DeviceInfoMessage *) override ;
-            void sendJSON(Poco::Net::HTTPServerResponse &response);
+            void sendJSON(Net::Http::ResponseWriter &response);
         private:
             SingletonObjects &singletons;
             bool resultPresent;

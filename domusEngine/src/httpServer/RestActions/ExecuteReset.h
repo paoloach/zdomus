@@ -5,7 +5,8 @@
 #ifndef DOMUS_ENGINE_EXECUTERESET_H
 #define DOMUS_ENGINE_EXECUTERESET_H
 
-#include "../RestParser/RestActions.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 #include "ClusterThrowingException.h"
 
 namespace zigbee {
@@ -13,11 +14,11 @@ namespace zigbee {
     class SingletonObjects;
 
     namespace http {
-        class ExecuteReset  : public ActionHandler{
+        class ExecuteReset {
         public:
             ExecuteReset(SingletonObjects &singletons) noexcept : singletons(singletons) { };
 
-            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request, Poco::Net::HTTPServerResponse &response);
+            Net::Rest::Route::Result operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response);
 
         private:
             SingletonObjects &singletons;

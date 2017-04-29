@@ -5,20 +5,18 @@
 #ifndef DOMUS_ENGINE_SHOWBINDTABLE_H
 #define DOMUS_ENGINE_SHOWBINDTABLE_H
 
-#include "../RestParser/RestActions.h"
-
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 
 namespace zigbee {
 
     class SingletonObjects;
     namespace http {
 
-        class ShowBindTable : public ActionHandler {
+        class ShowBindTable  {
         public:
             ShowBindTable(zigbee::SingletonObjects &singletons) noexcept : singletons(singletons) { };
-
-            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
-                            Poco::Net::HTTPServerResponse &response);
+            Net::Rest::Route::Result operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response);
 
         private:
             SingletonObjects &singletons;

@@ -35,6 +35,8 @@ public class Rooms implements OnObjectPickedListener {
     Context context;
     @Bean
     TempSensorLocationDS tempSensorLocationDS;
+    @Bean
+    TemperatureCache temperatureCache;
 
     public final List<RoomObject> rooms = new ArrayList<>();
     private final List<List<String>> planes = new ArrayList<>();
@@ -57,7 +59,7 @@ public class Rooms implements OnObjectPickedListener {
             Log.d(getClass().getName(), "num objects: " + mObjectGroup.getNumChildren());
             for (int i = 0; i < mObjectGroup.getNumChildren(); i++) {
                 Object3D child = mObjectGroup.getChildAt(i);
-                RoomObject room = new RoomObject(child, tempSensorLocationDS);
+                RoomObject room = new RoomObject(child, tempSensorLocationDS,temperatureCache );
                 rooms.add(room);
             }
         } catch (ParsingException e) {
@@ -130,7 +132,7 @@ public class Rooms implements OnObjectPickedListener {
     }
 
     @Override
-    public void onObjectPicked(Object3D object) {
+    public void onObjectPicked(@NonNull Object3D object) {
         RoomObject roomSelected = null;
         for (RoomObject roomObject : rooms) {
             if (roomObject.object3D == object) {

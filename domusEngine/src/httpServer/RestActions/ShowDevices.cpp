@@ -6,9 +6,7 @@
  */
 
 #include <boost/log/trivial.hpp>
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
-#include <zigbee/NwkAddr.h>
+#include <sstream>
 
 #include "ShowDevices.h"
 
@@ -18,15 +16,18 @@
 
 namespace zigbee {
     namespace http {
+        using namespace Net::Rest;
+        using namespace Net::Http;
+        using namespace Net::Http::Header;
 
-        void ShowDevices::operator()(const PlaceHolders &&, ServerRequest &request,
-                                     Poco::Net::HTTPServerResponse &response) {
-            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-            BOOST_LOG_TRIVIAL(info) << "ShowDevices";
-            const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
-            producer.produce(response.send(), ZDevicesPT(singletons.getZDevices()));
+        Net::Rest::Route::Result ShowDevices::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+            auto contentType = request.headers().get<ContentType>();
+            const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);
+            std::stringstream output;
+            producer.produce(output, ZDevicesPT(singletons.getZDevices()));
+            response.send(Code::Ok, output.str());
+            return Net::Rest::Route::Result::Ok;
         }
-
     } /* namespace http */
 } /* namespace zigbee */
 

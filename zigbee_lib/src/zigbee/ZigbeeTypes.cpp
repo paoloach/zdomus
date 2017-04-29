@@ -10,3 +10,18 @@ std::ostream &operator<<(std::ostream &out, const ZigbeeAttributeIds &attributeI
     );
     return out;
 }
+
+std::istream &operator>>(std::istream &in, ZigbeeAttributeIds &attributeIds) {
+    ZigbeeAttributeId id;
+    while (true) {
+        in >> std::hex >> id >> std::dec;
+        if (in.fail()) {
+            break;
+        }
+        attributeIds.push_back(id);
+        if (in.peek() != ',')
+            break;
+        in.get();
+    }
+    return in;
+}

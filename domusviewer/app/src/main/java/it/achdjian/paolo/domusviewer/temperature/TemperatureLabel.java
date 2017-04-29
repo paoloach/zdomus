@@ -21,6 +21,7 @@ import java.util.Locale;
 public class TemperatureLabel extends Plane {
     private float previousTemp = Float.NaN;
     private final String name;
+    private final TemperatureCache temperatureCache;
     public static float WIDTH =2;
     public static float HEIGHT =0.5f;
 
@@ -34,9 +35,10 @@ public class TemperatureLabel extends Plane {
         return minHeight < HEIGHT ? minHeight : HEIGHT;
     }
 
-    public TemperatureLabel(@NonNull RoomObject room) {
+    public TemperatureLabel(@NonNull RoomObject room, @NonNull TemperatureCache temperatureCache) {
         super(getMaxWidth(room), getMaxHeight(room), 3, 3);
         name = room.name;
+        this.temperatureCache = temperatureCache;
         setName("TempSensorFor"+ room.name);
         setText("N.D.", Color.GREEN);
         Vector3 roomMax = room.getMax();

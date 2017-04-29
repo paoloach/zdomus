@@ -6,17 +6,13 @@
  */
 
 
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
-#include <boost/lexical_cast.hpp>
-#include <boost/log/trivial.hpp>
+#include "pistache/http_header.h"
 
 #include "ShowInCluster.h"
 
-#include "../RestParser/PlaceHolders.h"
 #include "../MediaTypeProducerFactory.h"
 #include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/PropertyTree/ClusterPT.h"
@@ -24,30 +20,33 @@
 
 namespace zigbee {
     namespace http {
+        using namespace Net::Rest;
+        using namespace Net::Http;
+        using namespace Net::Http::Header;
 
-        void ShowInCluster::operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
-                                       Poco::Net::HTTPServerResponse &response) {
-            BOOST_LOG_TRIVIAL(info) << "ShowInCluster";
-            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-            const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
-            auto nwkAddr(placeHolder.get<NwkAddr>("device"));
-            auto endpoint(placeHolder.get<EndpointID>("endpoint"));
-            auto clusterId(placeHolder.get<ClusterID>("cluster"));
-            auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
+        Net::Rest::Route::Result ShowInCluster::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+            auto contentType = request.headers().get<ContentType>();
+            const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);
+
+            auto device = request.param(":device").as<NwkAddr>();
+            auto endpoint = request.param(":endpoint").as<EndpointID>();
+            auto clusterId = request.param(":cluster").as<ClusterID>();
+            auto zDevice = singletons.getZDevices()->getDevice(device);
             auto zEndpoint = zDevice->getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
-            if (zEndpoint.isInCluster(clusterId)) {
-                auto cluster = singletons.getClusters()->getCluster(nwkAddr, endpoint, clusterId);
-                producer.produce(response.send(), ClusterPT(cluster));
-            } else {
-                std::stringstream message;
 
-                message << "ERROR: " << "cluster " << clusterId << " is not a cluster of endpoint " <<
-                zEndpoint.getEndpoint() <<
-                " in the device with address " << zEndpoint.getNwkAddr();
-                std::cerr << message.str() << std::endl;
-                response.send() << message.str();
-                response.setStatus(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
+            std::stringstream output;
+
+            if (zEndpoint.isInCluster(clusterId)) {
+                auto cluster = singletons.getClusters()->getCluster(device, endpoint, clusterId);
+                producer.produce(output, ClusterPT(cluster));
+                response.send(Code::Ok, output.str());
+            } else {
+                output << "ERROR: " << "cluster " << clusterId << " is not a cluster of endpoint " << zEndpoint.getEndpoint() << " in the device with address "
+                       << zEndpoint.getNwkAddr();
+                BOOST_LOG_TRIVIAL(error) << output.str();
+                response.send(Code::Bad_Request, output.str());
             }
+            return Net::Rest::Route::Result::Ok;
         }
 
     } /* namespace http */

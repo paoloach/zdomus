@@ -5,9 +5,8 @@
 #include "ShowAttributeFactory.h"
 #include "ShowAttribute.h"
 
-void zigbee::http::ShowAttributeFactory::operator()(const zigbee::http::PlaceHolders &&placeHolder, ServerRequest &request,
-                                                    Poco::Net::HTTPServerResponse &response) {
+Net::Rest::Route::Result zigbee::http::ShowAttributeFactory::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
     ShowAttribute  showAttribute{singletons};
-    showAttribute(std::move(placeHolder), request, response);
+    showAttribute(request, response);
+    return Net::Rest::Route::Result::Ok;;
 }
-

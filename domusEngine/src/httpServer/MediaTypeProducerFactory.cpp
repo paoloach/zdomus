@@ -6,24 +6,24 @@
  */
 
 #include "MediaTypeProducerFactory.h"
-#include "ApplicationJSONProducer.h"
-#include "PlainTextProducer.h"
+
 
 namespace zigbee {
-namespace http {
+    namespace http {
 
-ApplicationJSONProducer MediaTypeProducerFactory::applicationJSONProducer;
-PlainTextProducer MediaTypeProducerFactory::plainTextProducer;
+        ApplicationJSONProducer MediaTypeProducerFactory::applicationJSONProducer;
+        PlainTextProducer MediaTypeProducerFactory::plainTextProducer;
 
-MediaTypeProducerFactory::~MediaTypeProducerFactory() noexcept = default;
+        MediaTypeProducerFactory::~MediaTypeProducerFactory() noexcept = default;
 
-const MediaTypeProducer& MediaTypeProducerFactory::getMediaType(const std::string & mediaType)  noexcept{
-	if (mediaType == "application/json" ){
-		return applicationJSONProducer;
-	} else {
-		return plainTextProducer;
-	}
-}
+        const MediaTypeProducer &MediaTypeProducerFactory::getMediaType(std::shared_ptr<const Net::Http::Header::ContentType> &contentType) {
+            if (contentType->mime() == MIME(Application, Json)) {
+                return applicationJSONProducer;
+            } else {
+                return plainTextProducer;
+            }
+        }
 
-} /* namespace http */
+
+    } /* namespace http */
 } /* namespace zigbee */

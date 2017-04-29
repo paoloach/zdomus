@@ -7,12 +7,9 @@
 #include "ExecuteReset.h"
 #include "../../Utils/SingletonObjects.h"
 
-void zigbee::http::ExecuteReset::operator()(const zigbee::http::PlaceHolders &&,
-                                            ServerRequest &,
-                                            Poco::Net::HTTPServerResponse &response) {
+Net::Rest::Route::Result zigbee::http::ExecuteReset::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response){
     BOOST_LOG_TRIVIAL(info) << "ExecuteReset";
     singletons.getZigbeeDevice()->requestReset();
-    response.setStatus(Poco::Net::HTTPResponse::HTTP_NO_CONTENT);
-    response.send() << "reset\n";
+    response.send(Net::Http::Code::No_Content, "reset\n\r");
 }
 

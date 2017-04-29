@@ -8,7 +8,6 @@
 #ifndef SRC_HTTPSERVER_RESTACTIONS_EXECUTECMD_H_
 #define SRC_HTTPSERVER_RESTACTIONS_EXECUTECMD_H_
 
-#include "../RestParser/RestActions.h"
 #include "ClusterThrowingException.h"
 
 namespace zigbee {
@@ -19,11 +18,11 @@ namespace zigbee {
 
     class PlaceHolders;
 
-    class ExecuteCmd : public ActionHandler, public ClusterThrowingException {
+    class ExecuteCmd : public ClusterThrowingException {
     public:
         ExecuteCmd(SingletonObjects &singletons) noexcept : singletons(singletons) { };
 
-        void operator()(const PlaceHolders &&placeHolder, ServerRequest &request, Poco::Net::HTTPServerResponse &response);
+        Net::Rest::Route::Result operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response);
 
     private:
         SingletonObjects &singletons;

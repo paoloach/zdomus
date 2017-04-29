@@ -5,7 +5,7 @@
 		<Option title="domus_engine_test"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;CMake Files\src\;CMake Files\src\test\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\pistache\;CMake Files\pistache\tmp\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;CMake Files\src\;CMake Files\src\test\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/home/paolo/workspace/zdomus/domusEngine/src/test"/>
@@ -486,6 +486,9 @@
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/pistache/tmp/pistache-cfgcmd.txt.in">
+			<Option virtualFolder="CMake Files\pistache\tmp\"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\googletest\googlemock\"/>

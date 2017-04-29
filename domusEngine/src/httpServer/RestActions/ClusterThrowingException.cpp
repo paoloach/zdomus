@@ -5,28 +5,26 @@
  *      Author: Paolo Achdjian
  */
 
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zigbee/EndpointID.h>
-#include <sstream>
 #include <iostream>
+#include <boost/log/trivial.hpp>
 
 #include "ClusterThrowingException.h"
 
 namespace zigbee {
-namespace http {
+    namespace http {
 
-void ClusterThrowingException::throwWrongCluster(Poco::Net::HTTPServerResponse& response, const ClusterID& clusterId, const EndpointID& endpointId, const NwkAddr& nwkAddr) {
-	std::stringstream message;
+        void ClusterThrowingException::throwWrongCluster(Net::Http::ResponseWriter &response, const ClusterID &clusterId, const EndpointID &endpointId, const NwkAddr &nwkAddr) {
+            std::stringstream message;
 
-	message << "ERROR: " << "cluster " << clusterId << " is not an IN cluster of endpoint " << endpointId << " in the device with address " << nwkAddr << "\n";
-	std::cerr << message.str() << std::endl;
-	response.send() << message.str();
-	response.setStatus(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
-}
+            message << "ERROR: " << "cluster " << clusterId << " is not an IN cluster of endpoint " << endpointId << " in the device with address " << nwkAddr << "\n";
+            BOOST_LOG_TRIVIAL(error) << message.str() << std::endl;
+            response.send(Net::Http::Code::Bad_Request, message.str());
 
-} /* namespace http */
+        }
+
+    } /* namespace http */
 } /* namespace zigbee */
 

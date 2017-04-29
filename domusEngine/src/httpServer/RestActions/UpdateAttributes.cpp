@@ -2,8 +2,6 @@
 // Created by paolo on 23/06/16.
 //
 
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
 #include <boost/log/trivial.hpp>
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
@@ -14,13 +12,15 @@
 #include "../MediaTypeProducerFactory.h"
 #include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/ZDevices.h"
-#include "../ServerRequest.h"
 
-using  Json::operator>>;
+using Json::operator>>;
 
 
 namespace zigbee {
     namespace http {
+        using namespace Net::Rest;
+        using namespace Net::Http;
+        using namespace Net::Http::Header;
 
         /**
          * {
@@ -45,34 +45,35 @@ namespace zigbee {
          * }
          *
          */
-        void UpdateAttributes::operator()(const PlaceHolders &&placeHolder,ServerRequest & request, Poco::Net::HTTPServerResponse &response) {
+        Net::Rest::Route::Result UpdateAttributes::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
             BOOST_LOG_TRIVIAL(info) << "UpdateAttributes";
-            auto nwkAddr(placeHolder.get<NwkAddr>("device"));
-            auto endpoint(placeHolder.get<EndpointID>("endpoint"));
-            auto clusterId(placeHolder.get<ClusterID>("cluster"));
-            auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
-            auto zEndpoint = zDevice->getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
+            auto nwkAddr = request.param(":device").as<NwkAddr>();
+            auto endpoint = request.param(":endpoint").as<EndpointID>();
+            auto clusterId = request.param(":cluster").as<ClusterID>();
+
+            auto zDevice = singletons.getZDevices()->getDevice(nwkAddr);
+            auto zEndpoint = zDevice->getEndpoint(endpoint);
             if (zEndpoint.isInCluster(clusterId)) {
-                auto cluster(singletons.getClusters()->getCluster(nwkAddr,endpoint, clusterId));
+                auto contentType = request.headers().get<ContentType>();
+                auto cluster(singletons.getClusters()->getCluster(nwkAddr, endpoint, clusterId));
 
-                if (!request.isApplicationJSon()){
-                    BOOST_LOG_TRIVIAL(error) << "requested content type " << request.getContentType();
-                    response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_ACCEPTABLE);
-                    response.send() <<"Accepted only application/json type\r\n";
-                    return ;
+                if (!(contentType->mime() == MIME(Application, Json)) ) {
+                    BOOST_LOG_TRIVIAL(error) << "requested content type " << contentType->mime().toString();
+                    response.send(Code::Not_Acceptable, "Accepted only application/json type\r\n");
+
+                } else {
+
+                    Json::Value root;
+                    std::stringstream stream(request.body());
+                    stream >> root;
+
+                    auto results = singletons.getAttributeWriter().write(nwkAddr, endpoint, cluster, root);
+                    response.send(Code::Ok, results.toJSon(), MIME(Application, Json));
                 }
-
-                Json::Value root;
-                request.stream() >> root;
-
-                auto results = singletons.getAttributeWriter().write(nwkAddr, endpoint, cluster, root);
-                Poco::Net::MediaType mediaType("application", "json");
-                response.setContentType(mediaType);
-                response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-                response.send() << results.toJSon() << "\r\n";
             } else {
                 throwWrongCluster(response, clusterId, endpoint, nwkAddr);
             }
+            return Net::Rest::Route::Result::Ok;
         }
 
     } /* namespace http */

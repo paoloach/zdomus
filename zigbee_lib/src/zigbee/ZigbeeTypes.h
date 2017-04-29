@@ -24,11 +24,14 @@ using ZigbeeClusterCmdId = uint16_t;
 
 class ZigbeeAttributeIds : public std::vector<ZigbeeAttributeId> {
 public:
-    ZigbeeAttributeIds(){}
+    ZigbeeAttributeIds() {}
+
     ZigbeeAttributeIds(std::vector<ZigbeeAttributeId> &&attributes) :
-            std::vector<ZigbeeAttributeId>(attributes) { };
+            std::vector<ZigbeeAttributeId>(attributes) {};
 
     friend std::ostream &operator<<(std::ostream &out, const ZigbeeAttributeIds &attributeIds);
+
+    friend std::istream &operator>>(std::istream &in, ZigbeeAttributeIds &attributeIds);
 };
 
 #endif /* ZigbeeTYPES_H_ */

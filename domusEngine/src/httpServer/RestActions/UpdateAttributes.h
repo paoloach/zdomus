@@ -5,20 +5,19 @@
 #ifndef DOMUS_ENGINE_UPDATEATTRIBUTES_H
 #define DOMUS_ENGINE_UPDATEATTRIBUTES_H
 
-#include "../RestParser/RestActions.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 #include "ClusterThrowingException.h"
 
 namespace zigbee {
     class SingletonObjects;
     namespace http {
 
-        class ServerRequest;
-
-        class UpdateAttributes : public ActionHandler, public ClusterThrowingException{
+        class UpdateAttributes : public ClusterThrowingException{
         public:
             UpdateAttributes(SingletonObjects &singletons) noexcept : singletons(singletons) { };
 
-            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request, Poco::Net::HTTPServerResponse &response);
+            Net::Rest::Route::Result operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response);
 
         private:
             SingletonObjects &singletons;

@@ -5,19 +5,20 @@
 #ifndef DOMUS_ENGINE_SHOWATTRIBUTEFACTORY_H
 #define DOMUS_ENGINE_SHOWATTRIBUTEFACTORY_H
 
-#include "../RestParser/RestActions.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
+
 namespace zigbee {
 
     class SingletonObjects;
 
     namespace http {
-
-        class PlaceHolders;
-
         class ShowAttributeFactory {
         public:
-            ShowAttributeFactory(SingletonObjects &singletons): singletons(singletons){}
-            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request, Poco::Net::HTTPServerResponse &response);
+            ShowAttributeFactory(SingletonObjects &singletons) : singletons(singletons) {}
+
+            Net::Rest::Route::Result operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response);
+
         private:
             SingletonObjects &singletons;
         };

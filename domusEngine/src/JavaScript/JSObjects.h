@@ -24,6 +24,7 @@ static constexpr const char * JSRESULT_SET = "DbResultSet";
 static constexpr const char * JSDBMANAGER = "DbManager";
 static constexpr const char * JSDBROW = "DbRow";
 static constexpr const char * JSRESTSERVER = "RestServer";
+static constexpr const char * JSRESTPARAM = "RestParam";
 
 // zDevices methods
 static constexpr const char * GETCOUNTDEVICES = "getCountDevices";
@@ -90,6 +91,9 @@ static constexpr const char * SET_VALUE="setValue";
 
 // RestServer methods
 static constexpr const char * ADD_PATH="addPath";
+
+// RestParam methods
+static constexpr const char * GET_PARAM="getParam";
 
 
 #endif /* SRC_JAVASCRIPT_JSOBJECTS_H_ */

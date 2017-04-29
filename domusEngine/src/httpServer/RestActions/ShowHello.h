@@ -8,7 +8,8 @@
 #ifndef SRC_HTTPSERVER_RESTACTIONS_SHOWHELLO_H_
 #define SRC_HTTPSERVER_RESTACTIONS_SHOWHELLO_H_
 
-#include "../RestParser/RestActions.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 
 namespace zigbee {
 
@@ -18,12 +19,11 @@ namespace zigbee {
 
         class PlaceHolders;
 
-        class ShowHello : public ActionHandler {
+        class ShowHello  {
         public:
             ShowHello() noexcept { };
 
-            void operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
-                            Poco::Net::HTTPServerResponse &response);
+            Net::Rest::Route::Result operator()(const Net::Rest::Request& request, Net::Http::ResponseWriter response);
         };
 
     } /* namespace http */

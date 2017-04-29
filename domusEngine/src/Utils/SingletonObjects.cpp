@@ -13,7 +13,7 @@
 #include "../usb/usbConfig.h"
 #include "../usb/USBDevice.h"
 #include "../Configuration/Configuration.h"
-#include "../httpServer/ExternalRestPath.h"
+#include "../httpServer/RestHandler.h"
 #include "../JavaScript/JSManager.h"
 #include "../serialDriver/SerialDriver.h"
 #include "../DemoDriver/DemoDevice.h"
@@ -23,7 +23,7 @@ namespace zigbee {
     static constexpr int MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY{100};
 
     SingletonObjects::SingletonObjects(std::string &&configurationFileName, std::string driverName) : attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY},
-                                                                                                      attributeWriter{*this}, topology{*this} {
+                                                                                                      attributeWriter{*this}, topology{*this}, restHandler{*this} {
 
         zDevices = std::make_unique<ZDevices>();
 
@@ -64,7 +64,7 @@ namespace zigbee {
         jsManager = std::make_shared<JSManager>(*this);
     }
 
-    SingletonObjects::SingletonObjects() : attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY}, attributeWriter{*this}, topology{*this} {
+    SingletonObjects::SingletonObjects() : attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY}, attributeWriter{*this}, topology{*this}, restHandler{*this} {
 
     }
 } /* namespace zigbee */

@@ -6,15 +6,11 @@
  */
 
 
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
 #include <zigbee/NwkAddr.h>
-#include <boost/lexical_cast.hpp>
 #include <boost/log/trivial.hpp>
 
 #include "ShowEndpoint.h"
 
-#include "../RestParser/PlaceHolders.h"
 #include "../MediaTypeProducerFactory.h"
 #include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/PropertyTree/ZEndpointPT.h"
@@ -22,19 +18,22 @@
 
 namespace zigbee {
     namespace http {
+        using namespace Net::Rest;
+        using namespace Net::Http;
+        using namespace Net::Http::Header;
 
-        void ShowEndpoint::operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
-                                      Poco::Net::HTTPServerResponse &response) {
-            BOOST_LOG_TRIVIAL(info) << "ShowEndpoint";
+        Net::Rest::Route::Result ShowEndpoint::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+            auto contentType = request.headers().get<ContentType>();
+            const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);
 
-            PlaceHolders ss (placeHolder);
-
-            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-            const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
-            auto device(ss.get<NwkAddr>("device"));
-            auto endpoint(ss.get<EndpointID>("endpoint"));
+            auto device = request.param(":device").as<NwkAddr>();
+            auto endpoint = request.param(":endpoint").as<EndpointID>();
+            BOOST_LOG_TRIVIAL(trace) << "ShowEndpoint " << device << ":" << endpoint;
             auto zDevice = singletons.getZDevices()->getDevice(device);
-            producer.produce(response.send(), ZEndpointPT(zDevice->getEndpoint(endpoint)));
+            std::stringstream output;
+            producer.produce(output, ZEndpointPT(zDevice->getEndpoint(endpoint)));
+            response.send(Code::Ok, output.str());
+            return Net::Rest::Route::Result::Ok;
         }
 
     } /* namespace http */

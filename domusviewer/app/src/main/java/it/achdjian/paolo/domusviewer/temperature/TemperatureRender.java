@@ -79,11 +79,11 @@ public class TemperatureRender extends Renderer implements EndpointObserver {
         if (time > nextTempUpdate.get()) {
             nextTempUpdate.set(nextTempUpdate.get() + TEMPERATURE_UPDATE);
             for (RoomObject room : rooms.rooms) {
-                room.setTemperature(temperatures.getTemperature(room.name).orNull());
+                room.updateTemp();
             }
         } else {
             if (roomToUpdate != null) {
-                roomToUpdate.setTemperature(temperatures.getTemperature(roomToUpdate.name).orNull());
+                roomToUpdate.updateTemp();
                 roomToUpdate = null;
             }
         }

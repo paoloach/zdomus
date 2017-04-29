@@ -8,20 +8,26 @@
 #ifndef SRC_HTTPSERVER_RESTACTIONS_CLUSTERTHROWINGEXCEPTION_H_
 #define SRC_HTTPSERVER_RESTACTIONS_CLUSTERTHROWINGEXCEPTION_H_
 
+
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
+
 namespace zigbee {
 
-class EndpointID;
-class ClusterID;
-class NwkAddr;
+    class EndpointID;
 
-namespace http {
+    class ClusterID;
 
-class ClusterThrowingException {
-public:
-	void throwWrongCluster(Poco::Net::HTTPServerResponse& response, const ClusterID & clusterId, const EndpointID&  endpointId, const NwkAddr & nwkAddr);
-};
+    class NwkAddr;
 
-} /* namespace http */
+    namespace http {
+
+        class ClusterThrowingException {
+        public:
+            void throwWrongCluster(Net::Http::ResponseWriter &response, const ClusterID &clusterId, const EndpointID &endpointId, const NwkAddr &nwkAddr);
+        };
+
+    } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTACTIONS_CLUSTERTHROWINGEXCEPTION_H_ */

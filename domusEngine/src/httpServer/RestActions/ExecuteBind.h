@@ -5,7 +5,6 @@
 #ifndef DOMUS_ENGINE_EXECUTEBIND_H
 #define DOMUS_ENGINE_EXECUTEBIND_H
 
-#include "../RestParser/RestActions.h"
 #include "ClusterThrowingException.h"
 
 namespace zigbee {
@@ -13,13 +12,12 @@ namespace zigbee {
   class SingletonObjects;
 
   namespace http {
-    class PlaceHolders;
 
-    class ExecuteBind : public ActionHandler, public ClusterThrowingException {
+    class ExecuteBind : public ClusterThrowingException {
     public:
         ExecuteBind(SingletonObjects &singletons, bool bind=true) noexcept : singletons(singletons),bind(bind) { };
 
-        void operator()(const PlaceHolders &&placeHolder, ServerRequest &request, Poco::Net::HTTPServerResponse &response);
+        Net::Rest::Route::Result operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response);
 
     private:
         SingletonObjects &singletons;

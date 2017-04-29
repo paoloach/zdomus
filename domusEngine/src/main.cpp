@@ -10,20 +10,16 @@
 
 #include <zigbee/messageStructure/AnnunceMessage.h>
 #include <zcl/Cluster.h>
-#include <zcl/ClustersEnum.h>
 #include <fstream>
 #include <iostream>
 #include <boost/program_options.hpp>
 #include <v8.h>
 #include <v8-platform.h>
 #include <libplatform/libplatform.h>
-#include <boost/log/core/core.hpp>
-#include <boost/log/trivial.hpp>
 #include <boost/log/expressions.hpp>
 
+#include "httpServer/RestHandler.h"
 #include "JavaScript/JSManager.h"
-#include "httpServer/DEHttpRequestHandlerFactory.h"
-#include "httpServer/HttpServer.h"
 #include "ZigbeeData/RequestDevices.h"
 
 using namespace zigbee;
@@ -76,7 +72,6 @@ int main(int argc, const char *argv[]) {
     initV8(argc, argv);
     std::string configurationFileName = DEFAULT_CONFIG_FILE;
 
-    ClusterTypeFactory clusterTypeFactory;
     variables_map vm = getVariableMap(argc, argv);
 
     if (vm.count("configuration")) {
@@ -92,13 +87,10 @@ int main(int argc, const char *argv[]) {
 
     topologyCreation.create();
 
-    auto server = new http::HttpServer(singletons);
-
-    while (true);
-
+    zigbee::http::RestHandler restHandler{singletons};
+    restHandler.start();
 
     exitV8();
-    delete server;
 }
 
 variables_map getVariableMap(size_t argc, char const *argv[]) {

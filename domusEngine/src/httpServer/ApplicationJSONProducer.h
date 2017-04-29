@@ -16,7 +16,6 @@ namespace http {
 class ApplicationJSONProducer : public MediaTypeProducer{
 public:
 	~ApplicationJSONProducer() noexcept override;
-	Poco::Net::MediaType getMediaType()const  noexcept override;
 	void produce(std::ostream & ostream, const boost::property_tree::ptree & properties) const noexcept override;
 };
 

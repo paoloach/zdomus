@@ -22,7 +22,7 @@ namespace zigbee {
         }
         std::stringstream stream;
         boost::property_tree::json_parser::write_json(stream, *this, false);
-        BOOST_LOG_TRIVIAL(info) << "response: " << stream.str();
+        BOOST_LOG_TRIVIAL(trace) << "response: " << stream.str();
     }
   } /* namespace http */
 } /* namespace zigbee */

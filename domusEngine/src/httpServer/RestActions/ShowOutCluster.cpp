@@ -5,12 +5,9 @@
  *      Author: Paolo Achdjian
  */
 
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
-#include <boost/log/trivial.hpp>
 
 #include "ShowOutCluster.h"
 
@@ -21,32 +18,36 @@
 
 namespace zigbee {
     namespace http {
+        using namespace Net::Rest;
+        using namespace Net::Http;
+        using namespace Net::Http::Header;
 
-        void ShowOutCluster::operator()(const PlaceHolders &&placeHolder, ServerRequest &request,
-                                        Poco::Net::HTTPServerResponse &response) {
+        Net::Rest::Route::Result ShowOutCluster::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
             BOOST_LOG_TRIVIAL(info) << "ShowOutCluster";
-            response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-            const auto &producer = MediaTypeProducerFactory::getMediaType(request.getContentType());
-            auto nwkAddr(placeHolder.get<NwkAddr>("device"));
-            auto endpoint(placeHolder.get<EndpointID>("endpoint"));
-            auto clusterId(placeHolder.get<ClusterID>("cluster"));
-            auto zDevice = singletons.getZDevices()->getDevice(boost::lexical_cast<NwkAddr>(nwkAddr));
-            auto zEndpoint = zDevice->getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
+            auto contentType = request.headers().get<ContentType>();
+            const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);
+
+            auto device = request.param(":device").as<NwkAddr>();
+            auto endpoint = request.param(":endpoint").as<EndpointID>();
+            auto clusterId = request.param(":cluster").as<ClusterID>();
+
+            std::stringstream output;
+            auto zDevice = singletons.getZDevices()->getDevice(device);
+            auto zEndpoint = zDevice->getEndpoint(endpoint);
             if (zEndpoint.isOutCluster(clusterId)) {
-                auto cluster = singletons.getClusters()->getCluster(nwkAddr, endpoint, clusterId);
+                auto cluster = singletons.getClusters()->getCluster(device, endpoint, clusterId);
                 if (cluster) {
-                    producer.produce(response.send(), ClusterPT(cluster));
+                    producer.produce(output, ClusterPT(cluster));
+                    response.send(Code::Ok, output.str(), contentType->mime());
                 }
             } else {
-                std::stringstream message;
-
-                message << "ERROR: " << "cluster " << clusterId << " is not an OUT cluster of endpoint " <<
+                output << "ERROR: " << "cluster " << clusterId << " is not an OUT cluster of endpoint " <<
                         zEndpoint.getEndpoint() <<
                         " in the device with address " << zEndpoint.getNwkAddr();
-                std::cerr << message.str() << std::endl;
-                response.send() << message.str();
-                response.setStatus(Poco::Net::HTTPResponse::HTTP_BAD_REQUEST);
+                BOOST_LOG_TRIVIAL(error) << output.str();
+                response.send(Code::Bad_Request, output.str());
             }
+            return Net::Rest::Route::Result::Ok;
         }
 
     } /* namespace http */

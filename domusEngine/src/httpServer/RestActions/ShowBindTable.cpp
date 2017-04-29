@@ -4,9 +4,6 @@
 #include <thread>
 #include <boost/log/trivial.hpp>
 
-#include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/Net/HTTPServerRequest.h>
-
 #include "ShowBindTable.h"
 #include "../../json/json/json.h"
 
@@ -16,14 +13,14 @@
 using namespace Json;
 
 namespace zigbee {
-
     namespace http {
-        void ShowBindTable::operator()(const zigbee::http::PlaceHolders &&,
-                                       ServerRequest &request,
-                                       Poco::Net::HTTPServerResponse &response) {
-            response.setContentType(Poco::Net::MediaType("application", "json"));
-            response.setStatusAndReason(Poco::Net::HTTPResponse::HTTP_OK);
-            BOOST_LOG_TRIVIAL(info) << "request BindTable: " << request.getContentType();
+        using namespace Net::Rest;
+        using namespace Net::Http;
+        using namespace Net::Http::Header;
+
+
+        Net::Rest::Route::Result ShowBindTable::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter response) {
+            BOOST_LOG_TRIVIAL(info) << "request BindTable: ";
             Value root(arrayValue);
             auto &bindTable = singletons.getBindTable();
             for (auto &entry: bindTable.getEntries()) {
@@ -35,9 +32,10 @@ namespace zigbee {
                 jsonEntry["destEndpoint"] = Value(std::get<2>(entry).endpoint.getId());
                 root.append(jsonEntry);
             }
-
-            std::ostream &stream = response.send();
-            stream << root << "\n";
+            std::stringstream stream;
+            stream << root;
+            response.send(Code::Ok, stream.str(), MIME(Application, Json));
+            return Net::Rest::Route::Result::Ok;
         }
 
     }

@@ -9,14 +9,18 @@
 #include "JSObjects.h"
 #include "Exceptions/JSExceptionOnlyTwoArguments.h"
 #include "Exceptions/JSExceptionArgNoString.h"
-#include "../Utils/Log.h"
 #include "../Exception/Timeout.h"
+#include "../httpServer/RestHandler.h"
 
 namespace zigbee {
 
     using std::stringstream;
     using namespace std::chrono_literals;
     using namespace v8;
+    using Net::Rest::Route;
+    using Net::Rest::Request;
+    using Net::Http::ResponseWriter;
+    using Net::Http::Code;
 
     void JSRestServer::initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) {
         Local<String> jsClassName = String::NewFromUtf8(isolate, JSRESTSERVER);
@@ -96,22 +100,25 @@ namespace zigbee {
             }
             checkStringParam(ADD_PATH, info, 0);
             String::Utf8Value path(info[0]);
-            http::ExternalRestPath::Callback fn;
+            Route::Handler fn;
             std::string a = *path;
             auto arg = info[1];
             if (arg->IsFunction()) {
                 Local<Function> callback = Local<Function>::Cast(arg);
                 int functionId = callback->GetIdentityHash();
                 callbackMap[functionId].Reset(isolate, arg);
-                fn = [this, functionId, isolate](http::ExternalRestPath::CallbackArgs && args){
-                    return this->callback(isolate, functionId, args);
+                fn = [this, functionId, isolate](const Request& request, ResponseWriter response)->Route::Result {
+                    return this->callback(isolate, functionId, request, std::move(response) );
                 };
             } else {
                 String::Utf8Value valueUtf8(arg->ToString());
                 std::string value = *valueUtf8;
-                fn = [value](http::ExternalRestPath::CallbackArgs && ) { return value; };
+                fn = [value](const Request& request, ResponseWriter response ) ->Route::Result{
+                    response.send(Code::Ok, value);
+                    return Route::Result::Ok;
+                };
             }
-            fixedPathContainer->addRestValue(*path, fn);
+            restHandler->addGetPath(*path, fn);
         } catch (JSException &jsException) {
             BOOST_LOG_TRIVIAL(error) << jsException.what();
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, jsException.what());
@@ -119,21 +126,7 @@ namespace zigbee {
         }
     }
 
-    std::string JSRestServer::callback(Isolate *isolate, int functionId,http::ExternalRestPath::CallbackArgs & args) {
-        if (conditionVariables.count(functionId) ==0){
-            conditionVariables[functionId] = std::make_unique<std::condition_variable>();
-        }
-        jsCallbackFifo->add(isolate, [this, functionId, args, isolate](Isolate * ){asyncCallback(isolate, functionId, args);});
-        BOOST_LOG_TRIVIAL(info) << "Waiting result ";
-        std::unique_lock<std::mutex> lock(mutex);
-        auto status = conditionVariables[functionId]->wait_for(lock, 60s);
-        if (status == std::cv_status::timeout){
-            throw Timeout("timeout (60secondi) calling javascript callback");
-        }
-        return results[functionId];
-    }
-
-    void JSRestServer::asyncCallback(Isolate * isolate, int functionId,http::ExternalRestPath::CallbackArgs args) {
+    void JSRestServer::asyncCallback(Isolate * isolate, int functionId,const Net::Rest::Request& request) {
         if (callbackMap.count(functionId) > 0){
             Local<Value> object = Local<Value>::New(isolate, callbackMap[functionId]);
             Local<Function> callback = Local<Function>::Cast(object);
@@ -141,13 +134,7 @@ namespace zigbee {
                 String::Utf8Value name(callback->GetInferredName());
 
                 auto context = callback->CreationContext();
-                auto jsPlaceHolders = Object::New(isolate);
-                for (auto & placeholder : args) {
-                    auto name = String::NewFromUtf8(isolate, std::get<0>(placeholder).c_str());
-                    auto value = String::NewFromUtf8(isolate, std::get<1>(placeholder).c_str());
-                    BOOST_LOG_TRIVIAL(info) << "Added " << std::get<0>(placeholder) << " = " <<std::get<1>(placeholder) << " to placheholders";
-                    jsPlaceHolders->Set(context, name, value);
-                }
+                auto jsPlaceHolders = jsRestParam->createInstance(isolate, request);
                 Local<Value> jsArgs[1] = {jsPlaceHolders};
 
                 TryCatch tryCatch;
@@ -172,6 +159,23 @@ namespace zigbee {
         if (!info[0]->IsString()) {
             throw JSExceptionArgNoString(methodName, index);
         }
+    }
+
+    Net::Rest::Route::Result JSRestServer::callback(v8::Isolate *isolate, int functionId, const Net::Rest::Request &request, Net::Http::ResponseWriter && response) {
+        if (conditionVariables.count(functionId) ==0){
+            conditionVariables[functionId] = std::make_unique<std::condition_variable>();
+        }
+        jsCallbackFifo->add(isolate, [this, functionId, request, isolate](Isolate * ){asyncCallback(isolate, functionId, request);});
+        BOOST_LOG_TRIVIAL(info) << "Waiting result ";
+        std::unique_lock<std::mutex> lock(mutex);
+        auto status = conditionVariables[functionId]->wait_for(lock, 60s);
+        if (status == std::cv_status::timeout){
+            response.send(Code::Internal_Server_Error, "Timeout");
+            throw Timeout("timeout (60secondi) calling javascript callback");
+        } else {
+            response.send(Code::Ok, results[functionId]);
+        }
+        return Route::Result::Ok;
     }
 
 } /* namespace zigbee */

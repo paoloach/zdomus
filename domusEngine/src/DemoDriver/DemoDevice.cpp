@@ -71,10 +71,10 @@ namespace zigbee {
                     }
                 }
             }
-            std::vector< std::tuple<int32_t, std::function< void()> > > remainCallbacks;
-            for (auto & callback: posponedCallbacks){
+            std::vector<std::tuple<int32_t, std::function<void()> > > remainCallbacks;
+            for (auto &callback: posponedCallbacks) {
                 std::get<0>(callback)--;
-                if (std::get<0>(callback) <= 0){
+                if (std::get<0>(callback) <= 0) {
                     std::get<1>(callback)();
                 } else {
                     remainCallbacks.push_back(callback);
@@ -95,8 +95,8 @@ namespace zigbee {
 
     void DemoDevice::requestActiveEndpoints(zigbee::NwkAddr nwkAddr) {
         auto zDevices = singletonObjects.getZDevices();
-        SimpleDescMessage simpleDescMessage;
         if (nwkAddr == NWK_ADDR1) {
+            SimpleDescMessage simpleDescMessage;
             simpleDescMessage.nwkAddr = NWK_ADDR1.getId();
             simpleDescMessage.endpoint = 2;
             simpleDescMessage.numInClusters = 3;
@@ -184,7 +184,7 @@ namespace zigbee {
 
     }
 
-    void DemoDevice::getIEEEAddress(zigbee::NwkAddr nwkAddr, zigbee::ZDPRequestType , uint8_t ) {
+    void DemoDevice::getIEEEAddress(zigbee::NwkAddr nwkAddr, zigbee::ZDPRequestType, uint8_t) {
         auto zDevices = singletonObjects.getZDevices();
         IEEEAddrResp message;
 
@@ -236,25 +236,39 @@ namespace zigbee {
         }
     }
 
-    void DemoDevice::assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, int16_t temp, int delay) {
+    void
+    DemoDevice::assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, AttributeValueSignalMap &attributeValueSignalMap, int16_t temp,
+                                                int delay) {
         for (auto &&attributeId : attributeIds) {
             auto attribute = cluster->getAttribute(attributeId);
             if (attributeId == 0) {
                 std::normal_distribution<> normal_dist(temp, 2);
                 uint16_t value = boost::endian::native_to_little(temp * 100 + normal_dist(e1));
-                if (delay > 0){
-                    posponedCallbacks.emplace_back(delay, [attribute, value](){attribute->setValue(0, typeSINT16, (uint8_t *) &value);})  ;
+                AttributeKey key{cluster->getNetworkAddress(), cluster->getEndpoint().getId(), cluster->getId().getId(), attributeId};
+                if (delay > 0) {
+                    posponedCallbacks.emplace_back(delay, [attribute, value, attributeValueSignalMap, key]() mutable {
+                        BOOST_LOG_TRIVIAL(trace) << "set temperature to " << value / 100.00;
+                        attribute->setValue(0, typeSINT16, (uint8_t *) &value);
+
+                        if (attributeValueSignalMap.count(key) > 0) {
+                            attributeValueSignalMap.execute(key, 0);
+                        }
+                    });
                 } else {
+                    BOOST_LOG_TRIVIAL(trace) << "set temperature to " << value / 100.00;
                     attribute->setValue(0, typeSINT16, (uint8_t *) &value);
+                    if (attributeValueSignalMap.count(key) > 0) {
+                        attributeValueSignalMap.execute(key, 0);
+                    }
                 }
             } else if (attributeId == 1) {
-                uint16_t value = boost::endian::native_to_little(-2000);
+                uint16_t value = static_cast<uint16_t>(boost::endian::native_to_little(-2000));
                 attribute->setValue(0, typeSINT16, (uint8_t *) &value);
             } else if (attributeId == 2) {
-                uint16_t value = boost::endian::native_to_little(10000);
+                uint16_t value = static_cast<uint16_t>(boost::endian::native_to_little(10000));
                 attribute->setValue(0, typeSINT16, (uint8_t *) &value);
             } else if (attributeId == 3) {
-                uint16_t value = boost::endian::native_to_little(100);
+                uint16_t value = static_cast<uint16_t>(boost::endian::native_to_little(100));
                 attribute->setValue(0, typeUINT16, (uint8_t *) &value);
             } else {
                 if (attribute != nullptr)
@@ -274,7 +288,7 @@ namespace zigbee {
                 } else {
                     val = 0;
                 }
-                attribute->setValue(0, typeBOOLRAN, (uint8_t *) &val);
+                attribute->setValue(0, typeBOOLRAN, &val);
             } else {
                 if (attribute != nullptr)
                     attribute->setValue(StatusEnum::UNSUPPORTED_ATTRIBUTE, 00, nullptr);
@@ -284,6 +298,7 @@ namespace zigbee {
 
     void DemoDevice::requestAttributes(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, zigbee::ClusterID clusterId, ZigbeeAttributeIds &attributeIds) {
         auto clusters = singletonObjects.getClusters();
+        auto attributeValueSignalMap = singletonObjects.getAttributeValueSignalMap();
         auto cluster = clusters->getCluster(nwkAddrs, endpoint, clusterId);
 
 
@@ -342,8 +357,8 @@ namespace zigbee {
                     assignBasicCluster(cluster, attributeIds, NKW2_5_0);
                     return;
                 } else if (clusterId.getId() == ClustersId::TEMPERATURE_MEASUREMENT) {
-                    BOOST_LOG_TRIVIAL(info) << "request attribute temmerature cluster for " << nwkAddrs << ":" << endpoint;
-                    assignTemperatureMeasureCluster(cluster, attributeIds, 23, 0);
+                    BOOST_LOG_TRIVIAL(trace) << "request attribute temperature cluster for " << nwkAddrs << ":" << endpoint;
+                    assignTemperatureMeasureCluster(cluster, attributeIds, attributeValueSignalMap, 23, 0);
                     return;
                 }
 
@@ -353,7 +368,7 @@ namespace zigbee {
                 if (clusterId == 0) {
                     assignBasicCluster(cluster, attributeIds, NKW2_7_0);
                     return;
-                }else if (clusterId.getId() == ClustersId::ON_OFF_CLUSTER) {
+                } else if (clusterId.getId() == ClustersId::ON_OFF_CLUSTER) {
                     assignOnOffCluster(nwkAddrs, endpoint, cluster, attributeIds);
                     return;
                 }
@@ -363,7 +378,7 @@ namespace zigbee {
                 if (clusterId == 0) {
                     assignBasicCluster(cluster, attributeIds, NKW2_11_0);
                     return;;
-                }else if (clusterId.getId() == ClustersId::ON_OFF_CLUSTER) {
+                } else if (clusterId.getId() == ClustersId::ON_OFF_CLUSTER) {
                     assignOnOffCluster(nwkAddrs, endpoint, cluster, attributeIds);
                     return;
                 }
@@ -375,8 +390,8 @@ namespace zigbee {
                     assignBasicCluster(cluster, attributeIds, NKW3_7_0);
                     return;
                 } else if (clusterId.getId() == ClustersId::TEMPERATURE_MEASUREMENT) {
-                    BOOST_LOG_TRIVIAL(info) << "request attribute temmerature cluster for " << nwkAddrs << ":" << endpoint;
-                    assignTemperatureMeasureCluster(cluster, attributeIds, 23, 4);
+                    BOOST_LOG_TRIVIAL(trace) << "request attribute temperature cluster for " << nwkAddrs << ":" << endpoint;
+                    assignTemperatureMeasureCluster(cluster, attributeIds, attributeValueSignalMap, 23, 4);
                     return;
                 }
 
@@ -395,12 +410,11 @@ namespace zigbee {
 
     }
 
-    void DemoDevice::writeAttribute(zigbee::NwkAddr , const zigbee::EndpointID , zigbee::ClusterID , ZigbeeAttributeId , ZCLTypeDataType ,
-                                    uint8_t , uint8_t *) {
+    void DemoDevice::writeAttribute(zigbee::NwkAddr, const zigbee::EndpointID, zigbee::ClusterID, ZigbeeAttributeId, ZCLTypeDataType, uint8_t, uint8_t *) {
 
     }
 
-    void DemoDevice::sendCmd(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, zigbee::ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t> ) {
+    void DemoDevice::sendCmd(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, zigbee::ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t>) {
         if (nwkAddrs == NWK_ADDR1) {
             if (endpoint == 4) {
                 if (cluster == ClustersId::ON_OFF_CLUSTER) {
@@ -493,15 +507,11 @@ namespace zigbee {
     }
 
 
-    void
-    DemoDevice::sendReqBind(zigbee::NwkAddr , const uint8_t *, zigbee::EndpointID , zigbee::ClusterID , const uint8_t *,
-                            zigbee::EndpointID ) {
+    void DemoDevice::sendReqBind(zigbee::NwkAddr, const uint8_t *, zigbee::EndpointID, zigbee::ClusterID, const uint8_t *, zigbee::EndpointID) {
 
     }
 
-    void
-    DemoDevice::sendReqUnbind(zigbee::NwkAddr , const uint8_t *, zigbee::EndpointID , zigbee::ClusterID , const uint8_t *,
-                              zigbee::EndpointID ) {
+    void DemoDevice::sendReqUnbind(zigbee::NwkAddr, const uint8_t *, zigbee::EndpointID, zigbee::ClusterID, const uint8_t *, zigbee::EndpointID) {
 
     }
 
@@ -533,7 +543,7 @@ namespace zigbee {
 
     }
 
-    void DemoDevice::requestBindTable(zigbee::NwkAddr ) {
+    void DemoDevice::requestBindTable(zigbee::NwkAddr) {
 
     }
 
@@ -549,13 +559,12 @@ namespace zigbee {
 
     }
 
-    void DemoDevice::registerForAttributeCmd(zigbee::NwkAddr , const zigbee::EndpointID , zigbee::ClusterID , ZigbeeAttributeCmdId ,
-                                             const std::function<void()>) {
+    void DemoDevice::registerForAttributeCmd(zigbee::NwkAddr, const zigbee::EndpointID, zigbee::ClusterID, ZigbeeAttributeCmdId, const std::function<void()>) {
 
     }
 
-    void DemoDevice::registerForAttributeValue(zigbee::NwkAddr , const zigbee::EndpointID , zigbee::ClusterID , ZigbeeAttributeId ,
-                                               const zigbee::ZigbeeDevice::NewAttributeValueCallback ) {
+    void
+    DemoDevice::registerForAttributeValue(zigbee::NwkAddr, const zigbee::EndpointID, zigbee::ClusterID, ZigbeeAttributeId, const zigbee::ZigbeeDevice::NewAttributeValueCallback) {
 
     }
 
