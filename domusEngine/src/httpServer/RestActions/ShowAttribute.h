@@ -12,8 +12,8 @@
 #include <zcl/ZCLAttribute.h>
 #include <iostream>
 
-#include "pistache/endpoint.h"
-#include "pistache/router.h"
+#include "endpoint.h"
+#include "router.h"
 #include "ClusterThrowingException.h"
 
 namespace zigbee {

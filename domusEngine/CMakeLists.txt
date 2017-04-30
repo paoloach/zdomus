@@ -13,6 +13,8 @@ ExternalProject_Add(pistache
         INSTALL_COMMAND ""
         )
 
+
+set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache/include )
 set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache-build/src/libnet_static.a)
 
 
@@ -21,7 +23,7 @@ add_subdirectory(src/test)
 
 
 set(V8_DIR ${CMAKE_BINARY_DIR}/v8)
-set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/v8/include)
+set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/v8/include ${PISTACHE_INCLUDE_DIR})
 
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)

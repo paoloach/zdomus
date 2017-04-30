@@ -8,8 +8,8 @@
 #include <set>
 #include <zigbee/NwkAddr.h>
 
-#include "pistache/endpoint.h"
-#include "pistache/router.h"
+#include "endpoint.h"
+#include "router.h"
 #include "../../json/json/json.h"
 
 namespace zigbee {

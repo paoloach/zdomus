@@ -25,6 +25,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
@@ -54,6 +55,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>

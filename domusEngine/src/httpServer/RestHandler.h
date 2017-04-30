@@ -5,8 +5,8 @@
 #ifndef DOMUS_ENGINE_RESTHANDLER_H
 #define DOMUS_ENGINE_RESTHANDLER_H
 
-#include "pistache/endpoint.h"
-#include "pistache/router.h"
+#include "endpoint.h"
+#include "router.h"
 
 namespace zigbee {
     class SingletonObjects;

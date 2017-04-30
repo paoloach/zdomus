@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(domus_engine_test)
 
+set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache/include )
 set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache-build/src/libnet_static.a)
 
 find_package(PostgreSQL)
@@ -66,7 +67,7 @@ SET(SRC_TEST_MOCK Mocks/AttributeDataContainerMock.cpp Mocks/AttributeDataContai
         Mocks/ZigbeeDeviceMock.cpp Mocks/ZigbeeDeviceMock.h Mocks/http/RestHandlerMock.cpp Mocks/http/RestHandlerMock.h)
 
 set(V8_DIR ${CMAKE_BINARY_DIR}/v8)
-set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/include)
+set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/include )
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)
     set(V8_LIBRARY
@@ -120,7 +121,7 @@ add_compile_options("-DBOOST_ALL_DYN_LINK")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g3 -O0 -std=c++14 -fno-omit-frame-pointer -DBOOST_ALL_DYN_LINK")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g3 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK")
 
-include_directories(${CMAKE_SOURCE_DIR}/include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${PostgreSQL_INCLUDE_DIRS} ${V8_INCLUDE_DIR} ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/include ${LIBUSB_INCLUDE_DIR} ${PISTACHE_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${PostgreSQL_INCLUDE_DIRS} ${V8_INCLUDE_DIR} ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 
 

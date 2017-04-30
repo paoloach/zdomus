@@ -5,8 +5,8 @@
 #ifndef DOMUS_ENGINE_SHOWATTRIBUTEFACTORY_H
 #define DOMUS_ENGINE_SHOWATTRIBUTEFACTORY_H
 
-#include "pistache/endpoint.h"
-#include "pistache/router.h"
+#include "endpoint.h"
+#include "router.h"
 
 namespace zigbee {
 

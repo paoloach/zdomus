@@ -5,8 +5,8 @@
 #ifndef DOMUS_ENGINE_SHOWDEVICEINFO_H
 #define DOMUS_ENGINE_SHOWDEVICEINFO_H
 
-#include "pistache/endpoint.h"
-#include "pistache/router.h"
+#include "endpoint.h"
+#include "router.h"
 
 #include "../../Utils/DeviceInfoDispatcher.h"
 

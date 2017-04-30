@@ -9,8 +9,8 @@
 #define SRC_HTTPSERVER_RESTACTIONS_CLUSTERTHROWINGEXCEPTION_H_
 
 
-#include "pistache/endpoint.h"
-#include "pistache/router.h"
+#include "endpoint.h"
+#include "router.h"
 
 namespace zigbee {
 
