@@ -39,6 +39,8 @@ namespace zigbee {
         MOCK_METHOD0(getAttributeDataContainer, AttributeDataContainer & ());
 
         MOCK_METHOD0(getClusters,  Clusters *());
+
+        MOCK_METHOD0(getRestHandler, http::RestHandler * ());
     };
 
 } /* namespace zigbee */

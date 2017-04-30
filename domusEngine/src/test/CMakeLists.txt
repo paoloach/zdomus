@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(domus_engine_test)
 
+set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache-build/src/libnet_static.a)
+
 find_package(PostgreSQL)
 
 SET(SOURCE_SRC main.cpp)
@@ -61,9 +63,9 @@ SET(SRC_TEST_MOCK Mocks/AttributeDataContainerMock.cpp Mocks/AttributeDataContai
         Mocks/ZCLUint16AttributeMock.cpp Mocks/ZCLUint16AttributeMock.h
         Mocks/ZCLUInt24AttributeMock.cpp Mocks/ZCLUInt24AttributeMock.h
         Mocks/ZDevicesMock.cpp Mocks/ZDevicesMock.h
-        Mocks/ZigbeeDeviceMock.cpp Mocks/ZigbeeDeviceMock.h)
+        Mocks/ZigbeeDeviceMock.cpp Mocks/ZigbeeDeviceMock.h Mocks/http/RestHandlerMock.cpp Mocks/http/RestHandlerMock.h)
 
-set(V8_DIR  ${CMAKE_BINARY_DIR}/v8)
+set(V8_DIR ${CMAKE_BINARY_DIR}/v8)
 set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/include)
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)
@@ -74,9 +76,9 @@ if (CMAKE_BUILD_TYPE MATCHES "Debug")
             icuuc
             v8
             )
-else()
+else ()
     if (CMAKE_C_COMPILER MATCHES "arm")
-        set(Boost_USE_STATIC_LIBS        ON)
+        set(Boost_USE_STATIC_LIBS ON)
         set(V8_LIB_DIR ${V8_DIR}/lib_arm.release)
         set(V8_LIBRARY
                 ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/lib_arm.release/libicui18n.a
@@ -99,7 +101,6 @@ else()
                 )
     endif ()
 endif ()
-
 
 
 set(ZIGBEE_LIB_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/zigbee)
@@ -141,7 +142,7 @@ else ()
     else ()
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp )
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp)
     endif ()
 endif ()
 
@@ -160,6 +161,7 @@ add_executable(domus_engine_test
         ${testHttpServer}
         ${testMocksHttp}
         ${testRestParser}
+
         ${V8_BLOB}
         )
 
@@ -167,12 +169,6 @@ add_executable(domus_engine_test
 SET(LIBS zigbeeLib
         usb-1.0
         pq
-        PocoNet
-        PocoUtil
-        PocoXML
-        #       PocoZip
-        #       PocoData
-        PocoFoundation
         ${V8_LIBRARY}
         ${Boost_SIGNALS_LIBRARY_RELEASE}
         ${Boost_THREAD_LIBRARY_RELEASE}
@@ -184,6 +180,6 @@ SET(LIBS zigbeeLib
         pthread
         )
 
-target_link_libraries(domus_engine_test domus_engine_static_lib ${V8_LIBRARY} ${LIBS} ${GMOCK_LIBS})
+target_link_libraries(domus_engine_test domus_engine_static_lib ${V8_LIBRARY} ${LIBS} ${GMOCK_LIBS} ${PISTACHE_LIB})
 
 set_property(TARGET domus_engine_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)

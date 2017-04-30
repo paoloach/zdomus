@@ -14,9 +14,9 @@ namespace zigbee {
         class RestHandler {
         public:
             RestHandler(zigbee::SingletonObjects &singletons);
-
-            void start();
-            void addGetPath(std::string path, Net::Rest::Route::Handler fn);
+            virtual ~RestHandler() = default;
+            virtual void start();
+            virtual void addGetPath(std::string path, Net::Rest::Route::Handler fn);
 
         private:
             Net::Rest::Router router;

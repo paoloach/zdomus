@@ -11,6 +11,7 @@
 
 #include "JavaScriptExecuterTest.h"
 
+
 namespace zigbee {
     namespace test {
 
@@ -37,10 +38,11 @@ namespace zigbee {
             zDevices = std::make_unique<ZDevicesMock>();
             zigbeeDevice = make_unique<ZigbeeDeviceMock>();
             extAddress = convertFromString(EXTENDED_ADDRESS);
+            restHandler = make_unique<http::RestHandlerMock>(singletonObjects);
             EXPECT_CALL(singletonObjects, getClusters()).Times(AnyNumber()).WillRepeatedly(Return(&clustersMock));
             EXPECT_CALL(singletonObjects, getZigbeeDevice()).Times(AnyNumber()).WillRepeatedly(Return(zigbeeDevice.get()));
             EXPECT_CALL(singletonObjects, getZDevices()).Times(AnyNumber()).WillRepeatedly(Return(zDevices.get()));
-            EXPECT_CALL(singletonObjects, getFixedPathContainer()).Times(AnyNumber()).WillRepeatedly(Return(&fixedPathContainer));
+            EXPECT_CALL(singletonObjects, getRestHandler()).Times(AnyNumber()).WillRepeatedly(Return(restHandler.get()));
         }
 
         void JavaScriptExecuterTest::TearDown() {

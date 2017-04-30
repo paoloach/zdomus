@@ -237,12 +237,6 @@ add_dependencies(domus_engine pistache)
 SET(LIBS zigbeeLib
         usb-1.0
         pq
-        # PocoNet
-        # PocoUtil
-        # PocoXML
-        # PocoZip
-        # PocoData
-        # PocoFoundation
         ${V8_LIBRARY}
         ${Boost_SIGNALS_LIBRARY_RELEASE}
         ${Boost_THREAD_LIBRARY_RELEASE}

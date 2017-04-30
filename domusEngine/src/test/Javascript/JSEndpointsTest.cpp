@@ -86,7 +86,8 @@ namespace zigbee {
 
             std::stringstream stream;
 
-            stream <<  JSZENDPOINTS << "." << GET_ENDPOINTS_WITH_IN_CLUSTER << "(" << IN_CLUSTERS1[0] << ");";
+            stream <<  JSZENDPOINTS << "." << GET_ENDPOINTS_WITH_IN_CLUSTER << "(" << IN_CLUSTERS1[0].getId() << ");";
+            std::cout << "js=" << stream.str() << std::endl;
             auto creatingZDeviceScript = stream.str();
             TryCatch tryCatch;
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript);

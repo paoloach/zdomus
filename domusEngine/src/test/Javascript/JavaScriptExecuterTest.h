@@ -15,7 +15,9 @@
 #include "../Mocks/ZigbeeDeviceMock.h"
 #include "../Mocks/SingletonObjectsMock.h"
 #include "../Mocks/ClustersMock.h"
+#include "../Mocks/http/RestHandlerMock.h"
 #include "../../JavaScript/JavaScriptExecuter.h"
+
 
 namespace zigbee {
     namespace test {
@@ -33,6 +35,7 @@ namespace zigbee {
 
         protected:
             std::unique_ptr<ZigbeeDeviceMock> zigbeeDevice;
+            std::unique_ptr<http::RestHandlerMock> restHandler;
             SingletonObjectsMock singletonObjects;
             ClustersMock clustersMock;
             std::unique_ptr<ZDevicesMock> zDevices;

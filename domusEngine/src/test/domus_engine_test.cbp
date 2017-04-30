@@ -406,16 +406,10 @@
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZigbeeDeviceMock.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/HTTPServerRequestMock.cpp">
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/RestHandlerMock.cpp">
 			<Option target="domus_engine_test"/>
 		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/HTTPServerRequestMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/HTTPServerResponseMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/HTTPServerResponseMock.h">
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/http/RestHandlerMock.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/ZigbeeData/ExtAddressTest.cpp">
@@ -428,45 +422,6 @@
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/ZigbeeData/ZDevicesTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/DeviceBrowserHandlerTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/DeviceBrowserHandlerTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/PathTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/PathTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/PathElementTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/PathParserTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/PlaceHoldersTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/PlaceHoldersTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/RestActionsTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/RestPathTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/RestParser/RestQueryTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/ZDeviceFixture.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/httpServer/ZDeviceFixture.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/main.cpp">
