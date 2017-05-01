@@ -11,8 +11,16 @@ ExternalProject_Add(pistache
         INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/libs
         UPDATE_COMMAND "" # Skip annoying updates for every build
         INSTALL_COMMAND ""
+        CMAKE_ARGS  -DCMAKE_FIND_ROOT_PATH=${CMAKE_FIND_ROOT_PATH}
+                -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+                -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+                -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+                -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
+                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+                ${USE_PROJECT_CMAKE_MODULE_PATH}
         )
 
+ExternalProject_Get_Property(pistache install_dir)
 
 set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache/include )
 set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache-build/src/libnet_static.a)
