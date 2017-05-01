@@ -620,8 +620,7 @@ typedef Predicate%(n)sTest ASSERT_PRED%(n)sTest;
       arg_type = 'user-defined type (Bool)'
       test_name += 'OnUserType'
       if expect_failure:
-        arg = 'Bool(n%s_++)'
-      else:
+        arg = 'Bool(n%s_++    else:
         arg = 'Bool(++n%s_)'
     else:
       arg_type = 'built-in type (int)'
