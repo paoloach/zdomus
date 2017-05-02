@@ -113,7 +113,7 @@ namespace zigbee {
             } else {
                 String::Utf8Value valueUtf8(arg->ToString());
                 std::string value = *valueUtf8;
-                fn = [value](const Request& request, ResponseWriter response ) ->Route::Result{
+                fn = [value](const Request& , ResponseWriter response ) ->Route::Result{
                     response.send(Code::Ok, value);
                     return Route::Result::Ok;
                 };

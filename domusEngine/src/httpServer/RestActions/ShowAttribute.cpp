@@ -33,7 +33,7 @@ namespace zigbee {
         using namespace Net::Http;
         using namespace Net::Http::Header;
 
-        void ShowAttribute::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter & response) {
+        void ShowAttribute::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter && response) {
             auto nwkAddr = request.param(":device").as<NwkAddr>();
             auto endpoint = request.param(":endpoint").as<EndpointID>();
             auto clusterId = request.param(":cluster").as<ClusterID>();
@@ -86,7 +86,7 @@ namespace zigbee {
                         response.send(Code::Bad_Request, "data error\n\r");
                     } else {
                         BOOST_LOG_TRIVIAL(debug) << "All the " << attributes.size() << " arrived";
-                        send(response, std::move(attributes));
+                        send(std::move(response), std::move(attributes));
                     }
                 } else {
                     BOOST_LOG_TRIVIAL(error) << "Available in clusters are";
@@ -100,7 +100,7 @@ namespace zigbee {
             }
         }
 
-        void ShowAttribute::send(Net::Http::ResponseWriter & response,
+        void ShowAttribute::send(Net::Http::ResponseWriter && response,
                                  std::vector<ZCLAttribute * > &&attributes) {
             Value root(arrayValue);
 

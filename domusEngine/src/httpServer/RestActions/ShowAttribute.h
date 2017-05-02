@@ -31,11 +31,11 @@ namespace zigbee {
         public:
             ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) {};
 
-            void operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter & response);
+            void operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter && response);
 
             void attributeReceived(int attributeId, int status);
 
-            void send(Net::Http::ResponseWriter & response, std::vector< ZCLAttribute * > &&attributes);
+            void send(Net::Http::ResponseWriter && response, std::vector< ZCLAttribute * > &&attributes);
 
         private:
             bool isAllAttributeArrived() const;

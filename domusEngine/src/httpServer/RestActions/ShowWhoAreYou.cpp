@@ -13,7 +13,7 @@ namespace zigbee {
         using namespace Net::Http;
         using namespace Net::Http::Header;
 
-        Net::Rest::Route::Result ShowWhoAreYou::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+        Net::Rest::Route::Result ShowWhoAreYou::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter response) {
             response.send(Code::Ok, "I am DomusEngine version 1.0.0\r\n",MIME(Text, Plain));
             return Net::Rest::Route::Result::Ok;
         }

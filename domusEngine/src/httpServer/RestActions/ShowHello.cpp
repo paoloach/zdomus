@@ -17,7 +17,7 @@ namespace zigbee {
         using namespace Net::Http::Header;
 
 
-        Net::Rest::Route::Result ShowHello::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+        Net::Rest::Route::Result ShowHello::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter response) {
             response.send(Code::Ok, "Hello\n",MIME(Text, Plain));
             return Net::Rest::Route::Result::Ok;
         }
