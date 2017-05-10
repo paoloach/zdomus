@@ -46,6 +46,8 @@ namespace zigbee {
 
         virtual bool enableLog()=0;
 
+        virtual void requestNodePower() = 0;
+
         virtual void requestActiveEndpoints(NwkAddr nwkAddr)=0;
 
         virtual void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex)=0;
