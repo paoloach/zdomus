@@ -19,7 +19,7 @@ namespace zigbee {
         public:
             ShowTopology(SingletonObjects &singletons) noexcept : singletons(singletons) {};
 
-            Net::Rest::Route::Result  operator()(const Net::Rest::Request& request, Net::Http::ResponseWriter response);
+            Net::Rest::Route::Result  operator()(const Net::Rest::Request& request, Net::Http::ResponseWriter  && response);
 
         private:
             Json::Value createChildren(std::set<NwkAddr> &);

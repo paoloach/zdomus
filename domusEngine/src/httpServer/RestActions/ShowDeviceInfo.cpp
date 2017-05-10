@@ -26,7 +26,7 @@ namespace zigbee {
             singletons.getDeviceInfoDispatcher()->remove(this, device);
         }
 
-        Net::Rest::Route::Result ShowDeviceInfo::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+        Net::Rest::Route::Result ShowDeviceInfo::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
             device = request.param(":device").as<NwkAddr>();
             BOOST_LOG_TRIVIAL(info) << "Request device info " << device;
             auto zigbeeDevice = singletons.getZigbeeDevice();

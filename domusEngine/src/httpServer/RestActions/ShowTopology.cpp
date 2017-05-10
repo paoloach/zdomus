@@ -17,7 +17,7 @@ namespace zigbee {
         using namespace Net::Http;
         using namespace Net::Http::Header;
 
-        Net::Rest::Route::Result ShowTopology::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter response) {
+        Net::Rest::Route::Result ShowTopology::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter  && response) {
 
 
             BOOST_LOG_TRIVIAL(info) << "ShowTopology";

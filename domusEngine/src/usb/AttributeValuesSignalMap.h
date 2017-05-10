@@ -62,10 +62,6 @@ namespace zigbee {
                 erase(lower, upper);
             }
         }
-        void insert(const AttributeKey &key,const  NewAttributeValueCallback & fn){
-            multimap::insert(value_type{key,fn});
-        }
-
     };
 
 }

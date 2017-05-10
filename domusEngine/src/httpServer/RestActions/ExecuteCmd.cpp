@@ -22,7 +22,7 @@ namespace zigbee {
         using namespace Net::Http;
         using namespace Net::Http::Header;
 
-        Net::Rest::Route::Result ExecuteCmd::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+        Net::Rest::Route::Result ExecuteCmd::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
             BOOST_LOG_TRIVIAL(info) << "ExecuteCmd";
 
             auto nwkAddr = request.param(":device").as<NwkAddr>();

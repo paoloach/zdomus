@@ -15,6 +15,8 @@
 #include "endpoint.h"
 #include "router.h"
 #include "ClusterThrowingException.h"
+#include "../../Utils/HttpResponseEvent.h"
+#include "../../usb/AttributeValuesSignalMap.h"
 
 namespace zigbee {
 
@@ -22,24 +24,24 @@ namespace zigbee {
 
     namespace http {
 
-        class ShowAttribute : public ClusterThrowingException {
+        class ShowAttribute : public ClusterThrowingException, public HttpResponseEvent::Event {
         private:
             std::vector<std::atomic<bool >> attributesArrived;
             std::map<int, int> mapAttributes;
-            int status;
             SingletonObjects &singletons;
+            Net::Http::ResponseWriter response;
+            int status;
+            std::vector<ZCLAttribute *> attributes;
         public:
-            ShowAttribute(SingletonObjects &singletons) noexcept : singletons(singletons) {};
-
-            void operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter && response);
-
+            ShowAttribute(SingletonObjects &singletons,const Net::Rest::Request &request, Net::Http::ResponseWriter && response);
+            virtual ~ShowAttribute();
             void attributeReceived(int attributeId, int status);
-
-            void send(Net::Http::ResponseWriter && response, std::vector< ZCLAttribute * > &&attributes);
 
         private:
             bool isAllAttributeArrived() const;
-
+            void allArrived();
+            void fnTimeout();
+            std::vector<AttributeValueSignalMap::iterator> toRemove;
         };
 
     } /* namespace http */

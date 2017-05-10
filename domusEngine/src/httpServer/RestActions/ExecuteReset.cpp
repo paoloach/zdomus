@@ -7,7 +7,7 @@
 #include "ExecuteReset.h"
 #include "../../Utils/SingletonObjects.h"
 
-Net::Rest::Route::Result zigbee::http::ExecuteReset::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter response){
+Net::Rest::Route::Result zigbee::http::ExecuteReset::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter  && response){
     BOOST_LOG_TRIVIAL(info) << "ExecuteReset";
     singletons.getZigbeeDevice()->requestReset();
     response.send(Net::Http::Code::No_Content, "reset\n\r");

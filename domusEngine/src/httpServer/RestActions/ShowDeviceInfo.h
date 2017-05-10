@@ -19,7 +19,7 @@ namespace zigbee {
         public:
             ShowDeviceInfo(SingletonObjects &singletons) noexcept : singletons(singletons) {};
             ~ShowDeviceInfo();
-            Net::Rest::Route::Result  operator()(const Net::Rest::Request& request, Net::Http::ResponseWriter response);
+            Net::Rest::Route::Result  operator()(const Net::Rest::Request& request, Net::Http::ResponseWriter  && response);
             void newDeviceInfo(DeviceInfoMessage *) override ;
             void sendJSON(Net::Http::ResponseWriter &response);
         private:

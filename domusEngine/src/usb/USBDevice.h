@@ -15,7 +15,10 @@
 #include <zigbee/AttributeStatusRecord.h>
 #include <zigbee/ZigbeeDevice.h>
 #include <zcl/ZCLDataType.h>
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
 #include <libusb.h>
+#pragma GCC diagnostic pop
 #include "usbConfig.h"
 #include "../ZigbeeData/ZDevices.h"
 #include "../IO/AttributeDataContainer.h"

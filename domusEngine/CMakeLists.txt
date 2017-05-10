@@ -95,7 +95,6 @@ file(GLOB srcZigbeeDataPT "src/ZigbeeData/PropertyTree/*.cpp")
 file(GLOB srcZigbeeDataExceptions "src/ZigbeeData/Exceptions/*.cpp")
 file(GLOB srcComand "src/Comand/*.cpp")
 file(GLOB srcIO "src/IO/*.cpp")
-file(GLOB srcUtils "src/Utils/*.cpp")
 file(GLOB srcDatabase "src/Database/*.cpp")
 file(GLOB srcDatabase_exceptions "src/Database/Exceptions/*.cpp")
 file(GLOB srcConfiguration "src/Configuration/*.cpp")
@@ -167,16 +166,22 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/USBDevice.h
         src/usb/UsbResponseExecutors.cpp
         src/usb/UsbResponseExecutors.h
-        src/Utils/AttributeWriterResult.cpp
-        src/Utils/AttributeWriterResult.h
+
         src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp
         src/usb/DeviceInfoExecutor.h
-        src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
-        src/Utils/Constant.cpp src/Utils/Constant.h
+
         src/usb/IEEEAddressResponseExecutor.h
         src/ZigbeeData/NewDeviceObserver.h
         src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
         )
+set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h
+                src/Utils/AttributeWriter.cpp src/Utils/AttributeWriter.h
+                src/Utils/Clusters.cpp  src/Utils/Clusters.h
+                src/Utils/Log.cpp  src/Utils/Log.h
+                src/Utils/SingletonObjects.cpp  src/Utils/SingletonObjects.h
+                src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
+                src/Utils/Constant.cpp src/Utils/Constant.h
+                src/Utils/HttpResponseEvent.cpp src/Utils/HttpResponseEvent.h)
 
 
 add_library(javascript_lib OBJECT
@@ -207,11 +212,11 @@ add_library(domus_engine_static_lib STATIC
         ${USB_SRC}
         ${SRC_HTTP}
         ${SRC_SERIAL_DRIVER}
+        ${SRC_UTILS}
         ${SRC_DEMO_DRIVER}
         ${srcZigbeeData}
         ${srcZigbeeDataPT}
         ${srcIO}
-        ${srcUtils}
         ${srcComand}
         #	${srcJavaScript}
         ${srcConfiguration}
@@ -236,8 +241,7 @@ add_library(domus_engine_static_lib STATIC
         src/json/jsoncpp.cpp
         src/json/json/json-forwards.h
         src/json/json/json.h
-        src/Utils/Clusters.cpp
-        src/Utils/Clusters.h src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h)
+        src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h)
 
 
 add_executable(domus_engine src/main.cpp ${V8_BLOB})

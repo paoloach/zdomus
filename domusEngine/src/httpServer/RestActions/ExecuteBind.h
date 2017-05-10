@@ -17,7 +17,7 @@ namespace zigbee {
     public:
         ExecuteBind(SingletonObjects &singletons, bool bind=true) noexcept : singletons(singletons),bind(bind) { };
 
-        Net::Rest::Route::Result operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response);
+        Net::Rest::Route::Result operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response);
 
     private:
         SingletonObjects &singletons;

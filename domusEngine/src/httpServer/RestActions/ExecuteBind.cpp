@@ -14,7 +14,7 @@
 #include "../../ZigbeeData/Exceptions/InvalidOutCluster.h"
 #include "../../ZigbeeData/Exceptions/InvalidInCluster.h"
 
-Net::Rest::Route::Result zigbee::http::ExecuteBind::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter response) {
+Net::Rest::Route::Result zigbee::http::ExecuteBind::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
     BOOST_LOG_TRIVIAL(info) << "ExecuteBind";
 
     auto srcDevice = request.param(":srcDevice").as<NwkAddr>();

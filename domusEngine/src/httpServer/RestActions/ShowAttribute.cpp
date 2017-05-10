@@ -32,13 +32,21 @@ namespace zigbee {
         using namespace Net::Rest;
         using namespace Net::Http;
         using namespace Net::Http::Header;
+        using namespace std::literals::chrono_literals;
 
-        void ShowAttribute::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter && response) {
+        ShowAttribute::ShowAttribute(SingletonObjects &singletons, const Net::Rest::Request &request, Net::Http::ResponseWriter &&response) : singletons(singletons),
+                                                                                                                                              response(std::move(response)),
+                                                                                                                                              status(0) {
+            timeout = system_clock::now() + 10s;
+            checkEvent = [this]() { return this->isAllAttributeArrived(); };
+            event = [this]() { this->allArrived(); };
+            timeoutEvent = [this]() { this->fnTimeout(); };
+
             auto nwkAddr = request.param(":device").as<NwkAddr>();
             auto endpoint = request.param(":endpoint").as<EndpointID>();
             auto clusterId = request.param(":cluster").as<ClusterID>();
 
-            BOOST_LOG_TRIVIAL(trace) << "ShowAttribute (device:" << nwkAddr << ", endpoint:" << endpoint << ", cluster:" << clusterId <<")";
+            BOOST_LOG_TRIVIAL(trace) << "ShowAttribute (device:" << nwkAddr << ", endpoint:" << endpoint << ", cluster:" << clusterId << ")";
             auto zDevice = singletons.getZDevices()->getDevice(nwkAddr);
             auto zEndpoint = zDevice->getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
             if (zEndpoint.isInCluster(clusterId)) {
@@ -49,7 +57,6 @@ namespace zigbee {
                     std::stringstream stream(idAttribute.get());
                     ZigbeeAttributeIds attributesId;
                     stream >> attributesId;
-                    vector<ZCLAttribute *> attributes;
                     attributesArrived = std::vector<std::atomic<bool >>(attributesId.size());
 
                     int index = 0;
@@ -63,31 +70,16 @@ namespace zigbee {
                             this->attributeReceived(attributeId, status);
                         };
                         if (attribute) {
-                            singletons.getAttributeValueSignalMap().insert(
+                            BOOST_LOG_TRIVIAL(trace) << "Request attribute " << attribute->getIdentifier();
+                            auto iter = singletons.getAttributeValueSignalMap().emplace(
                                     AttributeKey{nwkAddr, endpoint.getId(), clusterId.getId(), static_cast<ZigbeeAttributeId>(attribute->getIdentifier())}, fn);
+                            toRemove.push_back(iter);
                         }
                     }
                     if (zigbeeDevice != nullptr) {
                         zigbeeDevice->requestAttributes(nwkAddr, endpoint, clusterId, attributesId);
                     }
 
-                    std::chrono::milliseconds duration(100);
-                    auto start = system_clock::now();
-                    while (!isAllAttributeArrived()) {
-                        std::this_thread::sleep_for(duration);
-                        milliseconds elapsed = duration_cast<std::chrono::milliseconds>(system_clock::now() - start);
-                        if (elapsed > minutes(10)) {
-                            response.send(Code::Bad_Request, "data timeout\n\r");
-                            return;
-                        }
-                    }
-                    BOOST_LOG_TRIVIAL(trace) << "all the attribute received";
-                    if (status != 0) {
-                        response.send(Code::Bad_Request, "data error\n\r");
-                    } else {
-                        BOOST_LOG_TRIVIAL(debug) << "All the " << attributes.size() << " arrived";
-                        send(std::move(response), std::move(attributes));
-                    }
                 } else {
                     BOOST_LOG_TRIVIAL(error) << "Available in clusters are";
                     for (auto &inCluster: zEndpoint.getInCluster()) {
@@ -98,30 +90,6 @@ namespace zigbee {
             } else {
                 response.send(Code::Bad_Request);
             }
-        }
-
-        void ShowAttribute::send(Net::Http::ResponseWriter && response,
-                                 std::vector<ZCLAttribute * > &&attributes) {
-            Value root(arrayValue);
-
-            for (auto &&attribute : attributes) {
-                Value jsonAttribute(objectValue);
-
-                jsonAttribute["id"] = Value(attribute->getIdentifier());
-                jsonAttribute["name"] = Value(attribute->getName().to_string());
-                jsonAttribute["readOnly"] = Value(attribute->isReadOnly());
-                jsonAttribute["type"] = Value(static_cast<int>(attribute->getZCLType()));
-                jsonAttribute["isAvailable"] = Value(attribute->isAvailable());
-                jsonAttribute["isSupported"] = Value(!attribute->isUnsupported());
-                jsonAttribute["status"] = Value(attribute->getStatus());
-                if (attribute->isAvailable()) {
-                    jsonAttribute["value"] = attribute->getStrValue();
-                }
-                root.append(jsonAttribute);
-            }
-            std::stringstream stream;
-            stream << root << "\r\n";
-            response.send(Code::Ok, stream.str(), MIME(Application, Json));
         }
 
         void ShowAttribute::attributeReceived(int id, int status) {
@@ -136,6 +104,46 @@ namespace zigbee {
                 }
             }
             return true;
+        }
+
+        void ShowAttribute::allArrived() {
+            BOOST_LOG_TRIVIAL(trace) << "all the attribute received";
+            if (status != 0) {
+                response.send(Code::Bad_Request, "data error\n\r");
+            } else {
+                BOOST_LOG_TRIVIAL(debug) << "All the " << attributes.size() << " arrived";
+                Value root(arrayValue);
+
+                for (auto &&attribute : attributes) {
+                    Value jsonAttribute(objectValue);
+
+                    jsonAttribute["id"] = Value(attribute->getIdentifier());
+                    jsonAttribute["name"] = Value(attribute->getName().to_string());
+                    jsonAttribute["readOnly"] = Value(attribute->isReadOnly());
+                    jsonAttribute["type"] = Value(static_cast<int>(attribute->getZCLType()));
+                    jsonAttribute["isAvailable"] = Value(attribute->isAvailable());
+                    jsonAttribute["isSupported"] = Value(!attribute->isUnsupported());
+                    jsonAttribute["status"] = Value(attribute->getStatus());
+                    if (attribute->isAvailable()) {
+                        jsonAttribute["value"] = attribute->getStrValue();
+                    }
+                    root.append(jsonAttribute);
+                }
+                std::stringstream stream;
+                stream << root << "\r\n";
+                response.send(Code::Ok, stream.str(), MIME(Application, Json));
+            }
+        }
+
+        void ShowAttribute::fnTimeout() {
+            BOOST_LOG_TRIVIAL(trace) << "ShowAttribute timeout";
+            response.send(Code::Bad_Request, "data timeout\n\r");
+        }
+
+        ShowAttribute::~ShowAttribute() {
+            for(auto & iter: toRemove){
+                singletons.getAttributeValueSignalMap().erase(iter);
+            }
         }
 
     } /* namespace http */

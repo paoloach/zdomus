@@ -20,6 +20,7 @@
 #include "../ZigbeeData/TopologyCreation.h"
 #include "DeviceInfoDispatcher.h"
 #include "../httpServer/RestHandler.h"
+#include "HttpResponseEvent.h"
 
 struct libusb_context;
 
@@ -73,7 +74,7 @@ namespace zigbee {
 
         virtual http::RestHandler * getRestHandler() {return &restHandler;}
 
-
+        virtual http::HttpResponseEvent * getHttpResponseEvent() {return &httpResponseEvent;}
 
     private:
         boost::asio::io_service io;
@@ -91,6 +92,7 @@ namespace zigbee {
         Constant constant;
         TopologyCreation topology;
         http::RestHandler restHandler;
+        http::HttpResponseEvent httpResponseEvent;
     };
 
 } /* namespace zigbee */

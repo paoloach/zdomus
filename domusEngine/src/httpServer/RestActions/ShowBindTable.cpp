@@ -19,7 +19,7 @@ namespace zigbee {
         using namespace Net::Http::Header;
 
 
-        Net::Rest::Route::Result ShowBindTable::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter response) {
+        Net::Rest::Route::Result ShowBindTable::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter  && response) {
             BOOST_LOG_TRIVIAL(info) << "request BindTable: ";
             Value root(arrayValue);
             auto &bindTable = singletons.getBindTable();
