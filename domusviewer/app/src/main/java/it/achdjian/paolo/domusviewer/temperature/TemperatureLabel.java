@@ -20,9 +20,7 @@ import java.util.Locale;
 
 public class TemperatureLabel extends Plane {
     private float previousTemp = Float.NaN;
-    private final String name;
-    private final TemperatureCache temperatureCache;
-    public static float WIDTH =2;
+    public static float WIDTH =2f;
     public static float HEIGHT =0.5f;
 
     private static float getMaxWidth(RoomObject room){
@@ -35,13 +33,11 @@ public class TemperatureLabel extends Plane {
         return minHeight < HEIGHT ? minHeight : HEIGHT;
     }
 
-    public TemperatureLabel(@NonNull RoomObject room, @NonNull TemperatureCache temperatureCache) {
+    public TemperatureLabel(@NonNull RoomObject room) {
         super(getMaxWidth(room), getMaxHeight(room), 3, 3);
-        name = room.name;
-        this.temperatureCache = temperatureCache;
-        setName("TempSensorFor"+ room.name);
+        String name = "TempSensor"+ room.name;
+        setName(name);
         setText("N.D.", Color.GREEN);
-        Vector3 roomMax = room.getMax();
         Vector3 pos = new Vector3(room.mean.x, room.mean.y, 0);
         setPosition(pos);
         setDoubleSided(true);
@@ -60,6 +56,8 @@ public class TemperatureLabel extends Plane {
         temperatureMaterial.setColor(background);
         Bitmap bitmap = textAsBitmap(text, Color.WHITE);
         try {
+            int maxTextureName = 18;
+            String name = getName().substring(0, getName().length() > maxTextureName ? maxTextureName : getName().length() );
             temperatureMaterial.addTexture(new Texture(name, bitmap));
             setMaterial(temperatureMaterial);
         } catch (ATexture.TextureException e) {

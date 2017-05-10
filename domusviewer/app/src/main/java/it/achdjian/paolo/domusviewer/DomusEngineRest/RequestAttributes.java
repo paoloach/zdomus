@@ -46,8 +46,8 @@ public class RequestAttributes extends DomusEngineRest implements Stoppable {
                 append("/attributes?id=").append(TextUtils.join(",", attributes));
         Log.d("REST",builder.toString());
         String body = getLongRead(builder.toString());
-        Log.d("REST respose", body);
         if (body != null && toStop==false) {
+            Log.d("REST respose", body);
             if (!body.isEmpty()) {
                 ObjectMapper mapper = new ObjectMapper();
                 try {

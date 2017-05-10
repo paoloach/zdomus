@@ -3,6 +3,7 @@ package it.achdjian.paolo.domusviewer.temperature;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -57,6 +58,9 @@ public class TemperatureFragment extends Fragment implements EndpointObserver, R
     public void afterView() {
         tempSensorLocationDS.createObservers();
         renderer = new TemperatureRender(getContext(), rooms, temperatures, tempSensorLocationDS);
+
+        rooms.setRenderer(renderer);
+
         surface = new TemperatureSurface(getActivity(), renderer);
         temperatures.setRender(renderer);
 
@@ -76,6 +80,7 @@ public class TemperatureFragment extends Fragment implements EndpointObserver, R
         rooms.addObserver(this);
         assignController.parent = this;
         surface.requestRenderUpdate();
+
     }
 
     @Override
@@ -139,6 +144,8 @@ public class TemperatureFragment extends Fragment implements EndpointObserver, R
 
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        renderer.onSurfaceViewLayoutChange(left, top, right, bottom);
         surface.onResume();
+        Log.d("RENDER", "left: " + left + ", top: "+top+", right: "+right+", bottom: " + bottom);
     }
 }

@@ -15,6 +15,7 @@ import org.rajawali3d.materials.Material;
 import org.rajawali3d.materials.methods.DiffuseMethod;
 import org.rajawali3d.math.vector.Vector3;
 import org.rajawali3d.scene.Scene;
+import org.rajawali3d.util.GLU;
 import org.rajawali3d.util.ObjectColorPicker;
 
 import it.achdjian.paolo.domusviewer.database.TempSensorLocationDS;
@@ -62,7 +63,7 @@ public class RoomObject {
     }
 
     public void initLabels(@NonNull Context context) {
-        temperatureLabel = new TemperatureLabel(this, temperatureCache);
+        temperatureLabel = new TemperatureLabel(this);
         scene.addChild(temperatureLabel);
         trashLabel = new TrashLabel(context, this, Color.BLACK);
         scene.addChild(trashLabel);
@@ -161,4 +162,6 @@ public class RoomObject {
         trashLabel = null;
         material.setColor(Rooms.DEFAULT_COLOR);
     }
+
+
 }

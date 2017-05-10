@@ -14,7 +14,9 @@ import org.rajawali3d.bounds.BoundingBox;
 import org.rajawali3d.loader.LoaderOBJ;
 import org.rajawali3d.loader.ParsingException;
 import org.rajawali3d.materials.textures.TextureManager;
+import org.rajawali3d.math.Matrix4;
 import org.rajawali3d.math.vector.Vector3;
+import org.rajawali3d.renderer.Renderer;
 import org.rajawali3d.util.OnObjectPickedListener;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ import java.util.List;
 
 import it.achdjian.paolo.domusviewer.R;
 import it.achdjian.paolo.domusviewer.database.TempSensorLocationDS;
+
+import static org.rajawali3d.util.GLU.gluProject;
 
 /**
  * Created by Paolo Achdjian on 29/08/16.
@@ -41,6 +45,8 @@ public class Rooms implements OnObjectPickedListener {
     public final List<RoomObject> rooms = new ArrayList<>();
     private final List<List<String>> planes = new ArrayList<>();
     private final List<RoomObserver> roomObservers = new ArrayList<>();
+
+    private Renderer render;
 
     @AfterInject
     public void init() {
@@ -148,6 +154,9 @@ public class Rooms implements OnObjectPickedListener {
             }
         }
         if (roomSelected != null) {
+            debugRoom(roomSelected, roomSelected.getMin());
+            debugRoom(roomSelected, roomSelected.getMax());
+
             for (RoomObject roomObject : rooms) {
                 if (roomObject != roomSelected) {
                     roomObject.deselect();
@@ -157,6 +166,25 @@ public class Rooms implements OnObjectPickedListener {
                 roomObserver.selected(roomSelected.name);
             }
         }
+    }
+
+    private void debugRoom(RoomObject roomSelected, Vector3 min) {
+        Matrix4 viewMatrix = render.getCurrentCamera().getViewMatrix();
+        Matrix4 projectionMatrix = render.getCurrentCamera().getProjectionMatrix();
+        int[] viewPort = {0, 0, render.getViewportWidth(), render.getViewportHeight()};
+        double[] pos4 = new double[4];
+        gluProject(min.x ,min.y, min.z,viewMatrix.getDoubleValues(),0, projectionMatrix.getDoubleValues(), 0, viewPort,0,pos4, 0);
+        printListDouble(roomSelected.name, pos4);
+    }
+
+
+    private void printListDouble(String name, double[] leftTop) {
+        StringBuilder builder = new StringBuilder(name).append(" {");
+        for (double pos : leftTop) {
+            builder.append(pos).append(" , ");
+        }
+        builder.append("}");
+        Log.i("RENDER", builder.toString());
     }
 
     @Override
@@ -200,4 +228,7 @@ public class Rooms implements OnObjectPickedListener {
     }
 
 
+    public void setRenderer(TemperatureRender renderer) {
+        this.render = renderer;
+    }
 }
