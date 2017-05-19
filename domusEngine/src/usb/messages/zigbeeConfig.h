@@ -1,0 +1,10 @@
+//
+// Created by paolo on 19/05/17.
+//
+
+#ifndef DOMUS_ENGINE_ZIGBEECONFIG_L_H_H
+#define DOMUS_ENGINE_ZIGBEECONFIG_L_H_H
+
+constexpr uint8_t NODE_POWER_RESPONSE=0x16;
+
+#endif //DOMUS_ENGINE_ZIGBEECONFIG_L_H_H

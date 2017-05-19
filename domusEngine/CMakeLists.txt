@@ -121,7 +121,7 @@ else ()
     else ()
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp src/DataDemo.cpp)
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp src/DataDemo.cpp src/usb/messages/zigbeeConfig.h)
     endif ()
 endif ()
 
@@ -184,7 +184,7 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/IEEEAddressResponseExecutor.h
         src/ZigbeeData/NewDeviceObserver.h
         src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
-        src/usb/ReqNodePowerMessage.h)
+        src/usb/messages/PowerNodeRequestMessage.h)
 set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h
                 src/Utils/AttributeWriter.cpp src/Utils/AttributeWriter.h
                 src/Utils/Clusters.cpp  src/Utils/Clusters.h

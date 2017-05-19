@@ -13,7 +13,7 @@
 
 #include "usbConfig.h"
 #include "USBDevice.h"
-#include "ReqNodePowerMessage.h"
+#include "messages/PowerNodeRequestMessage.h"
 #include <zigbee/messageStructure/ReqBindTable.h>
 #include <zigbee/messageStructure/AttributeValue.h>
 #include <zigbee/messageStructure/ComandSend.h>
@@ -23,7 +23,6 @@
 #include <zigbee/messageStructure/ReadAttributeResponseErrorMsg.h>
 #include <zigbee/messageStructure/ReqDeviceInformation.h>
 #include <zigbee/messageStructure/IEEEAddressRequestMessage.h>
-#include <zcl/ZclAttributeUtils.h>
 
 
 namespace zigbee {
@@ -228,7 +227,7 @@ namespace zigbee {
             return;
         }
         BOOST_LOG_TRIVIAL(info) << "Request active endpons for " << nwkAddr;
-        ReqNodePowerMessage request{nwkAddr};
+        PowerNodeRequestMessage request{nwkAddr};
 
         int transferd;
 
