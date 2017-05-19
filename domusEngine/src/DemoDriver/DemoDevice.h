@@ -6,6 +6,8 @@
 #define DOMUS_ENGINE_DEMODEVICE_H
 
 #include <zigbee/ZigbeeDevice.h>
+#include <boost/fiber/condition_variable.hpp>
+#include <boost/fiber/unbuffered_channel.hpp>
 #include <thread>
 #include <random>
 #include "../ZigbeeData/ZDevices.h"
@@ -20,13 +22,15 @@ namespace zigbee {
         explicit DemoDevice(SingletonObjects &singletonObjects);
 
         virtual ~DemoDevice() = default;
-
+        using PowerNodeSet = boost::fibers::unbuffered_channel<NwkAddr>;
     private:
         bool isPresent() override;
 
         bool enableLog() override;
 
         void requestActiveEndpoints(NwkAddr nwkAddr) override;
+
+        void requestNodePower(NwkAddr nwkAddr) override;
 
         void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) override;
 
@@ -78,13 +82,14 @@ namespace zigbee {
 
 // DATA
         SingletonObjects &singletonObjects;
-
+        PowerNodeSet powerNodeSet;
         bool stop;
 
         std::thread demoThread;
 
         std::map<std::tuple<NwkAddr, EndpointID, ClusterID, int>, int> intValuesMap;
         std::vector<std::tuple<int32_t, std::function<void()> > > posponedCallbacks;
+        std::vector<boost::fibers::fiber> fibers;
 
         std::random_device rd;
         std::mt19937 e1;

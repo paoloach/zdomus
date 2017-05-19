@@ -87,6 +87,8 @@ namespace zigbee {
         void registerForAttributeValue(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeId, const NewAttributeValueCallback) override {
         }
 
+        void requestNodePower(NwkAddr nwkAddr) override;
+
         void requestActiveEndpoints(NwkAddr nwkAddr) override;
 
         void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID, const uint8_t inClusterAddr[Z_EXTADDR_LEN],

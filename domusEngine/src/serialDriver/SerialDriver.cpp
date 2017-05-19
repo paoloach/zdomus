@@ -185,6 +185,18 @@ namespace zigbee {
     }
 
 
+    // Send message: NP: networkid
+    //                    4digit
+    void SerialDriver::requestNodePower(NwkAddr nwkAddr) {
+        if (serialPort.is_open()) {
+            stringstream stream;
+            stream << "NP: " << hex << uppercase << setfill('0') << setw(4) << nwkAddr.getId() << "\n";
+            std::string data = stream.str();
+            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
+            serialPort.write_some(buffer(data));
+        }
+    }
+
     // Send message: BI: network id, extend address,  endpointId, clusterId, extend address, endpoint Id
     //                    4 digits ,  16 digits    ,    2 digits,  4 digits,  16 digits    ,   2 digits
     void SerialDriver::sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID, const uint8_t inClusterAddr[Z_EXTADDR_LEN],

@@ -3,16 +3,16 @@ project(zigbee_lib)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC -DBOOST_ALL_DYN_LINK -g3")
 
-find_package(Boost COMPONENTS system thread signals program_options filesystem log REQUIRED)
+find_package(Boost 1.63 COMPONENTS system thread signals program_options filesystem log fiber REQUIRED)
 
-set (GMOCK_DIR googletest/googlemock)
-set (GTEST_DIR googletest/googletest)
-set (GMOCK_INCLUDE_DIR ${GMOCK_DIR}/include)
-set (GTEST_INCLUDE_DIR ${GTEST_DIR}/include)
-set (GMOCK_LIB_DIR ${GMOCK_DIR}/lib/.libs)
-set (GTEST_LIB_DIR ${GTEST_DIR}/lib/.libs)
-set (GTEST_LIBS gtest gtest_main)
-set (GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
+set(GMOCK_DIR googletest/googlemock)
+set(GTEST_DIR googletest/googletest)
+set(GMOCK_INCLUDE_DIR ${GMOCK_DIR}/include)
+set(GTEST_INCLUDE_DIR ${GTEST_DIR}/include)
+set(GMOCK_LIB_DIR ${GMOCK_DIR}/lib/.libs)
+set(GTEST_LIB_DIR ${GTEST_DIR}/lib/.libs)
+set(GTEST_LIBS gtest gtest_main)
+set(GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
 
 
 add_subdirectory(googletest/googlemock)
@@ -25,30 +25,34 @@ ADD_CUSTOM_TARGET(run_install COMMAND ${CMAKE_MAKE_PROGRAM} install)
 
 
 set(SOURCE_FILES
-    src/usb/usbConfig.h
-    src/usb/USBDevice.cpp
-    src/usb/USBDevice.h
-    src/zigbee/messageStructure/AnnunceMessage.h
-    src/zigbee/messageStructure/AttributeValue.h
-    src/zigbee/messageStructure/BindRequest.h
-    src/zigbee/messageStructure/BindTableResponseMessage.h
-    src/zigbee/messageStructure/ComandSend.h
-    src/zigbee/messageStructure/GenericMessage.h
-    src/zigbee/messageStructure/ReadAttributeResponseMessage.h
-    src/zigbee/messageStructure/ReqActiveEndpointsMessage.h
-    src/zigbee/messageStructure/ReqBindTable.h
-    src/zigbee/messageStructure/SimpleDescMessage.h
-    src/zigbee/messageStructure/WriteAttributeValue.h
-    src/zigbee/messageStructure/ZAddrType.h
-    src/zigbee/AttributeStatusRecord.h
-    src/zigbee/ClusterID.cpp
-    src/zigbee/ClusterID.h
-    src/zigbee/EndpointID.h
-    src/zigbee/NwkAddr.h
-    src/zigbee/zigbeeConfig.h
-    src/zigbee/ZigbeeDevice.cpp
-    src/zigbee/ZigbeeDevice.h
-    src/zigbee/ZigbeeTypes.h src/zigbee/messageStructure/ReadAttributeResponseErrorMsg.h src/zigbee/ZigbeeTypes.cpp src/zigbee/messageStructure/UnbindRequest.h)
+        src/usb/usbConfig.h
+        src/usb/USBDevice.cpp
+        src/usb/USBDevice.h
+        src/zigbee/messageStructure/AnnunceMessage.h
+        src/zigbee/messageStructure/AttributeValue.h
+        src/zigbee/messageStructure/BindRequest.h
+        src/zigbee/messageStructure/BindTableResponseMessage.h
+        src/zigbee/messageStructure/ComandSend.h
+        src/zigbee/messageStructure/GenericMessage.h
+        src/zigbee/messageStructure/ReadAttributeResponseMessage.h
+        src/zigbee/messageStructure/ReqActiveEndpointsMessage.h
+        src/zigbee/messageStructure/ReqBindTable.h
+        src/zigbee/messageStructure/SimpleDescMessage.h
+        src/zigbee/messageStructure/WriteAttributeValue.h
+        src/zigbee/messageStructure/ZAddrType.h
+        src/zigbee/AttributeStatusRecord.h
+        src/zigbee/ClusterID.cpp
+        src/zigbee/ClusterID.h
+        src/zigbee/EndpointID.h
+        src/zigbee/NwkAddr.h
+        src/zigbee/zigbeeConfig.h
+        src/zigbee/ZigbeeDevice.cpp
+        src/zigbee/ZigbeeDevice.h
+        src/zigbee/ZigbeeTypes.h
+
+        src/zigbee/messageStructure/ReadAttributeResponseErrorMsg.h
+        src/zigbee/ZigbeeTypes.cpp
+        src/zigbee/messageStructure/UnbindRequest.h)
 
 
 SET(SOURCE_ZCL_FILES
@@ -56,7 +60,9 @@ SET(SOURCE_ZCL_FILES
         src/zcl/ClusterTypeFactory.cpp
         src/zcl/OnOffLight.cpp
         src/zcl/ZCLAttribute.cpp
-        src/zcl/ZCLDevice.cpp src/zcl/Callbacks.cpp src/zcl/Callbacks.h src/zcl/ZclAttributeUtils.cpp src/zcl/ZclAttributeUtils.h)
+        src/zcl/ZCLDevice.cpp
+        src/zcl/Callbacks.cpp src/zcl/Callbacks.h
+        src/zcl/ZclAttributeUtils.cpp src/zcl/ZclAttributeUtils.h)
 
 SET(SOURCE_ATTRIBUTES_FILES
         src/zcl/attributeTypes/ZCLbitmap8bitAttribute.cpp
@@ -68,8 +74,8 @@ SET(SOURCE_ATTRIBUTES_FILES
         src/zcl/attributeTypes/ZCLuint8Attribute.cpp
         src/zcl/attributeTypes/ZCLuint16Attribute.cpp
         src/zcl/attributeTypes/ZCLuint24Attribute.cpp
-        src/zcl/attributeTypes/ZCLuint48Attribute.cpp  src/zcl/attributeTypes/ZCLuint48Attribute.h
-        src/zcl/attributeTypes/ZCLint24Attribute.cpp  src/zcl/attributeTypes/ZCLint24Attribute.h
+        src/zcl/attributeTypes/ZCLuint48Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.h
+        src/zcl/attributeTypes/ZCLint24Attribute.cpp src/zcl/attributeTypes/ZCLint24Attribute.h
         src/zcl/attributeTypes/ZCLUTCTime.cpp src/zcl/attributeTypes/ZCLUTCTime.h
         src/zcl/attributeTypes/ZCLOctetString.cpp src/zcl/attributeTypes/ZCLOctetString.h
         src/zcl/attributeTypes/ZCLBitmap32bitAttribute.cpp src/zcl/attributeTypes/ZCLBitmap32bitAttribute.h
@@ -101,31 +107,38 @@ SET(SOURCE_CLLUSTER_FILES
         src/zcl/clusterTypes/TestCluster.cpp
         src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.h)
 
-SET(zigbeeSrcTest  src/test/main.cpp
+SET(SOURCE_POWERNODE_FILES
+        src/zigbee/powerNode/PowerNodeCallbacks.h src/zigbee/powerNode/PowerNodeCallbacks.cpp
+        src/zigbee/powerNode/PowerNodeQueue.h src/zigbee/powerNode/PowerNodeQueue.cpp)
+
+SET(POWERNODE_HEADER
+        src/zigbee/powerNode/PowerNodeCallbacks.h
+        src/zigbee/powerNode/PowerNodeQueue.h)
+
+SET(zigbeeSrcTest src/test/main.cpp
         src/test/ZCLTypeTest.cpp
         src/test/ZCLTypeTest.h
         src/test/attributesTest.cpp src/zcl/ZclAttributeUtils.cpp src/zcl/ZclAttributeUtils.h)
 
 
-
-set (USB_HEADER src/usb/USBDevice.h src/usb/usbConfig.h)
-file (GLOB zigbee_header  "src/zigbee/*.h")
-file (GLOB zigbee_messageStructure_header  "src/zigbee/messageStructure/*.h")
-file (GLOB zcl_header  "src/zcl/*.h")
-file (GLOB zcl_exceptions  "src/zcl/exceptions/*.h")
-file (GLOB zcl_CmdParams_header  "src/zcl/CmdParams/*.h")
-file (GLOB attributeTypes_header  "src/zcl/attributeTypes/*.h")
-file (GLOB clusterTypes_header  "src/zcl/clusterTypes/*.h")
+set(USB_HEADER src/usb/USBDevice.h src/usb/usbConfig.h)
+file(GLOB zigbee_header "src/zigbee/*.h")
+file(GLOB zigbee_messageStructure_header "src/zigbee/messageStructure/*.h")
+file(GLOB zcl_header "src/zcl/*.h")
+file(GLOB zcl_exceptions "src/zcl/exceptions/*.h")
+file(GLOB zcl_CmdParams_header "src/zcl/CmdParams/*.h")
+file(GLOB attributeTypes_header "src/zcl/attributeTypes/*.h")
+file(GLOB clusterTypes_header "src/zcl/clusterTypes/*.h")
 
 include_directories(/usr/include/libusb-1.0 . ${PROJECT_SOURCE_DIR}/src ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
 
 
-add_library(ZCL_Commons OBJECT  ${SOURCE_ZCL_FILES}  )
-add_library(Attributes OBJECT ${SOURCE_ATTRIBUTES_FILES} )
-add_library(Clusters OBJECT  ${SOURCE_CLLUSTER_FILES}  )
-add_library(zigbeeLib SHARED  ${SOURCE_FILES}  $<TARGET_OBJECTS:ZCL_Commons>  $<TARGET_OBJECTS:Attributes> $<TARGET_OBJECTS:Clusters> )
+add_library(ZCL_Commons OBJECT ${SOURCE_ZCL_FILES})
+add_library(Attributes OBJECT ${SOURCE_ATTRIBUTES_FILES})
+add_library(Clusters OBJECT ${SOURCE_CLLUSTER_FILES})
+add_library(zigbeeLib SHARED ${SOURCE_FILES} ${SOURCE_POWERNODE_FILES} $<TARGET_OBJECTS:ZCL_Commons> $<TARGET_OBJECTS:Attributes> $<TARGET_OBJECTS:Clusters>)
 
-add_executable(zigbeeLibTest  ${zigbeeSrcTest} )
+add_executable(zigbeeLibTest ${zigbeeSrcTest})
 
 #target_include_directories(zigbeeLibTest ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
 
@@ -134,21 +147,23 @@ target_link_libraries(zigbeeLibTest ${GMOCK_LIBS} zigbeeLib ${Boost_SIGNALS_LIBR
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
         ${Boost_LOG_LIBRARY_RELEASE}
-        ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}  pthread)
+        ${Boost_FIBER_LIBRARY_RELEASE}
+        ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE} pthread)
 
 
-target_link_libraries(zigbeeLib usb-1.0  ${Boost_LOG_LIBRARY_RELEASE})
+target_link_libraries(zigbeeLib usb-1.0 ${Boost_LOG_LIBRARY_RELEASE})
 
 set_property(TARGET zigbeeLib PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
-set_target_properties(zigbeeLib PROPERTIES PUBLIC_HEADER "${zigbee_header}" )
+set_target_properties(zigbeeLib PROPERTIES PUBLIC_HEADER "${zigbee_header}")
 
 
-INSTALL(TARGETS zigbeeLib  LIBRARY DESTINATION  ${INSTALL_LIB_DIR} )
-INSTALL(FILES ${zigbee_header}  DESTINATION ${INSTALL_INCLUDE_DIR}/zigbee )
-INSTALL(FILES ${zcl_header}  DESTINATION ${INSTALL_INCLUDE_DIR}/zcl )
-INSTALL(FILES ${zcl_exceptions}  DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/exceptions )
-INSTALL(FILES ${zcl_CmdParams_header}  DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/CmdParams )
-INSTALL(FILES ${attributeTypes_header}  DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/attributeTypes )
-INSTALL(FILES ${clusterTypes_header}  DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/clusterTypes )
-INSTALL(FILES ${zigbee_messageStructure_header}  DESTINATION ${INSTALL_INCLUDE_DIR}/zigbee/messageStructure )
-INSTALL(FILES ${USB_HEADER}  DESTINATION ${INSTALL_INCLUDE_DIR}/usb)
+INSTALL(TARGETS zigbeeLib LIBRARY DESTINATION ${INSTALL_LIB_DIR})
+INSTALL(FILES ${zigbee_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zigbee)
+INSTALL(FILES ${zcl_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl)
+INSTALL(FILES ${zcl_exceptions} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/exceptions)
+INSTALL(FILES ${zcl_CmdParams_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/CmdParams)
+INSTALL(FILES ${attributeTypes_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/attributeTypes)
+INSTALL(FILES ${clusterTypes_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/clusterTypes)
+INSTALL(FILES ${POWERNODE_HEADER} DESTINATION ${INSTALL_INCLUDE_DIR}/zigbee/powerNode)
+INSTALL(FILES ${zigbee_messageStructure_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zigbee/messageStructure)
+INSTALL(FILES ${USB_HEADER} DESTINATION ${INSTALL_INCLUDE_DIR}/usb)

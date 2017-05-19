@@ -18,9 +18,11 @@
 #include "messageStructure/ReqActiveEndpointsMessage.h"
 #include "messageStructure/BindTableResponseMessage.h"
 #include "AttributeStatusRecord.h"
-#include <zigbee/EndpointID.h>
-#include <zigbee/ClusterID.h>
-#include <zigbee/NwkAddr.h>
+#include "PowerNodeData.h"
+#include "EndpointID.h"
+#include "ClusterID.h"
+#include "NwkAddr.h"
+#include "powerNode/PowerNodeQueue.h"
 #include "../zcl/ZCLDataType.h"
 
 namespace zigbee {
@@ -46,7 +48,7 @@ namespace zigbee {
 
         virtual bool enableLog()=0;
 
-        virtual void requestNodePower() = 0;
+        virtual void requestNodePower(NwkAddr nwkAddr) = 0;
 
         virtual void requestActiveEndpoints(NwkAddr nwkAddr)=0;
 
@@ -86,12 +88,23 @@ namespace zigbee {
 
         virtual void registerForBindTableMessage(BindTableResponseCallback) = 0;
 
+        void registerForPowerNode(NwkAddr nwkAddr,PowerNodeResponseCallback && callback) {
+            powerNodeQueue.add(nwkAddr, std::move(callback));
+        }
+
         virtual void registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                              ZigbeeAttributeCmdId cmdId, const std::function<void()>) = 0;
 
         virtual void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                                ZigbeeAttributeId attributeId,
                                                const NewAttributeValueCallback subscriber) = 0;
+
+        void setPowerNode(std::shared_ptr<PowerNodeData> powerNodeData){
+            powerNodeQueue.setPowerNode(powerNodeData);
+        }
+
+    protected:
+        PowerNodeQueue  powerNodeQueue;
     };
 
 } /* namespace zigbee */

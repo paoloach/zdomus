@@ -16,7 +16,10 @@ namespace zigbee {
     class SerialResponseExecutor {
 
         enum class CmdType {
-            Invalid, AnnunceDevice, IEEEAddress, IEEEAddressError, SimpleDescriptor, ActiveEndpointError, BindTableEntry, ReadAttributeError, ReadAttribute, DeviceInfo
+            Invalid, AnnunceDevice, IEEEAddress,
+            IEEEAddressError, SimpleDescriptor, ActiveEndpointError,
+            BindTableEntry, ReadAttributeError, ReadAttribute, DeviceInfo,
+            PowerNode,PowerNodeError
         };
 
     public:

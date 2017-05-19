@@ -13,6 +13,7 @@
 
 #include "usbConfig.h"
 #include "USBDevice.h"
+#include "ReqNodePowerMessage.h"
 #include <zigbee/messageStructure/ReqBindTable.h>
 #include <zigbee/messageStructure/AttributeValue.h>
 #include <zigbee/messageStructure/ComandSend.h>
@@ -220,6 +221,19 @@ namespace zigbee {
         BOOST_LOG_TRIVIAL(info) << "Enable usb logs";
         sendData(genericMessage);
         return true;
+    }
+
+    void DomusEngineUSBDevice::requestNodePower(NwkAddr nwkAddr) {
+        if (handle == nullptr) {
+            return;
+        }
+        BOOST_LOG_TRIVIAL(info) << "Request active endpons for " << nwkAddr;
+        ReqNodePowerMessage request{nwkAddr};
+
+        int transferd;
+
+        libusb_bulk_transfer(handle, BULK_ENDPOINT_OUT, (unsigned char *) &request, sizeof(request), &transferd, 1000);
+        sendData(request);
     }
 
     void DomusEngineUSBDevice::requestActiveEndpoints(NwkAddr nwkAddr) {

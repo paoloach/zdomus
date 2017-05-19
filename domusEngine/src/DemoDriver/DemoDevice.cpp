@@ -2,13 +2,22 @@
 // Created by paolo on 27/01/17.
 //
 
+#include <boost/fiber/algo/round_robin.hpp>
+#include <boost/fiber/operations.hpp>
+//#include <boost/fiber/all.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/endian/conversion.hpp>
 #include <zcl/Cluster.h>
 #include <zcl/StatusEnum.h>
-#include <random>
 #include "DemoDevice.h"
 #include "../Utils/SingletonObjects.h"
+
+using boost::fibers::fiber;
+using boost::fibers::mutex;
+using boost::fibers::condition_variable;
+using namespace std::chrono_literals;
+using std::unique_lock;
+using std::get;
 
 namespace zigbee {
 
@@ -62,8 +71,25 @@ namespace zigbee {
     }
 
     void DemoDevice::runDemoThread() {
+        boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
+        powerNodeQueue.startDequeFiber();
+
+        boost::fibers::fiber fiberPowerNodeSetDeque([this]() {
+            for (auto && nwkAddr: powerNodeSet) {
+                boost::fibers::fiber setPowerMode([this, nwkAddr]() {
+                    auto powerNodeData = std::make_shared<PowerNodeData>();
+                    powerNodeData->nwkAddr = nwkAddr;
+                    boost::this_fiber::sleep_for(3s);
+                    BOOST_LOG_TRIVIAL(info) << "Notify power node arrived";
+                    powerNodeQueue.setPowerNode(powerNodeData);
+                });
+                fibers.push_back(std::move(setPowerMode));
+            }
+        });
+
+
         while (!stop) {
-            sleep(1);
+            boost::this_fiber::yield();
             for (auto &attribute: intValuesMap) {
                 if (std::get<ClusterID>(attribute.first).getId() == ClustersId::IDENTIFY_CLUSTER) {
                     if (attribute.second > 0) {
@@ -91,6 +117,10 @@ namespace zigbee {
 
     bool DemoDevice::enableLog() {
         return false;
+    }
+
+    void DemoDevice::requestNodePower(zigbee::NwkAddr nwkAddr) {
+        powerNodeSet.push(nwkAddr);
     }
 
     void DemoDevice::requestActiveEndpoints(zigbee::NwkAddr nwkAddr) {
@@ -567,5 +597,6 @@ namespace zigbee {
     DemoDevice::registerForAttributeValue(zigbee::NwkAddr, const zigbee::EndpointID, zigbee::ClusterID, ZigbeeAttributeId, const zigbee::ZigbeeDevice::NewAttributeValueCallback) {
 
     }
+
 
 }

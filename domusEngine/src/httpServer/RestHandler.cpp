@@ -18,6 +18,7 @@
 #include "RestActions/ShowBindTable.h"
 #include "RestActions/ExecuteReset.h"
 #include "RestActions/ExecuteBind.h"
+#include "RestActions/ShowPowerNode.h"
 
 
 using namespace Net::Rest::Routes;
@@ -33,6 +34,7 @@ namespace zigbee {
             Get(router, "/devices", ShowDevices{singletons});
             Get(router, "/devices/topology", ShowTopology{singletons});
             Get(router, "/devices/:device", ShowDevice{singletons});
+            Get(router, "/devices/:device/power", ShowPowerNode{singletons});
             Get(router, "/devices/:device/info", ShowDeviceInfo{singletons});
             Get(router, "/devices/:device/endpoint/:endpoint", ShowEndpoint{singletons});
             Get(router, "/devices/:device/endpoint/:endpoint/cluster/in/:cluster", ShowInCluster{singletons});

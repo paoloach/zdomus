@@ -84,13 +84,12 @@ add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
 
 find_package(PostgreSQL)
 
-find_package(Boost COMPONENTS system thread signals program_options filesystem log REQUIRED)
+find_package(Boost 1.63 COMPONENTS fiber context system thread signals program_options filesystem log REQUIRED)
 
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 include_directories(./include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR})
 
 file(GLOB src "src/*.cpp")
-file(GLOB srcZigbeeData "src/ZigbeeData/*.cpp")
 file(GLOB srcZigbeeDataPT "src/ZigbeeData/PropertyTree/*.cpp")
 file(GLOB srcZigbeeDataExceptions "src/ZigbeeData/Exceptions/*.cpp")
 file(GLOB srcComand "src/Comand/*.cpp")
@@ -103,7 +102,6 @@ file(GLOB srcJavaScript_exceptions "src/JavaScript/Exceptions/*.cpp")
 file(GLOB srcHttpServer "src/httpServer/*.cpp")
 file(GLOB srcRestParser "src/httpServer/RestParser/*.cpp")
 file(GLOB srcRestActions "src/httpServer/RestActions/*.cpp")
-
 
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     if (CMAKE_C_COMPILER MATCHES "arm")
@@ -127,9 +125,22 @@ else ()
     endif ()
 endif ()
 
+
+SET(SRC_ZIGBEE_DATA src/ZigbeeData/AttributeData.cpp src/ZigbeeData/AttributeData.h
+        src/ZigbeeData/BindTable.cpp src/ZigbeeData/BindTable.h
+        src/ZigbeeData/ExtAddress.cpp src/ZigbeeData/ExtAddress.h
+        src/ZigbeeData/IEEEAddressResponse.h
+        src/ZigbeeData/NewDeviceObserver.h
+        src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h
+        src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
+        src/ZigbeeData/ZDevice.cpp src/ZigbeeData/ZDevice.h
+        src/ZigbeeData/ZDevices.cpp src/ZigbeeData/ZDevices.h
+        src/ZigbeeData/ZElement.cpp src/ZigbeeData/ZElement.h
+        src/ZigbeeData/ZEndpoint.cpp src/ZigbeeData/ZEndpoint.h )
+
 SET(SRC_EXCEPTION src/Exception/PathNotFound.h src/Exception/Timeout.h)
 
-SET(SRC_HTTP src/httpServer/RestHandler.cpp src/httpServer/RestHandler.h)
+SET(SRC_HTTP src/httpServer/RestHandler.cpp src/httpServer/RestHandler.h src/httpServer/RestActions/ShowPowerNode.cpp src/httpServer/RestActions/ShowPowerNode.h)
 
 
 SET(SRC_DEMO_DRIVER
@@ -146,7 +157,7 @@ SET(SRC_SERIAL_DRIVER
         src/serialDriver/ActiveEndpointErrorExecutor.h
         src/serialDriver/BindTableSerialExecuter.h
         src/serialDriver/ReadAttributeResponseErrorSerial.h
-        src/serialDriver/ReadAttributeResponseSerial.h src/serialDriver/DeviceInfoSerialExecutor.h)
+        src/serialDriver/ReadAttributeResponseSerial.h src/serialDriver/DeviceInfoSerialExecutor.h src/serialDriver/PowerNodeResponse.cpp src/serialDriver/PowerNodeResponse.h)
 
 set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h
@@ -173,7 +184,7 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/IEEEAddressResponseExecutor.h
         src/ZigbeeData/NewDeviceObserver.h
         src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
-        )
+        src/usb/ReqNodePowerMessage.h)
 set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h
                 src/Utils/AttributeWriter.cpp src/Utils/AttributeWriter.h
                 src/Utils/Clusters.cpp  src/Utils/Clusters.h
@@ -205,7 +216,8 @@ add_library(javascript_lib OBJECT
         src/JavaScript/JSZEndpoints.cpp src/JavaScript/JSZEndpoints.h
         src/JavaScript/GlobalJSFunctions.cpp src/JavaScript/GlobalJSFunctions.h
         src/JavaScript/JSCallbackFifo.cpp src/JavaScript/JSCallbackFifo.h
-        src/JavaScript/JSResultSet.cpp src/JavaScript/JSResultSet.h src/JavaScript/JSRestParam.cpp src/JavaScript/JSRestParam.h)
+        src/JavaScript/JSResultSet.cpp src/JavaScript/JSResultSet.h
+        src/JavaScript/JSRestParam.cpp src/JavaScript/JSRestParam.h)
 
 
 add_library(domus_engine_static_lib STATIC
@@ -214,7 +226,7 @@ add_library(domus_engine_static_lib STATIC
         ${SRC_SERIAL_DRIVER}
         ${SRC_UTILS}
         ${SRC_DEMO_DRIVER}
-        ${srcZigbeeData}
+        ${SRC_ZIGBEE_DATA}
         ${srcZigbeeDataPT}
         ${srcIO}
         ${srcComand}
@@ -241,7 +253,8 @@ add_library(domus_engine_static_lib STATIC
         src/json/jsoncpp.cpp
         src/json/json/json-forwards.h
         src/json/json/json.h
-        src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h)
+        src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h
+        src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h)
 
 
 add_executable(domus_engine src/main.cpp ${V8_BLOB})
@@ -257,6 +270,8 @@ SET(LIBS zigbeeLib
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
         ${Boost_LOG_LIBRARY_RELEASE}
+        ${Boost_CONTEXT_LIBRARY_RELEASE}
+        ${Boost_FIBER_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
         ${PISTACHE_LIB}
         dl
