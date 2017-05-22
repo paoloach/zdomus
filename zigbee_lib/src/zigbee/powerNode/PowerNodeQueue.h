@@ -5,19 +5,20 @@
 #ifndef DOMUS_ENGINE_POWERNODEQUEUE_H
 #define DOMUS_ENGINE_POWERNODEQUEUE_H
 
+
 #include <queue>
 #include <boost/fiber/mutex.hpp>
 #include <boost/fiber/unbuffered_channel.hpp>
 #include "../NwkAddr.h"
+
 #include "PowerNodeCallbacks.h"
 
 
 namespace zigbee {
     class PowerNodeQueue {
     public:
-        using PowerNodeResponseCallback = std::function<void(std::shared_ptr<PowerNodeData> powerNode)>;
-        using PowerNodeChannel = boost::fibers::unbuffered_channel< std::tuple<NwkAddr, PowerNodeResponseCallback > >;
-        void add(NwkAddr nwkAddr, PowerNodeResponseCallback && callback) {
+        using PowerNodeChannel = boost::fibers::unbuffered_channel< std::tuple<NwkAddr, std::unique_ptr<PowerNodeResponseCallback> > >;
+        void add(NwkAddr nwkAddr, std::unique_ptr<PowerNodeResponseCallback> && callback) {
             powerNodeChannel.push(std::make_tuple(nwkAddr, std::move(callback)));
         }
 

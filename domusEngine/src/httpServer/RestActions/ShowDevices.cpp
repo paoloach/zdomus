@@ -21,12 +21,17 @@ namespace zigbee {
         using namespace Net::Http::Header;
 
         Net::Rest::Route::Result ShowDevices::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
-            auto contentType = request.headers().get<ContentType>();
-            const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);
-            std::stringstream output;
-            producer.produce(output, ZDevicesPT(singletons.getZDevices()));
-            response.send(Code::Ok, output.str());
-            return Net::Rest::Route::Result::Ok;
+            if (request.headers().has(ContentType::Name)) {
+                auto contentType = request.headers().get<ContentType>();
+                const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);
+                std::stringstream output;
+                producer.produce(output, ZDevicesPT(singletons.getZDevices()));
+                response.send(Code::Ok, output.str());
+                return Net::Rest::Route::Result::Ok;
+            } else {
+                response.send(Code::Bad_Request, "Invalid content type\n\r");
+                return Net::Rest::Route::Result::Ok;
+            }
         }
     } /* namespace http */
 } /* namespace zigbee */

@@ -6,18 +6,32 @@
 #include "PowerNodeCallbacks.h"
 
 using namespace boost::fibers;
+using namespace std::chrono_literals;
 
 zigbee::PowerNodeCallbacks::PowerNodeCallbacks() : callback([this]() {
     std::unique_lock<mutex> lk(this->mutexCond);
     while (true) {
-        this->cond.wait(lk);
+        while(this->callbacks.empty()){
+            boost::this_fiber::yield();
+        }
+        auto waitResult = this->cond.wait_for(lk, duration);
         BOOST_LOG_TRIVIAL(info) << "power node event";
-        while (!this->callbacks.empty()) {
-            this->callbacks.front()(this->powerNodeData);
-            this->callbacks.pop();
+        if (waitResult == boost::fibers::cv_status::timeout) {
+            BOOST_LOG_TRIVIAL(info) << "power node timeout";
+            while (!this->callbacks.empty()) {
+                auto &&callback = this->callbacks.front();
+                callback->timeout();
+                this->callbacks.pop();
+            }
+        } else {
+            while (!this->callbacks.empty()) {
+                auto &&callback = this->callbacks.front();
+                callback->response(this->powerNodeData);
+                this->callbacks.pop();
+            }
         }
     }
-}) {
+}), duration(60s) {
 }
 
 

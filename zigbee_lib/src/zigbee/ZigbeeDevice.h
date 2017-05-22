@@ -88,7 +88,7 @@ namespace zigbee {
 
         virtual void registerForBindTableMessage(BindTableResponseCallback) = 0;
 
-        void registerForPowerNode(NwkAddr nwkAddr,PowerNodeResponseCallback && callback) {
+        void registerForPowerNode(NwkAddr nwkAddr,std::unique_ptr<PowerNodeResponseCallback> && callback) {
             powerNodeQueue.add(nwkAddr, std::move(callback));
         }
 

@@ -109,11 +109,12 @@ SET(SOURCE_CLLUSTER_FILES
 
 SET(SOURCE_POWERNODE_FILES
         src/zigbee/powerNode/PowerNodeCallbacks.h src/zigbee/powerNode/PowerNodeCallbacks.cpp
-        src/zigbee/powerNode/PowerNodeQueue.h src/zigbee/powerNode/PowerNodeQueue.cpp)
+        src/zigbee/powerNode/PowerNodeQueue.h src/zigbee/powerNode/PowerNodeQueue.cpp src/zigbee/powerNode/PowerNodeResponseCallback.h)
 
 SET(POWERNODE_HEADER
         src/zigbee/powerNode/PowerNodeCallbacks.h
-        src/zigbee/powerNode/PowerNodeQueue.h)
+        src/zigbee/powerNode/PowerNodeQueue.h
+        src/zigbee/powerNode/PowerNodeResponseCallback.h)
 
 SET(zigbeeSrcTest src/test/main.cpp
         src/test/ZCLTypeTest.cpp

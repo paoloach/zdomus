@@ -60,6 +60,7 @@
 /usr/local/zigbee/include/zcl/clusterTypes/TestCluster.h
 /usr/local/zigbee/include/zigbee/powerNode/PowerNodeCallbacks.h
 /usr/local/zigbee/include/zigbee/powerNode/PowerNodeQueue.h
+/usr/local/zigbee/include/zigbee/powerNode/PowerNodeResponseCallback.h
 /usr/local/zigbee/include/zigbee/messageStructure/ActiveEPErrorMessage.h
 /usr/local/zigbee/include/zigbee/messageStructure/AnnunceMessage.h
 /usr/local/zigbee/include/zigbee/messageStructure/AttributeValue.h

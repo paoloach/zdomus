@@ -23,17 +23,14 @@ namespace zigbee {
         Net::Rest::Route::Result ShowPowerNode::operator()(const Net::Rest::Request &request, ResponseWriter &&response) {
             auto device = request.param(":device").as<NwkAddr>();
             BOOST_LOG_TRIVIAL(trace) << "ShowPower " << device;
-            auto showPowerNodeCallback = std::make_shared<ShowPowerNodeCallback>(std::move(response));
-            auto callback = [showPowerNodeCallback](std::shared_ptr<PowerNodeData> powerNodeData) mutable {
-                showPowerNodeCallback->apply(powerNodeData);
-            };
-            singletons.getZigbeeDevice()->registerForPowerNode(device, std::move(callback));
+            auto showPowerNodeCallback = std::make_unique<ShowPowerNodeCallback>(std::move(response));
+            singletons.getZigbeeDevice()->registerForPowerNode(device, std::move(showPowerNodeCallback));
             singletons.getZigbeeDevice()->requestNodePower(device);
 
             return Net::Rest::Route::Result::Ok;
         }
 
-        void ShowPowerNodeCallback::apply(std::shared_ptr<PowerNodeData> powerNodeData) {
+        void ShowPowerNodeCallback::response(std::shared_ptr<PowerNodeData> powerNodeData) {
             BOOST_LOG_TRIVIAL(info) << "arrived power node for address " << powerNodeData->nwkAddr;
             Value root(objectValue);
             root["nwkId"] = powerNodeData->nwkAddr.getId();
@@ -45,7 +42,12 @@ namespace zigbee {
 
             stream << root << "\n\r";
 
-            response.send(Code::Ok, stream.str());
+            responseWriter.send(Code::Ok, stream.str());
+        }
+
+        void ShowPowerNodeCallback::timeout() {
+            BOOST_LOG_TRIVIAL(info) << "Power node timeout";
+            responseWriter.send(Code::Internal_Server_Error);
         }
     } /* namespace http */
 } /* namespace zigbee */

@@ -109,7 +109,6 @@ namespace zigbee {
         PowerLevel currentPowerSourceLevel;
     };
 
-    using PowerNodeResponseCallback = std::function<void(std::shared_ptr<PowerNodeData> powerNode)>;
 }
 
 #endif //DOMUS_ENGINE_POWERNODEDATA_H_H
