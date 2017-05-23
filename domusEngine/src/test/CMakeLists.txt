@@ -176,6 +176,8 @@ SET(LIBS zigbeeLib
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
         ${Boost_LOG_LIBRARY_RELEASE}
+        ${Boost_CONTEXT_LIBRARY_RELEASE}
+        ${Boost_FIBER_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
         dl
         pthread
