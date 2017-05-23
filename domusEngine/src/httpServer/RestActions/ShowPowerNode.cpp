@@ -33,6 +33,7 @@ namespace zigbee {
         void ShowPowerNodeCallback::response(std::shared_ptr<PowerNodeData> powerNodeData) {
             BOOST_LOG_TRIVIAL(info) << "arrived power node for address " << powerNodeData->nwkAddr;
             Value root(objectValue);
+            root["error"] = powerNodeData->error;
             root["nwkId"] = powerNodeData->nwkAddr.getId();
             root["powerLevel"] = toString(powerNodeData->currentPowerSourceLevel);
             root["powerMode"] = toString(powerNodeData->powerMode);

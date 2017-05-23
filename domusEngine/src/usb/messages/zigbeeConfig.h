@@ -6,5 +6,7 @@
 #define DOMUS_ENGINE_ZIGBEECONFIG_L_H_H
 
 constexpr uint8_t NODE_POWER_RESPONSE=0x16;
+constexpr uint8_t POWER_NODE_REQ_ERROR=0x43;
+
 
 #endif //DOMUS_ENGINE_ZIGBEECONFIG_L_H_H

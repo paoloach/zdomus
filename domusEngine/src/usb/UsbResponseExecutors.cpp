@@ -13,6 +13,8 @@
 #include "InfoMessageExecuter.h"
 #include "DeviceInfoExecutor.h"
 #include "IEEEAddressResponseExecutor.h"
+#include "messages/zigbeeConfig.h"
+#include "PowerNodeReqError.h"
 
 using std::make_unique;
 
@@ -26,6 +28,7 @@ zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonOb
     executors[INFO_MESSAGE] = make_unique<InfoMessageExecuter>();
     executors[DEVICE_INFO] = make_unique<DeviceInfoExecutor>(singletonObjects);
     executors[IEEE_ADDRESS_RESPONSE] = make_unique<IEEEAddressResponseExecutor>(singletonObjects);
+    executors[POWER_NODE_REQ_ERROR] = make_unique<PowerNodeReqError>(singletonObjects);
 }
 
 void zigbee::UsbResponseExecutors::execute(unsigned char *data, int length) {

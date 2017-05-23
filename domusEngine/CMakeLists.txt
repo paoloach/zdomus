@@ -184,7 +184,7 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/IEEEAddressResponseExecutor.h
         src/ZigbeeData/NewDeviceObserver.h
         src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
-        src/usb/messages/PowerNodeRequestMessage.h)
+        src/usb/messages/PowerNodeRequestMessage.h src/usb/PowerNodeReqError.h src/usb/messages/PowerNodeRespMessage.h)
 set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h
                 src/Utils/AttributeWriter.cpp src/Utils/AttributeWriter.h
                 src/Utils/Clusters.cpp  src/Utils/Clusters.h
@@ -192,7 +192,7 @@ set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterRes
                 src/Utils/SingletonObjects.cpp  src/Utils/SingletonObjects.h
                 src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
                 src/Utils/Constant.cpp src/Utils/Constant.h
-                src/Utils/HttpResponseEvent.cpp src/Utils/HttpResponseEvent.h)
+                src/Utils/HttpResponseEvent.cpp src/Utils/HttpResponseEvent.h src/serialDriver/PowerNodeResponseError.cpp src/serialDriver/PowerNodeResponseError.h)
 
 
 add_library(javascript_lib OBJECT

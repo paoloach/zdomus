@@ -93,15 +93,18 @@ namespace zigbee {
 
 
     struct PowerNodeData {
-        PowerNodeData(PowerNodeData &&a) : nwkAddr(a.nwkAddr), powerMode(a.powerMode),
+        PowerNodeData(PowerNodeData &&a) :error(a.error), nwkAddr(a.nwkAddr), powerMode(a.powerMode),
                                            availablePowerSource(a.availablePowerSource),
         currentPowerSource(a.currentPowerSource),
         currentPowerSourceLevel(a.currentPowerSourceLevel){};
 
-        PowerNodeData() {}
+        PowerNodeData():error(false) {}
+
+        PowerNodeData(bool error): error(error){}
 
         ~PowerNodeData() {}
 
+        bool error;
         NwkAddr nwkAddr;
         PowerMode powerMode;
         PowerSource availablePowerSource;
