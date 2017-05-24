@@ -25,6 +25,13 @@ namespace zigbee {
 
             HttpResponseEvent() : toStop(false), thread(HttpResponseEvent::staticRun, this) {}
 
+            ~HttpResponseEvent() {
+                if (thread.joinable()){
+                    toStop=true;
+                    thread.join();
+                }
+            }
+
             void addEvent(std::unique_ptr<Event> &&event);
 
             static void staticRun(HttpResponseEvent *This) { This->run(); }
@@ -32,8 +39,6 @@ namespace zigbee {
             void run();
 
             void stop();
-
-            void join() { thread.join(); }
 
         private:
             std::list<std::unique_ptr<Event>> events;
