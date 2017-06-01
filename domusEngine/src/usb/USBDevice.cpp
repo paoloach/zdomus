@@ -23,7 +23,7 @@
 #include <zigbee/messageStructure/ReadAttributeResponseErrorMsg.h>
 #include <zigbee/messageStructure/ReqDeviceInformation.h>
 #include <zigbee/messageStructure/IEEEAddressRequestMessage.h>
-
+#include <boost/fiber/algo/round_robin.hpp>
 
 namespace zigbee {
     static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::milliseconds(10);
@@ -46,7 +46,11 @@ namespace zigbee {
 
 
     void DomusEngineUSBDevice::timerHandler() {
+        boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
+        powerNodeQueue.startDequeFiber();
+
         while (!stop) {
+
             if (isPresent()) {
                 getUsbMessage();
             }

@@ -4,6 +4,7 @@
 #include <boost/log/trivial.hpp>
 #include <sstream>
 #include <iomanip>
+#include <boost/fiber/algo/round_robin.hpp>
 
 #include "SerialDriver.h"
 
@@ -53,10 +54,12 @@ namespace zigbee {
     }
 
     void SerialDriver::run() {
-
         char c;
+        boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
+        powerNodeQueue.startDequeFiber();
 
         while (!stop) {
+            boost::this_fiber::yield();
             try {
                 serialPort.read_some(buffer(&c, 1));
                 if (c != '\n') {
