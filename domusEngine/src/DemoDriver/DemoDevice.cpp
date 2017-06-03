@@ -81,7 +81,7 @@ namespace zigbee {
                     powerNodeData->nwkAddr = nwkAddr;
                     boost::this_fiber::sleep_for(3s);
                     BOOST_LOG_TRIVIAL(info) << "Notify power node arrived";
-                    powerNodeQueue.setPowerNode(powerNodeData);
+                    powerNodeQueue.setData(nwkAddr,powerNodeData);
                 });
                 fibers.push_back(std::move(setPowerMode));
             }

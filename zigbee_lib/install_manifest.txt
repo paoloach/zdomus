@@ -1,9 +1,13 @@
 /usr/local/zigbee/lib/libzigbeeLib.so
 /usr/local/zigbee/include/zigbee/AttributeStatusRecord.h
+/usr/local/zigbee/include/zigbee/Callbacks.h
 /usr/local/zigbee/include/zigbee/ClusterID.h
 /usr/local/zigbee/include/zigbee/EndpointID.h
 /usr/local/zigbee/include/zigbee/NwkAddr.h
 /usr/local/zigbee/include/zigbee/PowerNodeData.h
+/usr/local/zigbee/include/zigbee/ResponseCallback.h
+/usr/local/zigbee/include/zigbee/ResponseCallbacks.h
+/usr/local/zigbee/include/zigbee/ResponseQueue.h
 /usr/local/zigbee/include/zigbee/ZigbeeDevice.h
 /usr/local/zigbee/include/zigbee/ZigbeeTypes.h
 /usr/local/zigbee/include/zigbee/zigbeeConfig.h
@@ -58,9 +62,6 @@
 /usr/local/zigbee/include/zcl/clusterTypes/ScenesCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/TemperatureMeasurementCluster.h
 /usr/local/zigbee/include/zcl/clusterTypes/TestCluster.h
-/usr/local/zigbee/include/zigbee/powerNode/PowerNodeCallbacks.h
-/usr/local/zigbee/include/zigbee/powerNode/PowerNodeQueue.h
-/usr/local/zigbee/include/zigbee/powerNode/PowerNodeResponseCallback.h
 /usr/local/zigbee/include/zigbee/messageStructure/ActiveEPErrorMessage.h
 /usr/local/zigbee/include/zigbee/messageStructure/AnnunceMessage.h
 /usr/local/zigbee/include/zigbee/messageStructure/AttributeValue.h

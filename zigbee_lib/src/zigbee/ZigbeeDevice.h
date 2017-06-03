@@ -22,8 +22,9 @@
 #include "EndpointID.h"
 #include "ClusterID.h"
 #include "NwkAddr.h"
-#include "powerNode/PowerNodeQueue.h"
 #include "../zcl/ZCLDataType.h"
+#include "ResponseQueue.h"
+#include "ResponseCallback.h"
 
 namespace zigbee {
 
@@ -88,7 +89,7 @@ namespace zigbee {
 
         virtual void registerForBindTableMessage(BindTableResponseCallback) = 0;
 
-        void registerForPowerNode(NwkAddr nwkAddr,std::unique_ptr<PowerNodeResponseCallback> && callback) {
+        void registerForPowerNode(NwkAddr nwkAddr,std::unique_ptr<ResponseCallback<std::shared_ptr<PowerNodeData>>> && callback) {
             powerNodeQueue.add(nwkAddr, std::move(callback));
         }
 
@@ -100,11 +101,11 @@ namespace zigbee {
                                                const NewAttributeValueCallback subscriber) = 0;
 
         void setPowerNode(std::shared_ptr<PowerNodeData> powerNodeData){
-            powerNodeQueue.setPowerNode(powerNodeData);
+            powerNodeQueue.setData(powerNodeData->nwkAddr,powerNodeData);
         }
 
     protected:
-        PowerNodeQueue  powerNodeQueue;
+        ResponseQueue<NwkAddr, std::shared_ptr<PowerNodeData> > powerNodeQueue;
     };
 
 } /* namespace zigbee */

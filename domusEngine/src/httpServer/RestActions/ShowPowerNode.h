@@ -9,12 +9,12 @@
 #include "router.h"
 #include <zigbee/PowerNodeData.h>
 #include <memory>
-#include <zigbee/powerNode/PowerNodeResponseCallback.h>
+#include <zigbee/ResponseCallback.h>
 
 namespace zigbee {
     class SingletonObjects;
     namespace http {
-        class ShowPowerNodeCallback : public PowerNodeResponseCallback{
+        class ShowPowerNodeCallback : public ResponseCallback<std::shared_ptr<PowerNodeData>>{
         public:
             ShowPowerNodeCallback(Net::Http::ResponseWriter && responseWriter):responseWriter(std::move(responseWriter)){}
             ShowPowerNodeCallback(ShowPowerNodeCallback && other):responseWriter(std::move(other.responseWriter)){}

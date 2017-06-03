@@ -52,7 +52,7 @@ set(SOURCE_FILES
 
         src/zigbee/messageStructure/ReadAttributeResponseErrorMsg.h
         src/zigbee/ZigbeeTypes.cpp
-        src/zigbee/messageStructure/UnbindRequest.h)
+        src/zigbee/messageStructure/UnbindRequest.h src/zigbee/ResponseCallback.h)
 
 
 SET(SOURCE_ZCL_FILES
@@ -84,7 +84,12 @@ SET(SOURCE_ATTRIBUTES_FILES
         src/zcl/attributeTypes/ZCLBitmap16bitAttribute.cpp src/zcl/attributeTypes/ZCLBitmap16bitAttribute.h
         src/zcl/attributeTypes/ZCLint8Attribute.cpp src/zcl/attributeTypes/ZCLint8Attribute.h
         src/zcl/attributeTypes/AttributeValue.h
-        src/zigbee/messageStructure/ActiveEPErrorMessage.h src/zigbee/messageStructure/InfoMessage.h src/zigbee/messageStructure/DeviceInfoMessage.h src/zigbee/messageStructure/ReqDeviceInformation.h src/zigbee/messageStructure/IEEEAddressRequestMessage.h src/zigbee/messageStructure/IEEEAddressResponse.h)
+        src/zigbee/messageStructure/ActiveEPErrorMessage.h
+        src/zigbee/messageStructure/InfoMessage.h
+        src/zigbee/messageStructure/DeviceInfoMessage.h
+        src/zigbee/messageStructure/ReqDeviceInformation.h
+        src/zigbee/messageStructure/IEEEAddressRequestMessage.h
+        src/zigbee/messageStructure/IEEEAddressResponse.h)
 
 
 SET(SOURCE_CLLUSTER_FILES
@@ -107,14 +112,6 @@ SET(SOURCE_CLLUSTER_FILES
         src/zcl/clusterTypes/TestCluster.cpp
         src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.h)
 
-SET(SOURCE_POWERNODE_FILES
-        src/zigbee/powerNode/PowerNodeCallbacks.h src/zigbee/powerNode/PowerNodeCallbacks.cpp
-        src/zigbee/powerNode/PowerNodeQueue.h src/zigbee/powerNode/PowerNodeQueue.cpp src/zigbee/powerNode/PowerNodeResponseCallback.h)
-
-SET(POWERNODE_HEADER
-        src/zigbee/powerNode/PowerNodeCallbacks.h
-        src/zigbee/powerNode/PowerNodeQueue.h
-        src/zigbee/powerNode/PowerNodeResponseCallback.h)
 
 SET(zigbeeSrcTest src/test/main.cpp
         src/test/ZCLTypeTest.cpp
@@ -137,7 +134,7 @@ include_directories(/usr/include/libusb-1.0 . ${PROJECT_SOURCE_DIR}/src ${GTEST_
 add_library(ZCL_Commons OBJECT ${SOURCE_ZCL_FILES})
 add_library(Attributes OBJECT ${SOURCE_ATTRIBUTES_FILES})
 add_library(Clusters OBJECT ${SOURCE_CLLUSTER_FILES})
-add_library(zigbeeLib SHARED ${SOURCE_FILES} ${SOURCE_POWERNODE_FILES} $<TARGET_OBJECTS:ZCL_Commons> $<TARGET_OBJECTS:Attributes> $<TARGET_OBJECTS:Clusters>)
+add_library(zigbeeLib SHARED ${SOURCE_FILES} $<TARGET_OBJECTS:ZCL_Commons> $<TARGET_OBJECTS:Attributes> $<TARGET_OBJECTS:Clusters>)
 
 add_executable(zigbeeLibTest ${zigbeeSrcTest})
 
@@ -149,6 +146,7 @@ target_link_libraries(zigbeeLibTest ${GMOCK_LIBS} zigbeeLib ${Boost_SIGNALS_LIBR
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
         ${Boost_LOG_LIBRARY_RELEASE}
         ${Boost_FIBER_LIBRARY_RELEASE}
+        ${Boost_CONTEXT_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE} pthread)
 
 
@@ -165,6 +163,6 @@ INSTALL(FILES ${zcl_exceptions} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/exception
 INSTALL(FILES ${zcl_CmdParams_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/CmdParams)
 INSTALL(FILES ${attributeTypes_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/attributeTypes)
 INSTALL(FILES ${clusterTypes_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/clusterTypes)
-INSTALL(FILES ${POWERNODE_HEADER} DESTINATION ${INSTALL_INCLUDE_DIR}/zigbee/powerNode)
+
 INSTALL(FILES ${zigbee_messageStructure_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zigbee/messageStructure)
 INSTALL(FILES ${USB_HEADER} DESTINATION ${INSTALL_INCLUDE_DIR}/usb)
