@@ -153,7 +153,7 @@ namespace zigbee {
 
         virtual std::vector<std::shared_ptr<ClusterCmdParamsBase>> getCmdParams(uint32_t cmd);
 
-        virtual void executeComand(uint32_t cmd, std::vector<uint8_t> data);
+        virtual void executeCommand(uint32_t cmd, std::vector<uint8_t> data);
 
         virtual ZCLAttribute * getAttribute(int id) const;
 
