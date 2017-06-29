@@ -13,14 +13,12 @@
 #include <zigbee/ZigbeeDevice.h>
 #include "../IO/AttributeDataContainer.h"
 #include "../ZigbeeData/BindTable.h"
-#include "../usb/AttributeValuesSignalMap.h"
 #include "Clusters.h"
 #include "AttributeWriter.h"
 #include "Constant.h"
 #include "../ZigbeeData/TopologyCreation.h"
 #include "DeviceInfoDispatcher.h"
 #include "../httpServer/RestHandler.h"
-#include "HttpResponseEvent.h"
 
 struct libusb_context;
 
@@ -60,8 +58,6 @@ namespace zigbee {
 
         virtual BindTable &getBindTable() { return bindTable; }
 
-        virtual AttributeValueSignalMap &getAttributeValueSignalMap() { return attributeValueSignalMap; }
-
         virtual Clusters * getClusters() { return &clusters; };
 
         virtual AttributeWriter &getAttributeWriter() { return attributeWriter; }
@@ -74,8 +70,6 @@ namespace zigbee {
 
         virtual http::RestHandler * getRestHandler() {return &restHandler;}
 
-        virtual http::HttpResponseEvent * getHttpResponseEvent() {return &httpResponseEvent;}
-
     private:
         boost::asio::io_service io;
         std::unique_ptr<ZDevices> zDevices;
@@ -86,13 +80,11 @@ namespace zigbee {
         BindTable bindTable;
         zigbee::AttributeDataContainer attributeDataContainer;
         libusb_context *usbContext;
-        AttributeValueSignalMap attributeValueSignalMap;
         Clusters clusters;
         AttributeWriter attributeWriter;
         Constant constant;
         TopologyCreation topology;
         http::RestHandler restHandler;
-        http::HttpResponseEvent httpResponseEvent;
     };
 
 } /* namespace zigbee */

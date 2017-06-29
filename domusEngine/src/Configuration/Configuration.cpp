@@ -32,6 +32,8 @@ namespace zigbee {
                     jsDatas.insert({js.getName(), js});
                 }
             }
+
+            timeout = std::chrono::seconds(configuration.get<int>("rest.timeout"));
         } catch (const ptree_error &e) {
             BOOST_LOG_TRIVIAL(error) << "Error reading the config file: " << e.what();
             exit(-1);

@@ -51,7 +51,7 @@ namespace zigbee {
                 for (auto &inCluster: zEndpoint.getInCluster()) {
                     BOOST_LOG_TRIVIAL(error) << inCluster.getId();
                 }
-                throwWrongCluster(response, clusterId, endpoint, nwkAddr);
+                throwWrongCluster(std::move(response), clusterId, endpoint, nwkAddr);
             }
             return Net::Rest::Route::Result::Ok;
         }

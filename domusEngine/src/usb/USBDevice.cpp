@@ -29,17 +29,10 @@ namespace zigbee {
     static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::milliseconds(10);
 
 
-    DomusEngineUSBDevice::DomusEngineUSBDevice(SingletonObjects &singletonObjects, libusb_context *usbContext_, int deviceClass_, int vendor_, int product_) : stop(false),
-                                                                                                                                                               usbContext{
-                                                                                                                                                                       usbContext_},
-                                                                                                                                                               deviceClass{
-                                                                                                                                                                       deviceClass_},
-                                                                                                                                                               vendorID{vendor_},
-                                                                                                                                                               productID{product_},
-                                                                                                                                                               handle{nullptr},
-                                                                                                                                                               usbResponseExecuters{
-                                                                                                                                                                       singletonObjects,
-                                                                                                                                                                       *this} {
+    DomusEngineUSBDevice::DomusEngineUSBDevice(SingletonObjects &singletonObjects, libusb_context *usbContext_, int deviceClass_, int vendor_, int product_,
+                                               std::chrono::seconds timeout) : ZigbeeDevice(timeout), stop(false), usbContext{usbContext_}, deviceClass{deviceClass_},
+                                                                               vendorID{vendor_}, productID{product_}, handle{nullptr},
+                                                                               usbResponseExecuters{singletonObjects, *this} {
         device = nullptr;
         getMessageTh = std::thread([this] { this->timerHandler(); });
     }
@@ -158,11 +151,11 @@ namespace zigbee {
         }
     }
 
-    void DomusEngineUSBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) {
-        BOOST_LOG_TRIVIAL(info) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << attributeId << ")";
+    void DomusEngineUSBDevice::requestAttribute(const AttributeKey &key) {
+        BOOST_LOG_TRIVIAL(info) << "USBDevice request device " << key;
         if (handle != nullptr) {
             std::stringstream stream;
-            AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeId};
+            AttributeValue attributeValue{key};
 
             BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
 
@@ -284,15 +277,14 @@ namespace zigbee {
         sendData(request);
     }
 
-    void DomusEngineUSBDevice::requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds &attributeIds) {
+    void DomusEngineUSBDevice::requestAttributes(AttributesKey &key) {
         if (handle == nullptr) {
             return;
         }
-        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << "attribute: " << attributeIds << ")";
-
+        BOOST_LOG_TRIVIAL(debug) << "USBDevice request device " << key;
 
         std::stringstream stream;
-        AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeIds};
+        AttributeValue attributeValue{key.networkAddress, key.endpoint, key.clusterId, key.attributesId};
         BOOST_LOG_TRIVIAL(trace) << "request attribute: " << attributeValue;
 
         sendData(attributeValue, sizeof(GenericMessage) + sizeof(ZigbeeNwkAddress) + sizeof(ZigbeeEndpoint) + sizeof(ZigbeeClusterId) + sizeof(uint8_t) +

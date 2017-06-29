@@ -16,14 +16,6 @@ namespace zigbee {
                                                      ZigbeeClusterId identifier, std::experimental::string_view name,
                                                      bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeIEEEaddress>(zigbeeDevice, parent, identifier, name, readOnly) {
-        if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
-                                                    identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) {
-                                                        setValue(rawData);
-                                                    });
-        }
-
     }
 
     ZCLIEEEAddressAttribute::~ZCLIEEEAddressAttribute() = default;
@@ -40,7 +32,7 @@ namespace zigbee {
     }
 
     void ZCLIEEEAddressAttribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-        memcpy(value.raw,rawData->data,8);
+        std::copy( std::begin(rawData->data),std::begin(rawData->data)+8,std::begin(value.raw));
     }
 
     const uint8_t *ZCLIEEEAddressAttribute::getRawValue() const {

@@ -14,13 +14,6 @@ namespace zigbee {
                                                      ZigbeeClusterId identifier, std::experimental::string_view name,
                                                      bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLType32bitBitmap>(zigbeeDevice, parent, identifier, name, readOnly){
-        if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
-                                                    identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) {
-                                                        setValue(rawData);
-                                                    });
-        }
     }
 
     boost::any ZCLBitmap32bitAttribute::getValue() const {
@@ -43,7 +36,7 @@ namespace zigbee {
     }
 
     void ZCLBitmap32bitAttribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-        value = boost::endian::little_to_native( *(uint32_t *) rawData->data);
+        value = boost::endian::little_to_native( *(uint32_t *) rawData->data.begin());
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCLBitmap32bitAttribute *attribute) {

@@ -48,7 +48,7 @@ bool CmdRequestAttribute::parseData(const std::string& line) {
 
 void CmdRequestAttribute::execute() {
 	std::cout << "Request attribute [" << nwkAddress << ", " << endpoint << ", " << cluster << ", " << attributeId << "]" << std::endl;
-	zigbeeDevice.requestAttribute(nwkAddress, endpoint, cluster, attributeId);
+	zigbeeDevice.requestAttribute(AttributeKey{nwkAddress, endpoint, cluster, attributeId});
 }
 
 void CmdRequestAttribute::getResponse(boost::property_tree::ptree &) {

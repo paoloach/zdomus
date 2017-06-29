@@ -49,10 +49,13 @@ set(SOURCE_FILES
         src/zigbee/ZigbeeDevice.cpp
         src/zigbee/ZigbeeDevice.h
         src/zigbee/ZigbeeTypes.h
-
         src/zigbee/messageStructure/ReadAttributeResponseErrorMsg.h
         src/zigbee/ZigbeeTypes.cpp
-        src/zigbee/messageStructure/UnbindRequest.h src/zigbee/ResponseCallback.h)
+        src/zigbee/messageStructure/UnbindRequest.h
+        src/zigbee/ResponseCallback.h
+        src/zigbee/AttributeKey.cpp src/zigbee/AttributeKey.h
+        src/zigbee/AttributesKey.cpp src/zigbee/AttributesKey.h
+        src/zigbee/AttributesResponseCallback.h src/zigbee/AttributesResponseQueue.cpp src/zigbee/AttributesResponseQueue.h src/zigbee/ResponsesCallbacks.cpp src/zigbee/ResponsesCallbacks.h)
 
 
 SET(SOURCE_ZCL_FILES

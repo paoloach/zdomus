@@ -5,13 +5,13 @@
 #ifndef DOMUS_ENGINE_DEMODEVICE_H
 #define DOMUS_ENGINE_DEMODEVICE_H
 
+#include <chrono>
 #include <zigbee/ZigbeeDevice.h>
 #include <boost/fiber/condition_variable.hpp>
 #include <boost/fiber/unbuffered_channel.hpp>
 #include <thread>
 #include <random>
 #include "../ZigbeeData/ZDevices.h"
-#include "../usb/AttributeValuesSignalMap.h"
 
 namespace zigbee {
 
@@ -19,7 +19,7 @@ namespace zigbee {
 
     class DemoDevice : public ZigbeeDevice {
     public:
-        explicit DemoDevice(SingletonObjects &singletonObjects);
+        explicit DemoDevice(SingletonObjects &singletonObjects,std::chrono::seconds seconds);
 
         virtual ~DemoDevice() = default;
         using PowerNodeSet = boost::fibers::unbuffered_channel<NwkAddr>;
@@ -34,9 +34,9 @@ namespace zigbee {
 
         void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) override;
 
-        void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
+        void requestAttribute(const AttributeKey &) override;
 
-        void requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds &attributeIds) override;
+        void requestAttributes(AttributesKey & key) override;
 
         void requestReset() override;
 
@@ -67,16 +67,12 @@ namespace zigbee {
 
         virtual void registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeCmdId cmdId, const std::function<void()>) override;
 
-        virtual void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId,
-                                               const NewAttributeValueCallback subscriber) override;
-
 // internal function
-        void assignBasicCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, std::array<std::vector<uint8_t>, 8> &data);
+        void assignBasicCluster(std::shared_ptr<Cluster> cluster, std::vector<ZigbeeAttributeId> &, std::array<std::vector<uint8_t>, 8> &data);
 
-        void assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds, AttributeValueSignalMap &attributeValueSignalMap, int16_t temp,
-                                             int delay);
+        void assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, std::vector<ZigbeeAttributeId> &attributeIds,int16_t temp, std::chrono::seconds delay);
 
-        void assignOnOffCluster(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, std::shared_ptr<Cluster> cluster, ZigbeeAttributeIds &attributeIds);
+        void assignOnOffCluster(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, std::shared_ptr<Cluster> cluster, std::vector<ZigbeeAttributeId> &attributeIds);
 
         void runDemoThread();
 
@@ -87,8 +83,8 @@ namespace zigbee {
 
         std::thread demoThread;
 
-        std::map<std::tuple<NwkAddr, EndpointID, ClusterID, int>, int> intValuesMap;
-        std::vector<std::tuple<int32_t, std::function<void()> > > posponedCallbacks;
+        std::map<AttributeKey, int> intValuesMap;
+        std::list<std::tuple<std::chrono::system_clock::time_point, std::function<void()> > >  posponedCallbacks;
         std::vector<boost::fibers::fiber> fibers;
 
         std::random_device rd;

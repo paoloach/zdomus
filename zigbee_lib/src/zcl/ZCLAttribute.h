@@ -18,13 +18,15 @@
 #include <boost/log/trivial.hpp>
 #include <utility>
 
-#include "../zigbee/ZigbeeDevice.h"
 #include "ZCLDataType.h"
 #include "Callbacks.h"
+#include "../zigbee/AttributeStatusRecord.h"
+#include "../zigbee/messageStructure/ReadAttributeResponseMessage.h"
 
 namespace zigbee {
 
     class Cluster;
+    class ZigbeeDevice;
 
     class ZCLAttributeNotAvailableException : public std::exception {
     public:
@@ -109,6 +111,8 @@ namespace zigbee {
         virtual void setValue(AttributeResponse &attributeResponse);
 
         virtual void setValue(uint8_t status, uint8_t dataType, uint8_t *rawData);
+
+        virtual void setStatus(uint8_t status);
 
         virtual void requestValue();
 

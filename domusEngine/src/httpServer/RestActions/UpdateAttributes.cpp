@@ -71,7 +71,7 @@ namespace zigbee {
                     response.send(Code::Ok, results.toJSon(), MIME(Application, Json));
                 }
             } else {
-                throwWrongCluster(response, clusterId, endpoint, nwkAddr);
+                throwWrongCluster(std::move(response), clusterId, endpoint, nwkAddr);
             }
             return Net::Rest::Route::Result::Ok;
         }

@@ -23,7 +23,7 @@ zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects &singletonOb
     executors[SIMPLE_DESC] = make_unique<SimpleDescExecutor>(singletonObjects.getZDevices());
     executors[ATTRIBUTE_VALUES] = make_unique<AttributeValuesExecuter>(singletonObjects);
     executors[BIND_TABLE] = make_unique<BindTableExecuter>(singletonObjects);
-    executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(singletonObjects.getAttributeValueSignalMap());
+    executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(singletonObjects.getZigbeeDevice());
     executors[ACTIVE_EP_REQ_ERROR] = make_unique<ActiveEPReqError>();
     executors[INFO_MESSAGE] = make_unique<InfoMessageExecuter>();
     executors[DEVICE_INFO] = make_unique<DeviceInfoExecutor>(singletonObjects);

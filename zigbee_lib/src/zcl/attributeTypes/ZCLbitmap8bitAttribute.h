@@ -9,6 +9,7 @@
 #define ZCLBITMAP8BITATTRIBUTE_H_
 
 #include <ostream>
+#include "../../zigbee/ResponseCallback.h"
 #include "../ZCLAttribute.h"
 #include "../../zigbee/AttributeStatusRecord.h"
 

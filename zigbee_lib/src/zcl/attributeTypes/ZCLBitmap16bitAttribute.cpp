@@ -12,10 +12,6 @@ namespace zigbee {
     ZCLBitmap16bitAttribute::ZCLBitmap16bitAttribute(ZigbeeDevice * zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                                                      std::experimental::string_view name, bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLType16bitBitmap>(zigbeeDevice, parent, identifier, name, readOnly) {
-        if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) { setValue(rawData); });
-        }
     }
 
     boost::any ZCLBitmap16bitAttribute::getValue() const {
@@ -39,8 +35,8 @@ namespace zigbee {
 
     void ZCLBitmap16bitAttribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
         Converter converter;
-        converter.raw[0] = *rawData->data;
-        converter.raw[1] = *(rawData->data + 1);
+        converter.raw[0] = rawData->data[0];
+        converter.raw[1] = rawData->data[1];
         value = converter.value;
     }
 

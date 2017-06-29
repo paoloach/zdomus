@@ -34,7 +34,7 @@ namespace zigbee {
         }
 
         void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) override {
-            value = *rawData->data;
+            value = rawData->data[0];
         }
 
         void internalSetValue(uint8_t *rawData) override {

@@ -8,14 +8,14 @@
 #ifndef ATTRIBUTESTATUSRECORD_H_
 #define ATTRIBUTESTATUSRECORD_H_
 
+#include <array>
 #include "ZigbeeTypes.h"
 
 struct AttributeStatusRecord {
 	ZigbeeAttributeId attributeId;
 	uint8_t status;
 	ZigbeeAttributeDataType attributeDataType;
-	int dataLen;
-	uint8_t data[256];
+    std::array<uint64_t , 256> data;
 };
 
 

@@ -10,13 +10,6 @@ namespace zigbee {
     ZCLOctetString::ZCLOctetString(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                    ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeStringOctect>(zigbeeDevice, parent, identifier, name, readOnly){
-        if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
-                                                    identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) {
-                                                        setValue(rawData);
-                                                    });
-        }
     }
 
 
@@ -40,13 +33,9 @@ namespace zigbee {
 
     void ZCLOctetString::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
 
-        uint8_t *data = rawData->data;
-        uint8_t len = *data;
+        uint8_t len= rawData->data[0];
         value.clear();
-        for (int i = 0; i < len; i++) {
-            data++;
-            value.push_back(*data);
-        }
+        std::copy(rawData->data.begin()+1, rawData->data.begin()+1+len,std::back_inserter(value));
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCLOctetString *attribute) {

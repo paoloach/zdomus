@@ -24,9 +24,12 @@ public:
 	const std::multimap< std::string,JavaScriptData> & getJavascriptData() const{
 		return jsDatas;
 	}
+
+    std::chrono::seconds getRestTimeout() const  {return timeout;}
 private:
 	boost::property_tree::ptree configuration;
 	std::multimap< std::string, JavaScriptData > jsDatas;
+    std::chrono::seconds timeout;
 };
 
 } /* namespace zigbee */

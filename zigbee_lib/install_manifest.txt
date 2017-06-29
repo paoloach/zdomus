@@ -1,5 +1,9 @@
 /usr/local/zigbee/lib/libzigbeeLib.so
+/usr/local/zigbee/include/zigbee/AttributeKey.h
 /usr/local/zigbee/include/zigbee/AttributeStatusRecord.h
+/usr/local/zigbee/include/zigbee/AttributesKey.h
+/usr/local/zigbee/include/zigbee/AttributesResponseCallback.h
+/usr/local/zigbee/include/zigbee/AttributesResponseQueue.h
 /usr/local/zigbee/include/zigbee/Callbacks.h
 /usr/local/zigbee/include/zigbee/ClusterID.h
 /usr/local/zigbee/include/zigbee/EndpointID.h
@@ -8,6 +12,7 @@
 /usr/local/zigbee/include/zigbee/ResponseCallback.h
 /usr/local/zigbee/include/zigbee/ResponseCallbacks.h
 /usr/local/zigbee/include/zigbee/ResponseQueue.h
+/usr/local/zigbee/include/zigbee/ResponsesCallbacks.h
 /usr/local/zigbee/include/zigbee/ZigbeeDevice.h
 /usr/local/zigbee/include/zigbee/ZigbeeTypes.h
 /usr/local/zigbee/include/zigbee/zigbeeConfig.h

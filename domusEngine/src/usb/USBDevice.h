@@ -23,7 +23,6 @@
 #include "../ZigbeeData/ZDevices.h"
 #include "../IO/AttributeDataContainer.h"
 #include "BindResponse.h"
-#include "AttributeValuesSignalMap.h"
 #include "UsbResponseExecutors.h"
 #include "RequestedAttributes.h"
 
@@ -41,7 +40,7 @@ namespace zigbee {
 
     class DomusEngineUSBDevice : public ZigbeeDevice {
     public:
-        DomusEngineUSBDevice(SingletonObjects &singletonObjects, libusb_context *usbContext, int deviceClass, int vendorID, int productID);
+        DomusEngineUSBDevice(SingletonObjects &singletonObjects, libusb_context *usbContext, int deviceClass, int vendorID, int productID, std::chrono::seconds timeout);
 
         ~DomusEngineUSBDevice() override {
             stop = true;
@@ -58,9 +57,9 @@ namespace zigbee {
 
         void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) override;
 
-        void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
+        void requestAttribute(const AttributeKey &) override;
 
-        void requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds &attributeIds) override;
+        void requestAttributes(AttributesKey & key) override;
 
         void requestReset() override;
 
@@ -82,9 +81,6 @@ namespace zigbee {
         }
 
         void registerForAttributeCmd(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeCmdId, const std::function<void()>) override {
-        }
-
-        void registerForAttributeValue(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeId, const NewAttributeValueCallback) override {
         }
 
         void requestNodePower(NwkAddr nwkAddr) override;

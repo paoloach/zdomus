@@ -18,13 +18,14 @@
 #include "../NwkAddr.h"
 #include "../EndpointID.h"
 #include "../ClusterID.h"
+#include "../AttributeKey.h"
 
 namespace zigbee {
     struct __attribute__ ((__packed__)) AttributeValue {
-        AttributeValue(NwkAddr nwkAddr, EndpointID endpointId, ClusterID clusterId, ZigbeeAttributeId attribute) noexcept:
-                generticDataMsg{REQ_ATTRIBUTE_VALUES}, nwkAddr{nwkAddr.getId()}, endpoint{endpointId.getId()}, cluster{clusterId.getId()} {
+        AttributeValue(const AttributeKey &key) noexcept:
+                generticDataMsg{REQ_ATTRIBUTE_VALUES}, nwkAddr{key.networkAddress.getId()}, endpoint{key.endpoint.getId()}, cluster{key.clusterId.getId()} {
             numAttr = 1;
-            this->attribute[0] = attribute;
+            this->attribute[0] = key.attributeId;
         }
 
         AttributeValue(NwkAddr nwkAddr, EndpointID endpointId, ClusterID clusterId, std::vector<ZigbeeAttributeId> & attributes) noexcept:

@@ -28,7 +28,6 @@ namespace zigbee {
         auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
         attributeStatusRecord->attributeId = 1;
         attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeUInt48;
-        attributeStatusRecord->dataLen = 6;
         attributeStatusRecord->data[0] = 0x01;
         attributeStatusRecord->data[1] = 0x02;
         attributeStatusRecord->data[2] = 0x03;
@@ -50,7 +49,6 @@ namespace zigbee {
         auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
         attributeStatusRecord->attributeId = 1;
         attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeSInt24;
-        attributeStatusRecord->dataLen = 3;
         attributeStatusRecord->data[0] = 0x01;
         attributeStatusRecord->data[1] = 0x02;
         attributeStatusRecord->data[2] = 0x03;
@@ -69,7 +67,6 @@ namespace zigbee {
         auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
         attributeStatusRecord->attributeId = 1;
         attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeSInt24;
-        attributeStatusRecord->dataLen = 3;
         attributeStatusRecord->data[0] = 0x01;
         attributeStatusRecord->data[1] = 0x02;
         attributeStatusRecord->data[2] = 0x83;
@@ -88,7 +85,6 @@ namespace zigbee {
         auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
         attributeStatusRecord->attributeId = 1;
         attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeUTCTime;
-        attributeStatusRecord->dataLen = 4;
         attributeStatusRecord->data[0] = 0x01;
         attributeStatusRecord->data[1] = 0x02;
         attributeStatusRecord->data[2] = 0x03;
@@ -111,7 +107,6 @@ namespace zigbee {
         auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
         attributeStatusRecord->attributeId = 1;
         attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeStringOctect;
-        attributeStatusRecord->dataLen = 4;
         attributeStatusRecord->data[0] = 0x03;
         attributeStatusRecord->data[1] = 0xAA;
         attributeStatusRecord->data[2] = 0xBB;
@@ -133,7 +128,6 @@ namespace zigbee {
         auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
         attributeStatusRecord->attributeId = 1;
         attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLType32bitBitmap;
-        attributeStatusRecord->dataLen = 4;
         attributeStatusRecord->data[0] = 0x99;
         attributeStatusRecord->data[1] = 0xAA;
         attributeStatusRecord->data[2] = 0xBB;
@@ -156,7 +150,6 @@ namespace zigbee {
         auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
         attributeStatusRecord->attributeId = 1;
         attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLType16bitBitmap;
-        attributeStatusRecord->dataLen = 2;
         attributeStatusRecord->data[0] = 0x99;
         attributeStatusRecord->data[1] = 0xAA;
 

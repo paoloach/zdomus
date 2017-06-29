@@ -26,12 +26,17 @@ namespace zigbee {
 
     SingletonObjects::SingletonObjects(std::string &&configurationFileName, std::string driverName) : attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY},
                                                                                                       attributeWriter{*this}, topology{*this}, restHandler{*this} {
-
+        std::ifstream streamConfig(configurationFileName);
+        if (streamConfig.fail()) {
+            BOOST_LOG_TRIVIAL(error) << "Unable to open configuration file " << configurationFileName;
+            exit(-1);
+        }
+        configuration = std::make_shared<Configuration>(streamConfig);
         zDevices = std::make_unique<ZDevices>();
 
 
         if (driverName == "serial") {
-            zigbeeDevice = std::make_unique<SerialDriver>("/dev/ttyUSB0", io, *this);
+            zigbeeDevice = std::make_unique<SerialDriver>("/dev/ttyUSB0", io, *this, configuration->getRestTimeout());
         } else if (driverName == "usb") {
 
             if (libusb_init(&usbContext) != 0) {
@@ -40,10 +45,10 @@ namespace zigbee {
                 //libusb_set_debug(usbContext, 4);
                 BOOST_LOG_TRIVIAL(error) << "Lib usb initialized";
 
-                zigbeeDevice = std::make_unique<DomusEngineUSBDevice>(*this, usbContext, USB_CLASS, VENDOR_ID, PRODUCT_ID);
+                zigbeeDevice = std::make_unique<DomusEngineUSBDevice>(*this, usbContext, USB_CLASS, VENDOR_ID, PRODUCT_ID, configuration->getRestTimeout());
             }
         } else if (driverName == "demo") {
-            zigbeeDevice = std::make_unique<DemoDevice>(*this);
+            zigbeeDevice = std::make_unique<DemoDevice>(*this, configuration->getRestTimeout());
         } else {
             BOOST_LOG_TRIVIAL(error) << "Driver available: usb, serial";
         }
@@ -57,12 +62,7 @@ namespace zigbee {
             }
         }
 
-        std::ifstream streamConfig(configurationFileName);
-        if (streamConfig.fail()) {
-            BOOST_LOG_TRIVIAL(error) << "Unable to open configuration file " << configurationFileName;
-            exit(-1);
-        }
-        configuration = std::make_shared<Configuration>(streamConfig);
+
         jsManager = std::make_shared<JSManager>(*this);
     }
 

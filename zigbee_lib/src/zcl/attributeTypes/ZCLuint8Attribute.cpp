@@ -15,11 +15,6 @@ namespace zigbee {
     ZCL_uint8_Attribute::ZCL_uint8_Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
                                              std::experimental::string_view name, bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUInt8>(zigbeeDevice, parent, identifier, name, readOnly) {
-        if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
-                                                    identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) { setValue(rawData); });
-        }
     }
 
 
@@ -31,7 +26,7 @@ namespace zigbee {
     }
 
     void ZCL_uint8_Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-        value = *rawData->data;
+        value = rawData->data[0];
     }
 
     void ZCL_uint8_Attribute::sendValue(uint8_t newValue) {

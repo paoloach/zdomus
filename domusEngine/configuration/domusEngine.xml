@@ -4,3 +4,6 @@
     <period>00:00:59</period>
     <name>readTemperatures</name>
 </javascript>
+<rest>
+    <timeout>100</timeout>
+</rest>

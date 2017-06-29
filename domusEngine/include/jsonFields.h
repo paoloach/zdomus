@@ -36,6 +36,7 @@ constexpr char PROPERTIES_NAME[] = "properties";
 constexpr char PROPERTIES_REQUEST_NAME[] = "properties_request";
 constexpr char SEND_CMD_NAME[] = "send_cmd";
 
+constexpr char REST_TAG[] = "rest";
 constexpr char JAVASCRIPT_NAME[] = "javascript";
 constexpr char CODE_NAME[] = "code";
 constexpr char FILENAME_NAME[] = "filename";

@@ -11,7 +11,6 @@
 #include <boost/lexical_cast.hpp>
 #include <zigbee/NwkAddr.h>
 #include "SerialExecutor.h"
-#include "../usb/AttributeValuesSignalMap.h"
 #include "../Utils/SingletonObjects.h"
 
 

@@ -11,7 +11,6 @@
 #include "../ZigbeeData/ZDevices.h"
 #include "../IO/AttributeDataContainer.h"
 #include "../Utils/SingletonObjects.h"
-#include "AttributeValuesSignalMap.h"
 
 namespace zigbee {
     class DomusEngineUSBDevice;

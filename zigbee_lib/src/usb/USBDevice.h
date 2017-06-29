@@ -29,22 +29,6 @@ namespace zigbee {
     class USBDevice : public ZigbeeDevice {
 
     private:
-        struct AttributeKey {
-            AttributeKey(NwkAddr nwkAddress, ZigbeeEndpoint endpoint, ZigbeeClusterId cluster,
-                         ZigbeeAttributeId attributeId) :
-                    nwkAddr(nwkAddress), endpointId(endpoint), clusterId(cluster), attributeId(attributeId) {
-            }
-
-            NwkAddr nwkAddr;
-            ZigbeeEndpoint endpointId;
-            ZigbeeClusterId clusterId;
-            ZigbeeAttributeId attributeId;
-
-            bool operator<(const AttributeKey &otherKey) const;
-
-            bool operator==(const AttributeKey &otherKey) const;
-        };
-
         using AttributeValueSignalMap = std::multimap<AttributeKey, NewAttributeValueCallback>;
     public:
         USBDevice(libusb_context *usbContext, int deviceClass, int vendorID, int productID);
@@ -56,8 +40,7 @@ namespace zigbee {
 
         void getUsbMessage();
 
-        void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
-                              ZigbeeAttributeId attributeId) override;
+        void requestAttribute(const AttributeKey &key) override;
 
         virtual void
         writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId,
@@ -100,12 +83,6 @@ namespace zigbee {
                                      const std::function<void()> subscriber) override {
         }
 
-        void registerForAttributeValue(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
-                                       ZigbeeAttributeId attributeId,
-                                       const NewAttributeValueCallback subscriber) override {
-            AttributeKey key(nwkAddrs, endpoint.getId(), cluster.getId(), attributeId);
-            attributeValueSignalMap.insert(AttributeValueSignalMap::value_type(key, subscriber));
-        }
 
         void requestActiveEndpoints(NwkAddr nwkAddr);
 

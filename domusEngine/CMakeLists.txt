@@ -164,7 +164,6 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AttributeValueReqError.cpp
         src/usb/AttributeValueReqError.h
         src/usb/AttributeValuesExecuter.h
-        src/usb/AttributeValuesSignalMap.h
         src/usb/BindResponse.cpp
         src/usb/BindResponse.h
         src/usb/BindTableExecuter.h
@@ -192,7 +191,8 @@ set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterRes
                 src/Utils/SingletonObjects.cpp  src/Utils/SingletonObjects.h
                 src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
                 src/Utils/Constant.cpp src/Utils/Constant.h
-                src/Utils/HttpResponseEvent.cpp src/Utils/HttpResponseEvent.h src/serialDriver/PowerNodeResponseError.cpp src/serialDriver/PowerNodeResponseError.h)
+                src/serialDriver/PowerNodeResponseError.cpp
+                src/serialDriver/PowerNodeResponseError.h)
 
 
 add_library(javascript_lib OBJECT

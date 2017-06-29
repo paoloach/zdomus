@@ -12,8 +12,8 @@
 #include <zigbee/EndpointID.h>
 #include <zcl/Cluster.h>
 #include <zcl/ZCLAttribute.h>
+#include <zcl/StatusEnum.h>
 #include "SerialExecutor.h"
-#include "../usb/AttributeValuesSignalMap.h"
 #include "../Utils/SingletonObjects.h"
 #include "../Utils/Clusters.h"
 
@@ -39,38 +39,43 @@ namespace zigbee {
                 ClusterID clusterId{std::stoi(*tokIter, nullptr, 16)};
                 tokIter++;
                 ZigbeeAttributeId attributeId{static_cast<uint16_t >(std::stoi(*tokIter, nullptr, 16))};
+
+                AttributeKey key{nwkAddr, endpointId, clusterId, attributeId};
+
                 tokIter++;
                 uint8_t status{static_cast<uint8_t >(std::stoi(*tokIter, nullptr, 16))};
                 if (status == 0) {
-
                     tokIter++;
                     uint8_t attributeType{static_cast<uint8_t >(std::stoi(*tokIter, nullptr, 16))};
                     tokIter++;
                     uint8_t attributeLen{static_cast<uint8_t >(std::stoi(*tokIter, nullptr, 16))};
                     tokIter++;
-                    std::string rawData = *tokIter;
-                    if (attributeLen * 2 == rawData.size()) {
-                        uint8_t  data[256];
-                        for (int i = 0; i < attributeLen; i++) {
-                            data[i] = std::stoi(rawData.substr(2 * i, 2), nullptr, 16);
-                        }
-                        Clusters *clusters = singletons.getClusters();
+                    Clusters *clusters = singletons.getClusters();
+                    auto cluster = clusters->getCluster(nwkAddr, endpointId, clusterId);
+                    Cluster *pCluster = cluster.get();
+                    auto attribute = pCluster->getAttribute(attributeId);
+                    if (attribute != nullptr) {
+                        std::string rawData = *tokIter;
+                        if (attributeLen * 2 == rawData.size()) {
+                            uint8_t data[256];
+                            for (int i = 0; i < attributeLen; i++) {
+                                data[i] = std::stoi(rawData.substr(2 * i, 2), nullptr, 16);
+                            }
 
-                        auto cluster = clusters->getCluster(nwkAddr, endpointId, clusterId);
-                        Cluster *pCluster = cluster.get();
-                        volatile auto attribute = pCluster->getAttribute(attributeId);
-                        attribute->setValue(status, attributeType, data);
+                            attribute->setValue(status, attributeType, data);
 
-                        auto &attributeValueSignalMap = singletons.getAttributeValueSignalMap();
-                        AttributeKey key{nwkAddr, endpointId.getId(), clusterId.getId(), attributeId};
-                        if (attributeValueSignalMap.count(key) > 0) {
-                            attributeValueSignalMap.execute(key, 0);
+                            BOOST_LOG_TRIVIAL(info) << "arrived attribute from  network id=" << nwkAddr << ", endpoint=" << endpointId << ", cluster=" << clusterId
+                                                    << ", attribute=" << attributeId;
+
+
+                        } else {
+                            BOOST_LOG_TRIVIAL(error) << "Error on requesting attribute value from  network id=" << nwkAddr << ", endpoint=" << endpointId << ", cluster="
+                                                     << clusterId << ", attribute=" << attributeId << ", cause: data length differs from attribute effective length";
+                            attribute->setStatus(StatusEnum::FAILURE);
                         }
-                        BOOST_LOG_TRIVIAL(info) << "arrived attribute from  network id=" << nwkAddr << ", endpoint=" << endpointId << ", cluster=" << clusterId << ", attribute="
-                                                << attributeId;
+                        singletons.getZigbeeDevice()->setAttribute(key, attribute);
                     } else {
-                        BOOST_LOG_TRIVIAL(error) << "Error on requesting attribute value from  network id=" << nwkAddr << ", endpoint=" << endpointId << ", cluster=" << clusterId
-                                                 << ", attribute=" << attributeId << ", cause: data length differs from attribute effective length";
+                        BOOST_LOG_TRIVIAL(error) << "Invalid attribute "<< key;
                     }
                 } else {
                     BOOST_LOG_TRIVIAL(error) << "Error on requesting attribute value from  network id=" << nwkAddr << ", endpoint=" << endpointId << ", cluster=" << clusterId

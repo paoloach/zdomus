@@ -9,8 +9,8 @@
 #include <boost/lexical_cast.hpp>
 #include <zigbee/NwkAddr.h>
 #include <zigbee/EndpointID.h>
+#include <zcl/Cluster.h>
 #include "SerialExecutor.h"
-#include "../usb/AttributeValuesSignalMap.h"
 #include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
@@ -36,10 +36,10 @@ namespace zigbee {
                 tokIter++;
                 int status{std::stoi(*tokIter, nullptr, 16)};
                 BOOST_LOG_TRIVIAL(error) << "Error on requesting attribute value from  network id=" << nwkAddr << ", endpoint=" << endpointID << ", cluster="<< clusterId << ", attribute="<< attribute << ", cause: " << status;
-                AttributeKey key(nwkAddr, endpointID, clusterId,attribute);
-                if (singletons.getAttributeValueSignalMap().count(key) > 0) {
-                    singletons.getAttributeValueSignalMap().execute(key, status);
-                }
+                AttributeKey key(nwkAddr, EndpointID(endpointID), ClusterID(clusterId),attribute);
+                auto cluster = singletons.getClusters()->getCluster(key.networkAddress, key.endpoint, key.clusterId);
+                cluster->getAttribute(key.attributeId);
+                singletons.getZigbeeDevice()->setAttribute(key,cluster->getAttribute(key.attributeId) );
             } catch (boost::bad_lexical_cast & e){
                 BOOST_LOG_TRIVIAL(error) << "Unable to parse the message: " << e.what();
             }

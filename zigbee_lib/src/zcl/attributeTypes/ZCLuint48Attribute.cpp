@@ -11,11 +11,6 @@ namespace zigbee {
     ZCLuint48Attribute::ZCLuint48Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                                            ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUInt48>(zigbeeDevice, parent, identifier, name, readOnly) {
-        if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
-                                                    identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) { setValue(rawData); });
-        }
 
     }
 
@@ -32,12 +27,7 @@ namespace zigbee {
 
     void ZCLuint48Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
         Converter converter;
-        converter.raw[0] = *rawData->data;
-        converter.raw[1] = *(rawData->data + 1);
-        converter.raw[2] = *(rawData->data + 2);
-        converter.raw[3] = *(rawData->data + 3);
-        converter.raw[4] = *(rawData->data + 4);
-        converter.raw[5] = *(rawData->data + 5);
+        std::copy(rawData->data.begin(), rawData->data.begin()+6, std::begin(converter.raw));
         converter.raw[6] = 0;
         converter.raw[7] = 0;
         value = converter.value;

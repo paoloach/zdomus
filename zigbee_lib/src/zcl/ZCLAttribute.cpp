@@ -41,7 +41,7 @@ namespace zigbee {
 
     void ZCLAttribute::requestValue() {
         if (zigbeeDevice != nullptr) {
-            zigbeeDevice->requestAttribute(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier);
+            zigbeeDevice->requestAttribute(AttributeKey{parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier});
         }
     }
 
@@ -101,6 +101,19 @@ namespace zigbee {
             status = Undefined;
         }
         callbacks();
+    }
+
+    void ZCLAttribute::setStatus(uint8_t attrStatus){
+        switch (attrStatus){
+            case StatusEnum::SUCCESS:
+                status = Available;
+                break;
+            case StatusEnum::UNSUPPORTED_ATTRIBUTE:
+                status = NotSupported;
+                break;
+            default:
+                status = Undefined;
+        }
     }
 
 

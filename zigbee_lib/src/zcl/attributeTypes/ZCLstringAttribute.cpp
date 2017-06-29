@@ -14,13 +14,6 @@ namespace zigbee {
                                                ZigbeeClusterId identifier, std::experimental::string_view name,
                                                bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeStringChar>(zigbeeDevice, parent, identifier, name, readOnly) {
-        if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
-                                                    identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) {
-                                                        setValue(rawData);
-                                                    });
-        }
     }
 
     boost::any ZCL_string_Attribute::getValue() const {
@@ -38,12 +31,10 @@ namespace zigbee {
     }
 
     void ZCL_string_Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
-        uint8_t len = *(rawData->data);
+        uint8_t len = rawData->data[0];
         value = std::string();
         value.resize(len);
-        for (int i = 0; i < len; i++) {
-            value[i] = rawData->data[i + 1];
-        }
+        std::copy(rawData->data.begin()+1, rawData->data.begin()+1+len, value.begin());
     }
 
     std::ostream &operator<<(std::ostream &out, const ZCL_string_Attribute *attribute) {

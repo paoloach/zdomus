@@ -14,7 +14,7 @@
 namespace zigbee {
     class SerialDriver : public ZigbeeDevice {
     public:
-        SerialDriver(const std::string & port, boost::asio::io_service &serviceIo_, SingletonObjects &singletonObjects);
+        SerialDriver(const std::string & port, boost::asio::io_service &serviceIo_, SingletonObjects &singletonObjects, std::chrono::seconds timeout);
         virtual ~SerialDriver();
 
         bool isPresent() override;
@@ -25,9 +25,9 @@ namespace zigbee {
 
         void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) override;
 
-        void requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) override;
+        void requestAttribute(const AttributeKey &) override;
 
-        void requestAttributes(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeIds &attributeIds) override;
+        void requestAttributes(AttributesKey & attributesKey) override;
 
         void requestReset() override;
 
@@ -49,8 +49,6 @@ namespace zigbee {
         }
 
         void registerForAttributeCmd(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeCmdId, const std::function<void()>) override{};
-
-        void registerForAttributeValue(NwkAddr, const EndpointID, ClusterID, ZigbeeAttributeId, const NewAttributeValueCallback) override{};
 
         void requestActiveEndpoints(NwkAddr nwkAddr) override;
 

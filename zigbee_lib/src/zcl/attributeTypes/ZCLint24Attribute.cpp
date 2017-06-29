@@ -8,17 +8,10 @@
 
 namespace zigbee {
 
-    ZCLint24Attribute::ZCLint24Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
+    ZCLint24Attribute::ZCLint24Attribute(ZigbeeDevice *zigbeeDevice, Cluster *parent,
                                          ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly)
             :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeSInt24>(zigbeeDevice, parent, identifier, name, readOnly) {
-        if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
-                                                    identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) {
-                                                        setValue(rawData);
-                                                    });
-        }
     }
 
     boost::any ZCLint24Attribute::getValue() const {
@@ -34,9 +27,9 @@ namespace zigbee {
 
     void ZCLint24Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
         Converter converter;
-        converter.raw[0] = *rawData->data;
-        converter.raw[1] = *(rawData->data + 1);
-        converter.raw[2] = *(rawData->data + 2);
+        converter.raw[0] = rawData->data[0];
+        converter.raw[1] = rawData->data[1];
+        converter.raw[2] = rawData->data[2];
         if (converter.raw[2] & 0x80) {
             converter.raw[3] = 0xFF;
         } else {

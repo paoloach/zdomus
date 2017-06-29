@@ -17,14 +17,6 @@ namespace zigbee {
     ZCLUTCTime::ZCLUTCTime(ZigbeeDevice * zigbeeDevice, Cluster *parent,
                            ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly) :
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUTCTime>(zigbeeDevice, parent, identifier, name, readOnly) {
-        if (zigbeeDevice) {
-            zigbeeDevice->registerForAttributeValue(parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(),
-                                                    identifier,
-                                                    [this](std::shared_ptr<AttributeStatusRecord> rawData) {
-                                                        setValue(rawData);
-                                                    });
-        }
-
     }
 
     boost::any ZCLUTCTime::getValue() const {
@@ -42,10 +34,10 @@ namespace zigbee {
 
     void ZCLUTCTime::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {
         Converter converter;
-        converter.raw[0] = *rawData->data;
-        converter.raw[1] = *(rawData->data + 1);
-        converter.raw[2] = *(rawData->data + 2);
-        converter.raw[3] = *(rawData->data + 3);
+        converter.raw[0] = rawData->data[0];
+        converter.raw[1] = rawData->data[1];
+        converter.raw[2] = rawData->data[2];
+        converter.raw[3] = rawData->data[3];
         value = converter.value;
     }
 

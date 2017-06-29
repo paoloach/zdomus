@@ -8,15 +8,19 @@
 #ifndef SRC_HTTPSERVER_RESTACTIONS_SHOWATTRIBUTE_H_
 #define SRC_HTTPSERVER_RESTACTIONS_SHOWATTRIBUTE_H_
 
+#include <algorithm>
 #include <atomic>
 #include <zcl/ZCLAttribute.h>
+#include <zigbee/AttributesResponseCallback.h>
+#include <zigbee/AttributesKey.h>
 #include <iostream>
+
+#include <boost/log/trivial.hpp>
+
 
 #include "endpoint.h"
 #include "router.h"
 #include "ClusterThrowingException.h"
-#include "../../Utils/HttpResponseEvent.h"
-#include "../../usb/AttributeValuesSignalMap.h"
 
 namespace zigbee {
 
@@ -24,24 +28,20 @@ namespace zigbee {
 
     namespace http {
 
-        class ShowAttribute : public ClusterThrowingException, public HttpResponseEvent::Event {
-        private:
-            std::vector<std::atomic<bool >> attributesArrived;
-            std::map<int, int> mapAttributes;
-            SingletonObjects &singletons;
-            Net::Http::ResponseWriter response;
-            int status;
-            std::vector<ZCLAttribute *> attributes;
+        class ShowAttribute : public ClusterThrowingException , public AttributesResponseCallback {
+
         public:
             ShowAttribute(SingletonObjects &singletons,const Net::Rest::Request &request, Net::Http::ResponseWriter && response);
-            virtual ~ShowAttribute();
-            void attributeReceived(int attributeId, int status);
-
+            virtual ~ShowAttribute() = default;
+            AttributesKey key;
         private:
-            bool isAllAttributeArrived() const;
-            void allArrived();
-            void fnTimeout();
-            std::vector<AttributeValueSignalMap::iterator> toRemove;
+            void response(std::vector<ZCLAttribute *> && attributes ) override;
+            bool allTimeout(std::vector<ZCLAttribute *> & attributes) {
+                return std::find_if(attributes.begin(), attributes.end(), [](ZCLAttribute * attribute){return attribute != nullptr;}) ==attributes.end();
+            }
+            SingletonObjects &singletons;
+            Net::Http::ResponseWriter responseWriter;
+
         };
 
     } /* namespace http */

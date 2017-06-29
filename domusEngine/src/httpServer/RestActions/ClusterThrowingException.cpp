@@ -16,7 +16,7 @@
 namespace zigbee {
     namespace http {
 
-        void ClusterThrowingException::throwWrongCluster(Net::Http::ResponseWriter &response, const ClusterID &clusterId, const EndpointID &endpointId, const NwkAddr &nwkAddr) {
+        void ClusterThrowingException::throwWrongCluster(Net::Http::ResponseWriter &&response, const ClusterID &clusterId, const EndpointID &endpointId, const NwkAddr &nwkAddr) {
             std::stringstream message;
 
             message << "ERROR: " << "cluster " << clusterId << " is not an IN cluster of endpoint " << endpointId << " in the device with address " << nwkAddr << "\n";

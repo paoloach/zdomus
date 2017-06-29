@@ -20,9 +20,11 @@
 #include "zigbee/messageStructure/ReqBindTable.h"
 #include "zigbee/messageStructure/BindRequest.h"
 
+using namespace std::chrono_literals;
+
 namespace zigbee {
 
-  USBDevice::USBDevice(libusb_context *usbContext, int deviceClass, int vendorID, int idProduct) :
+  USBDevice::USBDevice(libusb_context *usbContext, int deviceClass, int vendorID, int idProduct) :ZigbeeDevice(60s),
           usbContext(usbContext), deviceClass{deviceClass}, vendorID{vendorID}, productID{idProduct}, device(nullptr), handle(nullptr) {
 
   }
@@ -146,10 +148,10 @@ namespace zigbee {
       }
   }
 
-  void USBDevice::requestAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId) {
+  void USBDevice::requestAttribute(const AttributeKey &key) {
       std::cout << "USBDevice request device " << std::endl;
       if (handle != nullptr) {
-          AttributeValue attributeValue{nwkAddrs, endpoint, cluster, attributeId};
+          AttributeValue attributeValue{key};
 
           int transfered;
           for (int i = 0; i < sizeof(attributeValue); i++) {
@@ -233,25 +235,6 @@ namespace zigbee {
       sendData(request);
   }
 
-  bool USBDevice::AttributeKey::operator<(const AttributeKey &otherKey) const {
-      if (nwkAddr == otherKey.nwkAddr) {
-          if (endpointId == otherKey.endpointId) {
-              if (clusterId == otherKey.clusterId) {
-                  return attributeId < otherKey.attributeId;
-              } else {
-                  return clusterId < otherKey.clusterId;
-              }
-          } else {
-              return endpointId < otherKey.endpointId;
-          }
-      } else {
-          return nwkAddr < otherKey.nwkAddr;
-      }
-  }
-
-  bool USBDevice::AttributeKey::operator==(const AttributeKey &otherKey) const {
-      return otherKey.nwkAddr == nwkAddr && otherKey.endpointId == endpointId && otherKey.clusterId == clusterId && otherKey.attributeId == attributeId;
-  }
 
   void parseAttributeResponse(ReadAttributeResponseMessage *readAttributeResponseMessage) {
 
