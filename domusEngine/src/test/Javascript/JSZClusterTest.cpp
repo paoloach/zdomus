@@ -214,7 +214,7 @@ namespace zigbee {
             EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             EXPECT_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(cluster));
-            EXPECT_CALL(*cluster, executeComand(COMAND0_ID, _));
+            EXPECT_CALL(*cluster, executeCommand(COMAND0_ID, _));
             EXPECT_CALL(*cluster, getCmdParams(COMAND0_ID)).WillOnce(Return(std::vector<std::shared_ptr<ClusterCmdParamsBase>> {}));
 
             v8::Local<v8::Value> result = runScript(stream.str());
@@ -237,7 +237,7 @@ namespace zigbee {
             EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             EXPECT_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(cluster));
-            EXPECT_CALL(*cluster, executeComand(COMAND1_ID,
+            EXPECT_CALL(*cluster, executeCommand(COMAND1_ID,
                                                 HasArgument<uint16_t, const char *, ZCLTypeDataType::ZCLTypeUInt16, ZCLTypeDataType::ZCLTypeStringChar>(COMAND1_ARG0,
                                                                                                                                                         COMAND1_ARG1)));
             EXPECT_CALL(*cluster, getCmdParams(COMAND1_ID)).WillOnce(Return(std::vector<std::shared_ptr<ClusterCmdParamsBase>> {argUINT16, argString}));
@@ -265,7 +265,7 @@ namespace zigbee {
             EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             EXPECT_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(cluster));
 
-            EXPECT_CALL(*cluster, executeComand(COMAND2_ID, HasArraysArgument<uint16_t, ZCLTypeDataType::ZCLTypeUInt16>({data1, data2})));
+            EXPECT_CALL(*cluster, executeCommand(COMAND2_ID, HasArraysArgument<uint16_t, ZCLTypeDataType::ZCLTypeUInt16>({data1, data2})));
             EXPECT_CALL(*cluster, getCmdParams(COMAND2_ID)).WillOnce(Return(std::vector<std::shared_ptr<ClusterCmdParamsBase>> {argList}));
 
             v8::Local<v8::Value> result = runScript(stream.str());

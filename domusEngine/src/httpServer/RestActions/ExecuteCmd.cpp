@@ -45,7 +45,7 @@ namespace zigbee {
                     }
                 }
 
-                cluster->executeComand(command, cmdParams);
+                cluster->executeCommand(command, cmdParams);
             } else {
                 BOOST_LOG_TRIVIAL(error) << "Available in clusters are";
                 for (auto &inCluster: zEndpoint.getInCluster()) {

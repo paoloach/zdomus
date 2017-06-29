@@ -210,7 +210,7 @@ namespace zigbee {
                 auto argumentData(addArgument(info[index + 1], cmdParams[index]));
                 std::copy(std::begin(argumentData), std::end(argumentData), std::back_inserter(data));
             }
-            cluster->executeComand(cmdId, std::move(data));
+            cluster->executeCommand(cmdId, std::move(data));
         } catch (JSException &jsException) {
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, jsException.what());
             isolate->ThrowException(errorMsg);

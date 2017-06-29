@@ -30,7 +30,7 @@ public:
 	MOCK_METHOD1(createAttributes, void (const std::vector<AttributeDef> & attributesDef) ) ;
 	MOCK_CONST_METHOD1(getAttribute, ZCLAttribute *(int id) );
 	MOCK_CONST_METHOD1(getAttribute, ZCLAttribute * (std::experimental::string_view  name) );
-	MOCK_METHOD2(executeComand, void (uint32_t cmd, std::vector<uint8_t>  data));
+	MOCK_METHOD2(executeCommand, void (uint32_t cmd, std::vector<uint8_t>  data));
 	MOCK_CONST_METHOD0(getAttributes, std::vector<AttributeDef> ());
 	MOCK_CONST_METHOD0(getCommands, std::vector<CommandDef> ());
 	MOCK_METHOD1(getCmdParams,  std::vector<std::shared_ptr<ClusterCmdParamsBase>> (uint32_t cmd));
