@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TemperatureMonitor</string>
+    <string name="action_settings">settings</string>
+    <string name="pref_default_display_name">192.168.1.121:8080</string>
+    <string name="server_address_key">DomusEngineAddress</string>
+    <string name="server_address">Server Address</string>
+    <string name="title_activity_setting">ActivitySetting</string>
+</resources>
