@@ -45,8 +45,8 @@ class LightController implements View.OnClickListener, Runnable, DomusEngine.Att
     public void onClick(View v) {
         if (SystemClock.elapsedRealtime() - lastRequest > DELAY_FROM_CLICK) {
             CmdRequest cmdRequest = new CmdRequest();
-            cmdRequest.networkId = element.network;
-            cmdRequest.endpointId = element.endpoint;
+            cmdRequest.networkId = element.getNetwork();
+            cmdRequest.endpointId = element.getEndpoint();
             cmdRequest.clusterId = Constants.ON_OFF_CLUSTER;
             if (imageButton.isActivated()) {
                 cmdRequest.cmdId = 0;
@@ -60,7 +60,7 @@ class LightController implements View.OnClickListener, Runnable, DomusEngine.Att
 
     @Override
     public void run() {
-        domusEngine.requestAttributes(this, element.network, element.endpoint, Constants.ON_OFF_CLUSTER, 0);
+        domusEngine.requestAttributes(this, element.getNetwork(), element.getEndpoint(), Constants.ON_OFF_CLUSTER, 0);
     }
 
     @Override

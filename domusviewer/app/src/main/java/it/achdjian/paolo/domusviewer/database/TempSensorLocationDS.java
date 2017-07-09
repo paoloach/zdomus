@@ -77,11 +77,11 @@ public class TempSensorLocationDS implements ListAdapter, View.OnClickListener, 
     }
 
     public void createTempSensorLocation(Element element, String location) {
-        int network = element.network;
+        int network = element.getNetwork();
         ZDevices devices = domusEngine.getDevices();
         ZDevice device = devices.getDevice(network);
         if (device != null) {
-            createTempSensorLocation(device.extended_address, element.endpoint, location);
+            createTempSensorLocation(device.extended_address, element.getEndpoint(), location);
         }
         observers.onChangeNotify();
     }

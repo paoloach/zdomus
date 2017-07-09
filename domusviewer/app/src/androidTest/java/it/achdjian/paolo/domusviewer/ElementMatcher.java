@@ -17,7 +17,7 @@ public class ElementMatcher extends TypeSafeMatcher<Element> {
 
     @Override
     protected boolean matchesSafely(Element item) {
-        return item.network == expected.network && item.endpoint == expected.endpoint;
+        return item.getNetwork() == expected.getNetwork() && item.getEndpoint() == expected.getEndpoint();
     }
 
     @Override

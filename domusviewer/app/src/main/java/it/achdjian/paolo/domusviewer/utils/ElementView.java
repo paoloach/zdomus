@@ -43,7 +43,7 @@ public class ElementView {
         infoLayout.setTag(R.id.element_view, this);
 
         mainText.setTextColor(Color.BLACK);
-        mainText.setText(String.format("%04X:%02X",element.network, element.endpoint));
+        mainText.setText(String.format("%04X:%02X", element.getNetwork(), element.getEndpoint()));
 
         view.setTag(R.id.element_value, element);
         view.setTag(R.id.element_view, this);

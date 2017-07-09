@@ -68,9 +68,9 @@ class LightAdapter extends OnOffAdapter implements View.OnClickListener {
     @Override
     public int getItemViewType(int position) {
         Element element = elements.get(position);
-        ZDevice device = domusEngine.getDevices().getDevice(element.network);
+        ZDevice device = domusEngine.getDevices().getDevice(element.getNetwork());
         if (device != null) {
-            ZEndpoint endpoint = device.getEndpoin(element.endpoint);
+            ZEndpoint endpoint = device.getEndpoin(element.getEndpoint());
             if (endpoint != null) {
                 switch (endpoint.device_id) {
                     case ZCL_HA_DEVICEID_ON_OFF_OUTPUT:

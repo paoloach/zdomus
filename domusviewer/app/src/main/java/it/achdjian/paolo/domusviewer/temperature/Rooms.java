@@ -213,7 +213,7 @@ public class Rooms implements OnObjectPickedListener {
         return null;
     }
 
-    public void initScene() {
+    public void initScene(getCurrentScene(), getContext(), picker) {
         for (RoomObject room : rooms) {
             room.object3D.setMaterial(room.material);
         }

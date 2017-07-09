@@ -22,7 +22,7 @@ public class IdentifyListener implements View.OnClickListener {
         if (tag instanceof Element){
             Element element = (Element) tag;
 
-            domusEngine.requestIdentify(element.network, element.endpoint);
+            domusEngine.requestIdentify(element.getNetwork(), element.getEndpoint());
         }
     }
 }

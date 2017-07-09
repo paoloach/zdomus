@@ -53,7 +53,7 @@ class Binding implements DialogInterface.OnClickListener {
     public void onClick(DialogInterface dialog, int which) {
         dialog.dismiss();
         if (which == DialogInterface.BUTTON_POSITIVE) {
-            BindRequestData data = new BindRequestData(switchElement.network, switchElement.endpoint, ClustersId.ON_OFF_CLUSTER, lightElement.network, lightElement.endpoint);
+            BindRequestData data = new BindRequestData(switchElement.getNetwork(), switchElement.getEndpoint(), ClustersId.ON_OFF_CLUSTER, lightElement.getNetwork(), lightElement.getEndpoint());
             if (bind) {
                 domusEngine.bind(data);
             } else {

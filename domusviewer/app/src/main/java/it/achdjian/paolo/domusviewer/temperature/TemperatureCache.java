@@ -56,7 +56,7 @@ public class TemperatureCache extends CacheLoader<String, Optional<Integer>> imp
         Element element = tempSensorLocationDS.getElement(roomName);
         if (element != null) {
 
-            domusEngine.requestAttributes(this, element.network, element.endpoint, Constants.TEMPERATURE_MEASUREMENT, 0);
+            domusEngine.requestAttributes(this, element.getNetwork(), element.getEndpoint(), Constants.TEMPERATURE_MEASUREMENT, 0);
             if (!values.containsKey(roomName)) {
                 return Optional.absent();
             }

@@ -42,7 +42,7 @@ public class AssignController implements View.OnClickListener, DialogInterface.O
                 if (!tempSensorLocationDS.isLocationUsedYet(selected.name)) {
                     assignSensor(selected, element);
                 } else {
-                    if (domusEngine.getDevices().existDevice(element.network)) {
+                    if (domusEngine.getDevices().existDevice(element.getNetwork())) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         AlertDialog dialog = builder.setMessage(R.string.already_assigned).
                                 setPositiveButton(R.string.change_assignment, this).

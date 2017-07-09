@@ -1,6 +1,5 @@
 package it.achdjian.paolo.domusviewer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -16,6 +15,8 @@ import android.view.MenuItem;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 import it.achdjian.paolo.domusviewer.DomusEngineRest.ConnectionObserver;
@@ -23,6 +24,7 @@ import it.achdjian.paolo.domusviewer.other.ActivityManager;
 import it.achdjian.paolo.domusviewer.setting.SettingActivity;
 
 @EActivity(R.layout.activity_main)
+@OptionsMenu(R.menu.menu_main)
 public class MainActivity extends AppCompatActivity implements ConnectionObserver {
     @Bean
     DomusEngine domusEngine;
@@ -60,23 +62,29 @@ public class MainActivity extends AppCompatActivity implements ConnectionObserve
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+
+    @OptionsItem(R.id.action_settings)
+    void startSettingActivity() {
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            Intent intent = new Intent(this, SettingActivity.class);
+//            startActivity(intent);
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void connected() {

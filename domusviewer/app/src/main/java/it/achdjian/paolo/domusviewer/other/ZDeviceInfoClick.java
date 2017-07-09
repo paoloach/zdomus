@@ -42,8 +42,8 @@ public class ZDeviceInfoClick implements View.OnLongClickListener {
                 // Create and show the dialog.
                 Element element = (Element) tag;
                 DialogFragment newFragment = ZDeviceInfoFragment_.builder().
-                        endpointId(element.endpoint).
-                        networkId(element.network).
+                        endpointId(element.getEndpoint()).
+                        networkId(element.getNetwork()).
                         build();
                 newFragment.show(ft, "dialog");
                 return true;

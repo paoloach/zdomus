@@ -23,9 +23,9 @@ class ElementSelected {
 
     boolean isSwitch() {
         if (selected != null) {
-            ZDevice device = domusEngine.getDevices().getDevice(selected.network);
+            ZDevice device = domusEngine.getDevices().getDevice(selected.getNetwork());
             if (device != null) {
-                ZEndpoint endpoint = device.getEndpoin(selected.endpoint);
+                ZEndpoint endpoint = device.getEndpoin(selected.getEndpoint());
                 if (endpoint.containsOutCluster(ClustersId.ON_OFF_CLUSTER)) {
                     return true;
                 }
@@ -36,9 +36,9 @@ class ElementSelected {
 
     boolean isLight() {
         if (selected != null) {
-            ZDevice device = domusEngine.getDevices().getDevice(selected.network);
+            ZDevice device = domusEngine.getDevices().getDevice(selected.getNetwork());
             if (device != null) {
-                ZEndpoint endpoint = device.getEndpoin(selected.endpoint);
+                ZEndpoint endpoint = device.getEndpoin(selected.getEndpoint());
                 if (endpoint.containsInCluster(ClustersId.ON_OFF_CLUSTER)) {
                     return true;
                 }

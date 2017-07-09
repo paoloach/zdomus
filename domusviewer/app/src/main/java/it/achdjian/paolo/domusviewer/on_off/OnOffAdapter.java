@@ -26,7 +26,7 @@ import it.achdjian.paolo.domusviewer.zigbee.ZEndpoint;
  * Created by Paolo Achdjian on 20/04/16.
  */
 @EBean
-abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener {
+class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener {
     static final Integer TYPE_SWITCH = 1;
     static final Integer TYPE_LIGHT = 2;
 
@@ -69,7 +69,9 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
         return false;
     }
 
-    abstract boolean rightDevice(ZEndpoint zEndpoint);
+    boolean rightDevice(ZEndpoint zEndpoint){
+        return false;
+    }
 
     @Override
     public boolean areAllItemsEnabled() {
@@ -112,6 +114,21 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
     }
 
     @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return 0;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 0;
+    }
+
+    @Override
     public boolean isEmpty() {
         return false;
     }
@@ -119,14 +136,14 @@ abstract class OnOffAdapter implements ListAdapter, DomusEngine.EndpointListener
     @Override
     public void newEndpoint(ZEndpoint zDevice) {
         if (addEndpoint(zDevice)) {
-            new Handler(activity.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    for (DataSetObserver observer : observers) {
-                        observer.onChanged();
-                    }
-                }
-            });
+//            new Handler(activity.getMainLooper()).post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    for (DataSetObserver observer : observers) {
+//                        observer.onChanged();
+//                    }
+//                }
+//            });
         }
     }
 

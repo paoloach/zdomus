@@ -114,7 +114,7 @@ public class TempSensors implements DomusEngine.EndpointListener {
     public int countUnused() {
         unusedTempSensor.clear();
         for (Element element: tempSensors){
-            if (tempSensorLocationDS.getRoom(element.network, element.endpoint)==null){
+            if (tempSensorLocationDS.getRoom(element.getNetwork(), element.getEndpoint())==null){
                 unusedTempSensor.add(element);
             }
         }

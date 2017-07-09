@@ -8,6 +8,10 @@ public class Element {
     public final int network;
     public final int endpoint;
 
+
+    public int getNetwork() {return network;}
+    public int getEndpoint() {return  endpoint;}
+
     public Element(int short_address, int endpoint_id) {
         network = short_address;
         endpoint = endpoint_id;
