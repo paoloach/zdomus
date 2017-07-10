@@ -3,12 +3,13 @@ package it.achdjian.paolo.temperaturemonitor.domus_engine_rest
 import android.os.Handler
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
 import java.io.IOException
 
 /**
  * Created by Paolo Achdjian on 7/9/17.
  */
-class GetDevices(val domusEngineRest: DomusEngineRest) : Runnable {
+class GetDevices(val domusEngineRest: DomusEngineRest, val zDevices: ZDevices) : Runnable {
     override fun run() {
         val body = domusEngineRest.get("/devices")
         if (body != null) {
@@ -18,15 +19,14 @@ class GetDevices(val domusEngineRest: DomusEngineRest) : Runnable {
                     val devices = mapper.readValue<Map<String, String>>(body, object : TypeReference<Map<String, String>>() {
 
                     })
-//                    for (entry in devices.entries) {
-//                        zDevices.addDevice(entry.key, entry.value)
-//                    }
+                    for ((key, value) in devices) {
+                        zDevices.addDevice(key, value)
+                    }
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
 
             }
-            Handler().postDelayed(this, 2000)
         }
     }
 }

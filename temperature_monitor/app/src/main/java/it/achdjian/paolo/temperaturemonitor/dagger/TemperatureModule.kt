@@ -13,6 +13,7 @@ import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.WhoAreYou
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureSurface
+import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
 import javax.inject.Singleton
 
 /**
@@ -48,4 +49,7 @@ class TemperatureModule(val app: Application) {
 
     @Provides @Singleton
     fun provideDomusEngine(whoAreYou: WhoAreYou) = DomusEngine(app.applicationContext,whoAreYou)
+
+    @Provides @Singleton
+    fun provideZDevices(domusEngine: DomusEngine) = ZDevices(domusEngine)
 }
