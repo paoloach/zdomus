@@ -1,0 +1,14 @@
+package it.achdjian.paolo.temperaturemonitor.domusEngine
+
+/**
+ * Created by Paolo Achdjian on 7/10/17.
+ */
+class MessageType {
+    companion object {
+        val WHO_ARE_YOU=1000
+        val GET_DEVICES=1001
+        val GET_DEVICE=1002
+        val NEW_DEVICE=1003
+        val NEW_ENDPOINT=1004
+    }
+}

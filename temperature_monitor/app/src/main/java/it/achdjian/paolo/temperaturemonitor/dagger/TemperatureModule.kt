@@ -6,10 +6,11 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
-import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.ConnectionStatus
-import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.DomusEngine
-import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.DomusEngineRest
-import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.WhoAreYou
+import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
+import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
+import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.DomusEngineRest
+import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.GetDevices
+import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.WhoAreYou
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureSurface
@@ -42,14 +43,17 @@ class TemperatureModule(val app: Application) {
     fun provideSharedPreferences() = PreferenceManager.getDefaultSharedPreferences(app)
 
     @Provides @Singleton
-    fun provideWhoAreYou(domusEngineRest: DomusEngineRest, connectionStatus: ConnectionStatus) = WhoAreYou(domusEngineRest,connectionStatus )
+    fun provideWhoAreYou(domusEngineRest: DomusEngineRest, connectionStatus: ConnectionStatus) = WhoAreYou(domusEngineRest, connectionStatus)
 
     @Provides @Singleton
-    fun provideDomusEngineRest(sharedPreferences:SharedPreferences, connectionStatus: ConnectionStatus) = DomusEngineRest(sharedPreferences,connectionStatus)
+    fun provideDomusEngineRest(sharedPreferences:SharedPreferences, connectionStatus: ConnectionStatus) = DomusEngineRest(sharedPreferences, connectionStatus)
 
     @Provides @Singleton
-    fun provideDomusEngine(whoAreYou: WhoAreYou) = DomusEngine(app.applicationContext,whoAreYou)
+    fun provideDomusEngine(whoAreYou: WhoAreYou, getDevices: GetDevices, zDevices: ZDevices,domusEngine: DomusEngineRest) = DomusEngine(whoAreYou,getDevices,zDevices,domusEngine)
 
     @Provides @Singleton
     fun provideZDevices(domusEngine: DomusEngine) = ZDevices(domusEngine)
+
+    @Provides @Singleton
+    fun provideGetDevices(domusEngine: DomusEngineRest, zDevices: ZDevices) = GetDevices(domusEngine, zDevices)
 }

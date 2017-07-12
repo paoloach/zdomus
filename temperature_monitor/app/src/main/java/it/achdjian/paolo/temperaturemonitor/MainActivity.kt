@@ -11,10 +11,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import it.achdjian.paolo.temperaturemonitor.dagger.TemperatureApplication
-import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.ConnectionObserver
-import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.ConnectionStatus
-import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.DomusEngine
-import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.WhoAreYou
+import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionObserver
+import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
+import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureSurface
@@ -70,6 +69,7 @@ open class MainActivity : AppCompatActivity() ,View.OnLayoutChangeListener, Conn
 
     override fun connected() {
         runOnUiThread({supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.GREEN))})
+        domusEngine.getDevices()
     }
 
     override fun disconnected() {

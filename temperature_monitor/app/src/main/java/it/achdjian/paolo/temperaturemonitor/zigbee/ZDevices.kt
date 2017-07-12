@@ -1,6 +1,9 @@
 package it.achdjian.paolo.temperaturemonitor.zigbee
 
-import it.achdjian.paolo.temperaturemonitor.domus_engine_rest.DomusEngine
+import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
+import it.achdjian.paolo.temperaturemonitor.domusEngine.MessageType
+import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.JsonDevice
+import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.handler
 import java.util.*
 
 /**
@@ -13,14 +16,23 @@ class ZDevices(val domusEngine: DomusEngine) {
 
     private val devices = TreeMap<Int, ZDevice>()
 
-    fun addDevice(shortAddress:String, extendedAddress:String){
-        try{
-            val nwkAddress = Integer.parseInt(shortAddress, 16)
-            if (!devices.containsKey(nwkAddress)){
-                devices.put(nwkAddress,ZDevice(nwkAddress, extendedAddress,0))
+    fun addDevices(newDevices: Map<Int, String>) {
+        val iter = devices.iterator()
+        while (iter.hasNext()) {
+            val networkAddress = iter.next().key
+            if (!newDevices.containsKey(networkAddress)) {
+                iter.remove()
             }
-        } catch(e:Exception){
-
         }
+        newDevices.keys.
+                filter { !devices.contains(it) }.
+                forEach { handler.sendMessage(handler.obtainMessage(MessageType.GET_DEVICE, it)) }
     }
+
+    fun addDevice(newDevice: JsonDevice) {
+        val device = ZDevice(newDevice)
+        devices[device.shortAddress] = device
+    }
+
+
 }
