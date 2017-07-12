@@ -9,7 +9,7 @@ import java.util.*
 /**
  * Created by Paolo Achdjian on 7/10/17.
  */
-class ZDevices(val domusEngine: DomusEngine) {
+class ZDevices() {
     companion object {
         private val TAG = ZDevices::class.java.name
     }
@@ -32,6 +32,12 @@ class ZDevices(val domusEngine: DomusEngine) {
     fun addDevice(newDevice: JsonDevice) {
         val device = ZDevice(newDevice)
         devices[device.shortAddress] = device
+    }
+
+    fun addEndpoint(endpoint: ZEndpoint) {
+        if (devices.containsKey(endpoint.shortAddress)){
+            devices[endpoint.shortAddress]?.endpoints?.put(endpoint.id,endpoint)
+        }
     }
 
 

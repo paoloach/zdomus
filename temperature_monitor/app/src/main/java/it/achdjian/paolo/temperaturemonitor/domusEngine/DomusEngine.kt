@@ -5,6 +5,7 @@ import android.os.HandlerThread
 import android.os.Message
 import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.*
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
+import it.achdjian.paolo.temperaturemonitor.zigbee.ZEndpoint
 
 /**
  * Created by Paolo Achdjian on 7/9/17.
@@ -32,6 +33,10 @@ class DomusEngine(val whoAreYou: WhoAreYou, val getDevices: GetDevices, val zDev
                     device.endpoints.
                             forEach {
                                 handler.post(GetEndpoint(device.short_address, Integer.parseInt(it.value, 16), domusEngineRest)) }
+                }
+                MessageType.NEW_ENDPOINT -> {
+                    val endpoint = message.obj as ZEndpoint
+                    zDevices.addEndpoint(endpoint)
                 }
             }
         }

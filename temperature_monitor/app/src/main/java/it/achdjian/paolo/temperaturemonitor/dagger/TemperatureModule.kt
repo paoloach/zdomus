@@ -52,7 +52,7 @@ class TemperatureModule(val app: Application) {
     fun provideDomusEngine(whoAreYou: WhoAreYou, getDevices: GetDevices, zDevices: ZDevices,domusEngine: DomusEngineRest) = DomusEngine(whoAreYou,getDevices,zDevices,domusEngine)
 
     @Provides @Singleton
-    fun provideZDevices(domusEngine: DomusEngine) = ZDevices(domusEngine)
+    fun provideZDevices() = ZDevices()
 
     @Provides @Singleton
     fun provideGetDevices(domusEngine: DomusEngineRest, zDevices: ZDevices) = GetDevices(domusEngine, zDevices)
