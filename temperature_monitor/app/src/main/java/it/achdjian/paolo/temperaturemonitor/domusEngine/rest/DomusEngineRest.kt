@@ -13,14 +13,17 @@ import java.util.concurrent.TimeUnit
  */
 class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: ConnectionStatus) {
     protected var client: OkHttpClient = OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).build()
-    private val TAG = DomusEngineRest::class.java.name
-//    protected var clientLongTimeout: OkHttpClient=OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS).readTimeout(5, TimeUnit.MINUTES).build()
+
+    companion object {
+        private val TAG = "ZIGBEE COM"
+    }
 
 
     val address: String = sharedPreferences.getString(Constants.DOMUS_ENGINE_ADDRESS, "192.168.1.121")
 
     operator fun get(path: String): String {
         val url = "http://" + address + path
+        Log.i(TAG, url);
 
         val request = Request.Builder().url(url).get().header("Accept", "application/json").header("Content-Type", "application/json").build()
 
@@ -90,8 +93,8 @@ class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: C
 ////        }
 //    }
 
-    companion object {
+//    companion object {
 
 //        val JSON: MediaType = okhttp3.MediaType.parse("application/json; charset=utf-8")
-    }
+//    }
 }

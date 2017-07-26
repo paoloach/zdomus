@@ -18,12 +18,11 @@ import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureSurface
 import it.achdjian.paolo.temperaturemonitor.settings.SettingActivity
+import it.achdjian.paolo.temperaturemonitor.ui.ZElementAdapter
 import kotlinx.android.synthetic.main.temperature_layout.*
 import javax.inject.Inject
 
 open class MainActivity : AppCompatActivity() ,View.OnLayoutChangeListener, ConnectionObserver {
-
-
     @Inject
     lateinit var renderer: TemperatureRender
     @Inject
@@ -34,6 +33,8 @@ open class MainActivity : AppCompatActivity() ,View.OnLayoutChangeListener, Conn
     lateinit var domusEngine: DomusEngine
     @Inject
     lateinit var connectionStatus: ConnectionStatus
+    @Inject
+    lateinit var zElementAdapter: ZElementAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,8 @@ open class MainActivity : AppCompatActivity() ,View.OnLayoutChangeListener, Conn
         rajaBase.addView(surface)
         rajaBase.addOnLayoutChangeListener(this)
         surface.requestRenderUpdate()
+        tempLV.adapter = zElementAdapter
+        domusEngine.addListener(zElementAdapter)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

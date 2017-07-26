@@ -1,15 +1,15 @@
 package it.achdjian.paolo.temperaturemonitor.zigbee
 
 import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
-import it.achdjian.paolo.temperaturemonitor.domusEngine.MessageType
 import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.JsonDevice
-import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.handler
 import java.util.*
 
 /**
  * Created by Paolo Achdjian on 7/10/17.
  */
 class ZDevices() {
+    lateinit var domusEngine: DomusEngine
+
     companion object {
         private val TAG = ZDevices::class.java.name
     }
@@ -26,7 +26,7 @@ class ZDevices() {
         }
         newDevices.keys.
                 filter { !devices.contains(it) }.
-                forEach { handler.sendMessage(handler.obtainMessage(MessageType.GET_DEVICE, it)) }
+                forEach { domusEngine.getDevice(it) }
     }
 
     fun addDevice(newDevice: JsonDevice) {
@@ -35,8 +35,8 @@ class ZDevices() {
     }
 
     fun addEndpoint(endpoint: ZEndpoint) {
-        if (devices.containsKey(endpoint.shortAddress)){
-            devices[endpoint.shortAddress]?.endpoints?.put(endpoint.id,endpoint)
+        if (devices.containsKey(endpoint.short_address)){
+            devices[endpoint.short_address]?.endpoints?.put(endpoint.endpoint_id.toInt(16),endpoint)
         }
     }
 

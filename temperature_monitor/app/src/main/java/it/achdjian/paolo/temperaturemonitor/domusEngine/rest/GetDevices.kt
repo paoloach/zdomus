@@ -15,18 +15,16 @@ class GetDevices(val domusEngineRest: DomusEngineRest, val zDevices: ZDevices) :
     override fun run() {
         val handler = Handler()
         val body = domusEngineRest.get("/devices")
-        if (body != null) {
-            if (!body.isEmpty()) {
-                val mapper = ObjectMapper()
-                try {
-                    val devices = mapper.readValue<Map<String, String>>(body, object : TypeReference<Map<String, String>>() {
+        if (body.isNotBlank()) {
+            val mapper = ObjectMapper()
+            try {
+                val devices = mapper.readValue<Map<String, String>>(body, object : TypeReference<Map<String, String>>() {
 
-                    })
-                    val nwkAddresses = devices.mapKeys { Integer.parseInt(it.key, 16) }
-                    zDevices.addDevices(nwkAddresses)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+                })
+                val nwkAddresses = devices.mapKeys { Integer.parseInt(it.key, 16) }
+                zDevices.addDevices(nwkAddresses)
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
         handler.removeMessages(MessageType.WHO_ARE_YOU)
