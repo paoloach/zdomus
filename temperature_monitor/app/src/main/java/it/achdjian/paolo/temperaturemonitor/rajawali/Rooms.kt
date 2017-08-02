@@ -3,17 +3,20 @@ package it.achdjian.paolo.temperaturemonitor.rajawali
 import android.content.Context
 import android.util.Log
 import it.achdjian.paolo.temperaturemonitor.R
+import org.rajawali3d.Object3D
 import org.rajawali3d.loader.LoaderOBJ
 import org.rajawali3d.loader.ParsingException
 import org.rajawali3d.materials.textures.TextureManager
 import org.rajawali3d.math.vector.Vector3
 import org.rajawali3d.scene.Scene
 import org.rajawali3d.util.ObjectColorPicker
+import org.rajawali3d.util.OnObjectPickedListener
 
 /**
  * Created by Paolo Achdjian on 7/5/17.
  */
-class Rooms(val context: Context) {
+class Rooms(val context: Context) : OnObjectPickedListener {
+
 
     val rooms = ArrayList<RoomObject>()
     val planes = ArrayList<List<String>>()
@@ -97,5 +100,38 @@ class Rooms(val context: Context) {
             }
         }
         return max
+    }
+
+    /**
+     * Called when no object was detected during picking.
+     */
+    override fun onNoObjectPicked() {
+    }
+
+    /**
+     * Called when an object has been picked successfully.
+
+     * @param object [Object3D] The picked object.
+     */
+    override fun onObjectPicked(objFound: Object3D) {
+        for (roomObject in rooms) {
+            if (roomObject.object3D === objFound) {
+                if (!roomObject.selected) {
+                    select(roomObject)
+                } else {
+                    roomObject.deselect()
+                }
+            }
+        }
+    }
+
+    private fun select(toSelect: RoomObject) {
+        for (roomObject in rooms) {
+            if (roomObject === toSelect){
+                roomObject.select()
+            } else {
+                roomObject.deselect()
+            }
+        }
     }
 }

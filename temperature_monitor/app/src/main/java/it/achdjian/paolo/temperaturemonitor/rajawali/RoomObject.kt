@@ -11,17 +11,20 @@ import org.rajawali3d.util.ObjectColorPicker
 /**
  * Created by Paolo Achdjian on 7/4/17.
  */
-class RoomObject (val object3D: Object3D){
-    val DEFAULT_COLOR = 0xFFC0C0C0.toInt()
-    val SELECTED_COLOR = 0xFFC0FFFF.toInt()
+class RoomObject(val object3D: Object3D) {
+    companion object {
+        val DEFAULT_COLOR = 0xFFC0C0C0.toInt()
+        val SELECTED_COLOR = 0xFFC0FFFF.toInt()
+    }
     val name: String
     var material: Material = Material()
+    var selected = false
     val light: SpotLight
     lateinit var scene: Scene
     lateinit var picker: ObjectColorPicker
 
     init {
-        name =object3D.name.substring(0,object3D.name.lastIndexOf("_"))
+        name = object3D.name.substring(0, object3D.name.lastIndexOf("_"))
         initMaterial()
         val boundingBox = object3D.geometry.boundingBox
         val childMax = boundingBox.max
@@ -45,14 +48,25 @@ class RoomObject (val object3D: Object3D){
     fun init3D(currentScene: Scene, picker: ObjectColorPicker) {
         object3D.material = material
         scene = currentScene
-        this.picker=picker
+        this.picker = picker
         scene.addChild(object3D)
         scene.addLight(light)
         picker.registerObject(object3D)
     }
 
-    fun updateTemp(){
+    fun updateTemp() {
 
     }
+
+    fun select() {
+        selected = true
+        material.color = SELECTED_COLOR
+    }
+
+    fun deselect() {
+        selected = false
+        material.color = DEFAULT_COLOR
+    }
+
 
 }

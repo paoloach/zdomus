@@ -46,6 +46,7 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
         currentScene.switchCamera(camera)
         mSurface.requestRenderUpdate()
         adjustCamera()
+        picker.setOnObjectPickedListener(rooms)
     }
 
     private fun adjustCamera() {
