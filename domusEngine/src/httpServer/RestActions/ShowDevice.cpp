@@ -27,7 +27,7 @@ namespace zigbee {
             const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);
             try {
                 auto device = request.param(":device").as<NwkAddr>();
-                BOOST_LOG_TRIVIAL(info) << "Request device configuration " << device;
+                BOOST_LOG_TRIVIAL(info) << "Request device  network id " << device;
                 auto zDevice = singletons.getZDevices()->getDevice(device);
                 std::stringstream output;
                 producer.produce(output, ZDevicePT(zDevice));

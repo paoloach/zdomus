@@ -5,7 +5,6 @@
 #ifndef DOMUS_ENGINE_SERIALDRIVER_H
 #define DOMUS_ENGINE_SERIALDRIVER_H
 
-#include <boost/asio.hpp>
 #include <zigbee/ZigbeeDevice.h>
 #include <thread>
 #include "../Utils/SingletonObjects.h"
@@ -64,9 +63,11 @@ namespace zigbee {
 
     private:
         void run();
+        void write(std::string && data);
+        char c;
         SingletonObjects &singletonObjects;
         std::string port;
-        boost::asio::serial_port serialPort;
+        int serialFd;
         std::thread readThread;
         std::string message;
         bool stop;

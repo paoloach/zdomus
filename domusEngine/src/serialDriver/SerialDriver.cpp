@@ -2,14 +2,13 @@
 // Created by paolo on 31/12/16.
 //
 #include <boost/log/trivial.hpp>
-#include <sstream>
-#include <iomanip>
+#include <boost/date_time.hpp>
 #include <boost/fiber/algo/round_robin.hpp>
+#include <termios.h>
 
 #include "SerialDriver.h"
 
 namespace zigbee {
-    using boost::asio::serial_port_base;
     using namespace boost::asio;
     using namespace boost::system;
     using std::stringstream;
@@ -17,31 +16,47 @@ namespace zigbee {
     using std::setw;
     using std::setfill;
     using std::uppercase;
-    const int SerialDriver::BAUD_RATE = 115200;
-    //const int SerialDriver::BAUD_RATE = 57600;
-    static const boost::posix_time::time_duration WEAKUP_TIMER = boost::posix_time::seconds(1);
+    const int SerialDriver::BAUD_RATE = B115200;
 
-    SerialDriver::SerialDriver(const std::string &port, boost::asio::io_service &io, SingletonObjects &singletonObjects, std::chrono::seconds timeout) :
-            ZigbeeDevice(timeout),
-            singletonObjects(singletonObjects),
-            port(port), serialPort(io),
-            serialResponseExecutor(singletonObjects) {
-        try {
-            serialPort.open(port);
+    SerialDriver::SerialDriver(const std::string &port, boost::asio::io_service &io, SingletonObjects &singletonObjects, std::chrono::seconds timeout) : ZigbeeDevice(timeout),
+                                                                                                                                                         singletonObjects(
+                                                                                                                                                                 singletonObjects),
+                                                                                                                                                         port(port),
+                                                                                                                                                         serialResponseExecutor(
+                                                                                                                                                                 singletonObjects) {
+        serialFd = open(port.c_str(), O_RDWR | O_NOCTTY);
+        if (serialFd >= 0) {
+            struct termios tty;
+            memset(&tty, 0, sizeof tty);
 
-            serialPort.set_option(serial_port_base::baud_rate(BAUD_RATE));
+            if (tcgetattr(serialFd, &tty) != 0) {
+                BOOST_LOG_TRIVIAL(error) << "Unable to open " << port;
+                serialFd = -1;
+            } else {
+                cfsetospeed(&tty, (speed_t) BAUD_RATE);
+                cfsetispeed(&tty, (speed_t) BAUD_RATE);
 
-            serialPort.set_option(serial_port_base::flow_control(serial_port_base::flow_control::none));
+                tty.c_cflag &= ~PARENB;            // Make 8n1
+                tty.c_cflag &= ~CSTOPB;
+                tty.c_cflag &= ~CSIZE;
+                tty.c_cflag |= CS8;
 
-            serialPort.set_option(serial_port_base::parity(serial_port_base::parity::none));
+                tty.c_cflag &= ~CRTSCTS;           // no flow control
+                tty.c_cc[VMIN] = 0;                  // read doesn't block
+                tty.c_cc[VTIME] = 5;                  // 0.5 seconds read timeout
+                tty.c_cflag |= CREAD | CLOCAL;     // turn on READ & ignore ctrl lines
 
-            serialPort.set_option(serial_port_base::stop_bits(serial_port_base::stop_bits::one));
+                cfmakeraw(&tty);
 
-            serialPort.set_option(serial_port_base::character_size(8));
+                tcflush(serialFd, TCIFLUSH);
+                if (tcsetattr(serialFd, TCSANOW, &tty) != 0) {
+                    BOOST_LOG_TRIVIAL(error) << "Unable to set port " << port;
+                    serialFd = -1;
+                }
+            }
 
-        } catch (system_error &e) {
-            BOOST_LOG_TRIVIAL(error) << "Unable to open serial port " << port << " : " << e.what();
-            return;
+        } else {
+            BOOST_LOG_TRIVIAL(error) << "Unable to open " << port;
         }
 
         stop = false;
@@ -50,68 +65,88 @@ namespace zigbee {
     }
 
     SerialDriver::~SerialDriver() {
-        serialPort.close();
+        close(serialFd);
         stop = true;
         readThread.join();
     }
 
+
     void SerialDriver::run() {
-        char c;
         boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
         powerNodeQueue.startDequeFiber();
+        int n;
+        fd_set readFd;
+        struct timeval timeout;
 
         while (!stop) {
             boost::this_fiber::yield();
-            try {
-                serialPort.read_some(buffer(&c, 1));
-                if (c != '\n') {
-                    message += c;
-                } else {
-                    BOOST_LOG_TRIVIAL(info) << message;
-                    serialResponseExecutor.execute(message);
-                    message = "";
+            FD_ZERO(&readFd);
+            FD_SET(serialFd, &readFd);
+            timeout.tv_sec = 0;
+            timeout.tv_usec = 1;
+
+            while (select(serialFd + 1, &readFd, NULL, NULL, &timeout) > 0) {
+                n = read(serialFd, &c, 1);
+                if (n > 0) {
+                    if (c != '\n') {
+                        message += c;
+                    } else {
+                        BOOST_LOG_TRIVIAL(info) << message;
+                        try {
+                            serialResponseExecutor.execute(message);
+                        } catch (system_error &e) {
+                            BOOST_LOG_TRIVIAL(error) << "Error reading from serial port " << port << " : " << e.what();
+                        }
+                        message = "";
+                    }
                 }
-            } catch (system_error &e) {
-                BOOST_LOG_TRIVIAL(error) << "Error reading from serial port " << port << " : " << e.what();
             }
+
         }
 
     }
 
     bool SerialDriver::isPresent() {
-        return serialPort.is_open();
+        return serialFd >= 0;
     }
 
     bool SerialDriver::enableLog() {
         return false;
     }
 
+    void SerialDriver::write(std::string &&data) {
+        auto remain = data.length();
+        auto start = 0;
+        while (remain > 0) {
+            auto written = ::write(serialFd, data.c_str() + start, remain);
+            start += written;
+            remain -= written;
+        }
+        BOOST_LOG_TRIVIAL(info) << "Send request: " << data;
+    }
+
     void SerialDriver::getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "IEEE: " << hex << uppercase << setfill('0') << setw(4) << nwkAddr.getId() << ", " << (requestType == SingleRequest ? '0' : '1') << ", " << setw(2)
                    << (int) startIndex << "\n";
-            std::string data = stream.str();
-            serialPort.write_some(buffer(data));
-            BOOST_LOG_TRIVIAL(info) << "Send requesT: " << data;
+            write(stream.str());
         }
     }
 
     void SerialDriver::requestAttribute(const AttributeKey &key) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "RA: " << hex << uppercase << setfill('0') << setw(4) << key.networkAddress.getId() << ", " << setw(2) << (int) key.endpoint.getId() << ", " << setw(4)
                    << key.clusterId.getId() << ", " << setw(4) << key.attributeId << "\n";
-            std::string data = stream.str();
-            BOOST_LOG_TRIVIAL(info) << "Request: " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
         }
     }
 
     // RAS: networkid, endpointId, clusterId, attributesNum, first attributed id, ..., last attribute id
     //       4 digits, 2 digits  ,  4 digits, 2 digits     ,  4 digits          , ...,    4  digits
     void SerialDriver::requestAttributes(AttributesKey &key) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "RAS: " << hex << uppercase << setfill('0') << setw(4) << key.networkAddress.getId() << ", " << setw(2) << (int) key.endpoint.getId() << ", " << setw(4)
                    << key.clusterId.getId() << ", " << setw(2) << key.attributesId.size();
@@ -120,17 +155,14 @@ namespace zigbee {
                 usleep(100000);
             }
             stream << "\n";
-            std::string data = stream.str();
-
-            BOOST_LOG_TRIVIAL(info) << "Request: (size:  " << data.size() << ") " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
 
         }
     }
 
     void SerialDriver::requestReset() {
-        if (serialPort.is_open()) {
-            serialPort.write_some(buffer("RESET:\n"));
+        if (serialFd >= 0) {
+            write(std::string("RESET:\n"));
         }
     }
 
@@ -138,7 +170,7 @@ namespace zigbee {
     //                   4 digits ,  2 digits ,  4 digits,  4 digits  ,  2 digits ,  2 digits,  n*2 digits, where n=dataLen
     void SerialDriver::writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId attributeId, ZCLTypeDataType dataType, uint8_t dataValueLen,
                                       uint8_t *dataValue) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "WA: " << hex << uppercase << setfill('0') << setw(4) << nwkAddrs.getId() << ", " << setw(2) << (int) endpoint.getId() << ", " << setw(4) << cluster.getId()
                    << ", " << setw(4) << attributeId << ", " << setw(2) << (int) dataType << ", " << setw(2) << (int) dataValueLen;
@@ -150,16 +182,14 @@ namespace zigbee {
                 }
             }
             stream << '\n';
-            std::string data = stream.str();
-            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
         }
     }
 
     // Send message: SC: networkid, endpointId, clusterId, commandId, dataLen  , data
     //                   4 digits ,  2 digits ,  4 digits,  4 digits,  2 digits,  n*2 digits, where n=dataLen
     void SerialDriver::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t> data) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "SC: " << hex << uppercase << setfill('0') << setw(4) << nwkAddrs.getId() << ", " << setw(2) << (int) endpoint.getId() << ", " << setw(4) << cluster.getId()
                    << ", " << setw(4) << commandId << ", " << setw(2) << data.size();
@@ -171,21 +201,17 @@ namespace zigbee {
                 }
             }
             stream << '\n';
-            std::string data = stream.str();
-            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
         }
     }
 
     // Send message: AE: networkid
     //                    4digit
     void SerialDriver::requestActiveEndpoints(NwkAddr nwkAddr) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "AE: " << hex << uppercase << setfill('0') << setw(4) << nwkAddr.getId() << "\n";
-            std::string data = stream.str();
-            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
         }
     }
 
@@ -193,12 +219,10 @@ namespace zigbee {
     // Send message: NP: networkid
     //                    4digit
     void SerialDriver::requestNodePower(NwkAddr nwkAddr) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "NP: " << hex << uppercase << setfill('0') << setw(4) << nwkAddr.getId() << "\n";
-            std::string data = stream.str();
-            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
         }
     }
 
@@ -206,7 +230,7 @@ namespace zigbee {
     //                    4 digits ,  16 digits    ,    2 digits,  4 digits,  16 digits    ,   2 digits
     void SerialDriver::sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
                                    const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "BI: " << hex << uppercase << setfill('0') << setw(4) << destAddr.getId() << ", ";
             for (int i = 0; i < Z_EXTADDR_LEN; i++) {
@@ -218,9 +242,7 @@ namespace zigbee {
             }
             stream << ", " << (int) inClusterEp.getId();
 
-            std::string data = stream.str();
-            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
         }
 
     }
@@ -229,7 +251,7 @@ namespace zigbee {
     //                    4 digits ,  16 digits    ,    2 digits,  4 digits,  16 digits    ,   2 digits
     void SerialDriver::sendReqUnbind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
                                      const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "UBI: " << hex << uppercase << setfill('0') << setw(4) << destAddr.getId() << ", ";
             for (int i = 0; i < Z_EXTADDR_LEN; i++) {
@@ -241,33 +263,27 @@ namespace zigbee {
             }
             stream << ", " << (int) inClusterEp.getId();
 
-            std::string data = stream.str();
-            BOOST_LOG_TRIVIAL(info) << "Request: (" << data.size() << "): " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
         }
     }
 
     // Send message: DI: networkId
     //                    4 digits
     void SerialDriver::sendReqDeviceInfo(NwkAddr networkId) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "DI: " << hex << uppercase << setfill('0') << setw(4) << networkId.getId() << "\n";
-            std::string data = stream.str();
-            BOOST_LOG_TRIVIAL(info) << "Send request: " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
         }
     }
 
     // Send message: BT network ID
     //                   4 digits
     void SerialDriver::requestBindTable(NwkAddr networkId) {
-        if (serialPort.is_open()) {
+        if (serialFd >= 0) {
             stringstream stream;
             stream << "BI: " << hex << uppercase << setfill('0') << setw(4) << networkId.getId() << "\n";
-            std::string data = stream.str();
-            BOOST_LOG_TRIVIAL(info) << "Send request: " << data;
-            serialPort.write_some(buffer(data));
+            write(stream.str());
         }
     }
 

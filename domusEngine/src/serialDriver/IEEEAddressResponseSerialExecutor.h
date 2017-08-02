@@ -14,36 +14,53 @@
 #include "../ZigbeeData/ZDevices.h"
 
 namespace zigbee {
-    class IEEEAddressResponseSerialExecutor : public SerialExecutor{
+    class IEEEAddressResponseSerialExecutor : public SerialExecutor {
     public:
-        IEEEAddressResponseSerialExecutor(SingletonObjects & singletonObjects):singletonObjects(singletonObjects){}
+        IEEEAddressResponseSerialExecutor(SingletonObjects &singletonObjects) : singletonObjects(singletonObjects) {}
 
         // IE: ieeeaddress, networkAddress, numChild, firstChildNwkId, ..., lastChildNwkId
         //      16digits ,     4digits,      2digits,  4digits,      , ...,  4digits
-        virtual void operator()(const std::string & msg) override {
+        virtual void operator()(const std::string &msg) override {
             IEEEAddrResp message;
-            boost::char_separator<char> sep(", ");
-            boost::tokenizer<boost::char_separator<char> >  tok(msg, sep);
             try {
+                boost::char_separator<char> sep(", ");
+                boost::tokenizer<boost::char_separator<char> > tok(msg, sep);
+
                 auto tokIter = tok.begin();
                 tokIter++;
+                if (tokIter.at_end()){
+                    BOOST_LOG_TRIVIAL(error) << "Invalid message";
+                    return;
+                }
                 message.ieeeAddr = boost::lexical_cast<ExtAddress>(*tokIter);
                 tokIter++;
+                if (tokIter.at_end()){
+                    BOOST_LOG_TRIVIAL(error) << "Invalid message";
+                    return;
+                }
                 message.nwkAddr = NwkAddr{std::stoi(*tokIter, nullptr, 16)};
                 tokIter++;
+                if (tokIter.at_end()){
+                    BOOST_LOG_TRIVIAL(error) << "Invalid message";
+                    return;
+                }
                 int nChild = std::stoi(*tokIter, nullptr, 16);
                 for (int i = 0; i < nChild; i++) {
                     tokIter++;
-                    message.children.emplace(std::stoi(*tokIter, nullptr,16));
+                    if (tokIter.at_end()){
+                        BOOST_LOG_TRIVIAL(error) << "Invalid message";
+                        return;
+                    }
+                    message.children.emplace(std::stoi(*tokIter, nullptr, 16));
                 }
                 singletonObjects.getZDevices()->addDeviceInfo(message);
-            } catch (boost::bad_lexical_cast & e){
+            } catch (std::exception &e) {
                 BOOST_LOG_TRIVIAL(error) << "Unable to parse the message: " << e.what();
             }
         }
 
     private:
-        SingletonObjects & singletonObjects;
+        SingletonObjects &singletonObjects;
     };
 }
 
