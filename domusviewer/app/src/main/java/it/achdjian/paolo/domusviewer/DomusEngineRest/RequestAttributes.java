@@ -17,7 +17,7 @@ import it.achdjian.paolo.domusviewer.DomusEngine;
 /**
  * Created by Paolo Achdjian on 18/05/16.
  */
-public class RequestAttributes extends DomusEngineRest implements Stoppable {
+public class    RequestAttributes extends DomusEngineRest implements Stoppable {
     private DomusEngine.AttributesListener listener;
     private final Integer networkId;
     private final Integer endpointId;

@@ -6,15 +6,14 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
+import it.achdjian.paolo.temperaturemonitor.TempSensorLocationDS
+import it.achdjian.paolo.temperaturemonitor.TemperatureCache
 import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
 import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
 import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.DomusEngineRest
-import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.GetDevices
-import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.WhoAreYou
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureSurface
-import it.achdjian.paolo.temperaturemonitor.ui.ZElementAdapter
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
 import javax.inject.Singleton
 
@@ -23,41 +22,39 @@ import javax.inject.Singleton
  */
 @Module
 class TemperatureModule(val app: Application) {
+
     @Provides @Singleton @ForApplication
     fun provideApplicationContext(): Context {
         return app
     }
 
     @Provides @Singleton
-    fun provideRender(rooms:Rooms):TemperatureRender = TemperatureRender(app, rooms)
+    fun provideRender(rooms: Rooms): TemperatureRender = TemperatureRender(app, rooms)
 
     @Provides @Singleton
-    fun provideSurface(render: TemperatureRender) = TemperatureSurface(app,render)
+    fun provideSurface(render: TemperatureRender) = TemperatureSurface(app, render)
 
     @Provides @Singleton
-    fun provideRooms()= Rooms(app)
-
-    @Provides @Singleton
-    fun provideConnectionStatus() = ConnectionStatus()
-
-    @Provides @Singleton 
     fun provideSharedPreferences() = PreferenceManager.getDefaultSharedPreferences(app)
 
     @Provides @Singleton
-    fun provideWhoAreYou(domusEngineRest: DomusEngineRest, connectionStatus: ConnectionStatus) = WhoAreYou(domusEngineRest, connectionStatus)
-
-    @Provides @Singleton
-    fun provideDomusEngineRest(sharedPreferences:SharedPreferences, connectionStatus: ConnectionStatus) = DomusEngineRest(sharedPreferences, connectionStatus)
-
-    @Provides @Singleton
-    fun provideDomusEngine(whoAreYou: WhoAreYou, getDevices: GetDevices, zDevices: ZDevices,domusEngine: DomusEngineRest) = DomusEngine(whoAreYou,getDevices,zDevices,domusEngine)
+    fun provideDomusEngineRest(sharedPreferences: SharedPreferences, connectionStatus: ConnectionStatus) = DomusEngineRest(sharedPreferences, connectionStatus)
 
     @Provides @Singleton
     fun provideZDevices() = ZDevices()
 
     @Provides @Singleton
-    fun provideGetDevices(domusEngine: DomusEngineRest, zDevices: ZDevices) = GetDevices(domusEngine, zDevices)
+    fun provideDomusEngine(zDevices: ZDevices,
+                           connectionStatus: ConnectionStatus,
+                           tempSensorLocationDS: TempSensorLocationDS,
+                           rooms: Rooms,
+                           domusEngineRest: DomusEngineRest,
+                           cache: TemperatureCache): DomusEngine {
+        val domusEngine = DomusEngine(zDevices, connectionStatus, rooms, domusEngineRest)
 
-    @Provides @Singleton
-    fun providerZElementAdapter() = ZElementAdapter(app)
+        zDevices.domusEngine = domusEngine
+        tempSensorLocationDS.domusEngine = domusEngine
+        cache.domusEngine = domusEngine
+        return domusEngine
+    }
 }

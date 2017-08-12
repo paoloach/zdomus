@@ -51,7 +51,6 @@ namespace zigbee {
 
     void JSZEndpoints::getEndpointsWithCluster(const v8::FunctionCallbackInfo<v8::Value> &info) {
         JSZEndpoints *This = getThis(info);
-
         if (info.Length() != 1) {
             throw JSExceptionOnlyOneArgument(GET_ENDPOINTS_WITH_IN_CLUSTER);
         }

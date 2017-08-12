@@ -6,6 +6,7 @@ import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.JsonDevice
  * Created by Paolo Achdjian on 7/9/17.
  */
 class ZDevice(val shortAddress: Int, val extendedAddr: String, val capabilities: Int) {
+
     val endpoints: MutableMap<Int, ZEndpoint?> = HashMap()
 
     constructor(json: JsonDevice) : this(json.short_address, json.extended_address, json.capability) {
@@ -21,3 +22,5 @@ class ZDevice(val shortAddress: Int, val extendedAddr: String, val capabilities:
         return false
     }
 }
+
+val nullZDevice = ZDevice(0,"00:00:00:00::00:00:00:00",0)

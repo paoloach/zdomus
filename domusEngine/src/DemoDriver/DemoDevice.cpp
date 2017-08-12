@@ -92,6 +92,7 @@ namespace zigbee {
 
 
         while (!stop) {
+            std::this_thread::__sleep_for(0s,10us);
             boost::this_fiber::yield();
             for (auto &attribute: intValuesMap) {
                 BOOST_LOG_TRIVIAL(info) << "new attribute request: " << attribute.first;

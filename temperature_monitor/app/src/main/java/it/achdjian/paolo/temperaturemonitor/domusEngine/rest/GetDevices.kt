@@ -3,6 +3,7 @@ package it.achdjian.paolo.temperaturemonitor.domusEngine.rest
 import android.os.Handler
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
 import it.achdjian.paolo.temperaturemonitor.domusEngine.MessageType
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
 import java.io.IOException
@@ -11,9 +12,8 @@ import java.util.*
 /**
  * Created by Paolo Achdjian on 7/9/17.
  */
-class GetDevices(val domusEngineRest: DomusEngineRest, val zDevices: ZDevices) : ZigbeeRunnable() {
+class GetDevices(val domusEngine: DomusEngine, val domusEngineRest: DomusEngineRest, val zDevices: ZDevices) : ZigbeeRunnable() {
     override fun run() {
-        val handler = Handler()
         val body = domusEngineRest.get("/devices")
         if (body.isNotBlank()) {
             val mapper = ObjectMapper()
@@ -27,8 +27,8 @@ class GetDevices(val domusEngineRest: DomusEngineRest, val zDevices: ZDevices) :
                 e.printStackTrace()
             }
         }
-        handler.removeMessages(MessageType.WHO_ARE_YOU)
-        val message = handler.obtainMessage(MessageType.WHO_ARE_YOU)
-        handler.sendMessageDelayed(message, 600000)
+        domusEngine.handler.removeMessages(MessageType.WHO_ARE_YOU)
+        val message = domusEngine.handler.obtainMessage(MessageType.WHO_ARE_YOU)
+        domusEngine.handler.sendMessageDelayed(message, 600000)
     }
 }

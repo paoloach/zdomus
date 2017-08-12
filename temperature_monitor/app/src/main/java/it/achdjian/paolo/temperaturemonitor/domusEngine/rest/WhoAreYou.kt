@@ -4,23 +4,28 @@ import android.os.Handler
 import android.util.Log
 import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionObserver
 import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
+import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
 import it.achdjian.paolo.temperaturemonitor.domusEngine.MessageType
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Paolo Achdjian on 14/04/16.
- */val handler = Handler()
-class WhoAreYou(val domusEngineRest: DomusEngineRest, val connectionStatus: ConnectionStatus) : ZigbeeRunnable(), ConnectionObserver {
+ */
+class WhoAreYou @Inject constructor(
+        val domusEngine: DomusEngine,
+        val domusEngineRest: DomusEngineRest,
+        val connectionStatus: ConnectionStatus) : ZigbeeRunnable(){
     companion object {
         private val EXPECTED_NAME = "I am DomusEngine"
     }
 
-    init {
-        connectionStatus.addObserver(this)
-    }
 
     override fun run() {
         try {
+            Log.i(TAG,"Start who are you")
             val body = domusEngineRest.get("/who_are_you")
+
             if (body.isNotBlank()) {
                 if (body.substring(0, EXPECTED_NAME.length) == EXPECTED_NAME) {
                     connectionStatus.connected = true
@@ -44,19 +49,13 @@ class WhoAreYou(val domusEngineRest: DomusEngineRest, val connectionStatus: Conn
 
     private fun reschedule(delay: Long){
 
-        handler.removeMessages(MessageType.WHO_ARE_YOU)
-        val message = handler.obtainMessage(MessageType.WHO_ARE_YOU)
+        domusEngine.handler.removeMessages(MessageType.WHO_ARE_YOU)
+        val message = domusEngine.handler.obtainMessage(MessageType.WHO_ARE_YOU)
         if (delay==0L){
-            handler.sendMessage(message)
+            domusEngine.handler.sendMessage(message)
         } else {
-            handler.sendMessageDelayed(message, delay)
+            domusEngine.handler.sendMessageDelayed(message, delay)
         }
     }
 
-    override fun connected() {
-    }
-
-    override fun disconnected() {
-        reschedule(1000L)
-    }
 }

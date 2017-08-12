@@ -3,6 +3,8 @@ package it.achdjian.paolo.temperaturemonitor.rajawali
 import android.content.Context
 import android.util.Log
 import it.achdjian.paolo.temperaturemonitor.R
+import it.achdjian.paolo.temperaturemonitor.TemperatureCache
+import it.achdjian.paolo.temperaturemonitor.dagger.ForApplication
 import org.rajawali3d.Object3D
 import org.rajawali3d.loader.LoaderOBJ
 import org.rajawali3d.loader.ParsingException
@@ -11,49 +13,57 @@ import org.rajawali3d.math.vector.Vector3
 import org.rajawali3d.scene.Scene
 import org.rajawali3d.util.ObjectColorPicker
 import org.rajawali3d.util.OnObjectPickedListener
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Paolo Achdjian on 7/5/17.
  */
-class Rooms(val context: Context) : OnObjectPickedListener {
-
-
+@Singleton
+class Rooms @Inject constructor(@ForApplication val context: Context, val cache: TemperatureCache) : OnObjectPickedListener {
     val rooms = ArrayList<RoomObject>()
     val planes = ArrayList<List<String>>()
+    var isInit = false
 
-    fun afterInject(){
-        val plane0 = listOf("Taverna", "Scale_taverna","Sottoscala","Ingresso-Garage","Lavanderia" )
+    fun getSelected(): RoomObject? {
+        rooms.forEach({ if (it.selected) return it })
+        return null
+    }
+
+    fun selectRoom(name: String) {
+        rooms.forEach({
+            if (it.name == name)
+                it.select()
+            else
+                it.deselect()
+        })
+    }
+
+    fun initRooms() {
+        Log.i("INIT","init rooms")
+        val plane0 = listOf("Taverna", "Scale_taverna", "Sottoscala", "Ingresso-Garage", "Lavanderia")
         planes.add(plane0)
 
-        val objParser = LoaderOBJ(context.getResources(), TextureManager.getInstance(), R.raw.pianoterra2_obj)
+        val objParser = LoaderOBJ(context.resources, TextureManager.getInstance(), R.raw.pianoterra2_obj)
         try {
             objParser.parse()
             val mObjectGroup = objParser.parsedObject
             Log.d(javaClass.name, "num objects: " + mObjectGroup.numChildren)
             for (i in 0..mObjectGroup.numChildren - 1) {
                 val child = mObjectGroup.getChildAt(i)
-                val room = RoomObject(child)
+                val room = RoomObject(child,cache)
                 rooms.add(room)
             }
         } catch (e: ParsingException) {
             e.printStackTrace()
         }
-
+        isInit=true
     }
 
-    fun initScene(currentScene: Scene, picker: ObjectColorPicker) {
-        for (room in rooms) {
-            room.init3D(currentScene, picker)
-        }
-    }
+    fun initScene(currentScene: Scene, picker: ObjectColorPicker) = rooms.forEach({ it.init3D(currentScene, picker) })
 
     fun getRoom(room: String): RoomObject? {
-        for (roomObject in rooms) {
-            if (roomObject.name.equals(room)) {
-                return roomObject
-            }
-        }
-        Log.e(javaClass.name, "Room $room not found")
+        rooms.forEach({ if (it.name == room) return it })
         return null
     }
 
@@ -69,8 +79,8 @@ class Rooms(val context: Context) : OnObjectPickedListener {
             val room = getRoom(roomName)
 
             if (room != null) {
-                val boundingBox = room.object3D.getGeometry().getBoundingBox()
-                val childMin = boundingBox.getMin()
+                val boundingBox = room.object3D.geometry.boundingBox
+                val childMin = boundingBox.min
 
                 min.x = Math.min(min.x, childMin.x)
                 min.y = Math.min(min.y, childMin.y)
@@ -92,8 +102,8 @@ class Rooms(val context: Context) : OnObjectPickedListener {
             val room = getRoom(roomName)
 
             if (room != null) {
-                val boundingBox = room.object3D.getGeometry().getBoundingBox()
-                val childMax = boundingBox.getMax()
+                val boundingBox = room.object3D.geometry.boundingBox
+                val childMax = boundingBox.max
                 max.x = Math.max(max.x, childMax.x)
                 max.y = Math.max(max.y, childMax.y)
                 max.z = Math.max(max.z, childMax.z)
@@ -108,30 +118,18 @@ class Rooms(val context: Context) : OnObjectPickedListener {
     override fun onNoObjectPicked() {
     }
 
-    /**
-     * Called when an object has been picked successfully.
-
-     * @param object [Object3D] The picked object.
-     */
     override fun onObjectPicked(objFound: Object3D) {
-        for (roomObject in rooms) {
-            if (roomObject.object3D === objFound) {
-                if (!roomObject.selected) {
-                    select(roomObject)
-                } else {
-                    roomObject.deselect()
-                }
+        rooms.forEach {
+            if (it.object3D == objFound) {
+                if (!it.selected)
+                    select(it)
+                else
+                    it.deselect()
             }
         }
     }
 
     private fun select(toSelect: RoomObject) {
-        for (roomObject in rooms) {
-            if (roomObject === toSelect){
-                roomObject.select()
-            } else {
-                roomObject.deselect()
-            }
-        }
+        rooms.forEach({ if (it == toSelect) it.select() else it.deselect() })
     }
 }

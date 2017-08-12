@@ -5,4 +5,11 @@
     <string name="server_address_key">DomusEngineAddress</string>
     <string name="server_address">Server Address</string>
     <string name="title_activity_setting">ActivitySetting</string>
+    <string name="already_assigned">There is another sensor assigned to this room. Do you want change the assignment ?</string>
+    <string name="change_assignment">Change assignment</string>
+    <string name="leave_assignment">Leave previous assignment</string>
+    <string name="quality">Quality</string>
+    <string name="rxQuality">RX Quality</string>
+    <string name="tx_quality">TX Quality</string>
+    <string name="not_available">Not Available</string>
 </resources>

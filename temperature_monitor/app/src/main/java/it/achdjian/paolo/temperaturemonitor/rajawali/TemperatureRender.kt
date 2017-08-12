@@ -7,8 +7,6 @@ import org.rajawali3d.math.vector.Vector3
 import org.rajawali3d.renderer.Renderer
 import org.rajawali3d.util.GLU
 import org.rajawali3d.util.ObjectColorPicker
-import javax.inject.Inject
-import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
 
 /**
  * Created by Paolo Achdjian on 7/6/17.
@@ -31,7 +29,7 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
     }
 
     override fun initScene() {
-        rooms.afterInject()
+        rooms.initRooms()
         picker = ObjectColorPicker(this)
         rooms.initScene(currentScene, picker = picker)
 
@@ -93,7 +91,6 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
             nextTempUpdate += TEMPERATURE_UPDATE
             for (room in rooms.rooms) {
                 room.updateTemp()
-
             }
         } else {
             roomToUpdate?.updateTemp()

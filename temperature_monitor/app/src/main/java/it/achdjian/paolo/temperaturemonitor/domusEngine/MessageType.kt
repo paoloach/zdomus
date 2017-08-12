@@ -10,5 +10,7 @@ class MessageType {
         val GET_DEVICE=1002
         val NEW_DEVICE=1003
         val NEW_ENDPOINT=1004
+        val GET_ATTRIBUTE=1005
+        val NEW_ATTRIBUTES=1006
     }
 }

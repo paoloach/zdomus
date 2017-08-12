@@ -5,25 +5,41 @@ import android.os.HandlerThread
 import android.os.Message
 import android.util.Log
 import it.achdjian.paolo.temperaturemonitor.Constants
+import it.achdjian.paolo.temperaturemonitor.TempSensorLocationDS
 import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.*
+import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZEndpoint
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Paolo Achdjian on 7/9/17.
  */
-class DomusEngine(val whoAreYou: WhoAreYou, val getDevices: GetDevices, val zDevices: ZDevices, val domusEngineRest: DomusEngineRest) : HandlerThread("DomusEngtine"), Handler.Callback {
+class DomusEngine(
+        val zDevices: ZDevices,
+        connectionStatus: ConnectionStatus,
+        val rooms: Rooms,
+        val domusEngineRest: DomusEngineRest) : HandlerThread("DomusEngtine"), Handler.Callback {
     val handler: Handler
-    val listeners: MutableList<NewTemperatureDeviceListener> = ArrayList()
+    val whoAreYou = WhoAreYou(this, domusEngineRest, connectionStatus)
+    val getDevices = GetDevices(this, domusEngineRest, zDevices)
+    private val listeners: MutableList<NewTemperatureDeviceListener> = ArrayList()
+    private val attributeListener: MutableList<AttributesListener> = ArrayList()
+
 
     companion object {
-        val TAG="ZIGBEE COM"
+        val TAG = "ZIGBEE COM"
+
     }
 
     init {
-        zDevices.domusEngine = this;
         start()
         handler = Handler(looper, this)
+
+    }
+
+    fun startEngine() {
         handler.post(whoAreYou)
     }
 
@@ -31,17 +47,21 @@ class DomusEngine(val whoAreYou: WhoAreYou, val getDevices: GetDevices, val zDev
 
     fun getDevice(device: Int) = handler.sendMessage(handler.obtainMessage(MessageType.GET_DEVICE, device, 0))
 
+    fun getAttribute(networkId: Int, endpointId: Int, clusterId: Int, attributeId: Int) =
+            handler.sendMessage(handler.obtainMessage(MessageType.GET_ATTRIBUTE, AttributeCoord(networkId, endpointId, clusterId, attributeId)))
 
-    fun addListener(listener: NewTemperatureDeviceListener)= listeners.add(listener)
+    fun addListener(listener: NewTemperatureDeviceListener) = listeners.add(listener)
+
+    fun addAttributeListener(listener: AttributesListener) = attributeListener.add(listener)
 
     override fun handleMessage(message: Message?): Boolean {
         if (message != null) {
             when (message.what) {
-                MessageType.WHO_ARE_YOU ->{
+                MessageType.WHO_ARE_YOU -> {
                     handler.post(whoAreYou)
                     Log.i(TAG, "Who are You")
                 }
-                MessageType.GET_DEVICES ->{
+                MessageType.GET_DEVICES -> {
                     handler.post(getDevices)
                     Log.i(TAG, "Get Devices")
                 }
@@ -55,19 +75,31 @@ class DomusEngine(val whoAreYou: WhoAreYou, val getDevices: GetDevices, val zDev
                     zDevices.addDevice(device)
                     device.endpoints.
                             forEach {
-                                handler.post(GetEndpoint(device.short_address, Integer.parseInt(it.value, 16), domusEngineRest, this)) }
+                                val endpoint = it.value.toInt(16)
+                                handler.post(GetEndpoint(device.short_address, endpoint, domusEngineRest, this))
+                            }
+
                 }
                 MessageType.NEW_ENDPOINT -> {
                     Log.i(TAG, "NEW endpoint_id")
                     val endpoint = message.obj as ZEndpoint
                     zDevices.addEndpoint(endpoint)
                     if (endpoint.device_id == Constants.ZCL_HA_DEVICEID_TEMPERATURE_SENSOR) {
-                        listeners.forEach({it.newTemperatureDevice(endpoint.short_address, endpoint.endpoint_id.toInt(16))})
+                        listeners.forEach({ it.newTemperatureDevice(endpoint.short_address, endpoint.endpoint_id) })
                     }
+                }
+                MessageType.GET_ATTRIBUTE -> {
+                    val coord = message.obj as AttributeCoord
+                    Log.i(TAG, "Get attribute ${coord}")
+                    handler.post(RequestAttributes(coord, domusEngineRest, this))
+                }
+                MessageType.NEW_ATTRIBUTES -> {
+                    Log.i(TAG, "new attributes")
+                    val attributes = message.obj as Attributes
+                    attributeListener.forEach({ it.newAttributes(attributes) })
                 }
             }
         }
         return true
     }
-
 }

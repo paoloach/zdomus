@@ -74,11 +74,13 @@ namespace zigbee {
     void SerialDriver::run() {
         boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
         powerNodeQueue.startDequeFiber();
+        attributeQueue.startDequeFiber();
         int n;
         fd_set readFd;
         struct timeval timeout;
 
         while (!stop) {
+            std::this_thread::__sleep_for(0s,10us);
             boost::this_fiber::yield();
             FD_ZERO(&readFd);
             FD_SET(serialFd, &readFd);

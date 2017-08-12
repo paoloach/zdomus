@@ -1,5 +1,6 @@
 package it.achdjian.paolo.temperaturemonitor.rajawali
 
+import it.achdjian.paolo.temperaturemonitor.TemperatureCache
 import org.rajawali3d.Object3D
 import org.rajawali3d.lights.SpotLight
 import org.rajawali3d.materials.Material
@@ -11,32 +12,44 @@ import org.rajawali3d.util.ObjectColorPicker
 /**
  * Created by Paolo Achdjian on 7/4/17.
  */
-class RoomObject(val object3D: Object3D) {
+class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
     companion object {
         val DEFAULT_COLOR = 0xFFC0C0C0.toInt()
         val SELECTED_COLOR = 0xFFC0FFFF.toInt()
     }
-    val name: String
+    val name: String = object3D.name.substring(0, object3D.name.lastIndexOf("_"))
     var material: Material = Material()
     var selected = false
-    val light: SpotLight
+    var light: SpotLight
+    val mean: Vector3
+    val max: Vector3
+    val min: Vector3
+    var temperatureLabel: TemperatureLabel?=null
     lateinit var scene: Scene
     lateinit var picker: ObjectColorPicker
 
     init {
-        name = object3D.name.substring(0, object3D.name.lastIndexOf("_"))
         initMaterial()
         val boundingBox = object3D.geometry.boundingBox
-        val childMax = boundingBox.max
-        val childMin = boundingBox.min
-        val mean = Vector3((childMax.x + childMin.x) / 2, (childMax.y + childMin.y) / 2, childMax.z - 0.2)
-        val look = Vector3((childMax.x + childMin.x) / 2, (childMax.y + childMin.y) / 2, childMin.z)
+        max = boundingBox.max
+        min = boundingBox.min
+        mean = Vector3((max.x + min.x) / 2, (max.y + min.y) / 2, max.z - 0.2)
+
+        val look = Vector3((max.x + min.x) / 2, (max.y + min.y) / 2, min.z)
         light = SpotLight(look.x.toFloat(), look.y.toFloat(), look.z.toFloat())
         light.cutoffAngle = 120f
         light.setColor(1.0f, 1.0f, 1.0f)
         light.power = 1f
         light.position = mean
     }
+
+    fun initLabels() {
+        if (temperatureLabel == null) {
+            temperatureLabel = TemperatureLabel(this)
+            scene.addChild(temperatureLabel)
+        }
+    }
+
 
     private fun initMaterial() {
         material.color = DEFAULT_COLOR
@@ -55,7 +68,19 @@ class RoomObject(val object3D: Object3D) {
     }
 
     fun updateTemp() {
-
+        if (temperatureLabel != null ) {
+            val temp = cache.getTemperature(name)
+            if (temp.isPresent) {
+                var color = TemperatureColorMap.getColor(temp.get())
+                if (selected) {
+                    color = (color and 0xFFFFFF).inv()
+                }
+                material.color  = color
+                material.enableLighting(true)
+                material.diffuseMethod = DiffuseMethod.Lambert()
+                temperatureLabel?.setTemperature(temp.get() / 100.0f, color)
+            }
+        }
     }
 
     fun select() {
@@ -66,6 +91,15 @@ class RoomObject(val object3D: Object3D) {
     fun deselect() {
         selected = false
         material.color = DEFAULT_COLOR
+    }
+
+    fun removeLabels() {
+        if (temperatureLabel != null) {
+            scene.removeChild(temperatureLabel)
+            temperatureLabel?.destroy()
+            temperatureLabel = null
+        }
+
     }
 
 
