@@ -6,18 +6,6 @@
               android:clickable="false">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="23.04"
-        android:id="@+id/tempValue"
-        android:layout_gravity="left|top"
-        android:background="#ffffff"
-        android:layout_alignTop="@+id/tempLV"
-        android:layout_toRightOf="@+id/textView3"
-        android:layout_marginLeft="5dp"/>
-
     <ListView
         android:id="@+id/tempLV"
         android:layout_width="140dp"

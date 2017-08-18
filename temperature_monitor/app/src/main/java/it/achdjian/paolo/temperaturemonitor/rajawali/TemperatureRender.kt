@@ -29,6 +29,7 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
     }
 
     override fun initScene() {
+        Log.i("RENDER", "Init scene")
         rooms.initRooms()
         picker = ObjectColorPicker(this)
         rooms.initScene(currentScene, picker = picker)
@@ -48,35 +49,37 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
     }
 
     private fun adjustCamera() {
-        val currentCamera = currentCamera
-        var z = currentCamera.z
-        val maxRooms = rooms.getMax(0)
-        val minRooms = rooms.getMin(0)
-        while (true) {
-            val viewMatrix = currentCamera.viewMatrix
-            val projectionMatrix = currentCamera.projectionMatrix
+        if (rooms.isInit) {
+            val currentCamera = currentCamera
+            var z = currentCamera.z
+            val maxRooms = rooms.getMax(0)
+            val minRooms = rooms.getMin(0)
+            while (true) {
+                val viewMatrix = currentCamera.viewMatrix
+                val projectionMatrix = currentCamera.projectionMatrix
 
-            val viewPort = intArrayOf(0, 0, viewportWidth, viewportHeight)
-            val posMin = DoubleArray(4)
-            val posMax = DoubleArray(4)
-            GLU.gluProject(minRooms.x, minRooms.y, minRooms.z, viewMatrix.doubleValues, 0, projectionMatrix.doubleValues, 0, viewPort, 0, posMin, 0)
+                val viewPort = intArrayOf(0, 0, viewportWidth, viewportHeight)
+                val posMin = DoubleArray(4)
+                val posMax = DoubleArray(4)
+                GLU.gluProject(minRooms.x, minRooms.y, minRooms.z, viewMatrix.doubleValues, 0, projectionMatrix.doubleValues, 0, viewPort, 0, posMin, 0)
 
-            GLU.gluProject(maxRooms.x, maxRooms.y, maxRooms.z, viewMatrix.doubleValues, 0, projectionMatrix.doubleValues, 0, viewPort, 0, posMax, 0)
+                GLU.gluProject(maxRooms.x, maxRooms.y, maxRooms.z, viewMatrix.doubleValues, 0, projectionMatrix.doubleValues, 0, viewPort, 0, posMax, 0)
 
-            val widthObj = posMax[0] - posMin[0]
-            val heightObj = posMax[1] - posMin[1]
-            if (Math.abs(widthObj - width) < 1 && height > heightObj) {
-                break
+                val widthObj = posMax[0] - posMin[0]
+                val heightObj = posMax[1] - posMin[1]
+                if (Math.abs(widthObj - width) < 1 && height > heightObj) {
+                    break
+                }
+                if (Math.abs(heightObj - height) < 1 && width > widthObj) {
+                    break
+                }
+                if (widthObj > width) {
+                    z += 0.01
+                } else {
+                    z -= 0.01
+                }
+                currentCamera.z = z
             }
-            if (Math.abs(heightObj - height) < 1 && width > widthObj) {
-                break
-            }
-            if (widthObj > width) {
-                z += 0.01
-            } else {
-                z -= 0.01
-            }
-            currentCamera.z = z
         }
     }
 
@@ -100,7 +103,17 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
         super.onRender(elapsedTime, deltaTime)
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adjustCamera()
+    }
+
     fun getObjectAt(x: Float, y: Float) = picker.getObjectAt(x, y)
+    
     fun notifyFirstTemperature(room: String) {
         roomToUpdate = rooms.getRoom(room)
         if (roomToUpdate != null) {

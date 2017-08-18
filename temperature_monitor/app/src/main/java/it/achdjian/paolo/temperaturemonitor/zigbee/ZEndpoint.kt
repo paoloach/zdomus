@@ -23,22 +23,5 @@ class ZEndpoint(val short_address: Int, val endpoint_id: Int, val profile_id: In
 
     var input_clusters: Map<Int, Int> = HashMap()
     var output_clusters: Map<Int, Int> = HashMap()
-    fun containsOutCluster(cluster: Int): Boolean {
-        for (clusterID in output_clusters.values) {
-            if (clusterID == cluster) {
-                return true
-            }
-        }
-        return false
-    }
-
-    fun containsInCluster(cluster: Int): Boolean {
-        for (clusterID in input_clusters.values) {
-            if (clusterID == cluster) {
-                return true
-            }
-        }
-        return false
-    }
 
 }

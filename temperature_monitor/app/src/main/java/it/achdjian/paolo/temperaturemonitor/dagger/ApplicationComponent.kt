@@ -33,6 +33,7 @@ interface ApplicationComponent {
     fun getConnectionStatus(): ConnectionStatus
     fun getInitRoom(): InitRoom
     fun getListViewShowing(): ListViewShowing
+    fun getSwipeListView(): SwipeListView
 
 
 }

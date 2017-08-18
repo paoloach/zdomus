@@ -48,6 +48,8 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
     lateinit var initRoom: InitRoom
     @Inject
     lateinit var listViewShowing: ListViewShowing
+    @Inject
+    lateinit var swipeListView: SwipeListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +73,8 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
         domusEngine.addAttributeListener(temperatureCache)
         domusEngine.addListener(initRoom)
         domusEngine.addListener(listViewShowing)
+        surface.setOnTouchListener(swipeListView)
+        swipeListView.listView = tempLV
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -90,8 +94,7 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
 
     override fun onLayoutChange(v: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
         renderer.onSurfaceViewLayoutChange(left, top, right, bottom)
-        onResume()
-        Log.d("RENDER", "left: $left, top: $top, right: $right, bottom: $bottom")
+        renderer.onResume()
     }
 
     override fun connected() {

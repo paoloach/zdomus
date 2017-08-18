@@ -25,6 +25,8 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
     val max: Vector3
     val min: Vector3
     var temperatureLabel: TemperatureLabel?=null
+    var selectedColor: Int = SELECTED_COLOR
+    var unselectedColor: Int = DEFAULT_COLOR
     lateinit var scene: Scene
     lateinit var picker: ObjectColorPicker
 
@@ -71,26 +73,28 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
         if (temperatureLabel != null ) {
             val temp = cache.getTemperature(name)
             if (temp.isPresent) {
-                var color = TemperatureColorMap.getColor(temp.get())
+                unselectedColor = TemperatureColorMap.getColor(temp.get())
+                selectedColor = (unselectedColor and 0xFFFFFF).inv()
                 if (selected) {
-                    color = (color and 0xFFFFFF).inv()
+                    material.color = selectedColor
+                } else {
+                    material.color  = unselectedColor
                 }
-                material.color  = color
                 material.enableLighting(true)
                 material.diffuseMethod = DiffuseMethod.Lambert()
-                temperatureLabel?.setTemperature(temp.get() / 100.0f, color)
+                temperatureLabel?.setTemperature(temp.get() / 100.0f, unselectedColor)
             }
         }
     }
 
     fun select() {
         selected = true
-        material.color = SELECTED_COLOR
+        material.color = selectedColor
     }
 
     fun deselect() {
         selected = false
-        material.color = DEFAULT_COLOR
+        material.color = unselectedColor
     }
 
     fun removeLabels() {
@@ -98,6 +102,8 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
             scene.removeChild(temperatureLabel)
             temperatureLabel?.destroy()
             temperatureLabel = null
+            unselectedColor = DEFAULT_COLOR
+            selectedColor = SELECTED_COLOR
         }
 
     }
