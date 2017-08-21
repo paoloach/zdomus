@@ -126,9 +126,10 @@ variables_map getVariableMap(size_t argc, char const *argv[]) {
     auto fmtThreadId = boost::log::expressions::attr<boost::log::attributes::current_thread_id::value_type>("ThreadID");
     auto fmtSeverity = boost::log::expressions::attr<boost::log::trivial::severity_level>("Severity");
     auto fmtScope = boost::log::expressions::format_named_scope("Scope",
-                                                                boost::log::keywords::format = "%n(%f:%l)",
+                                                                boost::log::keywords::format = "%n",
                                                                 boost::log::keywords::iteration = boost::log::expressions::reverse,
                                                                 boost::log::keywords::depth = 2);
+ //   boost::log::core::get()->set_filter(boost::log::trivial::severity >= logSeverity);
 
     boost::log::formatter logFmt =
             boost::log::expressions::format("[%1%] (%2%) [%3%] [%4%] %5%")
@@ -145,7 +146,10 @@ variables_map getVariableMap(size_t argc, char const *argv[]) {
     fsSink->set_formatter(logFmt);
     fsSink->locked_backend()->auto_flush(true);
 
-    boost::log::core::get()->set_filter(boost::log::trivial::severity >= logSeverity);
+    BOOST_LOG_TRIVIAL(info) << "Info Log in Test()";
+
+    std::cout << "Log set" << std::endl;
+
     BOOST_LOG_TRIVIAL(info) << "severity " << logSeverity;
 
     if (vm.count(HELP)) {

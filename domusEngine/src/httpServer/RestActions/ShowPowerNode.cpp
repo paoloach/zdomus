@@ -7,6 +7,7 @@
 #include <zigbee/ZigbeeDevice.h>
 #include <boost/log/trivial.hpp>
 #include <functional>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "../../Utils/SingletonObjects.h"
 #include "ShowPowerNode.h"
@@ -21,6 +22,7 @@ namespace zigbee {
 
 
         Net::Rest::Route::Result ShowPowerNode::operator()(const Net::Rest::Request &request, ResponseWriter &&response) {
+            BOOST_LOG_NAMED_SCOPE("HTTP");
             auto device = request.param(":device").as<NwkAddr>();
             BOOST_LOG_TRIVIAL(trace) << "ShowPower " << device;
             auto showPowerNodeCallback = std::make_unique<ShowPowerNodeCallback>(std::move(response));

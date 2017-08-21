@@ -9,6 +9,7 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
+#include <boost/log/attributes/named_scope.hpp>
 #include "http_header.h"
 
 #include "ShowInCluster.h"
@@ -25,6 +26,7 @@ namespace zigbee {
         using namespace Net::Http::Header;
 
         Net::Rest::Route::Result ShowInCluster::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+            BOOST_LOG_NAMED_SCOPE("HTTP");
             auto contentType = request.headers().get<ContentType>();
             const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);
 

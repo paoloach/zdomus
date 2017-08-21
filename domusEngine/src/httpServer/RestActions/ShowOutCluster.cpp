@@ -8,6 +8,7 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "ShowOutCluster.h"
 
@@ -23,6 +24,7 @@ namespace zigbee {
         using namespace Net::Http::Header;
 
         Net::Rest::Route::Result ShowOutCluster::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+            BOOST_LOG_NAMED_SCOPE("HTTP");
             BOOST_LOG_TRIVIAL(info) << "ShowOutCluster";
             auto contentType = request.headers().get<ContentType>();
             const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);

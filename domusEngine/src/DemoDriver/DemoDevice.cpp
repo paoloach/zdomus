@@ -9,6 +9,7 @@
 #include <boost/endian/conversion.hpp>
 #include <zcl/Cluster.h>
 #include <zcl/StatusEnum.h>
+#include <boost/log/attributes/named_scope.hpp>
 #include "DemoDevice.h"
 #include "../Utils/SingletonObjects.h"
 
@@ -75,7 +76,7 @@ namespace zigbee {
         boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
         powerNodeQueue.startDequeFiber();
         attributeQueue.startDequeFiber();
-
+        BOOST_LOG_NAMED_SCOPE("demo_driver");
         BOOST_LOG_TRIVIAL(info) << "Demo attribute service thread started";
         boost::fibers::fiber fiberPowerNodeSetDeque([this]() {
             for (auto &&nwkAddr: powerNodeSet) {

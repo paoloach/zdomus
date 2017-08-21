@@ -6,6 +6,7 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "UpdateAttributes.h"
 
@@ -46,6 +47,7 @@ namespace zigbee {
          *
          */
         Net::Rest::Route::Result UpdateAttributes::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+            BOOST_LOG_NAMED_SCOPE("HTTP");
             BOOST_LOG_TRIVIAL(info) << "UpdateAttributes";
             auto nwkAddr = request.param(":device").as<NwkAddr>();
             auto endpoint = request.param(":endpoint").as<EndpointID>();

@@ -6,6 +6,7 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ZigbeeDevice.h>
 #include <thread>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "../MediaTypeProducerFactory.h"
 #include "../../Utils/SingletonObjects.h"
@@ -27,6 +28,7 @@ namespace zigbee {
         }
 
         Net::Rest::Route::Result ShowDeviceInfo::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+            BOOST_LOG_NAMED_SCOPE("HTTP");
             device = request.param(":device").as<NwkAddr>();
             BOOST_LOG_TRIVIAL(info) << "Request device info " << device;
             auto zigbeeDevice = singletons.getZigbeeDevice();

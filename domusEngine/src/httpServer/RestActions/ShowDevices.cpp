@@ -7,6 +7,7 @@
 
 #include <boost/log/trivial.hpp>
 #include <sstream>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "ShowDevices.h"
 
@@ -21,6 +22,7 @@ namespace zigbee {
         using namespace Net::Http::Header;
 
         Net::Rest::Route::Result ShowDevices::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+            BOOST_LOG_NAMED_SCOPE("HTTP");
             if (request.headers().has(ContentType::Name)) {
                 auto contentType = request.headers().get<ContentType>();
                 const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);

@@ -6,6 +6,7 @@
 #include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/ZDevices.h"
 #include <zcl/ClusterTypeFactory.h>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "ShowTopology.h"
 
@@ -18,7 +19,7 @@ namespace zigbee {
         using namespace Net::Http::Header;
 
         Net::Rest::Route::Result ShowTopology::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter  && response) {
-
+            BOOST_LOG_NAMED_SCOPE("HTTP");
 
             BOOST_LOG_TRIVIAL(info) << "ShowTopology";
             auto zDevices = singletons.getZDevices();

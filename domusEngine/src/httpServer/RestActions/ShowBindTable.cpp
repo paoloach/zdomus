@@ -3,6 +3,7 @@
 //
 #include <thread>
 #include <boost/log/trivial.hpp>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "ShowBindTable.h"
 #include "../../json/json/json.h"
@@ -20,6 +21,7 @@ namespace zigbee {
 
 
         Net::Rest::Route::Result ShowBindTable::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter  && response) {
+            BOOST_LOG_NAMED_SCOPE("HTTP");
             BOOST_LOG_TRIVIAL(info) << "request BindTable: ";
             Value root(arrayValue);
             auto &bindTable = singletons.getBindTable();

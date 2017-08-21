@@ -9,6 +9,7 @@
 #include <boost/lexical_cast.hpp>
 #include <memory>
 #include <boost/log/trivial.hpp>
+#include <boost/log/attributes/named_scope.hpp>
 
 
 #include "NewDeviceObserver.h"
@@ -155,6 +156,7 @@ namespace zigbee {
         auto iterDevice = ieeeAddrDevices.find(ieeeAddressResponse.ieeeAddr);
         auto device = std::make_unique<ZDevice>(ieeeAddressResponse.ieeeAddr, ieeeAddressResponse.nwkAddr,
                                                 ieeeAddressResponse.children);
+        BOOST_LOG_NAMED_SCOPE("zigbee");
         BOOST_LOG_TRIVIAL(info) << "Arrived device " << ieeeAddressResponse.ieeeAddr << " ("<< ieeeAddressResponse.nwkAddr << ") with " << std::dec << ieeeAddressResponse.children.size() << " children";
 
         if (iterDevice == ieeeAddrDevices.end()) {

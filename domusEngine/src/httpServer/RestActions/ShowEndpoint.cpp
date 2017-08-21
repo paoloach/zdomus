@@ -8,6 +8,7 @@
 
 #include <zigbee/NwkAddr.h>
 #include <boost/log/trivial.hpp>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "ShowEndpoint.h"
 
@@ -23,6 +24,7 @@ namespace zigbee {
         using namespace Net::Http::Header;
 
         Net::Rest::Route::Result ShowEndpoint::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+            BOOST_LOG_NAMED_SCOPE("HTTP");
             auto contentType = request.headers().get<ContentType>();
             const auto &producer = MediaTypeProducerFactory::getMediaType(contentType);
 

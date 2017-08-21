@@ -8,6 +8,7 @@
 #include <chrono>
 #include <thread>
 
+#include <boost/log/attributes/named_scope.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/tokenizer.hpp>
 #include <boost/lexical_cast.hpp>
@@ -36,7 +37,7 @@ namespace zigbee {
 
         ShowAttribute::ShowAttribute(SingletonObjects &singletons, const Net::Rest::Request &request, Net::Http::ResponseWriter &&response) :
                 singletons(singletons), responseWriter(std::move(response)) {
-
+            BOOST_LOG_NAMED_SCOPE("HTTP");
 
             key.networkAddress = request.param(":device").as<NwkAddr>();
             key.endpoint = request.param(":endpoint").as<EndpointID>();

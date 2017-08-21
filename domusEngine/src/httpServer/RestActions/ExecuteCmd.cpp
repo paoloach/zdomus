@@ -9,6 +9,7 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "ExecuteCmd.h"
 
@@ -23,6 +24,7 @@ namespace zigbee {
         using namespace Net::Http::Header;
 
         Net::Rest::Route::Result ExecuteCmd::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+            BOOST_LOG_NAMED_SCOPE("HTTP");
             BOOST_LOG_TRIVIAL(info) << "ExecuteCmd";
 
             auto nwkAddr = request.param(":device").as<NwkAddr>();

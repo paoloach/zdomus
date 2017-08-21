@@ -5,6 +5,7 @@
 #include <boost/date_time.hpp>
 #include <boost/fiber/algo/round_robin.hpp>
 #include <termios.h>
+#include <boost/log/attributes/named_scope.hpp>
 
 #include "SerialDriver.h"
 
@@ -24,6 +25,7 @@ namespace zigbee {
                                                                                                                                                          port(port),
                                                                                                                                                          serialResponseExecutor(
                                                                                                                                                                  singletonObjects) {
+        BOOST_LOG_NAMED_SCOPE("serial driver");
         serialFd = open(port.c_str(), O_RDWR | O_NOCTTY);
         if (serialFd >= 0) {
             struct termios tty;

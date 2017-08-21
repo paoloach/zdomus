@@ -2,6 +2,8 @@
 // Created by paolo on 01/01/17.
 //
 
+#include <boost/log/attributes/named_scope.hpp>
+
 #include "SerialResponseExecutor.h"
 #include "IEEEAddressResponseSerialExecutor.h"
 #include "IEEEAddressResponseErrorSerialExecutor.h"
@@ -33,6 +35,7 @@ namespace zigbee {
     }
 
     void SerialResponseExecutor::execute(const std::string &str) {
+        BOOST_LOG_NAMED_SCOPE("serial driver");
         auto type = getResponseType(str);
         executors[type]->operator()(str);
     }

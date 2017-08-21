@@ -4,6 +4,7 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ClusterTypeFactory.h>
+#include <boost/log/attributes/named_scope.hpp>
 #include <boost/log/trivial.hpp>
 
 #include "ExecuteBind.h"
@@ -15,6 +16,7 @@
 #include "../../ZigbeeData/Exceptions/InvalidInCluster.h"
 
 Net::Rest::Route::Result zigbee::http::ExecuteBind::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+    BOOST_LOG_NAMED_SCOPE("HTTP");
     BOOST_LOG_TRIVIAL(info) << "ExecuteBind";
 
     auto srcDevice = request.param(":srcDevice").as<NwkAddr>();
