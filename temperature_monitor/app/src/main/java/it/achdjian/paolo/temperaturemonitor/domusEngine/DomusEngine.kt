@@ -10,6 +10,9 @@ import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.zigbee.PowerNode
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZEndpoint
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by Paolo Achdjian on 7/9/17.
@@ -25,6 +28,8 @@ class DomusEngine(
     private val listeners: MutableList<NewTemperatureDeviceListener> = ArrayList()
     private val attributeListener: MutableList<AttributesListener> = ArrayList()
     private val powerListener: MutableSet<PowerListener> = HashSet()
+    private val mDecodeWorkQueue =  LinkedBlockingQueue<Runnable>();
+    private val threadPool = ThreadPoolExecutor(3, Int.MAX_VALUE, 60, TimeUnit.SECONDS, mDecodeWorkQueue)
 
 
     companion object {
@@ -43,10 +48,10 @@ class DomusEngine(
 
     fun getDevices() = handler.post(getDevices)
 
-    fun getDevice(device: Int) = handler.sendMessage(handler.obtainMessage(MessageType.GET_DEVICE, device, 0))
+    fun getDevice(device: Int) = handler.post(GetDevice(device, domusEngineRest, this))
 
     fun getAttribute(networkId: Int, endpointId: Int, clusterId: Int, attributeId: Int) =
-            handler.sendMessage(handler.obtainMessage(MessageType.GET_ATTRIBUTE, AttributeCoord(networkId, endpointId, clusterId, attributeId)))
+            threadPool.execute(RequestAttributes(AttributeCoord(networkId, endpointId, clusterId, attributeId), domusEngineRest, this))
 
     fun addListener(listener: NewTemperatureDeviceListener) = listeners.add(listener)
     fun addListener(listener: PowerListener) = powerListener.add(listener)
@@ -54,13 +59,11 @@ class DomusEngine(
 
     fun addAttributeListener(listener: AttributesListener) = attributeListener.add(listener)
 
-    fun requestIdentify(shortAddress: Int, endpointId: Int) {
-        handler.sendMessage(handler.obtainMessage(MessageType.REQUEST_IDENTIFY,shortAddress, endpointId))
-    }
+    fun requestIdentify(shortAddress: Int, endpointId: Int)  =
+        threadPool.execute(RequestIdentify(shortAddress, endpointId,domusEngineRest));
 
-    fun requestPower(shortAddress: Int) {
-        handler.sendMessage(handler.obtainMessage(MessageType.REQUEST_POWER,shortAddress,0))
-    }
+    fun requestPower(shortAddress: Int) =
+        threadPool.execute(RequestPowerNode(shortAddress, domusEngineRest, this))
 
     override fun handleMessage(message: Message?): Boolean {
         if (message != null) {
@@ -68,14 +71,6 @@ class DomusEngine(
                 MessageType.WHO_ARE_YOU -> {
                     handler.post(whoAreYou)
                     Log.i(TAG, "Who are You")
-                }
-                MessageType.GET_DEVICES -> {
-                    handler.post(getDevices)
-                    Log.i(TAG, "Get Devices")
-                }
-                MessageType.GET_DEVICE -> {
-                    handler.post(GetDevice(message.arg1, domusEngineRest, this))
-                    Log.i(TAG, "Get Device")
                 }
                 MessageType.NEW_DEVICE -> {
                     Log.i(TAG, "NEW Device")
@@ -96,23 +91,10 @@ class DomusEngine(
                         listeners.forEach({ it.newTemperatureDevice(endpoint.short_address, endpoint.endpoint_id) })
                     }
                 }
-                MessageType.GET_ATTRIBUTE -> {
-                    val coord = message.obj as AttributeCoord
-                    Log.i(TAG, "Get attribute $coord")
-                    handler.post(RequestAttributes(coord, domusEngineRest, this))
-                }
                 MessageType.NEW_ATTRIBUTES -> {
                     Log.i(TAG, "new attributes")
                     val attributes = message.obj as Attributes
                     attributeListener.forEach({ it.newAttributes(attributes) })
-                }
-                MessageType.REQUEST_IDENTIFY -> {
-                    Log.i(TAG, "Request identify")
-                    handler.post(RequestIdentify(message.arg1, message.arg2,domusEngineRest))
-                }
-                MessageType.REQUEST_POWER -> {
-                    Log.i(TAG, "Request power")
-                    handler.post(RequestPowerNode(message.arg1, domusEngineRest, this))
                 }
                 MessageType.NEW_POWER -> {
                     Log.i(TAG, "new power node response")

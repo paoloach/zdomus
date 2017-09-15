@@ -44,20 +44,28 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
         val plane0 = listOf("Taverna", "Scale_taverna", "Sottoscala", "Ingresso-Garage", "Lavanderia")
         planes.add(plane0)
 
-        val objParser = LoaderOBJ(context.resources, TextureManager.getInstance(), R.raw.pianoterra2_obj)
+        val objParser = LoaderOBJ(context.resources, TextureManager.getInstance(), R.raw.casa_obj)
         try {
             objParser.parse()
             val mObjectGroup = objParser.parsedObject
-            Log.d(javaClass.name, "num objects: " + mObjectGroup.numChildren)
+            Log.d("INIT", "num objects: " + mObjectGroup.numChildren)
             for (i in 0..mObjectGroup.numChildren - 1) {
                 val child = mObjectGroup.getChildAt(i)
-                val room = RoomObject(child,cache)
-                rooms.add(room)
+                if (isPlan0(child.name)) {
+                    val room = RoomObject(child, cache)
+                    Log.i("INIT", child.name)
+                    rooms.add(room)
+                }
             }
         } catch (e: ParsingException) {
             e.printStackTrace()
         }
         isInit=true
+    }
+
+    private fun isPlan0(name: String): Boolean {
+        planes[0].forEach { if (it.length <= name.length && it == name.substring(0, it.length)) return true }
+        return false
     }
 
     fun initScene(currentScene: Scene, picker: ObjectColorPicker) = rooms.forEach({ it.init3D(currentScene, picker) })
