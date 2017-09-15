@@ -5,13 +5,11 @@ import android.os.HandlerThread
 import android.os.Message
 import android.util.Log
 import it.achdjian.paolo.temperaturemonitor.Constants
-import it.achdjian.paolo.temperaturemonitor.TempSensorLocationDS
 import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.*
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
+import it.achdjian.paolo.temperaturemonitor.zigbee.PowerNode
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZEndpoint
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Created by Paolo Achdjian on 7/9/17.
@@ -26,11 +24,11 @@ class DomusEngine(
     val getDevices = GetDevices(this, domusEngineRest, zDevices)
     private val listeners: MutableList<NewTemperatureDeviceListener> = ArrayList()
     private val attributeListener: MutableList<AttributesListener> = ArrayList()
+    private val powerListener: MutableSet<PowerListener> = HashSet()
 
 
     companion object {
         val TAG = "ZIGBEE COM"
-
     }
 
     init {
@@ -51,8 +49,18 @@ class DomusEngine(
             handler.sendMessage(handler.obtainMessage(MessageType.GET_ATTRIBUTE, AttributeCoord(networkId, endpointId, clusterId, attributeId)))
 
     fun addListener(listener: NewTemperatureDeviceListener) = listeners.add(listener)
+    fun addListener(listener: PowerListener) = powerListener.add(listener)
+    fun removeListener(listener: PowerListener) = powerListener.remove(listener)
 
     fun addAttributeListener(listener: AttributesListener) = attributeListener.add(listener)
+
+    fun requestIdentify(shortAddress: Int, endpointId: Int) {
+        handler.sendMessage(handler.obtainMessage(MessageType.REQUEST_IDENTIFY,shortAddress, endpointId))
+    }
+
+    fun requestPower(shortAddress: Int) {
+        handler.sendMessage(handler.obtainMessage(MessageType.REQUEST_POWER,shortAddress,0))
+    }
 
     override fun handleMessage(message: Message?): Boolean {
         if (message != null) {
@@ -90,7 +98,7 @@ class DomusEngine(
                 }
                 MessageType.GET_ATTRIBUTE -> {
                     val coord = message.obj as AttributeCoord
-                    Log.i(TAG, "Get attribute ${coord}")
+                    Log.i(TAG, "Get attribute $coord")
                     handler.post(RequestAttributes(coord, domusEngineRest, this))
                 }
                 MessageType.NEW_ATTRIBUTES -> {
@@ -98,8 +106,23 @@ class DomusEngine(
                     val attributes = message.obj as Attributes
                     attributeListener.forEach({ it.newAttributes(attributes) })
                 }
+                MessageType.REQUEST_IDENTIFY -> {
+                    Log.i(TAG, "Request identify")
+                    handler.post(RequestIdentify(message.arg1, message.arg2,domusEngineRest))
+                }
+                MessageType.REQUEST_POWER -> {
+                    Log.i(TAG, "Request power")
+                    handler.post(RequestPowerNode(message.arg1, domusEngineRest, this))
+                }
+                MessageType.NEW_POWER -> {
+                    Log.i(TAG, "new power node response")
+                    val powerNode = message.obj as PowerNode
+                    powerListener.forEach({ it.newPower(powerNode) })
+                }
             }
         }
         return true
     }
+
+
 }

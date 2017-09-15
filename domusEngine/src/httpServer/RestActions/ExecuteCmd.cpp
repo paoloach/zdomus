@@ -35,7 +35,7 @@ namespace zigbee {
             auto zEndpoint = zDevice->getEndpoint(boost::lexical_cast<EndpointID>(endpoint));
             if (zEndpoint.isInCluster(clusterId)) {
                 std::vector<uint8_t> cmdParams{};
-                response.send(Code::No_Content, "command sent\n\r");
+                response.send(Code::Ok, "command sent\n\r");
                 auto cluster(singletons.getClusters()->getCluster(nwkAddr, endpoint, clusterId));
 
                 auto params = cluster->getCmdParams(command);

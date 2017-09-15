@@ -6,6 +6,7 @@ import it.achdjian.paolo.temperaturemonitor.Constants
 import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import java.util.concurrent.TimeUnit
 
 /**
@@ -16,6 +17,7 @@ class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: C
 
     companion object {
         private val TAG = "ZIGBEE COM"
+        private val JSON = okhttp3.MediaType.parse("application/json; charset=utf-8")
     }
 
 
@@ -48,6 +50,27 @@ class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: C
         return ""
     }
 
+
+
+    fun post(path: String, body: String = "") {
+        val url = "http://" + address + path
+        val requestBody = RequestBody.create(JSON, body)
+        val request = Request.Builder().url(url).post(requestBody).build()
+
+        try {
+            val response = client.newCall(request).execute()
+
+            if (response.code() === 200 || response.code() === 204) {
+                return
+            }
+        } catch (e: Exception) {
+            Log.e("DomusEngineRest", "Post", e)
+        }
+
+        Log.e(TAG, "ERROR")
+        connected.connected = false
+    }
+
 //    fun getLongRead(path: String): String? {
 //        val url = "http://" + address + path
 //
@@ -70,31 +93,5 @@ class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: C
 //    }
 //
 //
-//    @JvmOverloads fun post(path: String, body: String = "") {
-//        val url = "http://" + address + path
-//        val requestBody = RequestBody.create(JSON, body)
-//        val request = Request.Builder().url(url).post(requestBody).build()
-//
-//        try {
-//            val response = client.newCall(request).execute()
-//
-//            if (response.code() === 200 || response.code() === 204) {
-//                return
-//            }
-//        } catch (e: Exception) {
-//            Log.e("DomusEngineRest", "Post", e)
-//        }
-//
-//        Log.e(TAG, "ERROR")
-//        connected.connected = false
-////        if (!WhoAreYou.isRunning) {
-////            val handler = Handler()
-////            handler.postDelayed(WhoAreYou(this.sharedPreferences, this.connected), 1000)
-////        }
-//    }
 
-//    companion object {
-
-//        val JSON: MediaType = okhttp3.MediaType.parse("application/json; charset=utf-8")
-//    }
 }

@@ -6,6 +6,7 @@ import it.achdjian.paolo.temperaturemonitor.TempSensorLocationDS
 import it.achdjian.paolo.temperaturemonitor.TemperatureCache
 import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
 import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
+import it.achdjian.paolo.temperaturemonitor.domusEngine.PowerListener
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.ui.*
@@ -34,6 +35,7 @@ interface ApplicationComponent {
     fun getInitRoom(): InitRoom
     fun getListViewShowing(): ListViewShowing
     fun getSwipeListView(): SwipeListView
-
+    fun getIdentifyListener(): IdentifyListener
+    fun getPowerUpdateView(): PowerUpdateView
 
 }

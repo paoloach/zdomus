@@ -12,5 +12,8 @@ class MessageType {
         val NEW_ENDPOINT=1004
         val GET_ATTRIBUTE=1005
         val NEW_ATTRIBUTES=1006
+        val REQUEST_IDENTIFY=1007
+        val REQUEST_POWER=1008
+        val NEW_POWER=1009
     }
 }

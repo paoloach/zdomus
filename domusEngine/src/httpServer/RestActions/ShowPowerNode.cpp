@@ -6,6 +6,7 @@
 #include <zigbee/NwkAddr.h>
 #include <zigbee/ZigbeeDevice.h>
 #include <boost/log/trivial.hpp>
+#include <boost/lexical_cast.hpp>
 #include <functional>
 #include <boost/log/attributes/named_scope.hpp>
 
@@ -36,7 +37,7 @@ namespace zigbee {
             BOOST_LOG_TRIVIAL(info) << "arrived power node for address " << powerNodeData->nwkAddr;
             Value root(objectValue);
             root["error"] = powerNodeData->error;
-            root["nwkId"] = powerNodeData->nwkAddr.getId();
+            root["nwkId"] = boost::lexical_cast<std::string>(powerNodeData->nwkAddr);
             root["powerLevel"] = toString(powerNodeData->currentPowerSourceLevel);
             root["powerMode"] = toString(powerNodeData->powerMode);
             root["availablePowerSource"] = powerNodeData->availablePowerSource.getValue();

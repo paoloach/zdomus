@@ -193,6 +193,7 @@ namespace zigbee {
     }
 
     void DomusEngineUSBDevice::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId comandId, std::vector<uint8_t> data) {
+
         BOOST_LOG_TRIVIAL(debug) << "USBDevice send cmd to cluster (" << nwkAddrs << ", " << endpoint << ", " << cluster << ", " << comandId << ")";
         if (handle != nullptr) {
             ComandSend comandSend{nwkAddrs, endpoint, cluster, comandId, data};

@@ -8,6 +8,7 @@
 #include <boost/log/trivial.hpp>
 #include <boost/tokenizer.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/log/attributes/named_scope.hpp>
 #include "SerialExecutor.h"
 #include "../Utils/SingletonObjects.h"
 #include "../ZigbeeData/IEEEAddressResponse.h"
@@ -21,6 +22,7 @@ namespace zigbee {
         // IE: ieeeaddress, networkAddress, numChild, firstChildNwkId, ..., lastChildNwkId
         //      16digits ,     4digits,      2digits,  4digits,      , ...,  4digits
         virtual void operator()(const std::string &msg) override {
+            BOOST_LOG_NAMED_SCOPE("serial driver");
             IEEEAddrResp message;
             try {
                 boost::char_separator<char> sep(", ");

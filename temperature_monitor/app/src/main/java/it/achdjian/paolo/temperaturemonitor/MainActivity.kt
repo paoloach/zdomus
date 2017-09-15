@@ -12,9 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import it.achdjian.paolo.temperaturemonitor.dagger.TemperatureApplication
-import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionObserver
-import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
-import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
+import it.achdjian.paolo.temperaturemonitor.domusEngine.*
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureSurface
@@ -50,6 +48,11 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
     lateinit var listViewShowing: ListViewShowing
     @Inject
     lateinit var swipeListView: SwipeListView
+    @Inject
+    lateinit var powerUpdateView: PowerUpdateView
+    @Inject
+    lateinit var powerNodeCache: PowerNodeCache
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +66,7 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
         rajaBase.addOnLayoutChangeListener(this)
         surface.requestRenderUpdate()
         tempLV.adapter = zElementAdapter
+        powerUpdateView.listView = tempLV
         domusEngine.addListener(zElementAdapter)
         assign.setOnClickListener(assignController)
         deassign.setOnClickListener(deassignController)
@@ -73,6 +77,8 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
         domusEngine.addAttributeListener(temperatureCache)
         domusEngine.addListener(initRoom)
         domusEngine.addListener(listViewShowing)
+        domusEngine.addListener(powerUpdateView)
+        domusEngine.addListener(powerNodeCache)
         surface.setOnTouchListener(swipeListView)
         swipeListView.listView = tempLV
     }

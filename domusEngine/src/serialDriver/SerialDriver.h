@@ -76,6 +76,7 @@ namespace zigbee {
         std::vector<AnnunceCallback> annunceSignal;
         std::vector<SimpleDescCallback> simpleDescSignal;
         std::vector<BindTableResponseCallback> bindTableResponseSignal;
+
     };
 }
 

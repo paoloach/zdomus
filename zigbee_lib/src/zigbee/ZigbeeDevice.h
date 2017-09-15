@@ -13,6 +13,7 @@
 #include "../zcl/ZCLAttribute.h"
 #include "ZigbeeTypes.h"
 #include "zigbee/messageStructure/AnnunceMessage.h"
+#include "../zigbee/CmdData.h"
 #include "messageStructure/SimpleDescMessage.h"
 #include "messageStructure/ReadAttributeResponseMessage.h"
 #include "messageStructure/ReqActiveEndpointsMessage.h"
@@ -39,7 +40,8 @@ namespace zigbee {
 
     class ZigbeeDevice {
     public:
-        ZigbeeDevice(std::chrono::seconds timeout):timeout(timeout),powerNodeQueue(timeout),attributeQueue {timeout}, attributesResponseQueue{this}{};
+        ZigbeeDevice(std::chrono::seconds timeout) : timeout(timeout), powerNodeQueue(timeout), attributeQueue{timeout},
+                                                     attributesResponseQueue{this} {};
 
         virtual ~ZigbeeDevice() = default;
 
@@ -65,10 +67,6 @@ namespace zigbee {
                                     ZigbeeAttributeId commandId, ZCLTypeDataType dataType,
                                     uint8_t dataValueLen, uint8_t *dataValue) = 0;
 
-        virtual void sendCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
-                             ZigbeeClusterCmdId commandId,
-                             std::vector<uint8_t> data = std::vector<uint8_t>()) = 0;
-
         virtual void sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP,
                                  ClusterID clusterID,
                                  const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) = 0;
@@ -92,6 +90,9 @@ namespace zigbee {
         virtual void registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
                                              ZigbeeAttributeCmdId cmdId, const std::function<void()>) = 0;
 
+        virtual void sendCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster,
+                             ZigbeeClusterCmdId commandId,
+                             std::vector<uint8_t> data = std::vector<uint8_t>()) = 0;
 
 // --- Attribute value ----
         virtual void requestAttribute(const AttributeKey &key) = 0;
@@ -101,16 +102,15 @@ namespace zigbee {
             attributeQueue.add(key, std::move(callback));
         };
 
-        virtual void requestAttributes(AttributesKey & attributes) = 0;
+        virtual void requestAttributes(AttributesKey &attributes) = 0;
 
         void registerForAttributesValue(const AttributesKey &key,
-                                       std::unique_ptr<AttributesResponseCallback> &&callback) {
+                                        std::unique_ptr<AttributesResponseCallback> &&callback) {
             attributesResponseQueue.add(key, std::move(callback));
         };
 
 
-
-        void setAttribute(AttributeKey key, ZCLAttribute * attribute) {
+        void setAttribute(AttributeKey key, ZCLAttribute *attribute) {
             attributeQueue.setData(key, attribute);
         }
 
@@ -130,7 +130,7 @@ namespace zigbee {
     protected:
         std::chrono::seconds timeout;
         ResponseQueue<NwkAddr, std::shared_ptr<PowerNodeData> > powerNodeQueue;
-        ResponseQueue<AttributeKey, ZCLAttribute  * > attributeQueue;
+        ResponseQueue<AttributeKey, ZCLAttribute *> attributeQueue;
         AttributesResponseQueue attributesResponseQueue;
     };
 

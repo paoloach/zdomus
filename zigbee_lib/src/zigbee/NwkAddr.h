@@ -49,7 +49,7 @@ namespace zigbee {
             return address < other;
         }
 
-        ZigbeeNwkAddress getId() const {
+        constexpr ZigbeeNwkAddress getId() const {
             return address;
         }
 

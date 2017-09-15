@@ -55,7 +55,7 @@ set(SOURCE_FILES
         src/zigbee/ResponseCallback.h
         src/zigbee/AttributeKey.cpp src/zigbee/AttributeKey.h
         src/zigbee/AttributesKey.cpp src/zigbee/AttributesKey.h
-        src/zigbee/AttributesResponseCallback.h src/zigbee/AttributesResponseQueue.cpp src/zigbee/AttributesResponseQueue.h src/zigbee/ResponsesCallbacks.cpp src/zigbee/ResponsesCallbacks.h)
+        src/zigbee/AttributesResponseCallback.h src/zigbee/AttributesResponseQueue.cpp src/zigbee/AttributesResponseQueue.h src/zigbee/ResponsesCallbacks.cpp src/zigbee/ResponsesCallbacks.h src/zigbee/CmdData.h)
 
 
 SET(SOURCE_ZCL_FILES
@@ -65,7 +65,15 @@ SET(SOURCE_ZCL_FILES
         src/zcl/ZCLAttribute.cpp
         src/zcl/ZCLDevice.cpp
         src/zcl/Callbacks.cpp src/zcl/Callbacks.h
-        src/zcl/ZclAttributeUtils.cpp src/zcl/ZclAttributeUtils.h)
+        src/zcl/ZclAttributeUtils.cpp src/zcl/ZclAttributeUtils.h
+        src/zcl/ZCLDataType.h
+        src/zcl/StatusEnum.h
+        src/zcl/ClustersEnum.h
+        src/zigbee/PowerNodeData.h
+        src/zigbee/Callbacks.h
+        src/zigbee/ResponseCallbacks.h
+        src/zigbee/ResponseQueue.h
+        src/zigbee/CmdData.h)
 
 SET(SOURCE_ATTRIBUTES_FILES
         src/zcl/attributeTypes/ZCLbitmap8bitAttribute.cpp

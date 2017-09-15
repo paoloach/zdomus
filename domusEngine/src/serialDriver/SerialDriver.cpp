@@ -6,6 +6,7 @@
 #include <boost/fiber/algo/round_robin.hpp>
 #include <termios.h>
 #include <boost/log/attributes/named_scope.hpp>
+#include <boost/log/utility/string_literal.hpp>
 
 #include "SerialDriver.h"
 
@@ -18,6 +19,7 @@ namespace zigbee {
     using std::setfill;
     using std::uppercase;
     const int SerialDriver::BAUD_RATE = B115200;
+    static const boost::log::string_literal LOG_SCOPE("serial driver");
 
     SerialDriver::SerialDriver(const std::string &port, boost::asio::io_service &io, SingletonObjects &singletonObjects, std::chrono::seconds timeout) : ZigbeeDevice(timeout),
                                                                                                                                                          singletonObjects(
@@ -25,7 +27,7 @@ namespace zigbee {
                                                                                                                                                          port(port),
                                                                                                                                                          serialResponseExecutor(
                                                                                                                                                                  singletonObjects) {
-        BOOST_LOG_NAMED_SCOPE("serial driver");
+        BOOST_LOG_NAMED_SCOPE(LOG_SCOPE);
         serialFd = open(port.c_str(), O_RDWR | O_NOCTTY);
         if (serialFd >= 0) {
             struct termios tty;
@@ -80,7 +82,7 @@ namespace zigbee {
         int n;
         fd_set readFd;
         struct timeval timeout;
-
+        BOOST_LOG_NAMED_SCOPE(LOG_SCOPE);
         while (!stop) {
             std::this_thread::__sleep_for(0s,10us);
             boost::this_fiber::yield();
@@ -88,6 +90,10 @@ namespace zigbee {
             FD_SET(serialFd, &readFd);
             timeout.tv_sec = 0;
             timeout.tv_usec = 1;
+
+            if (serialFd >= 0) {
+                write("INIT:");
+            }
 
             while (select(serialFd + 1, &readFd, NULL, NULL, &timeout) > 0) {
                 n = read(serialFd, &c, 1);
@@ -130,6 +136,7 @@ namespace zigbee {
     }
 
     void SerialDriver::getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex) {
+        BOOST_LOG_NAMED_SCOPE(LOG_SCOPE);
         if (serialFd >= 0) {
             stringstream stream;
             stream << "IEEE: " << hex << uppercase << setfill('0') << setw(4) << nwkAddr.getId() << ", " << (requestType == SingleRequest ? '0' : '1') << ", " << setw(2)
@@ -193,6 +200,7 @@ namespace zigbee {
     // Send message: SC: networkid, endpointId, clusterId, commandId, dataLen  , data
     //                   4 digits ,  2 digits ,  4 digits,  4 digits,  2 digits,  n*2 digits, where n=dataLen
     void SerialDriver::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t> data) {
+        BOOST_LOG_NAMED_SCOPE(LOG_SCOPE);
         if (serialFd >= 0) {
             stringstream stream;
             stream << "SC: " << hex << uppercase << setfill('0') << setw(4) << nwkAddrs.getId() << ", " << setw(2) << (int) endpoint.getId() << ", " << setw(4) << cluster.getId()

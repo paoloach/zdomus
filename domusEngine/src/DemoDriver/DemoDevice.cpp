@@ -85,6 +85,33 @@ namespace zigbee {
                     powerNodeData->nwkAddr = nwkAddr;
                     boost::this_fiber::sleep_for(3s);
                     BOOST_LOG_TRIVIAL(info) << "Notify power node arrived";
+                    switch (nwkAddr.getId()) {
+                        case NWK_ADDR1.getId():
+                            powerNodeData->error = false;
+                            powerNodeData->currentPowerSource = PowerSource(4);
+                            powerNodeData->availablePowerSource = PowerSource(4);
+                            powerNodeData->powerMode = PowerMode::RECV_AUTO;
+                            powerNodeData->currentPowerSourceLevel = PowerLevel::CRITICAL;
+                            break;
+                        case NWK_ADDR2.getId():
+                            powerNodeData->error = false;
+                            powerNodeData->currentPowerSource = PowerSource(4);
+                            powerNodeData->availablePowerSource = PowerSource(4);
+                            powerNodeData->powerMode = PowerMode::RECV_AUTO;
+                            powerNodeData->currentPowerSourceLevel = PowerLevel::LEVEL_33;
+                            break;
+                        case NWK_ADDR3.getId():
+                            powerNodeData->error = false;
+                            powerNodeData->currentPowerSource = PowerSource(4);
+                            powerNodeData->availablePowerSource = PowerSource(4);
+                            powerNodeData->powerMode = PowerMode::ALWAYS_ON;
+                            powerNodeData->currentPowerSourceLevel = PowerLevel::LEVEL_100;
+                            break;
+                        default:
+                            powerNodeData->error = true;
+                            break;
+
+                    }
                     powerNodeQueue.setData(nwkAddr, powerNodeData);
                 });
                 fibers.push_back(std::move(setPowerMode));
@@ -93,7 +120,7 @@ namespace zigbee {
 
 
         while (!stop) {
-            std::this_thread::__sleep_for(0s,10us);
+            std::this_thread::__sleep_for(0s, 10us);
             boost::this_fiber::yield();
             for (auto &attribute: intValuesMap) {
                 BOOST_LOG_TRIVIAL(info) << "new attribute request: " << attribute.first;
@@ -495,94 +522,101 @@ namespace zigbee {
     }
 
     void DemoDevice::sendCmd(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, zigbee::ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t>) {
-        if (nwkAddrs == NWK_ADDR1) {
-            if (endpoint == 4) {
-                if (cluster == ClustersId::ON_OFF_CLUSTER) {
-                    if (commandId == 0) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 0;
-                        BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 1) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 1;
-                        BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 2) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
-                        BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
+        BOOST_LOG_NAMED_SCOPE("demo_driver");
+        BOOST_LOG_TRIVIAL(info) << "Executing cmd: {" << nwkAddrs << "," << endpoint << "," << cluster << "," << commandId << "}";
+        if (cluster == 3) {
+            BOOST_LOG_TRIVIAL(info) << "Executing cmd identify: {" << nwkAddrs << "," << endpoint << "," << cluster << "}";
+        } else {
+            BOOST_LOG_TRIVIAL(info) << "Executing cmd: {" << nwkAddrs << "," << endpoint << "," << cluster << "," << commandId << "}";
+            if (nwkAddrs == NWK_ADDR1) {
+                if (endpoint == 4) {
+                    if (cluster == ClustersId::ON_OFF_CLUSTER) {
+                        if (commandId == 0) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 0;
+                            BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 1) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 1;
+                            BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 2) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
+                            BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
+                        }
+                    }
+                } else if (endpoint == 6) {
+                    if (cluster == ClustersId::ON_OFF_CLUSTER) {
+                        if (commandId == 0) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 0;
+                            BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 1) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 1;
+                            BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 2) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
+                            BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
+                        }
+                    }
+                } else if (endpoint == 7) {
+                    if (cluster == ClustersId::ON_OFF_CLUSTER) {
+                        if (commandId == 0) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 0;
+                            BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 1) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 1;
+                            BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 2) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
+                            BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
+                        }
                     }
                 }
-            } else if (endpoint == 6) {
-                if (cluster == ClustersId::ON_OFF_CLUSTER) {
-                    if (commandId == 0) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 0;
-                        BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 1) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 1;
-                        BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 2) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
-                        BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
-                    }
-                }
-            } else if (endpoint == 7) {
-                if (cluster == ClustersId::ON_OFF_CLUSTER) {
-                    if (commandId == 0) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 0;
-                        BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 1) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 1;
-                        BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 2) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
-                        BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
-                    }
-                }
+
             }
 
-        }
+            if (nwkAddrs == NWK_ADDR2) {
+                if (endpoint == 7) {
+                    if (cluster == ClustersId::ON_OFF_CLUSTER) {
+                        if (commandId == 0) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 0;
+                            BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 1) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 1;
+                            BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 2) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
+                            BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
+                        }
+                    }
+                } else if (endpoint == 11) {
+                    if (cluster == ClustersId::ON_OFF_CLUSTER) {
+                        if (commandId == 0) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 0;
+                            BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 1) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = 1;
+                            BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
+                        } else if (commandId == 2) {
+                            auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
+                            intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
+                            BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
+                        }
+                    }
+                }
 
-        if (nwkAddrs == NWK_ADDR2) {
-            if (endpoint == 7) {
-                if (cluster == ClustersId::ON_OFF_CLUSTER) {
-                    if (commandId == 0) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 0;
-                        BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 1) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 1;
-                        BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 2) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
-                        BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
-                    }
-                }
-            } else if (endpoint == 11) {
-                if (cluster == ClustersId::ON_OFF_CLUSTER) {
-                    if (commandId == 0) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 0;
-                        BOOST_LOG_TRIVIAL(info) << "Turn off " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 1) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = 1;
-                        BOOST_LOG_TRIVIAL(info) << "Turn on " << nwkAddrs << ", " << endpoint;
-                    } else if (commandId == 2) {
-                        auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, 0);
-                        intValuesMap[key] = intValuesMap[key] > 0 ? 0 : 1;
-                        BOOST_LOG_TRIVIAL(info) << "Toggle at " << intValuesMap[key] << " " << nwkAddrs << ", " << endpoint;
-                    }
-                }
             }
-
         }
     }
 
