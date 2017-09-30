@@ -9,6 +9,7 @@ import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
 import it.achdjian.paolo.temperaturemonitor.domusEngine.PowerListener
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
+import it.achdjian.paolo.temperaturemonitor.settings.SettingActivity
 import it.achdjian.paolo.temperaturemonitor.ui.*
 import javax.inject.Singleton
 
@@ -21,6 +22,7 @@ import javax.inject.Singleton
 interface ApplicationComponent {
     fun inject(application: BaseApplication)
     fun inject(activity: MainActivity)
+    fun inject(activity: SettingActivity)
     fun inject(renderer: TemperatureRender)
 
     fun getAssignController(): AssignController

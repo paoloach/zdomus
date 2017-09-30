@@ -1,0 +1,4 @@
+export file into wafefront
+Forward = y forward
+Up: z up
+Triangulare face on

@@ -11,15 +11,17 @@ import org.rajawali3d.util.ObjectColorPicker
 /**
  * Created by Paolo Achdjian on 7/6/17.
  */
-class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
+class TemperatureRender(context: Context, val rooms: Rooms) : Renderer(context) {
     private val TEMPERATURE_UPDATE = 5.0
-
+    var updateLevel = false
+    var newLevel: Int = 0
     lateinit var picker: ObjectColorPicker
     private var roomToUpdate: RoomObject? = null
     private var width = 0
     private var height = 0
     private var time = 0.0
     private var nextTempUpdate = 0.0
+
 
     override fun onOffsetsChanged(xOffset: Float, yOffset: Float, xOffsetStep: Float, yOffsetStep: Float, xPixelOffset: Int, yPixelOffset: Int) {
     }
@@ -33,9 +35,10 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
         rooms.initRooms()
         picker = ObjectColorPicker(this)
         rooms.initScene(currentScene, picker = picker)
+        rooms.enable()
 
-        val maxRooms = rooms.getMax(0)
-        val minRooms = rooms.getMin(0)
+        val maxRooms = rooms.getMax()
+        val minRooms = rooms.getMin()
         Log.d("RENDER", "max: $maxRooms, min: $minRooms")
         val camera = currentCamera
         val lookAt = Vector3(0.0, 0.0, minRooms.z)
@@ -48,12 +51,13 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
         picker.setOnObjectPickedListener(rooms)
     }
 
-    private fun adjustCamera() {
+
+    public fun adjustCamera() {
         if (rooms.isInit) {
             val currentCamera = currentCamera
             var z = currentCamera.z
-            val maxRooms = rooms.getMax(0)
-            val minRooms = rooms.getMin(0)
+            val maxRooms = rooms.getMax()
+            val minRooms = rooms.getMin()
             while (true) {
                 val viewMatrix = currentCamera.viewMatrix
                 val projectionMatrix = currentCamera.projectionMatrix
@@ -67,13 +71,10 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
 
                 val widthObj = posMax[0] - posMin[0]
                 val heightObj = posMax[1] - posMin[1]
-                if (Math.abs(widthObj - width) < 1 && height > heightObj) {
+                if (fitWidth(widthObj, heightObj) || fitHeight(heightObj, widthObj)) {
                     break
                 }
-                if (Math.abs(heightObj - height) < 1 && width > widthObj) {
-                    break
-                }
-                if (widthObj > width) {
+                if (widthObj > width || heightObj > height) {
                     z += 0.01
                 } else {
                     z -= 0.01
@@ -82,6 +83,10 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
             }
         }
     }
+
+    private fun fitHeight(heightObj: Double, widthObj: Double) = Math.abs(heightObj - height) < 1 && width > widthObj
+
+    private fun fitWidth(widthObj: Double, heightObj: Double) = Math.abs(widthObj - width) < 1 && height > heightObj
 
     fun onSurfaceViewLayoutChange(left: Int, top: Int, right: Int, bottom: Int) {
         width = right - left
@@ -92,14 +97,23 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
         time += deltaTime
         if (time > nextTempUpdate) {
             nextTempUpdate += TEMPERATURE_UPDATE
-            for (room in rooms.rooms) {
+            for (room in rooms.rooms.get(rooms.planeSelected)) {
                 room.updateTemp()
             }
         } else {
             roomToUpdate?.updateTemp()
             roomToUpdate = null
         }
+        if (updateLevel) {
+            Log.d("RENDER", "new level: " + newLevel)
 
+            rooms.disable()
+            rooms.planeSelected = newLevel
+            rooms.enable()
+            updateLevel = false
+            adjustCamera()
+            Log.d("RENDER", "end new level: " + rooms.planeSelected)
+        }
         super.onRender(elapsedTime, deltaTime)
     }
 
@@ -113,7 +127,7 @@ class TemperatureRender(context: Context,val rooms: Rooms) : Renderer(context) {
     }
 
     fun getObjectAt(x: Float, y: Float) = picker.getObjectAt(x, y)
-    
+
     fun notifyFirstTemperature(room: String) {
         roomToUpdate = rooms.getRoom(room)
         if (roomToUpdate != null) {

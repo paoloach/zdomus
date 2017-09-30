@@ -89,11 +89,28 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_settings) {
-            val intent = Intent(this, SettingActivity::class.java)
-            startActivity(intent)
-            return true
+        when (item.itemId){
+            R.id.action_settings -> {
+                val intent = Intent(this, SettingActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.plane0 -> {
+                if (rooms.planeSelected != 1){
+                    renderer.newLevel=1
+                    renderer.updateLevel =true
+                }
+                return true
+            }
+            R.id.plane_1 -> {
+                if (rooms.planeSelected != 0){
+                    renderer.newLevel=0
+                    renderer.updateLevel =true
+                }
+                return true
+            }
         }
+
 
         return super.onOptionsItemSelected(item)
     }

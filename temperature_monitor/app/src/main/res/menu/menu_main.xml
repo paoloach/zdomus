@@ -7,4 +7,19 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/plane-1"
+        android:checkable="false"
+        android:enabled="true"
+        android:orderInCategory="101"
+        android:title="plane -1"
+        android:visible="true"/>
+    <item
+        android:id="@+id/plane0 "
+        android:orderInCategory="102"
+        android:title="plane 0"/>
+    <item
+        android:id="@+id/plane1"
+        android:orderInCategory="103"
+        android:title="plane 1"/>
 </menu>

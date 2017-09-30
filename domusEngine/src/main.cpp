@@ -101,6 +101,7 @@ int main(int argc, const char *argv[]) {
     topologyCreation.create();
 
     zigbee::http::RestHandler restHandler{singletons};
+
     restHandler.start();
 
     exitV8();

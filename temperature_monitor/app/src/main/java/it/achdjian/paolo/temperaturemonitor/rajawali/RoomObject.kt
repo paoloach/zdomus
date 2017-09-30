@@ -1,5 +1,6 @@
 package it.achdjian.paolo.temperaturemonitor.rajawali
 
+import android.util.Log
 import it.achdjian.paolo.temperaturemonitor.TemperatureCache
 import org.rajawali3d.Object3D
 import org.rajawali3d.lights.SpotLight
@@ -27,6 +28,7 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
     var temperatureLabel: TemperatureLabel?=null
     var selectedColor: Int = SELECTED_COLOR
     var unselectedColor: Int = DEFAULT_COLOR
+    var visible=false;
     lateinit var scene: Scene
     lateinit var picker: ObjectColorPicker
 
@@ -59,18 +61,34 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
         material.diffuseMethod = DiffuseMethod.Lambert()
     }
 
+    fun disable() {
+        Log.i("RENDER", "Disable " + name)
+        scene.removeLight(light)
+        scene.removeChild(object3D)
+        if (temperatureLabel != null)
+            scene.removeChild(temperatureLabel)
+        picker.unregisterObject(object3D)
+        visible=true
+    }
+
+    fun enable() {
+        Log.i("RENDER", "Enable " + name)
+        scene.addChild(object3D)
+        scene.addLight(light)
+        picker.registerObject(object3D)
+        if (temperatureLabel != null)
+            scene.addChild(temperatureLabel)
+        visible=false
+    }
 
     fun init3D(currentScene: Scene, picker: ObjectColorPicker) {
         object3D.material = material
         scene = currentScene
         this.picker = picker
-        scene.addChild(object3D)
-        scene.addLight(light)
-        picker.registerObject(object3D)
     }
 
     fun updateTemp() {
-        if (temperatureLabel != null ) {
+        if (temperatureLabel != null && visible ) {
             val temp = cache.getTemperature(name)
             if (temp.isPresent) {
                 unselectedColor = TemperatureColorMap.getColor(temp.get())

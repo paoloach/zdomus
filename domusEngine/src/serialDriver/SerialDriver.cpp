@@ -83,6 +83,10 @@ namespace zigbee {
         fd_set readFd;
         struct timeval timeout;
         BOOST_LOG_NAMED_SCOPE(LOG_SCOPE);
+
+          if (serialFd >= 0) {
+            write("INIT:\n");
+        }
         while (!stop) {
             std::this_thread::__sleep_for(0s,10us);
             boost::this_fiber::yield();
@@ -91,9 +95,7 @@ namespace zigbee {
             timeout.tv_sec = 0;
             timeout.tv_usec = 1;
 
-            if (serialFd >= 0) {
-                write("INIT:");
-            }
+
 
             while (select(serialFd + 1, &readFd, NULL, NULL, &timeout) > 0) {
                 n = read(serialFd, &c, 1);
@@ -294,7 +296,7 @@ namespace zigbee {
     void SerialDriver::requestBindTable(NwkAddr networkId) {
         if (serialFd >= 0) {
             stringstream stream;
-            stream << "BI: " << hex << uppercase << setfill('0') << setw(4) << networkId.getId() << "\n";
+            stream << "BT: " << hex << uppercase << setfill('0') << setw(4) << networkId.getId() << "\n";
             write(stream.str());
         }
     }

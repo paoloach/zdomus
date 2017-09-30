@@ -16,6 +16,7 @@ namespace zigbee {
 
         // format: AN: networkId , extendAddress, capability
         virtual void operator()(const std::string &msg) override {
+            BOOST_LOG_NAMED_SCOPE("Annunce device");
             AnnunceMessage annunceMessage;
             boost::char_separator<char> sep(", ");
             boost::tokenizer<boost::char_separator<char> > tok(msg, sep);
@@ -35,8 +36,10 @@ namespace zigbee {
                 singletons.getZDevices()->put(annunceMessage);
 
                 NwkAddr nwkAddr{annunceMessage.nwkAddr};
+                BOOST_LOG_TRIVIAL(info) << "Request endopoint";
                 singletons.getZigbeeDevice()->requestActiveEndpoints(nwkAddr);
                 sleep(1);
+                BOOST_LOG_TRIVIAL(info) << "Request bind table";
                 singletons.getZigbeeDevice()->requestBindTable(nwkAddr);
             } catch (boost::bad_lexical_cast &e) {
                 BOOST_LOG_TRIVIAL(error) << "Unable to decode Annunce message: " << e.what();

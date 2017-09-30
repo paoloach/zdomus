@@ -36,7 +36,7 @@ class TemperatureCache @Inject constructor() : CacheLoader<String, Optional<Int>
     }
 
     private var cache: LoadingCache<String, Optional<Int>> = CacheBuilder.newBuilder()
-            .expireAfterWrite(5, TimeUnit.MINUTES)
+            .expireAfterWrite(1, TimeUnit.MINUTES)
             .build(this)
 
 

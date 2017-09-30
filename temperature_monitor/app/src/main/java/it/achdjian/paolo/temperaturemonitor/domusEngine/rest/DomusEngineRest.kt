@@ -20,10 +20,8 @@ class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: C
         private val JSON = okhttp3.MediaType.parse("application/json; charset=utf-8")
     }
 
-
-    val address: String = sharedPreferences.getString(Constants.DOMUS_ENGINE_ADDRESS, "192.168.1.121")
-
     operator fun get(path: String): String {
+        val address: String = sharedPreferences.getString(Constants.DOMUS_ENGINE_ADDRESS, "192.168.1.121")
         val url = "http://" + address + path
         Log.i(TAG, url);
 
@@ -53,6 +51,7 @@ class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: C
 
 
     fun post(path: String, body: String = "") {
+        val address: String = sharedPreferences.getString(Constants.DOMUS_ENGINE_ADDRESS, "192.168.1.121")
         val url = "http://" + address + path
         val requestBody = RequestBody.create(JSON, body)
         val request = Request.Builder().url(url).post(requestBody).build()
@@ -70,28 +69,5 @@ class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: C
         Log.e(TAG, "ERROR")
         connected.connected = false
     }
-
-//    fun getLongRead(path: String): String? {
-//        val url = "http://" + address + path
-//
-//        val request = Request.Builder().url(url).get().header("Accept", "application/json").header("Content-Type", "application/json").build()
-//
-//        try {
-//            val response = clientLongTimeout.newCall(request).execute()
-//            if (response.code() === 200) {
-//                return response.body().string()
-//            }
-//            if (response.code() === 204) {
-//                return ""
-//            }
-//        } catch (ignored: Exception) {
-//            Log.e(TAG, "error", ignored)
-//        }
-//
-//        Log.e(TAG, "ERROR")
-//        return null
-//    }
-//
-//
 
 }
