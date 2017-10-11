@@ -50,6 +50,9 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
     fun initLabels() {
         if (temperatureLabel == null) {
             temperatureLabel = TemperatureLabel(this)
+            if (visible)
+                scene.addChild(temperatureLabel)
+
         }
     }
 
