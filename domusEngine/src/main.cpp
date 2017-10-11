@@ -98,14 +98,13 @@ int main(int argc, const char *argv[]) {
 
     zDevices->addObserver([&requestDevices](ZDevice *zDevice) { requestDevices.request(zDevice); });
 
-    topologyCreation.create();
+    //topologyCreation.create();
 
-    zigbee::http::RestHandler restHandler{singletons};
-
-    restHandler.start();
+    singletons.getRestHandler()->start();
 
     exitV8();
 }
+
 
 variables_map getVariableMap(size_t argc, char const *argv[]) {
     options_description desc("Allowed options");

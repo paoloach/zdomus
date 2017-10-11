@@ -16,10 +16,11 @@ class GetEndpoint(val nwkAddress: Int, val endpoint_id: Int, val domusEngineRest
         val body = domusEngineRest.get("/devices/" +nwkAddress.toString(16)+"/endpoint/" + endpoint_id.toString(16))
         if (body.isNotBlank()) {
             try {
+                Log.i("REST", body)
                 val endpointJson = MAPPER.readValue(body, ZEndpointJSon::class.java)
                 if (endpointJson != null) {
                     val zEndpoint = ZEndpoint(endpointJson)
-
+                    Log.i("REST",zEndpoint.toString())
                     domusEngine.handler.sendMessage(domusEngine.handler.obtainMessage(MessageType.NEW_ENDPOINT, zEndpoint))
                 }
             } catch (e: IOException) {

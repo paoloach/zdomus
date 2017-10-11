@@ -22,7 +22,6 @@
 #include "JSRow.h"
 #include "JSDBTable.h"
 #include "JSResultSet.h"
-#include "../Utils/Log.h"
 #include "JSLog.h"
 #include "JSRestServer.h"
 #include "../Database/DBTableFactory.h"

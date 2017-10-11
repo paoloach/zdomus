@@ -94,6 +94,7 @@ static constexpr const char * ADD_PATH="addPath";
 
 // RestParam methods
 static constexpr const char * GET_PARAM="getParam";
+static constexpr const char * GET_QUERY="getQuery";
 
 
 #endif /* SRC_JAVASCRIPT_JSOBJECTS_H_ */

@@ -11,7 +11,6 @@
 #include <v8.h>
 #include <memory>
 
-#include "../Utils/Log.h"
 
 namespace zigbee {
 

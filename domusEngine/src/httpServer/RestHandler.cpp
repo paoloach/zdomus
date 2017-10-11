@@ -2,6 +2,9 @@
 // Created by paolo on 25/04/17.
 //
 
+#include <boost/log/trivial.hpp>
+#include <boost/log/attributes/named_scope.hpp>
+#include "../Utils/LogConstants.h"
 #include "RestActions/ShowHello.h"
 #include "RestActions/ShowWhoAreYou.h"
 #include "RestHandler.h"
@@ -61,7 +64,10 @@ namespace zigbee {
         }
 
         void RestHandler::addGetPath(std::string path, Net::Rest::Route::Handler fn) {
+            BOOST_LOG_NAMED_SCOPE(REST);
+            BOOST_LOG_TRIVIAL(info)<< "Add GET path: " << path;
             Get(router, std::move(path), std::move(fn));
+            server.setHandler(router.handler());
         }
     }
 }

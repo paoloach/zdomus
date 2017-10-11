@@ -13,7 +13,7 @@
 namespace zigbee {
     class SerialDriver : public ZigbeeDevice {
     public:
-        SerialDriver(const std::string & port, boost::asio::io_service &serviceIo_, SingletonObjects &singletonObjects, std::chrono::seconds timeout);
+        SerialDriver(const std::string & port,  SingletonObjects &singletonObjects, std::chrono::seconds timeout);
         virtual ~SerialDriver();
 
         bool isPresent() override;

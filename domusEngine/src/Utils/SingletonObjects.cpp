@@ -36,7 +36,7 @@ namespace zigbee {
 
 
         if (driverName == "serial") {
-            zigbeeDevice = std::make_unique<SerialDriver>("/dev/ttyUSB0", io, *this, configuration->getRestTimeout());
+            zigbeeDevice = std::make_unique<SerialDriver>("/dev/ttyUSB0", *this, configuration->getRestTimeout());
         } else if (driverName == "usb") {
 
             if (libusb_init(&usbContext) != 0) {
@@ -50,7 +50,7 @@ namespace zigbee {
         } else if (driverName == "demo") {
             zigbeeDevice = std::make_unique<DemoDevice>(*this, configuration->getRestTimeout());
         } else {
-            BOOST_LOG_TRIVIAL(error) << "Driver available: usb, serial";
+            BOOST_LOG_TRIVIAL(error) << "Driver available: usb, serial, demo";
         }
         if (zigbeeDevice) {
             clusters = Clusters{zigbeeDevice.get()};

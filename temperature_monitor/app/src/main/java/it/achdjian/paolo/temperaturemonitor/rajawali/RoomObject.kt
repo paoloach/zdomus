@@ -19,16 +19,16 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
         val SELECTED_COLOR = 0xFFC0FFFF.toInt()
     }
     val name: String = object3D.name.substring(0, object3D.name.lastIndexOf("_"))
-    var material: Material = Material()
+    private var material: Material = Material()
     var selected = false
-    var light: SpotLight
+    private var light: SpotLight
     val mean: Vector3
     val max: Vector3
     val min: Vector3
-    var temperatureLabel: TemperatureLabel?=null
-    var selectedColor: Int = SELECTED_COLOR
-    var unselectedColor: Int = DEFAULT_COLOR
-    var visible=false;
+    private var temperatureLabel: TemperatureLabel?=null
+    private var selectedColor: Int = SELECTED_COLOR
+    private var unselectedColor: Int = DEFAULT_COLOR
+    private var visible=false
     lateinit var scene: Scene
     lateinit var picker: ObjectColorPicker
 
@@ -50,7 +50,6 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
     fun initLabels() {
         if (temperatureLabel == null) {
             temperatureLabel = TemperatureLabel(this)
-            scene.addChild(temperatureLabel)
         }
     }
 
@@ -68,7 +67,7 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
         if (temperatureLabel != null)
             scene.removeChild(temperatureLabel)
         picker.unregisterObject(object3D)
-        visible=true
+        visible=false
     }
 
     fun enable() {
@@ -78,7 +77,7 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
         picker.registerObject(object3D)
         if (temperatureLabel != null)
             scene.addChild(temperatureLabel)
-        visible=false
+        visible=true
     }
 
     fun init3D(currentScene: Scene, picker: ObjectColorPicker) {

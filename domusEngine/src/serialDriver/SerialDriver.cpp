@@ -21,7 +21,7 @@ namespace zigbee {
     const int SerialDriver::BAUD_RATE = B115200;
     static const boost::log::string_literal LOG_SCOPE("serial driver");
 
-    SerialDriver::SerialDriver(const std::string &port, boost::asio::io_service &io, SingletonObjects &singletonObjects, std::chrono::seconds timeout) : ZigbeeDevice(timeout),
+    SerialDriver::SerialDriver(const std::string &port, SingletonObjects &singletonObjects, std::chrono::seconds timeout) : ZigbeeDevice(timeout),
                                                                                                                                                          singletonObjects(
                                                                                                                                                                  singletonObjects),
                                                                                                                                                          port(port),
@@ -84,17 +84,16 @@ namespace zigbee {
         struct timeval timeout;
         BOOST_LOG_NAMED_SCOPE(LOG_SCOPE);
 
-          if (serialFd >= 0) {
+        if (serialFd >= 0) {
             write("INIT:\n");
         }
         while (!stop) {
-            std::this_thread::__sleep_for(0s,10us);
+            std::this_thread::__sleep_for(0s, 10us);
             boost::this_fiber::yield();
             FD_ZERO(&readFd);
             FD_SET(serialFd, &readFd);
             timeout.tv_sec = 0;
             timeout.tv_usec = 1;
-
 
 
             while (select(serialFd + 1, &readFd, NULL, NULL, &timeout) > 0) {

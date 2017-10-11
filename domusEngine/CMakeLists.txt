@@ -136,7 +136,9 @@ SET(SRC_ZIGBEE_DATA src/ZigbeeData/AttributeData.cpp src/ZigbeeData/AttributeDat
         src/ZigbeeData/ZDevice.cpp src/ZigbeeData/ZDevice.h
         src/ZigbeeData/ZDevices.cpp src/ZigbeeData/ZDevices.h
         src/ZigbeeData/ZElement.cpp src/ZigbeeData/ZElement.h
-        src/ZigbeeData/ZEndpoint.cpp src/ZigbeeData/ZEndpoint.h )
+        src/ZigbeeData/ZEndpoint.cpp src/ZigbeeData/ZEndpoint.h
+        src/ZigbeeData/NewDeviceObserver.h
+        src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h)
 
 SET(SRC_EXCEPTION src/Exception/PathNotFound.h src/Exception/Timeout.h)
 
@@ -157,7 +159,10 @@ SET(SRC_SERIAL_DRIVER
         src/serialDriver/ActiveEndpointErrorExecutor.h
         src/serialDriver/BindTableSerialExecuter.h
         src/serialDriver/ReadAttributeResponseErrorSerial.h
-        src/serialDriver/ReadAttributeResponseSerial.h src/serialDriver/DeviceInfoSerialExecutor.h src/serialDriver/PowerNodeResponse.cpp src/serialDriver/PowerNodeResponse.h)
+        src/serialDriver/PowerNodeResponseError.cpp src/serialDriver/PowerNodeResponseError.h
+        src/serialDriver/ReadAttributeResponseSerial.h
+        src/serialDriver/DeviceInfoSerialExecutor.h
+        src/serialDriver/PowerNodeResponse.cpp src/serialDriver/PowerNodeResponse.h)
 
 set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h
@@ -176,26 +181,25 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/USBDevice.h
         src/usb/UsbResponseExecutors.cpp
         src/usb/UsbResponseExecutors.h
-
         src/usb/InfoMessageExecuter.h src/usb/DeviceInfoExecutor.cpp
         src/usb/DeviceInfoExecutor.h
-
         src/usb/IEEEAddressResponseExecutor.h
-        src/ZigbeeData/NewDeviceObserver.h
-        src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
-        src/usb/messages/PowerNodeRequestMessage.h src/usb/PowerNodeReqError.h src/usb/messages/PowerNodeRespMessage.h)
+        src/usb/messages/PowerNodeRequestMessage.h
+        src/usb/PowerNodeReqError.h
+        src/usb/messages/PowerNodeRespMessage.h)
+
+
 set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h
                 src/Utils/AttributeWriter.cpp src/Utils/AttributeWriter.h
                 src/Utils/Clusters.cpp  src/Utils/Clusters.h
-                src/Utils/Log.cpp  src/Utils/Log.h
                 src/Utils/SingletonObjects.cpp  src/Utils/SingletonObjects.h
                 src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
                 src/Utils/Constant.cpp src/Utils/Constant.h
-                src/serialDriver/PowerNodeResponseError.cpp
-                src/serialDriver/PowerNodeResponseError.h)
+                src/Utils/LogConstants.h )
 
 
 add_library(javascript_lib OBJECT
+        src/JavaScript/JSObjects.h
         src/JavaScript/JavaScriptData.cpp
         src/JavaScript/JavaScriptExecuter.cpp
         src/JavaScript/JSDbManager.cpp

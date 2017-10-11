@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import it.achdjian.paolo.temperaturemonitor.dagger.ForApplication
 import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
 import it.achdjian.paolo.temperaturemonitor.ui.ZElementAdapter
@@ -19,8 +20,41 @@ import javax.inject.Singleton
 class TempSensorLocationDS @Inject constructor(@ForApplication val context: Context, val zDevices: ZDevices) {
     lateinit var domusEngine: DomusEngine
 
+    init {
+        cleanDatabase()
+    }
+
+    fun printContent() {
+        val domusViewDatabase = DomusViewDatabase(context)
+        val database = domusViewDatabase.readableDatabase
+        var query: Cursor? = null
+        try {
+            query = database.query(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE,
+                    null,
+                    null,
+                    null, null, null, null)
+            query.moveToFirst()
+            while(true){
+                val sb = StringBuilder();
+                var i=0
+                while( i < query.columnCount){
+                    sb.append(query.getColumnName(i)).append(": ").append(query.getString(i)).append("  ")
+                    i++
+                }
+                Log.i("DATABASE", sb.toString())
+                if (!query.moveToNext())
+                    break;
+            }
+        } finally {
+            if (query != null) {
+                query.close()
+            }
+        }
+        database.close()
+    }
 
     fun createTempSensorLocation(networkAddress: String, endpoint: Int, location: String) {
+        Log.i("DATABASE","Create: address: ${networkAddress}, location: ${location}")
         val domusViewDatabase = DomusViewDatabase(context)
         val database = domusViewDatabase.writableDatabase
         val values = ContentValues()
@@ -29,6 +63,17 @@ class TempSensorLocationDS @Inject constructor(@ForApplication val context: Cont
         values.put(DomusViewDatabase.LOCATION, location)
         database.beginTransaction()
         database.insert(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE, null, values)
+        database.setTransactionSuccessful()
+        database.endTransaction()
+        database.close()
+    }
+
+    fun cleanDatabase() {
+        val domusViewDatabase = DomusViewDatabase(context)
+        val database = domusViewDatabase.writableDatabase
+        val values = arrayOf("00:00:00:00::00:00:00:00")
+        database.beginTransaction()
+        database.delete(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE, DomusViewDatabase.NETWORK_FIELD + "=?", values)
         database.setTransactionSuccessful()
         database.endTransaction()
         database.close()
@@ -69,6 +114,8 @@ class TempSensorLocationDS @Inject constructor(@ForApplication val context: Cont
         }
     }
 
+
+
     fun isUsed(networkId: Int, endpointId: Int): Boolean {
         val device = domusEngine.zDevices.get(networkId)
         val sqlQuery = StringBuilder()
@@ -103,6 +150,7 @@ class TempSensorLocationDS @Inject constructor(@ForApplication val context: Cont
     }
 
     fun getRoom(networkId: Int, endpointId: Int): String {
+        printContent()
         val device = domusEngine.zDevices.get(networkId)
         val sqlQuery = StringBuilder()
         sqlQuery.
@@ -137,6 +185,7 @@ class TempSensorLocationDS @Inject constructor(@ForApplication val context: Cont
     }
 
     fun getElement(roomName: String): ZElementAdapter.Element? {
+        printContent()
         val domusViewDatabase = DomusViewDatabase(context)
         val database = domusViewDatabase.readableDatabase
         var query: Cursor? = null

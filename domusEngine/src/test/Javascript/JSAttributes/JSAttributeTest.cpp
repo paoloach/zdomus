@@ -241,10 +241,6 @@ namespace zigbee {
             result = runScript("");
             result = runScript("");
 
-            ASSERT_THAT(log.empty(), false);
-            Log::LogData logData = log.get();
-            ASSERT_THAT(logData.msg, StrEq("callback called"));
-            ASSERT_THAT(log.empty(), true);
         }
 
         void JSAttributeTest::requestValueWithCallbackTestTwoTime(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock,
@@ -281,13 +277,6 @@ namespace zigbee {
 
             result = runScript("");
 
-            ASSERT_THAT(log.empty(), false);
-            Log::LogData logData = log.get();
-            ASSERT_THAT(logData.msg, StrEq("callback called2"));
-            ASSERT_THAT(log.empty(), false);
-            Log::LogData logData2 = log.get();
-            ASSERT_THAT(logData.msg, StrEq("callback called"));
-            ASSERT_THAT(log.empty(), true);
         }
 
         std::string JSAttributeTest::createZAttributeVariable(const std::string &attributeName) {

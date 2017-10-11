@@ -16,6 +16,7 @@
 namespace zigbee {
 
     class SingletonObjects;
+    class PowerNodeFiber;
 
     class DemoDevice : public ZigbeeDevice {
     public:
@@ -24,6 +25,7 @@ namespace zigbee {
         virtual ~DemoDevice() = default;
         using PowerNodeSet = boost::fibers::unbuffered_channel<NwkAddr>;
     private:
+        void init();
         bool isPresent() override;
 
         bool enableLog() override;
@@ -89,6 +91,8 @@ namespace zigbee {
 
         std::random_device rd;
         std::mt19937 e1;
+
+        friend class PowerNodeFiber;
     };
 }
 

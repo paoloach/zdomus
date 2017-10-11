@@ -74,7 +74,6 @@ namespace zigbee {
             std::unique_ptr<ZCLAttributeMock> defaultZclAttribute;
             ZDevice defaultZDevice;
             std::shared_ptr<JSLog> jsLog;
-            Log log;
         };
 
         MATCHER_P(IsString, stringToCompare, "") {

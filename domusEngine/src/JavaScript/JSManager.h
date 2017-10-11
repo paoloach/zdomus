@@ -19,7 +19,6 @@
 #include "../Configuration/Configuration.h"
 #include "JavaScriptExecuter.h"
 #include "../ZigbeeData/ZDevices.h"
-#include "../Utils/Log.h"
 
 
 namespace zigbee {

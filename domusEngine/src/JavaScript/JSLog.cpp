@@ -7,6 +7,9 @@
 
 
 #include <boost/log/trivial.hpp>
+#include <boost/log/attributes/named_scope.hpp>
+#include <sstream>
+#include "../Utils/LogConstants.h"
 #include "JSLog.h"
 
 #include "JSObjects.h"
@@ -65,16 +68,20 @@ namespace zigbee {
 
     void JSLog::debug(const v8::FunctionCallbackInfo<v8::Value> &info) {
         std::string msg = getMessage(info);
+        BOOST_LOG_NAMED_SCOPE(JS);
         BOOST_LOG_TRIVIAL(debug) << msg;
     }
 
     void JSLog::info(const v8::FunctionCallbackInfo<v8::Value> &info) {
         std::string msg = getMessage(info);
+        BOOST_LOG_NAMED_SCOPE(JS);
         BOOST_LOG_TRIVIAL(info) << msg;
     }
 
     void JSLog::warning(const v8::FunctionCallbackInfo<v8::Value> &info) {
         std::string msg = getMessage(info);
+        boost::log::string_literal a;
+        BOOST_LOG_NAMED_SCOPE(JS);
         BOOST_LOG_TRIVIAL(warning) << msg;
     }
 

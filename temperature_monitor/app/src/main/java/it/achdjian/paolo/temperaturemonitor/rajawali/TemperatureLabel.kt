@@ -22,7 +22,7 @@ class TemperatureLabel(room: RoomObject) : Plane(getMaxWidth(room), getMaxHeight
         val name = "TempSensor" + room.name
         setName(name)
         setText("N.D.", Color.GREEN)
-        val pos = Vector3(room.mean.x, room.mean.y, 0.0)
+        val pos = Vector3(room.mean.x, room.mean.y, room.max.z)
         position = pos
         isDoubleSided = true
     }

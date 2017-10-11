@@ -119,6 +119,12 @@ namespace zigbee {
         });
 
 
+        boost::fibers::fiber fiberInitSendIEEEAddress([this]() {
+            boost::this_fiber::sleep_for(2s);
+            this->init();
+        });
+
+
         while (!stop) {
             std::this_thread::__sleep_for(0s, 10us);
             boost::this_fiber::yield();
@@ -246,6 +252,30 @@ namespace zigbee {
             zDevices->put(simpleDescMessage);
         }
 
+    }
+
+
+    void DemoDevice::init() {
+        auto zDevices = singletonObjects.getZDevices();
+        IEEEAddrResp message;
+        message.nwkAddr = NwkAddr(NWK_ADDR1);
+        message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x2A, 0x2B, 0x2C, 0x2D});
+        zDevices->addDeviceInfo(message);
+        boost::this_fiber::sleep_for(2s);
+        message.nwkAddr = NwkAddr(NWK_ADDR2);
+        message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x3A, 0x3B, 0x3C, 0x3D});
+        zDevices->addDeviceInfo(message);
+        boost::this_fiber::sleep_for(2s);
+        message.nwkAddr = NwkAddr(NWK_ADDR3);
+        message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x4A, 0x4B, 0x4C, 0x4D});
+        zDevices->addDeviceInfo(message);
+
+        requestActiveEndpoints(NWK_ADDR1);
+        boost::this_fiber::sleep_for(2s);
+        requestActiveEndpoints(NWK_ADDR2);
+        boost::this_fiber::sleep_for(2s);
+        requestActiveEndpoints(NWK_ADDR3);
+        boost::this_fiber::sleep_for(2s);
     }
 
     void DemoDevice::getIEEEAddress(zigbee::NwkAddr nwkAddr, zigbee::ZDPRequestType, uint8_t) {

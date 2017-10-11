@@ -24,20 +24,20 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
     val rooms = ArrayList<ArrayList<RoomObject>>()
     val planes = ArrayList<List<String>>()
     var isInit = false
-    var planeSelected = 0;
+    var planeSelected = 0
 
     fun getSelected(): RoomObject? {
-        rooms.get(planeSelected).forEach({ if (it.selected) return it })
+        rooms[planeSelected].forEach{ if (it.selected) return it }
         return null
     }
 
     fun selectRoom(name: String) {
-        rooms.get(planeSelected).forEach({
+        rooms[planeSelected].forEach{
             if (it.name == name)
                 it.select()
             else
                 it.deselect()
-        })
+        }
     }
 
     fun initRooms() {
@@ -47,8 +47,8 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
         planes.add(plane0)
         planes.add(plane1)
 
-        rooms.add(ArrayList());
-        rooms.add(ArrayList());
+        rooms.add(ArrayList())
+        rooms.add(ArrayList())
 
         val objParser = LoaderOBJ(context.resources, TextureManager.getInstance(), R.raw.casa_obj)
         try {
@@ -61,12 +61,12 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
                 if (isPlan0(child.name)) {
                     val room = RoomObject(child, cache)
                     Log.i("INIT", child.name)
-                    rooms.get(0).add(room)
+                    rooms[0].add(room)
                 }
                 if (isPlan1(child.name)) {
                     val room = RoomObject(child, cache)
                     Log.i("INIT", child.name)
-                    rooms.get(1).add(room)
+                    rooms[1].add(room)
                 }
             }
         } catch (e: ParsingException) {
@@ -91,7 +91,7 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
     fun disable() = rooms[planeSelected].forEach({ it.disable() })
 
     fun getRoom(room: String): RoomObject? {
-        rooms.get(planeSelected).forEach({ if (it.name == room) return it })
+        rooms.forEach {it.forEach{ if (it.name == room) return it }}
         return null
     }
 
@@ -129,7 +129,7 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
     }
 
     override fun onObjectPicked(objFound: Object3D) {
-        rooms.get(planeSelected).forEach {
+        rooms[planeSelected].forEach {
             if (it.object3D == objFound) {
                 if (!it.selected)
                     select(it)
@@ -140,6 +140,6 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
     }
 
     private fun select(toSelect: RoomObject) {
-        rooms.get(planeSelected).forEach({ if (it == toSelect) it.select() else it.deselect() })
+        rooms[planeSelected].forEach{ if (it == toSelect) it.select() else it.deselect() }
     }
 }

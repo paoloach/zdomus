@@ -16,10 +16,14 @@ var tempArrived = function (nwkId, endpointId, clusterId, attrId) {
 
 var temperatureResponse = function(placeholders) {
     var log = Log();
-    log.info("Called callback response with network id: " + placeholders.networdid);
+    log.info("Called callback response with network id: " + placeholders.getParam(':networdid'));
+
 
     var table = DbTable('Temperatures');
-    var resultSet = table.find("time >= '" + placeholders.dataFrom + "' AND time <= '" + placeholders.dataTo + "' AND network_id=" + placeholders.networdid);
+    var query = "time >= '" + placeholders.getQuery('dataFrom') + "' AND time <= '" + placeholders.getQuery('dataTo') + "' AND network_id=" + placeholders.getParam(':networdid');
+    log.info(query)
+    var resultSet = table.find(query);
+
     var results = new Array();
     while(true){
         let row = resultSet.nextRow();
@@ -36,18 +40,18 @@ var temperatureResponse = function(placeholders) {
 
 var log = Log();
 var endpoints = zEndpoints.getEndpointsWithInCluster(0x402);
-// log.info("endpoints with temperature cluster: " + endpoints.length);
-// if (endpoints.length > 0 ) {
-//     for (let endpoint of endpoints) {
-//         var cluster = endpoint.getCluster(0x402);
-//         var temp = cluster.getProperyById(0);
-//         log.info("Requesting temp to " + endpoint.networkId + ":" + endpoint.endpointId);
-//         temp.requestValue(tempArrived);
-//     }
-// }
-//
-// var restServer = RestServer();
-// restServer.addPath("/temperature/{networdid}/from/{dataFrom}/to/{dataTo}", temperatureResponse);
+ log.info("endpoints with temperature cluster: " + endpoints.length);
+ if (endpoints.length > 0 ) {
+     for (let endpoint of endpoints) {
+         var cluster = endpoint.getCluster(0x402);
+         var temp = cluster.getProperyById(0);
+         log.info("Requesting temp to " + endpoint.networkId + ":" + endpoint.endpointId);
+         temp.requestValue(tempArrived);
+     }
+ }
+
+ var restServer = RestServer();
+ restServer.addPath("/temperature/:networdid", temperatureResponse);
 
 
 

@@ -1,6 +1,7 @@
 package it.achdjian.paolo.temperaturemonitor.domusEngine.rest
 
 import android.os.Handler
+import android.util.Log
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine

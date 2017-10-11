@@ -13,6 +13,7 @@
 #include "../Utils/SingletonObjects.h"
 #include "JavaScriptExecuter.h"
 #include <chrono>
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 namespace zigbee {
 

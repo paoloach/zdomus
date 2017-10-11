@@ -18,11 +18,15 @@ namespace zigbee {
         virtual void resetPersistences();
     private:
         static void getParam(const v8::FunctionCallbackInfo<v8::Value> &info);
+        static void getQuery(const v8::FunctionCallbackInfo<v8::Value> &info);
+        static Net::Rest::Request * getRequest(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         static void checkSingleParam(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info);
         static void checkStringParam(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info, uint32_t index);
     private:
         v8::UniquePersistent<v8::FunctionTemplate> persistentFunctionTemplate;
+
+        static std::string htmlDecode(std::string basic_string);
     };
 }
 

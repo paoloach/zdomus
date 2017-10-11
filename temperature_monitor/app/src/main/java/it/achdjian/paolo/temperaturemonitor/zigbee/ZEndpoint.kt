@@ -11,7 +11,7 @@ data class ZEndpointJSon(val short_address: String, val endpoint_id: String, val
     var output_clusters: Map<Int, Int> = HashMap()
 }
 
-class ZEndpoint(val short_address: Int, val endpoint_id: Int, val profile_id: Int, val device_id: Int, val device_version: Int) {
+data class ZEndpoint(val short_address: Int, val endpoint_id: Int, val profile_id: Int, val device_id: Int, val device_version: Int) {
     constructor(endpoint: ZEndpointJSon) : this(
             endpoint.short_address.toInt(16),
             endpoint.endpoint_id.toInt(16),

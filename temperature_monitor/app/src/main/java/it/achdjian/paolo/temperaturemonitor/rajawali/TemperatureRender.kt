@@ -97,9 +97,7 @@ class TemperatureRender(context: Context, val rooms: Rooms) : Renderer(context) 
         time += deltaTime
         if (time > nextTempUpdate) {
             nextTempUpdate += TEMPERATURE_UPDATE
-            for (room in rooms.rooms.get(rooms.planeSelected)) {
-                room.updateTemp()
-            }
+            rooms.rooms.get(rooms.planeSelected).forEach(RoomObject::updateTemp)
         } else {
             roomToUpdate?.updateTemp()
             roomToUpdate = null
