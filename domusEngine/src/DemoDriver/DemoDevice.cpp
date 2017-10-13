@@ -525,7 +525,7 @@ namespace zigbee {
                     return;
                 } else if (key.clusterId.getId() == ClustersId::TEMPERATURE_MEASUREMENT) {
                     BOOST_LOG_TRIVIAL(trace) << "request attribute temperature cluster for " << key.networkAddress << ":" << key.endpoint;
-                   // assignTemperatureMeasureCluster(cluster, key.attributesId, 23, 4s);
+                    assignTemperatureMeasureCluster(cluster, key.attributesId, 23, 4s);
                     return;
                 }
 
