@@ -62,22 +62,27 @@ class TempSensorLocationDS @Inject constructor(@ForApplication val context: Cont
         Log.i(TAG,"Create: address: ${networkAddress}, location: ${location}")
         val domusViewDatabase = DomusViewDatabase(context)
         val database = domusViewDatabase.writableDatabase
-        val values = ContentValues()
-        values.put(DomusViewDatabase.NETWORK_FIELD, networkAddress)
-        values.put(DomusViewDatabase.ENDPOINT, endpoint)
-        if (!isLocationUsedYet(location)) {
-            Log.i(TAG, "Insert new row")
-            values.put(DomusViewDatabase.LOCATION, location)
-            database.beginTransaction()
-            database.insert(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE, null, values)
-        } else {
-            Log.i(TAG, "update row ${location}")
-            database.beginTransaction()
-            database.update(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE,  values, DomusViewDatabase.LOCATION+"='"+location+"'", null);
+        try {
+            val values = ContentValues()
+            values.put(DomusViewDatabase.NETWORK_FIELD, networkAddress)
+            values.put(DomusViewDatabase.ENDPOINT, endpoint)
+            if (!isLocationUsedYet(location)) {
+                Log.i(TAG, "Insert new row")
+                values.put(DomusViewDatabase.LOCATION, location)
+                database.beginTransaction()
+                database.insert(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE, null, values)
+            } else {
+                Log.i(TAG, "update row ${location}")
+                database.beginTransaction()
+                database.update(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE, values, DomusViewDatabase.LOCATION + "='" + location + "'", null);
+            }
+            database.setTransactionSuccessful()
+            database.endTransaction()
+        } finally {
+            database.close()
+
         }
-        database.setTransactionSuccessful()
-        database.endTransaction()
-        database.close()
+
     }
 
     fun cleanDatabase() {
