@@ -65,15 +65,15 @@ class TempSensorLocationDS @Inject constructor(@ForApplication val context: Cont
         val values = ContentValues()
         values.put(DomusViewDatabase.NETWORK_FIELD, networkAddress)
         values.put(DomusViewDatabase.ENDPOINT, endpoint)
-        values.put(DomusViewDatabase.LOCATION, location)
         if (!isLocationUsedYet(location)) {
             Log.i(TAG, "Insert new row")
+            values.put(DomusViewDatabase.LOCATION, location)
             database.beginTransaction()
             database.insert(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE, null, values)
         } else {
             Log.i(TAG, "update row ${location}")
             database.beginTransaction()
-            database.update(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE,  values, DomusViewDatabase.LOCATION+"="+location, null);
+            database.update(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE,  values, DomusViewDatabase.LOCATION+"='"+location+"'", null);
         }
         database.setTransactionSuccessful()
         database.endTransaction()
