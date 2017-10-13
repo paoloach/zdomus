@@ -5,5 +5,5 @@
     <name>readTemperatures</name>
 </javascript>
 <rest>
-    <timeout>100</timeout>
+    <timeout>3</timeout>
 </rest>

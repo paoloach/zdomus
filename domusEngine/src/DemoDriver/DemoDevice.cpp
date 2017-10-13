@@ -40,9 +40,13 @@ namespace zigbee {
     constexpr uint8_t type8BIT_ENUM = 0x30;
     constexpr uint8_t type16BIT_ENUM = 0x31;
 
+    static ExtAddress extAddress0({0x01, 0x02, 0x03, 0x04, 0x1A, 0x1B, 0x1C, 0x1D});
     static constexpr NwkAddr NWK_ADDR1{0x1234};
+    static ExtAddress extAddress1({0x01, 0x02, 0x03, 0x04, 0x2A, 0x2B, 0x2C, 0x2D});
     static constexpr NwkAddr NWK_ADDR2{0x1232};
-    static constexpr NwkAddr NWK_ADDR3{0x8934};
+    static ExtAddress extAddress2({0x01, 0x02, 0x03, 0x04, 0x3A, 0x3B, 0x3C, 0x3D});
+    static constexpr NwkAddr NWK_ADDR3{0x8935};
+    static ExtAddress extAddress3({0x01, 0x02, 0x03, 0x04, 0x4A, 0x4B, 0x4C, 0x4E});
 
     static std::vector<uint8_t> cluster0_0 = {typeUINT8, 0x01};
     static std::vector<uint8_t> cluster0_1 = {typeUINT8, 0x10};
@@ -259,15 +263,15 @@ namespace zigbee {
         auto zDevices = singletonObjects.getZDevices();
         IEEEAddrResp message;
         message.nwkAddr = NwkAddr(NWK_ADDR1);
-        message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x2A, 0x2B, 0x2C, 0x2D});
+        message.ieeeAddr = extAddress1;
         zDevices->addDeviceInfo(message);
         boost::this_fiber::sleep_for(2s);
         message.nwkAddr = NwkAddr(NWK_ADDR2);
-        message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x3A, 0x3B, 0x3C, 0x3D});
+        message.ieeeAddr = extAddress2;
         zDevices->addDeviceInfo(message);
         boost::this_fiber::sleep_for(2s);
         message.nwkAddr = NwkAddr(NWK_ADDR3);
-        message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x4A, 0x4B, 0x4C, 0x4D});
+        message.ieeeAddr = extAddress3;
         zDevices->addDeviceInfo(message);
 
         requestActiveEndpoints(NWK_ADDR1);
@@ -284,7 +288,7 @@ namespace zigbee {
 
         if (nwkAddr == 0) {
             message.nwkAddr = NwkAddr(0);
-            message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x1A, 0x1B, 0x1C, 0x1D});
+            message.ieeeAddr = extAddress0;
             message.children.insert(NWK_ADDR1);
             message.children.insert(NWK_ADDR2);
             zDevices->addDeviceInfo(message);
@@ -292,20 +296,20 @@ namespace zigbee {
 
         if (nwkAddr == NWK_ADDR1) {
             message.nwkAddr = NwkAddr(NWK_ADDR1);
-            message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x2A, 0x2B, 0x2C, 0x2D});
+            message.ieeeAddr = extAddress1;
             zDevices->addDeviceInfo(message);
         }
 
         if (nwkAddr == NWK_ADDR2) {
             message.nwkAddr = NwkAddr(NWK_ADDR2);
-            message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x3A, 0x3B, 0x3C, 0x3D});
+            message.ieeeAddr = extAddress2;
             message.children.insert(NWK_ADDR3);
             zDevices->addDeviceInfo(message);
         }
 
         if (nwkAddr == NWK_ADDR3) {
             message.nwkAddr = NwkAddr(NWK_ADDR3);
-            message.ieeeAddr = ExtAddress({0x01, 0x02, 0x03, 0x04, 0x4A, 0x4B, 0x4C, 0x4D});
+            message.ieeeAddr = extAddress3;
             zDevices->addDeviceInfo(message);
         }
     }
@@ -521,7 +525,7 @@ namespace zigbee {
                     return;
                 } else if (key.clusterId.getId() == ClustersId::TEMPERATURE_MEASUREMENT) {
                     BOOST_LOG_TRIVIAL(trace) << "request attribute temperature cluster for " << key.networkAddress << ":" << key.endpoint;
-                    assignTemperatureMeasureCluster(cluster, key.attributesId, 23, 4s);
+                   // assignTemperatureMeasureCluster(cluster, key.attributesId, 23, 4s);
                     return;
                 }
 

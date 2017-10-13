@@ -20,6 +20,10 @@ import javax.inject.Singleton
 class TempSensorLocationDS @Inject constructor(@ForApplication val context: Context, val zDevices: ZDevices) {
     lateinit var domusEngine: DomusEngine
 
+    companion object {
+        private val TAG = "DATABASE"
+    }
+
     init {
         cleanDatabase()
     }
@@ -34,14 +38,15 @@ class TempSensorLocationDS @Inject constructor(@ForApplication val context: Cont
                     null,
                     null, null, null, null)
             query.moveToFirst()
-            while(true){
+            while(!query.isAfterLast){
+
                 val sb = StringBuilder();
                 var i=0
                 while( i < query.columnCount){
                     sb.append(query.getColumnName(i)).append(": ").append(query.getString(i)).append("  ")
                     i++
                 }
-                Log.i("DATABASE", sb.toString())
+                Log.i(TAG, sb.toString())
                 if (!query.moveToNext())
                     break;
             }
@@ -54,15 +59,22 @@ class TempSensorLocationDS @Inject constructor(@ForApplication val context: Cont
     }
 
     fun createTempSensorLocation(networkAddress: String, endpoint: Int, location: String) {
-        Log.i("DATABASE","Create: address: ${networkAddress}, location: ${location}")
+        Log.i(TAG,"Create: address: ${networkAddress}, location: ${location}")
         val domusViewDatabase = DomusViewDatabase(context)
         val database = domusViewDatabase.writableDatabase
         val values = ContentValues()
         values.put(DomusViewDatabase.NETWORK_FIELD, networkAddress)
         values.put(DomusViewDatabase.ENDPOINT, endpoint)
         values.put(DomusViewDatabase.LOCATION, location)
-        database.beginTransaction()
-        database.insert(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE, null, values)
+        if (!isLocationUsedYet(location)) {
+            Log.i(TAG, "Insert new row")
+            database.beginTransaction()
+            database.insert(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE, null, values)
+        } else {
+            Log.i(TAG, "update row ${location}")
+            database.beginTransaction()
+            database.update(DomusViewDatabase.TEMP_SENSOR_LOCATION_TABLE,  values, DomusViewDatabase.LOCATION+"="+location, null);
+        }
         database.setTransactionSuccessful()
         database.endTransaction()
         database.close()
@@ -183,6 +195,7 @@ class TempSensorLocationDS @Inject constructor(@ForApplication val context: Cont
             database?.close()
         }
     }
+
 
     fun getElement(roomName: String): ZElementAdapter.Element? {
         printContent()

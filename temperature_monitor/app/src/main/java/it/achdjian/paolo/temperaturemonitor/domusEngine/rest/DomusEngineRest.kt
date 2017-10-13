@@ -35,19 +35,16 @@ class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: C
             if (response.code() == 204) {
                 return ""
             }
-            if (response.code() in 400..499) {
-                Log.e(TAG, "Error code: " + response.code() + ": msg: " + response.message())
-                return ""
-            }
+            Log.e(TAG, "Error code: " + response.code() + ": msg: " + response.message())
+            return ""
         } catch (ignored: Exception) {
             Log.e(TAG, "error", ignored)
         }
 
-        Log.e(TAG, "ERROR")
+        Log.e(TAG, "CONNECTION ERROR")
         connected.connected = false
         return ""
     }
-
 
 
     fun post(path: String, body: String = "") {

@@ -22,6 +22,10 @@ class TemperatureCache @Inject constructor() : CacheLoader<String, Optional<Int>
     @Inject
     lateinit var tempSensorLocationDS: TempSensorLocationDS
 
+    companion object {
+        private val TAG = "ZIGBEE COM"
+    }
+
     override fun newAttributes(attributes: Attributes) {
         if (attributes.clusterId == Constants.TEMPERATURE_MEASUREMENT) {
             attributes.jSonAttribute.forEach {
@@ -43,7 +47,7 @@ class TemperatureCache @Inject constructor() : CacheLoader<String, Optional<Int>
 
 
     fun getTemperature(roomName: String): Optional<Int> {
-        Log.i("ZIGBEE COM", "temp request for " + roomName);
+        Log.i(TAG, "temp request for " + roomName);
         return cache.getUnchecked(roomName)
     }
 
@@ -51,7 +55,11 @@ class TemperatureCache @Inject constructor() : CacheLoader<String, Optional<Int>
     override fun load(roomName: String): Optional<Int> {
         val element = tempSensorLocationDS.getElement(roomName)
         if (element != null) {
+            Log.i(TAG, "load temperature for name ${roomName} ")
+            Log.i(TAG,"Request attribute temperature for room ${roomName}")
             domusEngine.getAttribute(element.shortAddress, element.endpointId, Constants.TEMPERATURE_MEASUREMENT, 0)
+        } else {
+            Log.i(TAG, "load temperature for name ${roomName} " +element)
         }
         return Optional.absent<Int>()
     }
