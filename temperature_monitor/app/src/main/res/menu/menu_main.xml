@@ -12,14 +12,18 @@
         android:checkable="false"
         android:enabled="true"
         android:orderInCategory="101"
-        android:title="plane -1"
+        android:title="Stage -1"
         android:visible="true"/>
     <item
         android:id="@+id/plane0 "
         android:orderInCategory="102"
-        android:title="plane 0"/>
+        android:title="Stage 0"/>
     <item
         android:id="@+id/plane1"
         android:orderInCategory="103"
-        android:title="plane 1"/>
+        android:title="Stage 1"/>
+    <item
+        android:id="@+id/sensorsList"
+        android:orderInCategory="104"
+        android:title="Sensors list"/>
 </menu>

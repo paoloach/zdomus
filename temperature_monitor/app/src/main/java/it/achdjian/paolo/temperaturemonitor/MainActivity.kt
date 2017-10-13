@@ -12,7 +12,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import it.achdjian.paolo.temperaturemonitor.dagger.TemperatureApplication
-import it.achdjian.paolo.temperaturemonitor.domusEngine.*
+import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionObserver
+import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
+import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
+import it.achdjian.paolo.temperaturemonitor.domusEngine.PowerNodeCache
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureSurface
@@ -108,6 +111,16 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
                     renderer.updateLevel =true
                 }
                 return true
+
+            }
+            R.id.sensorsList -> {
+                if (tempLV.visibility==View.VISIBLE){
+                    tempLV.visibility = View.GONE
+                } else {
+                    tempLV.visibility = View.VISIBLE
+                }
+
+
             }
         }
 
