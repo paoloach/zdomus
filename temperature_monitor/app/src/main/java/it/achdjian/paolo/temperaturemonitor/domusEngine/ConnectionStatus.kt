@@ -16,14 +16,16 @@ class ConnectionStatus @Inject constructor(){
 
     var connected: Boolean
             by Delegates.observable(false) {
-                _, _, new ->
-                Log.i(ZigbeeRunnable.TAG, "set new value: " + new)
-                Log.i(ZigbeeRunnable.TAG, observers.size.toString() + " observers")
-                for (observer in observers) {
-                    if (new)
-                        observer.connected()
-                    else
-                        observer.disconnected()
+                property, oldValue, new ->
+                Log.i(ZigbeeRunnable.TAG, "old value: " + oldValue + " new value: " + new)
+                if (oldValue != new) {
+                    Log.i(ZigbeeRunnable.TAG, observers.size.toString() + " observers")
+                    for (observer in observers) {
+                        if (new)
+                            observer.connected()
+                        else
+                            observer.disconnected()
+                    }
                 }
             }
 

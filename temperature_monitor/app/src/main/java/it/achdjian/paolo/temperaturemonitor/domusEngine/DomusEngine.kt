@@ -57,6 +57,10 @@ class DomusEngine(
     fun addListener(listener: PowerListener) = powerListener.add(listener)
     fun removeListener(listener: PowerListener) = powerListener.remove(listener)
 
+    fun requestWhoAreYou() {
+
+    }
+
     fun addAttributeListener(listener: AttributesListener) = attributeListener.add(listener)
 
     fun requestIdentify(shortAddress: Int, endpointId: Int)  =

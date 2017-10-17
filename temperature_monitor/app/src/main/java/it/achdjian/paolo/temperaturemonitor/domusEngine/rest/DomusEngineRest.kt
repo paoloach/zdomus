@@ -30,11 +30,14 @@ class DomusEngineRest(val sharedPreferences: SharedPreferences, val connected: C
         try {
             val response = client.newCall(request).execute()
             if (response.code() == 200) {
+                connected.connected = true
                 return response.body().string()
             }
             if (response.code() == 204) {
+                connected.connected = true
                 return ""
             }
+            connected.connected = true
             Log.e(TAG, "Error code: " + response.code() + ": msg: " + response.message())
             return ""
         } catch (ignored: Exception) {
