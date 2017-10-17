@@ -19,9 +19,9 @@
 #include <utility>
 
 #include "ZCLDataType.h"
-#include "Callbacks.h"
 #include "../zigbee/AttributeStatusRecord.h"
 #include "../zigbee/messageStructure/ReadAttributeResponseMessage.h"
+#include "../zigbee/ResponseCallback.h"
 
 namespace zigbee {
 
@@ -114,7 +114,7 @@ namespace zigbee {
 
         virtual void setStatus(uint8_t status);
 
-        virtual void requestValue();
+        virtual void requestValue( std::unique_ptr<ResponseCallback<ZCLAttribute *>> &&callback);
 
         virtual bool isAvailable() const { return status == Available; }
 
@@ -130,16 +130,6 @@ namespace zigbee {
 
         virtual Cluster *getClusterParent() { return parent; };
 
-        virtual ListenerOnChange onChange(std::function<void()> && changeSignal) {
-            return callbacks.add(changeSignal);
-        };
-
-        virtual void removeOnChangeListener(ListenerOnChange &listener) {
-
-            callbacks.remove(listener);
-            BOOST_LOG_TRIVIAL(info) << "remain " << callbacks.size() << " elements";
-        }
-
     protected:
         void sendValueToDevice(uint8_t dataLen, uint8_t *data);
 
@@ -150,7 +140,6 @@ namespace zigbee {
         Status status;
         std::experimental::string_view name;
         bool readOnly;
-        Callbacks callbacks;
         ZCLTypeDataType zclType;
     };
 

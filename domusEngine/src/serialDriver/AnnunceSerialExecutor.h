@@ -40,7 +40,7 @@ namespace zigbee {
                 singletons.getZigbeeDevice()->requestActiveEndpoints(nwkAddr);
                 sleep(1);
                 BOOST_LOG_TRIVIAL(info) << "Request bind table";
-                singletons.getZigbeeDevice()->requestBindTable(nwkAddr);
+                //singletons.getZigbeeDevice()->requestBindTable(nwkAddr);
             } catch (boost::bad_lexical_cast &e) {
                 BOOST_LOG_TRIVIAL(error) << "Unable to decode Annunce message: " << e.what();
             }

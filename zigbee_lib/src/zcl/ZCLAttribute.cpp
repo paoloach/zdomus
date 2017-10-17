@@ -39,9 +39,11 @@ namespace zigbee {
     }
 
 
-    void ZCLAttribute::requestValue() {
+    void ZCLAttribute::requestValue(std::unique_ptr<ResponseCallback<ZCLAttribute *>> &&callback) {
         if (zigbeeDevice != nullptr) {
-            zigbeeDevice->requestAttribute(AttributeKey{parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier});
+            AttributeKey key{parent->getNetworkAddress(), parent->getEndpoint(), parent->getId(), identifier};
+            zigbeeDevice->registerForAttributeValue(key, std::move(callback));
+            zigbeeDevice->requestAttribute(key);
         }
     }
 
@@ -60,7 +62,6 @@ namespace zigbee {
                 status = Undefined;
             }
 
-            callbacks();
         }
     }
 
@@ -79,7 +80,6 @@ namespace zigbee {
             } else {
                 status = Undefined;
             }
-            callbacks();
         }
     }
 
@@ -100,7 +100,6 @@ namespace zigbee {
         } else {
             status = Undefined;
         }
-        callbacks();
     }
 
     void ZCLAttribute::setStatus(uint8_t attrStatus){

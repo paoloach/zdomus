@@ -27,9 +27,6 @@ CmdRequestAttribute::CmdRequestAttribute(ZigbeeDevice& zigbeeDevice_, boost::pro
 	init(request);
 }
 
-CmdRequestAttribute::~CmdRequestAttribute() {
-}
-
 bool CmdRequestAttribute::parseData(const std::string& line) {
 	std::stringstream stream { line };
 	ptree properties { };
@@ -64,7 +61,7 @@ void CmdRequestAttribute::init(boost::property_tree::ptree& request) {
 	nwkAddress = request.get<NwkAddr>(SHORT_ADDR_NAME);
 	endpoint = request.get<EndpointID>(ENDPOINT_ID_NAME);
 	cluster = request.get<ClusterID>(CLUSTER_ID_NAME);
-	attributeId = request.get<int>(ATTR_ID_NAME);
+	attributeId = request.get<ZigbeeAttributeId>(ATTR_ID_NAME);
 }
 
 } /* namespace zigbee */

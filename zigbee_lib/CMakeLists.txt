@@ -64,13 +64,11 @@ SET(SOURCE_ZCL_FILES
         src/zcl/OnOffLight.cpp
         src/zcl/ZCLAttribute.cpp
         src/zcl/ZCLDevice.cpp
-        src/zcl/Callbacks.cpp src/zcl/Callbacks.h
         src/zcl/ZclAttributeUtils.cpp src/zcl/ZclAttributeUtils.h
         src/zcl/ZCLDataType.h
         src/zcl/StatusEnum.h
         src/zcl/ClustersEnum.h
         src/zigbee/PowerNodeData.h
-        src/zigbee/Callbacks.h
         src/zigbee/ResponseCallbacks.h
         src/zigbee/ResponseQueue.h
         src/zigbee/CmdData.h)

@@ -38,16 +38,6 @@ namespace zigbee {
                                                                            {ZCLAttribute::Requesting,   "requesting"},
                                                                            {ZCLAttribute::Undefined,    "undefined"},};
 
-    JSZAttribute::~JSZAttribute() {
-        for (auto &function: mapFunction) {
-            CallbackData callback = function.second;
-            auto attribute = get<1>(callback);
-            attribute->removeOnChangeListener(get<0>(callback));
-            get<2>(callback).Reset();
-        }
-
-    }
-
     void JSZAttribute::initJsObjectsTemplate(v8::Isolate *isolate, const v8::Local<v8::FunctionTemplate> &zAttributeFunctionTemplate) {
         Local<String> requestValueMethod = String::NewFromUtf8(isolate, REQUEST_VALUE);
         Local<String> isAvailableMethod = String::NewFromUtf8(isolate, IS_AVAILABLE);
@@ -197,63 +187,24 @@ namespace zigbee {
                 if (!info[0]->IsFunction()) {
                     throw JSExceptionArgNoFunction(0);
                 }
-                Local<External> wrap = Local<External>::Cast(self->GetInternalField(1));
-                JSZAttribute *This = (JSZAttribute *) wrap->Value();
+                JSZAttribute *This = getThis(info);
 
-                v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>> persistenteObject;
-                persistenteObject.Reset(isolate, info[0]);
-
-                Local<Function> callback = Local<Function>::Cast(info[0]);
-
-                auto cluster = attribute->getClusterParent();
-
-                if (cluster != nullptr) {
-                    auto param = std::make_shared<JsCallbackParameters>(cluster, attribute->getIdentifier(), make_tuple(self->GetIdentityHash(), callback->GetIdentityHash()));
-
-                    auto con = attribute->onChange([This, isolate, param]()  mutable {
-                        This->changeSignalCallback(isolate, param);
-                    });
-                    This->mapFunction.insert({param->key, std::make_tuple(con, attribute, persistenteObject)});
-                    std::lock_guard<std::mutex> lock(This->mapFunctionMutex);
-
-                }
+                v8::Persistent<v8::Value, v8::CopyablePersistentTraits<v8::Value>> persistententObject;
+                persistententObject.Reset(isolate, info[0]);
+                attribute->requestValue(std::make_unique<JSZAttributeCallback>(persistententObject, &This->callbackFifo, isolate));
+            } else {
+                v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, "Request method need a callback");
+                isolate->ThrowException(errorMsg);
             }
-            attribute->requestValue();
+
         } catch (std::exception &excp) {
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());
             isolate->ThrowException(errorMsg);
         }
     }
 
-    void JSZAttribute::changeSignalCallback(v8::Isolate *isolate, std::shared_ptr<JsCallbackParameters> callbackParameters) {
-        if (mapFunction.count(callbackParameters->key) > 0) {
-            callbackFifo.add(isolate, [callbackParameters, this](v8::Isolate *isolate)  mutable {
-                this->jsCallback(callbackParameters, isolate);
-            });
-        }
-    }
 
-    void JSZAttribute::jsCallback(std::shared_ptr<JsCallbackParameters> callbackParameters, v8::Isolate *isolate) {
-        CallbackData callbackData = popCallbackData(callbackParameters->key);
 
-        Local<Value> object = Local<Value>::New(isolate, std::get<2>(callbackData));
-        Local<Function> callback = Local<Function>::Cast(object);
-
-        if (!callback.IsEmpty()) {
-            String::Utf8Value name(callback->GetInferredName());
-            BOOST_LOG_TRIVIAL(info) << "calling " << *name;
-
-            Local<Value> argv[4];
-            argv[0] = v8::Int32::New(isolate, callbackParameters->nwkAddr.getId());
-            argv[1] = v8::Int32::New(isolate, callbackParameters->endpointID.getId());
-            argv[2] = v8::Int32::New(isolate, callbackParameters->clusterID.getId());
-            argv[3] = v8::Int32::New(isolate, callbackParameters->attributeId);
-
-            callback->CallAsFunction(object, 4, argv);
-            get<1>(callbackData)->removeOnChangeListener(get<0>(callbackData));
-            get<2>(callbackData).Reset();
-        }
-    }
 
     void JSZAttribute::jsIsAvailable(const v8::FunctionCallbackInfo<v8::Value> &info) {
         Isolate *isolate = info.GetIsolate();
@@ -354,16 +305,38 @@ namespace zigbee {
         return attribute;
     }
 
-    JSZAttribute::CallbackData JSZAttribute::popCallbackData(std::tuple<int, int> key) {
-        std::lock_guard<std::mutex> lock(mapFunctionMutex);
-        if (mapFunction.count(key) > 0) {
-            CallbackData callbackData = std::move(mapFunction[key]);
-            mapFunction.erase(key);
-            return callbackData;
-        } else {
-            BOOST_LOG_TRIVIAL(warning) << "Key non trovata";
-            return CallbackData{};
-        }
+    JSZAttribute *JSZAttribute::getThis(const v8::FunctionCallbackInfo<v8::Value> &info) {
+        Local<Object> self = info.Holder();
+        Local<External> wrap = Local<External>::Cast(self->GetInternalField(1));
+        return (JSZAttribute *) wrap->Value();
+    }
+
+    void JSZAttribute::JSZAttributeCallback::response(ZCLAttribute *attribute) {
+        auto cluster = attribute->getClusterParent();
+        auto nwkAddr = cluster->getNetworkAddress().getId();
+        auto endpointId = cluster->getEndpoint().getId();
+        auto clusterId = cluster->getId().getId();
+        auto attributeId = attribute->getIdentifier();
+        auto callback = persistentCallback;
+
+        BOOST_LOG_TRIVIAL(info) << "Arrived attribute " << attributeId << " from " << nwkAddr;
+
+        callbackFifo->add(isolate, [nwkAddr, endpointId, clusterId, attributeId, callback](v8::Isolate *isolate) {
+            Local<Value> argv[4];
+            argv[0] = v8::Int32::New(isolate, nwkAddr);
+            argv[1] = v8::Int32::New(isolate, endpointId);
+            argv[2] = v8::Int32::New(isolate, clusterId);
+            argv[3] = v8::Int32::New(isolate, attributeId);
+
+            Local<Value> object = Local<Value>::New(isolate, callback);
+            Local<Function> callback = Local<Function>::Cast(object);
+
+            callback->CallAsFunction(object, 4, argv);
+        });
+    }
+
+    void JSZAttribute::JSZAttributeCallback::timeout() {
+        BOOST_LOG_TRIVIAL(info) << "Request attribute timeout";
     }
 
 } /* namespace zigbee */

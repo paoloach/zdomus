@@ -17,7 +17,6 @@
 /usr/local/zigbee/include/zigbee/ZigbeeDevice.h
 /usr/local/zigbee/include/zigbee/ZigbeeTypes.h
 /usr/local/zigbee/include/zigbee/zigbeeConfig.h
-/usr/local/zigbee/include/zcl/Callbacks.h
 /usr/local/zigbee/include/zcl/Cluster.h
 /usr/local/zigbee/include/zcl/ClusterTypeFactory.h
 /usr/local/zigbee/include/zcl/ClustersEnum.h

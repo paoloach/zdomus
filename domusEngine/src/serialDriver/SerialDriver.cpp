@@ -147,12 +147,16 @@ namespace zigbee {
     }
 
     void SerialDriver::requestAttribute(const AttributeKey &key) {
-        if (serialFd >= 0) {
-            stringstream stream;
-            stream << "RA: " << hex << uppercase << setfill('0') << setw(4) << key.networkAddress.getId() << ", " << setw(2) << (int) key.endpoint.getId() << ", " << setw(4)
-                   << key.clusterId.getId() << ", " << setw(4) << key.attributeId << "\n";
-            write(stream.str());
-        }
+        std::vector<ZigbeeAttributeId> list;
+        list.push_back(key.attributeId);
+        AttributesKey keys{key.networkAddress, key.endpoint, key.clusterId,list};
+        requestAttributes(keys);
+//        if (serialFd >= 0) {
+//            stringstream stream;
+//            stream << "RA: " << hex << uppercase << setfill('0') << setw(4) << key.networkAddress.getId() << ", " << setw(2) << (int) key.endpoint.getId() << ", " << setw(4)
+//                   << key.clusterId.getId() << ", " << setw(4) << key.attributeId << "\n";
+//            write(stream.str());
+//        }
     }
 
     // RAS: networkid, endpointId, clusterId, attributesNum, first attributed id, ..., last attribute id

@@ -22,7 +22,7 @@ class CmdRequestAttribute : public Comand {
 public:
 	CmdRequestAttribute(ZigbeeDevice &);
 	CmdRequestAttribute(ZigbeeDevice & zigbeeDevice, boost::property_tree::ptree & request);
-	virtual ~CmdRequestAttribute();
+	virtual ~CmdRequestAttribute() =default;
 public:
 	virtual bool parseData(const std::string &line) override;
 	virtual void execute() override;
@@ -34,7 +34,7 @@ private:
 	EndpointID endpoint;
 	ClusterID cluster;
 	ZigbeeDevice & zigbeeDevice;
-	int attributeId;
+    ZigbeeAttributeId attributeId;
 	std::string response;
 };
 
