@@ -14,7 +14,6 @@
 #include "../Mocks/DBTableMock.h"
 #include "../../JavaScript/JSRow.h"
 #include "../../JavaScript/JSResultSet.h"
-#include "../../Utils/Log.h"
 
 namespace zigbee {
 namespace test {

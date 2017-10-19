@@ -27,12 +27,8 @@ namespace zigbee {
             MOCK_METHOD0(requestDevices, bool());
             MOCK_METHOD1(requestNodePower, void (zigbee::NwkAddr));
             MOCK_METHOD0(getUsbMessage, void());
-            MOCK_METHOD4(requestAttribute, void (NwkAddr
-                    nwkAddrs,
-                    const EndpointID endpoint, ClusterID
-                    cluster, ZigbeeAttributeId
-                    attributeId));
-
+            MOCK_METHOD1(requestAttribute, void(const AttributeKey &key));
+            MOCK_METHOD1(requestAttributes, void(AttributesKey &key));
             MOCK_METHOD0(requestReset, void());
             MOCK_METHOD7(writeAttribute, void (NwkAddr
                     nwkAddrs,

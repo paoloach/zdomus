@@ -46,7 +46,8 @@ TEST_F( CmdRequestAttributeTest, parse_data) {
 TEST_F( CmdRequestAttributeTest, execute) {
 	cmdReqAttribute->parseData(inputJson);
 
-	EXPECT_CALL(zigbeeDevice, requestAttribute(NWKADDR, ENDPOINT, CLUSTER, ATTRIBUTE_STRING_ID));
+    AttributeKey key(NWKADDR,ENDPOINT,CLUSTER,ATTRIBUTE_STRING_ID );
+	EXPECT_CALL(zigbeeDevice, requestAttribute(key));
 
 	cmdReqAttribute->execute();
 }

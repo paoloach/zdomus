@@ -150,6 +150,7 @@ SET(SRC_DEMO_DRIVER
 
 
 SET(SRC_SERIAL_DRIVER
+        src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h
         src/serialDriver/InvalidResponseSerialExecutor.h
         src/serialDriver/IEEEAddressResponseErrorSerialExecutor.h src/serialDriver/AnnunceSerialExecutor.h
         src/serialDriver/SerialResponseExecutor.cpp src/serialDriver/SerialResponseExecutor.h
@@ -186,7 +187,7 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/IEEEAddressResponseExecutor.h
         src/usb/messages/PowerNodeRequestMessage.h
         src/usb/PowerNodeReqError.h
-        src/usb/messages/PowerNodeRespMessage.h)
+        src/usb/messages/PowerNodeRespMessage.h src/DemoDriver/DemoDriverFactory.h src/usb/UsbDriverFactory.h)
 
 
 set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h
@@ -195,7 +196,8 @@ set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterRes
                 src/Utils/SingletonObjects.cpp  src/Utils/SingletonObjects.h
                 src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
                 src/Utils/Constant.cpp src/Utils/Constant.h
-                src/Utils/LogConstants.h )
+                src/Utils/LogConstants.h
+                src/Utils/DriverFactory.h)
 
 
 add_library(javascript_lib OBJECT
@@ -225,11 +227,8 @@ add_library(javascript_lib OBJECT
 
 
 add_library(domus_engine_static_lib STATIC
-        ${USB_SRC}
         ${SRC_HTTP}
-        ${SRC_SERIAL_DRIVER}
         ${SRC_UTILS}
-        ${SRC_DEMO_DRIVER}
         ${SRC_ZIGBEE_DATA}
         ${srcZigbeeDataPT}
         ${srcIO}
@@ -258,10 +257,10 @@ add_library(domus_engine_static_lib STATIC
         src/json/json/json-forwards.h
         src/json/json/json.h
         src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h
-        src/serialDriver/SerialDriver.cpp src/serialDriver/SerialDriver.h)
+        )
 
 
-add_executable(domus_engine src/main.cpp ${V8_BLOB})
+add_executable(domus_engine src/main.cpp ${V8_BLOB} ${SRC_DEMO_DRIVER} ${SRC_SERIAL_DRIVER} ${USB_SRC})
 
 add_dependencies(domus_engine pistache)
 

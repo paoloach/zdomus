@@ -19,6 +19,7 @@
 #include "../ZigbeeData/TopologyCreation.h"
 #include "DeviceInfoDispatcher.h"
 #include "../httpServer/RestHandler.h"
+#include "DriverFactory.h"
 
 struct libusb_context;
 
@@ -41,7 +42,7 @@ namespace zigbee {
     public:
         SingletonObjects();
 
-        SingletonObjects(std::string &&configurationFileName, std::string  driverName);
+        SingletonObjects(std::string &&configurationFileName, std::string  driverName, std::vector<DriverFactory *> && driverFactories);
 
         virtual ~SingletonObjects() = default;
 
@@ -79,7 +80,6 @@ namespace zigbee {
         DeviceInfoDispatcher deviceInfoDispatcher;
         BindTable bindTable;
         zigbee::AttributeDataContainer attributeDataContainer;
-        libusb_context *usbContext;
         Clusters clusters;
         AttributeWriter attributeWriter;
         Constant constant;

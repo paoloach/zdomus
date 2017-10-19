@@ -78,6 +78,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/serialDriver/SerialDriverFactory.h">
+			<Option target="domus_engine_test"/>
+		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdGetUpdateTest.cpp">
 			<Option target="domus_engine_test"/>
 		</Unit>

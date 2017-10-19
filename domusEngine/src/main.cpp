@@ -34,6 +34,10 @@
 #include "httpServer/RestHandler.h"
 #include "JavaScript/JSManager.h"
 #include "ZigbeeData/RequestDevices.h"
+#include "Utils/DriverFactory.h"
+#include "serialDriver/SerialDriverFactory.h"
+#include "DemoDriver/DemoDriverFactory.h"
+#include "usb/UsbDriverFactory.h"
 
 using namespace zigbee;
 using namespace boost::program_options;
@@ -90,7 +94,12 @@ int main(int argc, const char *argv[]) {
     if (vm.count("configuration")) {
         configurationFileName = vm[CONFIGURATION_OPTION].as<std::string>();
     }
-    SingletonObjects singletons(std::move(configurationFileName), vm[ZDRIVER].as<std::string>());
+
+    std::vector<DriverFactory *> driverFactories = {new SerialDriverFactory, new DemoDriverFactory, new UsbDriverFactory};
+
+
+
+    SingletonObjects singletons(std::move(configurationFileName), vm[ZDRIVER].as<std::string>(), std::move(driverFactories));
     auto zDevices = singletons.getZDevices();
 
     TopologyCreation topologyCreation(singletons);

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(domus_engine_test)
 
-set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache/include )
+set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache/include)
 set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache-build/src/libnet_static.a)
 
 find_package(PostgreSQL)
@@ -21,7 +21,7 @@ file(GLOB testRestParser "httpServer/RestParser/*.cpp")
 
 
 SET(SRC_TEST_SERIAL_DRIVER serialDriver/IEEEAddressResponseSerialExecutorTest.cpp
-        serialDriver/IEEEAddressResponseSerialExecutorTest.h)
+        serialDriver/IEEEAddressResponseSerialExecutorTest.h ../serialDriver/SerialDriverFactory.h)
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O0 -std=c++14  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
@@ -67,7 +67,7 @@ SET(SRC_TEST_MOCK Mocks/AttributeDataContainerMock.cpp Mocks/AttributeDataContai
         Mocks/ZigbeeDeviceMock.cpp Mocks/ZigbeeDeviceMock.h Mocks/http/RestHandlerMock.cpp Mocks/http/RestHandlerMock.h)
 
 set(V8_DIR ${CMAKE_BINARY_DIR}/v8)
-set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/include )
+set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../v8/include)
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)
     set(V8_LIBRARY
@@ -176,9 +176,10 @@ SET(LIBS zigbeeLib
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
         ${Boost_LOG_LIBRARY_RELEASE}
-        ${Boost_CONTEXT_LIBRARY_RELEASE}
+        ${Boost_LOG_SETUP_LIBRARY_RELEASE}
         ${Boost_FIBER_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
+        ${Boost_CONTEXT_LIBRARY_RELEASE}
         dl
         pthread
         )

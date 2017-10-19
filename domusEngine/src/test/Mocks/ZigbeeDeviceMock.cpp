@@ -10,7 +10,9 @@
 namespace zigbee {
 namespace test {
 
-ZigbeeDeviceMock::ZigbeeDeviceMock() {
+using namespace std::chrono_literals;
+
+ZigbeeDeviceMock::ZigbeeDeviceMock():ZigbeeDevice(std::chrono::seconds(1)) {
 }
 
 ZigbeeDeviceMock::~ZigbeeDeviceMock() {
