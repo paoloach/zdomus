@@ -76,6 +76,7 @@ set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
 set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -g0 -O3 -std=c++14  -Wall -Wextra -Wpedantic  -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O3 -std=c++14  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
 
@@ -163,7 +164,7 @@ SET(SRC_SERIAL_DRIVER
         src/serialDriver/PowerNodeResponseError.cpp src/serialDriver/PowerNodeResponseError.h
         src/serialDriver/ReadAttributeResponseSerial.h
         src/serialDriver/DeviceInfoSerialExecutor.h
-        src/serialDriver/PowerNodeResponse.cpp src/serialDriver/PowerNodeResponse.h)
+        src/serialDriver/PowerNodeResponse.cpp src/serialDriver/PowerNodeResponse.h src/serialDriver/AliveMessage.h)
 
 set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h

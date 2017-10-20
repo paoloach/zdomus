@@ -17,6 +17,7 @@
 #include "DeviceInfoSerialExecutor.h"
 #include "PowerNodeResponse.h"
 #include "PowerNodeResponseError.h"
+#include "AliveMessage.h"
 
 namespace zigbee {
     SerialResponseExecutor::SerialResponseExecutor(SingletonObjects &singletonObjects) {
@@ -32,6 +33,7 @@ namespace zigbee {
         executors[CmdType::DeviceInfo] = std::make_unique<DeviceInfoSerialExecutor>(singletonObjects);
         executors[CmdType::PowerNode] = std::make_unique<PowerNodeResponse>(singletonObjects);
         executors[CmdType::PowerNodeError] = std::make_unique<PowerNodeResponseError>(singletonObjects);
+        executors[CmdType::Alive] = std::make_unique<AliveMessage>();
     }
 
     void SerialResponseExecutor::execute(const std::string &str) {
@@ -75,6 +77,9 @@ namespace zigbee {
                 if (str.size() >= 6){
                     if (str.substr(0,6) == "NPRE: "){
                         return CmdType::PowerNodeError;
+                    }
+                    if (str.substr(0,6) == "Alive."){
+                        return CmdType::Alive;
                     }
                 }
             }

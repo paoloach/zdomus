@@ -19,7 +19,7 @@ namespace zigbee {
             Invalid, AnnunceDevice, IEEEAddress,
             IEEEAddressError, SimpleDescriptor, ActiveEndpointError,
             BindTableEntry, ReadAttributeError, ReadAttribute, DeviceInfo,
-            PowerNode,PowerNodeError
+            PowerNode,PowerNodeError, Alive
         };
 
     public:
