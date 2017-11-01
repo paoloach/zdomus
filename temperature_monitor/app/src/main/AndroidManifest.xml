@@ -2,15 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="it.achdjian.paolo.temperaturemonitor">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
 
     <application
+        android:name=".dagger.TemperatureApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".dagger.TemperatureApplication"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -22,6 +25,11 @@
         <activity
             android:name=".settings.SettingActivity"
             android:label="@string/title_activity_setting"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".graphic.Graphic"
+            android:label="@string/title_activity_graphic"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

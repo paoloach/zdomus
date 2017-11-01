@@ -1,8 +1,11 @@
 package it.achdjian.paolo.temperaturemonitor.rajawali
 
 import android.content.Context
+import android.os.Handler
 import android.util.Log
+import it.achdjian.paolo.temperaturemonitor.MainActivity
 import it.achdjian.paolo.temperaturemonitor.R
+import it.achdjian.paolo.temperaturemonitor.TempSensorLocationDS
 import it.achdjian.paolo.temperaturemonitor.TemperatureCache
 import it.achdjian.paolo.temperaturemonitor.dagger.ForApplication
 import org.rajawali3d.Object3D
@@ -20,35 +23,21 @@ import javax.inject.Singleton
  * Created by Paolo Achdjian on 7/5/17.
  */
 @Singleton
-class Rooms @Inject constructor(@ForApplication val context: Context, val cache: TemperatureCache) : OnObjectPickedListener {
-    val rooms = ArrayList<ArrayList<RoomObject>>()
-    val planes = ArrayList<List<String>>()
+class Rooms @Inject constructor(
+        @ForApplication val context: Context,
+        private val planes: Planes,
+        private val cache: TemperatureCache,
+        private val dataSource: TempSensorLocationDS) : OnObjectPickedListener {
     var isInit = false
-    var planeSelected = 0
+    lateinit var mainActivity: MainActivity
+    private val mainHandler = Handler()
+    val selected: RoomObject? get() = planes.selected.firstOrNull { it.selected }
 
-    fun getSelected(): RoomObject? {
-        rooms[planeSelected].forEach{ if (it.selected) return it }
-        return null
-    }
 
-    fun selectRoom(name: String) {
-        rooms[planeSelected].forEach{
-            if (it.name == name)
-                it.select()
-            else
-                it.deselect()
-        }
-    }
+    fun selectRoom(name: String) = planes.selected.firstOrNull { it.name == name }?.select()
 
     fun initRooms() {
         Log.i("INIT", "init rooms")
-        val plane0 = listOf("Taverna", "Scale_taverna", "Sottoscala", "Ingresso-Garage", "Lavanderia")
-        val plane1 = listOf("Soggiorno", "bagno-terra", "Cucina", "scale_camere", "Termostato")
-        planes.add(plane0)
-        planes.add(plane1)
-
-        rooms.add(ArrayList())
-        rooms.add(ArrayList())
 
         val objParser = LoaderOBJ(context.resources, TextureManager.getInstance(), R.raw.casa_obj)
         try {
@@ -58,16 +47,7 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
             for (i in 0..mObjectGroup.numChildren - 1) {
                 val child = mObjectGroup.getChildAt(i)
                 Log.i("DESIGN", "object name: " + child.name)
-                if (isPlan0(child.name)) {
-                    val room = RoomObject(child, cache)
-                    Log.i("INIT", child.name)
-                    rooms[0].add(room)
-                }
-                if (isPlan1(child.name)) {
-                    val room = RoomObject(child, cache)
-                    Log.i("INIT", child.name)
-                    rooms[1].add(room)
-                }
+                planes.add(RoomObject(child, cache, context, dataSource))
             }
         } catch (e: ParsingException) {
             e.printStackTrace()
@@ -75,30 +55,19 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
         isInit = true
     }
 
-    private fun isPlan0(name: String): Boolean {
-        planes[0].forEach { if (it.length <= name.length && it == name.substring(0, it.length)) return true }
-        return false
+
+    fun initScene(currentScene: Scene, picker: ObjectColorPicker) {
+        planes.getPlane(0).forEach({ it.init3D(currentScene, picker) })
+        planes.getPlane(1).forEach({ it.init3D(currentScene, picker) })
     }
 
-    private fun isPlan1(name: String): Boolean {
-        planes[1].forEach { if (it.length <= name.length && it == name.substring(0, it.length)) return true }
-        return false
-    }
-
-    fun initScene(currentScene: Scene, picker: ObjectColorPicker) = rooms.forEach({ it.forEach({ it.init3D(currentScene, picker) }) })
-
-    fun enable() = rooms[planeSelected].forEach({ it.enable() })
-    fun disable() = rooms[planeSelected].forEach({ it.disable() })
-
-    fun getRoom(room: String): RoomObject? {
-        rooms.forEach {it.forEach{ if (it.name == room) return it }}
-        return null
-    }
+    fun enable() = planes.selected.forEach({ it.enable() })
+    fun disable() = planes.selected.forEach({ it.disable() })
 
     fun getMin(): Vector3 {
         val min = Vector3(Integer.MAX_VALUE.toDouble(), Integer.MAX_VALUE.toDouble(), Integer.MAX_VALUE.toDouble())
 
-        rooms[planeSelected].forEach({
+        planes.selected.forEach({
             val boundingBox = it.object3D.geometry.boundingBox
             val childMin = boundingBox.min
 
@@ -111,7 +80,7 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
 
     fun getMax(): Vector3 {
         val max = Vector3(Integer.MIN_VALUE.toDouble(), Integer.MIN_VALUE.toDouble(), Integer.MIN_VALUE.toDouble())
-        rooms[planeSelected].forEach({
+        planes.selected.forEach({
             val boundingBox = it.object3D.geometry.boundingBox
             val childMax = boundingBox.max
             max.x = Math.max(max.x, childMax.x)
@@ -129,17 +98,16 @@ class Rooms @Inject constructor(@ForApplication val context: Context, val cache:
     }
 
     override fun onObjectPicked(objFound: Object3D) {
-        rooms[planeSelected].forEach {
-            if (it.object3D == objFound) {
-                if (!it.selected)
-                    select(it)
-                else
-                    it.deselect()
-            }
-        }
+        val temp = planes.selected.firstOrNull({ it.isTemperatureLabel(objFound) })
+        temp?.displayGraphics(mainActivity)
+        val room = planes.selected.firstOrNull({ it.object3D == objFound })
+        room?.invertSelection()
     }
 
-    private fun select(toSelect: RoomObject) {
-        rooms[planeSelected].forEach{ if (it == toSelect) it.select() else it.deselect() }
+    fun removeLabel(room: String) = planes.getRoom(room)?.removeLabels()
+    fun initRoom(room: String) {
+        val roomObject = planes.getRoom(room)
+        roomObject?.initLabels()
+        roomObject?.updateTemp()
     }
 }

@@ -16,6 +16,8 @@ import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionObserver
 import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
 import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
 import it.achdjian.paolo.temperaturemonitor.domusEngine.PowerNodeCache
+import it.achdjian.paolo.temperaturemonitor.graphic.Graphic
+import it.achdjian.paolo.temperaturemonitor.rajawali.Planes
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureSurface
@@ -55,7 +57,8 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
     lateinit var powerUpdateView: PowerUpdateView
     @Inject
     lateinit var powerNodeCache: PowerNodeCache
-
+    @Inject
+    lateinit var planes: Planes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,8 +85,10 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
         domusEngine.addListener(listViewShowing)
         domusEngine.addListener(powerUpdateView)
         domusEngine.addListener(powerNodeCache)
+        domusEngine.addAttributeListener(renderer)
         surface.setOnTouchListener(swipeListView)
         swipeListView.listView = tempLV
+        rooms.mainActivity = this
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -99,14 +104,14 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
                 return true
             }
             R.id.plane0 -> {
-                if (rooms.planeSelected != 1){
+                if (planes.planeSelected != 1){
                     renderer.newLevel=1
                     renderer.updateLevel =true
                 }
                 return true
             }
             R.id.plane_1 -> {
-                if (rooms.planeSelected != 0){
+                if (planes.planeSelected != 0){
                     renderer.newLevel=0
                     renderer.updateLevel =true
                 }
@@ -141,5 +146,15 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
 
     override fun disconnected() {
         runOnUiThread({ supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.RED)) })
+
+    }
+
+    fun startGraphicActivity(element: ZElementAdapter.Element) {
+        runOnUiThread {
+            intent = Intent(this, Graphic::class.java)
+            intent.putExtra(Graphic.NETWORK_ADDRESS, element.shortAddress)
+            intent.putExtra(Graphic.ENDPOINT, element.endpointId)
+            startActivity(intent)
+        }
     }
 }

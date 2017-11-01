@@ -18,6 +18,9 @@ import java.util.*
 class TemperatureLabel(room: RoomObject) : Plane(getMaxWidth(room), getMaxHeight(room), 3, 3) {
     private var previousTemp = java.lang.Float.NaN
 
+    val pos: Vector3
+        get() = position
+
     init {
         val name = "TempSensor" + room.name
         setName(name)

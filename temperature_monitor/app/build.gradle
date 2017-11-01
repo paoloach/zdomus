@@ -17,7 +17,7 @@ buildscript {
 }
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "it.achdjian.paolo.temperaturemonitor"
@@ -25,7 +25,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
- //       testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //       testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     packagingOptions {
@@ -60,6 +60,8 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'com.google.guava:guava:19.0'
+    implementation 'com.android.support:design:25.4.0'
+    implementation 'joda-time:joda-time:2.9.9'
     compile "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     compile "com.google.dagger:dagger-android:$dagger_version"

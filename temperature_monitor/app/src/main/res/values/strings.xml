@@ -12,4 +12,5 @@
     <string name="rxQuality">RX Quality</string>
     <string name="tx_quality">TX Quality</string>
     <string name="not_available">Not Available</string>
+    <string name="title_activity_graphic">Temperature Graphic</string>
 </resources>

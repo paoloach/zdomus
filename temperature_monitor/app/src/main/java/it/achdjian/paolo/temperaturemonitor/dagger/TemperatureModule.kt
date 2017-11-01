@@ -11,6 +11,7 @@ import it.achdjian.paolo.temperaturemonitor.TemperatureCache
 import it.achdjian.paolo.temperaturemonitor.domusEngine.ConnectionStatus
 import it.achdjian.paolo.temperaturemonitor.domusEngine.DomusEngine
 import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.DomusEngineRest
+import it.achdjian.paolo.temperaturemonitor.rajawali.Planes
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureRender
 import it.achdjian.paolo.temperaturemonitor.rajawali.TemperatureSurface
@@ -29,7 +30,7 @@ class TemperatureModule(val app: Application) {
     }
 
     @Provides @Singleton
-    fun provideRender(rooms: Rooms): TemperatureRender = TemperatureRender(app, rooms)
+    fun provideRender(rooms: Rooms,planes: Planes): TemperatureRender = TemperatureRender(app, rooms,planes )
 
     @Provides @Singleton
     fun provideSurface(render: TemperatureRender) = TemperatureSurface(app, render)

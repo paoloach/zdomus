@@ -3,6 +3,8 @@ package it.achdjian.paolo.temperaturemonitor.rajawali
 import android.content.Context
 import android.util.Log
 import android.view.MotionEvent
+import it.achdjian.paolo.temperaturemonitor.domusEngine.AttributesListener
+import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.Attributes
 import org.rajawali3d.math.vector.Vector3
 import org.rajawali3d.renderer.Renderer
 import org.rajawali3d.util.GLU
@@ -11,7 +13,9 @@ import org.rajawali3d.util.ObjectColorPicker
 /**
  * Created by Paolo Achdjian on 7/6/17.
  */
-class TemperatureRender(context: Context, val rooms: Rooms) : Renderer(context) {
+class TemperatureRender(context: Context, val rooms: Rooms, val planes: Planes) : Renderer(context), AttributesListener {
+
+
     private val TEMPERATURE_UPDATE = 5.0
     var updateLevel = false
     var newLevel: Int = 0
@@ -21,7 +25,7 @@ class TemperatureRender(context: Context, val rooms: Rooms) : Renderer(context) 
     private var height = 0
     private var time = 0.0
     private var nextTempUpdate = 0.0
-
+    private var updateTemp = false;
 
     override fun onOffsetsChanged(xOffset: Float, yOffset: Float, xOffsetStep: Float, yOffsetStep: Float, xPixelOffset: Int, yPixelOffset: Int) {
     }
@@ -52,7 +56,7 @@ class TemperatureRender(context: Context, val rooms: Rooms) : Renderer(context) 
     }
 
 
-    public fun adjustCamera() {
+    fun adjustCamera() {
         if (rooms.isInit) {
             val currentCamera = currentCamera
             var z = currentCamera.z
@@ -95,9 +99,10 @@ class TemperatureRender(context: Context, val rooms: Rooms) : Renderer(context) 
 
     override fun onRender(elapsedTime: Long, deltaTime: Double) {
         time += deltaTime
-        if (time > nextTempUpdate) {
+        if (time > nextTempUpdate || updateTemp) {
+            updateTemp=false;
             nextTempUpdate += TEMPERATURE_UPDATE
-            rooms.rooms.get(rooms.planeSelected).forEach(RoomObject::updateTemp)
+            planes.selected.forEach(RoomObject::updateTemp)
         } else {
             roomToUpdate?.updateTemp()
             roomToUpdate = null
@@ -106,11 +111,14 @@ class TemperatureRender(context: Context, val rooms: Rooms) : Renderer(context) 
             Log.d("RENDER", "new level: " + newLevel)
 
             rooms.disable()
-            rooms.planeSelected = newLevel
+            planes.planeSelected = newLevel
             rooms.enable()
             updateLevel = false
             adjustCamera()
-            Log.d("RENDER", "end new level: " + rooms.planeSelected)
+            Log.d("RENDER", "end new level: " + planes.planeSelected)
+            Log.d("RENDER", "Update temp")
+            nextTempUpdate += TEMPERATURE_UPDATE
+            planes.selected.forEach(RoomObject::updateTemp)
         }
         super.onRender(elapsedTime, deltaTime)
     }
@@ -126,11 +134,9 @@ class TemperatureRender(context: Context, val rooms: Rooms) : Renderer(context) 
 
     fun getObjectAt(x: Float, y: Float) = picker.getObjectAt(x, y)
 
-    fun notifyFirstTemperature(room: String) {
-        roomToUpdate = rooms.getRoom(room)
-        if (roomToUpdate != null) {
-            //temperatures.invalidate(roomToUpdate.name)
-        }
+    override fun newAttributes(attributes: Attributes) {
+        updateTemp=true;
+
     }
 
 }

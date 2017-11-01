@@ -11,10 +11,10 @@
 				<Option working_dir="/home/paolo/workspace/zdomus/domusEngine/src/test"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="domus_engine_test">
@@ -41,10 +41,10 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test"/>
-					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="domus_engine_test/fast">
@@ -71,10 +71,10 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test/fast"/>
-					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 domus_engine_test/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>

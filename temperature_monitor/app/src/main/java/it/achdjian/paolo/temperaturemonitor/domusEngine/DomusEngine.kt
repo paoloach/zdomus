@@ -6,6 +6,7 @@ import android.os.Message
 import android.util.Log
 import it.achdjian.paolo.temperaturemonitor.Constants
 import it.achdjian.paolo.temperaturemonitor.domusEngine.rest.*
+import it.achdjian.paolo.temperaturemonitor.graphic.TemperatureData
 import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.zigbee.PowerNode
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
@@ -28,6 +29,7 @@ class DomusEngine(
     private val listeners: MutableList<NewTemperatureDeviceListener> = ArrayList()
     private val attributeListener: MutableList<AttributesListener> = ArrayList()
     private val powerListener: MutableSet<PowerListener> = HashSet()
+    private val temperatureDataListener: MutableSet<TemperatureDataListener> = HashSet()
     private val mDecodeWorkQueue =  LinkedBlockingQueue<Runnable>();
     private val threadPool = ThreadPoolExecutor(3, Int.MAX_VALUE, 60, TimeUnit.SECONDS, mDecodeWorkQueue)
 
@@ -53,9 +55,15 @@ class DomusEngine(
     fun getAttribute(networkId: Int, endpointId: Int, clusterId: Int, attributeId: Int) =
             threadPool.execute(RequestAttributes(AttributeCoord(networkId, endpointId, clusterId, attributeId), domusEngineRest, this))
 
+    fun getTemperatureData(networkId: Int) {
+        handler.post(GetTemperatures(networkId, this, domusEngineRest))
+    }
+
     fun addListener(listener: NewTemperatureDeviceListener) = listeners.add(listener)
     fun addListener(listener: PowerListener) = powerListener.add(listener)
+    fun addListener(listener: TemperatureDataListener) = temperatureDataListener.add(listener)
     fun removeListener(listener: PowerListener) = powerListener.remove(listener)
+    fun removeListener(listener: TemperatureDataListener) = temperatureDataListener.remove(listener)
 
     fun requestWhoAreYou() {
 
@@ -105,10 +113,17 @@ class DomusEngine(
                     val powerNode = message.obj as PowerNode
                     powerListener.forEach({ it.newPower(powerNode) })
                 }
+                MessageType.NEW_DATA_TEMPERATURES -> {
+                    Log.i(TAG, "New temperature data")
+                    val data = message.obj as List<TemperatureData>
+                    temperatureDataListener.forEach({it.newTemperatureData(data)})
+                }
             }
         }
         return true
     }
+
+
 
 
 }

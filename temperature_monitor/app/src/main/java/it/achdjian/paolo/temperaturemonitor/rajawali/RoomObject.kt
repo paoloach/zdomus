@@ -1,6 +1,9 @@
 package it.achdjian.paolo.temperaturemonitor.rajawali
 
+import android.content.Context
 import android.util.Log
+import it.achdjian.paolo.temperaturemonitor.MainActivity
+import it.achdjian.paolo.temperaturemonitor.TempSensorLocationDS
 import it.achdjian.paolo.temperaturemonitor.TemperatureCache
 import org.rajawali3d.Object3D
 import org.rajawali3d.lights.SpotLight
@@ -13,7 +16,7 @@ import org.rajawali3d.util.ObjectColorPicker
 /**
  * Created by Paolo Achdjian on 7/4/17.
  */
-class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
+class RoomObject(val object3D: Object3D, val cache: TemperatureCache, val context: Context, val dataSource: TempSensorLocationDS) {
     companion object {
         val DEFAULT_COLOR = 0xFFC0C0C0.toInt()
         val SELECTED_COLOR = 0xFFC0FFFF.toInt()
@@ -50,8 +53,10 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
     fun initLabels() {
         if (temperatureLabel == null) {
             temperatureLabel = TemperatureLabel(this)
-            if (visible)
+            if (visible) {
                 scene.addChild(temperatureLabel)
+            }
+            picker.registerObject(temperatureLabel)
 
         }
     }
@@ -67,8 +72,10 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
         Log.i("RENDER", "Disable " + name)
         scene.removeLight(light)
         scene.removeChild(object3D)
-        if (temperatureLabel != null)
+        if (temperatureLabel != null) {
             scene.removeChild(temperatureLabel)
+            picker.unregisterObject(temperatureLabel)
+        }
         picker.unregisterObject(object3D)
         visible=false
     }
@@ -78,8 +85,10 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
         scene.addChild(object3D)
         scene.addLight(light)
         picker.registerObject(object3D)
-        if (temperatureLabel != null)
+        if (temperatureLabel != null) {
             scene.addChild(temperatureLabel)
+            picker.registerObject(temperatureLabel)
+        }
         visible=true
     }
 
@@ -128,5 +137,20 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache) {
 
     }
 
+    fun invertSelection() {
+        if (selected)
+            select()
+        else
+           deselect()
 
+    }
+
+    fun isTemperatureLabel(objFound: Object3D) = temperatureLabel != null && temperatureLabel == objFound;
+
+    fun displayGraphics(mainActivity: MainActivity) {
+        Log.i("GRAPHIC", "Open graphics for " + name)
+        val element = dataSource.getElement(name);
+        if (element != null)
+            mainActivity.startGraphicActivity(element);
+    }
 }
