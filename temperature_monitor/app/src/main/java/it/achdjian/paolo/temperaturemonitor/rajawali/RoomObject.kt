@@ -138,7 +138,7 @@ class RoomObject(val object3D: Object3D, val cache: TemperatureCache, val contex
     }
 
     fun invertSelection() {
-        if (selected)
+        if (!selected)
             select()
         else
            deselect()

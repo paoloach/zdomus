@@ -10,6 +10,7 @@ import org.joda.time.format.ISODateTimeFormat
 class TemperatureData(json: TemperatureDataJSON) {
     val value = json.temperature.toFloat() / 100
     val time : LocalDateTime = dateTimeFormatter.parseLocalDateTime(json.time)
+    val msTime get() = time.toDate().time
 
     companion object {
         val dateTimeFormatter = ISODateTimeFormat.dateTime();

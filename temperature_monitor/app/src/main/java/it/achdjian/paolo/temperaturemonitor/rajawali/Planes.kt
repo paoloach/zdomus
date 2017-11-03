@@ -2,10 +2,12 @@ package it.achdjian.paolo.temperaturemonitor.rajawali
 
 import android.util.Log
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Paolo Achdjian on 10/31/17.
  */
+@Singleton
 class Planes  @Inject constructor(){
     private val rooms = ArrayList<ArrayList<RoomObject>>()
     var planeSelected = 0
