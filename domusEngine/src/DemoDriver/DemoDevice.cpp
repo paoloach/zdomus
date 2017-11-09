@@ -12,6 +12,9 @@
 #include <boost/log/attributes/named_scope.hpp>
 #include "DemoDevice.h"
 #include "../Utils/SingletonObjects.h"
+#include "../Database/DBTableFactory.h"
+#include "../Database/DBRow.h"
+#include "../Database/DBTable.h"
 
 using boost::fibers::fiber;
 using boost::fibers::mutex;
@@ -22,7 +25,7 @@ using std::unique_lock;
 using std::get;
 
 namespace zigbee {
-
+    using namespace std::chrono_literals;
     constexpr uint8_t typeBOOLRAN = 0x10;
     constexpr uint8_t typeUINT8 = 0x20;
     constexpr uint8_t typeUINT16 = 0x21;
@@ -70,10 +73,50 @@ namespace zigbee {
     static std::array<std::vector<uint8_t>, 8> NKW2_11_0 = {cluster0_0, cluster0_1, cluster0_2, cluster0_3, cluster0_4, cluster0_5_on_off_light, cluster0_6, cluster0_7_battery,};
     static std::array<std::vector<uint8_t>, 8> NKW3_7_0 = {cluster0_0, cluster0_1, cluster0_2, cluster0_3, cluster0_4, cluster0_5_ztemp, cluster0_6, cluster0_7_battery,};
 
+    static std::string toStr(std::chrono::system_clock::time_point & timePoint );
+
+
+    std::string toStr(std::chrono::system_clock::time_point & timePoint ){
+        std::time_t epoch = system_clock::to_time_t(timePoint);
+        std::tm * localTime = std::localtime(&epoch);
+        std::stringstream stream;
+        stream << "'"<< (localTime->tm_year+1900) << "-" << (localTime->tm_mon+1) << "-" << localTime->tm_mday << " " ;
+        stream << localTime->tm_hour << ":" <<localTime->tm_min << ":" << localTime->tm_sec << "'";
+        return stream.str();
+    }
+
+
 
     DemoDevice::DemoDevice(SingletonObjects &singletonObjects, std::chrono::seconds seconds) : ZigbeeDevice(seconds), singletonObjects(singletonObjects), stop(false), e1(rd()) {
         BOOST_LOG_TRIVIAL(info) << "-------------------------- DEMO MODE ------------------------";
         demoThread = std::thread([this] { runDemoThread(); });
+
+        DBTableFactory tableFactory;
+
+        auto table = tableFactory.getTable("Temperatures");
+        auto now = std::chrono::system_clock::now();
+        auto date = now - 24h;
+        double value= 1800;
+        while (date < now){
+            DBRow row1;
+            DBRow row2;
+            auto nextDate = date + 5min;
+            auto result = table->find(" time between " + toStr(date) + " AND " + toStr(nextDate));
+            if (result == nullptr || PQntuples(result)==0) {
+                row1.setValue("time", toStr(date));
+                row1.setValue("value", (int)value);
+                row1.setValue("network_id", (int) NWK_ADDR2.getId());
+                table->insert(&row1);
+
+                row2.setValue("time", toStr(date));
+                row2.setValue("value", (int)value);
+                row2.setValue("network_id", (int) NWK_ADDR3.getId());
+                table->insert(&row2);
+            }
+            date  = nextDate;
+            value += 2.0833333;
+        }
+
     }
 
     void DemoDevice::runDemoThread() {

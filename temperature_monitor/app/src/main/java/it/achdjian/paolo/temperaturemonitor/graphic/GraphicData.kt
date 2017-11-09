@@ -14,7 +14,7 @@ class GraphicData : TemperatureDataListener {
     var tempMax = 25
     var timeMin: LocalDateTime = LocalDateTime().minusDays(1)
     var timeMax: LocalDateTime = LocalDateTime()
-    var division: Int = 10
+    var division: Int = 8
     var temperatureDiv: List<Int> = calcTemperatureDivision()
 
     fun addView(view: TemperatureDataViewer) = views.add(view)
