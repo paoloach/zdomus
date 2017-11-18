@@ -1,15 +1,13 @@
 package it.achdjian.paolo.temperaturemonitor.graphic
 
 import android.util.Log
-import it.achdjian.paolo.temperaturemonitor.domusEngine.TemperatureDataListener
 import org.joda.time.LocalDateTime
 
 /**
  * Created by Paolo Achdjian on 10/31/17.
  */
-class GraphicData : TemperatureDataListener {
+class GraphicData(val data: List<TemperatureData>)  {
     var views: MutableSet<TemperatureDataViewer> = HashSet()
-    var data: List<TemperatureData> = ArrayList()
     var tempMin = 15
     var tempMax = 25
     var timeMin: LocalDateTime = LocalDateTime().minusDays(1)
@@ -20,10 +18,8 @@ class GraphicData : TemperatureDataListener {
     fun addView(view: TemperatureDataViewer) = views.add(view)
     private fun invalidate() = views.forEach { it.newData() }
 
-    override fun newTemperatureData(data: List<TemperatureData>) {
+    init {
         Log.i("GRAPH-DATA", "new data")
-        this.data = data
-
         calcTempMinMax()
         calcTimeMinMax()
         temperatureDiv = calcTemperatureDivision()

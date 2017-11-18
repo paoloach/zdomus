@@ -1,5 +1,6 @@
 package it.achdjian.paolo.temperaturemonitor.graphic
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import it.achdjian.paolo.temperaturemonitor.R
@@ -12,27 +13,32 @@ class Graphic : AppCompatActivity() {
     @Inject
     lateinit var domusEngine: DomusEngine
 
-    val graphicData =  GraphicData()
+    lateinit var graphViewModel: GraphViewModel
+
 
     companion object {
-        val NETWORK_ADDRESS="networkAddress"
-        val ENDPOINT="endpoint"
+        val NETWORK_ADDRESS = "networkAddress"
+        val ENDPOINT = "endpoint"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (application as TemperatureApplication).component.inject(this)
-        setContentView(R.layout.graphic)
-        domusEngine.addListener(graphicData)
-        graph.graphicData = graphicData
-        graphicData.addView(graph)
+        val networkAddress = intent.extras.getInt(NETWORK_ADDRESS)
+        graphViewModel = ViewModelProviders.of(this).get(GraphViewModel::class.java)
 
-        domusEngine.getTemperatureData(intent.extras.getInt(NETWORK_ADDRESS))
+        setContentView(R.layout.graphic)
+        domusEngine.addListener(graphViewModel)
+        val graphViewScale = GraphViewScale(networkAddress, this, domusEngine)
+        graph.setOnTouchListener(graphViewScale)
+        graphViewModel.graphicData.observe(this, graph)
+
+        domusEngine.getTemperatureData(networkAddress, graphViewScale.start, graphViewScale.end)
     }
 
-    override fun onDestroy(){
+    override fun onDestroy() {
         super.onDestroy()
-        domusEngine.removeListener(graphicData)
+        domusEngine.removeListener(graphViewModel)
     }
 
 }

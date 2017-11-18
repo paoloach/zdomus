@@ -69,8 +69,8 @@ class TemperatureLabel(room: RoomObject) : Plane(getMaxWidth(room), getMaxHeight
     }
 
     companion object {
-        var WIDTH = 2f
-        var HEIGHT = 0.5f
+        var WIDTH = 1.5f
+        var HEIGHT = 0.4f
 
         private fun getMaxWidth(room: RoomObject): Float {
             val minWidth = (room.max.x - room.min.x).toFloat()

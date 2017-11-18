@@ -102,8 +102,9 @@ namespace zigbee {
             String::Utf8Value fieldName(info[0]);
 
             DBTable *dbTable = getDbTable(info);
-
+            BOOST_LOG_TRIVIAL(info) << "Start find on DB";
             info.GetReturnValue().Set(This->jsResult->createInstance(isolate, dbTable->find(*fieldName)));
+            BOOST_LOG_TRIVIAL(info) << "Stop find on DB";
         } catch (std::exception &excp) {
             if (This != nullptr) {
                 BOOST_LOG_TRIVIAL(error) << excp.what();

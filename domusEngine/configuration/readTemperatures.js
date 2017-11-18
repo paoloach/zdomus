@@ -23,19 +23,8 @@ var temperatureResponse = function(placeholders) {
     var query = "time >= '" + placeholders.getQuery('dataFrom') + "' AND time <= '" + placeholders.getQuery('dataTo') + "' AND network_id=" + placeholders.getParam(':networdid');
     log.info(query)
     var resultSet = table.find(query);
-
-    var results = new Array();
-    while(true){
-        let row = resultSet.nextRow();
-        if (row == null){
-            break;
-        }
-        var temp = new Object();
-        temp.value= row.getValue('value');
-        temp.time= row.getValue('time');
-        results.push(temp);
-    }
-    return JSON.stringify(results)+'\n\r';
+    log.info("end rest")
+    return resultSet.stringify();
 }
 
 var log = Log();

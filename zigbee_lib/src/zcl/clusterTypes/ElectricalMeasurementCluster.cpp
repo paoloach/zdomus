@@ -146,6 +146,7 @@ namespace zigbee {
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa16, "RMS Voltage Sag Period PhC", true),
             Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0xa17, "RMS Voltage Swell Period PhC", true)
 
+
     };
 
     ElectricalMeasurementCluster::ElectricalMeasurementCluster(ZigbeeDevice * zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
@@ -160,8 +161,32 @@ namespace zigbee {
                 "Get Measurement Profile Command",
                 std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("Attribute ID"),
                 std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUTCTime>>("Start Time"),
-                std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Number Of Intervals")
+                std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Number Of Intervals"));
+
+
+        _commandsDef.emplace_back(
+                [=](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0x10); },
+                0x10, "calibrate voltage dc offeset" );
+        _commandsDef.emplace_back(
+                [=](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0x11); },
+                0x11, "calibrate current dc offeset" );
+        _commandsDef.emplace_back(
+                [=](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0x12); },
+                0x12, "calibrate voltage ac offeset" );
+        _commandsDef.emplace_back(
+                [=](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0x13); },
+                0x13, "calibrate current ac offeset" );
+        _commandsDef.emplace_back(
+                [=](std::vector<uint8_t> && params) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0x14, params); },
+                0x14, "calibrate voltage gain",
+                std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt8>>("Expected voltage")
+                );
+        _commandsDef.emplace_back(
+                [=](std::vector<uint8_t> && params) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0x15, params); },
+                0x15, "calibrate current gain",
+                std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("Expected current (mA)")
         );
+
     }
 
     ClusterID ElectricalMeasurementCluster::getId() const {

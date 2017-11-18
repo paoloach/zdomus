@@ -84,6 +84,7 @@ static constexpr const char * INSERT="insert";
 // DbResultSet method
 static constexpr const char * NEXTROW="nextRow";
 static constexpr const char * PREVIOUSROW="previousRow";
+static constexpr const char * STRINGIFY="stringify";
 
 //DBRow methods
 static constexpr const char * GET_VALUE="getValue";

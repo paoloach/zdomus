@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="it.achdjian.paolo.temperaturemonitor">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -23,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity
+            tools:replace="android:value"
+            android:value="25.4.0"
             android:name=".settings.SettingActivity"
             android:label="@string/title_activity_setting"
             android:theme="@style/AppTheme.NoActionBar">

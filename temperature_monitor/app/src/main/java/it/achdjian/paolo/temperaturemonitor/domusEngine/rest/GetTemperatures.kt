@@ -11,7 +11,7 @@ import org.joda.time.format.DateTimeFormat
 /**
  * Created by Paolo Achdjian on 10/31/17.
  */
-class GetTemperatures(val networkId: Int, val domusEngine: DomusEngine, val domusEngineRest: DomusEngineRest) : ZigbeeRunnable() {
+class GetTemperatures(val networkId: Int, val start:LocalDateTime, val end: LocalDateTime, val domusEngine: DomusEngine, val domusEngineRest: DomusEngineRest) : ZigbeeRunnable() {
     companion object {
         val DATE_FORMAT = "yyyy-MM-dd%20HH:mm:ss"
         val dateTimeFormatter = DateTimeFormat.forPattern(DATE_FORMAT)
@@ -19,12 +19,10 @@ class GetTemperatures(val networkId: Int, val domusEngine: DomusEngine, val domu
     }
 
     override fun run() {
-        val now = LocalDateTime()
-        val start = now.minusDays(1)
         val buffer = StringBuffer("/temperature/").append(networkId).append("?dataFrom=")
         dateTimeFormatter.printTo(buffer, start)
         buffer.append("&dataTo=")
-        dateTimeFormatter.printTo(buffer, now)
+        dateTimeFormatter.printTo(buffer, end)
 
         val body = domusEngineRest.get(buffer.toString())
         if (body.isNotBlank()) {

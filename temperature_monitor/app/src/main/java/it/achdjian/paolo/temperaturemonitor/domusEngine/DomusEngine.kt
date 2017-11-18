@@ -11,6 +11,7 @@ import it.achdjian.paolo.temperaturemonitor.rajawali.Rooms
 import it.achdjian.paolo.temperaturemonitor.zigbee.PowerNode
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZDevices
 import it.achdjian.paolo.temperaturemonitor.zigbee.ZEndpoint
+import org.joda.time.LocalDateTime
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -55,8 +56,8 @@ class DomusEngine(
     fun getAttribute(networkId: Int, endpointId: Int, clusterId: Int, attributeId: Int) =
             threadPool.execute(RequestAttributes(AttributeCoord(networkId, endpointId, clusterId, attributeId), domusEngineRest, this))
 
-    fun getTemperatureData(networkId: Int) {
-        handler.post(GetTemperatures(networkId, this, domusEngineRest))
+    fun getTemperatureData(networkId: Int, start: LocalDateTime, end: LocalDateTime) {
+        handler.post(GetTemperatures(networkId, start, end, this, domusEngineRest))
     }
 
     fun addListener(listener: NewTemperatureDeviceListener) = listeners.add(listener)

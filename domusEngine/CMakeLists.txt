@@ -224,7 +224,7 @@ add_library(javascript_lib OBJECT
         src/JavaScript/GlobalJSFunctions.cpp src/JavaScript/GlobalJSFunctions.h
         src/JavaScript/JSCallbackFifo.cpp src/JavaScript/JSCallbackFifo.h
         src/JavaScript/JSResultSet.cpp src/JavaScript/JSResultSet.h
-        src/JavaScript/JSRestParam.cpp src/JavaScript/JSRestParam.h)
+        src/JavaScript/JSRestParam.cpp src/JavaScript/JSRestParam.h src/JavaScript/JSBase.h)
 
 
 add_library(domus_engine_static_lib STATIC
