@@ -3497,6 +3497,14 @@ const Value& Value::operator[](const char* key) const
   if (!found) return nullRef;
   return *found;
 }
+
+const Value& Value::operator[](std::string_view key) const
+{
+    Value const* found = find(key.data(), key.data() + key.length());
+    if (!found) return nullRef;
+    return *found;
+}
+
 Value const& Value::operator[](JSONCPP_STRING const& key) const
 {
   Value const* found = find(key.data(), key.data() + key.length());
@@ -3507,6 +3515,10 @@ Value const& Value::operator[](JSONCPP_STRING const& key) const
 Value& Value::operator[](const char* key) {
   return resolveReference(key, key + strlen(key));
 }
+
+    Value& Value::operator[](std::string_view key) {
+        return resolveReference(key.data(), key.data() + key.length());
+    }
 
 Value& Value::operator[](const JSONCPP_STRING& key) {
   return resolveReference(key.data(), key.data() + key.length());

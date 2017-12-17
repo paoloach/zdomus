@@ -23,12 +23,13 @@ public:
 protected:
 	virtual void SetUp() override ;
 	virtual void TearDown() override ;
-	void createTable(const std::string & tableName);
-	void createTable(const std::string & tableName, std::initializer_list<std::string> columns);
-	void insertTable(const std::string & tableName, const std::string & inizializer);
-	void dropTable(const std::string & tableName);
+	void createTable(const std::string_view tableName);
+	void createTable(const std::string_view tableName, std::initializer_list<std::string> columns);
+	void insertTable(const std::string_view tableName, const std::string & inizializer);
+	void dropTable(const std::string_view  tableName);
 protected:
-	std::shared_ptr<DBTable> dbTable;
+	DBTable * dbTable;
+    PGconn *conn;
 };
 
 } /* namespace test */

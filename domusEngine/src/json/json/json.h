@@ -867,9 +867,11 @@ Json::Value obj_value(Json::objectValue); // {}
   /// \note Because of our implementation, keys are limited to 2^30 -1 chars.
   ///  Exceeding that will cause an exception.
   Value& operator[](const char* key);
+  Value& operator[](std::string_view key);
   /// Access an object value by name, returns null if there is no member with
   /// that name.
   const Value& operator[](const char* key) const;
+  const Value& operator[](std::string_view key) const;
   /// Access an object value by name, create a null member if it does not exist.
   /// \param key may contain embedded nulls.
   Value& operator[](const JSONCPP_STRING& key);

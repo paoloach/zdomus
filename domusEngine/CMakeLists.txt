@@ -3,6 +3,7 @@ include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 project(domus_engine)
 
+set(CMAKE_CXX_STANDARD 17)
 
 ExternalProject_Add(pistache
         GIT_REPOSITORY https://github.com/oktal/pistache.git
@@ -76,9 +77,9 @@ set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
 set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -g0 -O3 -std=c++14  -Wall -Wextra -Wpedantic  -fno-omit-frame-pointer ")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O3 -std=c++14  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -g0 -O3 -std=c++17  -Wall -Wextra -Wpedantic  -fno-omit-frame-pointer ")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O3 -std=c++17  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++17 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
 
 add_custom_target(debug cmake -DCMAKE_BUILD_TYPE=Debug COMMAND make)
 add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
@@ -95,8 +96,6 @@ file(GLOB srcZigbeeDataPT "src/ZigbeeData/PropertyTree/*.cpp")
 file(GLOB srcZigbeeDataExceptions "src/ZigbeeData/Exceptions/*.cpp")
 file(GLOB srcComand "src/Comand/*.cpp")
 file(GLOB srcIO "src/IO/*.cpp")
-file(GLOB srcDatabase "src/Database/*.cpp")
-file(GLOB srcDatabase_exceptions "src/Database/Exceptions/*.cpp")
 file(GLOB srcConfiguration "src/Configuration/*.cpp")
 file(GLOB srcJavaScript_attributes "src/JavaScript/JSZAttributes/*.cpp")
 file(GLOB srcJavaScript_exceptions "src/JavaScript/Exceptions/*.cpp")
@@ -126,6 +125,20 @@ else ()
     endif ()
 endif ()
 
+
+
+SET(SRC_DATABASE
+        src/Database/Exceptions/DBException.h
+        src/Database/Exceptions/DBExceptionInvalidDataType.cpp src/Database/Exceptions/DBExceptionInvalidDataType.h
+        src/Database/Exceptions/DBExceptionNoServer.cpp src/Database/Exceptions/DBExceptionNoServer.h
+        src/Database/Exceptions/DBExceptionNoTable.cpp src/Database/Exceptions/DBExceptionNoTable.h
+        src/Database/Exceptions/DBExceptionQueryError.cpp src/Database/Exceptions/DBExceptionQueryError.h
+        src/Database/Exceptions/DBExceptionResultNotSet.cpp src/Database/Exceptions/DBExceptionResultNotSet.h
+        src/Database/DBDataConverter.cpp src/Database/DBDataConverter.h
+        src/Database/DBRow.cpp src/Database/DBRow.h
+        src/Database/DBTable.cpp src/Database/DBTable.h
+        src/Database/DBTableFactory.cpp src/Database/DBTableFactory.h
+        src/Database/ResultSet.cpp src/Database/ResultSet.h)
 
 SET(SRC_ZIGBEE_DATA src/ZigbeeData/AttributeData.cpp src/ZigbeeData/AttributeData.h
         src/ZigbeeData/BindTable.cpp src/ZigbeeData/BindTable.h
@@ -198,7 +211,7 @@ set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterRes
                 src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
                 src/Utils/Constant.cpp src/Utils/Constant.h
                 src/Utils/LogConstants.h
-                src/Utils/DriverFactory.h)
+                src/Utils/DriverFactory.h src/Database/ResultSet.cpp src/Database/ResultSet.h)
 
 
 add_library(javascript_lib OBJECT
@@ -239,8 +252,7 @@ add_library(domus_engine_static_lib STATIC
         ${srcZigbeeDataExceptions}
         ${srcJavaScript_attributes}
         ${srcJavaScript_exceptions}
-        ${srcDatabase}
-        ${srcDatabase_exceptions}
+        ${SRC_DATABASE}
         ${srcHttpServer}
         ${srcRestParser}
         ${srcRestActions}

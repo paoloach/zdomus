@@ -25,6 +25,8 @@ namespace zigbee {
 
     class ZDevices {
     public:
+        using Observer=std::function<void(ZDevice * )>;
+
         ZDevices();
 
         virtual ~ZDevices() = default;
@@ -34,6 +36,7 @@ namespace zigbee {
         virtual void put(const AnnunceMessage &message);
 
         virtual void put(const SimpleDescMessage &message);
+
         virtual void put(const ZEndpoint &message);
 
         virtual void put(const BindResponse &message);
@@ -46,15 +49,17 @@ namespace zigbee {
 
         virtual std::vector<ZDevice *> getDevices();
 
-        virtual ZDevice* getDevice(const ExtAddress &extAddress) const;
+        virtual ZDevice *getDevice(const ExtAddress &extAddress) const;
 
-        virtual ZDevice* getDevice(NwkAddr nwkAddress) const;
-        virtual ZDevice* getDeviceNoExcept(NwkAddr nwkAddress) const;
+        virtual ZDevice *getDevice(NwkAddr nwkAddress) const;
+
+        virtual ZDevice *getDeviceNoExcept(NwkAddr nwkAddress) const;
 
         virtual bool exists(const ExtAddress &extAddress) const;
 
-        virtual void addObserver(std::function<void(ZDevice *)> observer);
-        virtual void removeObserver(std::function<void(ZDevice *)> observer);
+        virtual void addObserver(Observer observer);
+
+        virtual void removeObserver(Observer observer);
 
     private:
         boost::property_tree::ptree createPTree(ZDevice *zDevice);
@@ -63,8 +68,8 @@ namespace zigbee {
 
     private:
         std::map<ExtAddress, std::unique_ptr<ZDevice>> ieeeAddrDevices;
-        std::map<NwkAddr, ZDevice* > nwkAddrDevices;
-        std::vector<std::function<void(ZDevice *) >> observers;
+        std::map<NwkAddr, ZDevice *> nwkAddrDevices;
+        std::vector<Observer> observers;
         uint32_t tokenUpdate;
         std::mutex mutexObserver;
     };

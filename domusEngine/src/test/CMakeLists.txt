@@ -27,6 +27,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe  -O3 -std=c++14  -Wall -Wextra -Wp
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O0 -std=c++14  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
 
+SET(SET_TEST_DATABASE
+        Database/DBTableTest.cpp Database/DBTableTest.h)
 
 SET(SRC_TEST_JAVASCRIPT Javascript/ClusterCmdArgumentMatcher.h Javascript/ClusterCmdArrayArgumentMatcher.h
         Javascript/JavaScriptExecuterTest.cpp Javascript/JavaScriptExecuterTest.h
@@ -148,6 +150,11 @@ else ()
     endif ()
 endif ()
 
+add_executable(database_test
+        main_test.cpp
+        ${SET_TEST_DATABASE}
+        )
+
 add_executable(domus_engine_test
         main.cpp
         ${SRC_TEST_JAVASCRIPT}
@@ -157,7 +164,6 @@ add_executable(domus_engine_test
         ${SRC_TEST_MOCK}
         ${testComand}
         ${SRC_TEST_SERIAL_DRIVER}
-        #        ${testDatabase}
         ${testConfiguration}
         ${testJavascriptAttributes}
         ${testHttpServer}
@@ -187,4 +193,7 @@ SET(LIBS zigbeeLib
 
 target_link_libraries(domus_engine_test domus_engine_static_lib ${V8_LIBRARY} ${LIBS} ${GMOCK_LIBS} ${PISTACHE_LIB})
 
+target_link_libraries(database_test domus_engine_static_lib ${LIBS} ${GMOCK_LIBS} ${PISTACHE_LIB})
+
 set_property(TARGET domus_engine_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
+set_property(TARGET database_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)

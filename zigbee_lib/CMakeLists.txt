@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(zigbee_lib)
 set(Boost_DEBUG ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC -DBOOST_ALL_DYN_LINK -g3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fPIC -DBOOST_ALL_DYN_LINK -g3")
 
 find_package(Boost 1.63 COMPONENTS system thread signals program_options filesystem log fiber REQUIRED)
 

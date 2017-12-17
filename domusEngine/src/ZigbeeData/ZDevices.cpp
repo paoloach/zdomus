@@ -173,16 +173,13 @@ namespace zigbee {
     }
 
 
-    void ZDevices::removeObserver(std::function<void(ZDevice *)> observer) {
+    void ZDevices::removeObserver(Observer toRemove) {
         unique_lock<std::mutex> lock(mutexObserver);
-        auto iter = std::begin(observers);
-        for (; iter != end(observers); ++iter) {
-            if (iter->target<void(std::shared_ptr<ZDevice>)>() == observer.target<void(std::shared_ptr<ZDevice>)>()) {
+        for(auto iter = observers.begin(); iter != observers.end(); iter++){
+            if (iter->target<Observer>() == toRemove.target<Observer>()){
+                observers.erase(iter);
                 break;
             }
-        }
-        if (iter != std::end(observers)) {
-            observers.erase(iter);
         }
     }
 

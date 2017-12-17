@@ -22,8 +22,8 @@ namespace zigbee {
 
     void DBTable::insert(DBRow *dbRow) {
         std::stringstream insertStream;
-        std::vector<std::string> paramName = dbRow->getFieldsName();
-        std::vector<boost::any> paramAnyValues = dbRow->getFieldsValue();
+        std::vector<std::string_view > paramName = dbRow->getFieldsName();
+        std::vector<std::any> paramAnyValues = dbRow->getFieldsValue();
 
         insertStream << "INSERT INTO public.\"" << tableName << "\" (";
         insertStream << format(string % ',', paramName) << ") VALUES (";
@@ -53,7 +53,7 @@ namespace zigbee {
 
     }
 
-    void DBTable::checkTableName(const std::string &tableName) {
+    void DBTable::checkTableName(const std::string &&tableName) {
 
         std::string checkTableStream;
         checkTableStream = "SELECT EXISTS (SELECT 1 FROM   pg_catalog.pg_class c  JOIN   pg_catalog.pg_namespace n ON n.oid = c.relnamespace  ";
@@ -72,17 +72,15 @@ namespace zigbee {
         }
     }
 
-    DBTable::DBTable(const std::string &tableName, PGconn *conn) : tableName(tableName), conn(conn) {
-        checkTableName(tableName);
-        currentIndex = 0;
+    DBTable::DBTable(const std::string_view tableName, PGconn *conn) : tableName(tableName), conn(conn) {
+        checkTableName(std::string(tableName));
     }
 
     DBTable::DBTable() {
         conn = nullptr;
-        currentIndex = 0;
     }
 
-    PGresult * DBTable::find(const std::string &filter) {
+    ResultSet  DBTable::find(const std::string &filter) {
         std::string query = "select * from public.\"" + tableName + "\"";
         if (!filter.empty()) {
             query += " where " + filter;
@@ -94,9 +92,9 @@ namespace zigbee {
         switch (status) {
             case PGRES_COMMAND_OK:
             case PGRES_EMPTY_QUERY:
-                return resultSet;
+                return ResultSet(resultSet);
             case PGRES_TUPLES_OK:
-                return resultSet;
+                return ResultSet(resultSet);
             default:
                 throw DBExceptionQueryError(query, tableName, PQresultErrorMessage(resultSet));
         }

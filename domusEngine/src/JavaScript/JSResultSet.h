@@ -7,6 +7,7 @@
 
 #include <libpq-fe.h>
 #include "JSBase.h"
+#include "../Database/ResultSet.h"
 
 
 namespace zigbee {
@@ -21,7 +22,7 @@ namespace zigbee {
     public:
         virtual void initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global);
 
-        virtual v8::Local<v8::Object> createInstance(v8::Isolate *isolate, PGresult *resultSet);
+        virtual v8::Local<v8::Object> createInstance(v8::Isolate *isolate, ResultSet && resultSet);
 
         virtual void resetPersistences();
 
@@ -32,9 +33,9 @@ namespace zigbee {
 
         static void stringify(const v8::FunctionCallbackInfo<v8::Value> &info);
 
-        static void weakCallback(const v8::WeakCallbackInfo<PGresult> &data);
+        static void weakCallback(const v8::WeakCallbackInfo<ResultSet> &data);
 
-        static std::unique_ptr<DBRow> makeDBRow(PGresult *resultSet, uint currentIndex);
+        static std::unique_ptr<DBRow> makeDBRow(ResultSet *resultSet, uint currentIndex);
 
     private:
         static constexpr int FIELD_ACTUAL_ROW=0;
@@ -42,7 +43,7 @@ namespace zigbee {
         static constexpr int FIELD_CURRENT_INDEX=2;
         static constexpr int FIELD_MAX_INDEX=3;
         static JSRow *getJsRow(const v8::FunctionCallbackInfo<v8::Value> &info);
-        static PGresult *getPGResult(const v8::FunctionCallbackInfo<v8::Value> &info);
+        static ResultSet *getPGResult(const v8::FunctionCallbackInfo<v8::Value> &info);
 
         v8::UniquePersistent<v8::FunctionTemplate> persistentFunctionTemplate;
         JSRow * jsRow;

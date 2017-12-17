@@ -8,12 +8,12 @@
 #ifndef SRC_DATABASE_DBTABLE_H_
 #define SRC_DATABASE_DBTABLE_H_
 
-#include <boost/any.hpp>
 #include <memory>
 #include <string>
 #include <libpq-fe.h>
 
 #include "DBRow.h"
+#include "ResultSet.h"
 
 namespace zigbee {
 
@@ -21,21 +21,20 @@ namespace zigbee {
     public:
         DBTable();
 
-        DBTable(const std::string &tableName, PGconn *conn);
+        DBTable(const std::string_view tableName, PGconn *conn);
 
         virtual ~DBTable()=default;
 
     public:
-        virtual PGresult * find(const std::string &query);
+        virtual ResultSet find(const std::string &query);
 
         virtual void insert(DBRow *dbRow);
 
     private:
         std::string tableName;
         PGconn *conn;
-        uint currentIndex;
 
-        void checkTableName(const std::string &tableName);
+        void checkTableName(const std::string &&tableName);
     };
 
 } /* namespace zigbee */

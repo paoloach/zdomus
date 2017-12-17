@@ -11,6 +11,8 @@
 #include <boost/any.hpp>
 #include <map>
 #include <string.h>
+#include <any>
+#include <string_view>
 #include <vector>
 
 namespace zigbee {
@@ -20,16 +22,16 @@ namespace zigbee {
         virtual ~DBRow() = default;
 
     public:
-        boost::any getValue(const std::string &fieldName);
+        std::any getValue(const std::string_view &fieldName);
 
-        void setValue(const std::string &fieldName, const boost::any &any);
+        void setValue(const std::string_view &fieldName, const std::any &any) {values[fieldName] = any;}
 
-        std::vector<std::string> getFieldsName() const;
+        std::vector<std::string_view> getFieldsName() const;
 
-        std::vector<boost::any> getFieldsValue() const;
+        std::vector<std::any> getFieldsValue() const;
 
     private:
-        std::map<std::string, boost::any> values;
+        std::map<std::string_view, std::any> values;
     };
 
 } /* namespace zigbee */

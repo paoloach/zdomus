@@ -9,7 +9,9 @@
 #define SRC_DATABASE_DBDATACONVERTER_H_
 
 #include <libpq-fe.h>
-#include <boost/any.hpp>
+#include <any>
+#include <string>
+#include "ResultSet.h"
 
 namespace zigbee {
 
@@ -17,17 +19,17 @@ class DBDataConverter {
 public:
 	class DBData {
 	public:
-		DBData(PGresult * result, uint rowIndex, uint colIndex);
+		DBData(ResultSet * result, int rowIndex, int colIndex);
 	public:
 		Oid type;
 		int modifier;
-		int size;
-		std::string value;
+		std::string_view value;
+        ResultSet::FORMAT_CODE  formatCode;
 	};
 public:
-	virtual ~DBDataConverter();
-	static boost::any getAnyValue(const DBDataConverter::DBData & dbData);
-	static char * getStringValue(const boost::any value);
+	virtual ~DBDataConverter() = default;
+	static std::any getAnyValue(const DBDataConverter::DBData & dbData);
+	static char * getStringValue(const std::any value);
 };
 
 } /* namespace zigbee */

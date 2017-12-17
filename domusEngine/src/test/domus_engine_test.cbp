@@ -77,6 +77,66 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="database_test">
+				<Option output="/home/paolo/workspace/zdomus/domusEngine/src/test/build/database_test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/paolo/workspace/zdomus/domusEngine/src/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include"/>
+					<Add directory="/usr/include/postgresql"/>
+					<Add directory="/usr/include/postgresql/server"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
+					<Add directory="/usr/local/zigbee/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 database_test"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="database_test/fast">
+				<Option output="/home/paolo/workspace/zdomus/domusEngine/src/test/build/database_test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/paolo/workspace/zdomus/domusEngine/src/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include"/>
+					<Add directory="/usr/include/postgresql"/>
+					<Add directory="/usr/include/postgresql/server"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
+					<Add directory="/usr/local/zigbee/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 database_test/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/paolo/workspace/zdomus/domusEngine/src/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 		</Build>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/serialDriver/SerialDriverFactory.h">
 			<Option target="domus_engine_test"/>
@@ -122,6 +182,12 @@
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Configuration/ConfigurationTest.h">
 			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Database/DBTableTest.cpp">
+			<Option target="database_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Database/DBTableTest.h">
+			<Option target="database_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/AttributeDataContainerTest.cpp">
 			<Option target="domus_engine_test"/>
@@ -431,6 +497,9 @@
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/main.cpp">
 			<Option target="domus_engine_test"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/main_test.cpp">
+			<Option target="database_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/serialDriver/IEEEAddressResponseSerialExecutorTest.cpp">
 			<Option target="domus_engine_test"/>

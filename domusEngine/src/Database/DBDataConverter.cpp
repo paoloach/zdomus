@@ -5,65 +5,76 @@
  *      Author: Paolo Achdjian
  */
 
+#include <boost/log/trivial.hpp>
 #include <boost/date_time.hpp>
 #include <postgres.h>
 #include <catalog/pg_type.h>
-#include <boost/lexical_cast.hpp>
 #include <libpq-fe.h>
-#include <iostream>
-#include <sstream>
 #include "DBDataConverter.h"
 #include "Exceptions/DBExceptionInvalidDataType.h"
-#include <memory>
 
 namespace zigbee {
 
 using namespace boost::posix_time;
 using namespace boost::gregorian;
+using std::any;
+using std::any_cast;
 
-DBDataConverter::~DBDataConverter() {
+
+DBDataConverter::DBData::DBData(ResultSet * result, int rowIndex, int colIndex) {
+	type = result->getFieldType(colIndex);
+	modifier = result->getModifier(colIndex);
+    formatCode = result->getFormatCode(colIndex);
+    value = result->getRawValue(colIndex,rowIndex);
 }
 
-DBDataConverter::DBData::DBData(PGresult* result, uint rowIndex, uint colIndex) {
-	type = PQftype(result, colIndex);
-	modifier = PQfmod(result, colIndex);
-	size = PQgetlength(result, rowIndex, colIndex);
-	value = PQgetvalue(result, rowIndex, colIndex);
-}
-
-boost::any DBDataConverter::getAnyValue(const DBDataConverter::DBData& dbData) {
+std::any DBDataConverter::getAnyValue(const DBDataConverter::DBData& dbData) {
 	switch (dbData.type) {
 	case INT2OID:
 	case INT4OID:
 	case REGPROCOID:
 	case OIDOID:
 	case CASHOID:
-		return boost::any(boost::lexical_cast<int32_t>(dbData.value));
+        if (dbData.formatCode == ResultSet::BINARY)
+		    return any(boost::lexical_cast<int32_t>(dbData.value));
+        else
+            return any(std::atoi(dbData.value.data()));
 	case NUMERICOID:
 	case INT8OID:
-		return boost::any(boost::lexical_cast<int64_t>(dbData.value));
+        if (dbData.formatCode == ResultSet::BINARY)
+		    return any(boost::lexical_cast<int64_t>(dbData.value));
+        else
+            return any(std::atoll(dbData.value.data()));
 	case FLOAT4OID:
 	case FLOAT8OID:
-		return boost::any(boost::lexical_cast<double>(dbData.value));
+        if (dbData.formatCode == ResultSet::BINARY)
+		    return any(boost::lexical_cast<double>(dbData.value));
+        else
+            return any(std::atof(dbData.value.data()));
 	case BOOLOID:
-
-		if (dbData.value == "t" || dbData.value == "true" || dbData.value == "y" || dbData.value == "yes" || dbData.value == "on" || dbData.value == "1") {
-			return boost::any(true);
-		} else {
-			return boost::any(false);
-		}
+        if (dbData.formatCode == ResultSet::BINARY)
+            if (dbData.value.data()[0] == 0)
+                return any(false);
+            else
+                return any(true);
+        else
+		    if (dbData.value == "t" || dbData.value == "true" || dbData.value == "y" || dbData.value == "yes" || dbData.value == "on" || dbData.value == "1") {
+			    return any(true);
+		    } else {
+			    return any(false);
+		    }
 	case CHAROID:
 	case NAMEOID:
 	case TEXTOID:
 	case BPCHAROID:
 	case VARCHAROID:
-		return boost::any(boost::lexical_cast<std::string>(dbData.value));
+		return any(boost::lexical_cast<std::string>(dbData.value));
 	case ABSTIMEOID:
 	case DATEOID:
 	case TIMEOID:
 	case TIMESTAMPTZOID:
 	case TIMETZOID:
-		return boost::any(boost::lexical_cast<std::string>(dbData.value));
+		return any(boost::lexical_cast<std::string>(dbData.value));
 	case TIMESTAMPOID:{
 		std::string format("%Y-%m-%d %H:%M:%S%F%Q");
 
@@ -71,35 +82,39 @@ boost::any DBDataConverter::getAnyValue(const DBDataConverter::DBData& dbData) {
 		std::unique_ptr<time_input_facet> time_input( new time_input_facet(format));
 
 
-		std::stringstream stream(dbData.value);
+		std::stringstream stream(dbData.value.data());
 		stream.imbue(std::locale(stream.getloc(), date_input.release()));
 		stream.imbue(std::locale(stream.getloc(), time_input.release()));
 
 		ptime timeStamp;
 		stream >> timeStamp;
-		return boost::any(timeStamp);
+		return any(timeStamp);
 		}
 	default:
 		throw DBExceptionInvalidDataType(dbData.type);
 	}
 }
 
-char* DBDataConverter::getStringValue(const boost::any value) {
+char* DBDataConverter::getStringValue(const any value) {
 	std::stringstream stream;
 
 	if (value.type() == typeid(int32_t)) {
-		stream << boost::any_cast<int32_t>(value);
+		stream << any_cast<int32_t>(value);
 	} else if (value.type() == typeid(int64_t)) {
-		stream << boost::any_cast<int64_t>(value);
+		stream << any_cast<int64_t>(value);
 	} else if (value.type() == typeid(double)) {
-		stream << boost::any_cast<double>(value);
+		stream << any_cast<double>(value);
 	} else if (value.type() == typeid(double)) {
-		stream << boost::any_cast<double>(value);
+		stream << any_cast<double>(value);
 	} else if (value.type() == typeid(bool)) {
-		stream << (boost::any_cast<bool>(value)  ? "t" : "f");
+		stream << (any_cast<bool>(value)  ? "t" : "f");
 	} else if (value.type() == typeid(std::string)) {
-		stream << boost::any_cast<std::string>(value);
-	}
+		stream << any_cast<std::string>(value);
+    } else if (value.type() == typeid(std::string_view)) {
+        stream << any_cast<std::string_view>(value);
+	} else {
+        BOOST_LOG_TRIVIAL(error) << "Unsupported type: " << value.type().name();
+    }
 	return strdup(stream.str().c_str());
 }
 

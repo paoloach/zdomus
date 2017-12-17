@@ -38,17 +38,18 @@ namespace zigbee {
     }
 
 
-    Local<Object> JSResultSet::createInstance(Isolate *isolate, PGresult *resultSet) {
+    Local<Object> JSResultSet::createInstance(Isolate *isolate, ResultSet && resultSet) {
         Local<ObjectTemplate> jsTemplate = Local<FunctionTemplate>::New(isolate, persistentFunctionTemplate)->InstanceTemplate();
         Local<Object> newInstance = jsTemplate->NewInstance();
         Persistent<Object, NonCopyablePersistentTraits<Object>> newObject;
+        ResultSet * p = new ResultSet(resultSet);
 
         newInstance->SetInternalField(FIELD_ACTUAL_ROW, External::New(isolate, jsRow));
-        newInstance->SetInternalField(FIELD_RESULT_SET, External::New(isolate, resultSet));
+        newInstance->SetInternalField(FIELD_RESULT_SET, External::New(isolate, p));
         newInstance->SetInternalField(FIELD_CURRENT_INDEX, v8::Int32::New(isolate, 0));
-        newInstance->SetInternalField(FIELD_MAX_INDEX, v8::Int32::New(isolate, PQntuples(resultSet)));
+        newInstance->SetInternalField(FIELD_MAX_INDEX, v8::Int32::New(isolate, resultSet.numberOfRow()));
         newObject.Reset(isolate, newInstance);
-        newObject.SetWeak(resultSet, weakCallback, WeakCallbackType::kParameter);
+        newObject.SetWeak(p, weakCallback, WeakCallbackType::kParameter);
 
         return newInstance;
     }
@@ -58,12 +59,11 @@ namespace zigbee {
     }
 
 
-    void JSResultSet::weakCallback(const v8::WeakCallbackInfo<PGresult> &data) {
+    void JSResultSet::weakCallback(const v8::WeakCallbackInfo<ResultSet> &data) {
 
         BOOST_LOG_TRIVIAL(info) << "Called JSResultSet::weakCallback" << std::endl;
-        PGresult *resultSet = data.GetParameter();
-
-        PQclear(resultSet);
+        ResultSet *resultSet = data.GetParameter();
+        delete resultSet;
     }
 
     JSRow *JSResultSet::getJsRow(const v8::FunctionCallbackInfo<v8::Value> &info) {
@@ -76,10 +76,10 @@ namespace zigbee {
         return jsRow;
     }
 
-    PGresult *JSResultSet::getPGResult(const v8::FunctionCallbackInfo<v8::Value> &info) {
+    ResultSet *JSResultSet::getPGResult(const v8::FunctionCallbackInfo<v8::Value> &info) {
         Local<Object> self = info.Holder();
         Local<External> wrap = Local<External>::Cast(self->GetInternalField(FIELD_RESULT_SET));
-        PGresult *result = static_cast<PGresult *>( wrap->Value());
+        ResultSet *result = static_cast<ResultSet *>( wrap->Value());
         if (result == nullptr) {
             throw JSException("Internal error: invalid instance of JSResultSet");
         }
@@ -128,18 +128,18 @@ namespace zigbee {
     void JSResultSet::stringify(const v8::FunctionCallbackInfo<v8::Value> &info){
         Isolate *isolate = info.GetIsolate();
         try {
-            pg_result * resultSet = getPGResult(info);
+            ResultSet * resultSet = getPGResult(info);
             Value root(arrayValue);
-            int nTuples = PQntuples(resultSet);
-            int nRow = PQnfields(resultSet);
+            int nTuples = resultSet->numberOfRow();
+            int nRow = resultSet->numberOfField();
             for(int tuple = 0; tuple < nTuples; tuple++){
                 Value object(objectValue);
                 for(int row=0; row < nRow; row++){
-                    auto colName = PQfname(resultSet, row);
+                    auto colName = resultSet->columnName(row);
                     if (colName == nullptr)
                         continue;
                     auto dbData = DBDataConverter::DBData(resultSet, tuple, row);
-                    boost::any value = DBDataConverter::getAnyValue(dbData);
+                    std::any value = DBDataConverter::getAnyValue(dbData);
                     object[colName] =  DBDataConverter::getStringValue(value);
                 }
                 root.append(object);
@@ -154,19 +154,19 @@ namespace zigbee {
         }
     }
 
-    std::unique_ptr<DBRow> JSResultSet::makeDBRow(PGresult *resultSet, uint currentIndex) {
+    std::unique_ptr<DBRow> JSResultSet::makeDBRow(ResultSet *resultSet, uint currentIndex) {
         auto dbRow = std::make_unique<DBRow>();
 
-        int fieldCount = PQnfields(resultSet);
+        int fieldCount = resultSet->numberOfField();
 
         for (int colIndex = 0; colIndex < fieldCount; colIndex++) {
-            std::string fieldName = PQfname(resultSet, colIndex);
-            if (PQgetisnull(resultSet, currentIndex, colIndex) == 0) {
+            auto fieldName = resultSet->columnName(colIndex);
+            if (!resultSet->fieldIsNull(currentIndex, colIndex)) {
                 DBDataConverter::DBData dbData(resultSet, currentIndex, colIndex);
-                boost::any value = DBDataConverter::getAnyValue(dbData);
+                std::any value = DBDataConverter::getAnyValue(dbData);
                 dbRow->setValue(fieldName, value);
             } else {
-                dbRow->setValue(fieldName, boost::any());
+                dbRow->setValue(fieldName, std::any());
             }
         }
 
