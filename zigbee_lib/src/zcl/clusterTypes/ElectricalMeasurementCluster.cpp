@@ -186,6 +186,15 @@ namespace zigbee {
                 0x15, "calibrate current gain",
                 std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeUInt16>>("Expected current (mA)")
         );
+        _commandsDef.emplace_back(
+                [=](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0x16); },
+                0x16, "start measure" );
+        _commandsDef.emplace_back(
+                [=](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0x17); },
+                0x17, "start single measure" );
+        _commandsDef.emplace_back(
+                [=](std::vector<uint8_t> &&) { zigbeeDevice->sendCmd(networkAddress, endpoint, ElectricalMeasurament, 0x18); },
+                0x18, "reset" );
 
     }
 
