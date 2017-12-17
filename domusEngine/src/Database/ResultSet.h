@@ -19,6 +19,7 @@ namespace zigbee {
         ResultSet(pg_result *pgResult) : resultSet{pgResult}, currentIndex{0} {}
 
         std::any getValue(std::string_view colNam);
+        std::string stringify();
 
         int numberOfRow() { return PQntuples(resultSet); }
 

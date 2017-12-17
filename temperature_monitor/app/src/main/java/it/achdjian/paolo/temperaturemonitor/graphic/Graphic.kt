@@ -33,6 +33,7 @@ class Graphic : AppCompatActivity() {
         graph.setOnTouchListener(graphViewScale)
         graphViewModel.graphicData.observe(this, graph)
 
+
         domusEngine.getTemperatureData(networkAddress, graphViewScale.start, graphViewScale.end)
     }
 

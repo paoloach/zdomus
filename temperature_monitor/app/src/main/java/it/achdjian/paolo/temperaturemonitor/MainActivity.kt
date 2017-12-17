@@ -146,7 +146,6 @@ open class MainActivity : AppCompatActivity(), View.OnLayoutChangeListener, Conn
 
     override fun disconnected() {
         runOnUiThread({ supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.RED)) })
-
     }
 
     fun startGraphicActivity(element: ZElementAdapter.Element) {

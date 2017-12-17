@@ -86,7 +86,7 @@ add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
 
 find_package(PostgreSQL)
 
-find_package(Boost 1.63 COMPONENTS fiber context system thread signals program_options filesystem log REQUIRED)
+find_package(Boost 1.63 COMPONENTS date_time fiber context system thread signals program_options filesystem log REQUIRED)
 
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 include_directories(./include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR})
@@ -288,6 +288,7 @@ SET(LIBS zigbeeLib
         ${Boost_LOG_LIBRARY_RELEASE}
         ${Boost_LOG_SETUP_LIBRARY_RELEASE}
         ${Boost_CONTEXT_LIBRARY}
+        ${Boost_DATE_TIME_LIBRARY_RELEASE}
         ${Boost_FIBER_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
         ${PISTACHE_LIB}

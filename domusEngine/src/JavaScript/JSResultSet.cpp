@@ -129,24 +129,7 @@ namespace zigbee {
         Isolate *isolate = info.GetIsolate();
         try {
             ResultSet * resultSet = getPGResult(info);
-            Value root(arrayValue);
-            int nTuples = resultSet->numberOfRow();
-            int nRow = resultSet->numberOfField();
-            for(int tuple = 0; tuple < nTuples; tuple++){
-                Value object(objectValue);
-                for(int row=0; row < nRow; row++){
-                    auto colName = resultSet->columnName(row);
-                    if (colName == nullptr)
-                        continue;
-                    auto dbData = DBDataConverter::DBData(resultSet, tuple, row);
-                    std::any value = DBDataConverter::getAnyValue(dbData);
-                    object[colName] =  DBDataConverter::getStringValue(value);
-                }
-                root.append(object);
-            }
-            std::stringstream stream;
-            stream << root << "\r\n";
-            info.GetReturnValue().Set(v8::String::NewFromUtf8(isolate, stream.str().c_str()));
+            info.GetReturnValue().Set(v8::String::NewFromUtf8(isolate, resultSet->stringify().c_str()));
         } catch (std::exception &excp) {
             BOOST_LOG_TRIVIAL(error) << excp.what();
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, excp.what());

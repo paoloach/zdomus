@@ -112,6 +112,8 @@ char* DBDataConverter::getStringValue(const any value) {
 		stream << any_cast<std::string>(value);
     } else if (value.type() == typeid(std::string_view)) {
         stream << any_cast<std::string_view>(value);
+    } else if (value.type() == typeid(ptime)){
+        stream << to_iso_string(any_cast<ptime>(value));
 	} else {
         BOOST_LOG_TRIVIAL(error) << "Unsupported type: " << value.type().name();
     }

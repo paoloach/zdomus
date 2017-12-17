@@ -14,6 +14,9 @@
 #include "DBTableTest.h"
 #include "../../Database/Exceptions/DBExceptionNoTable.h"
 #include "../../Database/Exceptions/DBExceptionResultNotSet.h"
+#include "../../json/json/json.h"
+
+using namespace Json;
 
 namespace zigbee {
     namespace test {
@@ -109,7 +112,6 @@ namespace zigbee {
         }
 
         TEST_F(DBTableTest, find_data_integer) {
-            std::string_view fieldName = "fieldName";
             createTable(tableName, {"a integer"});
             insertTable(tableName, "3");
 
@@ -121,7 +123,6 @@ namespace zigbee {
         }
 
         TEST_F(DBTableTest, find_data_float) {
-            string_view fieldName = "fieldName";
             createTable(tableName, {"a real"});
             insertTable(tableName, "3.6");
 
@@ -133,7 +134,6 @@ namespace zigbee {
         }
 
         TEST_F(DBTableTest, find_data_bool) {
-            std::string fieldName = "fieldName";
             createTable(tableName, {"a boolean"});
             insertTable(tableName, "'on'");
 
@@ -145,7 +145,6 @@ namespace zigbee {
         }
 
         TEST_F(DBTableTest, find_data_string) {
-            std::string fieldName = "fieldName";
             createTable(tableName, {"a text"});
             insertTable(tableName, "'text-text'");
 
@@ -157,7 +156,6 @@ namespace zigbee {
         }
 
         TEST_F(DBTableTest, find_data_timestamp) {
-            std::string fieldName = "fieldName";
             createTable(tableName, {"a timestamp"});
             insertTable(tableName, "'2015-01-25 12:11:54.88'");
             ptime expectedTime(date(2015, 1, 25), time_duration(12, 11, 54, 880000));
@@ -171,8 +169,6 @@ namespace zigbee {
         }
 
         TEST_F(DBTableTest, find_data_condition) {
-            std::string tableName = "testTable";
-            std::string fieldName = "fieldName";
             createTable(tableName, {"a integer, b integer"});
             insertTable(tableName, "1, 3");
             insertTable(tableName, "10, 30");
@@ -206,6 +202,39 @@ namespace zigbee {
             ASSERT_THAT(actualRow.getValue("a"), IsAnyInteger(expected_a));
             ASSERT_THAT(actualRow.getValue("b"), IsAnyDouble(expected_b));
             ASSERT_THAT(actualRow.getValue("c"), IsAnyString(expected_c));
+        }
+
+
+        TEST_F(DBTableTest, stringifyARow) {
+            createTable(tableName, {"a integer", "b real", "c text", "d timestamp"});
+            int expected_a = 10;
+            double expected_b = 21.34;
+            string_view expected_c = "text_c";
+            string_view d = "2015-01-25 12:11:54.88";
+            string_view expected_d = "20150125T121154.880000";
+
+            dbTable = new DBTable(tableName,conn);
+
+            DBRow row;
+
+            row.setValue("a", any(expected_a));
+            row.setValue("b", any(expected_b));
+            row.setValue("c", any(expected_c));
+            row.setValue("d", any(d));
+            dbTable->insert(&row);
+
+            Value root(arrayValue);
+            Value object(objectValue);
+            object["a"] = std::to_string(expected_a);
+            object["b"] = "21.34";
+            object["c"] = std::string(expected_c);
+            object["d"] = std::string(expected_d);
+            root.append(object);
+            std::stringstream stream;
+            stream << root << "\r\n";
+            auto result = dbTable->find("");
+            ASSERT_THAT(result.stringify(), stream.str());
+
         }
 
         void DBTableTest::createTable(const std::string_view tableName) {
