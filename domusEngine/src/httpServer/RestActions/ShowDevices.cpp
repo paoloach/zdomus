@@ -17,11 +17,11 @@
 
 namespace zigbee {
     namespace http {
-        using namespace Net::Rest;
-        using namespace Net::Http;
-        using namespace Net::Http::Header;
+        using namespace Pistache::Rest;
+        using namespace Pistache::Http;
+        using namespace Pistache::Http::Header;
 
-        Net::Rest::Route::Result ShowDevices::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+        Pistache::Rest::Route::Result ShowDevices::operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
             if (request.headers().has(ContentType::Name)) {
                 auto contentType = request.headers().get<ContentType>();
@@ -29,10 +29,10 @@ namespace zigbee {
                 std::stringstream output;
                 producer.produce(output, ZDevicesPT(singletons.getZDevices()));
                 response.send(Code::Ok, output.str());
-                return Net::Rest::Route::Result::Ok;
+                return Pistache::Rest::Route::Result::Ok;
             } else {
                 response.send(Code::Bad_Request, "Invalid content type\n\r");
-                return Net::Rest::Route::Result::Ok;
+                return Pistache::Rest::Route::Result::Ok;
             }
         }
     } /* namespace http */

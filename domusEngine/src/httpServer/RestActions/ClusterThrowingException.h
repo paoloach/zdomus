@@ -24,7 +24,7 @@ namespace zigbee {
 
         class ClusterThrowingException {
         public:
-            void throwWrongCluster(Net::Http::ResponseWriter &&response, const ClusterID &clusterId, const EndpointID &endpointId, const NwkAddr &nwkAddr);
+            void throwWrongCluster(Pistache::Http::ResponseWriter &&response, const ClusterID &clusterId, const EndpointID &endpointId, const NwkAddr &nwkAddr);
         };
 
     } /* namespace http */

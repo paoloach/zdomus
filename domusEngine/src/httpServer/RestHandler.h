@@ -16,11 +16,11 @@ namespace zigbee {
             RestHandler(zigbee::SingletonObjects &singletons);
             virtual ~RestHandler() = default;
             virtual void start();
-            virtual void addGetPath(std::string path, Net::Rest::Route::Handler fn);
+            virtual void addGetPath(std::string path, Pistache::Rest::Route::Handler fn);
 
         private:
-            Net::Rest::Router router;
-            Net::Http::Endpoint server;
+            Pistache::Rest::Router router;
+            Pistache::Http::Endpoint server;
         };
     } /* namespace http */
 } /* namespace zigbee */

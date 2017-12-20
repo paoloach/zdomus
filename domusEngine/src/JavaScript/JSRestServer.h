@@ -49,9 +49,9 @@ namespace zigbee {
     private:
         static void checkStringParam(const std::string &methodName, const v8::FunctionCallbackInfo<v8::Value> &info, uint32_t index);
 
-        Net::Rest::Route::Result callback(v8::Isolate *isolate, int functionId, const Net::Rest::Request &request, Net::Http::ResponseWriter && response);
+        Pistache::Rest::Route::Result callback(v8::Isolate *isolate, int functionId, const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter && response);
 
-        void asyncCallback(v8::Isolate *, int functionId, const Net::Rest::Request &request);
+        void asyncCallback(v8::Isolate *, int functionId, const Pistache::Rest::Request &request);
 
     private:
         http::RestHandler * restHandler;

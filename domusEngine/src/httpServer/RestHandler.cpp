@@ -24,12 +24,12 @@
 #include "RestActions/ShowPowerNode.h"
 
 
-using namespace Net::Rest::Routes;
+using namespace Pistache::Rest::Routes;
 using namespace zigbee::http;
 
 namespace zigbee {
     namespace http {
-        static Net::Address addr(Net::Ipv4::any(), Net::Port(8080));
+        static Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(8080));
 
         RestHandler::RestHandler(zigbee::SingletonObjects &singletons) : server(addr) {
             Get(router, "/hello", ShowHello{});
@@ -53,7 +53,7 @@ namespace zigbee {
             Delete(router, "/bind/src/:srcDevice/endpoint/:srcEndpoint/cluster/:cluster/dst/:dstDevice/endpoint/dstEndpoint", ExecuteBind{singletons, false});
 
 
-            auto opts = Net::Http::Endpoint::options().threads(1);
+            auto opts = Pistache::Http::Endpoint::options().threads(1);
             server.init(opts);
             server.setHandler(router.handler());
 
@@ -63,7 +63,7 @@ namespace zigbee {
             server.serve();
         }
 
-        void RestHandler::addGetPath(std::string path, Net::Rest::Route::Handler fn) {
+        void RestHandler::addGetPath(std::string path, Pistache::Rest::Route::Handler fn) {
             BOOST_LOG_NAMED_SCOPE(REST);
             BOOST_LOG_TRIVIAL(info)<< "Add GET path: " << path;
             Get(router, std::move(path), std::move(fn));

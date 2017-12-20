@@ -15,7 +15,7 @@
 #include "../../ZigbeeData/Exceptions/InvalidOutCluster.h"
 #include "../../ZigbeeData/Exceptions/InvalidInCluster.h"
 
-Net::Rest::Route::Result zigbee::http::ExecuteBind::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+Pistache::Rest::Route::Result zigbee::http::ExecuteBind::operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response) {
     BOOST_LOG_NAMED_SCOPE("HTTP");
     BOOST_LOG_TRIVIAL(info) << "ExecuteBind";
 
@@ -46,7 +46,7 @@ Net::Rest::Route::Result zigbee::http::ExecuteBind::operator()(const Net::Rest::
     std::stringstream stream;
     stream << "Cluster " << clusterId << " binded " << srcDevice << ":" << srcEndpoint << " with " << dstDevice << ":" << dstEndpoint << std::endl;
 
-    response.send(Net::Http::Code::Ok, stream.str(), MIME(Text, Plain));
-    return Net::Rest::Route::Result::Ok;
+    response.send(Pistache::Http::Code::Ok, stream.str(), MIME(Text, Plain));
+    return Pistache::Rest::Route::Result::Ok;
 }
 

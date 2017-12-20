@@ -32,12 +32,12 @@
 					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include-fixed"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
@@ -62,12 +62,12 @@
 					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include-fixed"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
@@ -92,12 +92,12 @@
 					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include-fixed"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
@@ -122,12 +122,12 @@
 					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include/g++-v6/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/6.4.0/include-fixed"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include-fixed"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>

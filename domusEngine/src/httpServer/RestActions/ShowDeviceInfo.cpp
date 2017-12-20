@@ -19,15 +19,15 @@ using namespace Json;
 
 namespace zigbee {
     namespace http {
-        using namespace Net::Rest;
-        using namespace Net::Http;
-        using namespace Net::Http::Header;
+        using namespace Pistache::Rest;
+        using namespace Pistache::Http;
+        using namespace Pistache::Http::Header;
 
         ShowDeviceInfo::~ShowDeviceInfo() {
             singletons.getDeviceInfoDispatcher()->remove(this, device);
         }
 
-        Net::Rest::Route::Result ShowDeviceInfo::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+        Pistache::Rest::Route::Result ShowDeviceInfo::operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
             device = request.param(":device").as<NwkAddr>();
             BOOST_LOG_TRIVIAL(info) << "Request device info " << device;
@@ -46,13 +46,13 @@ namespace zigbee {
                     milliseconds elapsed = duration_cast<std::chrono::milliseconds>(system_clock::now() - start);
                     if (elapsed > milliseconds(constants.requestTimeout)) {
                         response.send(Code::Bad_Request, "data timeout\n\r");
-                        return Net::Rest::Route::Result::Ok;
+                        return Pistache::Rest::Route::Result::Ok;
                     }
                 }
                 sendJSON(response);
             }
             response.send(Code::Internal_Server_Error, "zigbee device not connected\n\r");
-            return Net::Rest::Route::Result::Ok;
+            return Pistache::Rest::Route::Result::Ok;
         }
 
         void ShowDeviceInfo::newDeviceInfo(zigbee::DeviceInfoMessage *deviceInfo) {
@@ -62,7 +62,7 @@ namespace zigbee {
             }
         }
 
-        void ShowDeviceInfo::sendJSON(Net::Http::ResponseWriter &response) {
+        void ShowDeviceInfo::sendJSON(Pistache::Http::ResponseWriter &response) {
             Value root(objectValue);
 
             root["nwkAddr"] = Value(deviceInfoMessage.nwkAddr);

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(domus_engine_test)
 
 set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache/include)
-set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache-build/src/libnet_static.a)
+set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache-build/src/libpistache.a)
 
 find_package(PostgreSQL)
 

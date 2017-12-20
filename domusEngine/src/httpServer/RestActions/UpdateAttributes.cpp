@@ -19,9 +19,9 @@ using Json::operator>>;
 
 namespace zigbee {
     namespace http {
-        using namespace Net::Rest;
-        using namespace Net::Http;
-        using namespace Net::Http::Header;
+        using namespace Pistache::Rest;
+        using namespace Pistache::Http;
+        using namespace Pistache::Http::Header;
 
         /**
          * {
@@ -46,7 +46,7 @@ namespace zigbee {
          * }
          *
          */
-        Net::Rest::Route::Result UpdateAttributes::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+        Pistache::Rest::Route::Result UpdateAttributes::operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
             BOOST_LOG_TRIVIAL(info) << "UpdateAttributes";
             auto nwkAddr = request.param(":device").as<NwkAddr>();
@@ -75,7 +75,7 @@ namespace zigbee {
             } else {
                 throwWrongCluster(std::move(response), clusterId, endpoint, nwkAddr);
             }
-            return Net::Rest::Route::Result::Ok;
+            return Pistache::Rest::Route::Result::Ok;
         }
 
     } /* namespace http */

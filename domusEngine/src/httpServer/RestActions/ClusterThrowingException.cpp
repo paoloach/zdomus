@@ -16,12 +16,12 @@
 namespace zigbee {
     namespace http {
 
-        void ClusterThrowingException::throwWrongCluster(Net::Http::ResponseWriter &&response, const ClusterID &clusterId, const EndpointID &endpointId, const NwkAddr &nwkAddr) {
+        void ClusterThrowingException::throwWrongCluster(Pistache::Http::ResponseWriter &&response, const ClusterID &clusterId, const EndpointID &endpointId, const NwkAddr &nwkAddr) {
             std::stringstream message;
 
             message << "ERROR: " << "cluster " << clusterId << " is not an IN cluster of endpoint " << endpointId << " in the device with address " << nwkAddr << "\n";
             BOOST_LOG_TRIVIAL(error) << message.str() << std::endl;
-            response.send(Net::Http::Code::Bad_Request, message.str());
+            response.send(Pistache::Http::Code::Bad_Request, message.str());
 
         }
 

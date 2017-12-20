@@ -14,11 +14,11 @@ using namespace Json;
 
 namespace zigbee {
     namespace http {
-        using namespace Net::Rest;
-        using namespace Net::Http;
-        using namespace Net::Http::Header;
+        using namespace Pistache::Rest;
+        using namespace Pistache::Http;
+        using namespace Pistache::Http::Header;
 
-        Net::Rest::Route::Result ShowTopology::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter  && response) {
+        Pistache::Rest::Route::Result ShowTopology::operator()(const Pistache::Rest::Request &, Pistache::Http::ResponseWriter  && response) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
 
             BOOST_LOG_TRIVIAL(info) << "ShowTopology";
@@ -38,7 +38,7 @@ namespace zigbee {
 
             response.send(Code::Ok, stream.str());
 
-            return Net::Rest::Route::Result::Ok;
+            return Pistache::Rest::Route::Result::Ok;
         }
 
         Json::Value ShowTopology::createChildren(std::set<NwkAddr> &children) {

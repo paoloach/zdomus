@@ -17,10 +17,10 @@ namespace zigbee {
     using std::stringstream;
     using namespace std::chrono_literals;
     using namespace v8;
-    using Net::Rest::Route;
-    using Net::Rest::Request;
-    using Net::Http::ResponseWriter;
-    using Net::Http::Code;
+    using Pistache::Rest::Route;
+    using Pistache::Rest::Request;
+    using Pistache::Http::ResponseWriter;
+    using Pistache::Http::Code;
 
     void JSRestServer::initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) {
         Local<String> jsClassName = String::NewFromUtf8(isolate, JSRESTSERVER);
@@ -126,7 +126,7 @@ namespace zigbee {
         }
     }
 
-    void JSRestServer::asyncCallback(Isolate * isolate, int functionId,const Net::Rest::Request& request) {
+    void JSRestServer::asyncCallback(Isolate * isolate, int functionId,const Pistache::Rest::Request& request) {
         if (callbackMap.count(functionId) > 0){
             Local<Value> object = Local<Value>::New(isolate, callbackMap[functionId]);
             Local<Function> callback = Local<Function>::Cast(object);
@@ -161,7 +161,7 @@ namespace zigbee {
         }
     }
 
-    Net::Rest::Route::Result JSRestServer::callback(v8::Isolate *isolate, int functionId, const Net::Rest::Request &request, Net::Http::ResponseWriter && response) {
+    Pistache::Rest::Route::Result JSRestServer::callback(v8::Isolate *isolate, int functionId, const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter && response) {
         if (conditionVariables.count(functionId) ==0){
             conditionVariables[functionId] = std::make_unique<std::condition_variable>();
         }

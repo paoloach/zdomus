@@ -12,7 +12,7 @@
 using std::stringstream;
 using std::string;
 using namespace v8;
-using Net::Rest::Request;
+using Pistache::Rest::Request;
 
 namespace zigbee {
 
@@ -40,7 +40,7 @@ namespace zigbee {
         Local<Object> object = objectTemplate->NewInstance();
         Persistent<v8::Object> newObject;
 
-        object->SetInternalField(0, External::New(isolate, const_cast<Net::Rest::Request *>(&request)));
+        object->SetInternalField(0, External::New(isolate, const_cast<Pistache::Rest::Request *>(&request)));
 
         return object;
     }

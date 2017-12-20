@@ -16,7 +16,7 @@ namespace zigbee {
 
         MediaTypeProducerFactory::~MediaTypeProducerFactory() noexcept = default;
 
-        const MediaTypeProducer &MediaTypeProducerFactory::getMediaType(std::shared_ptr<const Net::Http::Header::ContentType> &contentType) {
+        const MediaTypeProducer &MediaTypeProducerFactory::getMediaType(std::shared_ptr<const Pistache::Http::Header::ContentType> &contentType) {
             if (contentType->mime() == MIME(Application, Json)) {
                 return applicationJSONProducer;
             } else {

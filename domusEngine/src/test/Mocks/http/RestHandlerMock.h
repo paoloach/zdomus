@@ -17,7 +17,7 @@ namespace zigbee {
                 RestHandlerMock(SingletonObjects &singletons);
                 virtual ~RestHandlerMock();
                 MOCK_METHOD0(start, void () );
-                MOCK_METHOD2(addGetPath,  void (std::string path, Net::Rest::Route::Handler fn));
+                MOCK_METHOD2(addGetPath,  void (std::string path, Pistache::Rest::Route::Handler fn));
             };
         }
     }

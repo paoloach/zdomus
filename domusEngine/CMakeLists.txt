@@ -23,8 +23,8 @@ ExternalProject_Add(pistache
 
 ExternalProject_Get_Property(pistache install_dir)
 
-set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache/include )
-set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache-build/src/libnet_static.a)
+set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache/include ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache/include/pistache)
+set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache-build/src/libpistache.a)
 
 
 add_subdirectory(googletest/googlemock)
@@ -86,7 +86,7 @@ add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
 
 find_package(PostgreSQL)
 
-find_package(Boost 1.63 COMPONENTS date_time fiber context system thread signals program_options filesystem log REQUIRED)
+find_package(Boost 1.63 COMPONENTS date_time fiber context system  signals program_options filesystem log REQUIRED)
 
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 include_directories(./include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR})

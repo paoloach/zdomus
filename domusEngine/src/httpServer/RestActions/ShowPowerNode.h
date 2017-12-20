@@ -16,7 +16,7 @@ namespace zigbee {
     namespace http {
         class ShowPowerNodeCallback : public ResponseCallback<std::shared_ptr<PowerNodeData>>{
         public:
-            ShowPowerNodeCallback(Net::Http::ResponseWriter && responseWriter):responseWriter(std::move(responseWriter)){}
+            ShowPowerNodeCallback(Pistache::Http::ResponseWriter && responseWriter):responseWriter(std::move(responseWriter)){}
             ShowPowerNodeCallback(ShowPowerNodeCallback && other):responseWriter(std::move(other.responseWriter)){}
             ~ShowPowerNodeCallback(){}
             ShowPowerNodeCallback &operator=(ShowPowerNodeCallback && other){
@@ -27,14 +27,14 @@ namespace zigbee {
             void timeout() override;
 
         private:
-            Net::Http::ResponseWriter responseWriter;
+            Pistache::Http::ResponseWriter responseWriter;
         };
 
         class ShowPowerNode {
         public:
             ShowPowerNode(SingletonObjects  &singletons) noexcept :  singletons(singletons) {};
 
-            Net::Rest::Route::Result operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter &&response);
+            Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response);
 
         private:
             SingletonObjects &singletons;

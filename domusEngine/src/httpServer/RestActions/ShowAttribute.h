@@ -31,7 +31,7 @@ namespace zigbee {
         class ShowAttribute : public ClusterThrowingException , public AttributesResponseCallback {
 
         public:
-            ShowAttribute(SingletonObjects &singletons,const Net::Rest::Request &request, Net::Http::ResponseWriter && response);
+            ShowAttribute(SingletonObjects &singletons,const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter && response);
             virtual ~ShowAttribute() = default;
             AttributesKey key;
         private:
@@ -40,7 +40,7 @@ namespace zigbee {
                 return std::find_if(attributes.begin(), attributes.end(), [](ZCLAttribute * attribute){return attribute != nullptr;}) ==attributes.end();
             }
             SingletonObjects &singletons;
-            Net::Http::ResponseWriter responseWriter;
+            Pistache::Http::ResponseWriter responseWriter;
 
         };
 

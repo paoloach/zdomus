@@ -30,12 +30,12 @@ using std::vector;
 
 namespace zigbee {
     namespace http {
-        using namespace Net::Rest;
-        using namespace Net::Http;
-        using namespace Net::Http::Header;
+        using namespace Pistache::Rest;
+        using namespace Pistache::Http;
+        using namespace Pistache::Http::Header;
         using namespace std::literals::chrono_literals;
 
-        ShowAttribute::ShowAttribute(SingletonObjects &singletons, const Net::Rest::Request &request, Net::Http::ResponseWriter &&response) :
+        ShowAttribute::ShowAttribute(SingletonObjects &singletons, const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response) :
                 singletons(singletons), responseWriter(std::move(response)) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
 

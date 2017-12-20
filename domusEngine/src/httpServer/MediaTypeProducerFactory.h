@@ -20,7 +20,7 @@ class MediaTypeProducerFactory {
 public:
 	virtual ~MediaTypeProducerFactory() noexcept;
 
-    static const MediaTypeProducer & getMediaType(std::shared_ptr<const Net::Http::Header::ContentType> & contentType);
+    static const MediaTypeProducer & getMediaType(std::shared_ptr<const Pistache::Http::Header::ContentType> & contentType);
 private:
 	static ApplicationJSONProducer applicationJSONProducer;
 	static PlainTextProducer plainTextProducer;

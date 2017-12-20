@@ -102,7 +102,7 @@ namespace zigbee {
             DBRow row2;
             auto nextDate = date + 5min;
             auto result = table->find(" time between " + toStr(date) + " AND " + toStr(nextDate));
-            if (result == nullptr || PQntuples(result)==0) {
+            if (result.numberOfRow()==0) {
                 row1.setValue("time", toStr(date));
                 row1.setValue("value", (int)value);
                 row1.setValue("network_id", (int) NWK_ADDR2.getId());

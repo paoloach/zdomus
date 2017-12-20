@@ -8,7 +8,7 @@
 #include "../../Utils/SingletonObjects.h"
 
 
-Net::Rest::Route::Result zigbee::http::ShowAttributeFactory::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter && response) {
+Pistache::Rest::Route::Result zigbee::http::ShowAttributeFactory::operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter && response) {
 
     auto showAttribute = std::make_unique<ShowAttribute> (singletons, request, std::move(response));
     if (!showAttribute->key.attributesId.empty()) {
@@ -16,5 +16,5 @@ Net::Rest::Route::Result zigbee::http::ShowAttributeFactory::operator()(const Ne
         singletons.getZigbeeDevice()->registerForAttributesValue(key, std::move(showAttribute));
     }
 
-    return Net::Rest::Route::Result::Ok;
+    return Pistache::Rest::Route::Result::Ok;
 }

@@ -15,12 +15,12 @@ using namespace Json;
 
 namespace zigbee {
     namespace http {
-        using namespace Net::Rest;
-        using namespace Net::Http;
-        using namespace Net::Http::Header;
+        using namespace Pistache::Rest;
+        using namespace Pistache::Http;
+        using namespace Pistache::Http::Header;
 
 
-        Net::Rest::Route::Result ShowBindTable::operator()(const Net::Rest::Request &, Net::Http::ResponseWriter  && response) {
+        Pistache::Rest::Route::Result ShowBindTable::operator()(const Pistache::Rest::Request &, Pistache::Http::ResponseWriter  && response) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
             BOOST_LOG_TRIVIAL(info) << "request BindTable: ";
             Value root(arrayValue);
@@ -37,7 +37,7 @@ namespace zigbee {
             std::stringstream stream;
             stream << root;
             response.send(Code::Ok, stream.str(), MIME(Application, Json));
-            return Net::Rest::Route::Result::Ok;
+            return Pistache::Rest::Route::Result::Ok;
         }
 
     }

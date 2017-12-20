@@ -19,11 +19,11 @@
 
 namespace zigbee {
     namespace http {
-        using namespace Net::Rest;
-        using namespace Net::Http;
-        using namespace Net::Http::Header;
+        using namespace Pistache::Rest;
+        using namespace Pistache::Http;
+        using namespace Pistache::Http::Header;
 
-        Net::Rest::Route::Result ShowOutCluster::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+        Pistache::Rest::Route::Result ShowOutCluster::operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
             BOOST_LOG_TRIVIAL(info) << "ShowOutCluster";
             auto contentType = request.headers().get<ContentType>();
@@ -49,7 +49,7 @@ namespace zigbee {
                 BOOST_LOG_TRIVIAL(error) << output.str();
                 response.send(Code::Bad_Request, output.str());
             }
-            return Net::Rest::Route::Result::Ok;
+            return Pistache::Rest::Route::Result::Ok;
         }
 
     } /* namespace http */

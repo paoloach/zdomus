@@ -19,11 +19,11 @@
 
 namespace zigbee {
     namespace http {
-        using namespace Net::Rest;
-        using namespace Net::Http;
-        using namespace Net::Http::Header;
+        using namespace Pistache::Rest;
+        using namespace Pistache::Http;
+        using namespace Pistache::Http::Header;
 
-        Net::Rest::Route::Result ExecuteCmd::operator()(const Net::Rest::Request &request, Net::Http::ResponseWriter  && response) {
+        Pistache::Rest::Route::Result ExecuteCmd::operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
             BOOST_LOG_TRIVIAL(info) << "ExecuteCmd";
 
@@ -55,7 +55,7 @@ namespace zigbee {
                 }
                 throwWrongCluster(std::move(response), clusterId, endpoint, nwkAddr);
             }
-            return Net::Rest::Route::Result::Ok;
+            return Pistache::Rest::Route::Result::Ok;
         }
 
     } /* namespace http */
