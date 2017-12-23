@@ -36,6 +36,7 @@
 #include "ZigbeeData/RequestDevices.h"
 #include "Utils/DriverFactory.h"
 #include "serialDriver/SerialDriverFactory.h"
+#include "serialDriver2/Serial2DriverFactory.h"
 #include "DemoDriver/DemoDriverFactory.h"
 #include "usb/UsbDriverFactory.h"
 
@@ -95,7 +96,7 @@ int main(int argc, const char *argv[]) {
         configurationFileName = vm[CONFIGURATION_OPTION].as<std::string>();
     }
 
-    std::vector<DriverFactory *> driverFactories = {new SerialDriverFactory, new DemoDriverFactory, new UsbDriverFactory};
+    std::vector<DriverFactory *> driverFactories = {new SerialDriverFactory, new SerialDriver2Factory, new DemoDriverFactory, new UsbDriverFactory};
 
 
 
@@ -120,7 +121,7 @@ variables_map getVariableMap(size_t argc, char const *argv[]) {
     boost::log::trivial::severity_level logSeverity;
     desc.add_options()(HELP, "help")(CONFIGURATION_OPTION, value<std::string>(), "configuration file")(LOGGIN_SETTINGS, value<boost::log::trivial::severity_level>(&logSeverity),
                                                                                                        "Logging settings")(ZDRIVER, value<std::string>(),
-                                                                                                                           "driver for zigbee device (usb, serial, demo)");
+                                                                                                                           "driver for zigbee device (usb, serial, serial2, demo)");
 
 
     variables_map vm{};

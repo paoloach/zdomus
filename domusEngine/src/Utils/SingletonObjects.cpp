@@ -37,7 +37,7 @@ namespace zigbee {
         }
 
         if (!zigbeeDevice){
-            BOOST_LOG_TRIVIAL(error) << "Driver available: usb, serial, demo";
+            BOOST_LOG_TRIVIAL(error) << "Driver available: usb, serial, serial2, demo";
         }
 
 

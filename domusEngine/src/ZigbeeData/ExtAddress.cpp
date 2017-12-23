@@ -19,6 +19,8 @@ namespace zigbee {
         std::fill(data.begin(), data.end(), 0);
     }
 
+
+
     ExtAddress::ExtAddress(std::array<uint8_t, Z_EXTADDR_LEN> extAddr) {
         std::copy(std::begin(extAddr), std::end(extAddr), data.begin());
     }

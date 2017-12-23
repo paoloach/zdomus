@@ -177,7 +177,29 @@ SET(SRC_SERIAL_DRIVER
         src/serialDriver/PowerNodeResponseError.cpp src/serialDriver/PowerNodeResponseError.h
         src/serialDriver/ReadAttributeResponseSerial.h
         src/serialDriver/DeviceInfoSerialExecutor.h
-        src/serialDriver/PowerNodeResponse.cpp src/serialDriver/PowerNodeResponse.h src/serialDriver/AliveMessage.h)
+        src/serialDriver/PowerNodeResponse.cpp src/serialDriver/PowerNodeResponse.h
+        src/serialDriver/AliveMessage.h src/serialDriver/AnnunceSerialExecutor.cpp)
+
+SET(SRC_SERIAL_DRIVER2
+        src/serialDriver2/Serial2DriverFactory.h
+        src/serialDriver2/SerialDriver2.cpp src/serialDriver2/SerialDriver2.h
+        src/serialDriver2/Serial2ResponseExecutor.cpp src/serialDriver2/Serial2ResponseExecutor.h
+        src/serialDriver2/IEEEAddressResponseErrorSerial2Executor.h
+        src/serialDriver2/IEEEAddressResponseSerial2Executor.h
+        src/serialDriver2/AnnunceSerial2Executor.h
+        src/serialDriver2/SimpleDescSerial2Executor.h src/serialDriver2/SimpleDescSerial2Executor.cpp
+        src/serialDriver2/Serial2Executor.h
+        src/serialDriver2/ActiveEndpointSerial2ErrorExecutor.h
+        src/serialDriver2/BindTableSerial2Executer.h
+        src/serialDriver2/DeviceInfoSerial2Executor.h
+        src/serialDriver2/ReadAttributeResponseErrorSerial2.h
+        src/serialDriver2/ReadAttributeResponseSerial2.h src/serialDriver2/ReadAttributeResponseSerial2.cpp
+        src/serialDriver2/AliveMessage2.h
+        src/serialDriver2/InvalidResponseSerial2Executor.h
+        src/serialDriver2/PowerNodeResponse2.cpp src/serialDriver2/PowerNodeResponse2.h
+        src/serialDriver2/PowerNodeResponse2Error.cpp src/serialDriver2/PowerNodeResponse2Error.h
+        src/serialDriver2/ReadThread.cpp src/serialDriver2/ReadThread.h
+        src/serialDriver2/Packet.h src/serialDriver2/AnnunceSerial2Executor.cpp src/serialDriver2/AliveMessage2.cpp src/serialDriver2/StringExecutor.cpp src/serialDriver2/StringExecutor.h)
 
 set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h
@@ -273,7 +295,7 @@ add_library(domus_engine_static_lib STATIC
         )
 
 
-add_executable(domus_engine src/main.cpp ${V8_BLOB} ${SRC_DEMO_DRIVER} ${SRC_SERIAL_DRIVER} ${USB_SRC})
+add_executable(domus_engine src/main.cpp ${V8_BLOB} ${SRC_DEMO_DRIVER} ${SRC_SERIAL_DRIVER} ${SRC_SERIAL_DRIVER2} ${USB_SRC})
 
 add_dependencies(domus_engine pistache)
 

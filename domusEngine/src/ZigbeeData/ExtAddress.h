@@ -12,12 +12,17 @@
 #include <array>
 #include <iostream>
 #include <initializer_list>
+#include <vector>
 
 namespace zigbee {
 
     class ExtAddress {
     public:
         ExtAddress();
+
+        ExtAddress(std::vector<uint8_t>::iterator iter) {
+            std::copy(iter, iter+8, data.begin());
+        }
 
         ExtAddress(std::initializer_list<uint8_t> extAddr);
 

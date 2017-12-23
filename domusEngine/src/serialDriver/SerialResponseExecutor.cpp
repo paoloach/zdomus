@@ -25,7 +25,7 @@ namespace zigbee {
         executors[CmdType::IEEEAddressError] = std::make_unique<IEEEAddressResponseErrorSerialExecutor>();
         executors[CmdType::AnnunceDevice] = std::make_unique<AnnunceSerialExecutor>(singletonObjects);
         executors[CmdType::SimpleDescriptor] = std::make_unique<SimpleDescSerialExecutor>(singletonObjects);
-        executors[CmdType::ActiveEndpointError] = std::make_unique<ActiveEndpointErrorExecutor>();
+        executors[CmdType::ActiveEndpointError] = std::make_unique<ActiveEndpointSerialErrorExecutor>();
         executors[CmdType::BindTableEntry] = std::make_unique<BindTableSerialExecutor>(singletonObjects);
         executors[CmdType::ReadAttributeError] = std::make_unique<ReadAttributeResponseErrorSerial>(singletonObjects);
         executors[CmdType::ReadAttribute] = std::make_unique<ReadAttributeResponseSerial>(singletonObjects);

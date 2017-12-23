@@ -20,7 +20,7 @@ namespace zigbee {
 
             SingletonObjectsMock singletonObjectsMock;
             ZDevicesMock zDevicesMock;
-            std::unique_ptr<IEEEAddressResponseSerialExecutor> executor;
+            std::unique_ptr<IEEEAddressResponseSerial2Executor> executor;
 
 
         };

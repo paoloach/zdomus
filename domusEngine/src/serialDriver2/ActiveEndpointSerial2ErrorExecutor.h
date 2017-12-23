@@ -2,25 +2,18 @@
 // Created by paolo on 03/01/17.
 //
 
-#ifndef DOMUS_ENGINE_ACTIVEENDPOINTERROREXECUTOR_H
-#define DOMUS_ENGINE_ACTIVEENDPOINTERROREXECUTOR_H
+#ifndef ACTIVE_ENDPOINT_SERIAL2_ERROR_EXECUTOR_H
+#define ACTIVE_ENDPOINT_SERIAL2_ERROR_EXECUTOR_H
 #include <boost/log/trivial.hpp>
-#include <boost/token_functions.hpp>
-#include <boost/tokenizer.hpp>
-#include "SerialExecutor.h"
+#include "Serial2Executor.h"
 #include "../Utils/SingletonObjects.h"
 namespace zigbee {
-    class ActiveEndpointSerialErrorExecutor : public SerialExecutor {
+    class ActiveEndpointSerial2ErrorExecutor : public Serial2Executor {
     public:
         // format: AEE: networkId, status
-        virtual void operator()(const std::string & msg ) override {
-            boost::char_separator<char> sep(", ");
-            boost::tokenizer<boost::char_separator<char> >  tok(msg, sep);
-            auto tokIter = tok.begin();
-            tokIter++;
-            NwkAddr nwkAddr(std::stoi(*tokIter, nullptr, 16));
-            tokIter++;
-            int cause = std::stoi(*tokIter, nullptr, 16);
+        virtual void operator()(Packet &&packet ) override {
+            NwkAddr nwkAddr(packet.getUint16(1));
+            int cause = packet.getUint8(3);
             std::stringstream stream;
             stream << "error requesting acttive enpoint at " << nwkAddr << " because ";
             switch (cause){
@@ -41,4 +34,4 @@ namespace zigbee {
     };
 }
 
-#endif //DOMUS_ENGINE_ACTIVEENDPOINTERROREXECUTOR_H
+#endif //ACTIVE_ENDPOINT_SERIAL2_ERROR_EXECUTOR_H
