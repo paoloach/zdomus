@@ -11,7 +11,7 @@
 #include "../JSTest.h"
 #include "../../../JavaScript/JSZAttribute.h"
 #include <zcl/ZCLAttribute.h>
-#include <zcl/Callbacks.h>
+#include <zigbee/Callbacks.h>
 
 namespace zigbee {
     class JSZAttribute;

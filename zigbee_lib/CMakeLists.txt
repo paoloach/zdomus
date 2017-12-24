@@ -43,6 +43,7 @@ set(SOURCE_FILES
         src/zigbee/AttributeStatusRecord.h
         src/zigbee/ClusterID.cpp
         src/zigbee/ClusterID.h
+        src/zigbee/Callbacks.h
         src/zigbee/EndpointID.h
         src/zigbee/NwkAddr.h
         src/zigbee/zigbeeConfig.h

@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(domus_engine_test)
 
-set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache/include)
+set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache/include
+        ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache/include/pistache)
 set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache-build/src/libpistache.a)
 
 find_package(PostgreSQL)
@@ -179,8 +180,6 @@ SET(LIBS zigbeeLib
         pq
         ${V8_LIBRARY}
         ${Boost_SIGNALS_LIBRARY_RELEASE}
-        ${Boost_THREAD_LIBRARY_RELEASE}
-        ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
         ${Boost_LOG_LIBRARY_RELEASE}
         ${Boost_LOG_SETUP_LIBRARY_RELEASE}
@@ -188,6 +187,8 @@ SET(LIBS zigbeeLib
         ${Boost_FIBER_LIBRARY_RELEASE}
         ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
         ${Boost_CONTEXT_LIBRARY_RELEASE}
+        ${Boost_THREAD_LIBRARY_RELEASE}
+        ${Boost_SYSTEM_LIBRARY_RELEASE}
         dl
         pthread
         )

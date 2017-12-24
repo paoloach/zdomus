@@ -2,8 +2,8 @@
 // Created by paolo on 23/12/17.
 //
 
-#include "ReadAttributeResponseSerial2.h"
-
+#include <ios>
+#include <iomanip>
 #include <boost/log/trivial.hpp>
 #include <zigbee/NwkAddr.h>
 #include <zigbee/EndpointID.h>
@@ -11,9 +11,11 @@
 #include <zcl/ZCLAttribute.h>
 #include <zcl/StatusEnum.h>
 #include "../Utils/Clusters.h"
+#include "ReadAttributeResponseSerial2.h"
 
 namespace zigbee {
     void ReadAttributeResponseSerial2::operator()(Packet &&packet) {
+        std::stringstream ss;
         NwkAddr nwkAddr{packet.getUint16(1)};
         EndpointID endpointID{packet.getUint8(3)};
         ClusterID clusterId{packet.getUint16(4)};
@@ -31,12 +33,13 @@ namespace zigbee {
                 uint8_t data[256];
                 for (int i = 0; i < attributeLen; i++) {
                     data[i] = packet.getUint8(i + 11);
+                    ss << std::setw(2) << std::setfill('0') << std::hex << (uint32_t)data[i] << " ";
                 }
 
                 attribute->setValue(status, attributeType, data);
 
                 BOOST_LOG_TRIVIAL(info) << "arrived attribute from  network id=" << nwkAddr << ", endpoint=" << endpointID << ", cluster=" << clusterId << ", attribute="
-                                        << attributeId;
+                                        << attributeId << " : " << ss.str();
 
 
                 singletons.getZigbeeDevice()->setAttribute(key, attribute);

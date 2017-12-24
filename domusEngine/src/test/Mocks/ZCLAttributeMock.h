@@ -10,6 +10,7 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <any>
 
 #include <zcl/ZCLAttribute.h>
 
@@ -18,12 +19,12 @@ namespace zigbee {
 
         class ZCLAttributeMock : public ZCLAttribute {
         public:
-            ZCLAttributeMock( ZigbeeDevice * zigbeeDevice, Cluster *parent, int identifier,
-                             ZCLTypeDataType zclType, const std::string &name, bool readOnly);
+            ZCLAttributeMock(ZigbeeDevice *zigbeeDevice, Cluster *parent, int identifier, ZCLTypeDataType zclType, const std::string &name, bool readOnly);
 
             virtual ~ZCLAttributeMock();
 
-            MOCK_METHOD0( getAttributeRawValue,ZclAttributeRawValue &());
+            MOCK_METHOD0(getAttributeRawValue, ZclAttributeRawValue & ());
+
             MOCK_METHOD1(internalSetValue, void (std::shared_ptr<AttributeStatusRecord>
                     rawData));
 
@@ -50,10 +51,10 @@ namespace zigbee {
                     changeSignal));
 
             MOCK_CONST_METHOD0(getValue, std::any());
+
             MOCK_CONST_METHOD0(getStrValue, std::string());
 
-            MOCK_METHOD1(internalSetValue, void(uint8_t
-                    *rawData));
+            MOCK_METHOD1(internalSetValue, void(uint8_t*rawData));
         };
 
     }

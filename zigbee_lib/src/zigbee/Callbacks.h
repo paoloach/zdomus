@@ -7,13 +7,15 @@
 
 #include <queue>
 #include <boost/fiber/condition_variable.hpp>
+#include <boost/fiber/mutex.hpp>
 #include "ResponseCallback.h"
+
 
 namespace zigbee {
     template <typename T>
     class Callbacks {
         Callbacks() : callback([this]() {
-                std::unique_lock<mutex> lk(this->mutexCond);
+                std::unique_lock<boost::fibers::mutex> lk(this->mutexCond);
                 while (true) {
                     while(this->callbacks.empty()){
                         boost::this_fiber::yield();

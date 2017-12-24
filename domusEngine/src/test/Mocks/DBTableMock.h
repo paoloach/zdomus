@@ -21,7 +21,7 @@ public:
 	DBTableMock();
 	virtual ~DBTableMock();
 
-	MOCK_METHOD1(find, PGresult *  (const std::string & query));
+	MOCK_METHOD1(find, ResultSet  (const std::string & query));
 	MOCK_METHOD1(insert,  void (DBRow * dbRow) );
 };
 
