@@ -20,11 +20,11 @@ namespace zigbee {
 
     ZCLIEEEAddressAttribute::~ZCLIEEEAddressAttribute() = default;
 
-    boost::any ZCLIEEEAddressAttribute::getValue() const {
+    std::any ZCLIEEEAddressAttribute::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value.data);
+        return std::any(value.data);
     }
 
     void ZCLIEEEAddressAttribute::sendValue(uint64_t newValue) {

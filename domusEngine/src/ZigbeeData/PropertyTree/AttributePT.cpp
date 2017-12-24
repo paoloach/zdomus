@@ -6,6 +6,7 @@
  */
 
 #include <zcl/ZCLAttribute.h>
+#include <any>
 #include "AttributePT.h"
 
 namespace zigbee {
@@ -20,7 +21,7 @@ AttributePT::AttributePT(ZCLAttribute * attribute) {
 	add("isSupported", !attribute->isUnsupported());
 	add("status", attribute->getStatus());
 	if (attribute->isAvailable()){
-		add("value", boost::any_cast<std::string>(attribute->getValue()));
+		add("value", std::any_cast<std::string>(attribute->getValue()));
 	}
 
 }

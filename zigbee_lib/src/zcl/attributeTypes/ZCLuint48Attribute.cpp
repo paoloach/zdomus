@@ -14,11 +14,11 @@ namespace zigbee {
 
     }
 
-    boost::any ZCLuint48Attribute::getValue() const {
+    std::any ZCLuint48Attribute::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value);
+        return std::any(value);
     }
 
     void ZCLuint48Attribute::sendValue(uint64_t newValue) {

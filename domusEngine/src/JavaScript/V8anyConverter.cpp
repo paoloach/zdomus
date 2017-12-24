@@ -7,6 +7,7 @@
 
 #include "V8anyConverter.h"
 #include <boost/date_time.hpp>
+#include <any>
 
 namespace zigbee {
 
@@ -19,7 +20,7 @@ V8_any_Converter::~V8_any_Converter() {
 }
 
 
-boost::any V8_any_Converter::convertToAny(const Local<Value>& value) {
+    std::any V8_any_Converter::convertToAny(const Local<Value>& value) {
 	if (value->IsString()) {
 		String::Utf8Value utf8(value);
 		return string(*utf8);
@@ -44,24 +45,24 @@ boost::any V8_any_Converter::convertToAny(const Local<Value>& value) {
 	}
 }
 
-Local<v8::Value> V8_any_Converter::convertToV8(Isolate * isolate, const boost::any& value) {
+Local<v8::Value> V8_any_Converter::convertToV8(Isolate * isolate, const std::any& value) {
 	if (value.type() == typeid(uint32_t)) {
-		return Uint32::New(isolate, boost::any_cast<uint32_t>(value));
+		return Uint32::New(isolate, std::any_cast<uint32_t>(value));
 	} else if (value.type() == typeid(std::string)) {
-		std::string strValue = boost::any_cast<std::string>(value);
+		std::string strValue = std::any_cast<std::string>(value);
 		return String::NewFromUtf8(isolate, strValue.c_str());
 	} else if (value.type() == typeid(int32_t)) {
-		return Int32::New(isolate, boost::any_cast<int32_t>(value));
+		return Int32::New(isolate, std::any_cast<int32_t>(value));
 	} else if (value.type() == typeid(boost::posix_time::ptime)){
 		ptime epoch(date(1970,Jan,1));
-		ptime timestamp = boost::any_cast<ptime>(value);
+		ptime timestamp = std::any_cast<ptime>(value);
 		time_duration elapsed = timestamp-epoch;
 		uint64_t millisecond = elapsed.total_milliseconds();
 		timestamp.date();
 		return Date::New(isolate, millisecond);
 	}
 
-	std::string strValue = boost::any_cast<std::string>(value);
+	std::string strValue = std::any_cast<std::string>(value);
 	return String::NewFromUtf8(isolate, strValue.c_str());
 }
 

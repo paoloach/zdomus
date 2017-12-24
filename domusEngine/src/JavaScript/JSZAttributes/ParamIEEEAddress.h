@@ -48,10 +48,10 @@ public:
 		return result.data;
 	}
 
-	static v8::Local<v8::String> toV8(v8::Isolate * isolate, const boost::any & value) {
+	static v8::Local<v8::String> toV8(v8::Isolate * isolate, const std::any & value) {
 		std::stringstream stream;
 		Value result;
-		result.data = boost::any_cast<uint64_t>(value);
+		result.data = std::any_cast<uint64_t>(value);
 
 		for(int i=7; i > 0;i--){
 			stream << std::hex << std::setw(2) << std::setfill('0') << (int)result.raw[i] << "-";

@@ -18,11 +18,11 @@ namespace zigbee {
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeSInt16>(zigbeeDevice, parent, identifier, name, readOnly){
     }
 
-    boost::any ZCL_int16_Attribute::getValue() const {
+    std::any ZCL_int16_Attribute::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value);
+        return std::any(value);
     }
 
     void ZCL_int16_Attribute::sendValue(int16_t newValue) {

@@ -23,7 +23,7 @@ public:
 
 
 	MOCK_METHOD1(sendValue, void (int16_t newValue));
-	MOCK_CONST_METHOD0(getValue, boost::any () );
+	MOCK_CONST_METHOD0(getValue, std::any () );
 	MOCK_METHOD1(internalSetValue, void (std::shared_ptr<AttributeStatusRecord> rawData));
 	MOCK_METHOD1(setValue, void (std::shared_ptr<AttributeStatusRecord> rawData));
 	MOCK_METHOD0(requestValue, void ());

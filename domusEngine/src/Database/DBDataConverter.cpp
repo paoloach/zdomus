@@ -7,6 +7,7 @@
 
 #include <boost/log/trivial.hpp>
 #include <boost/date_time.hpp>
+#include <boost/any.hpp>
 #include <postgres.h>
 #include <catalog/pg_type.h>
 #include <libpq-fe.h>
@@ -114,10 +115,14 @@ char* DBDataConverter::getStringValue(const any value) {
         stream << any_cast<std::string_view>(value);
     } else if (value.type() == typeid(ptime)){
         stream << to_iso_string(any_cast<ptime>(value));
+    } else if (value.type() == typeid(boost::any)){
+        boost::any a = any_cast<boost::any>(value);
+        BOOST_LOG_TRIVIAL(error) << "boost::any Unsupported type: " << a.type().name();
 	} else {
         BOOST_LOG_TRIVIAL(error) << "Unsupported type: " << value.type().name();
     }
-	return strdup(stream.str().c_str());
+	char * res = strdup(stream.str().c_str());
+    return res;
 }
 
 } /* namespace zigbee */

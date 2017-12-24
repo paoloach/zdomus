@@ -44,7 +44,7 @@ namespace zigbee {
             jsZAttribute->initJsObjectsTemplate(isolate, global);
 
             setInitExpectation(zDevice, &zclIEEEAddressAttributeMock);
-            EXPECT_CALL(zclIEEEAddressAttributeMock, getValue()).WillOnce(Return(boost::any(expectedValue)));
+            EXPECT_CALL(zclIEEEAddressAttributeMock, getValue()).WillOnce(Return(std::any(expectedValue)));
 
             v8::Local<v8::Value> result = runScript(zAttributeVariable + "a.value");
             String::Utf8Value address(result);

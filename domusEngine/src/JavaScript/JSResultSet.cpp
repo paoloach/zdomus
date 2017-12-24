@@ -24,6 +24,7 @@ namespace zigbee {
     using v8::WeakCallbackType;
     using namespace Json;
     using std::string;
+    using std::any;
 
     void JSResultSet::initJsObjectsTemplate(Isolate *isolate, Handle<Object> &global) {
         Local<FunctionTemplate> functionTemplate = FunctionTemplate::New(isolate);
@@ -146,10 +147,10 @@ namespace zigbee {
             auto fieldName = resultSet->columnName(colIndex);
             if (!resultSet->fieldIsNull(currentIndex, colIndex)) {
                 DBDataConverter::DBData dbData(resultSet, currentIndex, colIndex);
-                std::any value = DBDataConverter::getAnyValue(dbData);
-                dbRow->setValue(fieldName, value);
+                any value = DBDataConverter::getAnyValue(dbData);
+                dbRow->setValue(string(fieldName), value);
             } else {
-                dbRow->setValue(fieldName, std::any());
+                dbRow->setValue(string(fieldName), std::any());
             }
         }
 

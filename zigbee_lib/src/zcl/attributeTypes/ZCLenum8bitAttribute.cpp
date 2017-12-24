@@ -29,11 +29,11 @@ namespace zigbee {
         return out;
     }
 
-    boost::any ZCL_enum8bit_Attribute::getValue() const {
+    std::any ZCL_enum8bit_Attribute::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value);
+        return std::any(value);
     }
 
 } /* namespace zigbee */

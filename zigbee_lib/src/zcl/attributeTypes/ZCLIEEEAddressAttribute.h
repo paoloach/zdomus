@@ -26,7 +26,7 @@ namespace zigbee {
         ~ZCLIEEEAddressAttribute() override;
 
     public:
-        boost::any getValue() const override;
+        std::any getValue() const override;
         std::string getStrValue() const  override  {
             return std::to_string(value.data);
         }

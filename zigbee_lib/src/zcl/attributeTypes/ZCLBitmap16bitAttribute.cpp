@@ -14,11 +14,11 @@ namespace zigbee {
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLType16bitBitmap>(zigbeeDevice, parent, identifier, name, readOnly) {
     }
 
-    boost::any ZCLBitmap16bitAttribute::getValue() const {
+    std::any ZCLBitmap16bitAttribute::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value);
+        return std::any(value);
     }
 
     bool ZCLBitmap16bitAttribute::getValue(int index) const {

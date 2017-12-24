@@ -25,7 +25,7 @@ namespace zigbee {
                                 std::experimental::string_view name, bool readOnly);
 
     public:
-        boost::any getValue() const override;
+        std::any getValue() const override;
 
         std::string getStrValue() const  override {
             return boost::lexical_cast<std::string>(value);

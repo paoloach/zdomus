@@ -21,7 +21,7 @@ namespace zigbee {
 
         ~ZCLUTCTime() override = default;
     public:
-        boost::any getValue() const override;
+        std::any getValue() const override;
 
         std::string getStrValue() const  override {
             return std::to_string(value);

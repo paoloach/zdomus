@@ -19,13 +19,13 @@ namespace zigbee {
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUTCTime>(zigbeeDevice, parent, identifier, name, readOnly) {
     }
 
-    boost::any ZCLUTCTime::getValue() const {
+    std::any ZCLUTCTime::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
         seconds from2000(value);
         ptime start(boost::gregorian::date(2000, Jan, 1), time_duration(0, 0, 0));
-        return boost::any(start + from2000);
+        return std::any(start + from2000);
     }
 
     void ZCLUTCTime::sendValue(uint32_t newValue) {

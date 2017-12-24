@@ -40,7 +40,7 @@ namespace zigbee {
 
         attribute.setValue(attributeStatusRecord);
         auto value = attribute.getValue();
-        auto casted = boost::any_cast<uint64_t>(value);
+        auto casted = std::any_cast<uint64_t>(value);
         ASSERT_EQ(0x060504030201, casted);
     }
 
@@ -58,7 +58,7 @@ namespace zigbee {
 
         attribute.setValue(attributeStatusRecord);
         auto value = attribute.getValue();
-        auto casted = boost::any_cast<int32_t>(value);
+        auto casted = std::any_cast<int32_t>(value);
         ASSERT_EQ(0x030201, casted);
     }
 
@@ -76,7 +76,7 @@ namespace zigbee {
 
         attribute.setValue(attributeStatusRecord);
         auto value = attribute.getValue();
-        auto casted = boost::any_cast<int32_t>(value);
+        auto casted = std::any_cast<int32_t>(value);
         ASSERT_EQ(0xFF830201, casted);
     }
 
@@ -98,7 +98,7 @@ namespace zigbee {
 
         attribute.setValue(attributeStatusRecord);
         auto value = attribute.getValue();
-        auto casted = boost::any_cast<ptime>(value);
+        auto casted = std::any_cast<ptime>(value);
         ASSERT_EQ(expectedTime, casted);
     }
 
@@ -116,7 +116,7 @@ namespace zigbee {
 
         attribute.setValue(attributeStatusRecord);
         auto value = attribute.getValue();
-        auto casted = boost::any_cast<std::vector<uint8_t>>(value);
+        auto casted = std::any_cast<std::vector<uint8_t>>(value);
         ASSERT_EQ(3, casted.size());
         ASSERT_EQ(0xAA, casted[0]);
         ASSERT_EQ(0xBB, casted[1]);
@@ -137,7 +137,7 @@ namespace zigbee {
 
         attribute.setValue(attributeStatusRecord);
         auto value = attribute.getValue();
-        auto casted = boost::any_cast<std::bitset<32>>(value);
+        auto casted = std::any_cast<std::bitset<32>>(value);
         std::bitset<32> expected(0xCCBBAA99);
         ASSERT_EQ(expected, casted);
         std::stringstream sstream;
@@ -157,7 +157,7 @@ namespace zigbee {
 
         attribute.setValue(attributeStatusRecord);
         auto value = attribute.getValue();
-        auto casted = boost::any_cast<std::bitset<16>>(value);
+        auto casted = std::any_cast<std::bitset<16>>(value);
         std::bitset<16> expected(0xCCBBAA99);
         ASSERT_EQ(expected, casted);
         std::stringstream sstream;

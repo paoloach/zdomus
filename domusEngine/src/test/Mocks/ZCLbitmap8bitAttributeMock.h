@@ -21,7 +21,7 @@ public:
 	ZCL_bitmap8bit_AttributeMock();
 	virtual ~ZCL_bitmap8bit_AttributeMock();
 
-	MOCK_CONST_METHOD0(getValue, boost::any () );
+	MOCK_CONST_METHOD0(getValue, std::any () );
 	MOCK_METHOD1(sendValue, void (uint8_t newValue));
 
 	MOCK_METHOD1(internalSetValue, void (std::shared_ptr<AttributeStatusRecord> rawData));

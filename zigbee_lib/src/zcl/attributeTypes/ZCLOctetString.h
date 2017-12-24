@@ -20,7 +20,7 @@ namespace zigbee {
         ~ZCLOctetString() override = default;
 
     public:
-        boost::any getValue() const override;
+        std::any getValue() const override;
         std::string getStrValue() const  override  {
             using boost::spirit::karma::int_;
             using boost::spirit::karma::generate_delimited;

@@ -21,7 +21,7 @@ namespace zigbee {
     using std::stringstream;
     using std::string;
     using namespace v8;
-    using boost::any;
+    using std::any;
 
     JSDBTable::JSDBTable(DBTableFactory &dbTableFactory, JSRow *jsRow, JSResultSet *resultSet) : dbTableFactory(dbTableFactory), jsRow(jsRow), jsResult(resultSet) {
 

@@ -30,8 +30,8 @@ public:
 		return value;
 	}
 
-	static v8::Local<v8::Integer> toV8(v8::Isolate * isolate, const boost::any & value) {
-		auto val = boost::any_cast<uint32_t>(value);
+	static v8::Local<v8::Integer> toV8(v8::Isolate * isolate, const std::any & value) {
+		auto val = std::any_cast<uint32_t>(value);
 		return v8::Integer::NewFromUnsigned(isolate, val);
 	}
 };

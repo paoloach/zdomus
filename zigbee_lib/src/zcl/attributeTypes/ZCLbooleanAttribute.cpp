@@ -18,11 +18,11 @@ namespace zigbee {
 
     ZCL_boolean_Attribute::~ZCL_boolean_Attribute() = default;
 
-    boost::any ZCL_boolean_Attribute::getValue() const {
+    std::any ZCL_boolean_Attribute::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value);
+        return std::any(value);
     }
 
     void ZCL_boolean_Attribute::sendValue(bool newValue) {

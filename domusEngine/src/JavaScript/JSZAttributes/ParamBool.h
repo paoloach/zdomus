@@ -14,8 +14,8 @@ public:
 		return hValue->BooleanValue();
 	}
 
-	static v8::Local<v8::Boolean> toV8(v8::Isolate * isolate, const boost::any & value) {
-		return v8::Boolean::New(isolate, boost::any_cast<bool>(value));
+	static v8::Local<v8::Boolean> toV8(v8::Isolate * isolate, const std::any & value) {
+		return v8::Boolean::New(isolate, std::any_cast<bool>(value));
 	}
 };
 

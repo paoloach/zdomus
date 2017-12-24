@@ -13,11 +13,11 @@ namespace zigbee {
     }
 
 
-    boost::any ZCLOctetString::getValue() const {
+    std::any ZCLOctetString::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value);
+        return std::any(value);
     }
 
     void ZCLOctetString::sendValue(const std::string & /*newValue*/) {

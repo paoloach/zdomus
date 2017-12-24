@@ -11,7 +11,7 @@
 #include <functional>
 #include <exception>
 #include <list>
-#include <boost/any.hpp>
+#include <any>
 #include <memory>
 #include <experimental/string_view>
 #include <boost/endian/conversion.hpp>
@@ -98,7 +98,7 @@ namespace zigbee {
 
         virtual void internalSetValue(uint8_t *rawData) = 0;
 
-        virtual boost::any getValue() const = 0;
+        virtual std::any getValue() const = 0;
 
         virtual std::string getStrValue() const = 0;
 

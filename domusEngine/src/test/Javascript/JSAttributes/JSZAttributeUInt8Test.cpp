@@ -48,7 +48,7 @@ namespace zigbee {
             jsZAttribute->initJsObjectsTemplate(isolate, global);
 
             setInitExpectation(zDevice, &zclUint8AttributeMock);
-            EXPECT_CALL(zclUint8AttributeMock, getValue()).WillOnce(Return(boost::any(expectedValue)));
+            EXPECT_CALL(zclUint8AttributeMock, getValue()).WillOnce(Return(std::any(expectedValue)));
 
             v8::Local<v8::Value> result = runScript(zAttributeVariable + "a.value");
             ASSERT_THAT(result.IsEmpty(), false);

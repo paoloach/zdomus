@@ -15,11 +15,11 @@ namespace zigbee {
     }
 
 
-    boost::any ZCLint8Attribute::getValue() const {
+    std::any ZCLint8Attribute::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value);
+        return std::any(value);
     }
 
     void ZCLint8Attribute::internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData) {

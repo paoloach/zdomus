@@ -28,6 +28,7 @@ using std::get;
 using std::shared_ptr;
 using std::make_tuple;
 using std::tuple;
+using std::any_cast;
 
 namespace zigbee {
 
@@ -123,28 +124,28 @@ namespace zigbee {
             Local<Object> self = info.Holder();
             Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
             auto attribute = (ZCLAttribute *) wrap->Value();
-            boost::any value = attribute->getValue();
+            std::any value = attribute->getValue();
             switch (attribute->getZCLType()) {
                 case ZCLTypeDataType::ZCLTypeStringChar: {
-                    std::string sValue = boost::any_cast<std::string>(value);
+                    std::string sValue = any_cast<std::string>(value);
                     auto jsString = v8::String::NewFromUtf8(isolate, sValue.c_str());
                     info.GetReturnValue().Set(jsString);
                 }
                     break;
                 case ZCLTypeDataType::ZCLTypeBool:
-                    info.GetReturnValue().Set(boost::any_cast<bool>(value));
+                    info.GetReturnValue().Set(any_cast<bool>(value));
                     break;
                 case ZCLTypeDataType::ZCLTypeSInt8:
                 case ZCLTypeDataType::ZCLTypeSInt16:
                 case ZCLTypeDataType::ZCLTypeSInt24:
                 case ZCLTypeDataType::ZCLTypeSInt32:
-                    info.GetReturnValue().Set(boost::any_cast<int32_t>(value));
+                    info.GetReturnValue().Set(any_cast<int32_t>(value));
                     break;
                 case ZCLTypeDataType::ZCLTypeSInt40:
                 case ZCLTypeDataType::ZCLTypeSInt48:
                 case ZCLTypeDataType::ZCLTypeSInt56:
                 case ZCLTypeDataType::ZCLTypeSInt64:
-                    info.GetReturnValue().Set(Integer::New(isolate, boost::any_cast<double>(value)));
+                    info.GetReturnValue().Set(Integer::New(isolate, any_cast<double>(value)));
                     break;
                 case ZCLTypeDataType::ZCLType8bitBitmap:
                 case ZCLTypeDataType::ZCLTypeenum8:
@@ -154,16 +155,16 @@ namespace zigbee {
                 case ZCLTypeDataType::ZCLTypeUInt16:
                 case ZCLTypeDataType::ZCLTypeUInt24:
                 case ZCLTypeDataType::ZCLTypeUInt32:
-                    info.GetReturnValue().Set(boost::any_cast<uint32_t>(value));
+                    info.GetReturnValue().Set(any_cast<uint32_t>(value));
                     break;
                 case ZCLTypeDataType::ZCLTypeUInt40:
                 case ZCLTypeDataType::ZCLTypeUInt48:
                 case ZCLTypeDataType::ZCLTypeUInt56:
                 case ZCLTypeDataType::ZCLTypeUInt64:
-                    info.GetReturnValue().Set(Integer::New(isolate, boost::any_cast<double>(value)));
+                    info.GetReturnValue().Set(Integer::New(isolate, any_cast<double>(value)));
                     break;
                 case ZCLTypeDataType::ZCLTypeIEEEaddress: {
-                    uint64_t ieeeAddress = boost::any_cast<uint64_t>(value);
+                    uint64_t ieeeAddress = any_cast<uint64_t>(value);
                     uint64_t bigIeeeAddr = boost::endian::native_to_big(ieeeAddress);
                     ExtAddress extAddress((uint8_t *) &bigIeeeAddr);
                     info.GetReturnValue().Set(String::NewFromUtf8(isolate, extAddress.asString().c_str()));

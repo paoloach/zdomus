@@ -14,11 +14,11 @@ namespace zigbee {
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeSInt24>(zigbeeDevice, parent, identifier, name, readOnly) {
     }
 
-    boost::any ZCLint24Attribute::getValue() const {
+    std::any ZCLint24Attribute::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value);
+        return std::any(value);
     }
 
     void ZCLint24Attribute::sendValue(uint32_t newValue) {

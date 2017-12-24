@@ -49,7 +49,7 @@ namespace zigbee {
             jsZAttribute->initJsObjectsTemplate(isolate, global);
 
             setInitExpectation(zDevice, &zcl_bitmap8bit_AttributeMock);
-            EXPECT_CALL(zcl_bitmap8bit_AttributeMock, getValue()).WillOnce(Return(boost::any(expectedValue)));
+            EXPECT_CALL(zcl_bitmap8bit_AttributeMock, getValue()).WillOnce(Return(std::any(expectedValue)));
 
             v8::TryCatch tryCatch;
 

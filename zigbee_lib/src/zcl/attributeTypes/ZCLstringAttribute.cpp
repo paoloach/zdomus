@@ -16,11 +16,11 @@ namespace zigbee {
             ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeStringChar>(zigbeeDevice, parent, identifier, name, readOnly) {
     }
 
-    boost::any ZCL_string_Attribute::getValue() const {
+    std::any ZCL_string_Attribute::getValue() const {
         if (status != Available) {
             throw ZCLAttributeNotAvailableException(parent, identifier);
         }
-        return boost::any(value);
+        return std::any(value);
     }
 
     void ZCL_string_Attribute::sendValue(const std::string & /*newValue*/) {

@@ -11,7 +11,7 @@
 using std::any;
 
 namespace zigbee {
-    any DBRow::getValue(const std::string_view &fieldName) {
+    any DBRow::getValue(const std::string & fieldName) {
         if (values.count(fieldName)) {
             return values[fieldName];
         }
@@ -19,8 +19,8 @@ namespace zigbee {
         return any {};
     }
 
-    std::vector<std::string_view> DBRow::getFieldsName() const {
-        std::vector<std::string_view> fieldsName;
+    std::vector<std::string> DBRow::getFieldsName() const {
+        std::vector<std::string> fieldsName;
         for (auto value : values) {
             fieldsName.push_back(value.first);
         }

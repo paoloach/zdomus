@@ -18,7 +18,7 @@ using namespace v8;
 
 using std::string;
 using std::stringstream;
-using boost::any;
+using std::any;
 
 JSRowTest::~JSRowTest() {
 }

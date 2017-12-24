@@ -22,8 +22,8 @@ namespace zigbee {
 
     void DBTable::insert(DBRow *dbRow) {
         std::stringstream insertStream;
-        std::vector<std::string_view > paramName = dbRow->getFieldsName();
-        std::vector<std::any> paramAnyValues = dbRow->getFieldsValue();
+        auto paramName = dbRow->getFieldsName();
+        auto paramAnyValues = dbRow->getFieldsValue();
 
         insertStream << "INSERT INTO public.\"" << tableName << "\" (";
         insertStream << format(string % ',', paramName) << ") VALUES (";
@@ -36,6 +36,7 @@ namespace zigbee {
         for (uint i = 0; i < paramAnyValues.size(); i++) {
             paramsValue[i] = DBDataConverter::getStringValue(paramAnyValues[i]);
         }
+
 
         PGresult *insertResult = PQexecParams(conn, insertStream.str().c_str(), paramName.size(), nullptr, paramsValue, nullptr, nullptr, 0);
         for (uint i = 0; i < paramAnyValues.size(); i++) {

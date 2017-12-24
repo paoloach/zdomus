@@ -25,8 +25,8 @@ public:
 		return *utfValue;
 	}
 
-	static v8::Local<v8::String> toV8(v8::Isolate * isolate, const boost::any & value) {
-		return v8::String::NewFromUtf8(isolate, boost::any_cast<std::string>(value).c_str());
+	static v8::Local<v8::String> toV8(v8::Isolate * isolate, const std::any & value) {
+		return v8::String::NewFromUtf8(isolate, std::any_cast<std::string>(value).c_str());
 	}
 };
 

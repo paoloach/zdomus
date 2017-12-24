@@ -29,8 +29,8 @@ namespace zigbee {
             return value;
         }
 
-        static v8::Local<v8::Integer> toV8(v8::Isolate *isolate, const boost::any &value) {
-            return v8::Integer::New(isolate, boost::any_cast<int32_t>(value));
+        static v8::Local<v8::Integer> toV8(v8::Isolate *isolate, const std::any &value) {
+            return v8::Integer::New(isolate, std::any_cast<int32_t>(value));
         }
     };
 

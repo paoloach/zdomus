@@ -19,7 +19,7 @@ namespace zigbee {
     using std::stringstream;
     using std::string;
     using namespace v8;
-    using boost::any;
+    using std::any;
 
     void JSRow::initJsObjectsTemplate(v8::Isolate *isolate, v8::Handle<v8::Object> &global) {
         Local<String> jsDbRowClassName = String::NewFromUtf8(isolate, JSDBROW);
@@ -105,7 +105,7 @@ namespace zigbee {
             checkTwoParam(SET_VALUE, info);
             checkStringParam(SET_VALUE, info, 0);
             String::Utf8Value fieldName(info[0]);
-            boost::any value = V8_any_Converter::convertToAny(info[1]);
+            any value = V8_any_Converter::convertToAny(info[1]);
 
             DBRow *dbRow = getDbRow(info);
             dbRow->setValue(*fieldName, value);
