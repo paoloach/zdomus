@@ -56,6 +56,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     }
 
     fun addAttributeListener(listener: AttributesListener) = attributeListener.add(listener)
+    fun removeAttributeListener(listener: AttributesListener) = attributeListener.remove(listener)
 
     fun requestIdentify(shortAddress: Int, endpointId: Int)  =
         threadPool.execute(RequestIdentify(shortAddress, endpointId));

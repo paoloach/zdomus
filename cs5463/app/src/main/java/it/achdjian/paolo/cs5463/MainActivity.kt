@@ -11,7 +11,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import it.achdjian.paolo.cs5463.Constants.TEST_DEVICE
 import it.achdjian.paolo.cs5463.Register.LoadRegister
-import it.achdjian.paolo.cs5463.Register.RegistersValue
 import it.achdjian.paolo.cs5463.dagger.CS5463Application
 import it.achdjian.paolo.cs5463.dagger.CS5463Module
 import it.achdjian.paolo.cs5463.dagger.DaggerMainActivityComponent

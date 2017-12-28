@@ -9,6 +9,7 @@
 #include <thread>
 #include "../Utils/SingletonObjects.h"
 #include "Serial2ResponseExecutor.h"
+#include "PacketSend.h"
 
 namespace zigbee {
     class SerialDriver2 : public ZigbeeDevice {
@@ -63,7 +64,7 @@ namespace zigbee {
 
     private:
         void run();
-        void write(std::string && data);
+        void write(PacketSend && data);
         char c;
         SingletonObjects &singletonObjects;
         std::string port;

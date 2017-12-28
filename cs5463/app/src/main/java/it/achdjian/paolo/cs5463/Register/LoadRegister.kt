@@ -37,11 +37,10 @@ class LoadRegister @Inject constructor() : View.OnClickListener, Observer<CS5463
         }
     }
 
-    fun load(index: Int): Double {
+    fun load(index: Int) {
         val data = cs5463Data
         if (data != null) {
             DomusEngine.getAttribute(data.networkAddress, data.endpoint, 0xFFE, index)
         }
-        return 0.0
     }
 }

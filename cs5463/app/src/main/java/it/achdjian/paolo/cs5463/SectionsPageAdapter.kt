@@ -14,19 +14,21 @@ import javax.inject.Inject
 class SectionsPageAdapter @Inject constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        val fragment = MeasureRegistersFragment.newInstance()
-        return  fragment
+        when(position){
+            0 -> return StatusRegisterFragment.newInstance()
+            1 -> return MeasureRegistersFragment.newInstance()
+        }
+        return MeasureRegistersFragment.newInstance()
     }
 
     override fun getCount(): Int {
-        return 1
+        return 2
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
         when (position){
             0 -> return "configuration"
-            1 -> return "mode"
-            2 -> return "measure register"
+            1 -> return "measure register"
         }
         return null
     }

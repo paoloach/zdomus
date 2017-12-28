@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import dagger.android.support.DaggerFragment
 import it.achdjian.paolo.cs5463.Register.LoadRegister
 import it.achdjian.paolo.cs5463.Register.RegistersValue
 import it.achdjian.paolo.cs5463.dagger.DaggerMeasureRegistersFragmentComponent
@@ -38,6 +37,11 @@ class MeasureRegistersFragment  : Fragment() {
         registersValue.addListView(listView)
         DomusEngine.addAttributeListener(registersValue)
         return rootView
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        DomusEngine.removeAttributeListener(registersValue)
     }
 
     companion object {
