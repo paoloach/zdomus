@@ -12,7 +12,7 @@ import javax.inject.Singleton
  * Created by Paolo Achdjian on 11/23/17.
  */
 @Singleton
-class LoadRegister @Inject constructor(val domusEngine: DomusEngine) : View.OnClickListener, Observer<CS5463Data> {
+class LoadRegister @Inject constructor() : View.OnClickListener, Observer<CS5463Data> {
     private var cs5463Data: CS5463Data? = null
     private var networkId: Int? = null
 
@@ -40,7 +40,7 @@ class LoadRegister @Inject constructor(val domusEngine: DomusEngine) : View.OnCl
     fun load(index: Int): Double {
         val data = cs5463Data
         if (data != null) {
-            domusEngine.getAttribute(data.networkAddress, data.endpoint, 0xFFFE, index)
+            DomusEngine.getAttribute(data.networkAddress, data.endpoint, 0xFFE, index)
         }
         return 0.0
     }

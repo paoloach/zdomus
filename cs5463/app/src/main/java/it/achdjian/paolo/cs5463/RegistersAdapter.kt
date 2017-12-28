@@ -2,15 +2,17 @@ package it.achdjian.paolo.cs5463
 
 import android.arch.lifecycle.ViewModelProviders
 import android.database.DataSetObserver
-import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter.IGNORE_ITEM_VIEW_TYPE
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ListAdapter
 import android.widget.TextView
 import it.achdjian.paolo.cs5463.Register.LoadRegister
+import it.achdjian.paolo.cs5463.Register.Register2View
+import it.achdjian.paolo.cs5463.Register.RegistersValue
 import it.achdjian.paolo.cs5463.Register.RegistersWithValues
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,7 +21,11 @@ import javax.inject.Singleton
  * Created by Paolo Achdjian on 11/22/17.
  */
 @Singleton
-class RegistersAdapter @Inject constructor(val activity: MainActivity, val loadRegister:LoadRegister) : ListAdapter {
+class RegistersAdapter @Inject constructor(
+        private val activity: MainActivity,
+        private val loadRegister:LoadRegister,
+        private val registersValue: RegistersValue,
+        private val registerMap: Register2View) : ListAdapter {
 
     init {
         ViewModelProviders.of(activity).get(CS5463ViewModel::class.java).data.observe(activity,loadRegister)
@@ -60,10 +66,13 @@ class RegistersAdapter @Inject constructor(val activity: MainActivity, val loadR
             view = oldView
         }
 
-        val register = RegistersWithValues.values().get(position)
+        val register = RegistersWithValues.values()[position]
 
         val label = view.findViewById<TextView>(R.id.label)
         label.setText(register.label)
+        val editText = view.findViewById<EditText>(R.id.value)
+        editText.setText(registersValue[register].toString())
+        registerMap[register] = editText
 
         val refreshButton = view.findViewById<ImageButton>(R.id.refresh)
         refreshButton.tag = register
@@ -99,7 +108,7 @@ class RegistersAdapter @Inject constructor(val activity: MainActivity, val loadR
      * data set.
      * @return The data at the specified position.
      */
-    override fun getItem(position: Int) = RegistersWithValues.values().get(position)
+    override fun getItem(position: Int) = RegistersWithValues.values()[position]
 
     /**
      *

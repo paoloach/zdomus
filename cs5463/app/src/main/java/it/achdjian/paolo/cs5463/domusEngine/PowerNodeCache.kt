@@ -13,14 +13,14 @@ import javax.inject.Singleton
  * Created by Paolo Achdjian on 9/14/17.
  */
 @Singleton
-class PowerNodeCache @Inject constructor(var domusEngine: DomusEngine) : CacheLoader<Int, Optional<PowerNode>>(), PowerListener {
+class PowerNodeCache @Inject constructor() : CacheLoader<Int, Optional<PowerNode>>(), PowerListener {
     override fun newPower(powerNode: PowerNode) {
         cache.put(powerNode.nwkId, Optional.of(powerNode))
     }
 
     override fun load(nwkId: Int?):Optional<PowerNode> {
         if (nwkId != null) {
-            domusEngine.requestPower(nwkId)
+            DomusEngine.requestPower(nwkId)
         }
         return Optional.absent()
     }

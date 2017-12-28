@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.ListView
 import dagger.android.support.DaggerFragment
 import it.achdjian.paolo.cs5463.Register.LoadRegister
+import it.achdjian.paolo.cs5463.Register.RegistersValue
 import it.achdjian.paolo.cs5463.dagger.DaggerMeasureRegistersFragmentComponent
 import it.achdjian.paolo.cs5463.dagger.FragmentModule
+import it.achdjian.paolo.cs5463.domusEngine.DomusEngine
 import javax.inject.Inject
 
 /**
@@ -21,6 +23,8 @@ class MeasureRegistersFragment  : Fragment() {
     lateinit var registerAdapter: RegistersAdapter
     @Inject
     lateinit var loadRegister: LoadRegister
+    @Inject
+    lateinit var registersValue: RegistersValue
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -31,7 +35,8 @@ class MeasureRegistersFragment  : Fragment() {
 
         val listView = rootView.findViewById<ListView>(R.id.registers)
         listView.adapter = registerAdapter
-
+        registersValue.addListView(listView)
+        DomusEngine.addAttributeListener(registersValue)
         return rootView
     }
 

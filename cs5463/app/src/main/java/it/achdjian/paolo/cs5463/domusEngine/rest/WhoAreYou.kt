@@ -1,23 +1,14 @@
 package it.achdjian.paolo.cs5463.domusEngine.rest
 
-import android.os.Handler
 import android.util.Log
-import it.achdjian.paolo.cs5463.domusEngine.rest.DomusEngineRest
-import it.achdjian.paolo.cs5463.domusEngine.ConnectionObserver
 import it.achdjian.paolo.cs5463.domusEngine.ConnectionStatus
 import it.achdjian.paolo.cs5463.domusEngine.DomusEngine
 import it.achdjian.paolo.cs5463.domusEngine.MessageType
-import it.achdjian.paolo.cs5463.domusEngine.rest.ZigbeeRunnable
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Created by Paolo Achdjian on 14/04/16.
  */
-class WhoAreYou @Inject constructor(
-        val domusEngine: DomusEngine,
-        val domusEngineRest: DomusEngineRest,
-        val connectionStatus: ConnectionStatus) : ZigbeeRunnable(){
+class WhoAreYou : ZigbeeRunnable(){
     companion object {
         private val EXPECTED_NAME = "I am DomusEngine"
     }
@@ -26,24 +17,24 @@ class WhoAreYou @Inject constructor(
     override fun run() {
         try {
             Log.i(TAG,"Start who are you")
-            val body = domusEngineRest.get("/who_are_you")
+            val body = DomusEngineRest.get("/who_are_you")
 
             if (body.isNotBlank()) {
                 if (body.substring(0, EXPECTED_NAME.length) == EXPECTED_NAME) {
-                    connectionStatus.connected = true
+                    ConnectionStatus.connected = true
                     Log.i(TAG,"Domus Engine found")
                     reschedule(300000)
                 } else {
-                    connectionStatus.connected = false
+                    ConnectionStatus.connected = false
                     Log.i(TAG,"Domus Engine NOT found")
                     reschedule(10000)
                 }
             } else {
-                domusEngineRest.connected.connected = false
+                ConnectionStatus.connected = false
                 reschedule(10000)
             }
         } catch (e: Exception) {
-            domusEngineRest.connected.connected = false
+            ConnectionStatus.connected = false
             Log.i(TAG,"Domus Engine NOT found")
             reschedule(10000)
         }
@@ -51,12 +42,12 @@ class WhoAreYou @Inject constructor(
 
     private fun reschedule(delay: Long){
 
-        domusEngine.handler.removeMessages(MessageType.WHO_ARE_YOU)
-        val message = domusEngine.handler.obtainMessage(MessageType.WHO_ARE_YOU)
+        DomusEngine.handler.removeMessages(MessageType.WHO_ARE_YOU)
+        val message = DomusEngine.handler.obtainMessage(MessageType.WHO_ARE_YOU)
         if (delay==0L){
-            domusEngine.handler.sendMessage(message)
+            DomusEngine.handler.sendMessage(message)
         } else {
-            domusEngine.handler.sendMessageDelayed(message, delay)
+            DomusEngine.handler.sendMessageDelayed(message, delay)
         }
     }
 

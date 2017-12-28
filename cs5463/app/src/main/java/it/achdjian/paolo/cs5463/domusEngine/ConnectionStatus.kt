@@ -1,18 +1,14 @@
 package it.achdjian.paolo.cs5463.domusEngine
 
 import android.util.Log
-import it.achdjian.paolo.cs5463.domusEngine.ConnectionObserver
 import it.achdjian.paolo.cs5463.domusEngine.rest.ZigbeeRunnable
 import java.util.*
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.properties.Delegates
 
 /**
  * Created by paolo on 14/04/16.
  */
-@Singleton
-class ConnectionStatus @Inject constructor(){
+object ConnectionStatus {
     private val observers = ArrayList<ConnectionObserver>()
 
     var connected: Boolean

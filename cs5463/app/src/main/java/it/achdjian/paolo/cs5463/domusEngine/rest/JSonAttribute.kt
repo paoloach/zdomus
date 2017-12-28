@@ -21,4 +21,4 @@ data class JSonAttribute @JsonCreator(mode = JsonCreator.Mode.PROPERTIES) constr
 
 }
 
-data class Attributes(val networkId: Int, val endpointId: Int, val clusterId: Int, val jSonAttribute: List<JSonAttribute>)
+data class Attributes(val networkId: Int, val endpointId: Int, val clusterId: Int, val  jSonAttribute: List<JSonAttribute>)

@@ -2,27 +2,15 @@ package it.achdjian.paolo.cs5463.zigbee
 
 import it.achdjian.paolo.cs5463.domusEngine.DomusEngine
 import it.achdjian.paolo.cs5463.domusEngine.rest.JsonDevice
-import it.achdjian.paolo.cs5463.zigbee.ZEndpoint
-import it.achdjian.paolo.cs5463.zigbee.ZDevice
-import it.achdjian.paolo.cs5463.zigbee.nullZDevice
 import java.util.*
-import javax.inject.Inject
 
 /**
  * Created by Paolo Achdjian on 7/10/17.
  */
-class ZDevices @Inject constructor() {
-    lateinit var domusEngine: DomusEngine
-
-    companion object {
-        private val TAG = ZDevices::class.java.name
-    }
+object ZDevices {
+    private val TAG = ZDevices::class.java.name
 
     private val devices = TreeMap<Int, ZDevice>()
-
-    fun getDevices():Collection<ZDevice>{
-        return devices.values
-    }
 
     fun addDevices(newDevices: Map<Int, String>) {
         val iter = devices.iterator()
@@ -34,7 +22,7 @@ class ZDevices @Inject constructor() {
         }
         newDevices.keys.
                 filter { !devices.contains(it) }.
-                forEach { domusEngine.getDevice(it) }
+                forEach { DomusEngine.getDevice(it) }
     }
 
     fun addDevice(newDevice: JsonDevice) {
@@ -51,7 +39,7 @@ class ZDevices @Inject constructor() {
     }
 
     fun get(extendAddr: String): ZDevice {
-        devices.values.forEach({if (it.extendedAddr==extendAddr)return it})
+        devices.values.forEach({ if (it.extendedAddr == extendAddr) return it })
         return nullZDevice
     }
 
@@ -62,7 +50,7 @@ class ZDevices @Inject constructor() {
     }
 
     fun existDevice(network: Int): Boolean {
-        devices.forEach({if (it.value.shortAddress == network) return true})
+        devices.forEach({ if (it.value.shortAddress == network) return true })
         return false
     }
 

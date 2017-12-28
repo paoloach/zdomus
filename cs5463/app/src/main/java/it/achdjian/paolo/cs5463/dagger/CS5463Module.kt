@@ -21,24 +21,4 @@ class CS5463Module(val application: CS5463Application) {
     fun getSharedPreferences(): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(application)
     }
-
-
-    @Provides
-    @Singleton
-    fun provideDomusEngineRest(sharedPreferences: SharedPreferences, connectionStatus: ConnectionStatus) = DomusEngineRest(sharedPreferences, connectionStatus)
-
-    @Provides
-    @Singleton
-    fun provideZDevices() = ZDevices()
-
-    @Provides
-    @Singleton
-    fun provideDomusEngine(zDevices: ZDevices,
-                           connectionStatus: ConnectionStatus,
-                           domusEngineRest: DomusEngineRest):DomusEngine {
-        val domusEngine = DomusEngine(zDevices, connectionStatus, domusEngineRest)
-
-        zDevices.domusEngine = domusEngine
-        return domusEngine
-    }
 }

@@ -11,6 +11,8 @@ import dagger.Provides
 import it.achdjian.paolo.cs5463.MainActivity
 import it.achdjian.paolo.cs5463.MeasureRegistersFragment
 import it.achdjian.paolo.cs5463.Register.LoadRegister
+import it.achdjian.paolo.cs5463.Register.Register2View
+import it.achdjian.paolo.cs5463.Register.RegistersValue
 import it.achdjian.paolo.cs5463.RegistersAdapter
 import it.achdjian.paolo.cs5463.SectionsPageAdapter
 import it.achdjian.paolo.cs5463.domusEngine.ConnectionStatus
@@ -49,10 +51,7 @@ class MainActivityModule(val mainActivity: MainActivity) {
 @Component(modules = arrayOf(CS5463Module::class, MainActivityModule::class))
 interface MainActivityComponent {
     fun inject(mainActivity: MainActivity)
-    fun connectionStatus(): ConnectionStatus
     fun sectionsPageAdapter(): SectionsPageAdapter
-    fun zDevices(): ZDevices
-    fun domusEngine(): DomusEngine
 }
 
 @Module
@@ -75,5 +74,7 @@ class FragmentModule(val fragment:Fragment){
 interface MeasureRegistersFragmentComponent{
     fun inject(fragment: MeasureRegistersFragment)
     fun loadRegister(): LoadRegister
+    fun registerValue(): RegistersValue
     fun registersAdapter(): RegistersAdapter
+    fun register2View(): Register2View
 }

@@ -9,8 +9,13 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import it.achdjian.paolo.cs5463.Constants.ZCL_HA_DEVICEID_SMART_PLUG
-import it.achdjian.paolo.cs5463.dagger.*
+import it.achdjian.paolo.cs5463.Constants.TEST_DEVICE
+import it.achdjian.paolo.cs5463.Register.LoadRegister
+import it.achdjian.paolo.cs5463.Register.RegistersValue
+import it.achdjian.paolo.cs5463.dagger.CS5463Application
+import it.achdjian.paolo.cs5463.dagger.CS5463Module
+import it.achdjian.paolo.cs5463.dagger.DaggerMainActivityComponent
+import it.achdjian.paolo.cs5463.dagger.MainActivityModule
 import it.achdjian.paolo.cs5463.domusEngine.ConnectionObserver
 import it.achdjian.paolo.cs5463.domusEngine.ConnectionStatus
 import it.achdjian.paolo.cs5463.domusEngine.DomusEngine
@@ -22,17 +27,12 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ConnectionObserver, NewSmartPlugDeviceListener, AdapterView.OnItemSelectedListener {
 
-    @Inject
-    lateinit var domusEngine: DomusEngine
-    @Inject
-    lateinit var connectionStatus: ConnectionStatus
-    @Inject
-    lateinit var zDevices: ZDevices
     lateinit var adapter: ArrayAdapter<CharSequence>
 
     @Inject
     lateinit var mSectionsPagerAdapter: SectionsPageAdapter
-
+    @Inject
+    lateinit var loadRegister: LoadRegister
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity(), ConnectionObserver, NewSmartPlugDevice
                     .mainActivityModule(MainActivityModule(this))
                     .cS5463Module(CS5463Module(app)).build().inject(this)
         }
-        ViewModelProviders.of(this).get(CS5463ViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this).get(CS5463ViewModel::class.java)
+        viewModel.data.observe(this, loadRegister)
 
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
@@ -51,18 +52,19 @@ class MainActivity : AppCompatActivity(), ConnectionObserver, NewSmartPlugDevice
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         devices.adapter = adapter
         devices.onItemSelectedListener = this
-        connectionStatus.addObserver(this)
-        domusEngine.addListener(this)
-        domusEngine.startEngine()
+        ConnectionStatus.addObserver(this)
+        DomusEngine.addListener(this)
+        DomusEngine.startEngine()
 
         container.adapter = mSectionsPagerAdapter
+
     }
 
 
     override fun connected() {
         Log.i("ZIGBEE COM", "connected")
         runOnUiThread({ supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.GREEN)) })
-        domusEngine.getDevices()
+        DomusEngine.getDevices()
     }
 
     override fun disconnected() {
@@ -100,7 +102,7 @@ class MainActivity : AppCompatActivity(), ConnectionObserver, NewSmartPlugDevice
      */
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val networkId = adapter.getItem(position).toString().toInt(16)
-        val endpoint = zDevices.get(networkId).endpoints.values.firstOrNull { it?.endpoint_id == ZCL_HA_DEVICEID_SMART_PLUG }
+        val endpoint = ZDevices.get(networkId).endpoints.values.firstOrNull { it?.device_id == TEST_DEVICE }
         Log.i("SmartPlug", "Selected networkID: " + networkId)
         if (endpoint != null) {
             val data = CS5463Data(networkId, endpoint.endpoint_id)

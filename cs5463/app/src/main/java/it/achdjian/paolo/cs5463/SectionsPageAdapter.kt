@@ -19,7 +19,7 @@ class SectionsPageAdapter @Inject constructor(fm: FragmentManager) : FragmentPag
     }
 
     override fun getCount(): Int {
-        return 3
+        return 1
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
