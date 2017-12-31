@@ -30,6 +30,7 @@
 #include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>
 #include <boost/log/sources/logger.hpp>
+#include <boost/fiber/algo/round_robin.hpp>
 
 #include "httpServer/RestHandler.h"
 #include "JavaScript/JSManager.h"
@@ -86,7 +87,7 @@ void exitV8() {
 }
 
 int main(int argc, const char *argv[]) {
-
+    boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
     initV8(argc, argv);
     std::string configurationFileName = DEFAULT_CONFIG_FILE;
 
@@ -111,6 +112,7 @@ int main(int argc, const char *argv[]) {
     //topologyCreation.create();
 
     singletons.getRestHandler()->start();
+    while (true) boost::this_fiber::yield();
 
     exitV8();
 }
