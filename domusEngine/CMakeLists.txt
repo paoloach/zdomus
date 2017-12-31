@@ -5,8 +5,8 @@ project(domus_engine)
 
 set(CMAKE_CXX_STANDARD 17)
 
-ExternalProject_Add(pistache
-        GIT_REPOSITORY https://github.com/oktal/pistache.git
+ExternalProject_Add(pistache_fork
+        GIT_REPOSITORY https://github.com/paoloach/pistache.git
         GIT_SUBMODULES
         PREFIX ${CMAKE_CURRENT_BINARY_DIR}/pistache
         INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/libs
@@ -21,10 +21,10 @@ ExternalProject_Add(pistache
                 ${USE_PROJECT_CMAKE_MODULE_PATH}
         )
 
-ExternalProject_Get_Property(pistache install_dir)
+ExternalProject_Get_Property(pistache_fork install_dir)
 
-set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache/include ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache/include/pistache)
-set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache-build/src/libpistache.a)
+set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache_fork/include ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache_fork/include/pistache)
+set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache_fork-build/src/libpistache.a)
 
 
 add_subdirectory(googletest/googlemock)
@@ -297,7 +297,7 @@ add_library(domus_engine_static_lib STATIC
 
 add_executable(domus_engine src/main.cpp ${V8_BLOB} ${SRC_DEMO_DRIVER} ${SRC_SERIAL_DRIVER} ${SRC_SERIAL_DRIVER2} ${USB_SRC})
 
-add_dependencies(domus_engine pistache)
+add_dependencies(domus_engine pistache_fork)
 
 SET(LIBS zigbeeLib
         usb-1.0

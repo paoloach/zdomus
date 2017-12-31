@@ -99,26 +99,28 @@ namespace zigbee {
                 throw JSExceptionOnlyTwoArguments(ADD_PATH);
             }
             checkStringParam(ADD_PATH, info, 0);
-            String::Utf8Value path(info[0]);
+            String::Utf8Value jsPath(info[0]);
             Route::Handler fn;
-            std::string a = *path;
-            auto arg = info[1];
-            if (arg->IsFunction()) {
-                Local<Function> callback = Local<Function>::Cast(arg);
-                int functionId = callback->GetIdentityHash();
-                callbackMap[functionId].Reset(isolate, arg);
-                fn = [this, functionId, isolate](const Request& request, ResponseWriter response)->Route::Result {
-                    return this->callback(isolate, functionId, request, std::move(response) );
-                };
-            } else {
-                String::Utf8Value valueUtf8(arg->ToString());
-                std::string value = *valueUtf8;
-                fn = [value](const Request& , ResponseWriter response ) ->Route::Result{
-                    response.send(Code::Ok, value);
-                    return Route::Result::Ok;
-                };
+            std::string path = *jsPath;
+            if (!restHandler->isGetPathExist(path)) {
+                auto arg = info[1];
+                if (arg->IsFunction()) {
+                    Local<Function> callback = Local<Function>::Cast(arg);
+                    int functionId = callback->GetIdentityHash();
+                    callbackMap[functionId].Reset(isolate, arg);
+                    fn = [this, functionId, isolate](const Request &request, ResponseWriter response) -> Route::Result {
+                        return this->callback(isolate, functionId, request, std::move(response));
+                    };
+                } else {
+                    String::Utf8Value valueUtf8(arg->ToString());
+                    std::string value = *valueUtf8;
+                    fn = [value](const Request &, ResponseWriter response) -> Route::Result {
+                        response.send(Code::Ok, value);
+                        return Route::Result::Ok;
+                    };
+                }
+                restHandler->addGetPath(std::move(path), std::move(fn));
             }
-            restHandler->addGetPath(*path, fn);
         } catch (JSException &jsException) {
             BOOST_LOG_TRIVIAL(error) << jsException.what();
             v8::Local<v8::String> errorMsg = v8::String::NewFromUtf8(isolate, jsException.what());

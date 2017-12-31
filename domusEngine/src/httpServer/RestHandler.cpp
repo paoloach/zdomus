@@ -4,6 +4,8 @@
 
 #include <boost/log/trivial.hpp>
 #include <boost/log/attributes/named_scope.hpp>
+#include <boost/fiber/fiber.hpp>
+#include <boost/fiber/operations.hpp>
 #include "../Utils/LogConstants.h"
 #include "RestActions/ShowHello.h"
 #include "RestActions/ShowWhoAreYou.h"
@@ -26,24 +28,25 @@
 
 using namespace Pistache::Rest::Routes;
 using namespace zigbee::http;
+using namespace std::chrono_literals;
 
 namespace zigbee {
     namespace http {
         static Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(8080));
 
-        RestHandler::RestHandler(zigbee::SingletonObjects &singletons) : server(addr) {
-            Get(router, "/hello", ShowHello{});
-            Get(router, "/who_are_you", ShowWhoAreYou{});
-            Get(router, "/devices", ShowDevices{singletons});
-            Get(router, "/devices/topology", ShowTopology{singletons});
-            Get(router, "/devices/:device", ShowDevice{singletons});
-            Get(router, "/devices/:device/power", ShowPowerNode{singletons});
-            Get(router, "/devices/:device/info", ShowDeviceInfo{singletons});
-            Get(router, "/devices/:device/endpoint/:endpoint", ShowEndpoint{singletons});
-            Get(router, "/devices/:device/endpoint/:endpoint/cluster/in/:cluster", ShowInCluster{singletons});
-            Get(router, "/devices/:device/endpoint/:endpoint/cluster/out/:cluster", ShowOutCluster{singletons});
-            Get(router, "/devices/:device/endpoint/:endpoint/cluster/in/:cluster/attributes", ShowAttributeFactory{singletons});
-            Get(router, "/binds", ShowBindTable{singletons});
+        RestHandler::RestHandler(zigbee::SingletonObjects &singletons) {
+            getPath("/hello", ShowHello{});
+            getPath("/who_are_you", ShowWhoAreYou{});
+            getPath("/devices", ShowDevices{singletons});
+            getPath("/devices/topology", ShowTopology{singletons});
+            getPath("/devices/:device", ShowDevice{singletons});
+            getPath("/devices/:device/power", ShowPowerNode{singletons});
+            getPath("/devices/:device/info", ShowDeviceInfo{singletons});
+            getPath("/devices/:device/endpoint/:endpoint", ShowEndpoint{singletons});
+            getPath("/devices/:device/endpoint/:endpoint/cluster/in/:cluster", ShowInCluster{singletons});
+            getPath("/devices/:device/endpoint/:endpoint/cluster/out/:cluster", ShowOutCluster{singletons});
+            getPath("/devices/:device/endpoint/:endpoint/cluster/in/:cluster/attributes", ShowAttributeFactory{singletons});
+            getPath("/binds", ShowBindTable{singletons});
 
             Post(router, "/devices/:device/endpoint/:endpoint/cluster/in/:cluster/command/:command", ExecuteCmd{singletons});
             Post(router, "/devices/:device/endpoint/:endpoint/cluster/in/:cluster/attributes", UpdateAttributes{singletons});
@@ -52,22 +55,46 @@ namespace zigbee {
 
             Delete(router, "/bind/src/:srcDevice/endpoint/:srcEndpoint/cluster/:cluster/dst/:dstDevice/endpoint/dstEndpoint", ExecuteBind{singletons, false});
 
-
-            auto opts = Pistache::Http::Endpoint::options().threads(1);
-            server.init(opts);
-            server.setHandler(router.handler());
-
+            commandFiber = boost::fibers::fiber([this]() { commandHandler(); });
         }
 
         void RestHandler::start() {
-            server.serve();
+            channel.push(Cmd::Start);
         }
 
-        void RestHandler::addGetPath(std::string path, Pistache::Rest::Route::Handler fn) {
-            BOOST_LOG_NAMED_SCOPE(REST);
-            BOOST_LOG_TRIVIAL(info)<< "Add GET path: " << path;
-            Get(router, std::move(path), std::move(fn));
-            server.setHandler(router.handler());
+        void RestHandler::addGetPath(std::string && path, Pistache::Rest::Route::Handler && fn) {
+            if (pathGetUsed.count(path) == 0) {
+                BOOST_LOG_NAMED_SCOPE(REST);
+                BOOST_LOG_TRIVIAL(info) << "Add GET path: " << path;
+                getPath(std::move(path), std::move(fn));
+                channel.push(Cmd::Shutdown);
+                channel.push(Cmd::Start);
+                pathGetUsed.insert(path);
+            }
+        }
+
+        void RestHandler::commandHandler() {
+            for (auto command: channel) {
+                switch (command) {
+                    case Cmd::Start:
+                        BOOST_LOG_TRIVIAL(info) << "Start http server";
+                        server = new Pistache::Http::Endpoint(addr);
+                        server->init(Pistache::Http::Endpoint::options().threads(1).flags(Pistache::Tcp::Options::ReuseAddr));
+                        server->setHandler(router.handler());
+                        server->serveThreaded();
+                        break;
+                    case Cmd::Shutdown:
+                        BOOST_LOG_TRIVIAL(info) << "Shutdown http server";
+                        server->shutdown();
+                        delete server;
+                        break;
+                }
+            }
+        }
+
+        void RestHandler::getPath(std::string &&path, Pistache::Rest::Route::Handler &&fn) {
+            router.get( path, fn);
+            pathGetUsed.insert(path);
         }
     }
 }

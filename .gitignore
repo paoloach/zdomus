@@ -1,3 +1,4 @@
+domusEngine/*.log
 workspace.xml
 *.cbp
 compile_commands.json
