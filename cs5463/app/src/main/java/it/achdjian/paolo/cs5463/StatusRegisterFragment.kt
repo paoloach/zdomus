@@ -8,13 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.ListView
-import it.achdjian.paolo.cs5463.dagger.DaggerMeasureRegistersFragmentComponent
-import it.achdjian.paolo.cs5463.dagger.FragmentModule
 import it.achdjian.paolo.cs5463.domusEngine.AttributesListener
 import it.achdjian.paolo.cs5463.domusEngine.DomusEngine
-import kotlinx.android.synthetic.main.status_register.*
 import it.achdjian.paolo.cs5463.domusEngine.rest.Attributes
+import kotlinx.android.synthetic.main.status_register.*
 
 /**
  * Created by Paolo Achdjian on 12/28/17.
@@ -66,6 +63,11 @@ class StatusRegisterFragment : Fragment(), AttributesListener ,Observer<CS5463Da
         val layout = rootView.findViewById<LinearLayout>(R.id.layout)
         layout.setOnClickListener { requestStatus() }
         return rootView
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        DomusEngine.removeAttributeListener(this)
     }
 
     private fun requestStatus(){

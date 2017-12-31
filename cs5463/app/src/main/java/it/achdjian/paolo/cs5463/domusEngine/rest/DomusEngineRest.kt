@@ -50,13 +50,14 @@ object DomusEngineRest {
     fun post(path: String, body: String = "") {
  //       val address: String = sharedPreferences.getString(Constants.DOMUS_ENGINE_ADDRESS, "192.168.1.121")
         val url = "http://" + address + path
+        Log.i(TAG, url)
         val requestBody = RequestBody.create(JSON, body)
         val request = Request.Builder().url(url).post(requestBody).build()
 
         try {
             val response = client.newCall(request).execute()
 
-            if (response.code() == 200 || response.code() == 204) {
+            if (response.code() == 200 || response.code() == 204 || response.code() == 400)  {
                 return
             }
         } catch (e: Exception) {

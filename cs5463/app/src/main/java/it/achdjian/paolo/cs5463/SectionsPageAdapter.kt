@@ -17,18 +17,20 @@ class SectionsPageAdapter @Inject constructor(fm: FragmentManager) : FragmentPag
         when(position){
             0 -> return StatusRegisterFragment.newInstance()
             1 -> return MeasureRegistersFragment.newInstance()
+            2 -> return CommandFragment.newInstance()
         }
         return MeasureRegistersFragment.newInstance()
     }
 
     override fun getCount(): Int {
-        return 2
+        return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
         when (position){
-            0 -> return "configuration"
-            1 -> return "measure register"
+            0 -> return "Configuration"
+            1 -> return "Measure Register"
+            2 -> return "Execute Command"
         }
         return null
     }

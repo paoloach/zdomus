@@ -89,4 +89,6 @@ object Constants {
     val HUMIDITY_MEASUREMENT = 0x0405
     val OCCUPANCY_SENSOR = 0x0406
 
+    val CLUSTER_ELECTRICAL_MEASUREMENT = 0xB04
+
 }

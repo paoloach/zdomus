@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import it.achdjian.paolo.cs5463.Constants.TEST_DEVICE
+import it.achdjian.paolo.cs5463.Constants.ZCL_HA_DEVICEID_SMART_PLUG
 import it.achdjian.paolo.cs5463.Register.LoadRegister
 import it.achdjian.paolo.cs5463.dagger.CS5463Application
 import it.achdjian.paolo.cs5463.dagger.CS5463Module
@@ -101,11 +102,17 @@ class MainActivity : AppCompatActivity(), ConnectionObserver, NewSmartPlugDevice
      */
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val networkId = adapter.getItem(position).toString().toInt(16)
-        val endpoint = ZDevices.get(networkId).endpoints.values.firstOrNull { it?.device_id == TEST_DEVICE }
-        Log.i("SmartPlug", "Selected networkID: " + networkId)
-        if (endpoint != null) {
-            val data = CS5463Data(networkId, endpoint.endpoint_id)
-            ViewModelProviders.of(this).get(CS5463ViewModel::class.java).data.postValue(data)
-        }
+        ZDevices.get(networkId)
+                .endpoints
+                .values
+                .forEach{
+                    if (it?.device_id == TEST_DEVICE){
+                        ViewModelProviders.of(this).get(CS5463ViewModel::class.java).data.postValue(CS5463Data(networkId, it.endpoint_id))
+                    }
+                    if (it?.device_id == ZCL_HA_DEVICEID_SMART_PLUG){
+                        Log.i("SmartPlug", "Selected networkID: " + networkId)
+                        ViewModelProviders.of(this).get(SmartPlugViewModel::class.java).smartPlug.postValue(SmartPlugData(networkId, it.endpoint_id))
+                    }
+                }
     }
 }

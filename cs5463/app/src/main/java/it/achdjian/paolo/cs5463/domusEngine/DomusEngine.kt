@@ -46,6 +46,8 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     fun getAttribute(networkId: Int, endpointId: Int, clusterId: Int, attributeId: Int) =
             threadPool.execute(RequestAttributes(AttributeCoord(networkId, endpointId, clusterId, attributeId)))
 
+    fun postCmd(networkId: Int, endpointId: Int, clusterId: Int, cmdId: Int) =
+            threadPool.execute(ExecuteCommand(networkId, endpointId, clusterId, cmdId))
 
     fun addListener(listener: NewSmartPlugDeviceListener) = listeners.add(listener)
     fun addListener(listener: PowerListener) = powerListener.add(listener)

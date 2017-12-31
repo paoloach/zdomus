@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                                android:orientation="vertical"
+                                             android:layout_height="match_parent">
+
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/calibrateVDC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Calibrate Volt DC OFFSET"/>
+
+
+        <RadioButton
+            android:id="@+id/calibrateIDC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calibrate Current DC offset"/>
+
+        <RadioButton
+            android:id="@+id/calibrateVAC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calibrate Volt AC offset"/>
+
+        <RadioButton
+            android:id="@+id/calibrateIAC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calibrate current AC offset"/>
+
+        <RadioButton
+            android:id="@+id/startMeasure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Start measure"/>
+
+        <RadioButton
+            android:id="@+id/clearStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clear status register"/>
+
+        <RadioButton
+            android:id="@+id/reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reset"/>
+        <RadioButton
+            android:id="@+id/togle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Togle"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/execute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Execute"/>
+
+
+</LinearLayout>
