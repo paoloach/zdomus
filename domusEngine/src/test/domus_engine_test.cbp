@@ -520,7 +520,7 @@
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/pistache/tmp/pistache-cfgcmd.txt.in">
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/pistache/tmp/pistache_fork-cfgcmd.txt.in">
 			<Option virtualFolder="CMake Files\pistache\tmp\"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/CMakeLists.txt">
