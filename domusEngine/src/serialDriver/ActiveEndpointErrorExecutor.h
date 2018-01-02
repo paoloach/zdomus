@@ -8,7 +8,7 @@
 #include <boost/token_functions.hpp>
 #include <boost/tokenizer.hpp>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 namespace zigbee {
     class ActiveEndpointSerialErrorExecutor : public SerialExecutor {
     public:

@@ -10,25 +10,18 @@
 
 #include "endpoint.h"
 #include "router.h"
+#include "../../Utils/SingletonObjects.h"
 
-namespace zigbee {
+namespace zigbee::http {
+    class ShowOutCluster {
+    public:
+        ShowOutCluster(SingletonObjects *singletons) noexcept : singletons(singletons) {};
 
-    class SingletonObjects;
+        Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response);
 
-    namespace http {
-
-
-        class ShowOutCluster  {
-        public:
-            ShowOutCluster(SingletonObjects &singletons) noexcept : singletons(singletons) { };
-
-            Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response);
-
-        private:
-            SingletonObjects &singletons;
-        };
-
-    } /* namespace http */
+    private:
+        SingletonObjects *singletons;
+    };
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTACTIONS_SHOWOUTCLUSTER_H_ */

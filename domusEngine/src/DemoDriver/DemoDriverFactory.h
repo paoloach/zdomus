@@ -13,7 +13,7 @@
 namespace zigbee {
     class DemoDriverFactory : public DriverFactory {
         std::string  getName() override {return "demo";}
-        std::unique_ptr<ZigbeeDevice>  getDevice(SingletonObjects * singletonObjects) override {
+        std::unique_ptr<ZigbeeDevice>  getDevice(SingletonObjectsImpl * singletonObjects) override {
             return  std::make_unique<DemoDevice>(*singletonObjects, singletonObjects->getConfiguration()->getRestTimeout());
         }
     };

@@ -8,16 +8,16 @@
 #include <boost/log/trivial.hpp>
 #include <zigbee/messageStructure/DeviceInfoMessage.h>
 #include "Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "../Utils/DeviceInfoDispatcher.h"
 
 namespace zigbee {
     class DeviceInfoExecutor : public Executor {
     private:
-        SingletonObjects &singletonObjects;
+        SingletonObjectsImpl &singletonObjects;
 
     public:
-        DeviceInfoExecutor(SingletonObjects &singletonObjects) : singletonObjects{singletonObjects} {}
+        DeviceInfoExecutor(SingletonObjectsImpl &singletonObjects) : singletonObjects{singletonObjects} {}
 
         virtual void operator()(unsigned char *data, int) override {
             DeviceInfoMessage *message = reinterpret_cast<DeviceInfoMessage *>(data);

@@ -17,15 +17,15 @@ namespace zigbee {
     using std::make_shared;
     using boost::system::error_code;
 
-    JSManager::JSManager(SingletonObjects &singletonObjects) {
-        for (const auto &js : singletonObjects.getConfiguration()->getJavascriptData()) {
+    JSManager::JSManager(SingletonObjects *singletonObjects) {
+        for (const auto &js : singletonObjects->getConfiguration()->getJavascriptData()) {
             auto task = std::make_unique<Task>(singletonObjects, js.second);
             tasks.push_back(std::move(task));
         }
 
     }
 
-    JSManager::Task::Task(SingletonObjects &singletonObjects, const JavaScriptData &js) : js(js), jsExecuter(singletonObjects, js.getPeriod()) {
+    JSManager::Task::Task(SingletonObjects * singletonObjects, const JavaScriptData &js) : js(js), jsExecuter(singletonObjects, js.getPeriod()) {
         jsExecuter.run(js.getCode());
     }
 

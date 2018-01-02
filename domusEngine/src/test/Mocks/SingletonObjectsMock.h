@@ -10,8 +10,6 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../../../src/ZigbeeData/ZDevices.h"
-
 
 #include "../../Utils/SingletonObjects.h"
 
@@ -28,17 +26,21 @@ namespace zigbee {
 
         MOCK_METHOD0(getZDevices, ZDevices * ());
 
-        MOCK_METHOD0(getConfiguration, std::shared_ptr<Configuration>());
+        MOCK_METHOD0(getConfiguration, Configuration * ());
 
-        MOCK_METHOD0(getJSManage, std::shared_ptr<JSManager>());
+        MOCK_METHOD0(getJSManager, JSManager * ());
 
-        MOCK_METHOD0(getClusterTypeFactory, std::shared_ptr<ClusterTypeFactory>());
+        MOCK_METHOD0(getBindTable, BindTable *  ());
 
-        MOCK_METHOD0(getIO, boost::asio::io_service & ());
+        MOCK_METHOD0(getClusters, Clusters *());
 
-        MOCK_METHOD0(getAttributeDataContainer, AttributeDataContainer & ());
+        MOCK_METHOD0(getAttributeWriter, AttributeWriter * ());
 
-        MOCK_METHOD0(getClusters,  Clusters *());
+        MOCK_METHOD0(getDeviceInfoDispatcher, DeviceInfoDispatcher *());
+
+        MOCK_METHOD0(getConstant, Constant * ());
+
+        MOCK_METHOD0(getTopology, TopologyCreation * ());
 
         MOCK_METHOD0(getRestHandler, http::RestHandler * ());
     };

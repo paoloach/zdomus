@@ -31,6 +31,7 @@ namespace zigbee {
     class JSZEndpoint;
 
     class JSZAttributeFactory;
+    class Cluster;
 
     class JSZCluster {
     private:

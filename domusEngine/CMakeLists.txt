@@ -21,6 +21,24 @@ ExternalProject_Add(pistache_fork
                 ${USE_PROJECT_CMAKE_MODULE_PATH}
         )
 
+ExternalProject_Add(trompeloeil
+        GIT_REPOSITORY https://github.com/rollbear/trompeloeil.git
+        GIT_SUBMODULES
+        PREFIX ${CMAKE_CURRENT_BINARY_DIR}/trompeloeil
+        INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/libs
+        UPDATE_COMMAND "" # Skip annoying updates for every build
+        INSTALL_COMMAND ""
+        CMAKE_ARGS  -DCMAKE_FIND_ROOT_PATH=${CMAKE_FIND_ROOT_PATH}
+        -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+        -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+        -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+        -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+        ${USE_PROJECT_CMAKE_MODULE_PATH}
+        )
+
+
+
 ExternalProject_Get_Property(pistache_fork install_dir)
 
 set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache_fork/include ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache_fork/include/pistache)
@@ -155,7 +173,10 @@ SET(SRC_ZIGBEE_DATA src/ZigbeeData/AttributeData.cpp src/ZigbeeData/AttributeDat
 
 SET(SRC_EXCEPTION src/Exception/PathNotFound.h src/Exception/Timeout.h)
 
-SET(SRC_HTTP src/httpServer/RestHandler.cpp src/httpServer/RestHandler.h src/httpServer/RestActions/ShowPowerNode.cpp src/httpServer/RestActions/ShowPowerNode.h)
+SET(SRC_HTTP
+        src/httpServer/RestHandler.h
+        src/httpServer/RestHandlerImpl.cpp src/httpServer/RestHandlerImpl.h
+        src/httpServer/RestActions/ShowPowerNode.cpp src/httpServer/RestActions/ShowPowerNode.h)
 
 
 SET(SRC_DEMO_DRIVER
@@ -228,7 +249,7 @@ set(USB_SRC src/usb/ActiveEPReqError.h
 set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h
                 src/Utils/AttributeWriter.cpp src/Utils/AttributeWriter.h
                 src/Utils/Clusters.cpp  src/Utils/Clusters.h
-                src/Utils/SingletonObjects.cpp  src/Utils/SingletonObjects.h
+        src/Utils/SingletonObjects.h src/Utils/SingletonObjectsImpl.cpp src/Utils/SingletonObjectsImpl.h
                 src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
                 src/Utils/Constant.cpp src/Utils/Constant.h
                 src/Utils/LogConstants.h
@@ -254,6 +275,7 @@ add_library(javascript_lib OBJECT
         src/JavaScript/V8anyConverter.cpp
         src/JavaScript/V8Allocator.cpp
         src/JavaScript/V8Allocator.h
+        src/JavaScript/JSZAttributes/JSZAttributeTemplate.h
         src/JavaScript/JSZEndpoints.cpp src/JavaScript/JSZEndpoints.h
         src/JavaScript/GlobalJSFunctions.cpp src/JavaScript/GlobalJSFunctions.h
         src/JavaScript/JSCallbackFifo.cpp src/JavaScript/JSCallbackFifo.h

@@ -10,15 +10,14 @@
 #include <thread>
 #include <mutex>
 #include <chrono>
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
-    class SingletonObjects;
-
     class ZDevice;
 
     class TopologyCreation {
     private:
-        SingletonObjects &singletonObjects;
+        SingletonObjects*singletonObjects;
         std::set<NwkAddr> toDo;
         std::map<NwkAddr, std::chrono::system_clock::time_point> doing;
         std::set<NwkAddr> done;
@@ -29,7 +28,7 @@ namespace zigbee {
         std::function<void(ZDevice *)> observerCallback;
 
     public:
-        TopologyCreation(SingletonObjects &singletonObjects) : singletonObjects(singletonObjects) {}
+        TopologyCreation(SingletonObjects *singletonObjects) : singletonObjects(singletonObjects) {}
 
         ~TopologyCreation();
 

@@ -21,30 +21,28 @@
 #include "endpoint.h"
 #include "router.h"
 #include "ClusterThrowingException.h"
+#include "../../Utils/SingletonObjects.h"
 
-namespace zigbee {
+namespace zigbee::http {
+    class ShowAttribute : public ClusterThrowingException, public AttributesResponseCallback {
 
-    class SingletonObjects;
+    public:
+        ShowAttribute(SingletonObjects *singletons, const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response);
 
-    namespace http {
+        virtual ~ShowAttribute() = default;
 
-        class ShowAttribute : public ClusterThrowingException , public AttributesResponseCallback {
+        AttributesKey key;
+    private:
+        void response(std::vector<ZCLAttribute *> &&attributes) override;
 
-        public:
-            ShowAttribute(SingletonObjects &singletons,const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter && response);
-            virtual ~ShowAttribute() = default;
-            AttributesKey key;
-        private:
-            void response(std::vector<ZCLAttribute *> && attributes ) override;
-            bool allTimeout(std::vector<ZCLAttribute *> & attributes) {
-                return std::find_if(attributes.begin(), attributes.end(), [](ZCLAttribute * attribute){return attribute != nullptr;}) ==attributes.end();
-            }
-            SingletonObjects &singletons;
-            Pistache::Http::ResponseWriter responseWriter;
+        bool allTimeout(std::vector<ZCLAttribute *> &attributes) {
+            return std::find_if(attributes.begin(), attributes.end(), [](ZCLAttribute *attribute) { return attribute != nullptr; }) == attributes.end();
+        }
 
-        };
+        SingletonObjects *singletons;
+        Pistache::Http::ResponseWriter responseWriter;
 
-    } /* namespace http */
+    };
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTACTIONS_SHOWATTRIBUTE_H_ */

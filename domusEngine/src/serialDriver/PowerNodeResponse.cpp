@@ -2,7 +2,7 @@
 // Created by paolo on 11/05/17.
 //
 
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "PowerNodeResponse.h"
 
 #include <boost/log/trivial.hpp>

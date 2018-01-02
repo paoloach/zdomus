@@ -47,7 +47,10 @@ namespace zigbee {
             std::stringstream xmlStream{};
             ptree trunck{};
             ptree js1{};
+            ptree rest{};
 
+            rest.put("timeout", 10);
+            trunck.push_back({"rest", rest});
             js1.put(CODE_NAME, CODE1);
             js1.put(PERIOD_NAME,BOOST_PERIDO1 );
             trunck.push_back({JAVASCRIPT_NAME, js1});
@@ -61,6 +64,10 @@ namespace zigbee {
             ptree js1{};
             ptree js2{};
 
+            ptree rest{};
+
+            rest.put("timeout", 10);
+            trunck.push_back({"rest", rest});
             js1.put(CODE_NAME, CODE1);
             js1.put(PERIOD_NAME, BOOST_PERIDO1);
             js2.put(CODE_NAME, CODE2);
@@ -76,8 +83,8 @@ namespace zigbee {
 
             std::stringstream xmlStream{xml};
 
-            conf = std::make_shared<Configuration>(xmlStream);
-            auto jss = conf->getJavascriptData();
+            auto conf = Configuration(xmlStream);
+            auto jss = conf.getJavascriptData();
             ASSERT_THAT(jss.size(), Eq(1));
             auto element0 = (*jss.begin()).second;
             ASSERT_THAT(element0.getCode(), Eq(CODE1));
@@ -89,8 +96,8 @@ namespace zigbee {
 
             std::stringstream xmlStream{xml};
 
-            conf = std::make_shared<Configuration>(xmlStream);
-            auto jss = conf->getJavascriptData();
+            auto conf = Configuration(xmlStream);
+            auto jss = conf.getJavascriptData();
             ASSERT_THAT(jss.size(), Eq(2));
             auto jss_iter = jss.begin();
             auto element0 = (*jss_iter).second;

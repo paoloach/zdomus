@@ -7,7 +7,6 @@
 #include <zigbee/ZigbeeDevice.h>
 #include <boost/log/trivial.hpp>
 #include "TopologyCreation.h"
-#include "../Utils/SingletonObjects.h"
 #include "ZDevices.h"
 #include "ZDevice.h"
 
@@ -20,7 +19,7 @@ namespace zigbee {
 
     TopologyCreation::~TopologyCreation() {
         stop = true;
-        auto zDevices = singletonObjects.getZDevices();
+        auto zDevices = singletonObjects->getZDevices();
         if (zDevices != nullptr) {
             zDevices->removeObserver(observerCallback);
             if (requestThread.joinable())
@@ -29,7 +28,7 @@ namespace zigbee {
     }
 
     void TopologyCreation::create() {
-        auto zDevices = singletonObjects.getZDevices();
+        auto zDevices = singletonObjects->getZDevices();
         observerCallback = [this](ZDevice *device) { this->addDevice(device); };
         zDevices->addObserver(observerCallback);
         toDo.insert(NwkAddr(0));
@@ -53,7 +52,7 @@ namespace zigbee {
     void TopologyCreation::manageRequest() {
         seconds requestTimeout(30);
         milliseconds sleepTime(100);
-        auto zigbeeDevice = singletonObjects.getZigbeeDevice();
+        auto zigbeeDevice = singletonObjects->getZigbeeDevice();
         while (!stop && (!toDo.empty() || !doing.empty())) {
             while (!stop && ((doing.size() < 3 && !toDo.empty()) || (doing.empty() && toDo.empty()))) {
                 auto iter = toDo.begin();

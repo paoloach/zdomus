@@ -9,10 +9,11 @@
 #include <boost/log/attributes/named_scope.hpp>
 
 #include "../MediaTypeProducerFactory.h"
-#include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/PropertyTree/ZDevicesPT.h"
 
 #include "ShowDeviceInfo.h"
+#include "../../json/json/json.h"
+#include "../../Utils/Constant.h"
 
 using namespace std::chrono;
 using namespace Json;
@@ -24,18 +25,18 @@ namespace zigbee {
         using namespace Pistache::Http::Header;
 
         ShowDeviceInfo::~ShowDeviceInfo() {
-            singletons.getDeviceInfoDispatcher()->remove(this, device);
+            singletons->getDeviceInfoDispatcher()->remove(this, device);
         }
 
         Pistache::Rest::Route::Result ShowDeviceInfo::operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
             device = request.param(":device").as<NwkAddr>();
             BOOST_LOG_TRIVIAL(info) << "Request device info " << device;
-            auto zigbeeDevice = singletons.getZigbeeDevice();
-            auto constants = singletons.getConstant();
+            auto zigbeeDevice = singletons->getZigbeeDevice();
+            auto constants = singletons->getConstant();
 
             resultPresent = false;
-            singletons.getDeviceInfoDispatcher()->add(this, device);
+            singletons->getDeviceInfoDispatcher()->add(this, device);
             if (zigbeeDevice != nullptr) {
                 zigbeeDevice->sendReqDeviceInfo(device);
 
@@ -43,7 +44,7 @@ namespace zigbee {
                 while (!resultPresent) {
                     std::this_thread::sleep_for(100ms);
                     milliseconds elapsed = duration_cast<std::chrono::milliseconds>(system_clock::now() - start);
-                    if (elapsed > milliseconds(constants.requestTimeout)) {
+                    if (elapsed > milliseconds(constants->requestTimeout)) {
                         response.send(Code::Bad_Request, "data timeout\n\r");
                         return Pistache::Rest::Route::Result::Ok;
                     }

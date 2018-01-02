@@ -11,23 +11,22 @@
 #include "endpoint.h"
 #include "router.h"
 #include "../../json/json/json.h"
+#include "../../Utils/SingletonObjects.h"
 
-namespace zigbee {
-    class SingletonObjects;
-    namespace http {
-        class ShowTopology  {
-        public:
-            ShowTopology(SingletonObjects &singletons) noexcept : singletons(singletons) {};
+namespace zigbee::http {
+    class ShowTopology {
+    public:
+        ShowTopology(SingletonObjects *singletons) noexcept : singletons(singletons) {};
 
-            Pistache::Rest::Route::Result  operator()(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter  && response);
+        Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response);
 
-        private:
-            Json::Value createChildren(std::set<NwkAddr> &);
-            Json::Value createNode(NwkAddr &);
-            SingletonObjects &singletons;
-        };
+    private:
+        Json::Value createChildren(std::set<NwkAddr> &);
 
-    }
+        Json::Value createNode(NwkAddr &);
+
+        SingletonObjects *singletons;
+    };
 }
 
 

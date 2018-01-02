@@ -7,7 +7,7 @@
 #include <boost/asio/detail/shared_ptr.hpp>
 #include <zcl/Cluster.h>
 #include <set>
-#include "../Utils/SingletonObjects.h"
+#include "AttributeWriter.h"
 
 namespace zigbee {
 
@@ -37,7 +37,7 @@ namespace zigbee {
         }
         auto jsonData = value["data"];
         auto type = jsonType.asString();
-        auto zigbeeDevice = singletons.getZigbeeDevice();
+        auto zigbeeDevice = singletons->getZigbeeDevice();
         auto attribute = cluster->getAttribute(id);
         auto &rawValue = attribute->getAttributeRawValue();
         if (type == "string") {

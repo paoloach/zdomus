@@ -8,15 +8,15 @@
 #include <boost/endian/conversion.hpp>
 #include "../ZigbeeData/IEEEAddressResponse.h"
 #include "Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 namespace zigbee {
         class IEEEAddressResponseExecutor : public Executor {
     private:
-        SingletonObjects &singletonObjects;
+        SingletonObjectsImpl &singletonObjects;
 
     public:
-        IEEEAddressResponseExecutor(SingletonObjects &singletonObjects) : singletonObjects{singletonObjects} {}
+        IEEEAddressResponseExecutor(SingletonObjectsImpl &singletonObjects) : singletonObjects{singletonObjects} {}
 
         // receive
         // msg code (1 byte)

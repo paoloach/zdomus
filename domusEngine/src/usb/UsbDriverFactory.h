@@ -18,7 +18,7 @@ namespace zigbee {
     class UsbDriverFactory : public DriverFactory {
         libusb_context *usbContext;
         std::string  getName() override {return "usb";}
-        std::unique_ptr<ZigbeeDevice>  getDevice(SingletonObjects * singletonObjects) override {
+        std::unique_ptr<ZigbeeDevice>  getDevice(SingletonObjectsImpl * singletonObjects) override {
 
             if (libusb_init(&usbContext) == 0) {
                 //libusb_set_debug(usbContext, 4);

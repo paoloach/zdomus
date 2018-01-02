@@ -32,7 +32,7 @@
 #include <boost/log/sources/logger.hpp>
 #include <boost/fiber/algo/round_robin.hpp>
 
-#include "httpServer/RestHandler.h"
+#include "httpServer/RestHandlerImpl.h"
 #include "JavaScript/JSManager.h"
 #include "ZigbeeData/RequestDevices.h"
 #include "Utils/DriverFactory.h"
@@ -101,7 +101,7 @@ int main(int argc, const char *argv[]) {
 
 
 
-    SingletonObjects singletons(std::move(configurationFileName), vm[ZDRIVER].as<std::string>(), std::move(driverFactories));
+    SingletonObjectsImpl singletons(std::move(configurationFileName), vm[ZDRIVER].as<std::string>(), std::move(driverFactories));
     auto zDevices = singletons.getZDevices();
 
     TopologyCreation topologyCreation(singletons);

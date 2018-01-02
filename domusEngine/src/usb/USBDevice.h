@@ -28,7 +28,7 @@
 
 namespace zigbee {
 
-    class SingletonObjects;
+    class SingletonObjectsImpl;
 
     static const int STANDARD_REQUEST_TYPE{0};
     static const int CLASS_REQUEST_TYPE{0x20};
@@ -39,7 +39,7 @@ namespace zigbee {
 
     class DomusEngineUSBDevice : public ZigbeeDevice {
     public:
-        DomusEngineUSBDevice(SingletonObjects &singletonObjects, libusb_context *usbContext, int deviceClass, int vendorID, int productID, std::chrono::seconds timeout);
+        DomusEngineUSBDevice(SingletonObjectsImpl &singletonObjects, libusb_context *usbContext, int deviceClass, int vendorID, int productID, std::chrono::seconds timeout);
 
         ~DomusEngineUSBDevice() override {
             stop = true;

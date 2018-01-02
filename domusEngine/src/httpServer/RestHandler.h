@@ -1,46 +1,26 @@
 //
-// Created by paolo on 25/04/17.
+// Created by paolo on 02/01/18.
 //
 
 #ifndef DOMUS_ENGINE_RESTHANDLER_H
 #define DOMUS_ENGINE_RESTHANDLER_H
 
-#include <set>
-#include <boost/fiber/unbuffered_channel.hpp>
-#include <boost/fiber/fiber.hpp>
-#include "endpoint.h"
+#include <string>
 #include "router.h"
 
-
 namespace zigbee {
-    class SingletonObjects;
     namespace http {
         class RestHandler {
         public:
-            RestHandler(zigbee::SingletonObjects &singletons);
-
             virtual ~RestHandler() = default;
 
-            virtual void start();
+            virtual void start()=0;
 
-            virtual void addGetPath(std::string && path, Pistache::Rest::Route::Handler && fn);
-            virtual bool isGetPathExist(std::string & path){return pathGetUsed.count(path) > 0;}
-        private:
-            enum class Cmd {
-                Start, Shutdown
-            };
+            virtual void addGetPath(std::string &&path, Pistache::Rest::Route::Handler &&fn)=0;
 
-            void commandHandler();
-            void getPath(std::string && path, Pistache::Rest::Route::Handler &&fn );
-
-            Pistache::Rest::Router router;
-            Pistache::Http::Endpoint *server;
-            boost::fibers::unbuffered_channel<RestHandler::Cmd> channel;
-            boost::fibers::fiber commandFiber;
-            std::set<std::string> pathGetUsed;
+            virtual bool isGetPathExist(std::string &path)=0;
         };
-    } /* namespace http */
-} /* namespace zigbee */
-
+    }
+}
 
 #endif //DOMUS_ENGINE_RESTHANDLER_H

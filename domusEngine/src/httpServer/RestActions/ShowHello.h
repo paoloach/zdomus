@@ -13,7 +13,7 @@
 
 namespace zigbee {
 
-    class SingletonObjects;
+    class SingletonObjectsImpl;
 
     namespace http {
 

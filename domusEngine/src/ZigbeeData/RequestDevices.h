@@ -6,17 +6,17 @@
 #define DOMUS_ENGINE_REQUESTDEVICES_H
 
 #include <thread>
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
-    class SingletonObjects;
     class ZDevice;
 
     class RequestDevices {
     private:
-        SingletonObjects &singletonObjects;
+        SingletonObjects * singletonObjects;
         std::thread   requestThread;
     public:
-        RequestDevices(SingletonObjects &singletonObjects) : singletonObjects(singletonObjects) {}
+        RequestDevices(SingletonObjects *singletonObjects) : singletonObjects(singletonObjects) {}
 
         void request(ZDevice * zDevice);
         void requests();

@@ -9,17 +9,17 @@
 #include "SerialExecutor.h"
 
 namespace zigbee {
-    class SingletonObjects;
+    class SingletonObjectsImpl;
     class PowerNodeResponse : public SerialExecutor {
     public:
-        PowerNodeResponse(SingletonObjects &singletons) : singletons(singletons) {}
+        PowerNodeResponse(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         /// NPR: networkdId, powerMode, availablePowerSources, currentPowerSource, currentPowerSourceLevel
         //       4digit       1Digit        1Digit               1Digit                1Digit
         virtual void operator()(const std::string &msg) override;
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 

@@ -11,21 +11,21 @@
 #include <boost/log/trivial.hpp>
 
 
-#include "SingletonObjects.h"
+#include "SingletonObjectsImpl.h"
 #include "../Configuration/Configuration.h"
 #include "../JavaScript/JSManager.h"
 #include "../DemoDriver/DemoDevice.h"
 
 namespace zigbee {
 
-    SingletonObjects::SingletonObjects(std::string &&configurationFileName, std::string driverName, std::vector<DriverFactory *> && driverFactories) :
-            attributeWriter{*this}, topology{*this}, restHandler{*this} {
+    SingletonObjectsImpl::SingletonObjectsImpl(std::string &&configurationFileName, std::string driverName, std::vector<DriverFactory *> && driverFactories) :
+            attributeWriter{this}, topology{this}, restHandler{this} {
         std::ifstream streamConfig(configurationFileName);
         if (streamConfig.fail()) {
             BOOST_LOG_TRIVIAL(error) << "Unable to open configuration file " << configurationFileName;
             exit(-1);
         }
-        configuration = std::make_shared<Configuration>(streamConfig);
+        configuration = std::make_unique<Configuration>(streamConfig);
         zDevices = std::make_unique<ZDevices>();
 
         for(auto driverFactory : driverFactories){
@@ -50,10 +50,10 @@ namespace zigbee {
         }
 
 
-        jsManager = std::make_shared<JSManager>(*this);
+        jsManager = std::make_unique<JSManager>(this);
     }
 
-    SingletonObjects::SingletonObjects() : attributeWriter{*this}, topology{*this}, restHandler{*this} {
+    SingletonObjectsImpl::SingletonObjectsImpl() : attributeWriter{this}, topology{this}, restHandler{this} {
 
     }
 } /* namespace zigbee */

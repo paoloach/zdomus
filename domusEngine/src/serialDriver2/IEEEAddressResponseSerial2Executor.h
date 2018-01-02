@@ -7,14 +7,14 @@
 
 #include <boost/log/trivial.hpp>
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "../ZigbeeData/IEEEAddressResponse.h"
 #include "../ZigbeeData/ZDevices.h"
 
 namespace zigbee {
     class IEEEAddressResponseSerial2Executor : public Serial2Executor {
     public:
-        IEEEAddressResponseSerial2Executor(SingletonObjects &singletonObjects) : singletonObjects(singletonObjects) {}
+        IEEEAddressResponseSerial2Executor(SingletonObjectsImpl &singletonObjects) : singletonObjects(singletonObjects) {}
 
         virtual void operator()(Packet &&packet) override {
             BOOST_LOG_NAMED_SCOPE("serial driver");
@@ -37,7 +37,7 @@ namespace zigbee {
         }
 
     private:
-        SingletonObjects &singletonObjects;
+        SingletonObjectsImpl &singletonObjects;
     };
 }
 

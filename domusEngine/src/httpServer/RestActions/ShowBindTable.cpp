@@ -9,7 +9,7 @@
 #include "../../json/json/json.h"
 
 #include "../MediaTypeProducerFactory.h"
-#include "../../Utils/SingletonObjects.h"
+#include "../../ZigbeeData/BindTable.h"
 
 using namespace Json;
 
@@ -24,8 +24,8 @@ namespace zigbee {
             BOOST_LOG_NAMED_SCOPE("HTTP");
             BOOST_LOG_TRIVIAL(info) << "request BindTable: ";
             Value root(arrayValue);
-            auto &bindTable = singletons.getBindTable();
-            for (auto &entry: bindTable.getEntries()) {
+            auto bindTable = singletons->getBindTable();
+            for (auto &entry: bindTable->getEntries()) {
                 Value jsonEntry(objectValue);
                 jsonEntry["sourceAddr"] = Value(std::get<0>(entry).address.getId());
                 jsonEntry["sourceEndpoint"] = Value(std::get<0>(entry).endpoint.getId());

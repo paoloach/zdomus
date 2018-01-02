@@ -44,7 +44,7 @@ namespace zigbee {
         static const std::vector<ZDevice *> zDevices = {&DEVICE1,&DEVICE2,&DEVICE3};
 
         void JSEndpointsTest::SetUp() {
-            jsEndpoints = std::make_unique<JSZEndpoints>(singletonObjectsMock, &jszEndpointMock);
+            jsEndpoints = std::make_unique<JSZEndpoints>(&singletonObjectsMock, &jszEndpointMock);
             createParams.array_buffer_allocator = &v8Allocator;
             isolate = v8::Isolate::New(createParams);
             isolate->Enter();

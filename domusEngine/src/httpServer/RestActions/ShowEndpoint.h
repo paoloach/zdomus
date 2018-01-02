@@ -10,18 +10,18 @@
 
 #include "endpoint.h"
 #include "router.h"
+#include "../../Utils/SingletonObjects.h"
 
 namespace zigbee {
-    class SingletonObjects;
     namespace http {
         class ShowEndpoint {
         public:
-            ShowEndpoint(SingletonObjects &singletons) noexcept : singletons(singletons) {};
+            ShowEndpoint(SingletonObjects * singletons) noexcept : singletons(singletons) {};
 
             Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response);
 
         private:
-            SingletonObjects &singletons;
+            SingletonObjects * singletons;
         };
 
     } /* namespace http */

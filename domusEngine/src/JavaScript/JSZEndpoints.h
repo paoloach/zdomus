@@ -13,7 +13,7 @@ namespace zigbee {
 
     class JSZEndpoints {
     public:
-        JSZEndpoints(SingletonObjects &singletonObjects, JSZEndpoint *jszEndpoint) : singletonObjects(singletonObjects),
+        JSZEndpoints(SingletonObjects *singletonObjects, JSZEndpoint *jszEndpoint) : singletonObjects(singletonObjects),
                                                                                      jszEndpoint(jszEndpoint) {
 
         }
@@ -36,7 +36,7 @@ namespace zigbee {
 
     private:
         v8::UniquePersistent<v8::Object> zEndpointsInstance;
-        SingletonObjects &singletonObjects;
+        SingletonObjects * singletonObjects;
         JSZEndpoint *jszEndpoint;
     };
 

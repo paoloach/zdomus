@@ -10,13 +10,13 @@
 #include <boost/token_functions.hpp>
 #include <boost/tokenizer.hpp>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "../ZigbeeData/ZDevices.h"
 
 namespace zigbee {
     class SimpleDescSerialExecutor : public SerialExecutor {
     public:
-        SimpleDescSerialExecutor(SingletonObjects &singletons) : singletons(singletons) {}
+        SimpleDescSerialExecutor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         // SD: networkID, endpoint, AppProfId, deviceId, deviceVersion, numInClusters, firstInCluster, ..., lastInCluster, numOutClusters, firstOutCluster, ..., lastOutCluster
         virtual void operator()(const std::string &msg) override {
@@ -69,7 +69,7 @@ namespace zigbee {
             }
         }
     private:
-        SingletonObjects & singletons;
+        SingletonObjectsImpl & singletons;
     };
 }
 

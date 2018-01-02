@@ -14,9 +14,9 @@
 namespace zigbee {
     class AttributeValuesExecuter : public Executor {
     private:
-        SingletonObjects &singletonObjects;
+        SingletonObjectsImpl &singletonObjects;
     public:
-        AttributeValuesExecuter(SingletonObjects &singletonObjects) : singletonObjects(singletonObjects) {}
+        AttributeValuesExecuter(SingletonObjectsImpl &singletonObjects) : singletonObjects(singletonObjects) {}
 
         virtual void operator()(unsigned char *data, int) override {
             ReadAttributeResponseMessage *readAttributeResponseMessage = reinterpret_cast<ReadAttributeResponseMessage *>(data);

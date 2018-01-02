@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 project(domus_engine_test)
 
-set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache/include
-        ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache/include/pistache)
-set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache-build/src/libpistache.a)
+set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache_fork/include
+        ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache_fork/include/pistache)
+set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/../../pistache/src/pistache_fork-build/src/libpistache.a)
 
 find_package(PostgreSQL)
 
@@ -46,7 +46,6 @@ SET(SRC_TEST_MOCK
         Mocks/ClusterMock.cpp Mocks/ClusterMock.h
         Mocks/ClustersMock.cpp Mocks/ClustersMock.h
         Mocks/ClusterTypeFactoryMock.cpp Mocks/ClusterTypeFactoryMock.h
-        Mocks/ComandMock.cpp Mocks/ComandMock.h
         Mocks/DBTableFactoryMock.cpp Mocks/DBTableFactoryMock.h
         Mocks/DBTableMock.cpp Mocks/DBTableMock.h
         Mocks/JSZClusterMock.cpp Mocks/JSZClusterMock.h

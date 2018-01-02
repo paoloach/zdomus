@@ -9,19 +9,19 @@
 #include <boost/asio/detail/shared_ptr.hpp>
 #include "../json/json/json.h"
 #include "AttributeWriterResult.h"
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
-
-    class SingletonObjects;
-
     class AttributeWriter {
     public:
-        AttributeWriter(SingletonObjects &singletons) noexcept : singletons(singletons) { };
+        AttributeWriter(SingletonObjects *singletons) noexcept : singletons(singletons) {};
 
         AttributeWriterResult write(NwkAddr nwkAddr, EndpointID endpointID, std::shared_ptr<Cluster> cluster, Json::Value value);
+
     private:
-        void addElement(NwkAddr nwkAddr, EndpointID endpointID,  std::shared_ptr<zigbee::Cluster> cluster,Json::Value && value, AttributeWriterResult &results);
-        SingletonObjects &singletons;
+        void addElement(NwkAddr nwkAddr, EndpointID endpointID, std::shared_ptr<zigbee::Cluster> cluster, Json::Value &&value, AttributeWriterResult &results);
+
+        SingletonObjects *&singletons;
     };
 }
 

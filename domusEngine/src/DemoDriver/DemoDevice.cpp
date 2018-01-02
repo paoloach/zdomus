@@ -11,7 +11,7 @@
 #include <zcl/StatusEnum.h>
 #include <boost/log/attributes/named_scope.hpp>
 #include "DemoDevice.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "../Database/DBTableFactory.h"
 #include "../Database/DBRow.h"
 #include "../Database/DBTable.h"
@@ -87,7 +87,7 @@ namespace zigbee {
 
 
 
-    DemoDevice::DemoDevice(SingletonObjects &singletonObjects, std::chrono::seconds seconds) : ZigbeeDevice(seconds), singletonObjects(singletonObjects), stop(false), e1(rd()) {
+    DemoDevice::DemoDevice(SingletonObjectsImpl &singletonObjects, std::chrono::seconds seconds) : ZigbeeDevice(seconds), singletonObjects(singletonObjects), stop(false), e1(rd()) {
         BOOST_LOG_TRIVIAL(info) << "-------------------------- DEMO MODE ------------------------";
         demoThread = std::thread([this] { runDemoThread(); });
 

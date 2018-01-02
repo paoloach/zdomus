@@ -7,7 +7,7 @@
 #include <zigbee/PowerNodeData.h>
 #include <zigbee/messageStructure/ActiveEPErrorMessage.h>
 #include "PowerNodeResponse2Error.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 
 void zigbee::PowerNodeResponse2Error::operator()(Packet &&packet) {

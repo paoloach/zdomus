@@ -9,7 +9,7 @@
 #include <map>
 #include <memory>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 
 namespace zigbee {
@@ -23,7 +23,7 @@ namespace zigbee {
         };
 
     public:
-        SerialResponseExecutor(SingletonObjects &singletonObjects);
+        SerialResponseExecutor(SingletonObjectsImpl &singletonObjects);
 
         void execute(const std::string &str);
 

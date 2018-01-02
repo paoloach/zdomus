@@ -9,13 +9,13 @@
 #include <sstream>
 #include <boost/log/trivial.hpp>
 #include "Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 
 namespace zigbee {
     class PowerNodeReqError : public Executor {
     public:
-        PowerNodeReqError(SingletonObjects & singletonObjects): singletonObjects(singletonObjects){}
+        PowerNodeReqError(SingletonObjectsImpl & singletonObjects): singletonObjects(singletonObjects){}
 
         virtual void operator()(unsigned char *data, int) override {
             ActiveEPErrorMessage * errorMessage = reinterpret_cast<ActiveEPErrorMessage *>(data);
@@ -25,7 +25,7 @@ namespace zigbee {
             singletonObjects.getZigbeeDevice()->setPowerNode(powerNode);
         }
     private:
-        SingletonObjects &singletonObjects;
+        SingletonObjectsImpl &singletonObjects;
     };
 }
 #endif //DOMUS_ENGINE_POWERNODEREQERROR_H

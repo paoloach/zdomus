@@ -21,6 +21,7 @@
 #include "Exceptions/JSExceptionInvalidAttributeType.h"
 #include "Exceptions/JSExceptionArgNoFunction.h"
 #include "../ZigbeeData/ZDevices.h"
+#include "../Utils/Clusters.h"
 
 using namespace v8;
 using std::stringstream;

@@ -21,7 +21,7 @@ namespace zigbee {
     const int SerialDriver::BAUD_RATE = B115200;
     static const boost::log::string_literal LOG_SCOPE("serial driver");
 
-    SerialDriver::SerialDriver(const std::string &port, SingletonObjects &singletonObjects, std::chrono::seconds timeout) : ZigbeeDevice(timeout),
+    SerialDriver::SerialDriver(const std::string &port, SingletonObjectsImpl &singletonObjects, std::chrono::seconds timeout) : ZigbeeDevice(timeout),
                                                                                                                                                          singletonObjects(
                                                                                                                                                                  singletonObjects),
                                                                                                                                                          port(port),

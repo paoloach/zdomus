@@ -8,7 +8,7 @@
 #include <zigbee/PowerNodeData.h>
 #include <zigbee/messageStructure/ActiveEPErrorMessage.h>
 #include "PowerNodeResponseError.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 using std::stoi;
 

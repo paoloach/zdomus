@@ -10,12 +10,12 @@
 #include <zigbee/EndpointID.h>
 #include <zcl/Cluster.h>
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 namespace zigbee {
     class ReadAttributeResponseErrorSerial2 : public Serial2Executor {
     public:
-        ReadAttributeResponseErrorSerial2(SingletonObjects &singletons) : singletons(singletons) {}
+        ReadAttributeResponseErrorSerial2(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         virtual void operator()(Packet &&packet) override {
             NwkAddr nwkAddr{packet.getUint16(1)};
@@ -32,7 +32,7 @@ namespace zigbee {
         }
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 #endif //DOMUS_ENGINE_READATTRIBUTERESPONSEERRORSERIAL_H

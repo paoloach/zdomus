@@ -5,7 +5,7 @@
 		<Option title="domus_engine_test"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\pistache\;CMake Files\pistache\tmp\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;CMake Files\src\;CMake Files\src\test\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\pistache\;CMake Files\pistache\tmp\;CMake Files\trompeloeil\;CMake Files\trompeloeil\tmp\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;CMake Files\src\;CMake Files\src\test\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/home/paolo/workspace/zdomus/domusEngine/src/test"/>
@@ -25,8 +25,8 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
-					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include"/>
-					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include/pistache"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
@@ -56,8 +56,8 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
-					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include"/>
-					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include/pistache"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
@@ -87,8 +87,8 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
-					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include"/>
-					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include/pistache"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
@@ -118,8 +118,8 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
-					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include"/>
-					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache/include/pistache"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
@@ -156,12 +156,6 @@
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Database/DBTableTest.h">
 			<Option target="database_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/DataPropertyTreeMatcher.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/DataPropertyTreeMatcher.h">
-			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/ClusterCmdArgumentMatcher.h">
 			<Option target="domus_engine_test"/>
@@ -305,12 +299,6 @@
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ClustersMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ComandMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ComandMock.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/DBTableFactoryMock.cpp">
@@ -474,6 +462,9 @@
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/pistache/tmp/pistache_fork-cfgcmd.txt.in">
 			<Option virtualFolder="CMake Files\pistache\tmp\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/trompeloeil/tmp/trompeloeil-cfgcmd.txt.in">
+			<Option virtualFolder="CMake Files\trompeloeil\tmp\"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\googletest\googlemock\"/>

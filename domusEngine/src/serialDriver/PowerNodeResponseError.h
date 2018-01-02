@@ -8,18 +8,18 @@
 #include "SerialExecutor.h"
 
 namespace zigbee {
-    class SingletonObjects;
+    class SingletonObjectsImpl;
 
     class PowerNodeResponseError : public SerialExecutor {
     public:
-        PowerNodeResponseError(SingletonObjects &singletons) : singletons(singletons) {}
+        PowerNodeResponseError(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         /// NPRE: networkdId, status
         //       4digit       2Digit
         void operator()(const std::string &msg) override;
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 

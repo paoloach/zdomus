@@ -2,7 +2,7 @@
 // Created by paolo on 23/12/17.
 //
 #include <boost/log/trivial.hpp>
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "SimpleDescSerial2Executor.h"
 
 namespace zigbee {

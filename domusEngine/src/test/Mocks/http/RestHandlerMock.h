@@ -5,8 +5,7 @@
 #ifndef DOMUS_ENGINE_RESTHANDLERMOCK_H
 #define DOMUS_ENGINE_RESTHANDLERMOCK_H
 
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
+#include "../../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 #include "../../../httpServer/RestHandler.h"
 
 namespace zigbee {
@@ -14,10 +13,9 @@ namespace zigbee {
         namespace http {
             class RestHandlerMock : public zigbee::http::RestHandler {
             public:
-                RestHandlerMock(SingletonObjects &singletons);
-                virtual ~RestHandlerMock();
-                MOCK_METHOD0(start, void () );
-                MOCK_METHOD2(addGetPath,  void (std::string path, Pistache::Rest::Route::Handler fn));
+                MAKE_MOCK0(start, void () );
+                MAKE_MOCK2(addGetPath,  void (std::string &&path, Pistache::Rest::Route::Handler &&fn));
+                MAKE_MOCK1(isGetPathExist, bool (std::string &path));
             };
         }
     }

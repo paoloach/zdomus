@@ -13,7 +13,6 @@
 #include "ShowEndpoint.h"
 
 #include "../MediaTypeProducerFactory.h"
-#include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/PropertyTree/ZEndpointPT.h"
 #include "../../ZigbeeData/ZDevices.h"
 
@@ -31,7 +30,7 @@ namespace zigbee {
             auto device = request.param(":device").as<NwkAddr>();
             auto endpoint = request.param(":endpoint").as<EndpointID>();
             BOOST_LOG_TRIVIAL(trace) << "ShowEndpoint " << device << ":" << endpoint;
-            auto zDevice = singletons.getZDevices()->getDevice(device);
+            auto zDevice = singletons->getZDevices()->getDevice(device);
             std::stringstream output;
             producer.produce(output, ZEndpointPT(zDevice->getEndpoint(endpoint)));
             response.send(Code::Ok, output.str());

@@ -6,7 +6,7 @@
 #define ACTIVE_ENDPOINT_SERIAL2_ERROR_EXECUTOR_H
 #include <boost/log/trivial.hpp>
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 namespace zigbee {
     class ActiveEndpointSerial2ErrorExecutor : public Serial2Executor {
     public:

@@ -9,15 +9,15 @@
 #include "Serial2Executor.h"
 
 namespace zigbee {
-    class SingletonObjects;
+    class SingletonObjectsImpl;
     class PowerNodeResponse2 : public Serial2Executor {
     public:
-        PowerNodeResponse2(SingletonObjects &singletons) : singletons(singletons) {}
+        PowerNodeResponse2(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         virtual void operator()(Packet && packet) override;
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 

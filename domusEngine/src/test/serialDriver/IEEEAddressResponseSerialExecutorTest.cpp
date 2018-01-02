@@ -26,7 +26,7 @@ namespace zigbee {
 
             EXPECT_CALL(singletonObjectsMock, getZDevices()).WillOnce(Return(&zDevicesMock));
 
-            executor = std::make_unique<IEEEAddressResponseSerialExecutor>(singletonObjectsMock);
+            executor = std::make_unique<IEEEAddressResponseSerialExecutor>(&singletonObjectsMock);
         }
 
         void IEEEAddressResponseSerialExecutorTest::TearDown() {

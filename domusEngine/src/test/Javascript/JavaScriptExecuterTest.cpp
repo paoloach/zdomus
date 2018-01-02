@@ -19,6 +19,7 @@ namespace zigbee {
         using std::make_unique;
         using namespace testing;
         using std::string;
+        using namespace std::chrono_literals;
 
         static std::string EXTENDED_ADDRESS = "00-01-02-03-04-05-06-07";
         static constexpr NwkAddr NWK_ADDRESS{10};
@@ -37,7 +38,7 @@ namespace zigbee {
             zDevices = std::make_unique<ZDevicesMock>();
             zigbeeDevice = make_unique<ZigbeeDeviceMock>();
             extAddress = convertFromString(EXTENDED_ADDRESS);
-            restHandler = make_unique<http::RestHandlerMock>(singletonObjects);
+            restHandler = make_unique<http::RestHandlerMock>();
             EXPECT_CALL(singletonObjects, getClusters()).Times(AnyNumber()).WillRepeatedly(Return(&clustersMock));
             EXPECT_CALL(singletonObjects, getZigbeeDevice()).Times(AnyNumber()).WillRepeatedly(Return(zigbeeDevice.get()));
             EXPECT_CALL(singletonObjects, getZDevices()).Times(AnyNumber()).WillRepeatedly(Return(zDevices.get()));
@@ -57,13 +58,13 @@ namespace zigbee {
         }
 
         TEST_F(JavaScriptExecuterTest, constructor_descructor)  {
-            jsExecuter = make_unique<JavaScriptExecuter>(singletonObjects, std::chrono::seconds(10));
+            jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
 
             jsExecuter.reset();
         }
 
         TEST_F(JavaScriptExecuterTest, executing_simple_script) {
-            jsExecuter = make_unique<JavaScriptExecuter>(singletonObjects, std::chrono::seconds(10));
+            jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
 
             jsExecuter->run("a=3;");
             jsExecuter->join();
@@ -75,7 +76,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream js;
-            jsExecuter = make_unique<JavaScriptExecuter>(singletonObjects, std::chrono::seconds(10));
+            jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             std::shared_ptr<Cluster> cluster(new BasicCluster(zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS));
@@ -97,7 +98,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream js;
-            jsExecuter = make_unique<JavaScriptExecuter>(singletonObjects, std::chrono::seconds(10));
+            jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             std::shared_ptr<Cluster> cluster(new BasicCluster(zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS));
@@ -119,7 +120,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream js;
-            jsExecuter = make_unique<JavaScriptExecuter>(singletonObjects, std::chrono::seconds(2));
+            jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 2s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             std::shared_ptr<Cluster> cluster(new BasicCluster(zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS));
@@ -146,7 +147,7 @@ namespace zigbee {
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream js;
-            jsExecuter = make_unique<JavaScriptExecuter>(singletonObjects, std::chrono::seconds(10));
+            jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
             std::shared_ptr<Cluster> cluster(new BasicCluster(zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS));
@@ -168,7 +169,7 @@ namespace zigbee {
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream jsException;
             std::stringstream jsRight;
-            jsExecuter = make_unique<JavaScriptExecuter>(singletonObjects, std::chrono::seconds(10));
+            jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillRepeatedly(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
             std::shared_ptr<Cluster> cluster(new BasicCluster(zigbeeDevice.get(), ENDPOINT_ID, NWK_ADDRESS));

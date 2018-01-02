@@ -11,12 +11,12 @@
 #include <zigbee/EndpointID.h>
 #include <zcl/Cluster.h>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 namespace zigbee {
     class ReadAttributeResponseErrorSerial : public SerialExecutor {
     public:
-        ReadAttributeResponseErrorSerial(SingletonObjects & singletons):singletons(singletons) {}
+        ReadAttributeResponseErrorSerial(SingletonObjectsImpl & singletons):singletons(singletons) {}
 
         // format: RAE: networkId, endpointId, clusterId, attributeId, status
         //              4digits  ,  2digits  , 4 digits ,   4 digits , 2 digits
@@ -46,7 +46,7 @@ namespace zigbee {
         }
 
     private:
-        SingletonObjects & singletons;
+        SingletonObjectsImpl & singletons;
     };
 }
 #endif //DOMUS_ENGINE_READATTRIBUTERESPONSEERRORSERIAL_H

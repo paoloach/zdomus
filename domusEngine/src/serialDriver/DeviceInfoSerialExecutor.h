@@ -11,13 +11,13 @@
 #include <boost/lexical_cast.hpp>
 #include <zigbee/NwkAddr.h>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 
 namespace zigbee {
     class DeviceInfoSerialExecutor : public SerialExecutor {
     public:
-        DeviceInfoSerialExecutor(SingletonObjects &singletons) : singletons(singletons) {}
+        DeviceInfoSerialExecutor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
 // format: DI: network id, node relation, dev status, assoc count,   age   , txCounter, txCost  , rxLqi,
 //             4 digits  ,   2 digits   , 2 digits  , 2 digits   , 2 digits, 2 digits , 2 digits, 2 digits
@@ -50,7 +50,7 @@ namespace zigbee {
         }
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 

@@ -25,10 +25,6 @@ namespace zigbee {
             void createTemplateTest(std::shared_ptr<JSZAttribute> &jsZAttribute);
             void createIstanceTest(const std::string &attributeName, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
             void requestValueTest(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
-            void requestValueWithCallbackTest(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock, Callbacks &changeSignal);
-            void requestValueWithCallbackTestOnlyFirstTime(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock,
-                                                           Callbacks &changeSignal);
-            void requestValueWithCallbackTestTwoTime(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock, Callbacks &changeSignal);
             void isAvailableTest(bool availableStatus, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
             void isUnsupportedTest(bool availableStatus, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
             void getStatusTest(ZCLAttribute::Status statusExpected, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);

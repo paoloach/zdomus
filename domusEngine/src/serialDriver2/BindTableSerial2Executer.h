@@ -7,14 +7,14 @@
 
 #include <boost/log/trivial.hpp>
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "../ZigbeeData/ZDevices.h"
 #include "../ZigbeeData/Exceptions/InvalidZDevice.h"
 
 namespace zigbee {
     class BindTableSerial2Executor : public Serial2Executor {
     public:
-        BindTableSerial2Executor(SingletonObjects &singletons) : singletons(singletons) {}
+        BindTableSerial2Executor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         virtual void operator()(Packet &&packet ) override {
             ExtAddress extAddress{packet.getExtAddress(1)};
@@ -30,7 +30,7 @@ namespace zigbee {
             }
         }
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 #endif //DOMUS_ENGINE_BINDTABLESERIAL2EXECUTER_H

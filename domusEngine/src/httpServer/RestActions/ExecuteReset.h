@@ -7,23 +7,18 @@
 
 #include "endpoint.h"
 #include "router.h"
-#include "ClusterThrowingException.h"
+#include "../../Utils/SingletonObjects.h"
 
-namespace zigbee {
+namespace zigbee::http {
+    class ExecuteReset {
+    public:
+        ExecuteReset(SingletonObjects *singletons) noexcept : singletons(singletons) {};
 
-    class SingletonObjects;
+        Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response);
 
-    namespace http {
-        class ExecuteReset {
-        public:
-            ExecuteReset(SingletonObjects &singletons) noexcept : singletons(singletons) { };
-
-            Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response);
-
-        private:
-            SingletonObjects &singletons;
-        };
-    }
+    private:
+        SingletonObjects * singletons;
+    };
 }
 
 

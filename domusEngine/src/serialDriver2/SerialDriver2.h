@@ -7,14 +7,14 @@
 
 #include <zigbee/ZigbeeDevice.h>
 #include <thread>
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "Serial2ResponseExecutor.h"
 #include "PacketSend.h"
 
 namespace zigbee {
     class SerialDriver2 : public ZigbeeDevice {
     public:
-        SerialDriver2(const std::string & port,  SingletonObjects &singletonObjects, std::chrono::seconds timeout);
+        SerialDriver2(const std::string & port,  SingletonObjectsImpl &singletonObjects, std::chrono::seconds timeout);
         virtual ~SerialDriver2();
 
         bool isPresent() override;
@@ -66,7 +66,7 @@ namespace zigbee {
         void run();
         void write(PacketSend && data);
         char c;
-        SingletonObjects &singletonObjects;
+        SingletonObjectsImpl &singletonObjects;
         std::string port;
         int serialFd;
         std::thread threadRead;

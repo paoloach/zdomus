@@ -18,6 +18,7 @@
 #include "Exceptions/JSExceptionNoDevice.h"
 #include "Exceptions/JSExceptionNoInCluster.h"
 #include "Exceptions/JSExceptionNoEndpoint.h"
+#include "../Utils/Clusters.h"
 
 using std::stringstream;
 using namespace v8;

@@ -61,7 +61,7 @@ namespace zigbee {
         }
 
         ClusterID clusterId { arg0->Int32Value()};
-        ZDevices *  zDevices = This->singletonObjects.getZDevices();
+        ZDevices *  zDevices = This->singletonObjects->getZDevices();
         Isolate * isolate = info.GetIsolate();
         std::vector<Local<Object>> endpoints;
         for (auto & device: zDevices->getDevices()){

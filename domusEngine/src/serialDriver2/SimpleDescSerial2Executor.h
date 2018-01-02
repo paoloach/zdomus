@@ -11,16 +11,16 @@
 #include "../ZigbeeData/ZDevices.h"
 
 namespace zigbee {
-    class SingletonObjects;
+    class SingletonObjectsImpl;
 
     class SimpleDescSerial2Executor : public Serial2Executor {
     public:
-        SimpleDescSerial2Executor(SingletonObjects &singletons) : singletons(singletons) {}
+        SimpleDescSerial2Executor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         virtual void operator()(Packet &&packet) override;
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 

@@ -10,22 +10,19 @@
 
 #include "endpoint.h"
 #include "router.h"
-namespace zigbee {
+#include "../../Utils/SingletonObjects.h"
 
-    class SingletonObjects;
-    namespace http {
+namespace zigbee::http {
+    class ShowDevice {
+    public:
+        ShowDevice(SingletonObjects *singletons) noexcept : singletons(singletons) {};
 
-        class ShowDevice  {
-        public:
-            ShowDevice(SingletonObjects &singletons) noexcept : singletons(singletons) { };
+        Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response);
 
-            Pistache::Rest::Route::Result  operator()(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter  && response);
+    private:
+        SingletonObjects *singletons;
+    };
 
-        private:
-            SingletonObjects &singletons;
-        };
-
-    } /* namespace http */
 } /* namespace zigbee */
 
 #endif /* SRC_HTTPSERVER_RESTACTIONS_SHOWDEVICE_H_ */

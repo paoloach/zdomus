@@ -9,26 +9,21 @@
 #define SRC_HTTPSERVER_RESTACTIONS_EXECUTECMD_H_
 
 #include "ClusterThrowingException.h"
+#include "../../Utils/SingletonObjects.h"
 
-namespace zigbee {
-
-  class SingletonObjects;
-
-  namespace http {
-
+namespace zigbee::http {
     class PlaceHolders;
 
     class ExecuteCmd : public ClusterThrowingException {
     public:
-        ExecuteCmd(SingletonObjects &singletons) noexcept : singletons(singletons) { };
+        ExecuteCmd(SingletonObjects *singletons) noexcept : singletons(singletons) { };
 
         Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response);
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjects* singletons;
     };
 
-  } /* namespace http */
-} /* namespace zigbee */
+} /* namespace zigbee::http */
 
 #endif /* SRC_HTTPSERVER_RESTACTIONS_EXECUTECMD_H_ */

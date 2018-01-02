@@ -14,14 +14,14 @@
 #include <zcl/ZCLAttribute.h>
 #include <zcl/StatusEnum.h>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "../Utils/Clusters.h"
 
 
 namespace zigbee {
     class ReadAttributeResponseSerial : public SerialExecutor {
     public:
-        ReadAttributeResponseSerial(SingletonObjects &singletons) : singletons(singletons) {}
+        ReadAttributeResponseSerial(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         // format: RA: networkId, endpointId, clusterId, attributeId, attributeStatus,  attributeType,  attributeVelueLen, attributeValue
         //              4digits  ,  2digits  , 4 digits , 4 digits  ,    2  digits   ,    2 digits   ,    2 digits       ,   2* n digits where n =  attributeVelueLen
@@ -87,7 +87,7 @@ namespace zigbee {
         }
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 

@@ -25,20 +25,20 @@ namespace zigbee {
 
     class ZigbeeDevice;
 
-    class SingletonObjects;
+    class SingletonObjectsImpl;
 
     class JSManager {
     private:
         class Task {
         public:
-            Task(SingletonObjects &singletonObjects, const JavaScriptData &js);
+            Task(SingletonObjects *singletonObjects, const JavaScriptData &js);
 
             const JavaScriptData & js;
             JavaScriptExecuter jsExecuter;
         };
 
     public:
-        JSManager(SingletonObjects &singletonObjects);
+        JSManager(SingletonObjects *singletonObjects);
 
         virtual ~JSManager() = default;
 

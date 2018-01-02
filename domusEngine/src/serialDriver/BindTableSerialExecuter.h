@@ -9,14 +9,14 @@
 #include <boost/token_functions.hpp>
 #include <boost/tokenizer.hpp>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 #include "../ZigbeeData/ZDevices.h"
 #include "../ZigbeeData/Exceptions/InvalidZDevice.h"
 
 namespace zigbee {
     class BindTableSerialExecutor : public SerialExecutor {
     public:
-        BindTableSerialExecutor(SingletonObjects &singletons) : singletons(singletons) {}
+        BindTableSerialExecutor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         // BT:  extAddressSource, endpointIdSource, clusterId, networkIdDest, endpointIdDesc
         //       16 digits      ,      2digits    ,  4 digits,   4 digits   ,   2 digits
@@ -42,7 +42,7 @@ namespace zigbee {
             }
         }
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 #endif //DOMUS_ENGINE_BINDTABLESERIALEXECUTER_H

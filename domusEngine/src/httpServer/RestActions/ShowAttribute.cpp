@@ -19,9 +19,10 @@
 #include "ShowAttribute.h"
 
 #include "../MediaTypeProducerFactory.h"
-#include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/PropertyTree/AttributePT.h"
 #include "../../ZigbeeData/ZDevices.h"
+#include "../../json/json/json.h"
+#include "../../Utils/Clusters.h"
 
 using namespace Json;
 using namespace std::chrono;
@@ -35,7 +36,7 @@ namespace zigbee {
         using namespace Pistache::Http::Header;
         using namespace std::literals::chrono_literals;
 
-        ShowAttribute::ShowAttribute(SingletonObjects &singletons, const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response) :
+        ShowAttribute::ShowAttribute(SingletonObjects * singletons, const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response) :
                 singletons(singletons), responseWriter(std::move(response)) {
             BOOST_LOG_NAMED_SCOPE("HTTP");
 
@@ -43,11 +44,11 @@ namespace zigbee {
             key.endpoint = request.param(":endpoint").as<EndpointID>();
             key.clusterId = request.param(":cluster").as<ClusterID>();
 
-            auto zDevice = singletons.getZDevices()->getDevice(key.networkAddress);
+            auto zDevice = singletons->getZDevices()->getDevice(key.networkAddress);
             auto zEndpoint = zDevice->getEndpoint(key.endpoint);
             if (zEndpoint.isInCluster(key.clusterId)) {
-                auto zigbeeDevice = singletons.getZigbeeDevice();
-                auto cluster(singletons.getClusters()->getCluster(key.networkAddress, key.endpoint, key.clusterId));
+                auto zigbeeDevice = singletons->getZigbeeDevice();
+                auto cluster(singletons->getClusters()->getCluster(key.networkAddress, key.endpoint, key.clusterId));
                 auto idAttribute = request.query().get("id");
                 if (!idAttribute.isEmpty()) {
                     std::stringstream stream(idAttribute.get());

@@ -17,7 +17,7 @@
 namespace zigbee {
     class IEEEAddressResponseSerialExecutor : public SerialExecutor {
     public:
-        IEEEAddressResponseSerialExecutor(SingletonObjects &singletonObjects) : singletonObjects(singletonObjects) {}
+        IEEEAddressResponseSerialExecutor(SingletonObjects * singletonObjects) : singletonObjects(singletonObjects) {}
 
         // IE: ieeeaddress, networkAddress, numChild, firstChildNwkId, ..., lastChildNwkId
         //      16digits ,     4digits,      2digits,  4digits,      , ...,  4digits
@@ -55,14 +55,14 @@ namespace zigbee {
                     }
                     message.children.emplace(std::stoi(*tokIter, nullptr, 16));
                 }
-                singletonObjects.getZDevices()->addDeviceInfo(message);
+                singletonObjects->getZDevices()->addDeviceInfo(message);
             } catch (std::exception &e) {
                 BOOST_LOG_TRIVIAL(error) << "Unable to parse the message: " << e.what();
             }
         }
 
     private:
-        SingletonObjects &singletonObjects;
+        SingletonObjects * singletonObjects;
     };
 }
 

@@ -7,40 +7,43 @@
 
 #include "endpoint.h"
 #include "router.h"
+#include "../../Utils/SingletonObjects.h"
 #include <zigbee/PowerNodeData.h>
 #include <memory>
 #include <zigbee/ResponseCallback.h>
 
-namespace zigbee {
-    class SingletonObjects;
-    namespace http {
-        class ShowPowerNodeCallback : public ResponseCallback<std::shared_ptr<PowerNodeData>>{
-        public:
-            ShowPowerNodeCallback(Pistache::Http::ResponseWriter && responseWriter):responseWriter(std::move(responseWriter)){}
-            ShowPowerNodeCallback(ShowPowerNodeCallback && other):responseWriter(std::move(other.responseWriter)){}
-            ~ShowPowerNodeCallback(){}
-            ShowPowerNodeCallback &operator=(ShowPowerNodeCallback && other){
-                responseWriter = std::move(other.responseWriter);
-                return *this;
-            }
-            void response(std::shared_ptr<PowerNodeData>  powerNodeData) override;
-            void timeout() override;
+namespace zigbee::http {
+    class ShowPowerNodeCallback : public ResponseCallback<std::shared_ptr<PowerNodeData>> {
+    public:
+        ShowPowerNodeCallback(Pistache::Http::ResponseWriter &&responseWriter) : responseWriter(std::move(responseWriter)) {}
 
-        private:
-            Pistache::Http::ResponseWriter responseWriter;
-        };
+        ShowPowerNodeCallback(ShowPowerNodeCallback &&other) : responseWriter(std::move(other.responseWriter)) {}
 
-        class ShowPowerNode {
-        public:
-            ShowPowerNode(SingletonObjects  &singletons) noexcept :  singletons(singletons) {};
+        ~ShowPowerNodeCallback() {}
 
-            Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response);
+        ShowPowerNodeCallback &operator=(ShowPowerNodeCallback &&other) {
+            responseWriter = std::move(other.responseWriter);
+            return *this;
+        }
 
-        private:
-            SingletonObjects &singletons;
-        };
+        void response(std::shared_ptr<PowerNodeData> powerNodeData) override;
 
-    } /* namespace http */
+        void timeout() override;
+
+    private:
+        Pistache::Http::ResponseWriter responseWriter;
+    };
+
+    class ShowPowerNode {
+    public:
+        ShowPowerNode(SingletonObjects *singletons) noexcept : singletons(singletons) {};
+
+        Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter &&response);
+
+    private:
+        SingletonObjects *singletons;
+    };
+
 } /* namespace zigbee */
 
 

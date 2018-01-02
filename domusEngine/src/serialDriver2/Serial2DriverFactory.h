@@ -12,7 +12,7 @@
 namespace zigbee {
     class SerialDriver2Factory : public DriverFactory {
         std::string  getName() override {return "serial2";}
-        std::unique_ptr<ZigbeeDevice>  getDevice(SingletonObjects * singletonObjects) override {
+        std::unique_ptr<ZigbeeDevice>  getDevice(SingletonObjectsImpl * singletonObjects) override {
             return  std::make_unique<SerialDriver2>("/dev/ttyUSB0", *singletonObjects, singletonObjects->getConfiguration()->getRestTimeout());
         }
     };

@@ -29,8 +29,6 @@ namespace zigbee {
             std::string getConfigWith1JS();
 
             std::string getConfigWithTwoJS();
-
-            std::shared_ptr<Configuration> conf;
         };
 
     } /* namespace test */

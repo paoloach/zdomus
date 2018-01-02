@@ -8,13 +8,13 @@
 
 #include <zigbee/NwkAddr.h>
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 
 namespace zigbee {
     class DeviceInfoSerial2Executor : public Serial2Executor {
     public:
-        DeviceInfoSerial2Executor(SingletonObjects &singletons) : singletons(singletons) {}
+        DeviceInfoSerial2Executor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
 
         virtual void operator()(Packet &&packet) override {
             DeviceInfoMessage message;
@@ -30,7 +30,7 @@ namespace zigbee {
         }
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjectsImpl &singletons;
     };
 }
 

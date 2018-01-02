@@ -8,14 +8,14 @@
 
 #include <boost/log/trivial.hpp>
 #include "Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 namespace zigbee {
     class BindTableExecuter : public Executor {
     private:
-        SingletonObjects &singletonObjects;
+        SingletonObjectsImpl &singletonObjects;
     public:
-        BindTableExecuter(SingletonObjects &singletonObjects) : singletonObjects(singletonObjects) { }
+        BindTableExecuter(SingletonObjectsImpl &singletonObjects) : singletonObjects(singletonObjects) { }
 
         virtual void operator()(unsigned char *data, int) override {
             std::vector<BindResponse> responses;

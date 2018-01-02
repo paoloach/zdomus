@@ -1,30 +1,16 @@
-/*
- * SingletonObjects.h
- *
- *  Created on: 19/giu/2015
- *      Author: Paolo Achdjian
- */
+//
+// Created by paolo on 02/01/18.
+//
 
-#ifndef SRC_UTILS_SINGLETONOBJECTS_H_
-#define SRC_UTILS_SINGLETONOBJECTS_H_
+#ifndef DOMUS_ENGINE_SINGLETONOBJECT_H
+#define DOMUS_ENGINE_SINGLETONOBJECT_H
 
-#include <boost/asio/io_service.hpp>
 #include <memory>
-#include <zigbee/ZigbeeDevice.h>
-#include "../ZigbeeData/BindTable.h"
-#include "Clusters.h"
-#include "AttributeWriter.h"
-#include "Constant.h"
-#include "../ZigbeeData/TopologyCreation.h"
-#include "DeviceInfoDispatcher.h"
-#include "../httpServer/RestHandler.h"
-#include "DriverFactory.h"
-
-struct libusb_context;
 
 namespace zigbee {
-
-
+    namespace http {
+        class RestHandler;
+    }
     class ClusterTypeFactory;
 
     class ZDevices;
@@ -35,52 +21,50 @@ namespace zigbee {
 
     class AttributeWriter;
 
+    class ZigbeeDevice;
+
+    class Configuration;
+
+    class BindTable;
+
+    class Clusters;
+
+    class DeviceInfoDispatcher;
+
+    class Constant;
+
+    class TopologyCreation;
+
     class SingletonObjects {
     public:
-        SingletonObjects();
-
-        SingletonObjects(std::string &&configurationFileName, std::string  driverName, std::vector<DriverFactory *> && driverFactories);
+        SingletonObjects() {};
 
         virtual ~SingletonObjects() = default;
 
     public:
-        virtual ZigbeeDevice* getZigbeeDevice() { return zigbeeDevice.get(); }
+        virtual ZigbeeDevice *getZigbeeDevice() =0;
 
-        virtual ZDevices * getZDevices() { return zDevices.get(); }
+        virtual ZDevices *getZDevices() =0;
 
-        virtual std::shared_ptr<Configuration> getConfiguration() { return configuration; }
+        virtual Configuration *getConfiguration() = 0;
 
-        virtual std::shared_ptr<JSManager> getJSManage() { return jsManager; }
+        virtual JSManager *getJSManager() =0;
 
-        virtual BindTable &getBindTable() { return bindTable; }
+        virtual BindTable *getBindTable() = 0;
 
-        virtual Clusters * getClusters() { return &clusters; };
+        virtual Clusters *getClusters() = 0;
 
-        virtual AttributeWriter &getAttributeWriter() { return attributeWriter; }
+        virtual AttributeWriter *getAttributeWriter() = 0;
 
-        virtual DeviceInfoDispatcher * getDeviceInfoDispatcher() {return &deviceInfoDispatcher;}
+        virtual DeviceInfoDispatcher *getDeviceInfoDispatcher() = 0;
 
-        virtual Constant & getConstant() {return constant;}
+        virtual Constant *getConstant() = 0;
 
-        virtual TopologyCreation & getTopology() {return topology;}
+        virtual TopologyCreation *getTopology() = 0;
 
-        virtual http::RestHandler * getRestHandler() {return &restHandler;}
-
-    private:
-        boost::asio::io_service io;
-        std::unique_ptr<ZDevices> zDevices;
-        std::unique_ptr<ZigbeeDevice> zigbeeDevice;
-        std::shared_ptr<Configuration> configuration;
-        std::shared_ptr<JSManager> jsManager;
-        DeviceInfoDispatcher deviceInfoDispatcher;
-        BindTable bindTable;
-        Clusters clusters;
-        AttributeWriter attributeWriter;
-        Constant constant;
-        TopologyCreation topology;
-        http::RestHandler restHandler;
+        virtual http::RestHandler *getRestHandler()  = 0;
     };
 
-} /* namespace zigbee */
+}
 
-#endif /* SRC_UTILS_SINGLETONOBJECTS_H_ */
+#endif //DOMUS_ENGINE_SINGLETONOBJECT_H

@@ -8,22 +8,19 @@
 #include "endpoint.h"
 #include "router.h"
 #include "ClusterThrowingException.h"
+#include "../../Utils/SingletonObjects.h"
 
-namespace zigbee {
-    class SingletonObjects;
-    namespace http {
-
+namespace zigbee::http {
         class UpdateAttributes : public ClusterThrowingException{
         public:
-            UpdateAttributes(SingletonObjects &singletons) noexcept : singletons(singletons) { };
+            UpdateAttributes(SingletonObjects * singletons) noexcept : singletons(singletons) { };
 
             Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter && response);
 
         private:
-            SingletonObjects &singletons;
+            SingletonObjects *singletons;
         };
 
-    } /* namespace http */
 } /* namespace zigbee */
 
 

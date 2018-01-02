@@ -24,7 +24,7 @@ namespace zigbee {
 
     static uint8_t SEND_HEADER[3] = {0x45,0x65,0x42};
 
-    SerialDriver2::SerialDriver2(const std::string &port, SingletonObjects &singletonObjects, std::chrono::seconds timeout) :
+    SerialDriver2::SerialDriver2(const std::string &port, SingletonObjectsImpl &singletonObjects, std::chrono::seconds timeout) :
             ZigbeeDevice(timeout),
             singletonObjects(singletonObjects),
             port(port){

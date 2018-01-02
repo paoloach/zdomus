@@ -6,24 +6,19 @@
 #define DOMUS_ENGINE_EXECUTEBIND_H
 
 #include "ClusterThrowingException.h"
+#include "../../Utils/SingletonObjects.h"
 
-namespace zigbee {
-
-  class SingletonObjects;
-
-  namespace http {
-
+namespace zigbee::http {
     class ExecuteBind : public ClusterThrowingException {
     public:
-        ExecuteBind(SingletonObjects &singletons, bool bind=true) noexcept : singletons(singletons),bind(bind) { };
+        ExecuteBind(SingletonObjects * singletons, bool bind=true) noexcept : singletons(singletons),bind(bind) { };
 
         Pistache::Rest::Route::Result operator()(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter  && response);
 
     private:
-        SingletonObjects &singletons;
+        SingletonObjects * singletons;
         bool bind;
     };
-  }
 }
 
 

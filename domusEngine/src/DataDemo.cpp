@@ -3,7 +3,7 @@
 //
 
 #include <zigbee/messageStructure/AnnunceMessage.h>
-#include "Utils/SingletonObjects.h"
+#include "Utils/SingletonObjectsImpl.h"
 #include "ZigbeeData/ZDevices.h"
 using namespace zigbee;
 

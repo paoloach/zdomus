@@ -33,14 +33,14 @@ namespace zigbee {
 
     class ZigbeeDevice;
 
-    class SingletonObjects;
+    class SingletonObjectsImpl;
 
     class JavaScriptExecuter {
     public:
         typedef boost::signals2::signal<void()> NotifyEnd;
         typedef NotifyEnd::slot_type OnEnd;
     public:
-        JavaScriptExecuter(SingletonObjects &singletonObjects, std::chrono::seconds period);
+        JavaScriptExecuter(SingletonObjects *singletonObjects, std::chrono::seconds period);
 
         virtual ~JavaScriptExecuter();
 

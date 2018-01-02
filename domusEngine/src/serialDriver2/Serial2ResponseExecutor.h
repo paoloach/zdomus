@@ -9,7 +9,7 @@
 #include <map>
 #include <memory>
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 
 
 namespace zigbee {
@@ -34,7 +34,7 @@ namespace zigbee {
 
 
     public:
-        Serial2ResponseExecutor(SingletonObjects &singletonObjects);
+        Serial2ResponseExecutor(SingletonObjectsImpl &singletonObjects);
 
         void execute(Packet &&str);
 

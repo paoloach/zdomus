@@ -7,7 +7,7 @@
 
 #include <boost/log/trivial.hpp>
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjects.h"
+#include "../Utils/SingletonObjectsImpl.h"
 namespace zigbee {
     class InvalidResponseSerial2Executor : public Serial2Executor {
     public:

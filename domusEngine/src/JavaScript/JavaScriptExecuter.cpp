@@ -10,7 +10,6 @@
 #include <v8.h>
 
 #include <zcl/Cluster.h>
-#include "../Utils/SingletonObjects.h"
 #include "JavaScriptExecuter.h"
 #include <chrono>
 #include <boost/date_time/posix_time/posix_time.hpp>
@@ -21,20 +20,20 @@ namespace zigbee {
     using std::make_unique;
     using namespace boost::posix_time;
 
-    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects &singletonObjects, std::chrono::seconds period) : period(period), jsResultSet(&jsRow),
+    JavaScriptExecuter::JavaScriptExecuter(SingletonObjects *singletonObjects, std::chrono::seconds period) : period(period), jsResultSet(&jsRow),
                                                                                                               jsDBTable(dbTableFactory, &jsRow, &jsResultSet),
-                                                                                                              jsZCluster(&jsZAttributeFactory, &singletonObjects),
-                                                                                                              jsZEndpoint(singletonObjects.getZDevices(), &jsZCluster),
+                                                                                                              jsZCluster(&jsZAttributeFactory, singletonObjects),
+                                                                                                              jsZEndpoint(singletonObjects->getZDevices(), &jsZCluster),
                                                                                                               jsZEndpoints(singletonObjects, &jsZEndpoint),
-                                                                                                              jsZDevice(singletonObjects.getZDevices(), &jsZEndpoint),
-                                                                                                              jsRestServer(singletonObjects.getRestHandler(), &callbackFifo,
+                                                                                                              jsZDevice(singletonObjects->getZDevices(), &jsZEndpoint),
+                                                                                                              jsRestServer(singletonObjects->getRestHandler(), &callbackFifo,
                                                                                                                            &jsRestParam),
-                                                                                                              jszDevices(singletonObjects.getZDevices(), &jsZDevice), stop(false) {
+                                                                                                              jszDevices(singletonObjects->getZDevices(), &jsZDevice), stop(false) {
 
         createParams.array_buffer_allocator = &v8Allocator;
         isolate = v8::Isolate::New(createParams);
 
-        jsZAttributeFactory.init(&singletonObjects, callbackFifo);
+        jsZAttributeFactory.init(singletonObjects, callbackFifo);
         Isolate::Scope isolate_scope(isolate);
         Locker locker(isolate);
         HandleScope handle_scope(isolate);

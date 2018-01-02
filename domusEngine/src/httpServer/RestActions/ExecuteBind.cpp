@@ -10,7 +10,6 @@
 #include "ExecuteBind.h"
 
 #include "../MediaTypeProducerFactory.h"
-#include "../../Utils/SingletonObjects.h"
 #include "../../ZigbeeData/ZDevices.h"
 #include "../../ZigbeeData/Exceptions/InvalidOutCluster.h"
 #include "../../ZigbeeData/Exceptions/InvalidInCluster.h"
@@ -25,13 +24,13 @@ Pistache::Rest::Route::Result zigbee::http::ExecuteBind::operator()(const Pistac
     auto dstDevice = request.param(":dstDevice").as<NwkAddr>();
     auto dstEndpoint = request.param(":dstEndpoint").as<EndpointID>();
 
-    auto srcZDevice = singletons.getZDevices()->getDevice(srcDevice);
+    auto srcZDevice = singletons->getZDevices()->getDevice(srcDevice);
     auto srcZEndpoint = srcZDevice->getEndpoint(srcEndpoint);
     if (!srcZEndpoint.isOutCluster(clusterId)) {
         throw InvalidOutCluster(srcDevice, srcEndpoint, clusterId);
     }
 
-    auto dstZDevice = singletons.getZDevices()->getDevice(dstDevice);
+    auto dstZDevice = singletons->getZDevices()->getDevice(dstDevice);
     auto dstZEndpoint = dstZDevice->getEndpoint(dstEndpoint);
     if (!dstZEndpoint.isInCluster(clusterId)) {
         throw InvalidInCluster(srcDevice, srcEndpoint, clusterId);
@@ -39,9 +38,9 @@ Pistache::Rest::Route::Result zigbee::http::ExecuteBind::operator()(const Pistac
 
     NwkAddr coordinator(srcDevice);
     if (bind) {
-        singletons.getZigbeeDevice()->sendReqBind(coordinator, srcZDevice->getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice->getExtAddr().asArray(), dstEndpoint);
+        singletons->getZigbeeDevice()->sendReqBind(coordinator, srcZDevice->getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice->getExtAddr().asArray(), dstEndpoint);
     } else {
-        singletons.getZigbeeDevice()->sendReqUnbind(coordinator, srcZDevice->getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice->getExtAddr().asArray(), dstEndpoint);
+        singletons->getZigbeeDevice()->sendReqUnbind(coordinator, srcZDevice->getExtAddr().asArray(), srcEndpoint, clusterId, dstZDevice->getExtAddr().asArray(), dstEndpoint);
     }
     std::stringstream stream;
     stream << "Cluster " << clusterId << " binded " << srcDevice << ":" << srcEndpoint << " with " << dstDevice << ":" << dstEndpoint << std::endl;
