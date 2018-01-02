@@ -18,10 +18,8 @@
 
 namespace zigbee {
 
-    static constexpr int MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY{100};
-
     SingletonObjects::SingletonObjects(std::string &&configurationFileName, std::string driverName, std::vector<DriverFactory *> && driverFactories) :
-            attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY}, attributeWriter{*this}, topology{*this}, restHandler{*this} {
+            attributeWriter{*this}, topology{*this}, restHandler{*this} {
         std::ifstream streamConfig(configurationFileName);
         if (streamConfig.fail()) {
             BOOST_LOG_TRIVIAL(error) << "Unable to open configuration file " << configurationFileName;
@@ -55,7 +53,7 @@ namespace zigbee {
         jsManager = std::make_shared<JSManager>(*this);
     }
 
-    SingletonObjects::SingletonObjects() : attributeDataContainer{MAX_ATTRIBUTE_MESSAGE_RESPONSE_HISTORY}, attributeWriter{*this}, topology{*this}, restHandler{*this} {
+    SingletonObjects::SingletonObjects() : attributeWriter{*this}, topology{*this}, restHandler{*this} {
 
     }
 } /* namespace zigbee */

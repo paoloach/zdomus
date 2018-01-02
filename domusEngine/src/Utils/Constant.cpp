@@ -3,7 +3,8 @@
 //
 
 #include "Constant.h"
+using namespace std::chrono_literals;
 namespace  zigbee {
-    Constant::Constant() : requestTimeout {std::chrono::seconds(5)}{
+    Constant::Constant() : requestTimeout {5s}{
     }
 }

@@ -11,7 +11,6 @@
 #include <boost/asio/io_service.hpp>
 #include <memory>
 #include <zigbee/ZigbeeDevice.h>
-#include "../IO/AttributeDataContainer.h"
 #include "../ZigbeeData/BindTable.h"
 #include "Clusters.h"
 #include "AttributeWriter.h"
@@ -34,8 +33,6 @@ namespace zigbee {
 
     class JSManager;
 
-    class AttributeDataContainer;
-
     class AttributeWriter;
 
     class SingletonObjects {
@@ -54,8 +51,6 @@ namespace zigbee {
         virtual std::shared_ptr<Configuration> getConfiguration() { return configuration; }
 
         virtual std::shared_ptr<JSManager> getJSManage() { return jsManager; }
-
-        virtual AttributeDataContainer &getAttributeDataContainer() { return attributeDataContainer; }
 
         virtual BindTable &getBindTable() { return bindTable; }
 
@@ -79,7 +74,6 @@ namespace zigbee {
         std::shared_ptr<JSManager> jsManager;
         DeviceInfoDispatcher deviceInfoDispatcher;
         BindTable bindTable;
-        zigbee::AttributeDataContainer attributeDataContainer;
         Clusters clusters;
         AttributeWriter attributeWriter;
         Constant constant;

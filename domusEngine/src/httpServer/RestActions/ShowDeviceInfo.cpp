@@ -39,10 +39,9 @@ namespace zigbee {
             if (zigbeeDevice != nullptr) {
                 zigbeeDevice->sendReqDeviceInfo(device);
 
-                milliseconds duration(100);
                 auto start = system_clock::now();
                 while (!resultPresent) {
-                    std::this_thread::sleep_for(duration);
+                    std::this_thread::sleep_for(100ms);
                     milliseconds elapsed = duration_cast<std::chrono::milliseconds>(system_clock::now() - start);
                     if (elapsed > milliseconds(constants.requestTimeout)) {
                         response.send(Code::Bad_Request, "data timeout\n\r");

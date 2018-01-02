@@ -94,7 +94,6 @@ include_directories(./include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} $
 file(GLOB src "src/*.cpp")
 file(GLOB srcZigbeeDataPT "src/ZigbeeData/PropertyTree/*.cpp")
 file(GLOB srcZigbeeDataExceptions "src/ZigbeeData/Exceptions/*.cpp")
-file(GLOB srcComand "src/Comand/*.cpp")
 file(GLOB srcIO "src/IO/*.cpp")
 file(GLOB srcConfiguration "src/Configuration/*.cpp")
 file(GLOB srcJavaScript_attributes "src/JavaScript/JSZAttributes/*.cpp")
@@ -268,7 +267,6 @@ add_library(domus_engine_static_lib STATIC
         ${SRC_ZIGBEE_DATA}
         ${srcZigbeeDataPT}
         ${srcIO}
-        ${srcComand}
         #	${srcJavaScript}
         ${srcConfiguration}
         ${srcZigbeeDataExceptions}

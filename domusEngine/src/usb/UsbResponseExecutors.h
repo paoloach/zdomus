@@ -9,7 +9,6 @@
 #include <bits/unique_ptr.h>
 #include "Executor.h"
 #include "../ZigbeeData/ZDevices.h"
-#include "../IO/AttributeDataContainer.h"
 #include "../Utils/SingletonObjects.h"
 
 namespace zigbee {

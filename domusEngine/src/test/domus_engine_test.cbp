@@ -145,42 +145,6 @@
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/serialDriver/SerialDriverFactory.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdGetUpdateTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdGetUpdateTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdRequestAttributeTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdRequestAttributeTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdSendCmdTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdSendCmdTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdUpdateAttributeTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/CmdUpdateAttributeTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/ComandFactoryTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/ComandFactoryTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/ResponseCreatorTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Comand/ResponseCreatorTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Configuration/ConfigurationTest.cpp">
 			<Option target="domus_engine_test"/>
 		</Unit>
@@ -192,12 +156,6 @@
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Database/DBTableTest.h">
 			<Option target="database_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/AttributeDataContainerTest.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/AttributeDataContainerTest.h">
-			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/IO/DataPropertyTreeMatcher.cpp">
 			<Option target="domus_engine_test"/>
@@ -329,12 +287,6 @@
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JavaScriptExecuterTest.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/AttributeDataContainerMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/AttributeDataContainerMock.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ClusterMock.cpp">

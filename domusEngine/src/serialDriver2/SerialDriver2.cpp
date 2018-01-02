@@ -284,6 +284,7 @@ namespace zigbee {
     // 1 byte  -> code
     // 2 bytes -> network id
     void SerialDriver2::sendReqDeviceInfo(NwkAddr networkId) {
+        BOOST_LOG_NAMED_SCOPE(LOG_SCOPE);
         if (serialFd >= 0) {
             PacketSend data;
             data.push((uint8_t )11);

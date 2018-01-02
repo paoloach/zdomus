@@ -13,7 +13,6 @@ file(GLOB testZigbeeData "ZigbeeData/*.cpp")
 file(GLOB testIO "IO/*.cpp")
 file(GLOB testUtils "Utils/*.cpp")
 file(GLOB testMocksHttp "Mocks/http/*.cpp")
-file(GLOB testComand "Comand/*.cpp")
 file(GLOB testConfiguration "Configuration/*.cpp")
 file(GLOB testDatabase "Database/*.cpp")
 file(GLOB testJavascriptAttributes "Javascript/JSAttributes/*.cpp")
@@ -43,7 +42,7 @@ SET(SRC_TEST_JAVASCRIPT Javascript/ClusterCmdArgumentMatcher.h Javascript/Cluste
         Javascript/JSTest.cpp Javascript/JSTest.h
         Javascript/JSZClusterTest.cpp Javascript/JSZClusterTest.h)
 
-SET(SRC_TEST_MOCK Mocks/AttributeDataContainerMock.cpp Mocks/AttributeDataContainerMock.h
+SET(SRC_TEST_MOCK
         Mocks/ClusterMock.cpp Mocks/ClusterMock.h
         Mocks/ClustersMock.cpp Mocks/ClustersMock.h
         Mocks/ClusterTypeFactoryMock.cpp Mocks/ClusterTypeFactoryMock.h
@@ -163,7 +162,6 @@ add_executable(domus_engine_test
         ${testIO}
         ${testUtils}
         ${SRC_TEST_MOCK}
-        ${testComand}
         ${SRC_TEST_SERIAL_DRIVER}
         ${testConfiguration}
         ${testJavascriptAttributes}
@@ -195,7 +193,7 @@ SET(LIBS zigbeeLib
 
 target_link_libraries(domus_engine_test domus_engine_static_lib ${V8_LIBRARY} ${LIBS} ${GMOCK_LIBS} ${PISTACHE_LIB})
 
-target_link_libraries(database_test domus_engine_static_lib ${LIBS} ${GMOCK_LIBS} ${PISTACHE_LIB})
+target_link_libraries(database_test domus_engine_static_lib ${LIBS} ${GMOCK_LIBS} )
 
 set_property(TARGET domus_engine_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
 set_property(TARGET database_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)

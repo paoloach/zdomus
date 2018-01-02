@@ -16,17 +16,17 @@ namespace zigbee {
     public:
         DeviceInfoSerial2Executor(SingletonObjects &singletons) : singletons(singletons) {}
 
-        virtual void operator()(Packet &&packet ) override {
+        virtual void operator()(Packet &&packet) override {
             DeviceInfoMessage message;
-                message.nwkAddr = packet.getUint16(1);
-                message.nodeRelation  = packet.getUint8(3);
-                message.devStatus  = packet.getUint8(4);
-                message.assocCnt  = packet.getUint8(5);
-                message.age  = packet.getUint8(6);
-                message.txCounter  = packet.getUint8(7);
-                message.txCost  = packet.getUint8(8);
-                message.rxLqi  = packet.getUint8(9);
-                singletons.getDeviceInfoDispatcher()->dispatch(&message);
+            message.nwkAddr = packet.getUint16(1);
+            message.nodeRelation = packet.getUint8(3);
+            message.devStatus = packet.getUint8(4);
+            message.assocCnt = packet.getUint8(5);
+            message.age = packet.getUint8(6);
+            message.txCounter = packet.getUint8(7);
+            message.txCost = packet.getUint8(8);
+            message.rxLqi = packet.getUint8(9);
+            singletons.getDeviceInfoDispatcher()->dispatch(&message);
         }
 
     private:

@@ -21,7 +21,6 @@
 #pragma GCC diagnostic pop
 #include "usbConfig.h"
 #include "../ZigbeeData/ZDevices.h"
-#include "../IO/AttributeDataContainer.h"
 #include "BindResponse.h"
 #include "UsbResponseExecutors.h"
 #include "RequestedAttributes.h"
