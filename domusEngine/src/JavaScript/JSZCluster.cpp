@@ -224,7 +224,7 @@ namespace zigbee {
         return (JSZCluster *) wrap->Value();
     }
 
-    void JSZCluster::checkArgument(const v8::FunctionCallbackInfo<v8::Value> &info, unsigned int index, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam) {
+    void JSZCluster::checkArgument(const v8::FunctionCallbackInfo<v8::Value> &info, unsigned int index, const ClusterCmdParamsBase * cmdParam) {
         if (info.Length() <= ((int) index + 1)) {
             stringstream stream;
             stream << EXECUTE_CMD_BY_ID << " needs almost " << index << " arguments where the first is the cmd";
@@ -284,7 +284,7 @@ namespace zigbee {
         }
     }
 
-    std::vector<uint8_t> JSZCluster::addArgument(v8::Local<v8::Value> value, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam) {
+    std::vector<uint8_t> JSZCluster::addArgument(v8::Local<v8::Value> value, const ClusterCmdParamsBase * cmdParam) {
         if (value->IsUint32()) {
             return cmdParam->getType().getRaw(value->ToUint32()->Value());
         }

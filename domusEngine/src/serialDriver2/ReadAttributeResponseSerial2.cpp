@@ -9,6 +9,8 @@
 #include <zigbee/EndpointID.h>
 #include <zcl/Cluster.h>
 #include <zcl/ZCLAttribute.h>
+#include <zigbee/AttributeKey.h>
+#include <zigbee/ZigbeeDevice.h>
 #include <zcl/StatusEnum.h>
 #include "../Utils/Clusters.h"
 #include "ReadAttributeResponseSerial2.h"
@@ -25,7 +27,7 @@ namespace zigbee {
         if (status == 0) {
             uint8_t attributeType{packet.getUint8(9)};
             uint8_t attributeLen{packet.getUint8(10)};
-            Clusters *clusters = singletons.getClusters();
+            Clusters *clusters = singletons->getClusters();
             auto cluster = clusters->getCluster(nwkAddr, endpointID, clusterId);
             Cluster *pCluster = cluster.get();
             auto attribute = pCluster->getAttribute(attributeId);
@@ -42,7 +44,7 @@ namespace zigbee {
                                         << attributeId << " : " << ss.str();
 
 
-                singletons.getZigbeeDevice()->setAttribute(key, attribute);
+                singletons->getZigbeeDevice()->setAttribute(key, attribute);
             } else {
                 BOOST_LOG_TRIVIAL(error) << "Invalid attribute " << key;
             }

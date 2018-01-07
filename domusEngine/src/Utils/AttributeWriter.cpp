@@ -2,10 +2,8 @@
 // Created by paolo on 24/06/16.
 //
 
-#include <zigbee/NwkAddr.h>
-#include <zigbee/EndpointID.h>
-#include <boost/asio/detail/shared_ptr.hpp>
-#include <zcl/Cluster.h>
+#include <zcl/ZCLAttribute.h>
+#include <zigbee/ZigbeeDevice.h>
 #include <set>
 #include "AttributeWriter.h"
 

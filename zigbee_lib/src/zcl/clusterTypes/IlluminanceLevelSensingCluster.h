@@ -11,12 +11,12 @@
 
 #include <string>
 #include <memory>
-#include "../Cluster.h"
+#include "src/zcl/impl/ClusterImpl.h"
 #include "../../zigbee/ZigbeeDevice.h"
 
 namespace zigbee {
 
-class IlluminanceLevelSensingCluster : public Cluster {
+class IlluminanceLevelSensingCluster : public ClusterImpl {
 public:
 	IlluminanceLevelSensingCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:

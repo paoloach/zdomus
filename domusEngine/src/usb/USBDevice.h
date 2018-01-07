@@ -12,7 +12,6 @@
 #include <boost/signals2.hpp>
 #include <map>
 #include <boost/asio.hpp>
-#include <zigbee/AttributeStatusRecord.h>
 #include <zigbee/ZigbeeDevice.h>
 #include <zcl/ZCLDataType.h>
 #pragma GCC diagnostic push
@@ -28,7 +27,7 @@
 
 namespace zigbee {
 
-    class SingletonObjectsImpl;
+    class SingletonObjects;
 
     static const int STANDARD_REQUEST_TYPE{0};
     static const int CLASS_REQUEST_TYPE{0x20};
@@ -39,7 +38,7 @@ namespace zigbee {
 
     class DomusEngineUSBDevice : public ZigbeeDevice {
     public:
-        DomusEngineUSBDevice(SingletonObjectsImpl &singletonObjects, libusb_context *usbContext, int deviceClass, int vendorID, int productID, std::chrono::seconds timeout);
+        DomusEngineUSBDevice(SingletonObjects * singletonObjects, libusb_context *usbContext, int deviceClass, int vendorID, int productID, std::chrono::seconds timeout);
 
         ~DomusEngineUSBDevice() override {
             stop = true;

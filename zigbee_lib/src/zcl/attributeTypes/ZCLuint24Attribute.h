@@ -1,52 +1,22 @@
-/*
- * ZCLuint16Attribute.h
- *
- *  Created on: 22/lug/2014
- *      Author: Paolo Achdjian
- */
+//
+// Created by paolo on 04/01/18.
+//
 
-#ifndef ZCLuint24ATTRIBUTE_H_
-#define ZCLuint24ATTRIBUTE_H_
+#ifndef ZIGBEE_LIB_ZCLUINT24ATTRIBUTE_H
+#define ZIGBEE_LIB_ZCLUINT24ATTRIBUTE_H
 
-#include "../ZCLAttribute.h"
-#include "../../zigbee/AttributeStatusRecord.h"
+#include "zcl/ZCLAttribute.h"
 
 namespace zigbee {
-
-    class ZCL_uint24_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeUInt24> {
-        union Converter {
-            uint32_t value;
-            uint8_t raw[4];
-        };
+    class ZCLuint24Attribute : public virtual ZCLAttribute {
     public:
-        ZCL_uint24_Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent, ZigbeeClusterId identifier,
-                             std::experimental::string_view name, bool readOnly);
-
-    public:
-        std::any getValue() const override;
-        std::string getStrValue() const  override {
-            return std::to_string(value);
-        }
-
-        virtual void sendValue(uint32_t newValue);
-
         static std::string name() {
             return "UInt24";
         }
 
-    private:
-        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
-
-        void internalSetValue(uint8_t * rawData) override;
-
-        friend std::ostream &operator<<(std::ostream &out, const ZCL_uint24_Attribute *);
-
-    private:
-        uint32_t value;
+        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeUInt24;
     };
+}
 
-    std::ostream &operator<<(std::ostream &out, const ZCL_uint24_Attribute *);
 
-} /* namespace zigbee */
-
-#endif /* ZCLuint16ATTRIBUTE_H_ */
+#endif //ZIGBEE_LIB_ZCLINT8ATTRIBUTE_H

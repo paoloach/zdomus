@@ -9,15 +9,15 @@
 
 namespace zigbee {
 
-static std::vector<Cluster::AttributeDef> attributesDef = {
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0, "Measured Value", true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 1, "Min Measured Value", true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 2, "Max Measured Value", true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 3, "Tollerance", true)
+static std::vector<ClusterImpl::AttributeDef> attributesDef = {
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0, "Measured Value", true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 1, "Min Measured Value", true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 2, "Max Measured Value", true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 3, "Tollerance", true)
 		};
 
 TemperatureMeasurementCluster::TemperatureMeasurementCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
-						Cluster(zigbeeDevice, endpoint, networkAddress){
+						ClusterImpl(zigbeeDevice, endpoint, networkAddress){
 
 	createAttributes(attributesDef);
 

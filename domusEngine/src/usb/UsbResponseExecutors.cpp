@@ -18,12 +18,12 @@
 
 using std::make_unique;
 
-zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjectsImpl &singletonObjects,  DomusEngineUSBDevice &usbDevice) {
-    executors[ANNUNCE_MSG] = make_unique<AnnunceMsgExecuter>(singletonObjects.getZDevices(), usbDevice);
-    executors[SIMPLE_DESC] = make_unique<SimpleDescExecutor>(singletonObjects.getZDevices());
+zigbee::UsbResponseExecutors::UsbResponseExecutors(SingletonObjects * singletonObjects,  DomusEngineUSBDevice &usbDevice) {
+    executors[ANNUNCE_MSG] = make_unique<AnnunceMsgExecuter>(singletonObjects->getZDevices(), usbDevice);
+    executors[SIMPLE_DESC] = make_unique<SimpleDescExecutor>(singletonObjects->getZDevices());
     executors[ATTRIBUTE_VALUES] = make_unique<AttributeValuesExecuter>(singletonObjects);
     executors[BIND_TABLE] = make_unique<BindTableExecuter>(singletonObjects);
-    executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(singletonObjects.getZigbeeDevice());
+    executors[ATTRIBUTE_VALUE_REQ_ERROR] = make_unique<AttributeValueReqError>(singletonObjects->getZigbeeDevice());
     executors[ACTIVE_EP_REQ_ERROR] = make_unique<ActiveEPReqError>();
     executors[INFO_MESSAGE] = make_unique<InfoMessageExecuter>();
     executors[DEVICE_INFO] = make_unique<DeviceInfoExecutor>(singletonObjects);

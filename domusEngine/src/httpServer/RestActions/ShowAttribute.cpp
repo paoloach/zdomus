@@ -83,7 +83,7 @@ namespace zigbee {
                         Value jsonAttribute(objectValue);
 
                         jsonAttribute["id"] = Value(attribute->getIdentifier());
-                        jsonAttribute["name"] = Value(attribute->getName().to_string());
+                        jsonAttribute["name"] = Value(std::string(attribute->getName()));
                         jsonAttribute["readOnly"] = Value(attribute->isReadOnly());
                         jsonAttribute["type"] = Value(static_cast<int>(attribute->getZCLType()));
                         jsonAttribute["isAvailable"] = Value(attribute->isAvailable());

@@ -4,11 +4,12 @@
 
 #include <boost/log/trivial.hpp>
 #include <boost/tokenizer.hpp>
+#include <zigbee/ZigbeeDevice.h>
 #include <zcl/Cluster.h>
 #include <zigbee/PowerNodeData.h>
 #include <zigbee/messageStructure/ActiveEPErrorMessage.h>
 #include "PowerNodeResponseError.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
 
 using std::stoi;
 
@@ -25,7 +26,7 @@ void zigbee::PowerNodeResponseError::operator()(const std::string &msg) {
         BOOST_LOG_TRIVIAL(error) <<"error requesting power node for device " << std::hex << powerNodeData->nwkAddr << " because " << errorCodeToString(status);
         powerNodeData->error=true;
 
-        singletons.getZigbeeDevice()->setPowerNode( powerNodeData);
+        singletons->getZigbeeDevice()->setPowerNode( powerNodeData);
     } catch (boost::bad_lexical_cast &e) {
         BOOST_LOG_TRIVIAL(error) << "Unable to parse the message: " << e.what();
     }

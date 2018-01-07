@@ -19,7 +19,8 @@ namespace zigbee {
 
     void JSZAttributeFactory::init(SingletonObjects * singletonObjects, JSCallbackFifo & jsCallbackFifo) {
 
-        std::array<std::unique_ptr<JSZAttribute>, 17> data = {{make_unique<JSZAttribute8BitBitmap>(singletonObjects,jsCallbackFifo),
+        std::array<std::unique_ptr<JSZAttribute>, 17> data = {
+                             {make_unique<JSZAttribute8BitBitmap>(singletonObjects,jsCallbackFifo),
                               make_unique<JSZAttribute16BitBitmap>(singletonObjects,jsCallbackFifo),
                               make_unique<JSZAttribute32BitBitmap>(singletonObjects,jsCallbackFifo),
                               make_unique<JSZAttributeBool>(singletonObjects,jsCallbackFifo),

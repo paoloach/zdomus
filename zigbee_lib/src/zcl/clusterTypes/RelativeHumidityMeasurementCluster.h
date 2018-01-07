@@ -9,12 +9,12 @@
 #define SRC_ZCL_CLUSTERTYPES_RELATIVEHUMIDITYMEASURAMENTCLUSTER_H_
 
 #include <string>
-#include "../Cluster.h"
+#include "src/zcl/impl/ClusterImpl.h"
 #include "../../zigbee/ZigbeeDevice.h"
 
 namespace zigbee {
 
-class RelativeHumidityMeasurementCluster : public Cluster{
+class RelativeHumidityMeasurementCluster : public ClusterImpl{
 public:
 	RelativeHumidityMeasurementCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:

@@ -16,6 +16,6 @@ namespace zigbee {
         uint8_t source = packet.getUint8(4);
         powerNodeData->currentPowerSource = PowerSource(source & 0x0F);
         powerNodeData->currentPowerSourceLevel = powerLevelFrom(source >> 4);
-        singletons.getZigbeeDevice()->setPowerNode(powerNodeData);
+        singletons->getZigbeeDevice()->setPowerNode(powerNodeData);
     }
 }

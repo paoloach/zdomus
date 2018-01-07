@@ -10,12 +10,12 @@
 
 #include <string>
 #include <memory>
-#include "../Cluster.h"
+#include "src/zcl/impl/ClusterImpl.h"
 #include "../../zigbee/ZigbeeDevice.h"
 
 namespace zigbee {
 
-class On_Off_Cluster: public Cluster{
+class On_Off_Cluster: public ClusterImpl{
 public:
 	On_Off_Cluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:

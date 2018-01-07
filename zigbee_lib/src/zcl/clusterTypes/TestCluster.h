@@ -9,14 +9,14 @@
 
 #include <string>
 #include <memory>
-#include "../Cluster.h"
+#include "src/zcl/impl/ClusterImpl.h"
 
 #include "../../zigbee/ZigbeeDevice.h"
 
 namespace zigbee {
 
 
-class TestCluster : public Cluster {
+class TestCluster : public ClusterImpl {
 public:
     TestCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
 public:

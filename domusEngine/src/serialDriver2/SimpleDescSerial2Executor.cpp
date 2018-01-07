@@ -28,7 +28,7 @@ namespace zigbee {
         }
         ZEndpoint zEndpoint(nwkAddr, endpointId, profileId, deviceId, deviceVersion, inClusters, outClusters);
 
-        singletons.getZDevices()->put(zEndpoint);
+        singletons->getZDevices()->put(zEndpoint);
         std::stringstream stream;
         stream << "Simple desciption message: {nwkAddr: " << nwkAddr << ", endpoint: " << endpointId << ", ";
         stream << "In Clusters {";

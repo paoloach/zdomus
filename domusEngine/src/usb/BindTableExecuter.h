@@ -5,17 +5,17 @@
 #ifndef DOMUS_ENGINE_BINDTABLEEXECUTER_H
 #define DOMUS_ENGINE_BINDTABLEEXECUTER_H
 
-
 #include <boost/log/trivial.hpp>
 #include "Executor.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
+#include "../ZigbeeData/BindTable.h"
 
 namespace zigbee {
     class BindTableExecuter : public Executor {
     private:
-        SingletonObjectsImpl &singletonObjects;
+        SingletonObjects * singletonObjects;
     public:
-        BindTableExecuter(SingletonObjectsImpl &singletonObjects) : singletonObjects(singletonObjects) { }
+        BindTableExecuter(SingletonObjects * singletonObjects) : singletonObjects(singletonObjects) { }
 
         virtual void operator()(unsigned char *data, int) override {
             std::vector<BindResponse> responses;
@@ -23,7 +23,7 @@ namespace zigbee {
             data += 2;
             BOOST_LOG_TRIVIAL(info) << "Bind response  with " << count << " entries";
             for (int i = 0; i < count; i++) {
-                singletonObjects.getBindTable().add(BindResponse(data));
+                singletonObjects->getBindTable()->add(BindResponse(data));
             }
         }
     };

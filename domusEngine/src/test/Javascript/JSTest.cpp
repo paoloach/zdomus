@@ -70,9 +70,18 @@ namespace zigbee {
         }
 
         v8::Local<v8::Value> JSTest::runScript(const std::string &script) {
+            std::cout << "script: \n" << script << "\n";
+
             Local<String> source = String::NewFromUtf8(isolate, script.c_str());
             Local<Script> jsScript = Script::Compile(source);
-            return jsScript->Run();
+            TryCatch tryCatch;
+            v8::Local<v8::Value> result = jsScript->Run();
+
+            if (tryCatch.HasCaught()) {
+                String::Utf8Value utf8Message(tryCatch.Message()->Get());
+                std::cerr << "javascript thrown exception: " << *utf8Message;
+            }
+            return result;
         }
 
         ExtAddress JSTest::convertFromString(const std::string &strExt) {

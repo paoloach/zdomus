@@ -69,9 +69,9 @@ namespace zigbee {
 
         static JSZCluster *getThis(const v8::FunctionCallbackInfo<v8::Value> &info);
 
-        static void checkArgument(const v8::FunctionCallbackInfo<v8::Value> &info, unsigned int index, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam);
+        static void checkArgument(const v8::FunctionCallbackInfo<v8::Value> &info, unsigned int index, const ClusterCmdParamsBase * cmdParam);
 
-        static std::vector<uint8_t> addArgument(v8::Local<v8::Value> value, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam);
+        static std::vector<uint8_t> addArgument(v8::Local<v8::Value> value, const ClusterCmdParamsBase * cmdParam);
 
         static void checkIdCmd(const v8::FunctionCallbackInfo<v8::Value> &info);
 

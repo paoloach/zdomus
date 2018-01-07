@@ -11,13 +11,12 @@
 #include <boost/lexical_cast.hpp>
 #include <zigbee/NwkAddr.h>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjectsImpl.h"
-
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
     class DeviceInfoSerialExecutor : public SerialExecutor {
     public:
-        DeviceInfoSerialExecutor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
+        DeviceInfoSerialExecutor(SingletonObjects * singletons) : singletons(singletons) {}
 
 // format: DI: network id, node relation, dev status, assoc count,   age   , txCounter, txCost  , rxLqi,
 //             4 digits  ,   2 digits   , 2 digits  , 2 digits   , 2 digits, 2 digits , 2 digits, 2 digits
@@ -43,14 +42,14 @@ namespace zigbee {
                 message.txCost  = std::stoi(*tokIter, nullptr, 16);
                 tokIter++;
                 message.rxLqi  = std::stoi(*tokIter, nullptr, 16);
-                singletons.getDeviceInfoDispatcher()->dispatch(&message);
+                singletons->getDeviceInfoDispatcher()->dispatch(&message);
             } catch (boost::bad_lexical_cast &e) {
                 BOOST_LOG_TRIVIAL(error) << "Unable to parse the message: " << e.what();
             }
         }
 
     private:
-        SingletonObjectsImpl &singletons;
+        SingletonObjects * singletons;
     };
 }
 

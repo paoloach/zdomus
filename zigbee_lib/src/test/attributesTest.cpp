@@ -4,15 +4,17 @@
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <gtest/gtest.h>
-#include <src/zcl/attributeTypes/ZCLBitmap32bitAttribute.h>
+#include <src/zcl/attributeTypes/implementation/ZCLBitmap32bitAttributeImpl.h>
 
 #include "zcl/attributeTypes/ZCLuint48Attribute.h"
 #include "zcl/attributeTypes/ZCLint24Attribute.h"
-#include "zcl/attributeTypes/ZCLUTCTime.h"
-#include "zcl/attributeTypes/ZCLOctetString.h"
-#include "zcl/attributeTypes/ZCLBitmap32bitAttribute.h"
-#include "zcl/attributeTypes/ZCLBitmap16bitAttribute.h"
+#include "src/zcl/attributeTypes/implementation/ZCLUTCTimeImpl.h"
+#include "src/zcl/attributeTypes/implementation/ZCLOctetStringImp.h"
+#include "src/zcl/attributeTypes/implementation/ZCLBitmap32bitAttributeImpl.h"
+#include "src/zcl/attributeTypes/implementation/ZCLBitmap16bitAttributeImpl.h"
 #include <sstream>
+#include <src/zcl/attributeTypes/implementation/ZCLuint48AttributeImpl.h>
+#include <src/zcl/attributeTypes/implementation/ZCLint24AttributeImpl.h>
 
 namespace zigbee {
 
@@ -20,25 +22,22 @@ namespace zigbee {
     using boost::posix_time::time_duration;
     using boost::gregorian::date;
     using boost::gregorian::Jan;
-//using boost::posix_time::seconds
 
 
     TEST(attributes, 48bit_rightorder) {
         ZigbeeDevice *zigbee;
-        auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
-        attributeStatusRecord->attributeId = 1;
-        attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeUInt48;
-        attributeStatusRecord->data[0] = 0x01;
-        attributeStatusRecord->data[1] = 0x02;
-        attributeStatusRecord->data[2] = 0x03;
-        attributeStatusRecord->data[3] = 0x04;
-        attributeStatusRecord->data[4] = 0x05;
-        attributeStatusRecord->data[5] = 0x06;
+        uint8_t data[6];
+        data[0] = 0x01;
+        data[1] = 0x02;
+        data[2] = 0x03;
+        data[3] = 0x04;
+        data[4] = 0x05;
+        data[5] = 0x06;
 
 
-        ZCLuint48Attribute attribute(zigbee, nullptr, 1, "test", false);
+        ZCLUINT48AttributeImpl attribute(zigbee, nullptr, 1, "test", false);
 
-        attribute.setValue(attributeStatusRecord);
+        attribute.setRawValue(data);
         auto value = attribute.getValue();
         auto casted = std::any_cast<uint64_t>(value);
         ASSERT_EQ(0x060504030201, casted);
@@ -46,17 +45,15 @@ namespace zigbee {
 
     TEST(attributes, S24bit_rightorder) {
         ZigbeeDevice *  zigbee;
-        auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
-        attributeStatusRecord->attributeId = 1;
-        attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeSInt24;
-        attributeStatusRecord->data[0] = 0x01;
-        attributeStatusRecord->data[1] = 0x02;
-        attributeStatusRecord->data[2] = 0x03;
+        uint8_t data[3];
+        data[0] = 0x01;
+        data[1] = 0x02;
+        data[2] = 0x03;
 
 
-        ZCLint24Attribute attribute(zigbee, nullptr, 1, "test", false);
+        ZCLint24AttributeImpl attribute(zigbee, nullptr, 1, "test", false);
 
-        attribute.setValue(attributeStatusRecord);
+        attribute.setRawValue(data);
         auto value = attribute.getValue();
         auto casted = std::any_cast<int32_t>(value);
         ASSERT_EQ(0x030201, casted);
@@ -64,17 +61,15 @@ namespace zigbee {
 
     TEST(attributes, S24bit_negative) {
         ZigbeeDevice *  zigbee;
-        auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
-        attributeStatusRecord->attributeId = 1;
-        attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeSInt24;
-        attributeStatusRecord->data[0] = 0x01;
-        attributeStatusRecord->data[1] = 0x02;
-        attributeStatusRecord->data[2] = 0x83;
+        uint8_t data[3];
+        data[0] = 0x01;
+        data[1] = 0x02;
+        data[2] = 0x83;
 
 
-        ZCLint24Attribute attribute(zigbee, nullptr, 1, "test", false);
+        ZCLint24AttributeImpl attribute(zigbee, nullptr, 1, "test", false);
 
-        attribute.setValue(attributeStatusRecord);
+        attribute.setRawValue(data);
         auto value = attribute.getValue();
         auto casted = std::any_cast<int32_t>(value);
         ASSERT_EQ(0xFF830201, casted);
@@ -82,21 +77,19 @@ namespace zigbee {
 
     TEST(attributes, UTCTime) {
         ZigbeeDevice *  zigbee;
-        auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
-        attributeStatusRecord->attributeId = 1;
-        attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeUTCTime;
-        attributeStatusRecord->data[0] = 0x01;
-        attributeStatusRecord->data[1] = 0x02;
-        attributeStatusRecord->data[2] = 0x03;
-        attributeStatusRecord->data[3] = 0x04;
+        uint8_t data[4];
+        data[0] = 0x01;
+        data[1] = 0x02;
+        data[2] = 0x03;
+        data[4] = 0x03;
 
         boost::posix_time::seconds expectedSeconds(0x04030201);
         auto expectedTime = ptime(boost::gregorian::date(2000, Jan, 1), time_duration(0, 0, 0)) + expectedSeconds;
 
 
-        ZCLUTCTime attribute(zigbee, nullptr, 1, "test", false);
+        ZCLUTCTimeImpl attribute(zigbee, nullptr, 1, "test", false);
 
-        attribute.setValue(attributeStatusRecord);
+        attribute.setRawValue(data);
         auto value = attribute.getValue();
         auto casted = std::any_cast<ptime>(value);
         ASSERT_EQ(expectedTime, casted);
@@ -104,17 +97,15 @@ namespace zigbee {
 
     TEST(attributes, stringOctect) {
         ZigbeeDevice *  zigbee;
-        auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
-        attributeStatusRecord->attributeId = 1;
-        attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLTypeStringOctect;
-        attributeStatusRecord->data[0] = 0x03;
-        attributeStatusRecord->data[1] = 0xAA;
-        attributeStatusRecord->data[2] = 0xBB;
-        attributeStatusRecord->data[3] = 0xCC;
+        uint8_t data[4];
+        data[0] = 0x03;
+        data[1] = 0xAA;
+        data[2] = 0xBB;
+        data[4] = 0xCC;
 
-        ZCLOctetString attribute(zigbee, nullptr, 1, "test", false);
+        ZCLOctetStringImpl attribute(zigbee, nullptr, 1, "test", false);
 
-        attribute.setValue(attributeStatusRecord);
+        attribute.setRawValue(data);
         auto value = attribute.getValue();
         auto casted = std::any_cast<std::vector<uint8_t>>(value);
         ASSERT_EQ(3, casted.size());
@@ -125,17 +116,15 @@ namespace zigbee {
 
     TEST(attributes, bitmap32bit) {
         ZigbeeDevice *  zigbee;
-        auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
-        attributeStatusRecord->attributeId = 1;
-        attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLType32bitBitmap;
-        attributeStatusRecord->data[0] = 0x99;
-        attributeStatusRecord->data[1] = 0xAA;
-        attributeStatusRecord->data[2] = 0xBB;
-        attributeStatusRecord->data[3] = 0xCC;
+        uint8_t data[4];
+        data[0] = 0x99;
+        data[1] = 0xAA;
+        data[2] = 0xBB;
+        data[4] = 0xCC;
 
-        ZCLBitmap32bitAttribute attribute(zigbee, nullptr, 1, "test", false);
+        ZCLBitmap32bitAttributeImpl attribute(zigbee, nullptr, 1, "test", false);
 
-        attribute.setValue(attributeStatusRecord);
+        attribute.setRawValue(data);
         auto value = attribute.getValue();
         auto casted = std::any_cast<std::bitset<32>>(value);
         std::bitset<32> expected(0xCCBBAA99);
@@ -147,15 +136,12 @@ namespace zigbee {
 
     TEST(attributes, bitmap16bit) {
         ZigbeeDevice *  zigbee;
-        auto attributeStatusRecord = std::make_shared<AttributeStatusRecord>();
-        attributeStatusRecord->attributeId = 1;
-        attributeStatusRecord->attributeDataType = (ZigbeeAttributeDataType) ZCLTypeDataType::ZCLType16bitBitmap;
-        attributeStatusRecord->data[0] = 0x99;
-        attributeStatusRecord->data[1] = 0xAA;
+        uint8_t data[2];
+        data[0] = 0x99;
+        data[1] = 0xAA;
+        ZCLBitmap16bitAttributeImpl attribute(zigbee, nullptr, 1, "test", false);
 
-        ZCLBitmap16bitAttribute attribute(zigbee, nullptr, 1, "test", false);
-
-        attribute.setValue(attributeStatusRecord);
+        attribute.setRawValue(data);
         auto value = attribute.getValue();
         auto casted = std::any_cast<std::bitset<16>>(value);
         std::bitset<16> expected(0xCCBBAA99);

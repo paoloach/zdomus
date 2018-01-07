@@ -14,14 +14,13 @@
 #include <zcl/ZCLAttribute.h>
 #include <zcl/StatusEnum.h>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
 #include "../Utils/Clusters.h"
-
 
 namespace zigbee {
     class ReadAttributeResponseSerial : public SerialExecutor {
     public:
-        ReadAttributeResponseSerial(SingletonObjectsImpl &singletons) : singletons(singletons) {}
+        ReadAttributeResponseSerial(SingletonObjects * singletons) : singletons(singletons) {}
 
         // format: RA: networkId, endpointId, clusterId, attributeId, attributeStatus,  attributeType,  attributeVelueLen, attributeValue
         //              4digits  ,  2digits  , 4 digits , 4 digits  ,    2  digits   ,    2 digits   ,    2 digits       ,   2* n digits where n =  attributeVelueLen
@@ -50,7 +49,7 @@ namespace zigbee {
                     tokIter++;
                     uint8_t attributeLen{static_cast<uint8_t >(std::stoi(*tokIter, nullptr, 16))};
                     tokIter++;
-                    Clusters *clusters = singletons.getClusters();
+                    Clusters *clusters = singletons->getClusters();
                     auto cluster = clusters->getCluster(nwkAddr, endpointId, clusterId);
                     Cluster *pCluster = cluster.get();
                     auto attribute = pCluster->getAttribute(attributeId);
@@ -73,7 +72,7 @@ namespace zigbee {
                                                      << clusterId << ", attribute=" << attributeId << ", cause: data length differs from attribute effective length";
                             attribute->setStatus(StatusEnum::FAILURE);
                         }
-                        singletons.getZigbeeDevice()->setAttribute(key, attribute);
+                        singletons->getZigbeeDevice()->setAttribute(key, attribute);
                     } else {
                         BOOST_LOG_TRIVIAL(error) << "Invalid attribute "<< key;
                     }
@@ -87,7 +86,7 @@ namespace zigbee {
         }
 
     private:
-        SingletonObjectsImpl &singletons;
+        SingletonObjects * singletons;
     };
 }
 

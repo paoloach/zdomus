@@ -1,130 +1,119 @@
-/*
- * Cluster.h
- *
- *  Created on: 22/lug/2014
- *      Author: Paolo Achdjian
- */
+//
+// Created by paolo on 06/01/18.
+//
 
-#ifndef CLUSTER_H_
-#define CLUSTER_H_
+#ifndef ZIGBEE_LIB_CLUSTER_H
+#define ZIGBEE_LIB_CLUSTER_H
 
-#include <experimental/string_view>
 #include <string>
 #include <memory>
-#include <utility>
-#include <vector>
-#include <boost/bind.hpp>
-#include <boost/signals2.hpp>
-#include <functional>
-#include <initializer_list>
-#include "../zigbee/ZigbeeTypes.h"
-#include "../zigbee/ZigbeeDevice.h"
+#include <zigbee/EndpointID.h>
+#include <zigbee/NwkAddr.h>
+#include <zigbee/ClusterID.h>
+#include "zcl/CmdParams/ClusterCmdParams.h"
 #include "ZCLDataType.h"
-#include "ZCLAttribute.h"
-#include "ClustersEnum.h"
-#include "CmdParams/ClusterCmdParams.h"
-#include "../zigbee/EndpointID.h"
-#include "../zigbee/ClusterID.h"
-#include "../zigbee/NwkAddr.h"
-
 
 namespace zigbee {
+    class ZCLAttribute;
+
+    class ZigbeeDevice;
 
     class Cluster {
     public:
 
         struct AttributeDef {
-            AttributeDef(ZCLTypeDataType type, int id, std::experimental::string_view name, bool readOnly = false) :
+            AttributeDef(ZCLTypeDataType type, int id, std::string_view name, bool readOnly = false) :
                     type{type}, id(id), name(name), readOnly(readOnly) {
             }
 
             ZCLTypeDataType type;
             int id;
-            std::experimental::string_view name;
+            std::string_view name;
             bool readOnly;
         };
 
         using Cmd = std::function<void(std::vector<uint8_t> &&data)>;
 
         struct CommandDef {
-            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name) :
+            CommandDef(Cmd &&cmd, uint32_t cmdId, std::string &&name) :
+                    cmd(std::move(cmd)), cmdId(cmdId), name(std::move(name)) {
+            }
+
+//            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name,
+//                       std::vector<ClusterCmdParamsBase> params) :
+//                    cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name), params(std::move(params)) {
+//            }
+
+//            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name,
+//                       std::initializer_list<ClusterCmdParamsBase> cmdParams) :
+//                    cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
+//                std::copy(cmdParams.begin(), cmdParams.end(), std::back_inserter(params));
+//            }
+
+
+            CommandDef(Cmd && cmd, uint32_t cmdId, std::string &&name, std::unique_ptr<ClusterCmdParamsBase> && param) :
+                    cmd(std::move(std::move(cmd))), cmdId(cmdId), name(std::move(name)) {
+                params.push_back(std::move(param));
+            }
+
+            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::unique_ptr<ClusterCmdParamsBase> &&param1,
+                       std::unique_ptr<ClusterCmdParamsBase> && param2) :
                     cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
+                params.push_back(std::move(param1));
+                params.push_back(std::move(param2));
             }
 
             CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name,
-                       std::vector<std::shared_ptr<ClusterCmdParamsBase>> params) :
-                    cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name), params(std::move(params)) {
+                       std::unique_ptr<ClusterCmdParamsBase> && param1,
+                       std::unique_ptr<ClusterCmdParamsBase> && param2,
+                       std::unique_ptr<ClusterCmdParamsBase> && param3) :
+                    cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
+                params.push_back(std::move(param1));
+                params.push_back(std::move(param2));
+                params.push_back(std::move(param3));
             }
 
-            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name,
-                       std::initializer_list<std::shared_ptr<ClusterCmdParamsBase>> cmdParams) :
+            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::unique_ptr<ClusterCmdParamsBase> && param1,
+                       std::unique_ptr<ClusterCmdParamsBase> && param2, std::unique_ptr<ClusterCmdParamsBase> && param3,
+                       std::unique_ptr<ClusterCmdParamsBase> && param4) :
                     cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
-                std::copy(cmdParams.begin(), cmdParams.end(), std::back_inserter(params));
+                params.push_back(std::move(param1));
+                params.push_back(std::move(param2));
+                params.push_back(std::move(param3));
+                params.push_back(std::move(param4));
             }
 
-
-            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::shared_ptr<ClusterCmdParamsBase> cmdParams) :
+            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::unique_ptr<ClusterCmdParamsBase> && param1,
+                       std::unique_ptr<ClusterCmdParamsBase> && param2, std::unique_ptr<ClusterCmdParamsBase> && param3,
+                       std::unique_ptr<ClusterCmdParamsBase> && param4, std::unique_ptr<ClusterCmdParamsBase> && param5) :
                     cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
-                params.push_back(cmdParams);
+                params.push_back(std::move(param1));
+                params.push_back(std::move(param2));
+                params.push_back(std::move(param3));
+                params.push_back(std::move(param4));
+                params.push_back(std::move(param5));
             }
 
-            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::shared_ptr<ClusterCmdParamsBase> param1,
-                       std::shared_ptr<ClusterCmdParamsBase> param2) :
+            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::unique_ptr<ClusterCmdParamsBase> && param1,
+                       std::unique_ptr<ClusterCmdParamsBase> && param2, std::unique_ptr<ClusterCmdParamsBase> && param3,
+                       std::unique_ptr<ClusterCmdParamsBase> && param4, std::unique_ptr<ClusterCmdParamsBase> && param5,
+                       std::unique_ptr<ClusterCmdParamsBase> && param6) :
                     cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
-                params.push_back(param1);
-                params.push_back(param2);
-            }
-
-            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::shared_ptr<ClusterCmdParamsBase> param1,
-                       std::shared_ptr<ClusterCmdParamsBase> param2, std::shared_ptr<ClusterCmdParamsBase> param3) :
-                    cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
-                params.push_back(param1);
-                params.push_back(param2);
-                params.push_back(param3);
-            }
-
-            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::shared_ptr<ClusterCmdParamsBase> param1,
-                       std::shared_ptr<ClusterCmdParamsBase> param2, std::shared_ptr<ClusterCmdParamsBase> param3,
-                       std::shared_ptr<ClusterCmdParamsBase> param4) :
-                    cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
-                params.push_back(param1);
-                params.push_back(param2);
-                params.push_back(param3);
-                params.push_back(param4);
-            }
-
-            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::shared_ptr<ClusterCmdParamsBase> param1,
-                       std::shared_ptr<ClusterCmdParamsBase> param2, std::shared_ptr<ClusterCmdParamsBase> param3,
-                       std::shared_ptr<ClusterCmdParamsBase> param4, std::shared_ptr<ClusterCmdParamsBase> param5) :
-                    cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
-                params.push_back(param1);
-                params.push_back(param2);
-                params.push_back(param3);
-                params.push_back(param4);
-                params.push_back(param5);
-            }
-
-            CommandDef(Cmd cmd, uint32_t cmdId, std::string &&name, std::shared_ptr<ClusterCmdParamsBase> param1,
-                       std::shared_ptr<ClusterCmdParamsBase> param2, std::shared_ptr<ClusterCmdParamsBase> param3,
-                       std::shared_ptr<ClusterCmdParamsBase> param4, std::shared_ptr<ClusterCmdParamsBase> param5,
-                       std::shared_ptr<ClusterCmdParamsBase> param6) :
-                    cmd(std::move(std::move(cmd))), cmdId(cmdId), name(name) {
-                params.push_back(param1);
-                params.push_back(param2);
-                params.push_back(param3);
-                params.push_back(param4);
-                params.push_back(param5);
-                params.push_back(param6);
+                params.push_back(std::move(param1));
+                params.push_back(std::move(param2));
+                params.push_back(std::move(param3));
+                params.push_back(std::move(param4));
+                params.push_back(std::move(param5));
+                params.push_back(std::move(param6));
             }
 
             Cmd cmd;
             uint32_t cmdId;
             std::string name;
-            std::vector<std::shared_ptr<ClusterCmdParamsBase>> params;
+            std::vector<std::unique_ptr<ClusterCmdParamsBase>> params;
         };
 
     public:
-        Cluster(ZigbeeDevice *zigbeeDevice, const EndpointID &endpoint, NwkAddr networkAddress);
 
         virtual ~Cluster() = default;
 
@@ -133,54 +122,26 @@ namespace zigbee {
 
         virtual std::string getClusterName() const = 0;
 
-        virtual void createAttributes(const std::vector<AttributeDef> &attributesDef);
+        virtual void createAttributes(const std::vector<AttributeDef> &attributesDef)=0;
 
-        virtual const EndpointID getEndpoint() const {
-            return endpoint;
-        }
+        virtual const EndpointID getEndpoint() const = 0;
 
-        virtual NwkAddr getNetworkAddress() const {
-            return networkAddress;
-        }
+        virtual NwkAddr getNetworkAddress() const = 0;
 
-        virtual std::vector<AttributeDef> getAttributes() const {
-            return _attributesDef;
-        }
+        virtual std::vector<AttributeDef> getAttributes() const =0;
 
-        virtual std::vector<CommandDef> getCommands() const {
-            return _commandsDef;
-        }
+        virtual const std::vector<CommandDef> & getCommands() const =0;
 
-        virtual std::vector<std::shared_ptr<ClusterCmdParamsBase>> getCmdParams(uint32_t cmd);
+        virtual std::vector<ClusterCmdParamsBase *> getCmdParams(uint32_t cmd)=0;
 
-        virtual void executeCommand(uint32_t cmd, std::vector<uint8_t> data);
+        virtual void executeCommand(uint32_t cmd, std::vector<uint8_t> data)=0;
 
-        virtual ZCLAttribute * getAttribute(int id) const;
+        virtual ZCLAttribute *getAttribute(int id) const=0;
 
-        virtual ZCLAttribute * getAttribute(std::experimental::string_view name) const;
-
-    protected:
-        template<typename tp_attrType>
-        std::unique_ptr<ZCLAttribute> createAttribute(const AttributeDef &attributeDef) {
-            return std::make_unique<tp_attrType>(zigbeeDevice, this, attributeDef.id, attributeDef.name,
-                                                 attributeDef.readOnly);
-        }
-
-        void printRawData(const std::vector<uint8_t> &data);
-
-    private:
-        std::unique_ptr<ZCLAttribute> createAttribute(const AttributeDef &attributeDef);
-
-    protected:
-        std::vector<CommandDef> _commandsDef;
-        std::vector<AttributeDef> _attributesDef;
-        std::vector<std::unique_ptr<ZCLAttribute> > attributes;
-        ZigbeeDevice *zigbeeDevice;
-        const EndpointID endpoint;
-        NwkAddr networkAddress;
+        virtual ZCLAttribute *getAttribute(std::string_view name) const=0;
 
     };
+}
 
-} /* namespace zigbee */
 
-#endif /* CLUSTER_H_ */
+#endif //ZIGBEE_LIB_CLUSTER_H

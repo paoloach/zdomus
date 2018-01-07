@@ -21,7 +21,7 @@ ClusterPT::ClusterPT(const std::shared_ptr<Cluster> & cluster) noexcept {
 		attributes.add(std::to_string(attribute.id), attribute.name);
 	}
 	push_back( { "attributes", attributes });
-	for (auto command : cluster->getCommands()) {
+	for (auto & command : cluster->getCommands()) {
 		commands.add(std::to_string(command.cmdId), command.name);
 	}
 	push_back( { "commands", commands });

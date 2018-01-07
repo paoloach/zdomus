@@ -9,7 +9,7 @@
 #include <bits/unique_ptr.h>
 #include "Executor.h"
 #include "../ZigbeeData/ZDevices.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
     class DomusEngineUSBDevice;
@@ -18,7 +18,7 @@ namespace zigbee {
     private:
         std::map<uint8_t, std::unique_ptr<Executor> > executors;
     public:
-        UsbResponseExecutors(SingletonObjectsImpl &singletonObjects, DomusEngineUSBDevice &usbDevice);
+        UsbResponseExecutors(SingletonObjects * singletonObjects, DomusEngineUSBDevice &usbDevice);
 
         void execute(unsigned char *data, int length);
     };

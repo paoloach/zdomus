@@ -7,16 +7,17 @@
 
 
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
     class AnnunceSerialExecutor : public SerialExecutor {
     public:
-        AnnunceSerialExecutor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
+        AnnunceSerialExecutor(SingletonObjects *singletons) : singletons(singletons) {}
+
         virtual void operator()(const std::string &msg) override;
 
     private:
-        SingletonObjectsImpl &singletons;
+        SingletonObjects *singletons;
     };
 }
 

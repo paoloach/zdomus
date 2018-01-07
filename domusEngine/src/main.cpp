@@ -104,8 +104,8 @@ int main(int argc, const char *argv[]) {
     SingletonObjectsImpl singletons(std::move(configurationFileName), vm[ZDRIVER].as<std::string>(), std::move(driverFactories));
     auto zDevices = singletons.getZDevices();
 
-    TopologyCreation topologyCreation(singletons);
-    RequestDevices requestDevices(singletons);
+    TopologyCreation topologyCreation(&singletons);
+    RequestDevices requestDevices(&singletons);
 
     zDevices->addObserver([&requestDevices](ZDevice *zDevice) { requestDevices.request(zDevice); });
 

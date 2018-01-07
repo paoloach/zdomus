@@ -4,17 +4,20 @@
 
 #include <boost/fiber/algo/round_robin.hpp>
 #include <boost/fiber/operations.hpp>
-//#include <boost/fiber/all.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/endian/conversion.hpp>
+#include <boost/log/attributes/named_scope.hpp>
 #include <zcl/Cluster.h>
 #include <zcl/StatusEnum.h>
-#include <boost/log/attributes/named_scope.hpp>
-#include "DemoDevice.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include <zigbee/ZigbeeDevice.h>
+#include <zigbee/messageStructure/DeviceInfoMessage.h>
+#include "../Utils/Clusters.h"
+#include "../Utils/SingletonObjects.h"
+#include "../Utils/DeviceInfoDispatcher.h"
 #include "../Database/DBTableFactory.h"
 #include "../Database/DBRow.h"
 #include "../Database/DBTable.h"
+#include "DemoDevice.h"
 
 using boost::fibers::fiber;
 using boost::fibers::mutex;
@@ -87,7 +90,7 @@ namespace zigbee {
 
 
 
-    DemoDevice::DemoDevice(SingletonObjectsImpl &singletonObjects, std::chrono::seconds seconds) : ZigbeeDevice(seconds), singletonObjects(singletonObjects), stop(false), e1(rd()) {
+    DemoDevice::DemoDevice(SingletonObjects * singletonObjects, std::chrono::seconds seconds) : ZigbeeDevice(seconds), singletonObjects(singletonObjects), stop(false), e1(rd()) {
         BOOST_LOG_TRIVIAL(info) << "-------------------------- DEMO MODE ------------------------";
         demoThread = std::thread([this] { runDemoThread(); });
 
@@ -211,7 +214,7 @@ namespace zigbee {
     }
 
     void DemoDevice::requestActiveEndpoints(zigbee::NwkAddr nwkAddr) {
-        auto zDevices = singletonObjects.getZDevices();
+        auto zDevices = singletonObjects->getZDevices();
         if (nwkAddr == NWK_ADDR1) {
             SimpleDescMessage simpleDescMessage;
             simpleDescMessage.nwkAddr = NWK_ADDR1.getId();
@@ -303,7 +306,7 @@ namespace zigbee {
 
 
     void DemoDevice::init() {
-        auto zDevices = singletonObjects.getZDevices();
+        auto zDevices = singletonObjects->getZDevices();
         IEEEAddrResp message;
         message.nwkAddr = NwkAddr(NWK_ADDR1);
         message.ieeeAddr = extAddress1;
@@ -326,7 +329,7 @@ namespace zigbee {
     }
 
     void DemoDevice::getIEEEAddress(zigbee::NwkAddr nwkAddr, zigbee::ZDPRequestType, uint8_t) {
-        auto zDevices = singletonObjects.getZDevices();
+        auto zDevices = singletonObjects->getZDevices();
         IEEEAddrResp message;
 
         if (nwkAddr == 0) {
@@ -470,7 +473,7 @@ namespace zigbee {
     }
 
     void DemoDevice::requestAttributes(AttributesKey &key) {
-        auto clusters = singletonObjects.getClusters();
+        auto clusters = singletonObjects->getClusters();
         auto cluster = clusters->getCluster(key.networkAddress, key.endpoint, key.clusterId);
 
 
@@ -707,7 +710,7 @@ namespace zigbee {
     }
 
     void DemoDevice::sendReqDeviceInfo(zigbee::NwkAddr networkId) {
-        auto deviceInfoDispatcher = singletonObjects.getDeviceInfoDispatcher();
+        auto deviceInfoDispatcher = singletonObjects->getDeviceInfoDispatcher();
         DeviceInfoMessage deviceInfoMessage;
         deviceInfoMessage.nwkAddr = networkId.getId();
         if (networkId == NWK_ADDR1) {

@@ -39,7 +39,7 @@ namespace zigbee::http {
 
             auto params = cluster->getCmdParams(command);
             for (const auto &param : params) {
-                auto paramValue = request.query().get(param->getName());
+                auto paramValue = request.query().get(std::string(param->getName()));
                 if (!paramValue.isEmpty()) {
                     auto rawValues = param->getType().getRaw(paramValue.get());
                     std::copy(std::begin(rawValues), std::end(rawValues), std::back_inserter(cmdParams));

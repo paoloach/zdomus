@@ -8,16 +8,16 @@
 #include "Serial2Executor.h"
 
 namespace zigbee {
-    class SingletonObjectsImpl;
+    class SingletonObjects;
 
     class PowerNodeResponse2Error : public Serial2Executor {
     public:
-        PowerNodeResponse2Error(SingletonObjectsImpl &singletons) : singletons(singletons) {}
+        PowerNodeResponse2Error(SingletonObjects * singletons) : singletons(singletons) {}
 
         void operator()(Packet && packet) override;
 
     private:
-        SingletonObjectsImpl &singletons;
+        SingletonObjects * singletons;
     };
 }
 

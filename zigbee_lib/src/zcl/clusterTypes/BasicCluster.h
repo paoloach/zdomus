@@ -10,18 +10,18 @@
 
 #include <string>
 #include <memory>
-#include "../attributeTypes/ZCLuint8Attribute.h"
-#include "../attributeTypes/ZCLstringAttribute.h"
+#include "src/zcl/attributeTypes/implementation/ZCLuint8AttributeImpl.h"
+#include "src/zcl/attributeTypes/implementation/ZCLStringAttributeImpl.h"
 #include "../attributeTypes/ZCLbitmap8bitAttribute.h"
-#include "../attributeTypes/ZCLbooleanAttribute.h"
-#include "../attributeTypes/ZCLenum8bitAttribute.h"
-#include "../Cluster.h"
+#include "src/zcl/attributeTypes/implementation/ZCLbooleanAttributeImpl.h"
+#include "src/zcl/attributeTypes/implementation/ZCLenum8bitAttributeImpl.h"
+#include "src/zcl/impl/ClusterImpl.h"
 #include "../../zigbee/ZigbeeDevice.h"
 
 
 namespace zigbee {
 
-class BasicCluster : public Cluster{
+class BasicCluster : public ClusterImpl{
 public:
 	BasicCluster(ZigbeeDevice * zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 public:

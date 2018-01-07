@@ -18,7 +18,7 @@ struct __attribute__ ((__packed__)) BindTableResponseMessage {
 	GenericMessage generticDataMsg;
 	uint8_t srcAddr[Z_EXTADDR_LEN]; // Src address
 	uint8_t srcEP;                   // Endpoint/interface of source device
-	uint16_t clusterID;             // Cluster ID
+	uint16_t clusterID;             // ClusterImpl ID
 	uint16_t dstAddr;          // Destination address
 	uint8_t dstEP;                   // Endpoint/interface of dest device
 };

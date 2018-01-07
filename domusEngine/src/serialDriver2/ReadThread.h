@@ -8,7 +8,7 @@
 #include "SerialDriver2.h"
 
 namespace zigbee {
-    void readThread(SingletonObjectsImpl &singletonObjects, int serialFd);
+    void readThread(SingletonObjects * singletonObjects, int serialFd);
 }
 
 

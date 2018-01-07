@@ -21,7 +21,7 @@
 #include "StringExecutor.h"
 
 namespace zigbee {
-    Serial2ResponseExecutor::Serial2ResponseExecutor(SingletonObjectsImpl &singletonObjects) {
+    Serial2ResponseExecutor::Serial2ResponseExecutor(SingletonObjects * singletonObjects) {
         executors[CmdType::IEEEAddress] = std::make_unique<IEEEAddressResponseSerial2Executor>(singletonObjects);
         executors[CmdType::IEEEAddressError] = std::make_unique<IEEEAddressResponseErrorSerial2Executor>();
         executors[CmdType::AnnunceDevice] = std::make_unique<AnnunceSerial2Executor>(singletonObjects);

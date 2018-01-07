@@ -9,20 +9,20 @@
 
 namespace zigbee {
 
-static std::vector<Cluster::AttributeDef> attributesDef {
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0, "Current Temperature",true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 1, "Min Temp Experienced",true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 2, "Max Temp. Experienced", true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 3, "Over Temp. Total Dwell, true"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLType8bitBitmap, 0x10, "Allarm Mask"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x11, "Low Temperature Threshold"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x12, "High Temperature Threshold"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x13, "Low Temp. Dwell Trip Point"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x14, "High Temp. Dwell Trip Point")
+static std::vector<ClusterImpl::AttributeDef> attributesDef {
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0, "Current Temperature",true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 1, "Min Temp Experienced",true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 2, "Max Temp. Experienced", true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 3, "Over Temp. Total Dwell, true"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLType8bitBitmap, 0x10, "Allarm Mask"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x11, "Low Temperature Threshold"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeSInt16, 0x12, "High Temperature Threshold"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x13, "Low Temp. Dwell Trip Point"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt24, 0x14, "High Temp. Dwell Trip Point")
 };
 
 DeviceTemperatureConfiguration::DeviceTemperatureConfiguration(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
-		Cluster(zigbeeDevice, endpoint, networkAddress) {
+		ClusterImpl(zigbeeDevice, endpoint, networkAddress) {
 	createAttributes(attributesDef);
 }
 

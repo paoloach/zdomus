@@ -20,7 +20,7 @@
 #include "AliveMessage.h"
 
 namespace zigbee {
-    SerialResponseExecutor::SerialResponseExecutor(SingletonObjectsImpl &singletonObjects) {
+    SerialResponseExecutor::SerialResponseExecutor(SingletonObjects * singletonObjects) {
         executors[CmdType::IEEEAddress] = std::make_unique<IEEEAddressResponseSerialExecutor>(singletonObjects);
         executors[CmdType::IEEEAddressError] = std::make_unique<IEEEAddressResponseErrorSerialExecutor>();
         executors[CmdType::AnnunceDevice] = std::make_unique<AnnunceSerialExecutor>(singletonObjects);

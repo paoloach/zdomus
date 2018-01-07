@@ -9,14 +9,14 @@
 #include <boost/token_functions.hpp>
 #include <boost/tokenizer.hpp>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
 #include "../ZigbeeData/ZDevices.h"
 #include "../ZigbeeData/Exceptions/InvalidZDevice.h"
 
 namespace zigbee {
     class BindTableSerialExecutor : public SerialExecutor {
     public:
-        BindTableSerialExecutor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
+        BindTableSerialExecutor(SingletonObjects * singletons) : singletons(singletons) {}
 
         // BT:  extAddressSource, endpointIdSource, clusterId, networkIdDest, endpointIdDesc
         //       16 digits      ,      2digits    ,  4 digits,   4 digits   ,   2 digits
@@ -35,14 +35,14 @@ namespace zigbee {
             tokIter++;
             EndpointID endpointIdDst{*tokIter};
             try {
-                ZDevice *device = singletons.getZDevices()->getDevice(extAddress);
-                singletons.getBindTable().add(BindResponse(device->getNwkAddr(), endpointIdSrc, clusterId, nwkAddrDst, endpointIdDst));
+                ZDevice *device = singletons->getZDevices()->getDevice(extAddress);
+                singletons->getBindTable()->add(BindResponse(device->getNwkAddr(), endpointIdSrc, clusterId, nwkAddrDst, endpointIdDst));
             } catch (InvalidZDevice & e){
                 BOOST_LOG_TRIVIAL(error) << "The device " << extAddress << " is not registered";
             }
         }
     private:
-        SingletonObjectsImpl &singletons;
+        SingletonObjects * singletons;
     };
 }
 #endif //DOMUS_ENGINE_BINDTABLESERIALEXECUTER_H

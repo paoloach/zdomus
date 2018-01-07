@@ -9,12 +9,12 @@
 #define SRC_ZCL_CLUSTERTYPES_OCCUPANCYSENSINGCLUSTER_H_
 
 #include <string>
-#include "../Cluster.h"
+#include "src/zcl/impl/ClusterImpl.h"
 #include "../../zigbee/ZigbeeDevice.h"
 
 namespace zigbee {
 
-class OccupancySensingCluster : public Cluster{
+class OccupancySensingCluster : public ClusterImpl{
 public:
 	OccupancySensingCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:

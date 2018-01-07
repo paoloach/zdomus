@@ -9,12 +9,12 @@
 
 namespace zigbee {
 
-static std::vector<Cluster::AttributeDef> attributesDef {
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeBool, 0, "On/Off", true),
+static std::vector<ClusterImpl::AttributeDef> attributesDef {
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeBool, 0, "On/Off", true),
 		};
 
 On_Off_Cluster::On_Off_Cluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
-		Cluster(zigbeeDevice, endpoint, networkAddress){
+		ClusterImpl(zigbeeDevice, endpoint, networkAddress){
 
 	createAttributes(attributesDef);
 

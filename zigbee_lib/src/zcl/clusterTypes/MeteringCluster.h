@@ -10,13 +10,13 @@
 
 #include <string>
 #include <memory>
-#include "../Cluster.h"
+#include "src/zcl/impl/ClusterImpl.h"
 
 #include "../../zigbee/ZigbeeDevice.h"
 
 namespace zigbee {
 
-class MeteringCluster : public Cluster {
+class MeteringCluster : public ClusterImpl {
 public:
 	MeteringCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID  endpoint, NwkAddr networkAddress);
 public:

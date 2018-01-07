@@ -8,7 +8,7 @@
 #ifndef CLUSTERCMDPARAMS_H_
 #define CLUSTERCMDPARAMS_H_
 
-#include <string>
+#include <string_view>
 #include <vector>
 
 #include "../ZCLDataType.h"
@@ -17,17 +17,13 @@ namespace zigbee {
 
     class ClusterCmdParamsBase {
     public:
-        ClusterCmdParamsBase(std::string &&name) :
-                name{name} {
-        }
-
-        ClusterCmdParamsBase(const char *name) :
+        ClusterCmdParamsBase(std::string_view name) :
                 name{name} {
         }
 
         virtual ~ClusterCmdParamsBase() = default;
 
-        std::string getName() const {
+        std::string_view getName() const {
             return name;
         }
 
@@ -36,7 +32,7 @@ namespace zigbee {
         virtual ZCLTypeDataType getZCLDataType() const = 0;
 
     private:
-        std::string name;
+        std::string_view name;
     };
 
     template<ZCLTypeDataType z>

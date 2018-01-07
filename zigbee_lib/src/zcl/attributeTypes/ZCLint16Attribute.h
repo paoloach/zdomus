@@ -1,49 +1,22 @@
-/*
- * ZCLuint16Attribute.h
- *
- *  Created on: 22/lug/2014
- *      Author: Paolo Achdjian
- */
+//
+// Created by paolo on 04/01/18.
+//
 
-#ifndef ZCLint16ATTRIBUTE_H_
-#define ZCLint16ATTRIBUTE_H_
+#ifndef ZIGBEE_LIB_ZCLINT16ATTRIBUTE_H
+#define ZIGBEE_LIB_ZCLINT16ATTRIBUTE_H
 
-#include "../ZCLAttribute.h"
-#include "../../zigbee/AttributeStatusRecord.h"
+#include "zcl/ZCLAttribute.h"
 
 namespace zigbee {
-
-    class ZCL_int16_Attribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeSInt16> {
+    class ZCLint16Attribute : public virtual ZCLAttribute {
     public:
-        ZCL_int16_Attribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
-                            ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
-
-    public:
-        std::any getValue() const override;
-        std::string getStrValue() const  override {
-            return std::to_string(value);
-        }
-
-        virtual void sendValue(int16_t newValue);
-
         static std::string name() {
             return "Int16";
         }
 
-    private:
-        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
-
-        void internalSetValue(uint8_t * rawData) override;
-
-        friend std::ostream &operator<<(std::ostream &out, const ZCL_int16_Attribute *);
-
-    private:
-        int32_t value;
+        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeSInt16;
     };
+}
 
-    std::ostream &operator<<(std::ostream &out, const ZCL_int16_Attribute *);
 
-
-} /* namespace zigbee */
-
-#endif /* ZCLint16ATTRIBUTE_H_ */
+#endif //ZIGBEE_LIB_ZCLINT16ATTRIBUTE_H

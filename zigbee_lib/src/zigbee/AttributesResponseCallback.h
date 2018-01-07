@@ -6,7 +6,7 @@
 #define ZIGBEE_LIB_ATTRIBUTESRESPONSECALLBACK_H
 
 #include <vector>
-#include "../zcl/ZCLAttribute.h"
+#include "zcl/ZCLAttribute.h"
 
 namespace zigbee {
     class AttributesResponseCallback {

@@ -5,6 +5,7 @@
 #include <boost/log/trivial.hpp>
 #include <boost/log/attributes/named_scope.hpp>
 #include <boost/log/utility/string_literal.hpp>
+#include <zigbee/ZigbeeDevice.h>
 #include "AnnunceSerial2Executor.h"
 #include "../ZigbeeData/ExtAddress.h"
 #include "../ZigbeeData/ZDevices.h"
@@ -18,11 +19,11 @@ namespace zigbee {
 
         BOOST_LOG_TRIVIAL(info) << "Annunce device " << NwkAddr{annunceMessage.nwkAddr} << " - " << ExtAddress(annunceMessage.extAddr);
         annunceMessage.capabilities = packet.getUint8(11);
-        singletons.getZDevices()->put(annunceMessage);
+        singletons->getZDevices()->put(annunceMessage);
 
         NwkAddr nwkAddr{annunceMessage.nwkAddr};
         BOOST_LOG_TRIVIAL(info) << "Request endopoint";
-        singletons.getZigbeeDevice()->requestActiveEndpoints(nwkAddr);
+        singletons->getZigbeeDevice()->requestActiveEndpoints(nwkAddr);
         //sleep(1);
         //BOOST_LOG_TRIVIAL(info) << "Request bind table";
         //singletons.getZigbeeDevice()->requestBindTable(nwkAddr);

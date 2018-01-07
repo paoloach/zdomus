@@ -16,7 +16,7 @@ namespace test {
 
 class JSZAttribute8BitBitmapTest : public JSAttributeTest{
 public:
-	virtual ~JSZAttribute8BitBitmapTest();
+	virtual ~JSZAttribute8BitBitmapTest()= default;
 protected:
 	virtual void SetUp() override;
 	virtual void TearDown() override;

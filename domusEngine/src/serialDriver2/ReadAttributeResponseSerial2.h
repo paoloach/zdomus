@@ -6,18 +6,17 @@
 #define DOMUS_ENGINE_READATTRIBUTERESPONSESERIAL2_H
 
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjectsImpl.h"
-
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
     class ReadAttributeResponseSerial2 : public Serial2Executor {
     public:
-        ReadAttributeResponseSerial2(SingletonObjectsImpl &singletons) : singletons(singletons) {}
+        ReadAttributeResponseSerial2(SingletonObjects * singletons) : singletons(singletons) {}
 
         virtual void operator()(Packet &&packet) override;
 
     private:
-        SingletonObjectsImpl &singletons;
+        SingletonObjects * singletons;
     };
 }
 

@@ -29,7 +29,7 @@ namespace zigbee {
     static const boost::posix_time::time_duration CHECK_NEW_MESSAGE = boost::posix_time::milliseconds(10);
 
 
-    DomusEngineUSBDevice::DomusEngineUSBDevice(SingletonObjectsImpl &singletonObjects, libusb_context *usbContext_, int deviceClass_, int vendor_, int product_,
+    DomusEngineUSBDevice::DomusEngineUSBDevice(SingletonObjects * singletonObjects, libusb_context *usbContext_, int deviceClass_, int vendor_, int product_,
                                                std::chrono::seconds timeout) : ZigbeeDevice(timeout), stop(false), usbContext{usbContext_}, deviceClass{deviceClass_},
                                                                                vendorID{vendor_}, productID{product_}, handle{nullptr},
                                                                                usbResponseExecuters{singletonObjects, *this} {

@@ -11,7 +11,6 @@
 #include <boost/asio/detail/shared_ptr.hpp>
 #include <zigbee/messageStructure/DeviceInfoMessage.h>
 
-
 namespace zigbee {
     class DeviceInfoDispatcher {
     public:

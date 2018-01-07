@@ -29,7 +29,7 @@ namespace zigbee {
         uint16_t destAddr;
         uint8_t outClusterAddr[Z_EXTADDR_LEN];
         uint8_t outClusterEP;
-        uint16_t clusterID;             // Cluster ID
+        uint16_t clusterID;             // ClusterImpl ID
         uint8_t inClusterAddr[Z_EXTADDR_LEN];
         uint8_t inClusterEp;
     };

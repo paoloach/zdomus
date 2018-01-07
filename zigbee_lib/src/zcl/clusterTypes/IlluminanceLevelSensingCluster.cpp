@@ -9,14 +9,14 @@
 
 namespace zigbee {
 
-static std::vector<Cluster::AttributeDef> attributesDef {
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeenum8, 0, "Level Status", true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeenum8, 1, "Level Sensor Type", true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x10, "Illuminance Target Level", true)
+static std::vector<ClusterImpl::AttributeDef> attributesDef {
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeenum8, 0, "Level Status", true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeenum8, 1, "Level Sensor Type", true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x10, "Illuminance Target Level", true)
 		};
 
 IlluminanceLevelSensingCluster::IlluminanceLevelSensingCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
-				Cluster(zigbeeDevice, endpoint, networkAddress){
+				ClusterImpl(zigbeeDevice, endpoint, networkAddress){
 
 	createAttributes(attributesDef);
 }

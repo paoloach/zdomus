@@ -6,6 +6,7 @@
 #include <boost/log/attributes/named_scope.hpp>
 #include <boost/log/utility/string_literal.hpp>
 #include <boost/tokenizer.hpp>
+#include <zigbee/ZigbeeDevice.h>
 #include "AnnunceSerialExecutor.h"
 #include "../ZigbeeData/ExtAddress.h"
 #include "../ZigbeeData/ZDevices.h"
@@ -30,11 +31,11 @@ namespace  zigbee {
                 annunceMessage.extAddr[i] = extAddress.getNible(i);
             tokIter++;
             annunceMessage.capabilities = std::stoi(*tokIter, nullptr, 16);
-            singletons.getZDevices()->put(annunceMessage);
+            singletons->getZDevices()->put(annunceMessage);
 
             NwkAddr nwkAddr{annunceMessage.nwkAddr};
             BOOST_LOG_TRIVIAL(info) << "Request endopoint";
-            singletons.getZigbeeDevice()->requestActiveEndpoints(nwkAddr);
+            singletons->getZigbeeDevice()->requestActiveEndpoints(nwkAddr);
             sleep(1);
             BOOST_LOG_TRIVIAL(info) << "Request bind table";
             //singletons.getZigbeeDevice()->requestBindTable(nwkAddr);

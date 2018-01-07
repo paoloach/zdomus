@@ -11,12 +11,12 @@
 #include <zigbee/EndpointID.h>
 #include <zcl/Cluster.h>
 #include "SerialExecutor.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
     class ReadAttributeResponseErrorSerial : public SerialExecutor {
     public:
-        ReadAttributeResponseErrorSerial(SingletonObjectsImpl & singletons):singletons(singletons) {}
+        ReadAttributeResponseErrorSerial(SingletonObjects* singletons):singletons(singletons) {}
 
         // format: RAE: networkId, endpointId, clusterId, attributeId, status
         //              4digits  ,  2digits  , 4 digits ,   4 digits , 2 digits
@@ -37,16 +37,16 @@ namespace zigbee {
                 int status{std::stoi(*tokIter, nullptr, 16)};
                 BOOST_LOG_TRIVIAL(error) << "Error on requesting attribute value from  network id=" << nwkAddr << ", endpoint=" << endpointID << ", cluster="<< clusterId << ", attribute="<< attribute << ", cause: " << status;
                 AttributeKey key(nwkAddr, EndpointID(endpointID), ClusterID(clusterId),attribute);
-                auto cluster = singletons.getClusters()->getCluster(key.networkAddress, key.endpoint, key.clusterId);
+                auto cluster = singletons->getClusters()->getCluster(key.networkAddress, key.endpoint, key.clusterId);
                 cluster->getAttribute(key.attributeId);
-                singletons.getZigbeeDevice()->setAttribute(key,cluster->getAttribute(key.attributeId) );
+                singletons->getZigbeeDevice()->setAttribute(key,cluster->getAttribute(key.attributeId) );
             } catch (boost::bad_lexical_cast & e){
                 BOOST_LOG_TRIVIAL(error) << "Unable to parse the message: " << e.what();
             }
         }
 
     private:
-        SingletonObjectsImpl & singletons;
+        SingletonObjects * singletons;
     };
 }
 #endif //DOMUS_ENGINE_READATTRIBUTERESPONSEERRORSERIAL_H

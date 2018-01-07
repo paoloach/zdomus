@@ -7,17 +7,17 @@
 
 
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
     class AnnunceSerial2Executor : public Serial2Executor {
     public:
-        AnnunceSerial2Executor(SingletonObjectsImpl &singletons) : singletons(singletons) {}
+        AnnunceSerial2Executor(SingletonObjects * singletons) : singletons(singletons) {}
 
         virtual void operator()(Packet &&packet) override;
 
     private:
-        SingletonObjectsImpl &singletons;
+        SingletonObjects * singletons;
     };
 }
 

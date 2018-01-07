@@ -10,13 +10,14 @@
 
 #include <boost/log/trivial.hpp>
 #include <zigbee/messageStructure/ReadAttributeResponseMessage.h>
+#include "../Utils/Clusters.h"
 
 namespace zigbee {
     class AttributeValuesExecuter : public Executor {
     private:
-        SingletonObjectsImpl &singletonObjects;
+        SingletonObjects * singletonObjects;
     public:
-        AttributeValuesExecuter(SingletonObjectsImpl &singletonObjects) : singletonObjects(singletonObjects) {}
+        AttributeValuesExecuter(SingletonObjects* singletonObjects) : singletonObjects(singletonObjects) {}
 
         virtual void operator()(unsigned char *data, int) override {
             ReadAttributeResponseMessage *readAttributeResponseMessage = reinterpret_cast<ReadAttributeResponseMessage *>(data);
@@ -40,12 +41,12 @@ namespace zigbee {
                 AttributeKey key{nwkAddr, endpointID, clusterID, response->attrID};
                 BOOST_LOG_TRIVIAL(debug) << "Read attribute " << key << " width status " << (int)response->status << " and data length " << dataLen;
 
-                std::shared_ptr<Cluster> cluster{singletonObjects.getClusters()->getCluster(nwkAddr, endpointID, clusterID)};
+                std::shared_ptr<Cluster> cluster{singletonObjects->getClusters()->getCluster(nwkAddr, endpointID, clusterID)};
                 auto attribute = cluster->getAttribute(response->attrID);
                 attribute->setValue(*response);
 
                 rawResponses += sizeof(AttributeResponse) + dataLen;
-                singletonObjects.getZigbeeDevice()->setAttribute(key,attribute);
+                singletonObjects->getZigbeeDevice()->setAttribute(key,attribute);
             }
         }
     };

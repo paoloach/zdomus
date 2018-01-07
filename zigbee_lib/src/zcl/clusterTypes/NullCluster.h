@@ -8,11 +8,11 @@
 #ifndef NULLCLUSTER_H_
 #define NULLCLUSTER_H_
 
-#include "../Cluster.h"
+#include "src/zcl/impl/ClusterImpl.h"
 
 namespace zigbee {
 
-class NullCluster : public Cluster {
+class NullCluster : public ClusterImpl {
 public:
 	NullCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress,ClusterID clusterId);
 public:

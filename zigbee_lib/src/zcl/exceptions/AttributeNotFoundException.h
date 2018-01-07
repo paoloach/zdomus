@@ -8,9 +8,11 @@
 #ifndef SRC_ZCL_EXCEPTIONS_ATTRIBUTENOTFOUNDEXCEPTION_H_
 #define SRC_ZCL_EXCEPTIONS_ATTRIBUTENOTFOUNDEXCEPTION_H_
 
+#include <exception>
+
 namespace zigbee {
 
-class AttributeNotFoundException {
+class AttributeNotFoundException : std::exception {
 public:
 	AttributeNotFoundException() noexcept = default;;
 	virtual ~AttributeNotFoundException() noexcept= default;;

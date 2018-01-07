@@ -13,13 +13,13 @@
 
 namespace zigbee {
 
-    static std::vector<Cluster::AttributeDef> attributesDef{
-            Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0, "Identify time")
+    static std::vector<ClusterImpl::AttributeDef> attributesDef{
+            ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0, "Identify time")
     };
 
 
     IdentifyCluster::IdentifyCluster(ZigbeeDevice *zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress)
-            : Cluster(zigbeeDevice, endpoint, networkAddress) {
+            : ClusterImpl(zigbeeDevice, endpoint, networkAddress) {
         createAttributes(attributesDef);
 
         _commandsDef.emplace_back(

@@ -9,12 +9,12 @@
 #define SRC_ZCL_CLUSTERTYPES_FLOWMEASUREMENTCLUSTER_H_
 
 #include <string>
-#include "../Cluster.h"
+#include "src/zcl/impl/ClusterImpl.h"
 #include "../../zigbee/ZigbeeDevice.h"
 
 namespace zigbee {
 
-class FlowMeasurementCluster : public Cluster{
+class FlowMeasurementCluster : public ClusterImpl{
 public:
 	FlowMeasurementCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress);
 private:

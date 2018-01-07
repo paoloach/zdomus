@@ -23,7 +23,7 @@ namespace zigbee {
         Data
     };
 
-    void readThread(SingletonObjectsImpl & singletonObjects, int serialFd) {
+    void readThread(SingletonObjects * singletonObjects, int serialFd) {
         Status  status  =  Status::Header1;
         Serial2ResponseExecutor responseExecutor(singletonObjects);
         int n;

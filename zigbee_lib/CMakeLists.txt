@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(zigbee_lib)
-set(Boost_DEBUG ON)
+set(CMAKE_CXX_STANDARD 17)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fPIC -DBOOST_ALL_DYN_LINK -g3")
 
 find_package(Boost 1.63 COMPONENTS system thread signals program_options filesystem log fiber REQUIRED)
@@ -60,10 +61,11 @@ set(SOURCE_FILES
 
 
 SET(SOURCE_ZCL_FILES
-        src/zcl/Cluster.cpp
+        src/zcl/impl/ClusterImpl.cpp
         src/zcl/ClusterTypeFactory.cpp
         src/zcl/OnOffLight.cpp
-        src/zcl/ZCLAttribute.cpp
+        src/zcl/impl/ZCLAttributeImpl.cpp src/zcl/impl/ZCLAttributeImpl.h
+        src/zcl/ZCLAttribute.h
         src/zcl/ZCLDevice.cpp
         src/zcl/ZclAttributeUtils.cpp src/zcl/ZclAttributeUtils.h
         src/zcl/ZCLDataType.h
@@ -75,31 +77,52 @@ SET(SOURCE_ZCL_FILES
         src/zigbee/CmdData.h)
 
 SET(SOURCE_ATTRIBUTES_FILES
-        src/zcl/attributeTypes/ZCLbitmap8bitAttribute.cpp
-        src/zcl/attributeTypes/ZCLbooleanAttribute.cpp
-        src/zcl/attributeTypes/ZCLenum8bitAttribute.cpp
-        src/zcl/attributeTypes/ZCLIEEEAddressAttribute.cpp
-        src/zcl/attributeTypes/ZCLint16Attribute.cpp
-        src/zcl/attributeTypes/ZCLstringAttribute.cpp
-        src/zcl/attributeTypes/ZCLuint8Attribute.cpp
-        src/zcl/attributeTypes/ZCLuint16Attribute.cpp
-        src/zcl/attributeTypes/ZCLuint24Attribute.cpp
-        src/zcl/attributeTypes/ZCLuint48Attribute.cpp src/zcl/attributeTypes/ZCLuint48Attribute.h
-        src/zcl/attributeTypes/ZCLint24Attribute.cpp src/zcl/attributeTypes/ZCLint24Attribute.h
-        src/zcl/attributeTypes/ZCLUTCTime.cpp src/zcl/attributeTypes/ZCLUTCTime.h
-        src/zcl/attributeTypes/ZCLOctetString.cpp src/zcl/attributeTypes/ZCLOctetString.h
-        src/zcl/attributeTypes/ZCLBitmap32bitAttribute.cpp src/zcl/attributeTypes/ZCLBitmap32bitAttribute.h
-        src/zcl/attributeTypes/ZCLuint32Attribute.cpp src/zcl/attributeTypes/ZCLuint32Attribute.h
-        src/zcl/attributeTypes/ZCLint32Attribute.cpp src/zcl/attributeTypes/ZCLint32Attribute.h
-        src/zcl/attributeTypes/ZCLBitmap16bitAttribute.cpp src/zcl/attributeTypes/ZCLBitmap16bitAttribute.h
-        src/zcl/attributeTypes/ZCLint8Attribute.cpp src/zcl/attributeTypes/ZCLint8Attribute.h
+        src/zcl/attributeTypes/implementation/ZCLbitmap8bitAttribute.cpp
+        src/zcl/attributeTypes/implementation/ZCLbitmap8bitAttribute.h
+        src/zcl/attributeTypes/implementation/ZCLbooleanAttributeImpl.cpp   src/zcl/attributeTypes/implementation/ZCLbooleanAttributeImpl.h
+        src/zcl/attributeTypes/implementation/ZCLenum8bitAttributeImpl.cpp
+        src/zcl/attributeTypes/implementation/ZCLIEEEAddressAttributeImpl.cpp
+        src/zcl/attributeTypes/implementation/ZCLint16AttributeImpl.cpp
+        src/zcl/attributeTypes/implementation/ZCLStringAttributeImpl.cpp
+        src/zcl/attributeTypes/implementation/ZCLuint8AttributeImpl.cpp
+        src/zcl/attributeTypes/implementation/ZCLuint16AttributeImpl.cpp
+        src/zcl/attributeTypes/implementation/ZCLuint24AttributeImpl.cpp
+        src/zcl/attributeTypes/implementation/ZCLuint48AttributeImpl.cpp      src/zcl/attributeTypes/implementation/ZCLuint48AttributeImpl.h
+        src/zcl/attributeTypes/implementation/ZCLint24AttributeImpl.cpp       src/zcl/attributeTypes/implementation/ZCLint24AttributeImpl.h
+        src/zcl/attributeTypes/implementation/ZCLUTCTimeImpl.cpp              src/zcl/attributeTypes/implementation/ZCLUTCTimeImpl.h
+        src/zcl/attributeTypes/implementation/ZCLOctetStringImp.cpp           src/zcl/attributeTypes/implementation/ZCLOctetStringImp.h
+        src/zcl/attributeTypes/implementation/ZCLBitmap32bitAttributeImpl.cpp src/zcl/attributeTypes/implementation/ZCLBitmap32bitAttributeImpl.h
+        src/zcl/attributeTypes/implementation/ZCLuint32AttributeImpl.cpp      src/zcl/attributeTypes/implementation/ZCLuint32AttributeImpl.h
+        src/zcl/attributeTypes/implementation/ZCLint32AttributeImpl.cpp       src/zcl/attributeTypes/implementation/ZCLint32AttributeImpl.h
+        src/zcl/attributeTypes/implementation/ZCLBitmap16bitAttributeImpl.cpp src/zcl/attributeTypes/implementation/ZCLBitmap16bitAttributeImpl.h
+        src/zcl/attributeTypes/implementation/ZCLint8AttributeImpl.cpp        src/zcl/attributeTypes/implementation/ZCLint8AttributeImpl.h
         src/zcl/attributeTypes/AttributeValue.h
+        src/zcl/attributeTypes/ZCLStringAttribute.h
+        src/zcl/attributeTypes/ZCLOctectString.h
+        src/zcl/attributeTypes/ZCLEnum8bitAttribute.h
+        src/zcl/attributeTypes/ZCLBitmap16bitAttribute.h
+        src/zcl/attributeTypes/ZCLBitmap32bitAttribute.h
+        src/zcl/attributeTypes/ZCLBooleanAttribute.h
+        src/zcl/exceptions/NoBoolException.h
+        src/zcl/attributeTypes/ZCLbitmap8bitAttribute.h
+        src/zcl/attributeTypes/ZCLIEEEAddressAttribute.h
+        src/zcl/attributeTypes/ZCLint8Attribute.h
+        src/zcl/attributeTypes/ZCLint16Attribute.h
+        src/zcl/attributeTypes/ZCLint24Attribute.h
+        src/zcl/attributeTypes/ZCLint32Attribute.h
+        src/zcl/attributeTypes/ZCLuint8Attribute.h
+        src/zcl/attributeTypes/ZCLuint16Attribute.h
+        src/zcl/attributeTypes/ZCLuint24Attribute.h
+        src/zcl/attributeTypes/ZCLuint32Attribute.h
+        src/zcl/attributeTypes/ZCLuint48Attribute.h
+        src/zcl/attributeTypes/ZCLUTCTime.h
         src/zigbee/messageStructure/ActiveEPErrorMessage.h
         src/zigbee/messageStructure/InfoMessage.h
         src/zigbee/messageStructure/DeviceInfoMessage.h
         src/zigbee/messageStructure/ReqDeviceInformation.h
         src/zigbee/messageStructure/IEEEAddressRequestMessage.h
-        src/zigbee/messageStructure/IEEEAddressResponse.h)
+        src/zigbee/messageStructure/IEEEAddressResponse.h
+        src/zcl/exceptions/ZCLAttributeNotAvailableException.h)
 
 
 SET(SOURCE_CLLUSTER_FILES
@@ -120,7 +143,7 @@ SET(SOURCE_CLLUSTER_FILES
         src/zcl/clusterTypes/RelativeHumidityMeasurementCluster.cpp
         src/zcl/clusterTypes/ScenesCluster.cpp
         src/zcl/clusterTypes/TestCluster.cpp
-        src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.h)
+        src/zcl/clusterTypes/TemperatureMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.cpp src/zcl/clusterTypes/ElectricalMeasurementCluster.h src/zcl/Cluster.h)
 
 
 SET(zigbeeSrcTest src/test/main.cpp
@@ -133,10 +156,19 @@ set(USB_HEADER src/usb/USBDevice.h src/usb/usbConfig.h)
 file(GLOB zigbee_header "src/zigbee/*.h")
 file(GLOB zigbee_messageStructure_header "src/zigbee/messageStructure/*.h")
 file(GLOB zcl_header "src/zcl/*.h")
-file(GLOB zcl_exceptions "src/zcl/exceptions/*.h")
 file(GLOB zcl_CmdParams_header "src/zcl/CmdParams/*.h")
 file(GLOB attributeTypes_header "src/zcl/attributeTypes/*.h")
 file(GLOB clusterTypes_header "src/zcl/clusterTypes/*.h")
+
+SET(zcl_exceptions
+        src/zcl/exceptions/NoBoolException.h
+        src/zcl/exceptions/NoInt32Exception.h
+        src/zcl/exceptions/NoStringException.h
+        src/zcl/exceptions/NoUInt64Exception.h
+        src/zcl/exceptions/NoUintException.h
+        src/zcl/exceptions/NoVectorUInt8Exception.h
+        src/zcl/exceptions/ZCLAttributeNotAvailableException.h
+        src/zcl/exceptions/AttributeNotFoundException.h)
 
 include_directories(/usr/include/libusb-1.0 . ${PROJECT_SOURCE_DIR}/src ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
 
@@ -144,7 +176,11 @@ include_directories(/usr/include/libusb-1.0 . ${PROJECT_SOURCE_DIR}/src ${GTEST_
 add_library(ZCL_Commons OBJECT ${SOURCE_ZCL_FILES})
 add_library(Attributes OBJECT ${SOURCE_ATTRIBUTES_FILES})
 add_library(Clusters OBJECT ${SOURCE_CLLUSTER_FILES})
-add_library(zigbeeLib SHARED ${SOURCE_FILES} $<TARGET_OBJECTS:ZCL_Commons> $<TARGET_OBJECTS:Attributes> $<TARGET_OBJECTS:Clusters>)
+add_library(zigbeeLib SHARED
+        ${SOURCE_FILES}
+        $<TARGET_OBJECTS:ZCL_Commons>
+        $<TARGET_OBJECTS:Attributes>
+        $<TARGET_OBJECTS:Clusters>)
 
 add_executable(zigbeeLibTest ${zigbeeSrcTest})
 

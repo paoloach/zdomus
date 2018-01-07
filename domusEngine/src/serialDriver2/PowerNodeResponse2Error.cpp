@@ -17,5 +17,5 @@ void zigbee::PowerNodeResponse2Error::operator()(Packet &&packet) {
     BOOST_LOG_TRIVIAL(error) << "error requesting power node for device " << std::hex << powerNodeData->nwkAddr << " because " << errorCodeToString(status);
     powerNodeData->error = true;
 
-    singletons.getZigbeeDevice()->setPowerNode(powerNodeData);
+    singletons->getZigbeeDevice()->setPowerNode(powerNodeData);
 }

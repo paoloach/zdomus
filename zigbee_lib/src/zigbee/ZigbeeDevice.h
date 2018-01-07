@@ -10,7 +10,7 @@
 
 #include <functional>
 #include <memory>
-#include "../zcl/ZCLAttribute.h"
+#include "zcl/ZCLAttribute.h"
 #include "ZigbeeTypes.h"
 #include "zigbee/messageStructure/AnnunceMessage.h"
 #include "../zigbee/CmdData.h"

@@ -9,19 +9,19 @@
 
 namespace zigbee {
 
-static std::vector<Cluster::AttributeDef> attributesDef = {
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLType8bitBitmap, 0, "Occupancy", true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeenum8, 1, "Occupancy Sensor Type", true),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x10, "PIR Occupied to Unoccupied Delay"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x11, "PIR Unoccupied to Occupied Delay"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 0x12, "PIR Unoccupied to Occupied Threshold"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x20, "Ultrasonic Occupied to Unoccupied Delay"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x21, "Ultrasonic Unoccupied to Occupied Delay"),
-		Cluster::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 0x22, "Ultrasonic Unoccupied to Occupied Threshold")
+static std::vector<ClusterImpl::AttributeDef> attributesDef = {
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLType8bitBitmap, 0, "Occupancy", true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeenum8, 1, "Occupancy Sensor Type", true),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x10, "PIR Occupied to Unoccupied Delay"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x11, "PIR Unoccupied to Occupied Delay"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 0x12, "PIR Unoccupied to Occupied Threshold"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x20, "Ultrasonic Occupied to Unoccupied Delay"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt16, 0x21, "Ultrasonic Unoccupied to Occupied Delay"),
+		ClusterImpl::AttributeDef(ZCLTypeDataType::ZCLTypeUInt8, 0x22, "Ultrasonic Unoccupied to Occupied Threshold")
 };
 
 OccupancySensingCluster::OccupancySensingCluster(ZigbeeDevice *  zigbeeDevice, const EndpointID endpoint, NwkAddr networkAddress) :
-		Cluster(zigbeeDevice, endpoint, networkAddress) {
+		ClusterImpl(zigbeeDevice, endpoint, networkAddress) {
 	createAttributes(attributesDef);
 }
 

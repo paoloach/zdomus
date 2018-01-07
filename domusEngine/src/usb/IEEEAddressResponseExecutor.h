@@ -8,15 +8,15 @@
 #include <boost/endian/conversion.hpp>
 #include "../ZigbeeData/IEEEAddressResponse.h"
 #include "Executor.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
         class IEEEAddressResponseExecutor : public Executor {
     private:
-        SingletonObjectsImpl &singletonObjects;
+        SingletonObjects * singletonObjects;
 
     public:
-        IEEEAddressResponseExecutor(SingletonObjectsImpl &singletonObjects) : singletonObjects{singletonObjects} {}
+        IEEEAddressResponseExecutor(SingletonObjects * singletonObjects) : singletonObjects{singletonObjects} {}
 
         // receive
         // msg code (1 byte)
@@ -40,7 +40,7 @@ namespace zigbee {
                 message.children.emplace(boost::endian::little_to_native(*(uint16_t *) data));
             }
 
-            singletonObjects.getZDevices()->addDeviceInfo(message);
+            singletonObjects->getZDevices()->addDeviceInfo(message);
         }
     };
 

@@ -10,12 +10,12 @@
 #include <zigbee/EndpointID.h>
 #include <zcl/Cluster.h>
 #include "Serial2Executor.h"
-#include "../Utils/SingletonObjectsImpl.h"
+#include "../Utils/SingletonObjects.h"
 
 namespace zigbee {
     class ReadAttributeResponseErrorSerial2 : public Serial2Executor {
     public:
-        ReadAttributeResponseErrorSerial2(SingletonObjectsImpl &singletons) : singletons(singletons) {}
+        ReadAttributeResponseErrorSerial2(SingletonObjects *singletons) : singletons(singletons) {}
 
         virtual void operator()(Packet &&packet) override {
             NwkAddr nwkAddr{packet.getUint16(1)};
@@ -26,13 +26,13 @@ namespace zigbee {
             BOOST_LOG_TRIVIAL(error) << "Error on requesting attribute value from  network id=" << nwkAddr << ", endpoint=" << endpointID << ", cluster=" << clusterId
                                      << ", attribute=" << attribute << ", cause: " << status;
             AttributeKey key(nwkAddr, EndpointID(endpointID), ClusterID(clusterId), attribute);
-            auto cluster = singletons.getClusters()->getCluster(key.networkAddress, key.endpoint, key.clusterId);
+            auto cluster = singletons->getClusters()->getCluster(key.networkAddress, key.endpoint, key.clusterId);
             cluster->getAttribute(key.attributeId);
-            singletons.getZigbeeDevice()->setAttribute(key, cluster->getAttribute(key.attributeId));
+            singletons->getZigbeeDevice()->setAttribute(key, cluster->getAttribute(key.attributeId));
         }
 
     private:
-        SingletonObjectsImpl &singletons;
+        SingletonObjects * singletons;
     };
 }
 #endif //DOMUS_ENGINE_READATTRIBUTERESPONSEERRORSERIAL_H

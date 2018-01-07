@@ -9,11 +9,10 @@
 #define CLUSTERTYPEFACTORY_H_
 
 #include <memory>
-#include "../zigbee/ZigbeeDevice.h"
-#include "Cluster.h"
+#include "zigbee/ZigbeeDevice.h"
+#include "zcl/Cluster.h"
 #include "ClustersEnum.h"
-#include "clusterTypes/BasicCluster.h"
-#include "../zigbee/EndpointID.h"
+#include "zigbee/EndpointID.h"
 
 namespace zigbee {
 

@@ -167,11 +167,17 @@ namespace zigbee {
         void JSAttributeTest::requestValueTest(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock) {
             ZDevice zDevice{createZDevice()};
             std::stringstream stream{};
-            stream << zAttributeVariable << "a.requestValue();";
+
+            stream << zAttributeVariable
+                    << "\nvar callback = function(nwkAddr, endpointId, clusterId, attributeId){"
+                    << "\n}"
+                   << "\na.requestValue(callback);";
             V8_SETUP
             jsZAttribute->initJsObjectsTemplate(isolate, global);
 
             setInitExpectation(zDevice, attributeMock);
+            EXPECT_CALL(attributeMock, requestValue());
+
 
             v8::Local<v8::Value> result = runScript(stream.str());
             ASSERT_THAT(result.IsEmpty(), false);

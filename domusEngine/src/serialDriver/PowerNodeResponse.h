@@ -12,14 +12,14 @@ namespace zigbee {
     class SingletonObjectsImpl;
     class PowerNodeResponse : public SerialExecutor {
     public:
-        PowerNodeResponse(SingletonObjectsImpl &singletons) : singletons(singletons) {}
+        PowerNodeResponse(SingletonObjects *singletons) : singletons(singletons) {}
 
         /// NPR: networkdId, powerMode, availablePowerSources, currentPowerSource, currentPowerSourceLevel
         //       4digit       1Digit        1Digit               1Digit                1Digit
         virtual void operator()(const std::string &msg) override;
 
     private:
-        SingletonObjectsImpl &singletons;
+        SingletonObjects * singletons;
     };
 }
 

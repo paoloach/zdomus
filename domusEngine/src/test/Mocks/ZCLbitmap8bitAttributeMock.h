@@ -9,34 +9,49 @@
 #define SRC_TEST_MOCKS_ZCLBITMAP8BITATTRIBUTEMOCK_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 
 #include <zcl/attributeTypes/ZCLbitmap8bitAttribute.h>
 
 namespace zigbee {
-namespace test {
+    namespace test {
 
-class ZCL_bitmap8bit_AttributeMock: public ZCL_bitmap8bit_Attribute {
-public:
-	ZCL_bitmap8bit_AttributeMock();
-	virtual ~ZCL_bitmap8bit_AttributeMock();
+        class ZCL_bitmap8bit_AttributeMock : public ZCLBitmap8bitAttribute {
+        public:
+            ZCL_bitmap8bit_AttributeMock();
 
-	MOCK_CONST_METHOD0(getValue, std::any () );
-	MOCK_METHOD1(sendValue, void (uint8_t newValue));
+            virtual ~ZCL_bitmap8bit_AttributeMock();
 
-	MOCK_METHOD1(internalSetValue, void (std::shared_ptr<AttributeStatusRecord> rawData));
-	MOCK_METHOD1(setValue, void (std::shared_ptr<AttributeStatusRecord> rawData));
-	MOCK_METHOD0(requestValue, void ());
-	MOCK_CONST_METHOD0(isAvailable, bool () );
-	MOCK_CONST_METHOD0(isUnsupported, bool () );
-	MOCK_METHOD0(getStatus, Status () );
-	MOCK_CONST_METHOD0(getIdentifier, int ());
-	MOCK_CONST_METHOD0(getName, std::experimental::string_view ());
-	MOCK_CONST_METHOD0(isReadOnly, bool () );
-	MOCK_METHOD1(onChange, ListenerOnChange(std::function<void()> changeSignal));
-};
+            MAKE_MOCK0(sendValue, void (uint8_t ), override);
 
-}
+            MAKE_CONST_MOCK0(getValue, std::any(), override);
+
+            MAKE_CONST_MOCK0(getStrValue, std::string(), override);
+
+            MAKE_MOCK1(setValue, void (std::shared_ptr<AttributeStatusRecord>), override);
+
+            MAKE_MOCK1(setValue, void (AttributeResponse&), override);
+
+            MAKE_MOCK3(setValue, void (uint8_t, uint8_t, uint8_t*), override);
+
+            MAKE_MOCK1(setStatus, void (uint8_t ), override);
+
+            MAKE_MOCK1(requestValue, void ( std::unique_ptr<ResponseCallback<ZCLAttribute *>> &&), override);
+
+            MAKE_CONST_MOCK0(isAvailable, bool(), override);
+
+            MAKE_CONST_MOCK0(isUnsupported, bool(), override);
+
+            MAKE_MOCK0(getStatus, Status(), override);
+
+            MAKE_CONST_MOCK0(getIdentifier, int(), override);
+
+            MAKE_CONST_MOCK0(isReadOnly, bool(), override);
+
+            MAKE_MOCK0(getClusterParent, Cluster *(), override);
+        };
+
+    }
 /* namespace test */
 } /* namespace zigbee */
 

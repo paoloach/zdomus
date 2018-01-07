@@ -1,53 +1,23 @@
-/*
- * ZCLIEEEAddressAttribute.h
- *
- *  Created on: 12/set/2014
- *      Author: Paolo Achdjian
- */
+//
+// Created by paolo on 04/01/18.
+//
 
-#ifndef ZCLIEEEADDRESSATTRIBUTE_H_
-#define ZCLIEEEADDRESSATTRIBUTE_H_
+#ifndef ZIGBEE_LIB_ZCLIEEEADDRESSATTRIBUTE_H
+#define ZIGBEE_LIB_ZCLIEEEADDRESSATTRIBUTE_H
 
-#include "../ZCLAttribute.h"
-#include "../../zigbee/AttributeStatusRecord.h"
+#include "zcl/ZCLAttribute.h"
 
 namespace zigbee {
-
-    class ZCLIEEEAddressAttribute : public ZCLAttributeTmpl<ZCLTypeDataType::ZCLTypeIEEEaddress> {
-    private:
-        union Value {
-            uint64_t data;
-            uint8_t raw[8];
-        };
+    class ZCLIEEEAddressAttribute : public virtual ZCLAttribute {
     public:
-        ZCLIEEEAddressAttribute(ZigbeeDevice * zigbeeDevice, Cluster *parent,
-                                ZigbeeClusterId identifier, std::experimental::string_view name, bool readOnly);
-
-        ~ZCLIEEEAddressAttribute() override;
-
-    public:
-        std::any getValue() const override;
-        std::string getStrValue() const  override  {
-            return std::to_string(value.data);
-        }
-
-        virtual const uint8_t *getRawValue() const;
-
-        virtual void sendValue(uint64_t value);
-
         static std::string name() {
             return "IEEEAddress";
         }
 
-    private:
-        void internalSetValue(std::shared_ptr<AttributeStatusRecord> rawData)override;
-
-        void internalSetValue(uint8_t * rawData) override;
-
-    private:
-        Value value;
+        static constexpr ZCLTypeDataType type = ZCLTypeDataType::ZCLTypeIEEEaddress;
     };
 
-} /* namespace zigbee */
+}
 
-#endif /* ZCLIEEEADDRESSATTRIBUTE_H_ */
+
+#endif //ZIGBEE_LIB_ZCLIEEEADDRESSATTRIBUTE_H

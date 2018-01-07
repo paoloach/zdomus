@@ -20,9 +20,6 @@ namespace zigbee {
         using std::make_shared;
         using std::dynamic_pointer_cast;
 
-        JSZAttribute8BitBitmapTest::~JSZAttribute8BitBitmapTest() {
-        }
-
         void JSZAttribute8BitBitmapTest::SetUp() {
             JSTest::SetUp();
             jsZAttribute = std::make_shared<JSZAttribute8BitBitmap>(&singletonObjectsMock, fifo);
@@ -78,27 +75,7 @@ namespace zigbee {
             ASSERT_FALSE(tryCatch.HasCaught()) << *(String::Utf8Value(tryCatch.Message()->Get()));
         }
 
-//        TEST_F(JSZAttribute8BitBitmapTest, setWrongValue) {
-//            int16_t expectedValue = -15;
-//            ZDevice zDevice{createZDevice()};
-//            std::stringstream stream{};
-//            stream << zAttributeVariable << "a.value=" << expectedValue;
-//            V8_SETUP
-//            jsZAttribute->initJsObjectsTemplate(isolate, global);
-//
-//            setInitExpectation(zDevice, &zcl_bitmap8bit_AttributeMock);
-//
-//            TryCatch trycatch;
-//            v8::Local<v8::Value> result = runScript(stream.str());
-//            ASSERT_THAT(result.IsEmpty(), true);
-//            ASSERT_THAT(trycatch.HasCaught(), true);
-//            v8::String::Utf8Value exceptionMessage(trycatch.Message()->Get());
-//            ASSERT_THAT(*exceptionMessage, HasSubstr("Invalid parameter"));
-//
-//        }
-
         TEST_F(JSZAttribute8BitBitmapTest, requestValue) {
-            EXPECT_CALL(zcl_bitmap8bit_AttributeMock, requestValue());
             requestValueTest(jsZAttribute, &zcl_bitmap8bit_AttributeMock);
         }
 

@@ -32,7 +32,7 @@ namespace zigbee {
             tokIter++;
             powerNodeData->currentPowerSourceLevel = powerLevelFrom(stoi(*tokIter, nullptr, 16));
 
-            singletons.getZigbeeDevice()->setPowerNode( powerNodeData);
+            singletons->getZigbeeDevice()->setPowerNode( powerNodeData);
         } catch (boost::bad_lexical_cast &e) {
             BOOST_LOG_TRIVIAL(error) << "Unable to parse the message: " << e.what();
         }

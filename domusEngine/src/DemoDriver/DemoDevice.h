@@ -15,12 +15,12 @@
 
 namespace zigbee {
 
-    class SingletonObjectsImpl;
+    class SingletonObjects;
     class PowerNodeFiber;
 
     class DemoDevice : public ZigbeeDevice {
     public:
-        explicit DemoDevice(SingletonObjectsImpl &singletonObjects,std::chrono::seconds seconds);
+        explicit DemoDevice(SingletonObjects * singletonObjects,std::chrono::seconds seconds);
 
         virtual ~DemoDevice() = default;
         using PowerNodeSet = boost::fibers::unbuffered_channel<NwkAddr>;
@@ -79,7 +79,7 @@ namespace zigbee {
         void runDemoThread();
 
 // DATA
-        SingletonObjectsImpl &singletonObjects;
+        SingletonObjects * singletonObjects;
         PowerNodeSet powerNodeSet;
         bool stop;
 
