@@ -9,9 +9,8 @@
 
 #include <string>
 #include <memory>
-#include "src/zcl/impl/ClusterImpl.h"
-
-#include "../../zigbee/ZigbeeDevice.h"
+#include "zcl/impl/ClusterImpl.h"
+#include "zigbee/ZigbeeDevice.h"
 
 namespace zigbee {
 

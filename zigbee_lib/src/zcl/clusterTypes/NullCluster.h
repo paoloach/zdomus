@@ -8,7 +8,7 @@
 #ifndef NULLCLUSTER_H_
 #define NULLCLUSTER_H_
 
-#include "src/zcl/impl/ClusterImpl.h"
+#include "zcl/impl/ClusterImpl.h"
 
 namespace zigbee {
 

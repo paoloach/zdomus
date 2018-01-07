@@ -9,7 +9,7 @@
 #define SRC_ZCL_CLUSTERTYPES_FLOWMEASUREMENTCLUSTER_H_
 
 #include <string>
-#include "src/zcl/impl/ClusterImpl.h"
+#include "zcl/impl/ClusterImpl.h"
 #include "../../zigbee/ZigbeeDevice.h"
 
 namespace zigbee {

@@ -10,12 +10,7 @@
 
 #include <string>
 #include <memory>
-#include "src/zcl/attributeTypes/implementation/ZCLuint8AttributeImpl.h"
-#include "src/zcl/attributeTypes/implementation/ZCLStringAttributeImpl.h"
-#include "../attributeTypes/ZCLbitmap8bitAttribute.h"
-#include "src/zcl/attributeTypes/implementation/ZCLbooleanAttributeImpl.h"
-#include "src/zcl/attributeTypes/implementation/ZCLenum8bitAttributeImpl.h"
-#include "src/zcl/impl/ClusterImpl.h"
+#include "zcl/impl/ClusterImpl.h"
 #include "../../zigbee/ZigbeeDevice.h"
 
 

@@ -9,7 +9,7 @@
 #define IDENTIFYCLUSTER_H_
 
 #include <memory>
-#include "src/zcl/impl/ClusterImpl.h"
+#include "zcl/impl/ClusterImpl.h"
 #include "../attributeTypes/ZCLuint16Attribute.h"
 
 namespace zigbee {
