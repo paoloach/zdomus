@@ -355,60 +355,6 @@
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLAttributeMock.h">
 			<Option target="domus_engine_test"/>
 		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLIEEEAddressAttributeMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLIEEEAddressAttributeMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUInt24AttributeMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUInt24AttributeMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUint16AttributeMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUint16AttributeMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUint8AttributeMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLUint8AttributeMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLbitmap8bitAttributeMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLbitmap8bitAttributeMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLbooleanAttributeMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLbooleanAttributeMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLenum8bitAttributeMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLenum8bitAttributeMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLint16AttributeMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLint16AttributeMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLstringAttributeMock.cpp">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZCLstringAttributeMock.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Mocks/ZDevicesMock.cpp">
 			<Option target="domus_engine_test"/>
 		</Unit>

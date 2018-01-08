@@ -107,7 +107,6 @@ namespace zigbee {
         }
 
         Unlocker unlocker(isolate);
-        BOOST_LOG_TRIVIAL(info) << "End script";
         notifyEnd();
     }
 
@@ -118,6 +117,7 @@ namespace zigbee {
 
     void JavaScriptExecuter::run(const std::string &jsCode) {
         this->jsCode = jsCode;
+        stop=false;
         jsThread = std::thread([this] { runThread(); });
     }
 

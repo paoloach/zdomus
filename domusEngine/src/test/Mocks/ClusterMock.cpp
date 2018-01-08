@@ -10,12 +10,7 @@
 namespace zigbee {
 namespace test {
 
-ClusterMock::ClusterMock(ZigbeeDevice * zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress) :Cluster(zigbeeDevice,endpoint, networkAddress){
-
-}
-
-
-ClusterMock::ClusterMock() :Cluster(nullptr,EndpointID(), NwkAddr{}){
+ClusterMock::ClusterMock(){
 
 }
 

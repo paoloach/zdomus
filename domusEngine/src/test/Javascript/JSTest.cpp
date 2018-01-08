@@ -47,8 +47,7 @@ namespace zigbee {
             zigbeeDevice = zigbeeDeviceMock.get();
 
             defaultCluster = make_shared<ClusterMock>();
-            defaultZclAttribute = std::make_unique<ZCLAttributeMock>(zigbeeDevice, defaultCluster.get(), -1,
-                                                                ZCLTypeDataType::ZCLTypeInvalid, "", true);
+            defaultZclAttribute = std::make_unique<ZCLAttributeMock>();
             cluster = make_shared<ClusterMock>();
             jsLog = std::make_shared<JSLog>();
 

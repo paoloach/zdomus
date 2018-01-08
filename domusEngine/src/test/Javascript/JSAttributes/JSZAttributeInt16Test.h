@@ -9,7 +9,7 @@
 #define SRC_TEST_JAVASCRIPT_JSATTRIBUTES_JSZATTRIBUTEINT16TEST_H_
 
 #include "JSAttributeTest.h"
-#include "../../Mocks/ZCLint16AttributeMock.h"
+#include "../../Mocks/ZCLAttributeMock.h"
 
 namespace zigbee {
 class JSZAttribute;
@@ -23,8 +23,9 @@ protected:
 	virtual void SetUp() override;
 	virtual void TearDown() override;
 protected:
-	std::shared_ptr<JSZAttribute> jsZAttribute;
-	ZCL_int16_AttributeMock zcl_int16_AttributeMock;
+	std::unique_ptr<JSZAttribute> jsZAttribute;
+    ZCLAttributeMock attributeMock;
+    std::unique_ptr<trompeloeil::expectation> zclTypeExpectation;
 };
 
 } /* namespace test */

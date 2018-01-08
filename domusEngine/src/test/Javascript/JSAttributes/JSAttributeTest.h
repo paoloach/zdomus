@@ -22,15 +22,14 @@ namespace zigbee {
             virtual ~JSAttributeTest();
         protected:
             std::string zAttributeVariable;
-            void createTemplateTest(std::shared_ptr<JSZAttribute> &jsZAttribute);
-            void createIstanceTest(const std::string &attributeName, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
-            void requestValueTest(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
-            void isAvailableTest(bool availableStatus, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
-            void isUnsupportedTest(bool availableStatus, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
-            void getStatusTest(ZCLAttribute::Status statusExpected, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
-            void getIdentifierTest(std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
-            void getNameTest(const std::string &expectedName, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
-            void isReadonlyTest(bool readOnlyExpected, std::shared_ptr<JSZAttribute> &jsZAttribute, ZCLAttribute * attributeMock);
+            void createTemplateTest(JSZAttribute *jsZAttribute);
+            void createIstanceTest(const std::string &attributeName, JSZAttribute * jsZAttribute, ZCLAttribute * attributeMock);
+            void isAvailableTest(bool availableStatus, JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock);
+            void isUnsupportedTest(bool availableStatus,JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock);
+            void getStatusTest(ZCLAttribute::Status statusExpected,JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock);
+            void getIdentifierTest(JSZAttribute * jsZAttribute, ZCLAttribute * attributeMock);
+            void getNameTest(const std::string &expectedName,JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock);
+            void isReadonlyTest(bool readOnlyExpected,JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock);
 
             ZDevice createZDevice();
             void setInitExpectation(ZDevice &zDevice, ZCLAttribute * attributeMock);

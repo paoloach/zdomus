@@ -9,7 +9,7 @@
 #define SRC_TEST_JAVASCRIPT_JSATTRIBUTES_JSZATTRIBUTEUINT24TEST_H_
 
 #include "JSAttributeTest.h"
-#include "../../Mocks/ZCLUInt24AttributeMock.h"
+#include "../../Mocks/ZCLAttributeMock.h"
 
 namespace zigbee {
 namespace test {
@@ -21,8 +21,9 @@ protected:
 	virtual void SetUp() override;
 	virtual void TearDown() override;
 protected:
-	std::shared_ptr<JSZAttribute> jsZAttribute;
-	ZCLUInt24AttributeMock zclUInt24AttributeMock;
+	std::unique_ptr<JSZAttribute> jsZAttribute;
+    ZCLAttributeMock attributeMock;
+    std::unique_ptr<trompeloeil::expectation> zclTypeExpectation;
 };
 
 } /* namespace test */

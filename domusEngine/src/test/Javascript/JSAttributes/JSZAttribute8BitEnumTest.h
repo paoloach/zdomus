@@ -10,7 +10,7 @@
 
 
 #include "JSAttributeTest.h"
-#include "../../Mocks/ZCLenum8bitAttributeMock.h"
+#include "../../Mocks/ZCLAttributeMock.h"
 
 namespace zigbee {
 
@@ -26,8 +26,9 @@ protected:
 	virtual void SetUp() override;
 	virtual void TearDown() override;
 protected:
-	std::shared_ptr<JSZAttribute> jsZAttribute;
-	ZCL_enum8bit_AttributeMock zcl_enum8bit_AttributeMock;
+	std::unique_ptr<JSZAttribute> jsZAttribute;
+	ZCLAttributeMock attributeMock;
+    std::unique_ptr<trompeloeil::expectation> zclTypeExpectation;
 };
 
 } /* namespace test */

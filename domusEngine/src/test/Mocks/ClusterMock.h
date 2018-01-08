@@ -20,7 +20,6 @@ namespace test {
 
 class ClusterMock: public Cluster {
 public:
-	ClusterMock(ZigbeeDevice * zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress);
 	ClusterMock();
 	virtual ~ClusterMock();
 
@@ -28,12 +27,14 @@ public:
 	MOCK_CONST_METHOD0(getClusterName, std::string () );
 	MOCK_METHOD2(createAttributes, void (const Cluster::AttributeDef * attributesDef, int size) );
 	MOCK_METHOD1(createAttributes, void (const std::vector<AttributeDef> & attributesDef) ) ;
+    MOCK_CONST_METHOD0(getEndpoint,const EndpointID () );
+    MOCK_CONST_METHOD0(getNetworkAddress, NwkAddr () );
 	MOCK_CONST_METHOD1(getAttribute, ZCLAttribute *(int id) );
-	MOCK_CONST_METHOD1(getAttribute, ZCLAttribute * (std::experimental::string_view  name) );
+	MOCK_CONST_METHOD1(getAttribute, ZCLAttribute * (std::string_view  name) );
 	MOCK_METHOD2(executeCommand, void (uint32_t cmd, std::vector<uint8_t>  data));
 	MOCK_CONST_METHOD0(getAttributes, std::vector<AttributeDef> ());
-	MOCK_CONST_METHOD0(getCommands, std::vector<CommandDef> ());
-	MOCK_METHOD1(getCmdParams,  std::vector<std::shared_ptr<ClusterCmdParamsBase>> (uint32_t cmd));
+	MOCK_CONST_METHOD0(getCommands, const std::vector<CommandDef> & ());
+	MOCK_METHOD1(getCmdParams,  std::vector<ClusterCmdParamsBase *> (uint32_t cmd));
 };
 
 } /* namespace test */

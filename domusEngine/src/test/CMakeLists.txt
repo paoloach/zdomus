@@ -56,15 +56,6 @@ SET(SRC_TEST_MOCK
         Mocks/JSZEndpointMock.cpp Mocks/JSZEndpointMock.h
         Mocks/SingletonObjectsMock.cpp Mocks/SingletonObjectsMock.h
         Mocks/ZCLAttributeMock.cpp Mocks/ZCLAttributeMock.h
-        Mocks/ZCLbitmap8bitAttributeMock.cpp Mocks/ZCLbitmap8bitAttributeMock.h
-        Mocks/ZCLbooleanAttributeMock.cpp Mocks/ZCLbooleanAttributeMock.h
-        Mocks/ZCLenum8bitAttributeMock.cpp Mocks/ZCLenum8bitAttributeMock.h
-        Mocks/ZCLIEEEAddressAttributeMock.cpp Mocks/ZCLIEEEAddressAttributeMock.h
-        Mocks/ZCLint16AttributeMock.cpp Mocks/ZCLint16AttributeMock.h
-        Mocks/ZCLstringAttributeMock.cpp Mocks/ZCLstringAttributeMock.h
-        Mocks/ZCLUint8AttributeMock.cpp Mocks/ZCLUint8AttributeMock.cpp
-        Mocks/ZCLUint16AttributeMock.cpp Mocks/ZCLUint16AttributeMock.h
-        Mocks/ZCLUInt24AttributeMock.cpp Mocks/ZCLUInt24AttributeMock.h
         Mocks/ZDevicesMock.cpp Mocks/ZDevicesMock.h
         Mocks/ZigbeeDeviceMock.cpp Mocks/ZigbeeDeviceMock.h Mocks/http/RestHandlerMock.cpp Mocks/http/RestHandlerMock.h)
 

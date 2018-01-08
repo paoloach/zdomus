@@ -9,7 +9,7 @@
 #define SRC_TEST_JAVASCRIPT_JSATTRIBUTES_JSZATTRIBUTEIEEEADDRESSTEST_H_
 
 #include "JSAttributeTest.h"
-#include "../../Mocks/ZCLIEEEAddressAttributeMock.h"
+#include "../../Mocks/ZCLAttributeMock.h"
 
 namespace zigbee {
 
@@ -26,8 +26,9 @@ namespace zigbee {
             virtual void TearDown() override;
 
         protected:
-            std::shared_ptr<JSZAttribute> jsZAttribute;
-            ZCLIEEEAddressAttributeMock zclIEEEAddressAttributeMock;
+            std::unique_ptr<JSZAttribute> jsZAttribute;
+            ZCLAttributeMock attributeMock;
+            std::unique_ptr<trompeloeil::expectation> zclTypeExpectation;
         };
 
     } /* namespace test */

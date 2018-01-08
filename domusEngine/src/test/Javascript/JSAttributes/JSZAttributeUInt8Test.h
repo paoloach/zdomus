@@ -9,23 +9,27 @@
 #define SRC_TEST_JAVASCRIPT_JSATTRIBUTES_JSZATTRIBUTEUINT8TEST_H_
 
 #include "JSAttributeTest.h"
-#include "../../Mocks/ZCLUint8AttributeMock.h"
+#include "../../Mocks/ZCLAttributeMock.h"
 
 namespace zigbee {
-namespace test {
+    namespace test {
 
-class JSZAttributeUInt8Test : public JSAttributeTest{
-public:
-	virtual ~JSZAttributeUInt8Test();
-protected:
-	virtual void SetUp() override;
-	virtual void TearDown() override;
-protected:
-	std::shared_ptr<JSZAttribute> jsZAttribute;
-	ZCLUint8AttributeMock zclUint8AttributeMock;
-};
+        class JSZAttributeUInt8Test : public JSAttributeTest {
+        public:
+            virtual ~JSZAttributeUInt8Test();
 
-} /* namespace test */
+        protected:
+            virtual void SetUp() override;
+
+            virtual void TearDown() override;
+
+        protected:
+            std::unique_ptr<JSZAttribute> jsZAttribute;
+            ZCLAttributeMock attributeMock;
+            std::unique_ptr<trompeloeil::expectation> zclTypeExpectation;
+        };
+
+    } /* namespace test */
 } /* namespace zigbee */
 
 #endif /* SRC_TEST_JAVASCRIPT_JSATTRIBUTES_JSZATTRIBUTEUINT8TEST_H_ */

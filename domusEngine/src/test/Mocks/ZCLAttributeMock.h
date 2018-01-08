@@ -9,52 +9,54 @@
 #define SRC_TEST_MOCKS_ZCLATTRIBUTEMOCK_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
-#include <any>
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 
 #include <zcl/ZCLAttribute.h>
+#include <zigbee/messageStructure/ReadAttributeResponseMessage.h>
 
 namespace zigbee {
     namespace test {
 
         class ZCLAttributeMock : public ZCLAttribute {
         public:
-            ZCLAttributeMock(ZigbeeDevice *zigbeeDevice, Cluster *parent, int identifier, ZCLTypeDataType zclType, const std::string &name, bool readOnly);
+            ZCLAttributeMock();
 
             virtual ~ZCLAttributeMock();
 
-            MOCK_METHOD0(getAttributeRawValue, ZclAttributeRawValue & ());
+            MAKE_MOCK0(getAttributeRawValue, ZclAttributeRawValue & (),override);
 
-            MOCK_METHOD1(internalSetValue, void (std::shared_ptr<AttributeStatusRecord>
-                    rawData));
+            MAKE_CONST_MOCK0(getValue, std::any(),override);
 
-            MOCK_METHOD0(getZCLType, ZCLTypeDataType());
+            MAKE_MOCK1(setValue, void (std::any &),override);
 
-            MOCK_METHOD1(setValue, void (std::shared_ptr<AttributeStatusRecord>
-                    rawData));
+            MAKE_MOCK1(setRawValue, void(uint8_t*rawData),override);
 
-            MOCK_METHOD0(requestValue, void());
+            MAKE_CONST_MOCK0(getStrValue, std::string(),override);
 
-            MOCK_CONST_METHOD0(isAvailable, bool());
+            MAKE_MOCK0(getZCLType, ZCLTypeDataType(),override);
 
-            MOCK_CONST_METHOD0(isUnsupported, bool());
+            MAKE_MOCK1(setValue, void (AttributeResponse &attributeResponse), override);
 
-            MOCK_METHOD0(getStatus, Status());
+            MAKE_MOCK3(setValue, void (uint8_t status, uint8_t dataType, uint8_t *rawData), override);
 
-            MOCK_CONST_METHOD0(getIdentifier, int());
+            MAKE_MOCK1(setStatus, void (uint8_t status),override);
+            MAKE_MOCK0(getStatus, Status(),override);
+            MAKE_MOCK1(requestValue, void(std::unique_ptr<ResponseCallback<ZCLAttribute *>> &&),override);
 
-            MOCK_CONST_METHOD0(getName, std::experimental::string_view());
+            MAKE_CONST_MOCK0(isAvailable, bool(),override);
 
-            MOCK_CONST_METHOD0(isReadOnly, bool());
+            MAKE_CONST_MOCK0(isUnsupported, bool(),override);
 
-            MOCK_METHOD1(onChange, ListenerOnChange(std::function<void()>
-                    changeSignal));
+            MAKE_CONST_MOCK0(getIdentifier, int(),override);
 
-            MOCK_CONST_METHOD0(getValue, std::any());
+            MAKE_CONST_MOCK0(getName, std::string_view(),override);
 
-            MOCK_CONST_METHOD0(getStrValue, std::string());
+            MAKE_CONST_MOCK0(isReadOnly, bool(),override);
 
-            MOCK_METHOD1(internalSetValue, void(uint8_t*rawData));
+            MAKE_MOCK0(getClusterParent, Cluster *(), override);
+
+
+
         };
 
     }

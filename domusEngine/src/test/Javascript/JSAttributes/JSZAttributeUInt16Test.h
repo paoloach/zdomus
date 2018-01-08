@@ -12,7 +12,7 @@
 #include <gmock/gmock.h>
 #include <tuple>
 #include "JSAttributeTest.h"
-#include "../../Mocks/ZCLUint16AttributeMock.h"
+#include "../../Mocks/ZCLAttributeMock.h"
 
 namespace zigbee {
 namespace test {
@@ -25,8 +25,9 @@ protected:
 	virtual void SetUp() override;
 	virtual void TearDown() override;
 protected:
-	std::shared_ptr<JSZAttribute> jsZAttribute;
-	ZCLUint16AttributeMock zclUint16Attribute;
+	std::unique_ptr<JSZAttribute> jsZAttribute;
+    ZCLAttributeMock attributeMock;
+    std::unique_ptr<trompeloeil::expectation> zclTypeExpectation;
 };
 
 } /* namespace test */

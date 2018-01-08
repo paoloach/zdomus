@@ -23,21 +23,23 @@ namespace zigbee {
 
         void JSZAttributeBooleanTest::SetUp() {
             JSTest::SetUp();
-            jsZAttribute = std::make_shared<JSZAttributeBool>(&singletonObjectsMock, fifo);
-            zAttributeVariable = createZAttributeVariable("Z" + ZCL_boolean_Attribute::name());
+            jsZAttribute = std::make_unique<JSZAttributeBool>(&singletonObjectsMock, fifo);
+            zAttributeVariable = createZAttributeVariable("Z" + ZCLBooleanAttribute::name());
+            zclTypeExpectation = NAMED_ALLOW_CALL(attributeMock,getZCLType()).RETURN(ZCLTypeDataType::ZCLTypeBool);
         }
 
         void JSZAttributeBooleanTest::TearDown() {
+            zclTypeExpectation.reset();
             jsZAttribute.reset();
             JSTest::TearDown();
         }
 
         TEST_F(JSZAttributeBooleanTest, createTemplate) {
-            createTemplateTest(jsZAttribute);
+            createTemplateTest(jsZAttribute.get());
         }
 
         TEST_F(JSZAttributeBooleanTest, createIstance) {
-            createIstanceTest("Z" + ZCL_boolean_Attribute::name(), jsZAttribute, &zcl_boolean_AttributeMock);
+            createIstanceTest("Z" + ZCLBooleanAttribute::name(), jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, getValue) {
@@ -46,8 +48,8 @@ namespace zigbee {
             V8_SETUP
             jsZAttribute->initJsObjectsTemplate(isolate, global);
 
-            setInitExpectation(zDevice, &zcl_boolean_AttributeMock);
-            EXPECT_CALL(zcl_boolean_AttributeMock, getValue()).WillOnce(Return(std::any(expectedValue)));
+            setInitExpectation(zDevice, &attributeMock);
+            REQUIRE_CALL(attributeMock, getValue()).RETURN(std::any(expectedValue));
 
             v8::Local<v8::Value> result = runScript(zAttributeVariable + "a.value");
             ASSERT_THAT(result.IsEmpty(), false);
@@ -64,92 +66,87 @@ namespace zigbee {
             V8_SETUP
             jsZAttribute->initJsObjectsTemplate(isolate, global);
 
-            setInitExpectation(zDevice, &zcl_boolean_AttributeMock);
+            setInitExpectation(zDevice, &attributeMock);
 
             runScript(stream.str());
         }
 
 
-        TEST_F(JSZAttributeBooleanTest, requestValue) {
-            EXPECT_CALL(zcl_boolean_AttributeMock, requestValue());
-            requestValueTest(jsZAttribute, &zcl_boolean_AttributeMock);
-        }
-
         TEST_F(JSZAttributeBooleanTest, isAvailable) {
             bool availableStatus = true;
-            EXPECT_CALL(zcl_boolean_AttributeMock, isAvailable()).WillOnce(Return(availableStatus));
-            isAvailableTest(availableStatus, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, isAvailable()).RETURN(availableStatus);
+            isAvailableTest(availableStatus, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, isNotAvailable) {
             bool availableStatus = false;
-            EXPECT_CALL(zcl_boolean_AttributeMock, isAvailable()).WillOnce(Return(availableStatus));
-            isAvailableTest(availableStatus, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, isAvailable()).RETURN(availableStatus);
+            isAvailableTest(availableStatus, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, isUnsupported) {
             bool unsupported = true;
-            EXPECT_CALL(zcl_boolean_AttributeMock, isUnsupported()).WillOnce(Return(unsupported));
-            isUnsupportedTest(unsupported, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, isUnsupported()).RETURN(unsupported);
+            isUnsupportedTest(unsupported, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, isSupported) {
             bool unsupported = false;
-            EXPECT_CALL(zcl_boolean_AttributeMock, isUnsupported()).WillOnce(Return(unsupported));
-            isUnsupportedTest(unsupported, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, isUnsupported()).RETURN(unsupported);
+            isUnsupportedTest(unsupported, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, statusNotAvailable) {
             ZCLAttribute::Status statusExpected = ZCLAttribute::NotAvailable;
-            EXPECT_CALL(zcl_boolean_AttributeMock, getStatus()).WillOnce(Return(statusExpected));
-            getStatusTest(statusExpected, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, getStatus()).RETURN(statusExpected);
+            getStatusTest(statusExpected, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, statusAvailable) {
             ZCLAttribute::Status statusExpected = ZCLAttribute::Available;
-            EXPECT_CALL(zcl_boolean_AttributeMock, getStatus()).WillOnce(Return(statusExpected));
-            getStatusTest(statusExpected, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, getStatus()).RETURN(statusExpected);
+            getStatusTest(statusExpected, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, statusNotSupported) {
             ZCLAttribute::Status statusExpected = ZCLAttribute::NotSupported;
-            EXPECT_CALL(zcl_boolean_AttributeMock, getStatus()).WillOnce(Return(statusExpected));
-            getStatusTest(statusExpected, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, getStatus()).RETURN(statusExpected);
+            getStatusTest(statusExpected, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, statusRequesting) {
             ZCLAttribute::Status statusExpected = ZCLAttribute::Requesting;
-            EXPECT_CALL(zcl_boolean_AttributeMock, getStatus()).WillOnce(Return(statusExpected));
-            getStatusTest(statusExpected, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, getStatus()).RETURN(statusExpected);
+            getStatusTest(statusExpected, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, statusUndefined) {
             ZCLAttribute::Status statusExpected = ZCLAttribute::Undefined;
-            EXPECT_CALL(zcl_boolean_AttributeMock, getStatus()).WillOnce(Return(statusExpected));
-            getStatusTest(statusExpected, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, getStatus()).RETURN(statusExpected);
+            getStatusTest(statusExpected, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, getIdentifier) {
-            EXPECT_CALL(zcl_boolean_AttributeMock, getIdentifier()).WillOnce(Return(ATTRIBUTE0_ID));
-            getIdentifierTest(jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, getIdentifier()).RETURN(ATTRIBUTE0_ID);
+            getIdentifierTest(jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, getName) {
             std::string expectedName = "name";
-            EXPECT_CALL(zcl_boolean_AttributeMock, getName()).WillOnce(Return(expectedName));
-            getNameTest(expectedName, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, getName()).RETURN(expectedName);
+            getNameTest(expectedName, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, isReadOnly) {
             bool readOnlyValue = true;
-            EXPECT_CALL(zcl_boolean_AttributeMock, isReadOnly()).WillOnce(Return(readOnlyValue));
-            isReadonlyTest(readOnlyValue, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, isReadOnly()).RETURN(readOnlyValue);
+            isReadonlyTest(readOnlyValue, jsZAttribute.get(), &attributeMock);
         }
 
         TEST_F(JSZAttributeBooleanTest, isWritable) {
             bool readOnlyValue = false;
-            EXPECT_CALL(zcl_boolean_AttributeMock, isReadOnly()).WillOnce(Return(readOnlyValue));
-            isReadonlyTest(readOnlyValue, jsZAttribute, &zcl_boolean_AttributeMock);
+            REQUIRE_CALL(attributeMock, isReadOnly()).RETURN(readOnlyValue);
+            isReadonlyTest(readOnlyValue, jsZAttribute.get(), &attributeMock);
         }
 
 
