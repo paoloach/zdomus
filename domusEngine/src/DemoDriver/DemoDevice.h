@@ -70,11 +70,11 @@ namespace zigbee {
         virtual void registerForAttributeCmd(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeCmdId cmdId, const std::function<void()>) override;
 
 // internal function
-        void assignBasicCluster(std::shared_ptr<Cluster> cluster, std::vector<ZigbeeAttributeId> &, std::array<std::vector<uint8_t>, 8> &data);
+        void assignBasicCluster(Cluster * cluster, std::vector<ZigbeeAttributeId> &, std::array<std::vector<uint8_t>, 8> &data);
 
-        void assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, std::vector<ZigbeeAttributeId> &attributeIds,int16_t temp, std::chrono::seconds delay);
+        void assignTemperatureMeasureCluster(Cluster * cluster, std::vector<ZigbeeAttributeId> &attributeIds,int16_t temp, std::chrono::seconds delay);
 
-        void assignOnOffCluster(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, std::shared_ptr<Cluster> cluster, std::vector<ZigbeeAttributeId> &attributeIds);
+        void assignOnOffCluster(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, Cluster * cluster, std::vector<ZigbeeAttributeId> &attributeIds);
 
         void runDemoThread();
 

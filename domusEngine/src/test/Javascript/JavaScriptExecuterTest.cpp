@@ -74,16 +74,16 @@ namespace zigbee {
         }
 
         TEST_F(JavaScriptExecuterTest, creating_attribute_ZCL_uint8) {
-            std::shared_ptr<ClusterMock> cluster = make_shared<ClusterMock>();
+            ClusterMock cluster;
             ZCLAttributeMock attribute;
-            EXPECT_CALL(*cluster, getAttribute(1)).WillOnce(Return(&attribute));
+            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attribute));
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream js;
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(cluster));
+            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(&cluster));
 
             string objectName = "Z" + ZCLuint16Attribute::name();
 
@@ -104,10 +104,10 @@ namespace zigbee {
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            std::shared_ptr<ClusterMock> cluster = make_shared<ClusterMock>();
+            ClusterMock cluster;
             ZCLAttributeMock attribute;
-            EXPECT_CALL(*cluster, getAttribute(1)).WillOnce(Return(&attribute));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(cluster));
+            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attribute));
+            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(&cluster));
 
             string objectName = "Z" + ZCLuint8Attribute::name();
 
@@ -128,11 +128,11 @@ namespace zigbee {
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 2s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillRepeatedly(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
-            std::shared_ptr<ClusterMock> cluster = make_shared<ClusterMock>();
+            ClusterMock cluster;
             ZCLAttributeMock attribute;
             ALLOW_CALL(attribute,getZCLType()).RETURN(ZCLTypeDataType::ZCLTypeUInt8);
-            EXPECT_CALL(*cluster, getAttribute(1)).WillOnce(Return(&attribute));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(cluster));
+            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attribute));
+            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(&cluster));
 
             string objectName = "Z" + ZCLuint8Attribute::name();
 
@@ -156,10 +156,10 @@ namespace zigbee {
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            std::shared_ptr<ClusterMock> cluster = make_shared<ClusterMock>();
+            ClusterMock cluster;
             ZCLAttributeMock attribute;
-            EXPECT_CALL(*cluster, getAttribute(1)).WillOnce(Return(&attribute));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(cluster));
+            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attribute));
+            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(&cluster));
 
             string objectName = "Z" + ZCLuint16Attribute::name();
 
@@ -180,16 +180,16 @@ namespace zigbee {
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
             EXPECT_CALL(*zDevices, exists(extAddress)).WillRepeatedly(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
-            std::shared_ptr<ClusterMock> cluster = make_shared<ClusterMock>();
+            ClusterMock cluster;
             ZCLAttributeMock attributeUint8;
             ZCLAttributeMock attributeUint16;
             ALLOW_CALL(attributeUint8,getZCLType()).RETURN(ZCLTypeDataType::ZCLTypeUInt8);
             ALLOW_CALL(attributeUint16,getZCLType()).RETURN(ZCLTypeDataType::ZCLTypeUInt16);
-            EXPECT_CALL(*cluster, getAttribute(1)).WillOnce(Return(&attributeUint8));
-            EXPECT_CALL(*cluster, getAttribute(2)).WillOnce(Return(&attributeUint16));
+            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attributeUint8));
+            EXPECT_CALL(cluster, getAttribute(2)).WillOnce(Return(&attributeUint16));
             EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER)))
-                    .WillOnce(Return(cluster))
-                    .WillOnce(Return(cluster));
+                    .WillOnce(Return(&cluster))
+                    .WillOnce(Return(&cluster));
 
             string objectName_16uint = "Z" + ZCLuint16Attribute::name();
             string objectName_8uint = "Z" + ZCLuint8Attribute::name();

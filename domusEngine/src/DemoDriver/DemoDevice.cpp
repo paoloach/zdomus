@@ -368,7 +368,7 @@ namespace zigbee {
     }
 
 
-    void DemoDevice::assignBasicCluster(std::shared_ptr<Cluster> cluster, std::vector<ZigbeeAttributeId> &attributeIds, std::array<std::vector<uint8_t>, 8> &data) {
+    void DemoDevice::assignBasicCluster(Cluster* cluster, std::vector<ZigbeeAttributeId> &attributeIds, std::array<std::vector<uint8_t>, 8> &data) {
         for (auto attributeId : attributeIds) {
             auto attribute = cluster->getAttribute(attributeId);
             auto attr = &(*data[attributeId].begin());
@@ -390,7 +390,7 @@ namespace zigbee {
         }
     }
 
-    void DemoDevice::assignTemperatureMeasureCluster(std::shared_ptr<Cluster> cluster, std::vector<ZigbeeAttributeId> &attributeIds, int16_t temp, std::chrono::seconds delay) {
+    void DemoDevice::assignTemperatureMeasureCluster(Cluster * cluster, std::vector<ZigbeeAttributeId> &attributeIds, int16_t temp, std::chrono::seconds delay) {
         for (auto &&attributeId : attributeIds) {
             AttributeKey key{cluster->getNetworkAddress(), cluster->getEndpoint(), cluster->getId(), attributeId};
             auto attribute = cluster->getAttribute(attributeId);
@@ -444,7 +444,7 @@ namespace zigbee {
     }
 
     void
-    DemoDevice::assignOnOffCluster(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, std::shared_ptr<Cluster> cluster, std::vector<ZigbeeAttributeId> &attributeIds) {
+    DemoDevice::assignOnOffCluster(zigbee::NwkAddr nwkAddrs, const zigbee::EndpointID endpoint, Cluster * cluster, std::vector<ZigbeeAttributeId> &attributeIds) {
         for (auto &&attributeId : attributeIds) {
             auto attribute = cluster->getAttribute(attributeId);
             auto key = AttributeKey(nwkAddrs, endpoint, ClusterID {ClustersId::ON_OFF_CLUSTER}, attributeId);

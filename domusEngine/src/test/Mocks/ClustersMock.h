@@ -15,7 +15,7 @@ namespace zigbee {
     namespace test {
         class ClustersMock  : public Clusters {
         public:
-            MOCK_METHOD3(getCluster, std::shared_ptr<Cluster> (NwkAddr networkAddress, const EndpointID  endpoint,ClusterID clusterId));
+            MOCK_METHOD3(getCluster, Cluster * (NwkAddr networkAddress, const EndpointID  endpoint,ClusterID clusterId));
         };
     }
 }

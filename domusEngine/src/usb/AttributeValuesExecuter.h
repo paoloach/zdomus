@@ -41,7 +41,7 @@ namespace zigbee {
                 AttributeKey key{nwkAddr, endpointID, clusterID, response->attrID};
                 BOOST_LOG_TRIVIAL(debug) << "Read attribute " << key << " width status " << (int)response->status << " and data length " << dataLen;
 
-                std::shared_ptr<Cluster> cluster{singletonObjects->getClusters()->getCluster(nwkAddr, endpointID, clusterID)};
+                Cluster * cluster{singletonObjects->getClusters()->getCluster(nwkAddr, endpointID, clusterID)};
                 auto attribute = cluster->getAttribute(response->attrID);
                 attribute->setValue(*response);
 

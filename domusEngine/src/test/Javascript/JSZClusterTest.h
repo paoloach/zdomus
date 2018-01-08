@@ -52,7 +52,7 @@ namespace zigbee {
             ZigbeeDeviceMock zigbeeDevice;
             std::unique_ptr<JSZCluster> jsZCluster;
             ExtAddress extAddress;
-            std::shared_ptr<ClusterMock> cluster;
+            ClusterMock cluster;
             std::unique_ptr<ZCLAttributeMock> zclAttributeMock;
             JSZAttributeFactoryMock jsZAttributeFactory;
             std::unique_ptr<ZCLAttributeMock> defaultZclAttribute;

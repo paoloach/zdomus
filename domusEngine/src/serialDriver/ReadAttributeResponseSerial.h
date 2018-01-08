@@ -51,8 +51,7 @@ namespace zigbee {
                     tokIter++;
                     Clusters *clusters = singletons->getClusters();
                     auto cluster = clusters->getCluster(nwkAddr, endpointId, clusterId);
-                    Cluster *pCluster = cluster.get();
-                    auto attribute = pCluster->getAttribute(attributeId);
+                    auto attribute = cluster->getAttribute(attributeId);
                     if (attribute != nullptr) {
                         std::string rawData = *tokIter;
                         if (attributeLen * 2 == rawData.size()) {

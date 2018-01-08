@@ -16,10 +16,10 @@ namespace zigbee {
     public:
         AttributeWriter(SingletonObjects *singletons) noexcept : singletons(singletons) {};
 
-        AttributeWriterResult write(NwkAddr nwkAddr, EndpointID endpointID, std::shared_ptr<Cluster> cluster, Json::Value value);
+        AttributeWriterResult write(NwkAddr nwkAddr, EndpointID endpointID, Cluster * cluster, Json::Value value);
 
     private:
-        void addElement(NwkAddr nwkAddr, EndpointID endpointID, std::shared_ptr<zigbee::Cluster> cluster, Json::Value &&value, AttributeWriterResult &results);
+        void addElement(NwkAddr nwkAddr, EndpointID endpointID, zigbee::Cluster * cluster, Json::Value &&value, AttributeWriterResult &results);
 
         SingletonObjects *&singletons;
     };

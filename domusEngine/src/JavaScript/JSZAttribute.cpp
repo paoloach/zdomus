@@ -299,7 +299,7 @@ namespace zigbee {
         if (!zEndpoint.hasInCluster(clusterId)) {
             throw JSExceptionNoInCluster(extAddress, endpointId, clusterId);
         }
-        std::shared_ptr<Cluster> cluster = singletonObjects->getClusters()->getCluster(zDevice->getNwkAddr(), endpointId, clusterId);
+        Cluster * cluster = singletonObjects->getClusters()->getCluster(zDevice->getNwkAddr(), endpointId, clusterId);
         ZCLAttribute *attribute = cluster->getAttribute(attributeId);
         if (!attribute) {
             throw JSExceptionNoAttribute(extAddress, endpointId, clusterId, attributeId);

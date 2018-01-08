@@ -78,8 +78,8 @@ namespace zigbee {
         zClusterInstance->SetInternalField(0, External::New(isolate, this));
 
         Clusters * clusters = singletonObjects->getClusters();
-        std::shared_ptr<Cluster> cluster = clusters->getCluster(nwkAddress, endpointId, clusterId);
-        zClusterInstance->SetInternalField(1, External::New(isolate, cluster.get()));
+        Cluster * cluster = clusters->getCluster(nwkAddress, endpointId, clusterId);
+        zClusterInstance->SetInternalField(1, External::New(isolate, cluster));
 
         std::shared_ptr<ExtAddress> usedAddr = getPersistenceExtAddress(extAddress);
         zClusterInstance->SetInternalField(2, External::New(isolate, usedAddr.get()));

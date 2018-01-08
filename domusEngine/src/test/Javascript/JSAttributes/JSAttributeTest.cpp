@@ -45,8 +45,8 @@ namespace zigbee {
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
 
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(cluster));
-            EXPECT_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillOnce(Return(attributeMock));
+            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(&cluster));
+            EXPECT_CALL(cluster, getAttribute(ATTRIBUTE0_ID)).WillOnce(Return(attributeMock));
 
             v8::Local<v8::Value> result = runScript(stream.str());
 
@@ -65,8 +65,8 @@ namespace zigbee {
         void JSAttributeTest::setInitExpectation(ZDevice &zDevice, ZCLAttribute * attributeMock) {
             EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
             EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(cluster));
-            EXPECT_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillOnce(Return(attributeMock));
+            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(&cluster));
+            EXPECT_CALL(cluster, getAttribute(ATTRIBUTE0_ID)).WillOnce(Return(attributeMock));
         }
 
         void JSAttributeTest::isAvailableTest(bool availableStatus, JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock) {

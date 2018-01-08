@@ -29,8 +29,7 @@ namespace zigbee {
             uint8_t attributeLen{packet.getUint8(10)};
             Clusters *clusters = singletons->getClusters();
             auto cluster = clusters->getCluster(nwkAddr, endpointID, clusterId);
-            Cluster *pCluster = cluster.get();
-            auto attribute = pCluster->getAttribute(attributeId);
+            auto attribute = cluster->getAttribute(attributeId);
             if (attribute != nullptr) {
                 uint8_t data[256];
                 for (int i = 0; i < attributeLen; i++) {

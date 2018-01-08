@@ -37,7 +37,7 @@ namespace zigbee {
     private:
         typedef boost::tuple<NwkAddr, EndpointID, ClusterID> Key;
         typedef v8::Persistent<v8::Object, v8::CopyablePersistentTraits<v8::Object>> PersistenceObject;
-        typedef boost::tuple<PersistenceObject, std::shared_ptr<Cluster> > Value;
+        typedef boost::tuple<PersistenceObject, Cluster* > Value;
     public:
         JSZCluster() = default;
 

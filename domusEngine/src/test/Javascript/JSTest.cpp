@@ -46,17 +46,15 @@ namespace zigbee {
             zigbeeDeviceMock = std::make_unique<ZigbeeDeviceMock>();
             zigbeeDevice = zigbeeDeviceMock.get();
 
-            defaultCluster = make_shared<ClusterMock>();
             defaultZclAttribute = std::make_unique<ZCLAttributeMock>();
-            cluster = make_shared<ClusterMock>();
             jsLog = std::make_shared<JSLog>();
 
             EXPECT_CALL(singletonObjectsMock, getZDevices()).Times(AtLeast(0)).WillRepeatedly(Return(zDevices.get()));
             EXPECT_CALL(singletonObjectsMock, getClusters()).Times(AtLeast(0)).WillRepeatedly(Return(&clustersMock));
-            ON_CALL(clustersMock, getCluster(_, _, _)).WillByDefault(Return(defaultCluster));
+            ON_CALL(clustersMock, getCluster(_, _, _)).WillByDefault(Return(&defaultCluster));
             ON_CALL(*zDevices, getDevice(extAddress)).WillByDefault(Return(&defaultZDevice));
             ON_CALL(*zDevices, exists(_)).WillByDefault(Return(false));
-            ON_CALL(*cluster, getAttribute(ATTRIBUTE0_ID)).WillByDefault(Return(zclAttributeMock.get()));
+            ON_CALL(cluster, getAttribute(ATTRIBUTE0_ID)).WillByDefault(Return(zclAttributeMock.get()));
         }
 
         void JSTest::TearDown() {
@@ -65,7 +63,6 @@ namespace zigbee {
             isolate->Exit();
             isolate->Dispose();
             defaultZclAttribute.reset();
-            defaultCluster.reset();
         }
 
         v8::Local<v8::Value> JSTest::runScript(const std::string &script) {
