@@ -6,7 +6,6 @@
 #define DOMUS_ENGINE_IEEEADDRESSRESPONSESERIALEXECUTORTEST_H
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "../Mocks/SingletonObjectsMock.h"
 #include "../Mocks/ZDevicesMock.h"
 #include "../../serialDriver/IEEEAddressResponseSerialExecutor.h"
@@ -21,7 +20,7 @@ namespace zigbee {
             SingletonObjectsMock singletonObjectsMock;
             ZDevicesMock zDevicesMock;
             std::unique_ptr<IEEEAddressResponseSerialExecutor> executor;
-
+            std::unique_ptr<trompeloeil::expectation> getZDevices;
 
         };
     }

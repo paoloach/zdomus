@@ -6,7 +6,6 @@
 #define DOMUS_ENGINE_JSENDPOINTSTEST_H
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 #include "../../JavaScript/JSZEndpoints.h"
 #include "../../JavaScript/JSZEndpoint.h"
@@ -32,7 +31,8 @@ namespace zigbee {
             JSZEndpointMock jszEndpointMock;
             SingletonObjectsMock singletonObjectsMock;
             ZDevicesMock zDevicesMock;
-
+            std::unique_ptr<trompeloeil::expectation> getZDevices;
+            std::unique_ptr<trompeloeil::expectation> getDevices;
         };
 
     } /* namespace test */

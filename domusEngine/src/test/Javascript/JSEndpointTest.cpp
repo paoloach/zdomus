@@ -15,19 +15,9 @@ namespace zigbee {
         using namespace testing;
         using namespace v8;
 
-        MATCHER_P(IsString, stringToCompare, "") {
-            char StringUTF[255]{};
-
-            arg->WriteUtf8(StringUTF, 255);
-            return stringToCompare == std::string(StringUTF);
-        }
-
-        MATCHER(IsTrue, "") {
-            return arg->ToBoolean()->Value();
-        }
-
-        MATCHER(IsFalse, "") {
-            return arg->ToBoolean()->Value() == false;
+        inline auto getConstructorName(Local<Object> & object){
+            String::Utf8Value utf8Message(object->GetConstructorName());
+            return std::string(*utf8Message);
         }
 
         static std::string EXTENDED_ADDRESS = "00-01-02-03-04-05-06-07";
@@ -100,15 +90,14 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsObject(), true);
+            ASSERT_FALSE(result.IsEmpty());
+            ASSERT_TRUE(result->IsObject());
             Local<Object> object = result->ToObject();
-
-            ASSERT_THAT(object->GetConstructorName(), IsString(JSZENDPOINT));
+            ASSERT_EQ(getConstructorName(object), JSZENDPOINT);
         }
 
         TEST_F(JSEndpointTest, getEndpointId) {
@@ -117,13 +106,13 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.endpointId");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUint32(), true);
-            ASSERT_THAT(result->Uint32Value(), ENDPOINT_ID.getId());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsUint32(), true);
+            ASSERT_EQ(result->Uint32Value(), ENDPOINT_ID.getId());
         }
 
         TEST_F(JSEndpointTest, getProfileId) {
@@ -132,13 +121,13 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).TIMES(0,2).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.profileId");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUint32(), true);
-            ASSERT_THAT(result->Uint32Value(), PROFILE_ID);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsUint32(), true);
+            ASSERT_EQ(result->Uint32Value(), PROFILE_ID);
         }
 
         TEST_F(JSEndpointTest, getDeviceId) {
@@ -147,13 +136,13 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).TIMES(0,2).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.deviceId");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUint32(), true);
-            ASSERT_THAT(result->Uint32Value(), DEVICE_ID);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsUint32(), true);
+            ASSERT_EQ(result->Uint32Value(), DEVICE_ID);
         }
 
         TEST_F(JSEndpointTest, getDeviceVersion) {
@@ -162,11 +151,11 @@ namespace zigbee {
             V8_SETUP
             jsEndpoint->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).TIMES(0,2).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.deviceVersion");
-            ASSERT_THAT(result, Integer::New(isolate, DEVICE_VER).As<Object>());
+            ASSERT_EQ(result, Integer::New(isolate, DEVICE_VER).As<Object>());
         }
 
 
@@ -178,13 +167,13 @@ namespace zigbee {
             jsEndpoint->initJsObjectsTemplate(isolate, global);
             Local<Object> cluster = Integer::New(isolate, 23).As<Object>();
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
-            EXPECT_CALL(jszClusterMock, createInstance(isolate, extAddress, ENDPOINT_ID, ClusterID(clusterId))).WillOnce(Return(cluster));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).TIMES(0,2).LR_RETURN(&zDevice);
+            REQUIRE_CALL(jszClusterMock, createInstance(isolate, extAddress, ENDPOINT_ID, ClusterID(clusterId))).RETURN(cluster);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.getCluster(" + std::to_string(clusterId) + ");");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result, cluster);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result, cluster);
         }
 
 

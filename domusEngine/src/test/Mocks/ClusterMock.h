@@ -8,9 +8,8 @@
 #ifndef SRC_TEST_MOCKS_CLUSTERMOCK_H_
 #define SRC_TEST_MOCKS_CLUSTERMOCK_H_
 
-#include <experimental/string_view>
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 
 #include <zcl/Cluster.h>
 #include <zigbee/EndpointID.h>
@@ -23,18 +22,18 @@ public:
 	ClusterMock();
 	virtual ~ClusterMock();
 
-	MOCK_CONST_METHOD0(getId, ClusterID () );
-	MOCK_CONST_METHOD0(getClusterName, std::string () );
-	MOCK_METHOD2(createAttributes, void (const Cluster::AttributeDef * attributesDef, int size) );
-	MOCK_METHOD1(createAttributes, void (const std::vector<AttributeDef> & attributesDef) ) ;
-    MOCK_CONST_METHOD0(getEndpoint,const EndpointID () );
-    MOCK_CONST_METHOD0(getNetworkAddress, NwkAddr () );
-	MOCK_CONST_METHOD1(getAttribute, ZCLAttribute *(int id) );
-	MOCK_CONST_METHOD1(getAttribute, ZCLAttribute * (std::string_view  name) );
-	MOCK_METHOD2(executeCommand, void (uint32_t cmd, std::vector<uint8_t>  data));
-	MOCK_CONST_METHOD0(getAttributes, std::vector<AttributeDef> ());
-	MOCK_CONST_METHOD0(getCommands, const std::vector<CommandDef> & ());
-	MOCK_METHOD1(getCmdParams,  std::vector<ClusterCmdParamsBase *> (uint32_t cmd));
+    MAKE_CONST_MOCK0(getId, ClusterID () );
+    MAKE_CONST_MOCK0(getClusterName, std::string () );
+    MAKE_MOCK2(createAttributes, void (const Cluster::AttributeDef * attributesDef, int size) );
+    MAKE_MOCK1(createAttributes, void (const std::vector<AttributeDef> & attributesDef) ) ;
+    MAKE_CONST_MOCK0(getEndpoint,const EndpointID () );
+    MAKE_CONST_MOCK0(getNetworkAddress, NwkAddr () );
+    MAKE_CONST_MOCK1(getAttribute, ZCLAttribute *(int id) );
+    MAKE_CONST_MOCK1(getAttribute, ZCLAttribute * (std::string_view  name) );
+    MAKE_MOCK2(executeCommand, void (uint32_t cmd, std::vector<uint8_t>  data));
+    MAKE_CONST_MOCK0(getAttributes, std::vector<AttributeDef> ());
+    MAKE_CONST_MOCK0(getCommands, const std::vector<CommandDef> & ());
+    MAKE_MOCK1(getCmdParams,  std::vector<ClusterCmdParamsBase *> (uint32_t cmd));
 };
 
 } /* namespace test */

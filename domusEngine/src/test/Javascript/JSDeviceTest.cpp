@@ -12,21 +12,17 @@ namespace zigbee {
     namespace test {
 
         using namespace v8;
-        using namespace testing;
+        using trompeloeil::_;
 
-        MATCHER_P(IsString, stringToCompare, "") {
-            char StringUTF[255]{};
 
-            arg->WriteUtf8(StringUTF, 255);
-            return stringToCompare == std::string(StringUTF);
+        inline auto getConstructorName(Local<Object> & object){
+            String::Utf8Value utf8Message(object->GetConstructorName());
+            return std::string(*utf8Message);
         }
 
-        MATCHER(IsTrue, "") {
-            return arg->ToBoolean()->Value();
-        }
-
-        MATCHER(IsFalse, "") {
-            return arg->ToBoolean()->Value() == false;
+        inline auto toString(Local<String> & v8String){
+            String::Utf8Value utf8Message(v8String);
+            return std::string(*utf8Message);
         }
 
 #define V8_SETUP HandleScope handle_scope(isolate);\
@@ -51,7 +47,7 @@ namespace zigbee {
             }
         };
 
-        void JSDeviceTest::getDevice(const v8::FunctionCallbackInfo<v8::Value> &info) {
+        void JSDeviceTest::getJSDevice(const v8::FunctionCallbackInfo<v8::Value> &info) {
             JSDeviceTest *This = (JSDeviceTest *) Local<External>::Cast(info.Data())->Value();
 
             v8::String::Utf8Value extAddressString(info[0]);
@@ -73,7 +69,7 @@ namespace zigbee {
             isolate = v8::Isolate::New(createParams);
             isolate->Enter();
             locker.reset(new Locker{isolate});
-            ON_CALL(jsEndpoint, createInstance(_, _, _)).WillByDefault(Return(Local<Object>()));
+            ALLOW_CALL(jsEndpoint, createInstance(_, _, _)).RETURN(Local<Object>());
         }
 
         void JSDeviceTest::TearDown() {
@@ -103,184 +99,184 @@ namespace zigbee {
         TEST_F(JSDeviceTest, createIstance) {
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a;");
             String::Utf8Value utf8(result);
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsObject(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsObject(), true);
             Local<Object> object = result->ToObject();
 
-            ASSERT_THAT(object->GetConstructorName(), IsString(JSZDEVICE));
+            ASSERT_EQ(getConstructorName(object),JSZDEVICE);
         }
 
         TEST_F(JSDeviceTest, createInvalidIstance) {
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(false));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(false);
 
             TryCatch trycatch{};
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a;");
             String::Utf8Value utf8(result);
-            ASSERT_THAT(result.IsEmpty(), true);
-            ASSERT_THAT(trycatch.HasCaught(), true);
+            ASSERT_EQ(result.IsEmpty(), true);
+            ASSERT_EQ(trycatch.HasCaught(), true);
 
         }
 
         TEST_F(JSDeviceTest, getExtendedAddress) {
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.longAddress");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsString(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsString(), true);
             v8::Local<String> JSExtendedAddress = Local<String>::Cast(result);
-            ASSERT_THAT(JSExtendedAddress, IsString(extendedAddress));
+            ASSERT_EQ(toString(JSExtendedAddress), extendedAddress);
         }
 
         TEST_F(JSDeviceTest, getShortAddress) {
             ZDevice zDevice{annunce1};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.shortAddress");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsInt32(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsInt32(), true);
             v8::Local<Integer> JSShortAddress = Local<Integer>::Cast(result);
-            ASSERT_THAT(JSShortAddress->Value(), zDevice.getNwkAddr().getId());
+            ASSERT_EQ(JSShortAddress->Value(), zDevice.getNwkAddr().getId());
         }
 
         TEST_F(JSDeviceTest, isPanCapable) {
             ZDevice zDevice{annuncePanOn};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isPan();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsTrue());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_TRUE(result->ToBoolean()->Value());
         }
 
         TEST_F(JSDeviceTest, isNotPan) {
             ZDevice zDevice{annunceAllOff};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isPan();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsFalse());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_FALSE(result->ToBoolean()->Value());
         }
 
         TEST_F(JSDeviceTest, isFullFunctionalNode) {
             ZDevice zDevice{annunceFullFunctionalOn};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isFullFunctionDevice();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsTrue());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_TRUE(result->ToBoolean()->Value());
         }
 
         TEST_F(JSDeviceTest, isNotFullFunctionalNode) {
             ZDevice zDevice{annunceAllOff};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isFullFunctionDevice();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsFalse());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_FALSE(result->BooleanValue());
         }
 
         TEST_F(JSDeviceTest, isMainPowerSurced) {
             ZDevice zDevice{annunceMainPowerSourcedOn};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isMainPoweredSource();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsTrue());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_TRUE(result->BooleanValue());
         }
 
         TEST_F(JSDeviceTest, isNotMainPowerSurced) {
             ZDevice zDevice{annunceAllOff};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isMainPoweredSource();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsFalse());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_FALSE(result->BooleanValue());
         }
 
         TEST_F(JSDeviceTest, isReceiverOnWhenIdle) {
             ZDevice zDevice{annunceRFOnIdleOn};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isDisableRFInIDLE();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsTrue());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_TRUE(result->BooleanValue());
         }
 
         TEST_F(JSDeviceTest, isReceiverOffWhenIdle) {
             ZDevice zDevice{annunceAllOff};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isDisableRFInIDLE();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsFalse());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_FALSE(result->BooleanValue());
         }
 
         TEST_F(JSDeviceTest, isSecureCapable) {
             ZDevice zDevice{annunceSecureCapableOn};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isSecureCapable();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsTrue());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_TRUE(result->BooleanValue());
         }
 
         TEST_F(JSDeviceTest, isNotSecureCapable) {
             ZDevice zDevice{annunceAllOff};
             V8_SETUP
 
-            EXPECT_CALL(*zDevices.get(), exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices.get(), getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices.get(), exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices.get(), getDevice(extAddress)).LR_RETURN(&zDevice);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.isSecureCapable();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result, IsFalse());
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_FALSE(result->BooleanValue());
         }
 
         TEST_F(JSDeviceTest, getEndpoints) {
@@ -294,26 +290,24 @@ namespace zigbee {
             Local<Object> objectEndpoint1 = Object::New(isolate);
             Local<Object> objectEndpoint2 = Object::New(isolate);
 
-            EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
+            REQUIRE_CALL(*zDevices, exists(extAddress)).RETURN(true);
 
-            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(jsEndpoint, createInstance(isolate, extAddress, endpointId1)).WillOnce(
-                    Return(objectEndpoint1));
-            EXPECT_CALL(jsEndpoint, createInstance(isolate, extAddress, endpointId2)).WillOnce(
-                    Return(objectEndpoint2));
+            REQUIRE_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
+            REQUIRE_CALL(jsEndpoint, createInstance(isolate, extAddress, endpointId1)).RETURN(objectEndpoint1);
+            REQUIRE_CALL(jsEndpoint, createInstance(isolate, extAddress, endpointId2)).RETURN(objectEndpoint2);
 
             v8::Local<v8::Value> result = runScript(creatingZDeviceScript + "a.getEndpoints();");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsArray(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsArray(), true);
             Local<Array> array = result.As<Array>();
 
-            ASSERT_THAT(array->Length(), 2);
-            ASSERT_THAT(array->Get(0)->IsObject(), true);
-            ASSERT_THAT(array->Get(1)->IsObject(), true);
+            ASSERT_EQ(array->Length(), 2);
+            ASSERT_EQ(array->Get(0)->IsObject(), true);
+            ASSERT_EQ(array->Get(1)->IsObject(), true);
             Local<Object> jszEndpoint0 = array->Get(0).As<Object>();
             Local<Object> jszEndpoint1 = array->Get(1).As<Object>();
-            ASSERT_THAT(jszEndpoint0->GetIdentityHash(), Eq(objectEndpoint1->GetIdentityHash()));
-            ASSERT_THAT(jszEndpoint1->GetIdentityHash(), Eq(objectEndpoint2->GetIdentityHash()));
+            ASSERT_EQ(jszEndpoint0->GetIdentityHash(), objectEndpoint1->GetIdentityHash());
+            ASSERT_EQ(jszEndpoint1->GetIdentityHash(), objectEndpoint2->GetIdentityHash());
         }
 
     } /* namespace test */

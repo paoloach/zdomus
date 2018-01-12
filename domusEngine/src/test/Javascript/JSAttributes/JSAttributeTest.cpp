@@ -15,6 +15,12 @@ namespace zigbee {
         using namespace v8;
         using namespace testing;
 
+
+        auto inline toString(Local<String> arg) {
+            v8::String::Utf8Value utf8Value(arg);
+            return std::string(*utf8Value);
+        }
+
         std::map<ZCLAttribute::Status, std::string> expectedStatusMap{{ZCLAttribute::Available,    "available"},
                                                                       {ZCLAttribute::NotAvailable, "notAvailable"},
                                                                       {
@@ -22,8 +28,6 @@ namespace zigbee {
                                                                       {ZCLAttribute::Requesting,   "requesting"},
                                                                       {ZCLAttribute::Undefined,    "undefined"},};
 
-        JSAttributeTest::~JSAttributeTest() {
-        }
 
         void JSAttributeTest::createTemplateTest(JSZAttribute *jsZAttribute) {
             HandleScope handle_scope(isolate);
@@ -42,19 +46,19 @@ namespace zigbee {
             V8_SETUP
             jsZAttribute->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
 
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(&cluster));
-            EXPECT_CALL(cluster, getAttribute(ATTRIBUTE0_ID)).WillOnce(Return(attributeMock));
+            REQUIRE_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).LR_RETURN(&cluster);
+            REQUIRE_CALL(cluster, getAttribute(ATTRIBUTE0_ID)).RETURN(attributeMock);
 
             v8::Local<v8::Value> result = runScript(stream.str());
 
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsObject(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsObject(), true);
             Local<Object> object = result->ToObject();
 
-            ASSERT_THAT(object->GetConstructorName(), IsString(attributeName));
+            ASSERT_EQ(toString(object->GetConstructorName()),attributeName);
         }
 
         ZDevice JSAttributeTest::createZDevice() {
@@ -63,10 +67,10 @@ namespace zigbee {
         }
 
         void JSAttributeTest::setInitExpectation(ZDevice &zDevice, ZCLAttribute * attributeMock) {
-            EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(&cluster));
-            EXPECT_CALL(cluster, getAttribute(ATTRIBUTE0_ID)).WillOnce(Return(attributeMock));
+            exists = NAMED_REQUIRE_CALL(*zDevices, exists(extAddress)).RETURN(true);
+            getDevice = NAMED_REQUIRE_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
+            getCluster = NAMED_REQUIRE_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).RETURN(&cluster);
+            getAttribute = NAMED_REQUIRE_CALL(cluster, getAttribute(ATTRIBUTE0_ID)).RETURN(attributeMock);
         }
 
         void JSAttributeTest::isAvailableTest(bool availableStatus, JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock) {
@@ -79,9 +83,9 @@ namespace zigbee {
             setInitExpectation(zDevice, attributeMock);
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result->BooleanValue(), availableStatus);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_EQ(result->BooleanValue(), availableStatus);
         }
 
         void JSAttributeTest::isUnsupportedTest(bool availableStatus, JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock) {
@@ -94,9 +98,9 @@ namespace zigbee {
             setInitExpectation(zDevice, attributeMock);
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result->BooleanValue(), availableStatus);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_EQ(result->BooleanValue(), availableStatus);
         }
 
         void JSAttributeTest::getStatusTest(ZCLAttribute::Status statusExpected, JSZAttribute *jsZAttribute,
@@ -110,11 +114,11 @@ namespace zigbee {
             setInitExpectation(zDevice, attributeMock);
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsString(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsString(), true);
             String::Utf8Value status(result);
             std::string expectedStatusValue = expectedStatusMap[statusExpected];
-            ASSERT_THAT(*status, StrEq(expectedStatusValue));
+            ASSERT_EQ(*status, expectedStatusValue);
         }
 
         void JSAttributeTest::getIdentifierTest(JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock) {
@@ -127,9 +131,9 @@ namespace zigbee {
             setInitExpectation(zDevice, attributeMock);
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUint32(), true);
-            ASSERT_THAT(result->Uint32Value(), Eq(ATTRIBUTE0_ID));
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsUint32(), true);
+            ASSERT_EQ(result->Uint32Value(), ATTRIBUTE0_ID);
         }
 
         void JSAttributeTest::getNameTest(const std::string &expectedName, JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock) {
@@ -142,10 +146,10 @@ namespace zigbee {
             setInitExpectation(zDevice, attributeMock);
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsString(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsString(), true);
             String::Utf8Value name(result);
-            ASSERT_THAT(*name, StrEq(expectedName));
+            ASSERT_EQ(*name, expectedName);
         }
 
         void JSAttributeTest::isReadonlyTest(bool readOnlyExpected, JSZAttribute *jsZAttribute, ZCLAttribute * attributeMock) {
@@ -158,9 +162,9 @@ namespace zigbee {
             setInitExpectation(zDevice, attributeMock);
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsBoolean(), true);
-            ASSERT_THAT(result->BooleanValue(), Eq(readOnlyExpected));
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsBoolean(), true);
+            ASSERT_EQ(result->BooleanValue(), readOnlyExpected);
         }
 
         std::string JSAttributeTest::createZAttributeVariable(const std::string &attributeName) {

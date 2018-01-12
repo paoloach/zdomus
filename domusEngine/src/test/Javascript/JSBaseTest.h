@@ -9,7 +9,6 @@
 #define SRC_TEST_JAVASCRIPT_JSATTRIBUTES_JSBASETEST_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <v8.h>
 
 #include <memory>
@@ -24,7 +23,7 @@ namespace test {
 				Local<Object>  global = context->Global();
 
 
-MATCHER(HasNoHasCaught, ""){
+inline auto HasNoHasCaught(v8::TryCatch & arg){
 	if (arg.HasCaught()) {
 		auto message = arg.Message();
 		v8::String::Utf8Value utf8(message->Get());

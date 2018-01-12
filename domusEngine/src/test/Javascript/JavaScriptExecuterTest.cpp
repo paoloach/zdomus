@@ -12,7 +12,6 @@
 #include "../Mocks/ZCLAttributeMock.h"
 #include "JavaScriptExecuterTest.h"
 
-
 namespace zigbee {
     namespace test {
 
@@ -40,15 +39,19 @@ namespace zigbee {
             zigbeeDevice = make_unique<ZigbeeDeviceMock>();
             extAddress = convertFromString(EXTENDED_ADDRESS);
             restHandler = make_unique<http::RestHandlerMock>();
-            EXPECT_CALL(singletonObjects, getClusters()).Times(AnyNumber()).WillRepeatedly(Return(&clustersMock));
-            EXPECT_CALL(singletonObjects, getZigbeeDevice()).Times(AnyNumber()).WillRepeatedly(Return(zigbeeDevice.get()));
-            EXPECT_CALL(singletonObjects, getZDevices()).Times(AnyNumber()).WillRepeatedly(Return(zDevices.get()));
-            EXPECT_CALL(singletonObjects, getRestHandler()).Times(AnyNumber()).WillRepeatedly(Return(restHandler.get()));
+            getClusters = NAMED_ALLOW_CALL(singletonObjects, getClusters()).LR_RETURN(&clustersMock);
+            getZigbeeDevice = NAMED_ALLOW_CALL(singletonObjects, getZigbeeDevice()).RETURN(zigbeeDevice.get());
+            getDevices = NAMED_ALLOW_CALL(singletonObjects, getZDevices()).RETURN(zDevices.get());
+            getRestHandler = NAMED_ALLOW_CALL(singletonObjects, getRestHandler()).RETURN(restHandler.get());
         }
 
         void JavaScriptExecuterTest::TearDown() {
-            zDevices.reset();
-            zigbeeDevice.reset();
+            zDevices.release();
+            zigbeeDevice.release();
+            getClusters.release();
+            getZigbeeDevice.release();
+            getDevices.release();
+            getRestHandler.release();
         }
 
         ExtAddress JavaScriptExecuterTest::convertFromString(const std::string &strExt) {
@@ -76,14 +79,14 @@ namespace zigbee {
         TEST_F(JavaScriptExecuterTest, creating_attribute_ZCL_uint8) {
             ClusterMock cluster;
             ZCLAttributeMock attribute;
-            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attribute));
+            REQUIRE_CALL(cluster, getAttribute(1)).LR_RETURN(&attribute);
             ZEndpoint zEndpoint{NWK_ADDRESS, ENDPOINT_ID, PROFILE_ID, DEVICE_ID, DEVICE_VER, IN_CLUSTERS, OUT_CLUSTERS};
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream js;
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
-            EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(&cluster));
+            REQUIRE_CALL(*zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
+            REQUIRE_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).LR_RETURN(&cluster);
 
             string objectName = "Z" + ZCLuint16Attribute::name();
 
@@ -102,12 +105,12 @@ namespace zigbee {
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream js;
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
-            EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
             ClusterMock cluster;
             ZCLAttributeMock attribute;
-            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attribute));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(&cluster));
+            REQUIRE_CALL(cluster, getAttribute(1)).LR_RETURN(&attribute);
+            REQUIRE_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).LR_RETURN(&cluster);
 
             string objectName = "Z" + ZCLuint8Attribute::name();
 
@@ -126,13 +129,13 @@ namespace zigbee {
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream js;
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 2s);
-            EXPECT_CALL(*zDevices, exists(extAddress)).WillRepeatedly(Return(true));
-            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
+            REQUIRE_CALL(*zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
             ClusterMock cluster;
             ZCLAttributeMock attribute;
             ALLOW_CALL(attribute,getZCLType()).RETURN(ZCLTypeDataType::ZCLTypeUInt8);
-            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attribute));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(&cluster));
+            REQUIRE_CALL(cluster, getAttribute(1)).LR_RETURN(&attribute);
+            REQUIRE_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).LR_RETURN(&cluster);
 
             string objectName = "Z" + ZCLuint8Attribute::name();
 
@@ -154,12 +157,12 @@ namespace zigbee {
             ZDevice zDevice{extAddress, NWK_ADDRESS, 0, {zEndpoint}};
             std::stringstream js;
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
-            EXPECT_CALL(*zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
+            REQUIRE_CALL(*zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
             ClusterMock cluster;
             ZCLAttributeMock attribute;
-            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attribute));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).WillOnce(Return(&cluster));
+            REQUIRE_CALL(cluster, getAttribute(1)).LR_RETURN(&attribute);
+            REQUIRE_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER))).LR_RETURN(&cluster);
 
             string objectName = "Z" + ZCLuint16Attribute::name();
 
@@ -178,18 +181,18 @@ namespace zigbee {
             std::stringstream jsException;
             std::stringstream jsRight;
             jsExecuter = make_unique<JavaScriptExecuter>(&singletonObjects, 10s);
-            EXPECT_CALL(*zDevices, exists(extAddress)).WillRepeatedly(Return(true));
-            EXPECT_CALL(*zDevices, getDevice(extAddress)).WillRepeatedly(Return(&zDevice));
+            ALLOW_CALL(*zDevices, exists(extAddress)).RETURN(true);
+            ALLOW_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
             ClusterMock cluster;
             ZCLAttributeMock attributeUint8;
             ZCLAttributeMock attributeUint16;
             ALLOW_CALL(attributeUint8,getZCLType()).RETURN(ZCLTypeDataType::ZCLTypeUInt8);
             ALLOW_CALL(attributeUint16,getZCLType()).RETURN(ZCLTypeDataType::ZCLTypeUInt16);
-            EXPECT_CALL(cluster, getAttribute(1)).WillOnce(Return(&attributeUint8));
-            EXPECT_CALL(cluster, getAttribute(2)).WillOnce(Return(&attributeUint16));
-            EXPECT_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER)))
-                    .WillOnce(Return(&cluster))
-                    .WillOnce(Return(&cluster));
+            REQUIRE_CALL(cluster, getAttribute(1)).LR_RETURN(&attributeUint8);
+            REQUIRE_CALL(cluster, getAttribute(2)).LR_RETURN(&attributeUint16);
+            REQUIRE_CALL(clustersMock, getCluster(NWK_ADDRESS, ENDPOINT_ID, ClusterID(BASIC_CLUSTER)))
+                    .TIMES(2)
+                    .LR_RETURN(&cluster);
 
             string objectName_16uint = "Z" + ZCLuint16Attribute::name();
             string objectName_8uint = "Z" + ZCLuint8Attribute::name();

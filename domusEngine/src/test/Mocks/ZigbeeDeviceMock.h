@@ -9,7 +9,8 @@
 #define SRC_TEST_MOCKS_ZIGBEEDEVICEMOCK_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
+
 #include "zigbee/ZigbeeDevice.h"
 
 namespace zigbee {
@@ -22,15 +23,15 @@ namespace zigbee {
             virtual ~ZigbeeDeviceMock();
 
         public:
-            MOCK_METHOD0(isPresent, bool());
+            MAKE_MOCK0(isPresent, bool());
 
-            MOCK_METHOD0(requestDevices, bool());
-            MOCK_METHOD1(requestNodePower, void (zigbee::NwkAddr));
-            MOCK_METHOD0(getUsbMessage, void());
-            MOCK_METHOD1(requestAttribute, void(const AttributeKey &key));
-            MOCK_METHOD1(requestAttributes, void(AttributesKey &key));
-            MOCK_METHOD0(requestReset, void());
-            MOCK_METHOD7(writeAttribute, void (NwkAddr
+            MAKE_MOCK0(requestDevices, bool());
+            MAKE_MOCK1(requestNodePower, void (zigbee::NwkAddr));
+            MAKE_MOCK0(getUsbMessage, void());
+            MAKE_MOCK1(requestAttribute, void(const AttributeKey &key));
+            MAKE_MOCK1(requestAttributes, void(AttributesKey &key));
+            MAKE_MOCK0(requestReset, void());
+            MAKE_MOCK7(writeAttribute, void (NwkAddr
                     nwkAddrs,
                     const EndpointID endpoint, ClusterID
                     cluster, ZigbeeAttributeId
@@ -38,56 +39,56 @@ namespace zigbee {
                     dataType, uint8_t
                     dataValueLen, uint8_t * dataValue));
 
-            MOCK_METHOD5(sendCmd, void (NwkAddr
+            MAKE_MOCK5(sendCmd, void (NwkAddr
                     nwkAddrs,
                     const EndpointID endpoint, ClusterID
                     cluster, ZigbeeClusterCmdId
                     commandId, std::vector<uint8_t>
                     data ));
 
-            MOCK_METHOD1(registerForAnnunceMessage, void (AnnunceCallback));
+            MAKE_MOCK1(registerForAnnunceMessage, void (AnnunceCallback));
 
-            MOCK_METHOD1(registerForSimpleDescMessage, void (SimpleDescCallback));
+            MAKE_MOCK1(registerForSimpleDescMessage, void (SimpleDescCallback));
 
-            MOCK_METHOD5(registerForAttributeCmd, void (NwkAddr
+            MAKE_MOCK5(registerForAttributeCmd, void (NwkAddr
                     nwkAddrs,
                     const EndpointID endpoint, ClusterID
                     cluster, ZigbeeAttributeCmdId
                     cmdId,
                     const std::function<void()>));
-            MOCK_METHOD5(registerForAttributeValue, void (NwkAddr
+            MAKE_MOCK5(registerForAttributeValue, void (NwkAddr
                     nwkAddrs,
                     const EndpointID endpoint, ClusterID
                     cluster, ZigbeeAttributeId
                     attributeId,
                     const NewAttributeValueCallback subscriber));
 
-            MOCK_METHOD1(requestBindTable, void (NwkAddr
+            MAKE_MOCK1(requestBindTable, void (NwkAddr
                     nwkAddrs));
 
-            MOCK_METHOD1(registerForBindTableMessage, void (BindTableResponseCallback));
-            MOCK_METHOD4(requestAttributes, void (NwkAddr
+            MAKE_MOCK1(registerForBindTableMessage, void (BindTableResponseCallback));
+            MAKE_MOCK4(requestAttributes, void (NwkAddr
                     nwkAddrs,
                     const EndpointID endpoint, ClusterID
                     cluster, std::vector<ZigbeeAttributeId> & attributeIds));
 
-            MOCK_METHOD6(sendReqBind, void(zigbee::NwkAddr,
+            MAKE_MOCK6(sendReqBind, void(zigbee::NwkAddr,
                     const uint8_t*, zigbee::EndpointID, zigbee::ClusterID, const uint8_t*, zigbee::EndpointID));
 
-            MOCK_METHOD1(sendReqDeviceInfo, void(zigbee::NwkAddr));
+            MAKE_MOCK1(sendReqDeviceInfo, void(zigbee::NwkAddr));
 
-            MOCK_METHOD0(enableLog, bool());
+            MAKE_MOCK0(enableLog, bool());
 
-            MOCK_METHOD6(sendReqUnbind, void(zigbee::NwkAddr,
+            MAKE_MOCK6(sendReqUnbind, void(zigbee::NwkAddr,
                     const uint8_t*, zigbee::EndpointID, zigbee::ClusterID, const uint8_t*, zigbee::EndpointID));
-            MOCK_METHOD4(requestAttributes, void(NwkAddr
+            MAKE_MOCK4(requestAttributes, void(NwkAddr
                     nwkAddrs,
                     const EndpointID endpoint, ClusterID
                     cluster, ZigbeeAttributeIds & attributeIds));
 
-            MOCK_METHOD1(requestActiveEndpoints, void(NwkAddr));
+            MAKE_MOCK1(requestActiveEndpoints, void(NwkAddr));
 
-            MOCK_METHOD3(getIEEEAddress, void(NwkAddr, ZDPRequestType, uint8_t));
+            MAKE_MOCK3(getIEEEAddress, void(NwkAddr, ZDPRequestType, uint8_t));
         };
 
     }

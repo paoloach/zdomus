@@ -9,7 +9,6 @@
 #define SRC_TEST_JAVASCRIPT_JSDEVICETEST_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 #include "../../JavaScript/V8Allocator.h"
 #include "../Mocks/ZDevicesMock.h"
@@ -26,7 +25,7 @@ public:
 protected:
 	virtual void SetUp() override ;
 	virtual void TearDown() override ;
-	static void getDevice( const v8::FunctionCallbackInfo<v8::Value>& info);
+	static void getJSDevice(const v8::FunctionCallbackInfo<v8::Value> &info);
 	v8::Local<v8::Value> runScript(const std::string& script);
 protected:
 	V8Allocator v8Allocator;

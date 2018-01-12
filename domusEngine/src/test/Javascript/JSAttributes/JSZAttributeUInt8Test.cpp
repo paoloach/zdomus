@@ -53,10 +53,10 @@ namespace zigbee {
             REQUIRE_CALL(attributeMock, getValue()).RETURN(std::any(expectedValue));
 
             v8::Local<v8::Value> result = runScript(zAttributeVariable + "a.value");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUint32(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsUint32(), true);
 
-            ASSERT_THAT(result->ToUint32()->Value(), Eq(expectedValue));
+            ASSERT_EQ(result->ToUint32()->Value(), expectedValue);
         }
 
         TEST_F(JSZAttributeUInt8Test, setValue) {
@@ -84,10 +84,10 @@ namespace zigbee {
 //
 //            TryCatch trycatch;
 //            v8::Local<v8::Value> result = runScript(stream.str());
-//            ASSERT_THAT(result.IsEmpty(), true);
-//            ASSERT_THAT(trycatch.HasCaught(), true);
+//            ASSERT_EQ(result.IsEmpty(), true);
+//            ASSERT_EQ(trycatch.HasCaught(), true);
 //            v8::String::Utf8Value exceptionMessage(trycatch.Message()->Get());
-//            ASSERT_THAT(*exceptionMessage, HasSubstr("Invalid parameter"));
+//            ASSERT_EQ(*exceptionMessage, HasSubstr("Invalid parameter"));
 //
 //        }
 

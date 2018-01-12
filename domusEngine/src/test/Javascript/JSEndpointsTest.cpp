@@ -50,12 +50,14 @@ namespace zigbee {
             isolate->Enter();
             locker.reset(new Locker{isolate});
 
-            EXPECT_CALL(singletonObjectsMock, getZDevices()).WillOnce(Return(&zDevicesMock));
-            EXPECT_CALL(zDevicesMock, getDevices()).WillRepeatedly(Return(zDevices));
+            getZDevices = NAMED_ALLOW_CALL(singletonObjectsMock, getZDevices()).RETURN(&zDevicesMock);
+            getDevices = NAMED_ALLOW_CALL(zDevicesMock, getDevices()).RETURN(zDevices);
         }
 
         void JSEndpointsTest::TearDown() {
             locker.reset();
+            getZDevices.release();
+            getDevices.release();
             isolate->Exit();
             jsEndpoints.reset();
             isolate->Dispose();
@@ -81,8 +83,8 @@ namespace zigbee {
             Local<Object> endpoint1 = v8::Integer::New(isolate, 10).As<Object>();
             Local<Object> endpoint2 = v8::Integer::New(isolate, 20).As<Object>();
 
-            EXPECT_CALL(jszEndpointMock, createInstance(isolate, EXTENDED_ADDRESS1, epID1)).WillOnce(Return(endpoint1));
-            EXPECT_CALL(jszEndpointMock, createInstance(isolate, EXTENDED_ADDRESS2, epID2)).WillOnce(Return(endpoint2));
+            REQUIRE_CALL(jszEndpointMock, createInstance(isolate, EXTENDED_ADDRESS1, epID1)).RETURN(endpoint1);
+            REQUIRE_CALL(jszEndpointMock, createInstance(isolate, EXTENDED_ADDRESS2, epID2)).RETURN(endpoint2);
 
             std::stringstream stream;
 
@@ -95,12 +97,12 @@ namespace zigbee {
                 String::Utf8Value utf8Message(tryCatch.Message()->Get());
                 FAIL() << (*utf8Message);
             }
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsArray(), true);
+            ASSERT_FALSE(result.IsEmpty());
+            ASSERT_TRUE(result->IsArray());
             Local<Array> array = result.As<Array>();
-            ASSERT_THAT(array->Length(), 2);
-            ASSERT_THAT(array->Get(0), endpoint1);
-            ASSERT_THAT(array->Get(1), endpoint2);
+            ASSERT_EQ(array->Length(), 2);
+            ASSERT_EQ(array->Get(0), endpoint1);
+            ASSERT_EQ(array->Get(1), endpoint2);
         }
 
     }

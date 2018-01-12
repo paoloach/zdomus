@@ -15,7 +15,7 @@
 namespace zigbee {
     namespace test {
 
-        using namespace testing;
+        using trompeloeil::_;
         using namespace v8;
 
         using std::string;
@@ -23,33 +23,33 @@ namespace zigbee {
         using std::any;
         using std::any_cast;
 
-        MATCHER_P(IsAnyString, expectedString, "") {
-            if (arg.type() == typeid(std::string)) {
-                std::string value = any_cast<std::string>(arg);
-                return value == expectedString;
-            }
-            return false;
-        }
-
-        MATCHER_P(IsAnyInt32, expectedValue, "") {
-            if (arg.type() == typeid(int32_t)) {
-                int32_t value = any_cast<int32_t>(arg);
-                return value == expectedValue;
-            }
-            return false;
-        }
-
-        MATCHER_P(IsAnyUInt32, expectedValue, "") {
-            if (arg.type() == typeid(uint32_t)) {
-                uint32_t value = any_cast<uint32_t>(arg);
-                return value == expectedValue;
-            }
-            return false;
-        }
-
-        MATCHER_P2(HasPair, expectedKey, expectedVal, "") {
-            return expectedVal == any_cast<string>(arg->getValue(expectedKey));
-        }
+//        bool IsAnyString(std::string & expectedString, ) {
+//            if (arg.type() == typeid(std::string)) {
+//                std::string value = any_cast<std::string>(arg);
+//                return value == expectedString;
+//            }
+//            return false;
+//        }
+//
+//        MATCHER_P(IsAnyInt32, expectedValue, "") {
+//            if (arg.type() == typeid(int32_t)) {
+//                int32_t value = any_cast<int32_t>(arg);
+//                return value == expectedValue;
+//            }
+//            return false;
+//        }
+//
+//        MATCHER_P(IsAnyUInt32, expectedValue, "") {
+//            if (arg.type() == typeid(uint32_t)) {
+//                uint32_t value = any_cast<uint32_t>(arg);
+//                return value == expectedValue;
+//            }
+//            return false;
+//        }
+//
+//        MATCHER_P2(HasPair, expectedKey, expectedVal, "") {
+//            return expectedVal == any_cast<string>(arg->getValue(expectedKey));
+//        }
 
 #define V8_SETUP HandleScope handle_scope(isolate);\
                 Local<Context> context = Context::New(isolate, nullptr);\
@@ -64,8 +64,8 @@ namespace zigbee {
 
             jsDBTable = std::make_unique<JSDBTable>(dbTableFactoryMock, jsRow.get(), jsResultSet.get());
 
-            ON_CALL(dbTableFactoryMock, getTable(_)).WillByDefault(Return(nullptr));
-            ON_CALL(dbTable, find(_)).WillByDefault(Return(nullptr));
+            getTable = NAMED_ALLOW_CALL(dbTableFactoryMock, getTable(_)).RETURN(nullptr);
+            find = NAMED_ALLOW_CALL(dbTable, find(_)).RETURN(nullptr);
         }
 
         void JSDBTableTest::TearDown() {
@@ -95,7 +95,7 @@ namespace zigbee {
             jsResultSet->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Return(&dbTable));
+            REQUIRE_CALL(dbTableFactoryMock, getTable(tableName)).RETURN(&dbTable);
 
             stream << "var table=" << JSDBTABLE << "('" << tableName << "');";
             stream << "table;";
@@ -115,7 +115,7 @@ namespace zigbee {
             jsResultSet->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Throw(DBExceptionNoTable(tableName)));
+            REQUIRE_CALL(dbTableFactoryMock, getTable(tableName)).THROW(DBExceptionNoTable(tableName));
 
             stream << "var table=" << JSDBTABLE << "('" << tableName << "');";
             stream << "table;";
@@ -135,8 +135,8 @@ namespace zigbee {
             jsResultSet->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Return(&dbTable));
-            EXPECT_CALL(dbTable, find(query)).WillOnce(Return(expectedRow));
+            REQUIRE_CALL(dbTableFactoryMock, getTable(tableName)).RETURN(&dbTable);
+            REQUIRE_CALL(dbTable, find(query)).RETURN(expectedRow);
 
             stream << "var table=" << JSDBTABLE << "('" << tableName << "');";
             stream << "table.find('" << query << "');";
@@ -147,7 +147,7 @@ namespace zigbee {
             ASSERT_TRUE(result->IsObject());
             auto object = result.As<Object>();
             std::string name ( *String::Utf8Value(object));
-            ASSERT_THAT(name, "[object DbResultSet]");
+            ASSERT_EQ(name, "[object DbResultSet]");
         }
 
 
@@ -161,8 +161,9 @@ namespace zigbee {
             jsResultSet->initJsObjectsTemplate(isolate, global);
             jsDBTable->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(dbTableFactoryMock, getTable(tableName)).WillOnce(Return(&dbTable));
-            EXPECT_CALL(dbTable, insert(HasPair(key, value))).WillOnce(Return());
+            REQUIRE_CALL(dbTableFactoryMock, getTable(tableName)).RETURN(&dbTable);
+            REQUIRE_CALL(dbTable, insert(_))
+                .WITH(std::any_cast<std::string>(_1->getValue(key)) == value);
 
             stream << "var row = " << JSDBROW << "();";
             stream << "row.setValue('" << key << "','" << value << "');";

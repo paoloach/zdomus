@@ -53,9 +53,9 @@ namespace zigbee {
 
             v8::Local<v8::Value> result = runScript(zAttributeVariable + "a.value");
 
-            ASSERT_THAT(result.IsEmpty(), false);   
-            ASSERT_THAT(result->IsInt32(), true);
-            ASSERT_THAT(result->Int32Value(), Eq(expectedValue));
+            ASSERT_EQ(result.IsEmpty(), false);   
+            ASSERT_EQ(result->IsInt32(), true);
+            ASSERT_EQ(result->Int32Value(), expectedValue);
         }
 
 //        TEST_F(JSZAttributeInt16Test, setPositiveValue) {

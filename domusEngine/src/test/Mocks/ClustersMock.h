@@ -5,17 +5,15 @@
 #ifndef DOMUS_ENGINE_CLUSTERSMOCK_H
 #define DOMUS_ENGINE_CLUSTERSMOCK_H
 
-
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
-
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 #include "../../Utils/Clusters.h"
 
 namespace zigbee {
     namespace test {
         class ClustersMock  : public Clusters {
         public:
-            MOCK_METHOD3(getCluster, Cluster * (NwkAddr networkAddress, const EndpointID  endpoint,ClusterID clusterId));
+            MAKE_MOCK3(getCluster, Cluster * (NwkAddr networkAddress, const EndpointID  endpoint,ClusterID clusterId));
         };
     }
 }

@@ -6,7 +6,6 @@
 #define DOMUS_ENGINE_ATTRIBUTEWRITERTEST_H
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "../Mocks/SingletonObjectsMock.h"
 #include "../Mocks/ClusterMock.h"
 #include "../Mocks/ZCLAttributeMock.h"

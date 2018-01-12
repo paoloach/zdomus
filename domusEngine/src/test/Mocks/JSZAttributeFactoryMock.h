@@ -6,8 +6,7 @@
  */
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
-
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 #include "../../JavaScript/JSZAttributeFactory.h"
 
 #ifndef SRC_TEST_MOCKS_JSZATTRIBUTEFACTORYMOCK_H_
@@ -21,8 +20,8 @@ public:
 	JSZAttributeFactoryMock();
 	virtual ~JSZAttributeFactoryMock();
 
-	MOCK_METHOD3(init, void (ZDevices * zDevices, ZigbeeDevice * zigbeeDevice,const std::shared_ptr<ClusterTypeFactory> & clusterFactory));
-	MOCK_METHOD2(createAttributeInstance, v8::Local<v8::Object> (v8::Isolate* isolate, ZCLAttribute * attribute ));
+	MAKE_MOCK3(init, void (ZDevices * zDevices, ZigbeeDevice * zigbeeDevice,const std::shared_ptr<ClusterTypeFactory> & clusterFactory));
+    MAKE_MOCK2(createAttributeInstance, v8::Local<v8::Object> (v8::Isolate* isolate, ZCLAttribute * attribute ));
 };
 
 } /* namespace test */

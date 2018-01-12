@@ -9,7 +9,7 @@
 #define SRC_TEST_MOCKS_DBTABLEFACTORYMOCK_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 
 #include "../../Database/DBTableFactory.h"
 
@@ -21,7 +21,7 @@ public:
 	DBTableFactoryMock();
 	virtual ~DBTableFactoryMock();
 
-	MOCK_CONST_METHOD1(getTable,  DBTable * (const std::string & tableName) );
+	MAKE_CONST_MOCK1(getTable,  DBTable * (const std::string & tableName) );
 };
 
 } /* namespace test */

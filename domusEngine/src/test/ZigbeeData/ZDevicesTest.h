@@ -11,7 +11,6 @@
 #include <iostream>
 #include <memory>
 #include "gtest/gtest.h"
-#include "gmock/gmock.h"
 #include "../../ZigbeeData/ZDevices.h"
 
 namespace zigbee {

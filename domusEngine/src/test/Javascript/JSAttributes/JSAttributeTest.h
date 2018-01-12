@@ -17,9 +17,10 @@ namespace zigbee {
     class JSZAttribute;
     namespace test {
 
+
         class JSAttributeTest : public JSTest {
         public:
-            virtual ~JSAttributeTest();
+            virtual ~JSAttributeTest()=default;
         protected:
             std::string zAttributeVariable;
             void createTemplateTest(JSZAttribute *jsZAttribute);
@@ -35,6 +36,12 @@ namespace zigbee {
             void setInitExpectation(ZDevice &zDevice, ZCLAttribute * attributeMock);
             std::string createZAttributeVariable(const std::string &attributeName);
             JSCallbackFifo fifo;
+
+
+            std::unique_ptr<trompeloeil::expectation> exists;
+            std::unique_ptr<trompeloeil::expectation> getDevice;
+            std::unique_ptr<trompeloeil::expectation> getCluster;
+            std::unique_ptr<trompeloeil::expectation> getAttribute;
 
         };
 

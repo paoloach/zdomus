@@ -9,7 +9,7 @@
 #define SRC_TEST_MOCKS_DBTABLEMOCK_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 
 #include "../../Database/DBTable.h"
 
@@ -21,8 +21,8 @@ public:
 	DBTableMock();
 	virtual ~DBTableMock();
 
-	MOCK_METHOD1(find, ResultSet  (const std::string & query));
-	MOCK_METHOD1(insert,  void (DBRow * dbRow) );
+	MAKE_MOCK1(find, ResultSet  (const std::string & query));
+    MAKE_MOCK1(insert,  void (DBRow * dbRow) );
 };
 
 } /* namespace test */

@@ -9,7 +9,6 @@
 #define SRC_TEST_JAVASCRIPT_JSZCLUSTERTEST_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 #include "../Mocks/JSZDeviceMock.h"
 #include "../Mocks/JSZAttributeMock.h"
@@ -57,6 +56,11 @@ namespace zigbee {
             JSZAttributeFactoryMock jsZAttributeFactory;
             std::unique_ptr<ZCLAttributeMock> defaultZclAttribute;
             ZDevice defaultZDevice;
+
+            std::unique_ptr<trompeloeil::expectation> getZDevices;
+            std::unique_ptr<trompeloeil::expectation> getClusters;
+            std::unique_ptr<trompeloeil::expectation> zDeviceExists;
+            std::unique_ptr<trompeloeil::expectation> getAttribute;
         };
 
     } /* namespace test */

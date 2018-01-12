@@ -11,12 +11,14 @@
 #include "../Mocks/ZCLAttributeMock.h"
 #include "../Mocks/ZigbeeDeviceMock.h"
 
+using trompeloeil::_;
+
 namespace zigbee {
     namespace test {
 
         using std::make_shared;
         using namespace v8;
-        using namespace testing;
+
 
         constexpr NwkAddr JSTest::NWK_ADDRESS;
         constexpr EndpointID JSTest::ENDPOINT_ID;
@@ -24,7 +26,7 @@ namespace zigbee {
         constexpr uint32_t JSTest::PROFILE_ID;
         constexpr uint32_t JSTest::DEVICE_ID;
         constexpr uint32_t JSTest::DEVICE_VER;
-        constexpr uint32_t JSTest::ATTRIBUTE0_ID;
+        constexpr int32_t JSTest::ATTRIBUTE0_ID;
         constexpr uint32_t JSTest::ATTRIBUTE1_ID;
 
         const std::string JSTest::EXTENDED_ADDRESS = "00-01-02-03-04-05-06-07";
@@ -49,15 +51,21 @@ namespace zigbee {
             defaultZclAttribute = std::make_unique<ZCLAttributeMock>();
             jsLog = std::make_shared<JSLog>();
 
-            EXPECT_CALL(singletonObjectsMock, getZDevices()).Times(AtLeast(0)).WillRepeatedly(Return(zDevices.get()));
-            EXPECT_CALL(singletonObjectsMock, getClusters()).Times(AtLeast(0)).WillRepeatedly(Return(&clustersMock));
-            ON_CALL(clustersMock, getCluster(_, _, _)).WillByDefault(Return(&defaultCluster));
-            ON_CALL(*zDevices, getDevice(extAddress)).WillByDefault(Return(&defaultZDevice));
-            ON_CALL(*zDevices, exists(_)).WillByDefault(Return(false));
-            ON_CALL(cluster, getAttribute(ATTRIBUTE0_ID)).WillByDefault(Return(zclAttributeMock.get()));
+            getZDevices = NAMED_ALLOW_CALL(singletonObjectsMock, getZDevices()).RETURN(zDevices.get());
+            getClusters = NAMED_ALLOW_CALL(singletonObjectsMock, getClusters()).LR_RETURN(&clustersMock);
+            getCluster = NAMED_ALLOW_CALL(clustersMock, getCluster(_,_,_)).LR_RETURN(&defaultCluster);
+            getDevice = NAMED_ALLOW_CALL(*zDevices, getDevice(extAddress)).LR_RETURN(&defaultZDevice);
+            exists = NAMED_ALLOW_CALL(*zDevices, exists(_)).RETURN(false);
+            getAttribute = NAMED_ALLOW_CALL(cluster, getAttribute(ATTRIBUTE0_ID)).RETURN(zclAttributeMock.get());
         }
 
         void JSTest::TearDown() {
+            getZDevices.release();
+            getClusters.release();
+            getCluster.release();
+            getDevice.release();
+            getAttribute.release();
+            exists.release();
             locker.reset();
             jsLog->resetPersistences();
             isolate->Exit();

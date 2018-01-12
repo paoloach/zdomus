@@ -49,21 +49,21 @@ namespace zigbee {
 
     TEST_F(ZDevicesTest, at_begin_return_empty) {
         ptree properties = zDevices->getDifferences(0);
-        ASSERT_THAT(properties.size(), Eq(0));
+        ASSERT_EQ(properties.size(), 0);
     }
 
     TEST_F(ZDevicesTest, with_a_device) {
 
         zDevices->put(annunce1);
         ptree properties = zDevices->getDifferences(0);
-        ASSERT_THAT(properties.size(), Eq(2));
-        ASSERT_THAT(properties.get<int>(TOKEN_NAME), Eq(1));
+        ASSERT_EQ(properties.size(), 2);
+        ASSERT_EQ(properties.get<int>(TOKEN_NAME), 1);
         ptree zDevice = properties.get_child(DEVICE);
-        ASSERT_THAT(zDevice.empty(), Eq(false));
+        ASSERT_EQ(zDevice.empty(), false);
 
-        ASSERT_THAT(zDevice.get<int>(SHORT_ADDR_NAME), Eq(annunce1.nwkAddr));
-        ASSERT_THAT(zDevice.get<int>(CAPABILITY_NAME), Eq(annunce1.capabilities));
-        ASSERT_THAT(zDevice.get<std::string>(EXT_ADDR_NAME), Eq(extAddr1));
+        ASSERT_EQ(zDevice.get<int>(SHORT_ADDR_NAME), annunce1.nwkAddr);
+        ASSERT_EQ(zDevice.get<int>(CAPABILITY_NAME), annunce1.capabilities);
+        ASSERT_EQ(zDevice.get<std::string>(EXT_ADDR_NAME), extAddr1);
     }
 
 
@@ -72,7 +72,7 @@ namespace zigbee {
         ptree properties = zDevices->getDifferences(0);
         zDevices->put(simpleDesc1);
         properties = zDevices->getDifferences(1);
-        ASSERT_THAT(properties.get<int>(TOKEN_NAME), Eq(2));
+        ASSERT_EQ(properties.get<int>(TOKEN_NAME), 2);
         ptree zDevice = properties.get_child(DEVICE);
 
     }

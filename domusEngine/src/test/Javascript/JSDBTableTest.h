@@ -16,28 +16,32 @@
 #include "../../JavaScript/JSResultSet.h"
 
 namespace zigbee {
-namespace test {
+    namespace test {
 
 
-class JSDBTableTest : public JSBaseTest {
-public:
-	virtual ~JSDBTableTest()=default;
-protected:
-	virtual void SetUp() override ;
-	virtual void TearDown() override ;
+        class JSDBTableTest : public JSBaseTest {
+        public:
+            virtual ~JSDBTableTest() = default;
+
+        protected:
+            virtual void SetUp() override;
+
+            virtual void TearDown() override;
 
 
-protected:
-	DBTableFactoryMock dbTableFactoryMock;
-    std::unique_ptr<JSRow> jsRow;
-    std::unique_ptr<JSResultSet> jsResultSet;
-	std::unique_ptr<JSDBTable> jsDBTable;
-	DBTableMock dbTable;
+        protected:
+            DBTableFactoryMock dbTableFactoryMock;
+            std::unique_ptr<JSRow> jsRow;
+            std::unique_ptr<JSResultSet> jsResultSet;
+            std::unique_ptr<JSDBTable> jsDBTable;
+            DBTableMock dbTable;
 
+            std::unique_ptr<trompeloeil::expectation> getTable;
+            std::unique_ptr<trompeloeil::expectation> find;
 
-};
+        };
 
-} /* namespace test */
+    } /* namespace test */
 } /* namespace zigbee */
 
 #endif /* SRC_TEST_JAVASCRIPT_JSDBTABLETEST_H_ */

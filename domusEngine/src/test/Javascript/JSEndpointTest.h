@@ -9,7 +9,6 @@
 #define SRC_TEST_JAVASCRIPT_JSENDPOINTTEST_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 #include "../Mocks/ZDevicesMock.h"
 #include "../Mocks/JSZDeviceMock.h"

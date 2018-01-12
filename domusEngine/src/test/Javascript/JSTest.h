@@ -9,7 +9,6 @@
 #define SRC_TEST_JAVASCRIPT_JSTEST_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 #include <v8.h>
 #include "../../JavaScript/JSLog.h"
@@ -39,7 +38,7 @@ namespace zigbee {
             static const std::vector<ClusterID> IN_CLUSTERS;
             static const std::vector<ClusterID> OUT_CLUSTERS;
 
-            static constexpr uint32_t ATTRIBUTE0_ID{0};
+            static constexpr int32_t ATTRIBUTE0_ID{0};
             static constexpr uint32_t ATTRIBUTE1_ID{3};
 
         public:
@@ -73,22 +72,30 @@ namespace zigbee {
             std::unique_ptr<ZCLAttributeMock> defaultZclAttribute;
             ZDevice defaultZDevice;
             std::shared_ptr<JSLog> jsLog;
+
+
+            std::unique_ptr<trompeloeil::expectation> getZDevices;
+            std::unique_ptr<trompeloeil::expectation> getClusters;
+            std::unique_ptr<trompeloeil::expectation> getCluster;
+            std::unique_ptr<trompeloeil::expectation> getDevice;
+            std::unique_ptr<trompeloeil::expectation> exists;
+            std::unique_ptr<trompeloeil::expectation> getAttribute;
         };
 
-        MATCHER_P(IsString, stringToCompare, "") {
-            char StringUTF[255]{};
-
-            arg->WriteUtf8(StringUTF, 255);
-            return stringToCompare == std::string(StringUTF);
-        }
-
-        MATCHER(IsTrue, "") {
-            return arg->ToBoolean()->Value();
-        }
-
-        MATCHER(IsFalse, "") {
-            return arg->ToBoolean()->Value() == false;
-        }
+//        MATCHER_P(IsString, stringToCompare, "") {
+//            char StringUTF[255]{};
+//
+//            arg->WriteUtf8(StringUTF, 255);
+//            return stringToCompare == std::string(StringUTF);
+//        }
+//
+//        MATCHER(IsTrue, "") {
+//            return arg->ToBoolean()->Value();
+//        }
+//
+//        MATCHER(IsFalse, "") {
+//            return arg->ToBoolean()->Value() == false;
+//        }
 
 #define V8_SETUP HandleScope handle_scope(isolate);\
                 Local<Context> context = Context::New(isolate, nullptr);\

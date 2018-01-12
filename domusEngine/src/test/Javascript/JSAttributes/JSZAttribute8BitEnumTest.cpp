@@ -52,11 +52,11 @@ namespace zigbee {
             REQUIRE_CALL(attributeMock, getValue()).RETURN(std::any(expectedValue));
 
             v8::Local<v8::Value> result = runScript(zAttributeVariable + "a.value");
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUint32(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsUint32(), true);
             uint16_t value = result->ToUint32()->Value();
 
-            ASSERT_THAT(value, Eq(expectedValue));
+            ASSERT_EQ(value, expectedValue);
         }
 
         TEST_F(JSZAttribute8BitEnumTest, setValue) {

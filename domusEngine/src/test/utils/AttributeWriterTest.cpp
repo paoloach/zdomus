@@ -2,7 +2,6 @@
 // Created by paolo on 24/06/16.
 //
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 #include "AttributeWriterTest.h"
 #include "../../Utils/AttributeWriter.h"

@@ -35,50 +35,70 @@ namespace zigbee {
 
         static const std::string_view tableName = "testTable";
 
-        MATCHER_P(IsAnyString, expectedString, "") {
-            if (arg.type() == typeid(std::string)) {
-                std::string value = std::any_cast<std::string>(arg);
-                return value == expectedString;
+        bool isAnyType(std::any arg, int expectedInt) {
+            if (arg.type() == typeid(int)) {
+                return std::any_cast<int>(arg) == expectedInt;
+            } else {
+                std::cout << "Got type " << arg.type().name();
             }
             return false;
         }
 
-        MATCHER_P(IsAnyPosixTime, expectedPosixTime, "") {
+        bool isAnyType(std::any arg, double expectedInt) {
+            if (arg.type() == typeid(double)) {
+                return std::any_cast<double>(arg) == expectedInt;
+            }else {
+                std::cout << "Got type " << arg.type().name();
+            }
+            return false;
+        }
+
+        bool isAnyType(std::any arg, bool expected) {
+            if (arg.type() == typeid(bool)) {
+                return std::any_cast<bool>(arg) == expected;
+            }
+            return false;
+        }
+
+        bool isAnyType(std::any arg, const char * expected) {
+            if (arg.type() == typeid(std::string)) {
+                return std::any_cast<std::string>(arg) == expected;
+            }else {
+                std::cout << "Got type " << arg.type().name();
+            }
+            return false;
+        }
+
+        bool isAnyType(std::any arg, std::string expected) {
+            if (arg.type() == typeid(std::string)) {
+                return std::any_cast<std::string>(arg) == expected;
+            }else {
+                std::cout << "Got type " << arg.type().name();
+            }
+            return false;
+        }
+
+
+        bool isAnyType(std::any arg, std::string_view expected) {
+            if (arg.type() == typeid(std::string)) {
+                return std::any_cast<std::string>(arg) == expected;
+            }else {
+                std::cout << "Got type " << arg.type().name();
+            }
+            return false;
+        }
+
+        bool isAnyType(std::any arg, ptime expectedInt) {
             if (arg.type() == typeid(boost::posix_time::ptime)) {
                 boost::posix_time::ptime value = std::any_cast<boost::posix_time::ptime>(arg);
-                std::cout << "Expected " << expectedPosixTime << " but got " << value << std::endl;
-                return value == expectedPosixTime;
+//                std::cout << "Expected " << expectedPosixTime << " but got " << value << std::endl;
+                return expectedInt == value;
+            }else {
+                std::cout << "Got type " << arg.type().name();
             }
             return false;
         }
 
-        MATCHER_P(IsAnyChar, expectedChar, "") {
-            if (arg.type() == typeid(char)) {
-                return std::any_cast<char>(arg) == expectedChar;
-            }
-            return false;
-        }
-
-        MATCHER_P(IsAnyInteger, expectedInt, "") {
-            if (arg.type() == typeid(int32_t)) {
-                return std::any_cast<int32_t>(arg) == expectedInt;
-            }
-            return false;
-        }
-
-        MATCHER_P(IsAnyDouble, expecteDouble, "") {
-            if (arg.type() == typeid(double)) {
-                return std::abs(std::any_cast<double>(arg) - expecteDouble) < 0.001;
-            }
-            return false;
-        }
-
-        MATCHER_P(IsAnyBool, expecteBool, "") {
-            if (arg.type() == typeid(bool)) {
-                return std::any_cast<bool>(arg) == expecteBool;
-            }
-            return false;
-        }
 
         DBTableTest::~DBTableTest() {
         }
@@ -101,58 +121,58 @@ namespace zigbee {
         TEST_F(DBTableTest, connection) {
             createTable(tableName);
 
-            new DBTable(tableName,conn);
+            new DBTable(tableName, conn);
             dropTable(tableName);
         }
 
         TEST_F(DBTableTest, invalidTableName) {
             std::string tableName = "InvalidTestTable";
 
-            ASSERT_THROW(new DBTable(tableName,conn), DBExceptionNoTable);
+            ASSERT_THROW(new DBTable(tableName, conn), DBExceptionNoTable);
         }
 
         TEST_F(DBTableTest, find_data_integer) {
             createTable(tableName, {"a integer"});
             insertTable(tableName, "3");
 
-            dbTable = new DBTable(tableName,conn);
+            dbTable = new DBTable(tableName, conn);
 
             auto row = dbTable->find("");
 
-            ASSERT_THAT(row.getValue("a"), IsAnyInteger(3));
+            ASSERT_TRUE(isAnyType(row.getValue("a"), 3));
         }
 
         TEST_F(DBTableTest, find_data_float) {
             createTable(tableName, {"a real"});
             insertTable(tableName, "3.6");
 
-            dbTable = new DBTable(tableName,conn);
+            dbTable = new DBTable(tableName, conn);
 
             auto row = dbTable->find("");
 
-            ASSERT_THAT(row.getValue("a"), IsAnyDouble(3.6));
+            ASSERT_TRUE(isAnyType(row.getValue("a"), 3.6));
         }
 
         TEST_F(DBTableTest, find_data_bool) {
             createTable(tableName, {"a boolean"});
             insertTable(tableName, "'on'");
 
-            dbTable = new DBTable(tableName,conn);
+            dbTable = new DBTable(tableName, conn);
 
             auto row = dbTable->find("");
 
-            ASSERT_THAT(row.getValue("a"), IsAnyBool(true));
+            ASSERT_TRUE(isAnyType(row.getValue("a"), true));
         }
 
         TEST_F(DBTableTest, find_data_string) {
             createTable(tableName, {"a text"});
             insertTable(tableName, "'text-text'");
 
-            dbTable = new DBTable(tableName,conn);
+            dbTable = new DBTable(tableName, conn);
 
             auto row = dbTable->find("");
 
-            ASSERT_THAT(row.getValue("a"), IsAnyString("text-text"));
+            ASSERT_TRUE(isAnyType(row.getValue("a"), "text-text"));
         }
 
         TEST_F(DBTableTest, find_data_timestamp) {
@@ -160,11 +180,11 @@ namespace zigbee {
             insertTable(tableName, "'2015-01-25 12:11:54.88'");
             ptime expectedTime(date(2015, 1, 25), time_duration(12, 11, 54, 880000));
 
-            dbTable = new DBTable(tableName,conn);
+            dbTable = new DBTable(tableName, conn);
 
             auto row = dbTable->find("");
 
-            ASSERT_THAT(row.getValue("a"), IsAnyPosixTime(expectedTime));
+            ASSERT_TRUE(isAnyType(row.getValue("a"), expectedTime));
 
         }
 
@@ -174,11 +194,11 @@ namespace zigbee {
             insertTable(tableName, "10, 30");
             insertTable(tableName, "100, 300");
 
-            dbTable = new DBTable(tableName,conn);
+            dbTable = new DBTable(tableName, conn);
 
             auto row = dbTable->find("a=10");
 
-            ASSERT_THAT(row.getValue("b"), IsAnyInteger(30));
+            ASSERT_TRUE(isAnyType(row.getValue("b"), 30));
         }
 
 
@@ -188,7 +208,7 @@ namespace zigbee {
             double expected_b = 21.34;
             string_view expected_c = "text_c";
 
-            dbTable = new DBTable(tableName,conn);
+            dbTable = new DBTable(tableName, conn);
 
             DBRow row;
 
@@ -199,9 +219,9 @@ namespace zigbee {
 
             auto actualRow = dbTable->find("");
 
-            ASSERT_THAT(actualRow.getValue("a"), IsAnyInteger(expected_a));
-            ASSERT_THAT(actualRow.getValue("b"), IsAnyDouble(expected_b));
-            ASSERT_THAT(actualRow.getValue("c"), IsAnyString(expected_c));
+            ASSERT_TRUE(isAnyType(actualRow.getValue("a"), expected_a));
+            ASSERT_TRUE(isAnyType(actualRow.getValue("b"), expected_b));
+            ASSERT_TRUE(isAnyType(actualRow.getValue("c"), expected_c));
         }
 
 
@@ -213,7 +233,7 @@ namespace zigbee {
             string_view d = "2015-01-25 12:11:54.88";
             string_view expected_d = "20150125T121154.880000";
 
-            dbTable = new DBTable(tableName,conn);
+            dbTable = new DBTable(tableName, conn);
 
             DBRow row;
 
@@ -233,7 +253,7 @@ namespace zigbee {
             std::stringstream stream;
             stream << root << "\r\n";
             auto result = dbTable->find("");
-            ASSERT_THAT(result.stringify(), stream.str());
+            ASSERT_EQ(result.stringify(), stream.str());
 
         }
 

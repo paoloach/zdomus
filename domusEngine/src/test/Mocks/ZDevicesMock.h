@@ -9,28 +9,40 @@
 #define SRC_TEST_MOCKS_ZDEVICESMOCK_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "../../ZigbeeData/ZDevices.h"
-#include "shared_ptr_mock.h"
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 
 namespace zigbee {
 namespace test {
 
-class ZDevicesMock: public ZDevices, public sharedMockClass<ZDevices, ZDevicesMock> {
+class ZDevicesMock: public ZDevices {
 public:
 	ZDevicesMock();
 	virtual ~ZDevicesMock();
 
-	MOCK_METHOD1(getDifferences, boost::property_tree::ptree (uint32_t ));
-	MOCK_METHOD1(put, void (const AnnunceMessage & ));
-	MOCK_METHOD1(put, void (const SimpleDescMessage & ));
-	MOCK_CONST_METHOD0(getNumDevices, int ());
-	MOCK_METHOD0(getDevices, std::vector<ZDevice *> ());
-	MOCK_CONST_METHOD1(getDevice, ZDevice * (const ExtAddress & extAddress));
-	MOCK_CONST_METHOD1(getDevice, ZDevice * (NwkAddr nwkAddr));
-	MOCK_CONST_METHOD1(getDeviceNoExcept, ZDevice * (NwkAddr nwkAddr));
-	MOCK_CONST_METHOD1(exists, bool (const ExtAddress & extAddress));
-    MOCK_METHOD1(addDeviceInfo,  void (const IEEEAddrResp &ieeeAddressResponse));
+    MAKE_MOCK1(put, void (const AnnunceMessage & ));
+    MAKE_MOCK1(put, void (const SimpleDescMessage & ));
+    MAKE_MOCK1(put, void (const ZEndpoint & ));
+    MAKE_MOCK1(put, void (const BindResponse & ));
+    MAKE_MOCK1(addDeviceInfo,  void (const IEEEAddrResp &ieeeAddressResponse));
+    MAKE_MOCK1(getDifferences, boost::property_tree::ptree (uint32_t token));
+
+    MAKE_CONST_MOCK0(getNumDevices, int ());
+
+    MAKE_MOCK0(getDevices, std::vector<ZDevice *> ());
+
+    MAKE_CONST_MOCK1(getDevice, ZDevice *(const ExtAddress &extAddress) );
+
+    MAKE_CONST_MOCK1(getDevice, ZDevice *(NwkAddr nwkAddress) );
+
+    MAKE_CONST_MOCK1(getDeviceNoExcept, ZDevice *(NwkAddr nwkAddress) );
+
+    MAKE_CONST_MOCK1(exists, bool (const ExtAddress &extAddress) );
+
+    MAKE_MOCK1(addObserver, void (Observer observer));
+
+    MAKE_MOCK1(removeObserver, void (Observer observer));
+
 };
 
 

@@ -6,7 +6,6 @@
  */
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <v8.h>
 #include <v8-platform.h>
 #include <libplatform/libplatform.h>
@@ -64,7 +63,7 @@ static void exitV8() {
 
 int main(int argc, char *argv[]) {
     initV8(argc, argv);
-    ::testing::InitGoogleMock(&argc, argv);
+    ::testing::InitGoogleTest(&argc,argv);
     int result{RUN_ALL_TESTS()};
     exitV8();
     return result;

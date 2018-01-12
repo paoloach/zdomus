@@ -9,22 +9,20 @@
 #define SRC_TEST_MOCKS_JSZATTRIBUTEMOCK_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "../../JavaScript/JSZAttribute.h"
-#include "shared_ptr_mock.h"
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 
 namespace zigbee {
 namespace test {
 
-class JSZAttributeMock : public JSZAttribute, public sharedMockClass<JSZAttribute, JSZAttributeMock> {
+class JSZAttributeMock : public JSZAttribute {
 public:
 	JSZAttributeMock();
 	virtual ~JSZAttributeMock();
-	MOCK_METHOD2(initJsObjectsTemplate, void (v8::Isolate * isolate ,v8::Handle<v8::Object> & global));
-	MOCK_METHOD2(createInstance, v8::Local<v8::Object> (v8::Isolate* isolate, const ZCLAttribute * zclAttribute));
+	MAKE_MOCK2(initJsObjectsTemplate, void (v8::Isolate * isolate ,v8::Handle<v8::Object> & global));
+    MAKE_MOCK2(createInstance, v8::Local<v8::Object> (v8::Isolate* isolate, const ZCLAttribute * zclAttribute));
 };
 
-typedef shared_ptr_mock<JSZAttribute,JSZAttributeMock> JSZAttributeMock_P;
 
 } /* namespace test */
 } /* namespace zigbee */

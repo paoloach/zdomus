@@ -5,12 +5,12 @@
  *      Author: Paolo Achdjian
  */
 
+#include <iomanip>
+
 #include "JSZClusterTest.h"
 
 #include "../../JavaScript/JSObjects.h"
 #include "../Mocks/ClusterMock.h"
-#include "ClusterCmdArgumentMatcher.h"
-#include "ClusterCmdArrayArgumentMatcher.h"
 #include <sstream>
 
 namespace zigbee {
@@ -21,11 +21,9 @@ namespace zigbee {
     }
 
     namespace test {
-
         using std::make_unique;
-        using std::make_shared;
         using namespace v8;
-        using namespace testing;
+        using trompeloeil::_;
 
 #define V8_SETUP HandleScope handle_scope(isolate);\
                 Local<Context> context = Context::New(isolate, nullptr);\
@@ -60,48 +58,59 @@ namespace zigbee {
         static std::shared_ptr<ClusterCmdParamsBase> COMAND_PARAM_STRING = std::make_shared<ClusterCmdParams<ZCLTypeDataType::ZCLTypeStringChar>>("string");
         static std::shared_ptr<ClusterCmdParamsBase> COMAND_PARAM_LIST_UINT16 = std::make_shared<ClusterCmdListParams<ZCLTypeDataType::ZCLTypeUInt16>>("array of uint16");
 
-        MATCHER_P(IsString, stringToCompare, "") {
-            char StringUTF[255]{};
 
-            arg->WriteUtf8(StringUTF, 255);
-            return stringToCompare == std::string(StringUTF);
+        inline auto getCmdData(uint16_t arg1, const char * arg2){
+            ZCLType<ZCLTypeDataType::ZCLTypeUInt16> typeP1;
+            ZCLType<ZCLTypeDataType::ZCLTypeStringChar> typeP2;
+            std::vector<uint8_t> p1Data { typeP1.getRaw(arg1) };
+            std::vector<uint8_t> p2Data { typeP2.getRaw(arg2) };
+            std::vector<uint8_t> expected;
+            std::copy(p1Data.begin(), p1Data.end(), std::back_inserter(expected));
+            std::copy(p2Data.begin(), p2Data.end(), std::back_inserter(expected));
+
+            return expected;
         }
 
-        MATCHER(IsTrue, "") {
-            return arg->ToBoolean()->Value();
+        inline auto getCmdData(uint16_t arg1, uint16_t arg2){
+            ZCLType<ZCLTypeDataType::ZCLTypeUInt16> typeP1;
+            ZCLType<ZCLTypeDataType::ZCLTypeUInt16> typeP2;
+            std::vector<uint8_t> p1Data { typeP1.getRaw(arg1) };
+            std::vector<uint8_t> p2Data { typeP2.getRaw(arg2) };
+            std::vector<uint8_t> expected;
+            std::copy(p1Data.begin(), p1Data.end(), std::back_inserter(expected));
+            std::copy(p2Data.begin(), p2Data.end(), std::back_inserter(expected));
+
+            return expected;
         }
 
-        MATCHER(IsFalse, "") {
-            return arg->ToBoolean()->Value() == false;
+        template<typename A, typename B>
+        inline auto dataIsFormedBy(A arg1, B arg2) {
+            return trompeloeil::make_matcher<std::vector<uint8_t >>(
+              [arg1, arg2](std::vector<uint8_t> toCheck){
+                  return toCheck == getCmdData(arg1, arg2);
+                },
+              [arg1, arg2](std::ostream & os){
+                  os << "expected a vector data of: [";
+                  auto dataVector = getCmdData(arg1, arg2);
+                  for (auto data: dataVector){
+                      os << std::ios::hex << data << ", ";
+                  }
+                  os << "]";
+              }
+
+            );
         }
 
-//        class TestCluster1 : public ClusterMock {
-//        public:
-//            virtual ~TestCluster1() =default;
-//            TestCluster1(ZigbeeDevice * zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress,
-//                         const std::shared_ptr<ClusterCmdParamsBase> &cmdParam1,
-//                         const std::shared_ptr<ClusterCmdParamsBase> &cmdParam2, const std::shared_ptr<ClusterCmdParamsBase> &cmdParam3) {
-//
-//                std::copy(ATTRIBUTES_DEF.begin(), ATTRIBUTES_DEF.end(), std::back_inserter(_attributesDef));
-//
-//                _commandsDef.emplace_back([this](std::vector<uint8_t> ){this->comand1Executed++;}, COMAND0_ID, "Comand 1");
-//                _commandsDef.emplace_back([this](std::vector<uint8_t> ){this->comand2Executed++;}, COMAND1_ID, "Comand 2", cmdParam1, cmdParam2);
-//                _commandsDef.emplace_back([](std::vector<uint8_t> ){}, COMAND2_ID, "Comand 3", cmdParam3);
-//
-//                comand1Executed = 0;
-//                comand2Executed = 0;
-//            }
-//
-//
-//            int comand1Executed;
-//            int comand2Executed;
-//        };
+        auto inline toString(Local<String> arg) {
+            v8::String::Utf8Value utf8Value(arg);
+            return std::string(*utf8Value);
+        }
 
 
         void JSZClusterTest::SetUp() {
-            ON_CALL(singletonObjectsMock, getZDevices()).WillByDefault(Return(&zDevices));
-            ON_CALL(singletonObjectsMock, getClusters()).WillByDefault(Return(&clusters));
-            ON_CALL(zDevices, exists(_)).WillByDefault(Return(false));
+            getZDevices = NAMED_ALLOW_CALL(singletonObjectsMock, getZDevices()).LR_RETURN(&zDevices);
+            getClusters = NAMED_ALLOW_CALL(singletonObjectsMock, getClusters()).LR_RETURN(&clusters);
+            zDeviceExists = NAMED_ALLOW_CALL(zDevices, exists(_)).RETURN(false);
 
             createParams.array_buffer_allocator = &v8Allocator;
             isolate = v8::Isolate::New(createParams);
@@ -111,10 +120,14 @@ namespace zigbee {
             zclAttributeMock = std::make_unique<ZCLAttributeMock>();
             jsZCluster = make_unique<JSZCluster>(&jsZAttributeFactory, &singletonObjectsMock);
             extAddress = convertFromString(EXTENDED_ADDRESS);
-            ON_CALL(cluster, getAttribute(A<int>())).WillByDefault(Return(defaultZclAttribute.get()));
+            getAttribute = NAMED_ALLOW_CALL(cluster, getAttribute(ANY(int))).RETURN(defaultZclAttribute.get());
         }
 
         void JSZClusterTest::TearDown() {
+            getZDevices.release();
+            getClusters.release();
+            zDeviceExists.release();
+            getAttribute.release();
             jsZCluster.reset();
             locker.reset();
             isolate->Exit();
@@ -154,17 +167,17 @@ namespace zigbee {
             V8_SETUP
             jsZCluster->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(&cluster));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
+            REQUIRE_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).LR_RETURN(&cluster);
 
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsObject(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsObject(), true);
             Local<Object> object = result->ToObject();
 
-            ASSERT_THAT(object->GetConstructorName(), IsString(JSZCLUSTER));
+            ASSERT_EQ(toString(object->GetConstructorName()), JSZCLUSTER);
         }
 
         TEST_F(JSZClusterTest, getAProperty) {
@@ -177,21 +190,21 @@ namespace zigbee {
             jsZCluster->initJsObjectsTemplate(isolate, global);
             Local<Object> expectedObject = Object::New(isolate);
 
-            ON_CALL(jsZAttributeFactory, createAttributeInstance(_, _)).WillByDefault(Return(Object::New(isolate)));
+//            REQUIRE_CALL(jsZAttributeFactory, createAttributeInstance(_, _)).RETURN(Object::New(isolate));
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(&cluster));
-            EXPECT_CALL(cluster, getAttribute(ATTRIBUTE1_ID)).WillOnce(Return(zclAttributeMock.get()));
-            EXPECT_CALL(jsZAttributeFactory, createAttributeInstance(isolate, zclAttributeMock.get())).WillOnce(Return(expectedObject));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
+            REQUIRE_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).LR_RETURN(&cluster);
+            REQUIRE_CALL(cluster, getAttribute(ATTRIBUTE1_ID)).RETURN(zclAttributeMock.get());
+            REQUIRE_CALL(jsZAttributeFactory, createAttributeInstance(isolate, zclAttributeMock.get())).RETURN(expectedObject);
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsObject(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsObject(), true);
 
             Local<Object> resultObject = result->ToObject();
 
-            ASSERT_THAT(resultObject->GetIdentityHash(), Eq(expectedObject->GetIdentityHash()));
+            ASSERT_EQ(resultObject->GetIdentityHash(), expectedObject->GetIdentityHash());
         }
 
         TEST_F(JSZClusterTest, executeCmdByIdWihNoAttributes) {
@@ -203,15 +216,15 @@ namespace zigbee {
             V8_SETUP
             jsZCluster->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(&cluster));
-            EXPECT_CALL(cluster, executeCommand(COMAND0_ID, _));
-            EXPECT_CALL(cluster, getCmdParams(COMAND0_ID)).WillOnce(Return(std::vector<ClusterCmdParamsBase *> {}));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
+            REQUIRE_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).LR_RETURN(&cluster);
+            REQUIRE_CALL(cluster, executeCommand(COMAND0_ID, _));
+            REQUIRE_CALL(cluster, getCmdParams(COMAND0_ID)).RETURN(std::vector<ClusterCmdParamsBase *> {});
 
             v8::Local<v8::Value> result = runScript(stream.str());
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUndefined(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsUndefined(), true);
         }
 
         TEST_F(JSZClusterTest, executeCmdByIdWihAttributes) {
@@ -226,18 +239,18 @@ namespace zigbee {
             V8_SETUP
             jsZCluster->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(&cluster));
-            EXPECT_CALL(cluster, executeCommand(COMAND1_ID,
-                                                HasArgument<uint16_t, const char *, ZCLTypeDataType::ZCLTypeUInt16, ZCLTypeDataType::ZCLTypeStringChar>(COMAND1_ARG0,
-                                                                                                                                                        COMAND1_ARG1)));
-            EXPECT_CALL(cluster, getCmdParams(COMAND1_ID)).WillOnce(Return(std::vector<ClusterCmdParamsBase *> {argUINT16.get(), argString.get()}));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
+            REQUIRE_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).LR_RETURN(&cluster);
+
+            REQUIRE_CALL(cluster, executeCommand(COMAND1_ID,dataIsFormedBy(COMAND1_ARG0, COMAND1_ARG1)));
+
+            REQUIRE_CALL(cluster, getCmdParams(COMAND1_ID)).LR_RETURN(std::vector<ClusterCmdParamsBase *> {argUINT16.get(), argString.get()});
 
             v8::Local<v8::Value> result = runScript(stream.str());
             String::Utf8Value strResult(result);
-            ASSERT_THAT(result.IsEmpty(), false)<< stream.str() << "=" << (*strResult);
-            ASSERT_THAT(result->IsUndefined(), true);
+            ASSERT_EQ(result.IsEmpty(), false)<< stream.str() << "=" << (*strResult);
+            ASSERT_EQ(result->IsUndefined(), true);
         }
 
         TEST_F(JSZClusterTest, executeCmdByIdWihAttributesAsUINT16_list) {
@@ -253,17 +266,18 @@ namespace zigbee {
             V8_SETUP
             jsZCluster->initJsObjectsTemplate(isolate, global);
 
-            EXPECT_CALL(zDevices, exists(extAddress)).WillOnce(Return(true));
-            EXPECT_CALL(zDevices, getDevice(extAddress)).WillOnce(Return(&zDevice));
-            EXPECT_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).WillOnce(Return(&cluster));
+            REQUIRE_CALL(zDevices, exists(extAddress)).RETURN(true);
+            REQUIRE_CALL(zDevices, getDevice(extAddress)).LR_RETURN(&zDevice);
+            REQUIRE_CALL(clusters, getCluster(NWK_ADDRESS, ENDPOINT_ID, CLUSTER_ID)).LR_RETURN(&cluster);
 
-            EXPECT_CALL(cluster, executeCommand(COMAND2_ID, HasArraysArgument<uint16_t, ZCLTypeDataType::ZCLTypeUInt16>({data1, data2})));
-            EXPECT_CALL(cluster, getCmdParams(COMAND2_ID)).WillOnce(Return(std::vector<ClusterCmdParamsBase *> {argList.get()}));
+            REQUIRE_CALL(cluster, executeCommand(COMAND2_ID,dataIsFormedBy(data1, data2)));
+            auto cmdParams = std::vector<ClusterCmdParamsBase *> {argList.get()};
+            REQUIRE_CALL(cluster, getCmdParams(COMAND2_ID)).RETURN(cmdParams);
 
             v8::Local<v8::Value> result = runScript(stream.str());
             String::Utf8Value strResult(result);
-            ASSERT_THAT(result.IsEmpty(), false)<< stream.str() << "=" << (*strResult);
-            ASSERT_THAT(result->IsUndefined(), true);
+            ASSERT_EQ(result.IsEmpty(), false)<< stream.str() << "=" << (*strResult);
+            ASSERT_EQ(result->IsUndefined(), true);
         }
 
     } /* namespace test */

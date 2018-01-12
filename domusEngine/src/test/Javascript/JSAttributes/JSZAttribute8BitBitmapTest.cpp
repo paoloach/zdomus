@@ -58,11 +58,11 @@ namespace zigbee {
             v8::Local<v8::Value> result = runScript(zAttributeVariable + "a.value");
 
             ASSERT_FALSE(tryCatch.HasCaught()) << *(String::Utf8Value(tryCatch.Message()->Get()));
-            ASSERT_THAT(result.IsEmpty(), false);
-            ASSERT_THAT(result->IsUint32(), true);
+            ASSERT_EQ(result.IsEmpty(), false);
+            ASSERT_EQ(result->IsUint32(), true);
             uint16_t value = result->ToUint32()->Value();
 
-            ASSERT_THAT(value, Eq(expectedValue));
+            ASSERT_EQ(value, expectedValue);
         }
 
         TEST_F(JSZAttribute8BitBitmapTest, setValue) {

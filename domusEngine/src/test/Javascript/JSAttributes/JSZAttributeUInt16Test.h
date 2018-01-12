@@ -9,7 +9,6 @@
 #define SRC_TEST_JAVASCRIPT_JSATTRIBUTES_JSZATTRIBUTEUINT16TEST_H_
 
 
-#include <gmock/gmock.h>
 #include <tuple>
 #include "JSAttributeTest.h"
 #include "../../Mocks/ZCLAttributeMock.h"

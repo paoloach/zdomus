@@ -9,7 +9,6 @@
 #define SRC_TEST_ZIGBEEDATA_EXTADDRESSTEST_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 #include "../../ZigbeeData/ExtAddress.h"
 

@@ -9,11 +9,9 @@
 #define SRC_TEST_MOCKS_CLUSTERTYPEFACTORYMOCK_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
+#include "../../trompeloeil/src/trompeloeil/include/trompeloeil.hpp"
 
 #include <zcl/ClusterTypeFactory.h>
-
-#include "shared_ptr_mock.h"
 
 namespace zigbee {
 namespace test {
@@ -23,7 +21,7 @@ public:
 	ClusterTypeFactoryMock();
 	virtual ~ClusterTypeFactoryMock();
 
-	MOCK_METHOD4(getCluster, std::unique_ptr<Cluster> (ClusterID clusterId, ZigbeeDevice * zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress));
+	MAKE_MOCK4(getCluster, std::unique_ptr<Cluster> (ClusterID clusterId, ZigbeeDevice * zigbeeDevice, EndpointID endpoint, NwkAddr networkAddress));
 };
 
 

@@ -9,7 +9,6 @@
 #define SRC_TEST_DATABASE_DBTABLETEST_H_
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <initializer_list>
 
 #include "../../Database/DBTable.h"
