@@ -13,7 +13,7 @@ class TemperatureData(json: TemperatureDataJSON) {
     val msTime get() = time.toDate().time
 
     companion object {
-        val dateTimeFormatter = ISODateTimeFormat.dateTime();
+        val dateTimeFormatter = ISODateTimeFormat.basicDateTime();
     }
 
 
