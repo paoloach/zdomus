@@ -12,13 +12,13 @@ ExternalProject_Add(pistache_fork
         INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/libs
         UPDATE_COMMAND "" # Skip annoying updates for every build
         INSTALL_COMMAND ""
-        CMAKE_ARGS  -DCMAKE_FIND_ROOT_PATH=${CMAKE_FIND_ROOT_PATH}
-                -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-                -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-                -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
-                -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-                ${USE_PROJECT_CMAKE_MODULE_PATH}
+        CMAKE_ARGS -DCMAKE_FIND_ROOT_PATH=${CMAKE_FIND_ROOT_PATH}
+        -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+        -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+        -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+        -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+        ${USE_PROJECT_CMAKE_MODULE_PATH}
         )
 
 ExternalProject_Add(trompeloeil
@@ -28,7 +28,7 @@ ExternalProject_Add(trompeloeil
         INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/libs
         UPDATE_COMMAND "" # Skip annoying updates for every build
         INSTALL_COMMAND ""
-        CMAKE_ARGS  -DCMAKE_FIND_ROOT_PATH=${CMAKE_FIND_ROOT_PATH}
+        CMAKE_ARGS -DCMAKE_FIND_ROOT_PATH=${CMAKE_FIND_ROOT_PATH}
         -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
         -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
         -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
@@ -36,7 +36,6 @@ ExternalProject_Add(trompeloeil
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
         ${USE_PROJECT_CMAKE_MODULE_PATH}
         )
-
 
 
 ExternalProject_Get_Property(pistache_fork install_dir)
@@ -95,7 +94,7 @@ set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
 set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -g0 -O3 -std=c++17  -Wall -Wextra -Wpedantic  -fno-omit-frame-pointer ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -g3 -O3 -std=c++17  -Wall -Wextra -Wpedantic  -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O3 -std=c++17  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++17 -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
 
@@ -104,7 +103,7 @@ add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
 
 find_package(PostgreSQL)
 
-find_package(Boost 1.63 COMPONENTS date_time fiber context system  signals program_options filesystem log REQUIRED)
+find_package(Boost 1.63 COMPONENTS date_time fiber context system signals program_options filesystem log REQUIRED)
 
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 include_directories(./include ${LIBUSB_INCLUDE_DIR} ${PostgreSQL_INCLUDE_DIRS} ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR})
@@ -134,14 +133,13 @@ else ()
     if (CMAKE_C_COMPILER MATCHES "arm")
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/native_blob.cpp
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/snapshot_blob.cpp src/DataDemo.cpp)
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/snapshot_blob.cpp )
     else ()
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp src/DataDemo.cpp src/usb/messages/zigbeeConfig.h)
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp  src/usb/messages/zigbeeConfig.h)
     endif ()
 endif ()
-
 
 
 SET(SRC_DATABASE
@@ -246,14 +244,14 @@ set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/messages/PowerNodeRespMessage.h src/DemoDriver/DemoDriverFactory.h src/usb/UsbDriverFactory.h)
 
 
-set(SRC_UTILS   src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h
-                src/Utils/AttributeWriter.cpp src/Utils/AttributeWriter.h
-                src/Utils/Clusters.cpp  src/Utils/Clusters.h
+set(SRC_UTILS src/Utils/AttributeWriterResult.cpp src/Utils/AttributeWriterResult.h
+        src/Utils/AttributeWriter.cpp src/Utils/AttributeWriter.h
+        src/Utils/Clusters.cpp src/Utils/Clusters.h
         src/Utils/SingletonObjects.h src/Utils/SingletonObjectsImpl.cpp src/Utils/SingletonObjectsImpl.h
-                src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
-                src/Utils/Constant.cpp src/Utils/Constant.h
-                src/Utils/LogConstants.h
-                src/Utils/DriverFactory.h src/Database/ResultSet.cpp src/Database/ResultSet.h)
+        src/Utils/DeviceInfoDispatcher.cpp src/Utils/DeviceInfoDispatcher.h
+        src/Utils/Constant.cpp src/Utils/Constant.h
+        src/Utils/LogConstants.h
+        src/Utils/DriverFactory.h src/Database/ResultSet.cpp src/Database/ResultSet.h)
 
 
 add_library(javascript_lib OBJECT

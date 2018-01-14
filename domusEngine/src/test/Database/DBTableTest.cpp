@@ -231,7 +231,7 @@ namespace zigbee {
             double expected_b = 21.34;
             string_view expected_c = "text_c";
             string_view d = "2015-01-25 12:11:54.88";
-            string_view expected_d = "20150125T121154.880000";
+            string_view expected_d = "20150125T121154.880000Z";
 
             dbTable = new DBTable(tableName, conn);
 

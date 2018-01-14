@@ -30,7 +30,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -std=c++14 -
 SET(SET_TEST_DATABASE
         Database/DBTableTest.cpp Database/DBTableTest.h)
 
-SET(SRC_TEST_JAVASCRIPT Javascript/ClusterCmdArgumentMatcher.h Javascript/ClusterCmdArrayArgumentMatcher.h
+SET(SRC_TEST_JAVASCRIPT
         Javascript/JavaScriptExecuterTest.cpp Javascript/JavaScriptExecuterTest.h
         Javascript/JSBaseTest.cpp Javascript/JSEndpointTest.h
         Javascript/JSDBTableTest.cpp Javascript/JSDBTableTest.h
@@ -183,7 +183,7 @@ SET(LIBS zigbeeLib
 
 target_link_libraries(domus_engine_test domus_engine_static_lib ${V8_LIBRARY} ${LIBS} ${GMOCK_LIBS} ${PISTACHE_LIB})
 
-target_link_libraries(database_test domus_engine_static_lib ${LIBS} ${GMOCK_LIBS} )
+target_link_libraries(database_test domus_engine_static_lib ${LIBS} ${GMOCK_LIBS})
 
 set_property(TARGET domus_engine_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
 set_property(TARGET database_test PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)

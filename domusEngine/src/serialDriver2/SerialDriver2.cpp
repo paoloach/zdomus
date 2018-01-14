@@ -67,7 +67,7 @@ namespace zigbee {
 
         stop = false;
         threadQueue = std::thread([this] { run(); });
-        threadRead = std::thread(readThread,std::ref(singletonObjects), serialFd);
+        threadRead = std::thread(readThread,singletonObjects, serialFd);
     }
 
     SerialDriver2::~SerialDriver2() {

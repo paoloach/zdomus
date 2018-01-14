@@ -157,12 +157,6 @@
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Database/DBTableTest.h">
 			<Option target="database_test"/>
 		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/ClusterCmdArgumentMatcher.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/ClusterCmdArrayArgumentMatcher.h">
-			<Option target="domus_engine_test"/>
-		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/Javascript/JSAttributes/JSAttributeTest.cpp">
 			<Option target="domus_engine_test"/>
 		</Unit>

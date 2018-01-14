@@ -88,7 +88,6 @@ namespace zigbee {
 
         Local<Context> lContext = Local<Context>::New(isolate, context);
         Context::Scope contextScope(lContext);
-
         Local<String> source = String::NewFromUtf8(isolate, jsCode.c_str());
         Local<Script> script = Script::Compile(source);
         auto nextTime = std::chrono::system_clock::now() + period;
@@ -97,7 +96,6 @@ namespace zigbee {
             script->Run(lContext);
             if (tryCatch.HasCaught()) {
                 String::Utf8Value utf8Message(tryCatch.Message()->Get());
-                BOOST_LOG_TRIVIAL(error) << *utf8Message;
                 tryCatch.Reset();
             }
 

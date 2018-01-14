@@ -114,7 +114,29 @@ char* DBDataConverter::getStringValue(const any value) {
     } else if (value.type() == typeid(std::string_view)) {
         stream << any_cast<std::string_view>(value);
     } else if (value.type() == typeid(ptime)){
-        stream << to_iso_string(any_cast<ptime>(value));
+        ptime timeValue = any_cast<ptime>(value);
+        auto date = timeValue.date().year_month_day();
+        auto time = timeValue.time_of_day();
+
+
+
+        stream  << std::setw(4) << std::setfill(stream.widen('0'))
+            << date.year
+            << std::setw(2)
+            << date.month.as_number()
+
+            << date.day.as_number()
+            << "T"
+            << std::setw(2) << std::setfill(stream.widen('0'))
+            << time.hours()
+            << std::setw(2) << std::setfill(stream.widen('0'))
+            << time.minutes()
+                << std::setw(2) << std::setfill(stream.widen('0'))
+                << time.seconds()
+            << "."
+            << std::setw(3) << std::setfill(stream.widen('0'))
+            << time.fractional_seconds()
+            << "Z";
     } else if (value.type() == typeid(boost::any)){
         boost::any a = any_cast<boost::any>(value);
         BOOST_LOG_TRIVIAL(error) << "boost::any Unsupported type: " << a.type().name();

@@ -1,0 +1,1 @@
+cmd='/opt/clion-173.4127.6/bin/cmake/bin/cmake;-DCMAKE_INSTALL_PREFIX=/home/paolo/workspace/zdomus/domusEngine/trompeloeil/src/trompeloeil-build/kcov;-GCodeBlocks - Unix Makefiles;<SOURCE_DIR><SOURCE_SUBDIR>'
