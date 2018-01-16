@@ -5,6 +5,8 @@
 #ifndef DOMUS_ENGINE_PACKET_H
 #define DOMUS_ENGINE_PACKET_H
 
+#include <ostream>
+#include <iomanip>
 #include <cstdint>
 #include <vector>
 #include <boost/endian/conversion.hpp>
@@ -33,6 +35,14 @@ namespace zigbee {
 
         uint16_t getUint16(uint32_t index){
             return *(boost::endian::little_to_native((uint16_t *) &data[index]));
+        }
+        friend std::ostream &operator<<(std::ostream & out, const Packet & packet){
+            out << "{ ";
+            for (uint8_t b: packet.data){
+                out << std::hex << std::setw(2) << std::setfill('0') << (uint32_t)b << " ";
+            }
+            out << "}";
+            return out;
         }
     private:
         std::vector<uint8_t> data;

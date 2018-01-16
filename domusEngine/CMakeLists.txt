@@ -217,7 +217,7 @@ SET(SRC_SERIAL_DRIVER2
         src/serialDriver2/PowerNodeResponse2.cpp src/serialDriver2/PowerNodeResponse2.h
         src/serialDriver2/PowerNodeResponse2Error.cpp src/serialDriver2/PowerNodeResponse2Error.h
         src/serialDriver2/ReadThread.cpp src/serialDriver2/ReadThread.h
-        src/serialDriver2/Packet.h src/serialDriver2/AnnunceSerial2Executor.cpp src/serialDriver2/AliveMessage2.cpp src/serialDriver2/StringExecutor.cpp src/serialDriver2/StringExecutor.h src/serialDriver2/PacketSend.h)
+        src/serialDriver2/Packet.h src/serialDriver2/AnnunceSerial2Executor.cpp src/serialDriver2/AliveMessage2.cpp src/serialDriver2/StringExecutor.cpp src/serialDriver2/StringExecutor.h src/serialDriver2/PacketSend.h src/serialDriver2/DeviceInfoSerial2Executor.cpp)
 
 set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h
