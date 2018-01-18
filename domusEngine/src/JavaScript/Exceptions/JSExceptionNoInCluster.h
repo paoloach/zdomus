@@ -10,8 +10,8 @@
 
 #include <zigbee/EndpointID.h>
 #include <zigbee/ClusterID.h>
+#include <zigbee/ExtAddress.h>
 #include "JSException.h"
-#include "../../ZigbeeData/ExtAddress.h"
 
 namespace zigbee {
 

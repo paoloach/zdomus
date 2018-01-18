@@ -152,23 +152,23 @@ namespace zigbee {
 
     }
 
-    void ZDevices::addDeviceInfo(const IEEEAddrResp &ieeeAddressResponse) {
-        auto iterDevice = ieeeAddrDevices.find(ieeeAddressResponse.ieeeAddr);
-        auto device = std::make_unique<ZDevice>(ieeeAddressResponse.ieeeAddr, ieeeAddressResponse.nwkAddr,
-                                                ieeeAddressResponse.children);
+    void ZDevices::addDeviceInfo(const IEEEAddressResponse * ieeeAddressResponse) {
+        auto iterDevice = ieeeAddrDevices.find(ieeeAddressResponse->ieeeAddr);
+        auto device = std::make_unique<ZDevice>(ieeeAddressResponse->ieeeAddr, ieeeAddressResponse->nwkAddr,
+                                                ieeeAddressResponse->children);
         BOOST_LOG_NAMED_SCOPE("zigbee");
-        BOOST_LOG_TRIVIAL(info) << "Arrived device " << ieeeAddressResponse.ieeeAddr << " ("<< ieeeAddressResponse.nwkAddr << ") with " << std::dec << ieeeAddressResponse.children.size() << " children";
+        BOOST_LOG_TRIVIAL(info) << "Arrived device " << ieeeAddressResponse->ieeeAddr << " ("<< ieeeAddressResponse->nwkAddr << ") with " << std::dec << ieeeAddressResponse->children.size() << " children";
 
         if (iterDevice == ieeeAddrDevices.end()) {
-            ieeeAddrDevices.insert(std::make_pair(ieeeAddressResponse.ieeeAddr, std::move(device)));
+            ieeeAddrDevices.insert(std::make_pair(ieeeAddressResponse->ieeeAddr, std::move(device)));
         }
-        auto iterDevice2 = nwkAddrDevices.find(ieeeAddressResponse.nwkAddr);
+        auto iterDevice2 = nwkAddrDevices.find(ieeeAddressResponse->nwkAddr);
         if (iterDevice2 == nwkAddrDevices.end()) {
-            nwkAddrDevices.insert({ieeeAddressResponse.nwkAddr, ieeeAddrDevices[ieeeAddressResponse.ieeeAddr].get()});
+            nwkAddrDevices.insert({ieeeAddressResponse->nwkAddr, ieeeAddrDevices[ieeeAddressResponse->ieeeAddr].get()});
         }
         unique_lock<std::mutex> lock(mutexObserver);
         for (auto &observer: observers) {
-            observer(ieeeAddrDevices[ieeeAddressResponse.ieeeAddr].get());
+            observer(ieeeAddrDevices[ieeeAddressResponse->ieeeAddr].get());
         }
     }
 

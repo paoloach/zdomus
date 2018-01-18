@@ -36,10 +36,10 @@
 #include <zcl/attributeTypes/ZCLuint48Attribute.h>
 
 #include <zcl/attributeTypes/ZCLUTCTime.h>
+#include <zigbee/ExtAddress.h>
 
 #include "../JSCallbackFifo.h"
 
-#include "../../ZigbeeData/ExtAddress.h"
 #include "../JSZAttribute.h"
 #include "../JSObjects.h"
 #include "ParamCheckNull.h"

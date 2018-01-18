@@ -7,8 +7,8 @@
 #include <boost/log/utility/string_literal.hpp>
 #include <boost/tokenizer.hpp>
 #include <zigbee/ZigbeeDevice.h>
+#include <zigbee/ExtAddress.h>
 #include "AnnunceSerialExecutor.h"
-#include "../ZigbeeData/ExtAddress.h"
 #include "../ZigbeeData/ZDevices.h"
 
 namespace  zigbee {

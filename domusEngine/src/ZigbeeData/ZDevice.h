@@ -14,10 +14,10 @@
 #include <zigbee/messageStructure/AnnunceMessage.h>
 #include <zigbee/messageStructure/SimpleDescMessage.h>
 #include <zigbee/NwkAddr.h>
+#include <zigbee/ExtAddress.h>
 #include <set>
 
 #include "ZEndpoint.h"
-#include "ExtAddress.h"
 
 
 namespace zigbee {

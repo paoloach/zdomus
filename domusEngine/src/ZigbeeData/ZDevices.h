@@ -15,9 +15,9 @@
 #include <mutex>
 #include <zigbee/messageStructure/AnnunceMessage.h>
 #include <zigbee/messageStructure/SimpleDescMessage.h>
+#include <zigbee/messageStructure/IEEEAddressResponse.h>
 #include "ZDevice.h"
 #include "../usb/BindResponse.h"
-#include "IEEEAddressResponse.h"
 #include "NewDeviceObserver.h"
 
 namespace zigbee {
@@ -25,7 +25,7 @@ namespace zigbee {
 
     class ZDevices {
     public:
-        using Observer=std::function<void(ZDevice * )>;
+        using Observer=std::function<void(ZDevice *)>;
 
         ZDevices();
 
@@ -41,7 +41,7 @@ namespace zigbee {
 
         virtual void put(const BindResponse &message);
 
-        virtual void addDeviceInfo(const IEEEAddrResp &ieeeAddressResponse);
+        virtual void addDeviceInfo(const IEEEAddressResponse *ieeeAddressResponse);
 
         virtual boost::property_tree::ptree getDifferences(uint32_t token);
 

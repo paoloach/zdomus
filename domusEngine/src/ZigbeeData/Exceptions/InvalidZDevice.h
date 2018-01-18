@@ -8,7 +8,7 @@
 #ifndef SRC_ZIGBEEDATA_EXCEPTIONS_INVALIDZDEVICE_H_
 #define SRC_ZIGBEEDATA_EXCEPTIONS_INVALIDZDEVICE_H_
 
-#include "../ExtAddress.h"
+#include <zigbee/ExtAddress.h>
 #include <zigbee/NwkAddr.h>
 #include "ZigbeeDeviceException.h"
 

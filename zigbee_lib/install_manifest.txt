@@ -8,6 +8,7 @@
 /usr/local/zigbee/include/zigbee/ClusterID.h
 /usr/local/zigbee/include/zigbee/CmdData.h
 /usr/local/zigbee/include/zigbee/EndpointID.h
+/usr/local/zigbee/include/zigbee/ExtAddress.h
 /usr/local/zigbee/include/zigbee/NwkAddr.h
 /usr/local/zigbee/include/zigbee/PowerNodeData.h
 /usr/local/zigbee/include/zigbee/ResponseCallback.h

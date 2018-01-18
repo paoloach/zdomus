@@ -82,6 +82,7 @@ namespace zigbee {
         boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
         powerNodeQueue.startDequeFiber();
         attributeQueue.startDequeFiber();
+        ieeeAddressResponseQueue.startDequeFiber();
         if (serialFd >= 0) {
             PacketSend data;
             data.push((uint8_t )13);

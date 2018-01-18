@@ -5,7 +5,8 @@
 #ifndef ZIGBEE_LIB_IEEEADDRESSRESPONSE_H
 #define ZIGBEE_LIB_IEEEADDRESSRESPONSE_H
 
-#include <vector>
+#include <set>
+#include "zigbee/ExtAddress.h"
 #include "../NwkAddr.h"
 #include "ZAddrType.h"
 #include "GenericMessage.h"
@@ -13,11 +14,11 @@
 
 namespace zigbee {
     struct  IEEEAddressResponse {
-        GenericMessage generticDataMsg;
-        uint8_t ieeeAddr[Z_EXTADDR_LEN];
+        ExtAddress ieeeAddr;
         NwkAddr nwkAddr;
-        uint8_t startIndex;
-        std::vector<NwkAddr> childs;
+        uint startIndex;
+        uint totalDevice;
+        std::set<NwkAddr> children;
     };
 
 }

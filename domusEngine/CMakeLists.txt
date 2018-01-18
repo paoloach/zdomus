@@ -157,8 +157,6 @@ SET(SRC_DATABASE
 
 SET(SRC_ZIGBEE_DATA src/ZigbeeData/AttributeData.cpp src/ZigbeeData/AttributeData.h
         src/ZigbeeData/BindTable.cpp src/ZigbeeData/BindTable.h
-        src/ZigbeeData/ExtAddress.cpp src/ZigbeeData/ExtAddress.h
-        src/ZigbeeData/IEEEAddressResponse.h
         src/ZigbeeData/NewDeviceObserver.h
         src/ZigbeeData/RequestDevices.cpp src/ZigbeeData/RequestDevices.h
         src/ZigbeeData/TopologyCreation.cpp src/ZigbeeData/TopologyCreation.h
@@ -174,7 +172,7 @@ SET(SRC_EXCEPTION src/Exception/PathNotFound.h src/Exception/Timeout.h)
 SET(SRC_HTTP
         src/httpServer/RestHandler.h
         src/httpServer/RestHandlerImpl.cpp src/httpServer/RestHandlerImpl.h
-        src/httpServer/RestActions/ShowPowerNode.cpp src/httpServer/RestActions/ShowPowerNode.h)
+        src/httpServer/RestActions/ShowPowerNode.cpp src/httpServer/RestActions/ShowPowerNode.h src/httpServer/RestActions/GetChildren.cpp src/httpServer/RestActions/GetChildren.h)
 
 
 SET(SRC_DEMO_DRIVER
@@ -196,7 +194,7 @@ SET(SRC_SERIAL_DRIVER
         src/serialDriver/ReadAttributeResponseSerial.h
         src/serialDriver/DeviceInfoSerialExecutor.h
         src/serialDriver/PowerNodeResponse.cpp src/serialDriver/PowerNodeResponse.h
-        src/serialDriver/AliveMessage.h src/serialDriver/AnnunceSerialExecutor.cpp)
+        src/serialDriver/AliveMessage.h src/serialDriver/AnnunceSerialExecutor.cpp src/serialDriver/IEEEAddressResponseSerialExecutor.cpp)
 
 SET(SRC_SERIAL_DRIVER2
         src/serialDriver2/Serial2DriverFactory.h
@@ -217,7 +215,7 @@ SET(SRC_SERIAL_DRIVER2
         src/serialDriver2/PowerNodeResponse2.cpp src/serialDriver2/PowerNodeResponse2.h
         src/serialDriver2/PowerNodeResponse2Error.cpp src/serialDriver2/PowerNodeResponse2Error.h
         src/serialDriver2/ReadThread.cpp src/serialDriver2/ReadThread.h
-        src/serialDriver2/Packet.h src/serialDriver2/AnnunceSerial2Executor.cpp src/serialDriver2/AliveMessage2.cpp src/serialDriver2/StringExecutor.cpp src/serialDriver2/StringExecutor.h src/serialDriver2/PacketSend.h src/serialDriver2/DeviceInfoSerial2Executor.cpp)
+        src/serialDriver2/Packet.h src/serialDriver2/AnnunceSerial2Executor.cpp src/serialDriver2/AliveMessage2.cpp src/serialDriver2/StringExecutor.cpp src/serialDriver2/StringExecutor.h src/serialDriver2/PacketSend.h src/serialDriver2/DeviceInfoSerial2Executor.cpp src/serialDriver2/IEEEAddressResponseSerial2Executor.cpp)
 
 set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h

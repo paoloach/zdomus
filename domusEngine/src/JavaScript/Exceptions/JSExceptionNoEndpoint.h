@@ -9,9 +9,9 @@
 #define SRC_JAVASCRIPT_JSEXCEPTIONNOENDPOINT_H_
 
 #include <zigbee/EndpointID.h>
+#include <zigbee/ExtAddress.h>
 
 #include "JSException.h"
-#include "../../ZigbeeData/ExtAddress.h"
 
 namespace zigbee {
 

@@ -16,8 +16,8 @@
 #include <tuple>
 #include <any>
 #include <zcl/ZCLAttribute.h>
+#include <zigbee/ExtAddress.h>
 #include "v8.h"
-#include "../ZigbeeData/ExtAddress.h"
 #include <zcl/Cluster.h>
 #include "../Utils/SingletonObjects.h"
 #include "JSCallbackFifo.h"

@@ -10,7 +10,7 @@
 #include <cstdint>
 #include <vector>
 #include <boost/endian/conversion.hpp>
-#include "../ZigbeeData/ExtAddress.h"
+#include <zigbee/ExtAddress.h>
 
 namespace zigbee {
     class Packet {

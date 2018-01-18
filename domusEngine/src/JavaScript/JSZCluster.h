@@ -15,11 +15,11 @@
 #include <zigbee/EndpointID.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/CmdParams/ClusterCmdParams.h>
+#include <zigbee/ExtAddress.h>
 
 #include "../Utils/SingletonObjects.h"
 #include "../ZigbeeData/ZDevices.h"
 #include "JSZDevice.h"
-#include "../ZigbeeData/ExtAddress.h"
 
 
 namespace zigbee {

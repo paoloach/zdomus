@@ -6,8 +6,8 @@
 #include <boost/log/attributes/named_scope.hpp>
 #include <boost/log/utility/string_literal.hpp>
 #include <zigbee/ZigbeeDevice.h>
+#include <zigbee/ExtAddress.h>
 #include "AnnunceSerial2Executor.h"
-#include "../ZigbeeData/ExtAddress.h"
 #include "../ZigbeeData/ZDevices.h"
 
 namespace zigbee {

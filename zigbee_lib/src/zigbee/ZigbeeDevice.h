@@ -18,6 +18,7 @@
 #include "messageStructure/ReadAttributeResponseMessage.h"
 #include "messageStructure/ReqActiveEndpointsMessage.h"
 #include "messageStructure/BindTableResponseMessage.h"
+#include "messageStructure/IEEEAddressResponse.h"
 #include "AttributeStatusRecord.h"
 #include "PowerNodeData.h"
 #include "EndpointID.h"
@@ -40,8 +41,11 @@ namespace zigbee {
 
     class ZigbeeDevice {
     public:
-        ZigbeeDevice(std::chrono::seconds timeout) : timeout(timeout), powerNodeQueue(timeout), attributeQueue{timeout},
-                                                     attributesResponseQueue{this} {};
+        ZigbeeDevice(std::chrono::seconds timeout) : timeout(timeout)
+                , powerNodeQueue(timeout)
+                , attributeQueue{timeout}
+                , ieeeAddressResponseQueue{timeout}
+                , attributesResponseQueue{this} {};
 
         virtual ~ZigbeeDevice() = default;
 
@@ -57,8 +61,6 @@ namespace zigbee {
 
 
         virtual void requestActiveEndpoints(NwkAddr nwkAddr)=0;
-
-        virtual void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex)=0;
 
 
         virtual void requestReset() = 0;
@@ -125,12 +127,23 @@ namespace zigbee {
         void setPowerNode(std::shared_ptr<PowerNodeData> powerNodeData) {
             powerNodeQueue.setData(powerNodeData->nwkAddr, powerNodeData);
         }
+//  ---- IEEE address & children
+        virtual void getIEEEAddress(NwkAddr nwkAddr, ZDPRequestType requestType, uint8_t startIndex)=0;
+
+        void registerForIEEEAddress(NwkAddr nwkAddr,  std::unique_ptr<ResponseCallback<std::shared_ptr<IEEEAddressResponse>>> &&callback) {
+            ieeeAddressResponseQueue.add(nwkAddr, std::move(callback));
+        }
+
+        void setIEEEAddress(std::shared_ptr<IEEEAddressResponse> ieeeAddressResponse) {
+            ieeeAddressResponseQueue.setData(ieeeAddressResponse->nwkAddr, ieeeAddressResponse);
+        }
 
 
     protected:
         std::chrono::seconds timeout;
         ResponseQueue<NwkAddr, std::shared_ptr<PowerNodeData> > powerNodeQueue;
         ResponseQueue<AttributeKey, ZCLAttribute *> attributeQueue;
+        ResponseQueue<NwkAddr, std::shared_ptr<IEEEAddressResponse> > ieeeAddressResponseQueue;
         AttributesResponseQueue attributesResponseQueue;
     };
 

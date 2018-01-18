@@ -11,8 +11,7 @@
 #include <zigbee/EndpointID.h>
 #include <zigbee/ClusterID.h>
 #include <zcl/ZCLDataType.h>
-
-#include "../ZigbeeData/ExtAddress.h"
+#include <zigbee/ExtAddress.h>
 
 namespace zigbee {
     class PacketSend {

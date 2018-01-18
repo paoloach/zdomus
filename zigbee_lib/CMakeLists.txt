@@ -51,6 +51,7 @@ set(SOURCE_FILES
         src/zigbee/ZigbeeDevice.cpp
         src/zigbee/ZigbeeDevice.h
         src/zigbee/ZigbeeTypes.h
+        src/zigbee/ExtAddress.h src/zigbee/ExtAddress.cpp
         src/zigbee/messageStructure/ReadAttributeResponseErrorMsg.h
         src/zigbee/ZigbeeTypes.cpp
         src/zigbee/messageStructure/UnbindRequest.h

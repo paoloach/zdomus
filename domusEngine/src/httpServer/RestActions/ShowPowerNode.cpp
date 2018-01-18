@@ -24,9 +24,9 @@ namespace zigbee::http {
         BOOST_LOG_NAMED_SCOPE("HTTP");
         auto device = request.param(":device").as<NwkAddr>();
         BOOST_LOG_TRIVIAL(trace) << "ShowPower " << device;
-        auto showPowerNodeCallback = std::make_unique<ShowPowerNodeCallback>(std::move(response));
-        singletons->getZigbeeDevice()->registerForPowerNode(device, std::move(showPowerNodeCallback));
-        singletons->getZigbeeDevice()->requestNodePower(device);
+        auto zigbeeDevice = singletons->getZigbeeDevice();
+        zigbeeDevice->registerForPowerNode(device, std::make_unique<ShowPowerNodeCallback>(std::move(response)));
+        zigbeeDevice->requestNodePower(device);
 
         return Pistache::Rest::Route::Result::Ok;
     }

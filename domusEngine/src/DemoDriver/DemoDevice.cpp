@@ -126,6 +126,7 @@ namespace zigbee {
         boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
         powerNodeQueue.startDequeFiber();
         attributeQueue.startDequeFiber();
+        ieeeAddressResponseQueue.startDequeFiber();
         BOOST_LOG_NAMED_SCOPE("demo_driver");
         BOOST_LOG_TRIVIAL(info) << "Demo attribute service thread started";
         boost::fibers::fiber fiberPowerNodeSetDeque([this]() {
@@ -307,18 +308,18 @@ namespace zigbee {
 
     void DemoDevice::init() {
         auto zDevices = singletonObjects->getZDevices();
-        IEEEAddrResp message;
-        message.nwkAddr = NwkAddr(NWK_ADDR1);
-        message.ieeeAddr = extAddress1;
-        zDevices->addDeviceInfo(message);
+        auto message = std::make_shared<IEEEAddressResponse>();
+        message->nwkAddr = NwkAddr(NWK_ADDR1);
+        message->ieeeAddr = extAddress1;
+        zDevices->addDeviceInfo(message.get());
         boost::this_fiber::sleep_for(2s);
-        message.nwkAddr = NwkAddr(NWK_ADDR2);
-        message.ieeeAddr = extAddress2;
-        zDevices->addDeviceInfo(message);
+        message->nwkAddr = NwkAddr(NWK_ADDR2);
+        message->ieeeAddr = extAddress2;
+        zDevices->addDeviceInfo(message.get());
         boost::this_fiber::sleep_for(2s);
-        message.nwkAddr = NwkAddr(NWK_ADDR3);
-        message.ieeeAddr = extAddress3;
-        zDevices->addDeviceInfo(message);
+        message->nwkAddr = NwkAddr(NWK_ADDR3);
+        message->ieeeAddr = extAddress3;
+        zDevices->addDeviceInfo(message.get());
 
         requestActiveEndpoints(NWK_ADDR1);
         boost::this_fiber::sleep_for(2s);
@@ -330,33 +331,49 @@ namespace zigbee {
 
     void DemoDevice::getIEEEAddress(zigbee::NwkAddr nwkAddr, zigbee::ZDPRequestType, uint8_t) {
         auto zDevices = singletonObjects->getZDevices();
-        IEEEAddrResp message;
+        auto message = std::make_shared<IEEEAddressResponse>();
 
         if (nwkAddr == 0) {
-            message.nwkAddr = NwkAddr(0);
-            message.ieeeAddr = extAddress0;
-            message.children.insert(NWK_ADDR1);
-            message.children.insert(NWK_ADDR2);
-            zDevices->addDeviceInfo(message);
+            message->nwkAddr = NwkAddr(0);
+            message->ieeeAddr = extAddress0;
+            message->totalDevice=2;
+            message->startIndex=0;
+            message->children.insert(NWK_ADDR1);
+            message->children.insert(NWK_ADDR2);
+            usleep(1000);
+            zDevices->addDeviceInfo(message.get());
+            ieeeAddressResponseQueue.setData(nwkAddr, message);
         }
 
         if (nwkAddr == NWK_ADDR1) {
-            message.nwkAddr = NwkAddr(NWK_ADDR1);
-            message.ieeeAddr = extAddress1;
-            zDevices->addDeviceInfo(message);
+            message->nwkAddr = NwkAddr(NWK_ADDR1);
+            message->ieeeAddr = extAddress1;
+            message->totalDevice=0;
+            message->startIndex=0;
+            usleep(1000);
+            zDevices->addDeviceInfo(message.get());
+            ieeeAddressResponseQueue.setData(nwkAddr, message);
         }
 
         if (nwkAddr == NWK_ADDR2) {
-            message.nwkAddr = NwkAddr(NWK_ADDR2);
-            message.ieeeAddr = extAddress2;
-            message.children.insert(NWK_ADDR3);
-            zDevices->addDeviceInfo(message);
+            message->nwkAddr = NwkAddr(NWK_ADDR2);
+            message->ieeeAddr = extAddress2;
+            message->children.insert(NWK_ADDR3);
+            message->totalDevice=1;
+            message->startIndex=0;
+            usleep(1000);
+            zDevices->addDeviceInfo(message.get());
+            ieeeAddressResponseQueue.setData(nwkAddr, message);
         }
 
         if (nwkAddr == NWK_ADDR3) {
-            message.nwkAddr = NwkAddr(NWK_ADDR3);
-            message.ieeeAddr = extAddress3;
-            zDevices->addDeviceInfo(message);
+            message->nwkAddr = NwkAddr(NWK_ADDR3);
+            message->ieeeAddr = extAddress3;
+            message->totalDevice=0;
+            message->startIndex=0;
+            usleep(1000);
+            zDevices->addDeviceInfo(message.get());
+            ieeeAddressResponseQueue.setData(nwkAddr, message);
         }
     }
 

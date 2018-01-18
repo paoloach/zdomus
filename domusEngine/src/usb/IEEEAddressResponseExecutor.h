@@ -6,7 +6,7 @@
 #define DOMUS_ENGINE_IEEEADDRESSRESPONSE_H
 
 #include <boost/endian/conversion.hpp>
-#include "../ZigbeeData/IEEEAddressResponse.h"
+#include <zigbee/messageStructure/IEEEAddressResponse.h>
 #include "Executor.h"
 #include "../Utils/SingletonObjects.h"
 
@@ -26,21 +26,22 @@ namespace zigbee {
         // startIndex (1  byte)
         // nwkAddrss child list (2*assDevices bytes)
         virtual void operator()(unsigned char *data, int ) override {
-            IEEEAddrResp message;
+            auto message = std::make_shared<IEEEAddressResponse>();
 
             data++;
-            message.ieeeAddr = ExtAddress(data);
+            message->ieeeAddr = ExtAddress(data);
             data+=Z_EXTADDR_LEN;
-            message.nwkAddr.setId( boost::endian::little_to_native(*(uint16_t *) data));
+            message->nwkAddr.setId( boost::endian::little_to_native(*(uint16_t *) data));
             data+=2;
             uint32_t count = *data++;
-            message.startIndex = *data++;
+            message->startIndex = *data++;
             while(count != 0){
                 count--;
-                message.children.emplace(boost::endian::little_to_native(*(uint16_t *) data));
+                message->children.emplace(boost::endian::little_to_native(*(uint16_t *) data));
             }
 
-            singletonObjects->getZDevices()->addDeviceInfo(message);
+            singletonObjects->getZDevices()->addDeviceInfo(message.get());
+            singletonObjects->getZigbeeDevice()->setIEEEAddress(message);
         }
     };
 

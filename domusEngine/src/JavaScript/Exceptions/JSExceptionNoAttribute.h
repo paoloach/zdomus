@@ -9,7 +9,7 @@
 #define SRC_JAVASCRIPT_JSEXCEPTIONNOATTRIBUTE_H_
 
 #include "JSException.h"
-#include "../../ZigbeeData/ExtAddress.h"
+#include <zigbee/ExtAddress.h>
 #include <zigbee/EndpointID.h>
 #include <zigbee/ClusterID.h>
 
