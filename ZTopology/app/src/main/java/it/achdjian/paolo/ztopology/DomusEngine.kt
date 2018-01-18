@@ -5,6 +5,8 @@ import android.os.HandlerThread
 import android.os.Message
 import android.util.Log
 import it.achdjian.paolo.ztopology.domusEngine.rest.*
+import it.achdjian.paolo.ztopology.rest.JsonChildren
+import it.achdjian.paolo.ztopology.rest.RequestChildren
 import it.achdjian.paolo.ztopology.zigbee.ZDevices
 import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
 import java.util.concurrent.LinkedBlockingQueue
@@ -18,6 +20,8 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     val handler: Handler
     val whoAreYou = WhoAreYou()
     val getDevices = GetDevices()
+    val childrenCallback = HashSet<ChildrenCallback>()
+
     private val mDecodeWorkQueue = LinkedBlockingQueue<Runnable>();
     private val threadPool = ThreadPoolExecutor(3, Int.MAX_VALUE, 60, TimeUnit.SECONDS, mDecodeWorkQueue)
 
@@ -41,12 +45,8 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
             threadPool.execute(ExecuteCommand(networkId, endpointId, clusterId, cmdId))
 
 
-    fun requestWhoAreYou() {
-
-    }
-
     fun requestChildren(shortAddress: Int) {
-        threadPool.execute(RequestIdentify(shortAddress, endpointId));
+        threadPool.execute(RequestChildren(shortAddress));
     }
 
     fun requestIdentify(shortAddress: Int, endpointId: Int) =
@@ -54,6 +54,9 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
 
     fun requestPower(shortAddress: Int) =
             threadPool.execute(RequestPowerNode(shortAddress))
+
+    fun addCallback(callback: ChildrenCallback) = childrenCallback.add(callback)
+    fun removeCallback(callback: ChildrenCallback) = childrenCallback.remove(callback)
 
     override fun handleMessage(message: Message?): Boolean {
         if (message != null) {
@@ -78,9 +81,18 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                     val endpoint = message.obj as ZEndpoint
                     ZDevices.addEndpoint(endpoint)
                 }
+                MessageType.NEW_CHILDREN -> {
+                    val response = message.obj as JsonChildren
+                    childrenCallback.forEach { it.newChildrenResult(response) }
+                }
+
             }
         }
         return true
     }
 
+}
+
+interface ChildrenCallback {
+    fun newChildrenResult(response: JsonChildren);
 }

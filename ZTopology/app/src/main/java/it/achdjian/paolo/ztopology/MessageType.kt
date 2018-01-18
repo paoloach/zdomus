@@ -16,5 +16,6 @@ class MessageType {
         val REQUEST_POWER=1008
         val NEW_POWER=1009
         val NEW_DATA_TEMPERATURES=1010
+        val NEW_CHILDREN=1011
     }
 }
