@@ -12,17 +12,17 @@
 namespace  zigbee {
     void IEEEAddressResponseSerial2Executor::operator()(Packet &&packet)  {
         BOOST_LOG_NAMED_SCOPE("serial driver");
+        BOOST_LOG_TRIVIAL(info) << "Packet: " << packet;
         auto message = std::make_shared<IEEEAddressResponse>();
         try {
-
             message->ieeeAddr = packet.getExtAddress(1);
             message->nwkAddr = NwkAddr(packet.getUint16(9));
             message->totalDevice  =  packet[11];
             message->startIndex  =  packet[12];
-            int numChildren = packet[13];
 
-            for (int i = 0; i < numChildren; i++) {
-                message->children.emplace(packet.getUint16(14+2*i));
+            for (uint i = 0; i < message->totalDevice; i++) {
+                BOOST_LOG_TRIVIAL(info) << "Child: " << std::hex << packet.getUint16(13+2*i);
+                message->children.emplace(packet.getUint16(13+2*i));
             }
             singletonObjects->getZigbeeDevice()->setIEEEAddress(message);
             singletonObjects->getZDevices()->addDeviceInfo(message.get());

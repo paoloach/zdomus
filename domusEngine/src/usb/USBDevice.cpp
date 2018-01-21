@@ -317,5 +317,10 @@ namespace zigbee {
         sendData(message);
     }
 
+    void DomusEngineUSBDevice::removeDevice(NwkAddr networkId) {
+        BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
+
+    }
+
 
 } /* namespace zigbee */

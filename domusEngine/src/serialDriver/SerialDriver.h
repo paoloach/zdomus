@@ -30,6 +30,8 @@ namespace zigbee {
 
         void requestReset() override;
 
+        void removeDevice(NwkAddr networkId) override ;
+
         void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType, uint8_t dataValueLen,
                             uint8_t *dataValue) override;
 

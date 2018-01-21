@@ -306,5 +306,14 @@ namespace zigbee {
         }
     }
 
+    void SerialDriver2::removeDevice(NwkAddr networkId) {
+        if (serialFd >= 0) {
+            PacketSend data;
+            data.push((uint8_t )14);
+            data.push(networkId);
+            write(std::move(data));
+        }
+    }
+
 
 }

@@ -79,6 +79,8 @@ namespace zigbee {
 
         virtual void sendReqDeviceInfo(NwkAddr networkId) =0;
 
+        virtual void removeDevice(NwkAddr networkId) = 0;
+
 
         virtual void requestBindTable(NwkAddr nwkAddrs) = 0;
 

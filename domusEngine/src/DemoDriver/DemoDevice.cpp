@@ -329,6 +329,12 @@ namespace zigbee {
         boost::this_fiber::sleep_for(2s);
     }
 
+
+    void DemoDevice::removeDevice(NwkAddr networkId) {
+        BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
+
+    }
+
     void DemoDevice::getIEEEAddress(zigbee::NwkAddr nwkAddr, zigbee::ZDPRequestType, uint8_t) {
         auto zDevices = singletonObjects->getZDevices();
         auto message = std::make_shared<IEEEAddressResponse>();

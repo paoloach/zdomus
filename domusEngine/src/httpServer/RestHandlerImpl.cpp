@@ -25,6 +25,7 @@
 #include "RestActions/ExecuteBind.h"
 #include "RestActions/ShowPowerNode.h"
 #include "RestActions/GetChildren.h"
+#include "RestActions/DeleteDevice.h"
 
 
 using namespace Pistache::Rest::Routes;
@@ -54,6 +55,7 @@ namespace zigbee::http {
         Post(router, "/bind/src/:srcDevice/endpoint/:srcEndpoint/cluster/:cluster/dst/:dstDevice/endpoint/:dstEndpoint", ExecuteBind{singletons, true});
 
         Delete(router, "/bind/src/:srcDevice/endpoint/:srcEndpoint/cluster/:cluster/dst/:dstDevice/endpoint/dstEndpoint", ExecuteBind{singletons, false});
+        Delete(router, "/devices/:device/", DeleteDevice{singletons});
 
         commandFiber = boost::fibers::fiber([this]() { commandHandler(); });
     }
