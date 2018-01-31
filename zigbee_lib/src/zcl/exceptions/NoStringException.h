@@ -19,6 +19,7 @@ namespace zigbee {
             std::stringstream stream;
 
             stream << "The type " << value.type().name() << " is not of type std::string";
+            return  stream.str().c_str();
         }
 
     };

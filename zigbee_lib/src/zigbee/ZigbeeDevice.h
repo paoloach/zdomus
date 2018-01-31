@@ -19,6 +19,7 @@
 #include "messageStructure/ReqActiveEndpointsMessage.h"
 #include "messageStructure/BindTableResponseMessage.h"
 #include "messageStructure/IEEEAddressResponse.h"
+#include "messageStructure/NodeDescriptorResponse.h"
 #include "AttributeStatusRecord.h"
 #include "PowerNodeData.h"
 #include "EndpointID.h"
@@ -45,7 +46,10 @@ namespace zigbee {
                 , powerNodeQueue(timeout)
                 , attributeQueue{timeout}
                 , ieeeAddressResponseQueue{timeout}
-                , attributesResponseQueue{this} {};
+                , nodeDescriptorReponseQueue{timeout}
+                , attributesResponseQueue{this}{}
+
+    public:
 
         virtual ~ZigbeeDevice() = default;
 
@@ -139,13 +143,22 @@ namespace zigbee {
         void setIEEEAddress(std::shared_ptr<IEEEAddressResponse> ieeeAddressResponse) {
             ieeeAddressResponseQueue.setData(ieeeAddressResponse->nwkAddr, ieeeAddressResponse);
         }
+// ---- Node Descriptor
+        virtual void getNodeDescriptor(NwkAddr nwkAddr) = 0;
 
+        void registerForNodeDescriptor(NwkAddr nwkAddr,  std::unique_ptr<ResponseCallback<std::shared_ptr<NodeDescriptorResponse>>> &&callback) {
+            nodeDescriptorReponseQueue.add(nwkAddr, std::move(callback));
+        }
 
+        void setNodeDescriptor(std::shared_ptr<NodeDescriptorResponse> nodeDescriptorResponse) {
+            nodeDescriptorReponseQueue.setData(nodeDescriptorResponse->nwkAddr, nodeDescriptorResponse);
+        }
     protected:
         std::chrono::seconds timeout;
         ResponseQueue<NwkAddr, std::shared_ptr<PowerNodeData> > powerNodeQueue;
         ResponseQueue<AttributeKey, ZCLAttribute *> attributeQueue;
         ResponseQueue<NwkAddr, std::shared_ptr<IEEEAddressResponse> > ieeeAddressResponseQueue;
+        ResponseQueue<NwkAddr, std::shared_ptr<NodeDescriptorResponse> > nodeDescriptorReponseQueue;
         AttributesResponseQueue attributesResponseQueue;
     };
 

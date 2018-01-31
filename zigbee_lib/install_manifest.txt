@@ -36,6 +36,8 @@
 /usr/local/zigbee/include/zcl/exceptions/NoVectorUInt8Exception.h
 /usr/local/zigbee/include/zcl/exceptions/ZCLAttributeNotAvailableException.h
 /usr/local/zigbee/include/zcl/exceptions/AttributeNotFoundException.h
+/usr/local/zigbee/include/zcl/exceptions/NoValidLogicalTypeException.h
+/usr/local/zigbee/include/zcl/exceptions/NoValidBandFrequencyException.h
 /usr/local/zigbee/include/zcl/CmdParams/ClusterCmdParams.h
 /usr/local/zigbee/include/zcl/attributeTypes/AttributeValue.h
 /usr/local/zigbee/include/zcl/attributeTypes/ZCLBitmap16bitAttribute.h
@@ -86,6 +88,7 @@
 /usr/local/zigbee/include/zigbee/messageStructure/IEEEAddressRequestMessage.h
 /usr/local/zigbee/include/zigbee/messageStructure/IEEEAddressResponse.h
 /usr/local/zigbee/include/zigbee/messageStructure/InfoMessage.h
+/usr/local/zigbee/include/zigbee/messageStructure/NodeDescriptorResponse.h
 /usr/local/zigbee/include/zigbee/messageStructure/ReadAttributeResponseErrorMsg.h
 /usr/local/zigbee/include/zigbee/messageStructure/ReadAttributeResponseMessage.h
 /usr/local/zigbee/include/zigbee/messageStructure/ReqActiveEndpointsMessage.h

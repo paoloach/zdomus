@@ -85,6 +85,7 @@ namespace zigbee {
 
 
         void requestActiveEndpoints(NwkAddr nwkAddr);
+        void getNodeDescriptor(NwkAddr nwkAddr) override {}
 
     private:
         libusb_context *usbContext;

@@ -25,6 +25,7 @@ namespace zigbee {
             std::stringstream stream;
 
             stream << "The type " << value.type().name() << " is not of type uint32_t";
+            return  stream.str().c_str();
         }
 
 

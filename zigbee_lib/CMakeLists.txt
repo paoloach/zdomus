@@ -58,7 +58,7 @@ set(SOURCE_FILES
         src/zigbee/ResponseCallback.h
         src/zigbee/AttributeKey.cpp src/zigbee/AttributeKey.h
         src/zigbee/AttributesKey.cpp src/zigbee/AttributesKey.h
-        src/zigbee/AttributesResponseCallback.h src/zigbee/AttributesResponseQueue.cpp src/zigbee/AttributesResponseQueue.h src/zigbee/ResponsesCallbacks.cpp src/zigbee/ResponsesCallbacks.h src/zigbee/CmdData.h)
+        src/zigbee/AttributesResponseCallback.h src/zigbee/AttributesResponseQueue.cpp src/zigbee/AttributesResponseQueue.h src/zigbee/ResponsesCallbacks.cpp src/zigbee/ResponsesCallbacks.h src/zigbee/CmdData.h src/zigbee/messageStructure/NodeDescriptorResponse.h src/zcl/exceptions/NoValidBandFrequencyException.h)
 
 
 SET(SOURCE_ZCL_FILES
@@ -123,7 +123,7 @@ SET(SOURCE_ATTRIBUTES_FILES
         src/zigbee/messageStructure/ReqDeviceInformation.h
         src/zigbee/messageStructure/IEEEAddressRequestMessage.h
         src/zigbee/messageStructure/IEEEAddressResponse.h
-        src/zcl/exceptions/ZCLAttributeNotAvailableException.h)
+        src/zcl/exceptions/ZCLAttributeNotAvailableException.h )
 
 
 SET(SOURCE_CLLUSTER_FILES
@@ -169,7 +169,9 @@ SET(zcl_exceptions
         src/zcl/exceptions/NoUintException.h
         src/zcl/exceptions/NoVectorUInt8Exception.h
         src/zcl/exceptions/ZCLAttributeNotAvailableException.h
-        src/zcl/exceptions/AttributeNotFoundException.h)
+        src/zcl/exceptions/AttributeNotFoundException.h
+        src/zcl/exceptions/NoValidLogicalTypeException.h
+        src/zcl/exceptions/NoValidBandFrequencyException.h)
 
 include_directories(/usr/include/libusb-1.0 . ${PROJECT_SOURCE_DIR}/src ${GTEST_INCLUDE_DIR} ${GMOCK_INCLUDE_DIR})
 
