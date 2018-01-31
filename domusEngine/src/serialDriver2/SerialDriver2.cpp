@@ -83,6 +83,7 @@ namespace zigbee {
         powerNodeQueue.startDequeFiber();
         attributeQueue.startDequeFiber();
         ieeeAddressResponseQueue.startDequeFiber();
+        nodeDescriptorReponseQueue.startDequeFiber();
         if (serialFd >= 0) {
             PacketSend data;
             data.push((uint8_t )13);
@@ -104,10 +105,11 @@ namespace zigbee {
 
     void SerialDriver2::write(PacketSend &&data) {
         ::write(serialFd, &SEND_HEADER, 3 );
-        uint8_t size = data.size();
+        size_t size = data.size();
         ::write(serialFd, &size, 1 );
         ::write(serialFd, data.begin(), size);
-        BOOST_LOG_TRIVIAL(info) << "Send request: " << (int)(*data.begin());
+
+        BOOST_LOG_TRIVIAL(info) << "Send request size(" << size << ") : " << data;
     }
 
     // 1 byte  -> code
@@ -310,6 +312,16 @@ namespace zigbee {
         if (serialFd >= 0) {
             PacketSend data;
             data.push((uint8_t )14);
+            data.push(networkId);
+            write(std::move(data));
+        }
+    }
+
+
+    void SerialDriver2::getNodeDescriptor(NwkAddr networkId) {
+        if (serialFd >= 0) {
+            PacketSend data;
+            data.push((uint8_t )15);
             data.push(networkId);
             write(std::move(data));
         }

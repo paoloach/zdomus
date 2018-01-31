@@ -79,6 +79,8 @@ namespace zigbee {
         boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
         powerNodeQueue.startDequeFiber();
         attributeQueue.startDequeFiber();
+        ieeeAddressResponseQueue.startDequeFiber();
+        nodeDescriptorReponseQueue.startDequeFiber();
         int n;
         fd_set readFd;
         struct timeval timeout;
@@ -243,6 +245,7 @@ namespace zigbee {
         }
     }
 
+
     // Send message: BI: network id, extend address,  endpointId, clusterId, extend address, endpoint Id
     //                    4 digits ,  16 digits    ,    2 digits,  4 digits,  16 digits    ,   2 digits
     void SerialDriver::sendReqBind(NwkAddr destAddr, const uint8_t outClusterAddr[Z_EXTADDR_LEN], EndpointID outClusterEP, ClusterID clusterID,
@@ -309,5 +312,7 @@ namespace zigbee {
 
     }
 
-
+    void SerialDriver::getNodeDescriptor(NwkAddr nwkAddr) {
+        BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
+    }
 }

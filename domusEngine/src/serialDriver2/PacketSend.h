@@ -5,6 +5,8 @@
 #ifndef DOMUS_ENGINE_PACKETSEND_H
 #define DOMUS_ENGINE_PACKETSEND_H
 
+#include <ostream>
+#include <iomanip>
 #include <vector>
 #include <cstdint>
 #include <zigbee/NwkAddr.h>
@@ -37,6 +39,15 @@ namespace zigbee {
         }
         void push(uint8_t value){
             data.push_back(value );
+        }
+
+        inline friend std::ostream & operator <<(std::ostream & out, const PacketSend & packet){
+            out << "{ ";
+            for (uint8_t b: packet.data){
+                out << std::hex << std::setw(2) << std::setfill('0') << (uint32_t)b << " ";
+            }
+            out << "}";
+            return out;
         }
     private:
         std::vector<uint8_t> data;

@@ -28,7 +28,11 @@ namespace zigbee {
             SimpleDescriptor=10,
             IEEEAddress=11,
             IEEEAddressError=12,
-            BindTableEntry=13
+            BindTableEntry=13,
+            WriteAttributeError=14,
+            NodeDescriptionError=15,
+            NodeDescription=16
+
         };
 
 

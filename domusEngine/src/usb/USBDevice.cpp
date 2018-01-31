@@ -41,6 +41,9 @@ namespace zigbee {
     void DomusEngineUSBDevice::timerHandler() {
         boost::fibers::use_scheduling_algorithm<boost::fibers::algo::round_robin>();
         powerNodeQueue.startDequeFiber();
+        attributeQueue.startDequeFiber();
+        ieeeAddressResponseQueue.startDequeFiber();
+        nodeDescriptorReponseQueue.startDequeFiber();
 
         while (!stop) {
 
@@ -276,6 +279,13 @@ namespace zigbee {
         BOOST_LOG_TRIVIAL(info) << "Send request for bind table at " << nwkAddrs;
         ReqBindTable request(nwkAddrs.getId());
         sendData(request);
+    }
+
+    void DomusEngineUSBDevice::getNodeDescriptor(NwkAddr nwkAddrs) {
+        if (handle == nullptr) {
+            return;
+        }
+        BOOST_LOG_TRIVIAL(info) << "Send request for node descriptor -- TO BE IMPLEMENTED ";
     }
 
     void DomusEngineUSBDevice::requestAttributes(AttributesKey &key) {

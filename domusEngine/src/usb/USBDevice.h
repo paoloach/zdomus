@@ -97,6 +97,8 @@ namespace zigbee {
 
         void requestBindTable(NwkAddr nwkAddrs) override;
 
+        void getNodeDescriptor(NwkAddr nwkAddr) override;
+
     private:
         bool stop;
         std::thread getMessageTh;

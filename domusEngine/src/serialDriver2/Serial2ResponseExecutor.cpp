@@ -19,6 +19,8 @@
 #include "PowerNodeResponse2Error.h"
 #include "AliveMessage2.h"
 #include "StringExecutor.h"
+#include "NodeDescriptionResponse2.h"
+#include "NodeDescriptionResponseError2.h"
 
 namespace zigbee {
     Serial2ResponseExecutor::Serial2ResponseExecutor(SingletonObjects * singletonObjects) {
@@ -36,6 +38,8 @@ namespace zigbee {
         executors[CmdType::PowerNodeError] = std::make_unique<PowerNodeResponse2Error>(singletonObjects);
         executors[CmdType::Alive] = std::make_unique<AliveMessage2>();
         executors[CmdType::STRING] = std::make_unique<StringExecutor>();
+        executors[CmdType::NodeDescriptionError] = std::make_unique<NodeDescriptionResponseError2>();
+        executors[CmdType::NodeDescription] = std::make_unique<NodeDescriptionResponse2>(singletonObjects);
     }
 
     void Serial2ResponseExecutor::execute(Packet &&packet) {

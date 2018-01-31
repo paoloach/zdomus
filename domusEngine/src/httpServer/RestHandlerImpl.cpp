@@ -43,6 +43,7 @@ namespace zigbee::http {
         getPath("/devices/:device/power", ShowPowerNode{singletons});
         getPath("/devices/:device/children", GetChildren{singletons});
         getPath("/devices/:device/info", ShowDeviceInfo{singletons});
+        getPath("/devices/:device/node", ShowDeviceInfo{singletons});
         getPath("/devices/:device/endpoint/:endpoint", ShowEndpoint{singletons});
         getPath("/devices/:device/endpoint/:endpoint/cluster/in/:cluster", ShowInCluster{singletons});
         getPath("/devices/:device/endpoint/:endpoint/cluster/out/:cluster", ShowOutCluster{singletons});

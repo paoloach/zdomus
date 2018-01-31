@@ -53,6 +53,8 @@ namespace zigbee {
     static ExtAddress extAddress2({0x01, 0x02, 0x03, 0x04, 0x3A, 0x3B, 0x3C, 0x3D});
     static constexpr NwkAddr NWK_ADDR3{0x8935};
     static ExtAddress extAddress3({0x01, 0x02, 0x03, 0x04, 0x4A, 0x4B, 0x4C, 0x4E});
+    static constexpr NwkAddr NWK_ADDR4{0x8975};
+    static ExtAddress extAddress4({0x01, 0x03, 0x03, 0x04, 0x4A, 0x4B, 0x4C, 0x4E});
 
     static std::vector<uint8_t> cluster0_0 = {typeUINT8, 0x01};
     static std::vector<uint8_t> cluster0_1 = {typeUINT8, 0x10};
@@ -127,6 +129,7 @@ namespace zigbee {
         powerNodeQueue.startDequeFiber();
         attributeQueue.startDequeFiber();
         ieeeAddressResponseQueue.startDequeFiber();
+        nodeDescriptorReponseQueue.startDequeFiber();
         BOOST_LOG_NAMED_SCOPE("demo_driver");
         BOOST_LOG_TRIVIAL(info) << "Demo attribute service thread started";
         boost::fibers::fiber fiberPowerNodeSetDeque([this]() {
@@ -346,6 +349,7 @@ namespace zigbee {
             message->startIndex=0;
             message->children.insert(NWK_ADDR1);
             message->children.insert(NWK_ADDR2);
+            message->children.insert(NWK_ADDR4);
             usleep(1000);
             zDevices->addDeviceInfo(message.get());
             ieeeAddressResponseQueue.setData(nwkAddr, message);
@@ -777,6 +781,10 @@ namespace zigbee {
     }
 
     void DemoDevice::registerForAttributeCmd(zigbee::NwkAddr, const zigbee::EndpointID, zigbee::ClusterID, ZigbeeAttributeCmdId, const std::function<void()>) {
+
+    }
+
+    void DemoDevice::getNodeDescriptor(NwkAddr nwkAddr) {
 
     }
 

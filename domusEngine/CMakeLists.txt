@@ -172,7 +172,7 @@ SET(SRC_EXCEPTION src/Exception/PathNotFound.h src/Exception/Timeout.h)
 SET(SRC_HTTP
         src/httpServer/RestHandler.h
         src/httpServer/RestHandlerImpl.cpp src/httpServer/RestHandlerImpl.h
-        src/httpServer/RestActions/ShowPowerNode.cpp src/httpServer/RestActions/ShowPowerNode.h src/httpServer/RestActions/GetChildren.cpp src/httpServer/RestActions/GetChildren.h)
+        src/httpServer/RestActions/ShowPowerNode.cpp src/httpServer/RestActions/ShowPowerNode.h src/httpServer/RestActions/GetChildren.cpp src/httpServer/RestActions/GetChildren.h src/httpServer/RestActions/getNodeDescription.cpp src/httpServer/RestActions/getNodeDescription.h)
 
 
 SET(SRC_DEMO_DRIVER
@@ -215,7 +215,7 @@ SET(SRC_SERIAL_DRIVER2
         src/serialDriver2/PowerNodeResponse2.cpp src/serialDriver2/PowerNodeResponse2.h
         src/serialDriver2/PowerNodeResponse2Error.cpp src/serialDriver2/PowerNodeResponse2Error.h
         src/serialDriver2/ReadThread.cpp src/serialDriver2/ReadThread.h
-        src/serialDriver2/Packet.h src/serialDriver2/AnnunceSerial2Executor.cpp src/serialDriver2/AliveMessage2.cpp src/serialDriver2/StringExecutor.cpp src/serialDriver2/StringExecutor.h src/serialDriver2/PacketSend.h src/serialDriver2/DeviceInfoSerial2Executor.cpp src/serialDriver2/IEEEAddressResponseSerial2Executor.cpp src/httpServer/RestActions/DeleteDevice.cpp src/httpServer/RestActions/DeleteDevice.h)
+        src/serialDriver2/Packet.h src/serialDriver2/AnnunceSerial2Executor.cpp src/serialDriver2/AliveMessage2.cpp src/serialDriver2/StringExecutor.cpp src/serialDriver2/StringExecutor.h src/serialDriver2/PacketSend.h src/serialDriver2/DeviceInfoSerial2Executor.cpp src/serialDriver2/IEEEAddressResponseSerial2Executor.cpp src/httpServer/RestActions/DeleteDevice.cpp src/httpServer/RestActions/DeleteDevice.h src/serialDriver2/NodeDescriptionResponse2.cpp src/serialDriver2/NodeDescriptionResponse2.h src/serialDriver2/NodeDescriptionResponseError2.cpp src/serialDriver2/NodeDescriptionResponseError2.h)
 
 set(USB_SRC src/usb/ActiveEPReqError.h
         src/usb/AnnunceMsgExecuter.h
