@@ -345,7 +345,7 @@ namespace zigbee {
         if (nwkAddr == 0) {
             message->nwkAddr = NwkAddr(0);
             message->ieeeAddr = extAddress0;
-            message->totalDevice=2;
+            message->totalDevice=3;
             message->startIndex=0;
             message->children.insert(NWK_ADDR1);
             message->children.insert(NWK_ADDR2);
@@ -785,7 +785,60 @@ namespace zigbee {
     }
 
     void DemoDevice::getNodeDescriptor(NwkAddr nwkAddr) {
+        auto response = std::make_shared<NodeDescriptorResponse>();
+        if (nwkAddr == 0){
+            response->nwkAddr = NwkAddr(0);
+            response->logicalType = LogicalType::ZigbeeCordinator;
+            response->bandFrequency = BandFrequency::Mhz2400;
+            response->macCapability = 0b01001110;
+            response->manufactorerCode = 0x1234;
+            response->maximumBufferSize = 64;
+            response->maximumIncomingTransferSize = 32;
+            response->serverMask = 0;
 
+            posponedCallbacks.emplace_back(system_clock::now() + 100ms, [response,this ]() mutable {
+                nodeDescriptorReponseQueue.setData(response->nwkAddr,response );
+            });
+        }
+        if (nwkAddr == NWK_ADDR1){
+            response->nwkAddr = NWK_ADDR1;
+            response->logicalType = LogicalType::ZigbeeEnddevice;
+            response->bandFrequency = BandFrequency::Mhz2400;
+            response->macCapability = 0b01001110;
+            response->manufactorerCode = 0x1234;
+            response->maximumBufferSize = 64;
+            response->maximumIncomingTransferSize = 32;
+            response->serverMask = 0;
+            posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
+                nodeDescriptorReponseQueue.setData(response->nwkAddr,response );
+            });
+        }
+        if (nwkAddr == NWK_ADDR2){
+            response->nwkAddr = NWK_ADDR2;
+            response->logicalType = LogicalType::ZigbeeRouter;
+            response->bandFrequency = BandFrequency::Mhz2400;
+            response->macCapability = 0b01001110;
+            response->manufactorerCode = 0x1234;
+            response->maximumBufferSize = 64;
+            response->maximumIncomingTransferSize = 32;
+            response->serverMask = 0;
+            posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
+                nodeDescriptorReponseQueue.setData(response->nwkAddr,response );
+            });
+        }
+        if (nwkAddr == NWK_ADDR3){
+            response->nwkAddr = NWK_ADDR3;
+            response->logicalType = LogicalType::ZigbeeEnddevice;
+            response->bandFrequency = BandFrequency::Mhz2400;
+            response->macCapability = 0b01001110;
+            response->manufactorerCode = 0x1234;
+            response->maximumBufferSize = 64;
+            response->maximumIncomingTransferSize = 32;
+            response->serverMask = 0;
+            posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
+                nodeDescriptorReponseQueue.setData(response->nwkAddr,response );
+            });
+        }
     }
 
 

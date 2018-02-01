@@ -26,6 +26,7 @@
 #include "RestActions/ShowPowerNode.h"
 #include "RestActions/GetChildren.h"
 #include "RestActions/DeleteDevice.h"
+#include "RestActions/getNodeDescription.h"
 
 
 using namespace Pistache::Rest::Routes;
@@ -43,7 +44,7 @@ namespace zigbee::http {
         getPath("/devices/:device/power", ShowPowerNode{singletons});
         getPath("/devices/:device/children", GetChildren{singletons});
         getPath("/devices/:device/info", ShowDeviceInfo{singletons});
-        getPath("/devices/:device/node", ShowDeviceInfo{singletons});
+        getPath("/devices/:device/node", GetNodeDescription{singletons});
         getPath("/devices/:device/endpoint/:endpoint", ShowEndpoint{singletons});
         getPath("/devices/:device/endpoint/:endpoint/cluster/in/:cluster", ShowInCluster{singletons});
         getPath("/devices/:device/endpoint/:endpoint/cluster/out/:cluster", ShowOutCluster{singletons});

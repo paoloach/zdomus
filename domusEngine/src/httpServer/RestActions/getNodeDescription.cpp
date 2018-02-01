@@ -25,7 +25,7 @@ namespace zigbee {
         BOOST_LOG_TRIVIAL(trace) << " getNodeDescriptor " << device;
         auto zigbeeDevice = singletons->getZigbeeDevice();
         zigbeeDevice->registerForNodeDescriptor(device, std::make_unique<GetNodeDescriptionCallback>(std::move(response)));
-        zigbeeDevice->getIEEEAddress(device, ZDPRequestType::Extended, 0);
+        zigbeeDevice->getNodeDescriptor(device);
         return Route::Result::Ok;
     }
 
