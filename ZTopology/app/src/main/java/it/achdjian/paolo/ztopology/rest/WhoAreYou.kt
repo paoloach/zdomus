@@ -19,7 +19,7 @@ class WhoAreYou : ZigbeeRunnable(){
     override fun run() {
         try {
             Log.i(TAG,"Start who are you")
-            val body = DomusEngineRest.get("/who_are_you")
+            val body = DomusEngineRest.get("/who_are_you", true)
 
             if (body.isNotBlank()) {
                 if (body.substring(0, EXPECTED_NAME.length) == EXPECTED_NAME) {

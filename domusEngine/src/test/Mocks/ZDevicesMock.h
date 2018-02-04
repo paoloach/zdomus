@@ -24,7 +24,7 @@ public:
     MAKE_MOCK1(put, void (const SimpleDescMessage & ));
     MAKE_MOCK1(put, void (const ZEndpoint & ));
     MAKE_MOCK1(put, void (const BindResponse & ));
-    MAKE_MOCK1(addDeviceInfo,  void (const IEEEAddrResp &ieeeAddressResponse));
+    MAKE_MOCK1(addDeviceInfo,  void (const IEEEAddressResponse &ieeeAddressResponse));
     MAKE_MOCK1(getDifferences, boost::property_tree::ptree (uint32_t token));
 
     MAKE_CONST_MOCK0(getNumDevices, int ());

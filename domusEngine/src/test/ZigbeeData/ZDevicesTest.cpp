@@ -7,7 +7,7 @@
 
 #include <boost/property_tree/json_parser.hpp>
 #include <sstream>
-#include "../../ZigbeeData/ExtAddress.h"
+#include <zigbee/ExtAddress.h>
 #include "ZDevicesTest.h"
 #include "jsonFields.h"
 

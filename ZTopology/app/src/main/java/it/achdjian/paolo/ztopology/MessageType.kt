@@ -17,5 +17,9 @@ class MessageType {
         val NEW_POWER=1009
         val NEW_DATA_TEMPERATURES=1010
         val NEW_CHILDREN=1011
+        val CHILDREN_TIMEOUT=1012
+        val NEW_DEVICE_INFO=1013
+        val DEVICE_INFO_TIMEOUT=1014
+        val DEVICE_TIMEOUT=1015
     }
 }

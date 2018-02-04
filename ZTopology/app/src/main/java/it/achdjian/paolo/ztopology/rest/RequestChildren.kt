@@ -4,7 +4,6 @@ import android.util.Log
 import it.achdjian.paolo.ztopology.DomusEngine
 import it.achdjian.paolo.ztopology.MessageType
 import it.achdjian.paolo.ztopology.domusEngine.rest.DomusEngineRest
-import it.achdjian.paolo.ztopology.domusEngine.rest.JsonDevice
 import it.achdjian.paolo.ztopology.domusEngine.rest.ZigbeeRunnable
 import java.io.IOException
 
@@ -13,18 +12,23 @@ import java.io.IOException
  */
 class RequestChildren(val networkId: Int) : ZigbeeRunnable()  {
     override fun run() {
-        val body = DomusEngineRest.get("/devices/" + networkId.toString(16) +"/children")
+        Log.i(TAG,"Request children for " + networkId)
+        val path = "/devices/" + networkId.toString(16) + "/children"
+
+        val body = DomusEngineRest.get(path,action= this::error)
         if (body.isNotBlank()) {
             try {
                 Log.i(TAG, body)
                 val children = MAPPER.readValue(body, JsonChildren::class.java)
-                DomusEngine.handler.sendMessage(DomusEngine.handler.obtainMessage(MessageType.NEW_CHILDREN, children))
+                DomusEngine.handler.sendMessage(DomusEngine.handler.obtainMessage(MessageType.NEW_CHILDREN, Children(children)))
                 Log.i("REST", children.toString())
             } catch (e: IOException) {
-                Log.e(TAG, "Error parsing response for /devices/" + networkId + "/children")
+                Log.e(TAG, "Error parsing response for /devices/$networkId/children")
                 Log.e(TAG, "Response: " + body)
                 e.printStackTrace()
             }
         }
     }
+
+    fun error() = DomusEngine.sendMessage(MessageType.CHILDREN_TIMEOUT, networkId )
 }

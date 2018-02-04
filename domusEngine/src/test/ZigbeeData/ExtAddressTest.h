@@ -9,8 +9,7 @@
 #define SRC_TEST_ZIGBEEDATA_EXTADDRESSTEST_H_
 
 #include <gtest/gtest.h>
-
-#include "../../ZigbeeData/ExtAddress.h"
+#include <zigbee/ExtAddress.h>
 
 
 namespace zigbee {

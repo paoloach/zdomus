@@ -1,12 +1,8 @@
 package it.achdjian.paolo.ztopology.domusEngine.rest
 
 import android.util.Log
-import it.achdjian.paolo.ztopology.domusEngine.rest.ZigbeeRunnable.Companion.MAPPER
-import it.achdjian.paolo.ztopology.domusEngine.rest.JsonDevice
-import it.achdjian.paolo.ztopology.domusEngine.rest.ZigbeeRunnable
 import it.achdjian.paolo.ztopology.DomusEngine
 import it.achdjian.paolo.ztopology.MessageType
-import it.achdjian.paolo.ztopology.domusEngine.rest.DomusEngineRest
 import java.io.IOException
 
 /**
@@ -14,7 +10,7 @@ import java.io.IOException
  */
 class GetDevice(val nwkAddress: Int) : ZigbeeRunnable() {
     override fun run() {
-        val body = DomusEngineRest.get("/devices/" + nwkAddress.toString(16))
+        val body = DomusEngineRest.get("/devices/" + nwkAddress.toString(16), action= this::error)
         if (body.isNotBlank()) {
             try {
                 Log.i(TAG, body)
@@ -28,5 +24,7 @@ class GetDevice(val nwkAddress: Int) : ZigbeeRunnable() {
             }
         }
     }
+
+    private fun error() = DomusEngine.sendMessage(MessageType.DEVICE_TIMEOUT, nwkAddress )
 
 }

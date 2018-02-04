@@ -5,10 +5,13 @@ import android.os.HandlerThread
 import android.os.Message
 import android.util.Log
 import it.achdjian.paolo.ztopology.domusEngine.rest.*
-import it.achdjian.paolo.ztopology.rest.JsonChildren
+import it.achdjian.paolo.ztopology.rest.Children
+import it.achdjian.paolo.ztopology.rest.DeviceInfo
 import it.achdjian.paolo.ztopology.rest.RequestChildren
+import it.achdjian.paolo.ztopology.rest.RequestDeviceInfo
 import it.achdjian.paolo.ztopology.zigbee.ZDevices
 import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
+import java.util.*
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -21,9 +24,12 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     val whoAreYou = WhoAreYou()
     val getDevices = GetDevices()
     val childrenCallback = HashSet<ChildrenCallback>()
+    val deviceCallback = HashSet<DeviceCallback>()
+    val deviceInfoCallback = HashSet<DeviceInfoCallback>()
 
     private val mDecodeWorkQueue = LinkedBlockingQueue<Runnable>();
-    private val threadPool = ThreadPoolExecutor(3, Int.MAX_VALUE, 60, TimeUnit.SECONDS, mDecodeWorkQueue)
+    private val threadPool =
+        ThreadPoolExecutor(3, Int.MAX_VALUE, 60, TimeUnit.SECONDS, mDecodeWorkQueue)
 
     val TAG = "ZIGBEE COM"
 
@@ -36,27 +42,39 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
         handler.post(whoAreYou)
     }
 
+    fun requestWhoAreYou() = handler.post(whoAreYou)
+
     fun getDevices() = handler.post(getDevices)
 
     fun getDevice(device: Int) = handler.post(GetDevice(device))
 
 
     fun postCmd(networkId: Int, endpointId: Int, clusterId: Int, cmdId: Int) =
-            threadPool.execute(ExecuteCommand(networkId, endpointId, clusterId, cmdId))
+        threadPool.execute(ExecuteCommand(networkId, endpointId, clusterId, cmdId))
 
 
     fun requestChildren(shortAddress: Int) {
         threadPool.execute(RequestChildren(shortAddress));
     }
 
+    fun requestDeviceInfo(shortAddress: Int) {
+        threadPool.execute(RequestDeviceInfo(shortAddress));
+    }
+
     fun requestIdentify(shortAddress: Int, endpointId: Int) =
-            threadPool.execute(RequestIdentify(shortAddress, endpointId));
+        threadPool.execute(RequestIdentify(shortAddress, endpointId));
 
     fun requestPower(shortAddress: Int) =
-            threadPool.execute(RequestPowerNode(shortAddress))
+        threadPool.execute(RequestPowerNode(shortAddress))
 
     fun addCallback(callback: ChildrenCallback) = childrenCallback.add(callback)
+    fun addCallback(callback: DeviceCallback) = deviceCallback.add(callback)
     fun removeCallback(callback: ChildrenCallback) = childrenCallback.remove(callback)
+    fun addCallback(callback: DeviceInfoCallback) = deviceInfoCallback.add(callback)
+
+    fun sendMessage(messageType: Int, obj: Any) {
+        handler.sendMessage(handler.obtainMessage(messageType, obj))
+    }
 
     override fun handleMessage(message: Message?): Boolean {
         if (message != null) {
@@ -66,15 +84,14 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                     Log.i(TAG, "Who are You")
                 }
                 MessageType.NEW_DEVICE -> {
-                    Log.i(TAG, "NEW Device")
                     val device = message.obj as JsonDevice
                     ZDevices.addDevice(device)
-                    device.endpoints.
-                            forEach {
-                                val endpoint = it.value.toInt(16)
-                                handler.post(GetEndpoint(device.short_address, endpoint))
-                            }
-
+                    deviceCallback.forEach { it.newDevice(device) }
+                }
+                MessageType.DEVICE_TIMEOUT -> {
+                    val networkId = message.obj as Int
+                    Log.i(TAG, "Timeout requesting device for networkId")
+                    deviceCallback.forEach { it.deviceTimeout(networkId) }
                 }
                 MessageType.NEW_ENDPOINT -> {
                     Log.i(TAG, "NEW endpoint_id")
@@ -82,10 +99,23 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                     ZDevices.addEndpoint(endpoint)
                 }
                 MessageType.NEW_CHILDREN -> {
-                    val response = message.obj as JsonChildren
+                    val response = message.obj as Children
                     childrenCallback.forEach { it.newChildrenResult(response) }
                 }
-
+                MessageType.CHILDREN_TIMEOUT -> {
+                    val networkId = message.obj as Int
+                    Log.i(TAG, "Timeout requesting children for networkId")
+                    childrenCallback.forEach { it.childrenTimeout(networkId) }
+                }
+                MessageType.NEW_DEVICE_INFO -> {
+                    val response = message.obj as DeviceInfo
+                    deviceInfoCallback.forEach { it.newDeviceInfo(response) }
+                }
+                MessageType.DEVICE_INFO_TIMEOUT -> {
+                    val networkId = message.obj as Int
+                    Log.i(TAG, "Timeout requesting device info for networkId")
+                    childrenCallback.forEach { it.childrenTimeout(networkId) }
+                }
             }
         }
         return true
@@ -94,5 +124,16 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
 }
 
 interface ChildrenCallback {
-    fun newChildrenResult(response: JsonChildren);
+    fun newChildrenResult(response: Children);
+    fun childrenTimeout(networkId: Int)
+}
+
+interface DeviceCallback {
+    fun newDevice(response: JsonDevice);
+    fun deviceTimeout(networkId: Int)
+}
+
+interface DeviceInfoCallback {
+    fun newDeviceInfo(response: DeviceInfo);
+    fun deviceInfoTimeout(networkId: Int)
 }

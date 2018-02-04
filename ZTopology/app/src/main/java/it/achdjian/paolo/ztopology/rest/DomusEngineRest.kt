@@ -1,6 +1,8 @@
 package it.achdjian.paolo.ztopology.domusEngine.rest
 
 import android.util.Log
+import it.achdjian.paolo.ztopology.DomusEngine
+import it.achdjian.paolo.ztopology.DomusEngine.whoAreYou
 import it.achdjian.paolo.ztopology.domusEngine.ConnectionStatus
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -15,10 +17,10 @@ object DomusEngineRest {
 
     private val TAG = "ZIGBEE COM"
     private val JSON = okhttp3.MediaType.parse("application/json; charset=utf-8")
-    var address = "192.168.1.121:8080"
+    var address = "10.0.2.2:8080"
 
-    operator fun get(path: String): String {
-  //      val address: String = sharedPreferences.getString(Constants.DOMUS_ENGINE_ADDRESS, "192.168.1.121:8080")
+    operator fun get(path: String, whoAreYou :Boolean = false, action: () -> Unit = {}): String {
+
         val url = "http://" + address + path
         Log.i(TAG, url)
 
@@ -40,9 +42,11 @@ object DomusEngineRest {
         } catch (ignored: Exception) {
             Log.e(TAG, "error", ignored)
         }
+        action()
 
         Log.e(TAG, "CONNECTION ERROR")
-        ConnectionStatus.connected = false
+        if (!whoAreYou)
+            DomusEngine.requestWhoAreYou()
         return ""
     }
 

@@ -11,10 +11,10 @@
 #include <gtest/gtest.h>
 
 #include <v8.h>
+#include <zigbee/ExtAddress.h>
 #include "../../JavaScript/JSLog.h"
 #include "../../JavaScript/V8Allocator.h"
 #include "../../ZigbeeData/ZDevice.h"
-#include "../../ZigbeeData/ExtAddress.h"
 #include "../Mocks/SingletonObjectsMock.h"
 #include "../Mocks/ClustersMock.h"
 #include "../Mocks/ZDevicesMock.h"

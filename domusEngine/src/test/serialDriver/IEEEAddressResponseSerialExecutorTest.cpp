@@ -29,7 +29,7 @@ namespace zigbee {
 
 
         TEST_F(IEEEAddressResponseSerialExecutorTest, ZeroChild) {
-            IEEEAddrResp expectedRequest;
+            IEEEAddressResponse expectedRequest;
 
             REQUIRE_CALL(zDevicesMock, addDeviceInfo(_))
                 .WITH(_1.ieeeAddr == expectedExtAddress)
@@ -41,7 +41,7 @@ namespace zigbee {
         }
 
         TEST_F(IEEEAddressResponseSerialExecutorTest, 2Children) {
-            IEEEAddrResp expectedRequest;
+            IEEEAddressResponse expectedRequest;
 
             REQUIRE_CALL(zDevicesMock, addDeviceInfo(_))
                 .WITH(_1.ieeeAddr == expectedExtAddress)

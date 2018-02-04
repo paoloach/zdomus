@@ -5,7 +5,7 @@
 		<Option title="domus_engine_test"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\pistache\;CMake Files\pistache\tmp\;CMake Files\trompeloeil\;CMake Files\trompeloeil\tmp\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;CMake Files\src\;CMake Files\src\test\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\pistache\;CMake Files\pistache\tmp\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;CMake Files\src\;CMake Files\src\test\;CMake Files\src\serialDriver2\;CMake Files\src\DemoDriver\;CMake Files\src\usb\;CMake Files\src\Database\;CMake Files\src\ZigbeeData\;CMake Files\src\ZigbeeData\PropertyTree\;CMake Files\src\httpServer\;CMake Files\src\httpServer\RestActions\;CMake Files\src\serialDriver\;CMake Files\src\Exception\;CMake Files\src\Utils\;CMake Files\src\JavaScript\;CMake Files\src\JavaScript\JSZAttributes\;CMake Files\src\JavaScript\Exceptions\;CMake Files\src\IO\;CMake Files\src\Configuration\;CMake Files\src\json\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/home/paolo/workspace/zdomus/domusEngine/src/test"/>
@@ -24,13 +24,18 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/./include"/>
+					<Add directory="/usr/local/zigbee/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/v8/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/pistache/src/pistache_fork/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/usr/include/libusb-1.0"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
-					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7"/>
@@ -55,13 +60,18 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/./include"/>
+					<Add directory="/usr/local/zigbee/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/v8/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/pistache/src/pistache_fork/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/usr/include/libusb-1.0"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
-					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7"/>
@@ -86,13 +96,18 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/./include"/>
+					<Add directory="/usr/local/zigbee/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/v8/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/pistache/src/pistache_fork/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/usr/include/libusb-1.0"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
-					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7"/>
@@ -117,13 +132,18 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/./include"/>
+					<Add directory="/usr/local/zigbee/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/v8/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/pistache/src/pistache_fork/include"/>
+					<Add directory="/home/paolo/workspace/zdomus/domusEngine/pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/include"/>
+					<Add directory="/usr/include/libusb-1.0"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../pistache/src/pistache_fork/include/pistache"/>
 					<Add directory="/usr/include/postgresql"/>
 					<Add directory="/usr/include/postgresql/server"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/src/test/../../v8/include"/>
-					<Add directory="/usr/local/zigbee/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googletest/include"/>
 					<Add directory="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include/g++-v7"/>
@@ -403,9 +423,6 @@
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/pistache/tmp/pistache_fork-cfgcmd.txt.in">
 			<Option virtualFolder="CMake Files\pistache\tmp\"/>
 		</Unit>
-		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/trompeloeil/tmp/trompeloeil-cfgcmd.txt.in">
-			<Option virtualFolder="CMake Files\trompeloeil\tmp\"/>
-		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/googletest/googlemock/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\googletest\googlemock\"/>
 		</Unit>
@@ -435,6 +452,57 @@
 		</Unit>
 		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/test/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\src\test\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/serialDriver2/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\serialDriver2\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/DemoDriver/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\DemoDriver\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/usb/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\usb\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/Database/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\Database\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/ZigbeeData/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\ZigbeeData\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/ZigbeeData/PropertyTree/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\ZigbeeData\PropertyTree\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/httpServer/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\httpServer\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/httpServer/RestActions/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\httpServer\RestActions\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/serialDriver/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\serialDriver\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/Exception/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\Exception\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/Utils/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\Utils\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/JavaScript/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\JavaScript\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/JavaScript/JSZAttributes/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\JavaScript\JSZAttributes\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/JavaScript/Exceptions/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\JavaScript\Exceptions\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/IO/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\IO\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/Configuration/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\Configuration\"/>
+		</Unit>
+		<Unit filename="/home/paolo/workspace/zdomus/domusEngine/src/json/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\json\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

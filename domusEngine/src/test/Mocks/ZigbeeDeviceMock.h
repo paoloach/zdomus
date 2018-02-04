@@ -25,8 +25,11 @@ namespace zigbee {
         public:
             MAKE_MOCK0(isPresent, bool());
 
+
             MAKE_MOCK0(requestDevices, bool());
             MAKE_MOCK1(requestNodePower, void (zigbee::NwkAddr));
+            MAKE_MOCK1(removeDevice, void (zigbee::NwkAddr));
+            MAKE_MOCK1(getNodeDescriptor, void (zigbee::NwkAddr));
             MAKE_MOCK0(getUsbMessage, void());
             MAKE_MOCK1(requestAttribute, void(const AttributeKey &key));
             MAKE_MOCK1(requestAttributes, void(AttributesKey &key));
