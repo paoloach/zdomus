@@ -13,7 +13,7 @@ import java.io.IOException
 class RequestChildren(val networkId: Int) : ZigbeeRunnable()  {
     override fun run() {
         Log.i(TAG,"Request node information for " + networkId)
-        val path = "/devices/" + networkId.toString(16) + "/node"
+        val path = "/devices/" + networkId.toString(16) + "/children"
 
         val body = DomusEngineRest.get(path,action= this::error)
         if (body.isNotBlank()) {

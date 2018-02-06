@@ -17,7 +17,7 @@ interface TopologyUpdate {
 
 object TopologyManager : ChildrenCallback, DeviceCallback, NodeInfoCallback {
     override fun newNodeInfo(response: NodeInfo) {
-        val node = Topology.root.findNode(0)
+        val node = Topology.root.findNode(response.nwkId)
         if (node != null){
             node.setInfo(response)
             updateViews()
