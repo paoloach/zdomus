@@ -12,8 +12,8 @@ import java.io.IOException
  */
 class RequestChildren(val networkId: Int) : ZigbeeRunnable()  {
     override fun run() {
-        Log.i(TAG,"Request children for " + networkId)
-        val path = "/devices/" + networkId.toString(16) + "/children"
+        Log.i(TAG,"Request node information for " + networkId)
+        val path = "/devices/" + networkId.toString(16) + "/node"
 
         val body = DomusEngineRest.get(path,action= this::error)
         if (body.isNotBlank()) {
@@ -30,5 +30,5 @@ class RequestChildren(val networkId: Int) : ZigbeeRunnable()  {
         }
     }
 
-    fun error() = DomusEngine.sendMessage(MessageType.CHILDREN_TIMEOUT, networkId )
+    fun error() = DomusEngine.sendMessage(MessageType.NODE_INFO_TIMEOUT, networkId )
 }

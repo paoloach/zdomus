@@ -1,17 +1,19 @@
 package it.achdjian.paolo.ztopology.view
 
 import android.graphics.*
-import android.util.Log
+import it.achdjian.paolo.ztopology.LogicalType
 import it.achdjian.paolo.ztopology.zigbee.DeviceConnectionStatus
+import it.achdjian.paolo.ztopology.zigbee.Topology
 
 /**
  * Created by Paolo Achdjian on 1/22/18.
  */
-class ChildView(private val center: PointF, networkId: Int, deviceId: Paint,private var connectionStatus: DeviceConnectionStatus) {
+class ChildView(private val center: PointF, networkId: Int, private val status: Topology) {
     companion object {
         const val TAG = "TopologyView"
-        const val DEVICE_RADIUS = 50f
-        const val DISCONNECT_SIZE=30f
+        const val COORDINATOR_RADIOUS=70f
+        const val ROUTER_RADIOUS=50f
+        const val END_DEVICE_RADIOUS=30f
         val deviceBorderConnected = Paint(Paint.ANTI_ALIAS_FLAG)
         val deviceWaitConnection = Paint(Paint.ANTI_ALIAS_FLAG)
         val deviceWaitInfo = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -47,13 +49,20 @@ class ChildView(private val center: PointF, networkId: Int, deviceId: Paint,priv
     private val leftText: Float
     private val topText: Float
     private val region: RectF
+    private val radius: Float
 
     init {
         val rect = Rect()
         deviceId.getTextBounds(id, 0, id.length, rect)
         leftText = center.x - rect.width() / 2
         topText = center.y + rect.height() / 2
-        region = RectF(center.x - DEVICE_RADIUS, center.y - DEVICE_RADIUS, center.x + DEVICE_RADIUS, center.y + DEVICE_RADIUS)
+        when(status.logicalType) {
+            LogicalType.ZigbeeEnddevice -> radius = END_DEVICE_RADIOUS
+            LogicalType.ZigbeeCordinator -> radius = COORDINATOR_RADIOUS
+            LogicalType.ZigbeeRouter -> radius = ROUTER_RADIOUS
+            LogicalType.Invalid -> radius = END_DEVICE_RADIOUS
+        }
+        region = createRegion(radius)
     }
 
     fun paint(canvas: Canvas) {
@@ -62,13 +71,16 @@ class ChildView(private val center: PointF, networkId: Int, deviceId: Paint,priv
             canvas.drawLine(center.x, center.y, it.center.x, it.center.y, deviceLine)
             it.paint(canvas)
         }
-        when(connectionStatus){
+        when(status.connectionStatus){
             DeviceConnectionStatus.WAITING ->
-                canvas.drawCircle(center.x, center.y, DEVICE_RADIUS, deviceWaitConnection)
+                canvas.drawCircle(center.x, center.y, radius, deviceWaitConnection)
             DeviceConnectionStatus.CONNECTED ->
-                canvas.drawCircle(center.x, center.y, DEVICE_RADIUS, deviceWaitInfo)
+                if (status.logicalType == LogicalType.Invalid)
+                    canvas.drawCircle(center.x, center.y, radius, deviceWaitInfo)
+                else
+                    canvas.drawCircle(center.x, center.y, radius, deviceBorderConnected)
             DeviceConnectionStatus.DISCONNECTED ->
-                canvas.drawCircle(center.x, center.y, DEVICE_RADIUS, deviceDisconnect)
+                canvas.drawCircle(center.x, center.y, radius, deviceDisconnect)
         }
         canvas.drawText(id, leftText, topText, deviceId)
     }
@@ -79,4 +91,6 @@ class ChildView(private val center: PointF, networkId: Int, deviceId: Paint,priv
         }
         return children.map { it.find(x, y) }.firstOrNull { it != null }
     }
+
+    fun createRegion(radious: Float): RectF = RectF(center.x - radious, center.y - radious, center.x + radious, center.y + radious)
 }

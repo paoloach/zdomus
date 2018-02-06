@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), ConnectionObserver {
         runOnUiThread({ supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.GREEN)) })
         DomusEngine.addCallback(TopologyManager as ChildrenCallback)
         DomusEngine.addCallback(TopologyManager as DeviceCallback)
+        DomusEngine.addCallback(TopologyManager as NodeInfoCallback)
         TopologyManager.start()
     }
 

@@ -5,10 +5,7 @@ import android.os.HandlerThread
 import android.os.Message
 import android.util.Log
 import it.achdjian.paolo.ztopology.domusEngine.rest.*
-import it.achdjian.paolo.ztopology.rest.Children
-import it.achdjian.paolo.ztopology.rest.DeviceInfo
-import it.achdjian.paolo.ztopology.rest.RequestChildren
-import it.achdjian.paolo.ztopology.rest.RequestDeviceInfo
+import it.achdjian.paolo.ztopology.rest.*
 import it.achdjian.paolo.ztopology.zigbee.ZDevices
 import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
 import java.util.*
@@ -26,6 +23,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     val childrenCallback = HashSet<ChildrenCallback>()
     val deviceCallback = HashSet<DeviceCallback>()
     val deviceInfoCallback = HashSet<DeviceInfoCallback>()
+    val nodeInfoCallback = HashSet<NodeInfoCallback>()
 
     private val mDecodeWorkQueue = LinkedBlockingQueue<Runnable>();
     private val threadPool =
@@ -54,23 +52,29 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
 
 
     fun requestChildren(shortAddress: Int) {
-        threadPool.execute(RequestChildren(shortAddress));
+        threadPool.execute(RequestChildren(shortAddress))
+    }
+
+    fun requestNode(shortAddress: Int){
+        threadPool.execute(RequestNodeInfo(shortAddress))
     }
 
     fun requestDeviceInfo(shortAddress: Int) {
-        threadPool.execute(RequestDeviceInfo(shortAddress));
+        threadPool.execute(RequestDeviceInfo(shortAddress))
     }
 
     fun requestIdentify(shortAddress: Int, endpointId: Int) =
-        threadPool.execute(RequestIdentify(shortAddress, endpointId));
+        threadPool.execute(RequestIdentify(shortAddress, endpointId))
 
     fun requestPower(shortAddress: Int) =
         threadPool.execute(RequestPowerNode(shortAddress))
 
     fun addCallback(callback: ChildrenCallback) = childrenCallback.add(callback)
     fun addCallback(callback: DeviceCallback) = deviceCallback.add(callback)
-    fun removeCallback(callback: ChildrenCallback) = childrenCallback.remove(callback)
+    fun addCallback(callback: NodeInfoCallback) = nodeInfoCallback.add(callback)
     fun addCallback(callback: DeviceInfoCallback) = deviceInfoCallback.add(callback)
+    fun removeCallback(callback: ChildrenCallback) = childrenCallback.remove(callback)
+    fun removeCallback(callback: NodeInfoCallback) = nodeInfoCallback.remove(callback)
 
     fun sendMessage(messageType: Int, obj: Any) {
         handler.sendMessage(handler.obtainMessage(messageType, obj))
@@ -90,7 +94,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                 }
                 MessageType.DEVICE_TIMEOUT -> {
                     val networkId = message.obj as Int
-                    Log.i(TAG, "Timeout requesting device for networkId")
+                    Log.i(TAG, "Timeout requesting device for {networkId}")
                     deviceCallback.forEach { it.deviceTimeout(networkId) }
                 }
                 MessageType.NEW_ENDPOINT -> {
@@ -104,7 +108,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                 }
                 MessageType.CHILDREN_TIMEOUT -> {
                     val networkId = message.obj as Int
-                    Log.i(TAG, "Timeout requesting children for networkId")
+                    Log.i(TAG, "Timeout requesting children for {networkId}")
                     childrenCallback.forEach { it.childrenTimeout(networkId) }
                 }
                 MessageType.NEW_DEVICE_INFO -> {
@@ -113,8 +117,17 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                 }
                 MessageType.DEVICE_INFO_TIMEOUT -> {
                     val networkId = message.obj as Int
-                    Log.i(TAG, "Timeout requesting device info for networkId")
-                    childrenCallback.forEach { it.childrenTimeout(networkId) }
+                    Log.i(TAG, "Timeout requesting device info for {networkId}")
+                    deviceInfoCallback.forEach { it.deviceInfoTimeout(networkId) }
+                }
+                MessageType.NEW_NODE_INFO -> {
+                    val response = message.obj as NodeInfo
+                    nodeInfoCallback.forEach { it.newNodeInfo(response) }
+                }
+                MessageType.NODE_INFO_TIMEOUT -> {
+                    val networkId = message.obj as Int
+                    Log.i(TAG, "Timeout requesting node info for {networkId}")
+                    nodeInfoCallback.forEach { it.nodeInfoTimeout(networkId) }
                 }
             }
         }
@@ -136,4 +149,10 @@ interface DeviceCallback {
 interface DeviceInfoCallback {
     fun newDeviceInfo(response: DeviceInfo);
     fun deviceInfoTimeout(networkId: Int)
+}
+
+
+interface NodeInfoCallback {
+    fun newNodeInfo(response: NodeInfo);
+    fun nodeInfoTimeout(networkId: Int)
 }

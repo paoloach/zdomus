@@ -1,6 +1,8 @@
 package it.achdjian.paolo.ztopology.zigbee
 
 import android.util.Log
+import it.achdjian.paolo.ztopology.LogicalType
+import it.achdjian.paolo.ztopology.NodeInfo
 
 /**
  * Created by Paolo Achdjian on 1/18/18.
@@ -16,6 +18,7 @@ class Topology(val shortAddress: Int) {
     var extendedAddr: String = ""
     var connectionStatus = DeviceConnectionStatus.WAITING
     var capabilities: Int = 0
+    var logicalType = LogicalType.Invalid
 
     companion object {
         var root = Topology(0)
@@ -42,6 +45,11 @@ class Topology(val shortAddress: Int) {
     fun log(depth: Int){
         Log.i("TopologyView", spaces.substring(0,4*depth) + shortAddress.toString(16) + ", status " + connectionStatus)
         children.forEach { it.log(depth+1) }
+    }
+
+    fun setInfo(response: NodeInfo) {
+        logicalType = response.logicalType
+
     }
 
 

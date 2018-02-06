@@ -1,14 +1,9 @@
 package it.achdjian.paolo.ztopology.zigbee
 
 import android.util.Log
-import it.achdjian.paolo.ztopology.ChildrenCallback
-import it.achdjian.paolo.ztopology.DeviceCallback
-import it.achdjian.paolo.ztopology.DeviceInfoCallback
-import it.achdjian.paolo.ztopology.DomusEngine
-import it.achdjian.paolo.ztopology.domusEngine.ConnectionStatus
+import it.achdjian.paolo.ztopology.*
 import it.achdjian.paolo.ztopology.domusEngine.rest.JsonDevice
 import it.achdjian.paolo.ztopology.rest.Children
-import it.achdjian.paolo.ztopology.rest.DeviceInfo
 import it.achdjian.paolo.ztopology.view.TopologyView
 import it.achdjian.paolo.ztopology.zigbee.Topology.Companion.root
 
@@ -20,7 +15,19 @@ interface TopologyUpdate {
     fun update()
 }
 
-object TopologyManager : ChildrenCallback, DeviceCallback {
+object TopologyManager : ChildrenCallback, DeviceCallback, NodeInfoCallback {
+    override fun newNodeInfo(response: NodeInfo) {
+        val node = Topology.root.findNode(0)
+        if (node != null){
+            node.setInfo(response)
+            updateViews()
+        }
+    }
+
+    override fun nodeInfoTimeout(networkId: Int) {
+        DomusEngine.requestNode(networkId)
+    }
+
     private val views = HashSet<TopologyUpdate>()
 
 
@@ -32,19 +39,16 @@ object TopologyManager : ChildrenCallback, DeviceCallback {
         val node = Topology.root.findNode(response.short_address)
         if (node != null){
             node.capabilities = response.capability
-            views.forEach { it.update() }
+            updateViews()
         }
     }
-
-
-
 
     override fun childrenTimeout(networkId: Int) {
         val node = Topology.root.findNode(networkId)
         if (node != null){
             node.connectionStatus = DeviceConnectionStatus.DISCONNECTED
         }
-        views.forEach { it.update() }
+        updateViews()
     }
 
     override fun newChildrenResult(response: Children) {
@@ -61,8 +65,12 @@ object TopologyManager : ChildrenCallback, DeviceCallback {
             node.extendedAddr = response.extendAddr
             Log.i(TopologyView.TAG, "change " + node.shortAddress.toString(16) + " at connected")
             node.connectionStatus = DeviceConnectionStatus.CONNECTED
-            DomusEngine.getDevice(node.shortAddress)
+            DomusEngine.requestNode(node.shortAddress)
         }
+        updateViews()
+    }
+
+    private fun updateViews() {
         views.forEach { it.update() }
     }
 
@@ -79,7 +87,7 @@ object TopologyManager : ChildrenCallback, DeviceCallback {
 
     fun start() {
         DomusEngine.requestChildren(0)
-
+        DomusEngine.requestNode(0)
     }
 
 }

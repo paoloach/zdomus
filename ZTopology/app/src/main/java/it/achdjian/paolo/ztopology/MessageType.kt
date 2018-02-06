@@ -21,5 +21,7 @@ class MessageType {
         val NEW_DEVICE_INFO=1013
         val DEVICE_INFO_TIMEOUT=1014
         val DEVICE_TIMEOUT=1015
+        val NEW_NODE_INFO=1016
+        val NODE_INFO_TIMEOUT=1017
     }
 }

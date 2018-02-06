@@ -1,35 +1,21 @@
 package it.achdjian.paolo.ztopology.view
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.PointF
-import android.graphics.drawable.Drawable
-import android.support.graphics.drawable.VectorDrawableCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import it.achdjian.paolo.ztopology.ChildrenCallback
-import it.achdjian.paolo.ztopology.DomusEngine
-import it.achdjian.paolo.ztopology.R
-import it.achdjian.paolo.ztopology.rest.Children
-import it.achdjian.paolo.ztopology.view.ChildView.Companion.deviceId
-import it.achdjian.paolo.ztopology.zigbee.DeviceConnectionStatus
 import it.achdjian.paolo.ztopology.zigbee.Topology
 import it.achdjian.paolo.ztopology.zigbee.TopologyManager
 import it.achdjian.paolo.ztopology.zigbee.TopologyUpdate
-import kotlinx.android.synthetic.main.activity_main.*
 
 class TopologyView : View, View.OnTouchListener, TopologyUpdate {
-
-
     private var devicesPos: ChildView? = null
 
     companion object {
         const val TAG = "TopologyView"
-        var DISCONNECTED_DRAWABLE: VectorDrawableCompat? = null
     }
     constructor(context: Context) : super(context) {
     }
@@ -44,7 +30,6 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate {
         super.onAttachedToWindow()
         TopologyManager.addView(this)
         setOnTouchListener(this)
-        DISCONNECTED_DRAWABLE = VectorDrawableCompat.create(resources, R.drawable.disconnected_chains, null)
     }
 
     override fun onDetachedFromWindow() {
@@ -85,7 +70,7 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate {
 
     private fun calcPos() {
         val center0 = PointF((left + width / 2).toFloat(), (top + height / 2).toFloat())
-        val newChildView = ChildView(center0, 0, deviceId, DeviceConnectionStatus.CONNECTED)
+        val newChildView = ChildView(center0, 0, Topology.root)
         Log.i(TAG, "center: " + center0.x + ", " + center0.y)
         TopologyManager.log()
         val deviceDistX = width / 4f
@@ -101,7 +86,7 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate {
             var startAngle = 0.0
             node.children.forEach({
                 val childPos = PointF((center.x + deviceDistX * Math.sin(startAngle)).toFloat(), (center.y + deviceDistY * Math.cos(startAngle)).toFloat())
-                val child = ChildView(childPos, it.shortAddress, deviceId, it.connectionStatus)
+                val child = ChildView(childPos, it.shortAddress, it)
                 childiew.children.add(child)
                 addDevicesNode(it, child, childPos, deviceDistX / 2, deviceDistY / 2)
                 startAngle += deltaAngle
