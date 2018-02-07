@@ -14,4 +14,4 @@ SET(SRC_HTTP
         )
 
 add_library(http_lib OBJECT ${SRC_HTTP} )
-target_include_directories(http_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} )
+target_include_directories(http_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} ${PISTACHE_INCLUDE_DIR} )

@@ -100,7 +100,7 @@ add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
 find_package(Boost 1.63 COMPONENTS date_time fiber context system signals program_options filesystem log REQUIRED)
 
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
-include_directories(./include  ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR})
+
 
 add_subdirectory(googletest/googlemock)
 add_subdirectory(src/test)
@@ -140,6 +140,8 @@ else ()
     endif ()
 endif ()
 
+set(COMMON_DIR ${CMAKE_SOURCE_DIR}/include)
+
 
 add_library(domus_engine_static_lib STATIC
         $<TARGET_OBJECTS:utils_lib>
@@ -156,7 +158,6 @@ add_executable(domus_engine src/main.cpp ${V8_BLOB}
         src/DemoDriver/DemoDriverFactory.h
         src/usb/UsbDriverFactory.h
         $<TARGET_OBJECTS:demo_driver_lib>
-        $<TARGET_OBJECTS:usb_driver_lib>
         $<TARGET_OBJECTS:serial2_driver_lib>
         $<TARGET_OBJECTS:serial_driver_lib>
           )
@@ -164,10 +165,6 @@ add_executable(domus_engine src/main.cpp ${V8_BLOB}
 add_dependencies(domus_engine pistache_fork)
 
 SET(LIBS zigbeeLib
-        usb-1.0
-
-        ${V8_LIBRARY}
-        ${Boost_SIGNALS_LIBRARY_RELEASE}
         ${Boost_THREAD_LIBRARY_RELEASE}
         ${Boost_SYSTEM_LIBRARY_RELEASE}
         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
@@ -176,15 +173,12 @@ SET(LIBS zigbeeLib
         ${Boost_CONTEXT_LIBRARY}
         ${Boost_DATE_TIME_LIBRARY_RELEASE}
         ${Boost_FIBER_LIBRARY_RELEASE}
-        ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE}
         ${PISTACHE_LIB}
-        dl
-        pthread
         )
 
-target_link_libraries(domus_engine_static_lib javascript_lib zigbee_data_lib database_lib)
-target_link_libraries(domus_engine domus_engine_static_lib ${V8_LIBRARY} ${LIBS}  )
-
+target_link_libraries(domus_engine_static_lib javascript_lib zigbee_data_lib database_lib usb_driver_lib Boost::signals)
+target_link_libraries(domus_engine domus_engine_static_lib  ${LIBS} Boost::program_options )
+target_include_directories(domus_engine_static_lib PUBLIC  Boost::bost)
 
 set_property(TARGET domus_engine_static_lib PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build/.lib)
 set_property(TARGET domus_engine PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)

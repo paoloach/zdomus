@@ -32,4 +32,7 @@ add_library(javascript_lib STATIC
         JSResultSet.cpp JSResultSet.h
         JSRestParam.cpp JSRestParam.h JSBase.h)
 
-target_include_directories(javascript_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR}  )
+
+target_link_libraries(javascript_lib PUBLIC zigbeeLib ${V8_LIBRARY})
+
+target_include_directories(javascript_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/include )

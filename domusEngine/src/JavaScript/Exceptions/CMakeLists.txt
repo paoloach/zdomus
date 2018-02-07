@@ -23,4 +23,4 @@ add_library(js_exception_lib OBJECT
         JSExceptionWrongArgumentsNumber.cpp          JSExceptionWrongArgumentsNumber.h
         )
 
-target_include_directories(js_exception_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} )
+target_include_directories(js_exception_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} ${V8_INCLUDE_DIR} )
