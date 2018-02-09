@@ -6,7 +6,7 @@
 #define DOMUS_ENGINE_JSRESTPARAM_H
 
 #include <v8.h>
-#include "router.h"
+#include "pistache/router.h"
 
 namespace zigbee {
     class JSRestParam {

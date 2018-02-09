@@ -1,6 +1,7 @@
 //
 // Created by paolo on 31/12/16.
 //
+#include <stdlib.h>
 #include <boost/log/trivial.hpp>
 #include <boost/date_time.hpp>
 #include <boost/fiber/algo/round_robin.hpp>

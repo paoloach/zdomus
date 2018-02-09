@@ -7,8 +7,8 @@
 
 #include <zigbee/messageStructure/NodeDescriptorResponse.h>
 #include <zigbee/ResponseCallback.h>
-#include "endpoint.h"
-#include "router.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 
 namespace zigbee {
     class SingletonObjects;

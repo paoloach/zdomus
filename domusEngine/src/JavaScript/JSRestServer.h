@@ -14,7 +14,7 @@
 #include <condition_variable>
 #include <mutex>
 #include "JSRestParam.h"
-#include "router.h"
+#include "pistache/router.h"
 #include "JSCallbackFifo.h"
 
 namespace zigbee {

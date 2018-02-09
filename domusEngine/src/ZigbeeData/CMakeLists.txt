@@ -21,7 +21,8 @@ SET(SRC_ZIGBEE_DATA AttributeData.cpp AttributeData.h
         Exceptions/InvalidZEndpointException.cpp
         Exceptions/ZigbeeDeviceException.cpp)
 
+message("COMMON_DIR = ${CMAKE_SOURCE_DIR}/include")
 
 add_library(zigbee_data_lib STATIC ${SRC_ZIGBEE_DATA} $<TARGET_OBJECTS:property_tree_lib> )
 
-target_include_directories(zigbee_data_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR}  )
+target_include_directories(zigbee_data_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/include )

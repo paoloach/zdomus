@@ -93,7 +93,7 @@ namespace zigbee {
         auto nextTime = std::chrono::system_clock::now() + period;
         while (!stop) {
             TryCatch tryCatch;
-            script->Run(lContext);
+            auto result = script->Run(lContext);
             if (tryCatch.HasCaught()) {
                 String::Utf8Value utf8Message(tryCatch.Message()->Get());
                 tryCatch.Reset();

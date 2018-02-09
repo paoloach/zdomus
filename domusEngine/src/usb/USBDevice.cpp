@@ -281,7 +281,7 @@ namespace zigbee {
         sendData(request);
     }
 
-    void DomusEngineUSBDevice::getNodeDescriptor(NwkAddr nwkAddrs) {
+    void DomusEngineUSBDevice::getNodeDescriptor(NwkAddr ) {
         if (handle == nullptr) {
             return;
         }
@@ -327,7 +327,7 @@ namespace zigbee {
         sendData(message);
     }
 
-    void DomusEngineUSBDevice::removeDevice(NwkAddr networkId) {
+    void DomusEngineUSBDevice::removeDevice(NwkAddr ) {
         BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
 
     }

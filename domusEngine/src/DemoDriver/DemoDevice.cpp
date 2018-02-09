@@ -333,7 +333,7 @@ namespace zigbee {
     }
 
 
-    void DemoDevice::removeDevice(NwkAddr networkId) {
+    void DemoDevice::removeDevice(NwkAddr ) {
         BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
 
     }

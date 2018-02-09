@@ -5,8 +5,8 @@
 #include "StringExecutor.h"
 
 void zigbee::StringExecutor::operator()(zigbee::Packet && packet) {
-    char data[packet.size()];
-    std::copy(packet.begin()+1, packet.end(), data);
-    data[packet.size()-1] = 0;
-    BOOST_LOG_TRIVIAL(info) << data;
+    auto data = std::unique_ptr<char>(new char[packet.size()]);
+    std::copy(packet.begin()+1, packet.end(), data.get());
+    data.get()[packet.size()-1] = 0;
+    BOOST_LOG_TRIVIAL(info) << data.get();
 }

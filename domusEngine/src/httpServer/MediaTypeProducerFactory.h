@@ -11,7 +11,7 @@
 #include "MediaTypeProducer.h"
 #include "ApplicationJSONProducer.h"
 #include "PlainTextProducer.h"
-#include "http_header.h"
+#include "pistache/http_header.h"
 
 namespace zigbee {
 namespace http {

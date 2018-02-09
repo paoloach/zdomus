@@ -5,8 +5,8 @@
 #ifndef DOMUS_ENGINE_SHOWPOWERNODE_H
 #define DOMUS_ENGINE_SHOWPOWERNODE_H
 
-#include "endpoint.h"
-#include "router.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 #include "../../Utils/SingletonObjects.h"
 #include <zigbee/PowerNodeData.h>
 #include <memory>

@@ -21,6 +21,14 @@ ExternalProject_Add(pistache_fork
         ${USE_PROJECT_CMAKE_MODULE_PATH}
         )
 
+
+ExternalProject_Get_property(pistache_fork BINARY_DIR)
+ExternalProject_Get_property(pistache_fork SOURCE_DIR)
+
+set(PISTACHE_INCLUDE_DIR ${SOURCE_DIR}/include )
+set(PISTACHE_LIB ${BINARY_DIR}/src/libpistache.a)
+
+
 #ExternalProject_Add(trompeloeil
 #        GIT_REPOSITORY https://github.com/rollbear/trompeloeil.git
 #        GIT_SUBMODULES
@@ -38,23 +46,22 @@ ExternalProject_Add(pistache_fork
 #        )
 
 
-ExternalProject_Get_Property(pistache_fork install_dir)
 
-set(PISTACHE_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache_fork/include ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache_fork/include/pistache)
-set(PISTACHE_LIB ${CMAKE_CURRENT_BINARY_DIR}/pistache/src/pistache_fork-build/src/libpistache.a)
-
-
-set(V8_DIR ${CMAKE_BINARY_DIR}/v8)
+set(V8_DIR ${CMAKE_CURRENT_SOURCE_DIR}/v8)
 set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/v8/include ${PISTACHE_INCLUDE_DIR})
+
+message("processor ${CMAKE_SYSTEM_PROCESSOR}")
+message("V8_DIR ${V8_DIR}")
 
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)
+    message("V8_LIB_DIR ${V8_LIB_DIR}")
     set(V8_LIBRARY
-            v8_libplatform
-            v8_libbase
-            icui18n
-            icuuc
-            v8
+            ${V8_LIB_DIR}/libv8_libplatform.so
+            ${V8_LIB_DIR}/libv8_libbase.so
+            ${V8_LIB_DIR}/libicui18n.so
+            ${V8_LIB_DIR}/libicuuc.so
+            ${V8_LIB_DIR}/libv8.so
             )
 else ()
     if (BUILD_V8_VERSION MATCHES "arm")
@@ -62,29 +69,30 @@ else ()
         set(Boost_USE_STATIC_LIBS ON)
         set(V8_LIB_DIR ${V8_DIR}/lib_arm.release)
         set(V8_LIBRARY
-                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libicui18n.a
-                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libicuuc.a
-                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_base.a
-                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_external_snapshot.a
-                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_libbase.a
-                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_libplatform.a
-                ${CMAKE_CURRENT_SOURCE_DIR}/v8/lib_arm.release/libv8_libsampler.a
+                ${V8_LIB_DIR}/libv8_base.a
+                ${V8_LIB_DIR}/libv8_external_snapshot.a
+                ${V8_LIB_DIR}/libv8_libplatform.a
+                ${V8_LIB_DIR}/libv8_libbase.a
+                ${V8_LIB_DIR}/libv8_libsampler.a
+                ${V8_LIB_DIR}/libicui18n.a
+                ${V8_LIB_DIR}/libicuuc.a
                 )
     else ()
         message("Using v8 x64 version")
         set(V8_LIB_DIR ${V8_DIR}/lib_x64.release)
         set(V8_LIBRARY
-                v8_libplatform
-                v8_libbase
-                icui18n
-                icuuc
-                v8
+                ${V8_LIB_DIR}/libv8_libplatform.a
+                ${V8_LIB_DIR}/libv8_libbase.a
+                ${V8_LIB_DIR}/libicui18n.a
+                ${V8_LIB_DIR}/libicuuc.a
+                ${V8_LIB_DIR}/libv8.a
                 )
     endif ()
 endif ()
 
+message("root path ${CMAKE_SYSROOT}")
 
-set(ZIGBEE_LIB_DIR ${CMAKE_FIND_ROOT_PATH}/usr/local/zigbee)
+set(ZIGBEE_LIB_DIR ${CMAKE_SYSROOT}/usr/local/zigbee)
 set(ZIGBEELIB_INCLUDE_DIR ${ZIGBEE_LIB_DIR}/include)
 set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
@@ -140,45 +148,42 @@ else ()
     endif ()
 endif ()
 
-set(COMMON_DIR ${CMAKE_SOURCE_DIR}/include)
+
+add_library(domus_engine_static_lib STATIC )
+
+target_link_libraries(domus_engine_static_lib
+        http_lib
+        utils_lib
+        zigbee_data_lib
+        configuration_lib
+        javascript_lib
+        database_lib
+        json_lib
+        io_lib
+        Boost::log
+        Boost::log_setup)
+
+target_include_directories(domus_engine_static_lib PUBLIC  Boost::bost)
 
 
-add_library(domus_engine_static_lib STATIC
-        $<TARGET_OBJECTS:utils_lib>
-        $<TARGET_OBJECTS:http_lib>
-        $<TARGET_OBJECTS:rest_actions_lib>
-        $<TARGET_OBJECTS:io_lib>
-        $<TARGET_OBJECTS:configuration_lib>
-        $<TARGET_OBJECTS:exceptions_lib>
-        $<TARGET_OBJECTS:json_lib>
-        )
-
-
-add_executable(domus_engine src/main.cpp ${V8_BLOB}
+add_executable(domus_engine
+        src/main.cpp
+        ${V8_BLOB}
         src/DemoDriver/DemoDriverFactory.h
         src/usb/UsbDriverFactory.h
-        $<TARGET_OBJECTS:demo_driver_lib>
-        $<TARGET_OBJECTS:serial2_driver_lib>
-        $<TARGET_OBJECTS:serial_driver_lib>
-          )
+        )
 
 add_dependencies(domus_engine pistache_fork)
 
-SET(LIBS zigbeeLib
-        ${Boost_THREAD_LIBRARY_RELEASE}
-        ${Boost_SYSTEM_LIBRARY_RELEASE}
-        ${Boost_FILESYSTEM_LIBRARY_RELEASE}
-        ${Boost_LOG_LIBRARY_RELEASE}
-        ${Boost_LOG_SETUP_LIBRARY_RELEASE}
-        ${Boost_CONTEXT_LIBRARY}
-        ${Boost_DATE_TIME_LIBRARY_RELEASE}
-        ${Boost_FIBER_LIBRARY_RELEASE}
-        ${PISTACHE_LIB}
+target_link_libraries(domus_engine
+        domus_engine_static_lib
+        serial2_driver_lib
+        serial_driver_lib
+        usb_driver_lib
+        demo_driver_lib
+        Boost::program_options
+        Boost::thread
         )
-
-target_link_libraries(domus_engine_static_lib javascript_lib zigbee_data_lib database_lib usb_driver_lib Boost::signals)
-target_link_libraries(domus_engine domus_engine_static_lib  ${LIBS} Boost::program_options )
-target_include_directories(domus_engine_static_lib PUBLIC  Boost::bost)
 
 set_property(TARGET domus_engine_static_lib PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build/.lib)
 set_property(TARGET domus_engine PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)

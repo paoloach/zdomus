@@ -11,7 +11,11 @@ SET(SRC_HTTP
         MediaTypeProducer.h
         MediaTypeProducerFactory.cpp MediaTypeProducerFactory.h
         PlainTextProducer.cpp PlainTextProducer.h
+        $<TARGET_OBJECTS:rest_actions_lib>
         )
 
-add_library(http_lib OBJECT ${SRC_HTTP} )
+
+
+add_library(http_lib STATIC ${SRC_HTTP} )
 target_include_directories(http_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} ${PISTACHE_INCLUDE_DIR} )
+target_link_libraries(http_lib PUBLIC ${PISTACHE_LIB})

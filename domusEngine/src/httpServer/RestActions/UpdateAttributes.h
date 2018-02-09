@@ -5,8 +5,8 @@
 #ifndef DOMUS_ENGINE_UPDATEATTRIBUTES_H
 #define DOMUS_ENGINE_UPDATEATTRIBUTES_H
 
-#include "endpoint.h"
-#include "router.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 #include "ClusterThrowingException.h"
 #include "../../Utils/SingletonObjects.h"
 

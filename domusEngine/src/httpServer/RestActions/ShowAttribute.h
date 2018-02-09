@@ -18,8 +18,8 @@
 #include <boost/log/trivial.hpp>
 
 
-#include "endpoint.h"
-#include "router.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 #include "ClusterThrowingException.h"
 #include "../../Utils/SingletonObjects.h"
 

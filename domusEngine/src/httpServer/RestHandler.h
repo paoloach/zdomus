@@ -6,7 +6,7 @@
 #define DOMUS_ENGINE_RESTHANDLER_H
 
 #include <string>
-#include "router.h"
+#include "pistache/router.h"
 
 namespace zigbee {
     namespace http {

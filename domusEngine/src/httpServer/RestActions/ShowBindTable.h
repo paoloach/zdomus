@@ -5,8 +5,8 @@
 #ifndef DOMUS_ENGINE_SHOWBINDTABLE_H
 #define DOMUS_ENGINE_SHOWBINDTABLE_H
 
-#include "endpoint.h"
-#include "router.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 #include "../../Utils/SingletonObjects.h"
 
 namespace zigbee::http {

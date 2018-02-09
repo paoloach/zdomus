@@ -8,8 +8,8 @@
 #ifndef SRC_HTTPSERVER_RESTACTIONS_SHOWENDPOINT_H_
 #define SRC_HTTPSERVER_RESTACTIONS_SHOWENDPOINT_H_
 
-#include "endpoint.h"
-#include "router.h"
+#include "pistache/endpoint.h"
+#include "pistache/router.h"
 #include "../../Utils/SingletonObjects.h"
 
 namespace zigbee {

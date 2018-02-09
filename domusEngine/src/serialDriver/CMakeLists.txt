@@ -21,5 +21,6 @@ SET(SRC_SERIAL_DRIVER
         AnnunceSerialExecutor.cpp
         IEEEAddressResponseSerialExecutor.cpp)
 
-add_library(serial_driver_lib OBJECT ${SRC_SERIAL_DRIVER} )
-target_include_directories(serial_driver_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} )
+add_library(serial_driver_lib STATIC ${SRC_SERIAL_DRIVER} )
+target_include_directories(serial_driver_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} ${PISTACHE_INCLUDE_DIR} )
+target_link_libraries(serial_driver_lib PUBLIC  Boost::fiber)

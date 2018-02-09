@@ -13,5 +13,6 @@ set(SRC_UTILS
         DriverFactory.h
         )
 
-add_library(utils_lib OBJECT ${SRC_UTILS} )
-target_include_directories(utils_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} )
+add_library(utils_lib STATIC ${SRC_UTILS}  )
+target_include_directories(utils_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR}  ${PISTACHE_INCLUDE_DIR} ${V8_INCLUDE_DIR})
+target_link_libraries(utils_lib PUBLIC zigbeeLib)

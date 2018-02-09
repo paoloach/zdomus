@@ -307,12 +307,12 @@ namespace zigbee {
         }
     }
 
-    void SerialDriver::removeDevice(NwkAddr networkId) {
+    void SerialDriver::removeDevice(NwkAddr ) {
         BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
 
     }
 
-    void SerialDriver::getNodeDescriptor(NwkAddr nwkAddr) {
+    void SerialDriver::getNodeDescriptor(NwkAddr ) {
         BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
     }
 }

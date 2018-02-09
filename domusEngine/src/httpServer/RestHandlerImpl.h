@@ -8,7 +8,7 @@
 #include <set>
 #include <boost/fiber/unbuffered_channel.hpp>
 #include <boost/fiber/fiber.hpp>
-#include "endpoint.h"
+#include "pistache/endpoint.h"
 #include "RestHandler.h"
 #include "../Utils/SingletonObjects.h"
 

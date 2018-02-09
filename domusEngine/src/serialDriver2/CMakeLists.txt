@@ -32,6 +32,7 @@ SET(SRC_SERIAL_DRIVER2
         NodeDescriptionResponseError2.cpp NodeDescriptionResponseError2.h)
 
 
-add_library(serial2_driver_lib OBJECT ${SRC_SERIAL_DRIVER2} )
+add_library(serial2_driver_lib STATIC ${SRC_SERIAL_DRIVER2} )
 
-target_include_directories( serial2_driver_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} )
+target_include_directories( serial2_driver_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} ${PISTACHE_INCLUDE_DIR} )
+target_link_libraries(serial2_driver_lib PUBLIC  Boost::fiber)

@@ -29,4 +29,4 @@ set(USB_SRC ActiveEPReqError.h
 
 add_library(usb_driver_lib STATIC ${USB_SRC} )
 target_include_directories(usb_driver_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} ${LIBUSB_INCLUDE_DIR} )
-target_link_libraries(usb_driver_lib PUBLIC  usb-1.0)
+target_link_libraries(usb_driver_lib PUBLIC  usb-1.0 Boost::fiber)

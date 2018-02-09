@@ -1,6 +1,7 @@
 //
 // Created by paolo on 10/05/16.
 //
+#include <stdlib.h>
 #include <boost/log/trivial.hpp>
 #include <zigbee/messageStructure/ReadAttributeResponseErrorMsg.h>
 #include <zigbee/AttributeKey.h>
