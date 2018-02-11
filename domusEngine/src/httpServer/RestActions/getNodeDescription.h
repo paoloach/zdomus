@@ -40,7 +40,6 @@ namespace zigbee {
         void timeout() override;
     private:
         Pistache::Http::ResponseWriter responseWriter;
-        static std::string toString(BandFrequency bandFrequency);
         static std::string toString(LogicalType logicalType);
     };
 }

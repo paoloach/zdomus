@@ -12,7 +12,7 @@ namespace zigbee {
     class InvalidResponseSerial2Executor : public Serial2Executor {
     public:
         virtual void operator()(Packet && packet) override {
-            BOOST_LOG_TRIVIAL(error) << "Invalid message from driver: code " << packet.getCmdCode();
+            BOOST_LOG_TRIVIAL(error) << "Invalid message from driver: code " << (int)packet.getCmdCode();
         }
     };
 }

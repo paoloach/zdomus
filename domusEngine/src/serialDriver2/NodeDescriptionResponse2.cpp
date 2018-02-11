@@ -10,7 +10,7 @@ namespace zigbee {
         auto nodeDescriptor = std::make_shared<NodeDescriptorResponse>();
         nodeDescriptor->nwkAddr = NwkAddr{packet.getUint16(1)};
         nodeDescriptor->logicalType = toLogicalType(packet.getUint8(3));
-        nodeDescriptor->bandFrequency = toBandFrequency(packet.getUint8(4));
+        nodeDescriptor->bandFrequency = packet.getUint8(4);
         nodeDescriptor->macCapability = packet.getUint8(5);
         nodeDescriptor->manufactorerCode = packet.getUint16(6);
         nodeDescriptor->maximumBufferSize = packet.getUint16(8);

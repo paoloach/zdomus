@@ -44,7 +44,7 @@ namespace zigbee {
 
     void Serial2ResponseExecutor::execute(Packet &&packet) {
         CmdType type = CmdType::Invalid;
-        if (packet.getCmdCode() <= 13)
+        if (packet.getCmdCode() <= 16)
             type = static_cast<CmdType>(packet.getCmdCode());
         executors[type]->operator()(std::move(packet));
     }

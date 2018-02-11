@@ -789,7 +789,7 @@ namespace zigbee {
         if (nwkAddr == 0){
             response->nwkAddr = NwkAddr(0);
             response->logicalType = LogicalType::ZigbeeCordinator;
-            response->bandFrequency = BandFrequency::Mhz2400;
+            response->bandFrequency = 0x08;
             response->macCapability = 0b01001110;
             response->manufactorerCode = 0x1234;
             response->maximumBufferSize = 64;
@@ -803,7 +803,7 @@ namespace zigbee {
         if (nwkAddr == NWK_ADDR1){
             response->nwkAddr = NWK_ADDR1;
             response->logicalType = LogicalType::ZigbeeEnddevice;
-            response->bandFrequency = BandFrequency::Mhz2400;
+            response->bandFrequency = 0x08;
             response->macCapability = 0b01001110;
             response->manufactorerCode = 0x1234;
             response->maximumBufferSize = 64;
@@ -816,7 +816,7 @@ namespace zigbee {
         if (nwkAddr == NWK_ADDR2){
             response->nwkAddr = NWK_ADDR2;
             response->logicalType = LogicalType::ZigbeeRouter;
-            response->bandFrequency = BandFrequency::Mhz2400;
+            response->bandFrequency = 0x08;
             response->macCapability = 0b01001110;
             response->manufactorerCode = 0x1234;
             response->maximumBufferSize = 64;
@@ -829,7 +829,7 @@ namespace zigbee {
         if (nwkAddr == NWK_ADDR3){
             response->nwkAddr = NWK_ADDR3;
             response->logicalType = LogicalType::ZigbeeEnddevice;
-            response->bandFrequency = BandFrequency::Mhz2400;
+            response->bandFrequency = 0x08;
             response->macCapability = 0b01001110;
             response->manufactorerCode = 0x1234;
             response->maximumBufferSize = 64;

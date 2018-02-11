@@ -48,44 +48,12 @@ namespace zigbee {
         return out;
     }
 
-    enum class BandFrequency {
-        Mhz868,
-        Mhz900,
-        Mhz2400
-    };
 
-    inline BandFrequency toBandFrequency(uint value) {
-        switch (value) {
-            case 0:
-                return BandFrequency::Mhz868;
-            case 2:
-                return BandFrequency::Mhz900;
-            case 3:
-                return BandFrequency::Mhz2400;
-            default:
-                throw NoValidBandFrequencyException(value);
-        }
-    }
-
-    inline std::ostream &operator<<(std::ostream &out, const BandFrequency bandFrequency) {
-        switch (bandFrequency) {
-            case BandFrequency::Mhz868:
-                out << "Frequency from 868 to 868.6 Mhz";
-                break;
-            case BandFrequency::Mhz900:
-                out << "Frequency from 902 to 928 Mhz";
-                break;
-            case BandFrequency::Mhz2400:
-                out << "Frequency from 2400 to 2483.5 Mhz";
-                break;
-        }
-        return out;
-    }
 
     struct NodeDescriptorResponse {
         NwkAddr nwkAddr;
         LogicalType logicalType;
-        BandFrequency bandFrequency;
+        uint bandFrequency;
         uint macCapability;
         uint manufactorerCode;
         uint maximumBufferSize;

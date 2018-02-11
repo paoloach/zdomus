@@ -35,7 +35,7 @@ namespace zigbee {
         Value root(objectValue);
         root["nwkId"] = boost::lexical_cast<std::string>(response->nwkAddr);
         root["logicalType"] = toString(response->logicalType);
-        root["bandFrequency"] = toString(response->bandFrequency);
+        root["bandFrequency"] = std::to_string(response->bandFrequency);
         root["macCapability"] = std::to_string(response->macCapability);
 
         root["manufactorerCode"] = std::to_string(response->manufactorerCode);
@@ -59,17 +59,6 @@ namespace zigbee {
         responseWriter.send(Code::Internal_Server_Error);
     }
 
-    std::string GetNodeDescriptionCallback::toString(BandFrequency bandFrequency) {
-        switch (bandFrequency){
-            case BandFrequency::Mhz2400:
-                return "2400";
-            case BandFrequency::Mhz900:
-                return "900";
-            case BandFrequency::Mhz868:
-                return "868";
-        }
-        return std::string();
-    }
 
     std::string GetNodeDescriptionCallback::toString(LogicalType logicalType) {
         switch (logicalType){
