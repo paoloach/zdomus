@@ -81,6 +81,7 @@ namespace zigbee {
         attributeQueue.startDequeFiber();
         ieeeAddressResponseQueue.startDequeFiber();
         nodeDescriptorReponseQueue.startDequeFiber();
+        lqiResponseQueue.startDequeFiber();
         int n;
         fd_set readFd;
         struct timeval timeout;
@@ -308,11 +309,15 @@ namespace zigbee {
     }
 
     void SerialDriver::removeDevice(NwkAddr ) {
-        BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
+        BOOST_LOG_TRIVIAL(info) << "removeDevice TO BE IMPLEMENTED";
 
     }
 
     void SerialDriver::getNodeDescriptor(NwkAddr ) {
-        BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
+        BOOST_LOG_TRIVIAL(info) << "getNodeDescriptor TO BE IMPLEMENTED";
+    }
+
+    void SerialDriver::getLqiResponse(NwkAddr , uint ) {
+        BOOST_LOG_TRIVIAL(info) << "getLqiResponse TO BE IMPLEMENTED";
     }
 }

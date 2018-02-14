@@ -13,7 +13,7 @@ namespace zigbee {
         nodeDescriptor->bandFrequency = packet.getUint8(4);
         nodeDescriptor->macCapability = packet.getUint8(5);
         nodeDescriptor->manufactorerCode = packet.getUint16(6);
-        nodeDescriptor->maximumBufferSize = packet.getUint16(8);
+        nodeDescriptor->maximumBufferSize = packet.getUint8(8);
         nodeDescriptor->maximumIncomingTransferSize = packet.getUint16(9);
         nodeDescriptor->serverMask = packet.getUint16(11);
         nodeDescriptor->maximumOutcomingTransferSize = packet.getUint16(13);

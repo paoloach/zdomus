@@ -64,6 +64,8 @@ namespace zigbee {
 
         void requestBindTable(NwkAddr nwkAddrs) override;
 
+        void getLqiResponse(NwkAddr nwkAddr, uint index) override;
+
     private:
         void run();
         void write(std::string && data);

@@ -38,6 +38,10 @@ namespace zigbee {
         void writeAttribute(NwkAddr nwkAddrs, const EndpointID endpoint, ClusterID cluster, ZigbeeAttributeId commandId, ZCLTypeDataType dataType, uint8_t dataValueLen,
                             uint8_t *dataValue) override;
 
+        void getLqiResponse(NwkAddr nwkAddr, uint index)  override ;
+
+
+
         void sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t> data = std::vector<uint8_t>()) override;
 
         void registerForAnnunceMessage(AnnunceCallback subscriber) override {

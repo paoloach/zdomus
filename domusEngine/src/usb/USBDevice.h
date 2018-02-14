@@ -99,6 +99,8 @@ namespace zigbee {
 
         void getNodeDescriptor(NwkAddr nwkAddr) override;
 
+        void getLqiResponse(NwkAddr nwkAddr, uint index) override;
+
     private:
         bool stop;
         std::thread getMessageTh;

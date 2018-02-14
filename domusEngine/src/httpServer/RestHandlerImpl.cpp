@@ -27,6 +27,7 @@
 #include "RestActions/GetChildren.h"
 #include "RestActions/DeleteDevice.h"
 #include "RestActions/getNodeDescription.h"
+#include "RestActions/getLqi.h"
 
 
 using namespace Pistache::Rest::Routes;
@@ -45,6 +46,7 @@ namespace zigbee::http {
         getPath("/devices/:device/children", GetChildren{singletons});
         getPath("/devices/:device/info", ShowDeviceInfo{singletons});
         getPath("/devices/:device/node", GetNodeDescription{singletons});
+        getPath("/devices/:device/lqi", GetLqi{singletons});
         getPath("/devices/:device/endpoint/:endpoint", ShowEndpoint{singletons});
         getPath("/devices/:device/endpoint/:endpoint/cluster/in/:cluster", ShowInCluster{singletons});
         getPath("/devices/:device/endpoint/:endpoint/cluster/out/:cluster", ShowOutCluster{singletons});

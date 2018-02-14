@@ -130,6 +130,7 @@ namespace zigbee {
         attributeQueue.startDequeFiber();
         ieeeAddressResponseQueue.startDequeFiber();
         nodeDescriptorReponseQueue.startDequeFiber();
+        lqiResponseQueue.startDequeFiber();
         BOOST_LOG_NAMED_SCOPE("demo_driver");
         BOOST_LOG_TRIVIAL(info) << "Demo attribute service thread started";
         boost::fibers::fiber fiberPowerNodeSetDeque([this]() {
@@ -837,6 +838,78 @@ namespace zigbee {
             response->serverMask = 0;
             posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
                 nodeDescriptorReponseQueue.setData(response->nwkAddr,response );
+            });
+        }
+    }
+
+    void DemoDevice::getLqiResponse(NwkAddr nwkAddr, uint ) {
+        auto response = std::make_shared<LqiResponse>();
+        if (nwkAddr == 0){
+            response->nwkAddr = NwkAddr(0);
+            response->logicalType = LogicalType::ZigbeeCordinator;
+            response->lqi=100;
+            response->onWhenIdle=true;
+            response->depth=1;
+            response->neighborAcceptJoin=true;
+            response->relationship = Relationship::NoRelation;
+            response->ieeeAddr = extAddress0;
+            response->panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+            response->index=0;
+            response->totalTables=1;
+
+            posponedCallbacks.emplace_back(system_clock::now() + 100ms, [response,this ]() mutable {
+                lqiResponseQueue.setData(response->nwkAddr,response );
+            });
+        }
+        if (nwkAddr == NWK_ADDR1){
+            response->nwkAddr =NWK_ADDR1;+
+            response->logicalType = LogicalType::ZigbeeEnddevice;
+            response->lqi=100;
+            response->onWhenIdle=false;
+            response->depth=1;
+            response->neighborAcceptJoin=true;
+            response->relationship = Relationship::NoRelation;
+            response->ieeeAddr = extAddress1;
+            response->panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+            response->index=0;
+            response->totalTables=1;
+
+            posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
+                lqiResponseQueue.setData(response->nwkAddr,response );
+            });
+        }
+        if (nwkAddr == NWK_ADDR2){
+            response->nwkAddr = NWK_ADDR2;
+            response->logicalType = LogicalType::ZigbeeRouter;
+            response->lqi=70;
+            response->onWhenIdle=true;
+            response->depth=1;
+            response->neighborAcceptJoin=true;
+            response->relationship = Relationship::NoRelation;
+            response->ieeeAddr = extAddress2;
+            response->panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+            response->index=0;
+            response->totalTables=1;
+
+            posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
+                lqiResponseQueue.setData(response->nwkAddr,response );
+            });
+        }
+        if (nwkAddr == NWK_ADDR3){
+            response->nwkAddr = NWK_ADDR3;
+            response->logicalType = LogicalType::ZigbeeEnddevice;
+            response->lqi=20;
+            response->onWhenIdle=false;
+            response->depth=1;
+            response->neighborAcceptJoin=true;
+            response->relationship = Relationship::NoRelation;
+            response->ieeeAddr = extAddress3;
+            response->panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+            response->index=0;
+            response->totalTables=1;
+
+            posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
+                lqiResponseQueue.setData(response->nwkAddr,response );
             });
         }
     }

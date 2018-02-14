@@ -29,7 +29,7 @@ SET(SRC_SERIAL_DRIVER2
         DeviceInfoSerial2Executor.cpp
         IEEEAddressResponseSerial2Executor.cpp
         NodeDescriptionResponse2.cpp NodeDescriptionResponse2.h
-        NodeDescriptionResponseError2.cpp NodeDescriptionResponseError2.h)
+        NodeDescriptionResponseError2.cpp NodeDescriptionResponseError2.h LQIResponseSerial2.cpp LQIResponseSerial2.h lQINotSupported2.cpp lQINotSupported2.h)
 
 
 add_library(serial2_driver_lib STATIC ${SRC_SERIAL_DRIVER2} )

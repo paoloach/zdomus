@@ -21,6 +21,8 @@
 #include "StringExecutor.h"
 #include "NodeDescriptionResponse2.h"
 #include "NodeDescriptionResponseError2.h"
+#include "LQIResponseSerial2.h"
+#include "lQINotSupported2.h"
 
 namespace zigbee {
     Serial2ResponseExecutor::Serial2ResponseExecutor(SingletonObjects * singletonObjects) {
@@ -40,11 +42,13 @@ namespace zigbee {
         executors[CmdType::STRING] = std::make_unique<StringExecutor>();
         executors[CmdType::NodeDescriptionError] = std::make_unique<NodeDescriptionResponseError2>();
         executors[CmdType::NodeDescription] = std::make_unique<NodeDescriptionResponse2>(singletonObjects);
+        executors[CmdType::MgmtLqi] = std::make_unique<LQIResponseSerial2>(singletonObjects);
+        executors[CmdType::MgmtLqiNotSupported] = std::make_unique<LQINotSupported2>(singletonObjects);
     }
 
     void Serial2ResponseExecutor::execute(Packet &&packet) {
         CmdType type = CmdType::Invalid;
-        if (packet.getCmdCode() <= 16)
+        if (packet.getCmdCode() <= 18)
             type = static_cast<CmdType>(packet.getCmdCode());
         executors[type]->operator()(std::move(packet));
     }

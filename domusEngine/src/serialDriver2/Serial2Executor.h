@@ -2,8 +2,8 @@
 // Created by paolo on 01/01/17.
 //
 
-#ifndef DOMUS_ENGINE_SERIALEXECUTOR_H
-#define DOMUS_ENGINE_SERIALEXECUTOR_H
+#ifndef DOMUS_ENGINE_SERIAL2EXECUTOR_H
+#define DOMUS_ENGINE_SERIAL2EXECUTOR_H
 
 
 #include <string>

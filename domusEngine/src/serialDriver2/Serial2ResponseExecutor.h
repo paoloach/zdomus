@@ -2,14 +2,15 @@
 // Created by paolo on 01/01/17.
 //
 
-#ifndef DOMUS_ENGINE_SERIALRESPONSEEXECUTOR_H
-#define DOMUS_ENGINE_SERIALRESPONSEEXECUTOR_H
+#ifndef DOMUS_ENGINE_SERIAL2RESPONSEEXECUTOR_H
+#define DOMUS_ENGINE_SERIAL2RESPONSEEXECUTOR_H
 
 #include <string>
 #include <map>
 #include <memory>
 #include "Serial2Executor.h"
 #include "../Utils/SingletonObjects.h"
+#include "Packet.h"
 
 namespace zigbee {
     class Serial2ResponseExecutor {
@@ -31,7 +32,9 @@ namespace zigbee {
             BindTableEntry=13,
             WriteAttributeError=14,
             NodeDescriptionError=15,
-            NodeDescription=16
+            NodeDescription=16,
+            MgmtLqi=17,
+            MgmtLqiNotSupported=18
 
         };
 

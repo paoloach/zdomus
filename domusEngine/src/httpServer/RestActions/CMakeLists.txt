@@ -26,7 +26,7 @@ SET(SRC_REST_ACTIONS
         ShowTopology.cpp ShowTopology.h
         ShowWhoAreYou.cpp ShowWhoAreYou.h
         UpdateAttributes.cpp UpdateAttributes.h
-        )
+        getLqi.cpp getLqi.h)
 
 add_library(rest_actions_lib OBJECT ${SRC_REST_ACTIONS} )
 target_include_directories(rest_actions_lib PUBLIC ${ZIGBEELIB_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/include ${PISTACHE_INCLUDE_DIR})

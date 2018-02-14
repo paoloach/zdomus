@@ -18,10 +18,6 @@ set(GMOCK_LIBS ${GTEST_LIBS} gmock gmock_main)
 
 add_subdirectory(googletest/googlemock)
 
-set(INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/zigbee)
-set(INSTALL_LIB_DIR ${INSTALL_PATH}/lib)
-set(INSTALL_INCLUDE_DIR ${INSTALL_PATH}/include)
-
 ADD_CUSTOM_TARGET(run_install COMMAND ${CMAKE_MAKE_PROGRAM} install)
 
 
@@ -123,6 +119,7 @@ SET(SOURCE_ATTRIBUTES_FILES
         src/zigbee/messageStructure/ReqDeviceInformation.h
         src/zigbee/messageStructure/IEEEAddressRequestMessage.h
         src/zigbee/messageStructure/IEEEAddressResponse.h
+        src/zigbee/messageStructure/LqiResponse.h
         src/zcl/exceptions/ZCLAttributeNotAvailableException.h )
 
 
@@ -202,10 +199,36 @@ target_link_libraries(zigbeeLibTest ${GMOCK_LIBS} zigbeeLib ${Boost_SIGNALS_LIBR
 target_link_libraries(zigbeeLib usb-1.0 ${Boost_LOG_LIBRARY_RELEASE})
 
 set_property(TARGET zigbeeLib PROPERTY RUNTIME_OUTPUT_DIRECTORY ./build)
-set_target_properties(zigbeeLib PROPERTIES PUBLIC_HEADER "${zigbee_header}")
+
+set(headers ${USB_HEADER}
+        ${zigbee_messageStructure_header}
+        ${zigbee_header}
+        ${zcl_header}
+        ${zcl_exceptions}
+        ${zcl_CmdParams_header}
+        ${attributeTypes_header}
+        ${clusterTypes_header})
+
+set_target_properties(zigbeeLib PROPERTIES  PUBLIC_HEADER "${headers}" )
+
+set(INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/zigbee)
+#set(INSTALL_PATH /opt/cross/x-tools/armv6-unknown-linux-gnueabihf/armv6-unknown-linux-gnueabihf/sysroot/usr/local/zigbee)
+set(INSTALL_LIB_DIR ${INSTALL_PATH}/lib)
+set(INSTALL_INCLUDE_DIR ${INSTALL_PATH}/include)
+
+#SET(INSTALL_INCLUDE_DIR "/opt/cross/x-tools/armv6-unknown-linux-gnueabihf/armv6-unknown-linux-gnueabihf/sysroot/usr/local/zigbee/include")
 
 
-INSTALL(TARGETS zigbeeLib LIBRARY DESTINATION ${INSTALL_LIB_DIR})
+message("install path: ${INSTALL_PATH}")
+message("install lib dir: ${INSTALL_LIB_DIR}")
+message("install include dir: ${INSTALL_INCLUDE_DIR}")
+
+
+
+INSTALL(TARGETS zigbeeLib
+        LIBRARY DESTINATION ${INSTALL_LIB_DIR}
+        PUBLIC_HEADER DESTINATION  ${INSTALL_INCLUDE_DIR})
+
 INSTALL(FILES ${zigbee_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zigbee)
 INSTALL(FILES ${zcl_header} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl)
 INSTALL(FILES ${zcl_exceptions} DESTINATION ${INSTALL_INCLUDE_DIR}/zcl/exceptions)

@@ -328,8 +328,12 @@ namespace zigbee {
     }
 
     void DomusEngineUSBDevice::removeDevice(NwkAddr ) {
-        BOOST_LOG_TRIVIAL(info) << "TO BE IMPLEMENTED";
+        BOOST_LOG_TRIVIAL(info) << "removeDevice TO BE IMPLEMENTED";
 
+    }
+
+    void DomusEngineUSBDevice::getLqiResponse(NwkAddr , uint ) {
+        BOOST_LOG_TRIVIAL(info) << "getLqiResponse TO BE IMPLEMENTED";
     }
 
 

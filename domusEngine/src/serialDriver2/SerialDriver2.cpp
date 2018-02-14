@@ -328,5 +328,14 @@ namespace zigbee {
         }
     }
 
+    void SerialDriver2::getLqiResponse(NwkAddr nwkAddr, uint index) {
+        if (serialFd >= 0){
+            PacketSend data;
+            data.push((uint8_t)16);
+            data.push(nwkAddr);
+            data.push((uint8_t)index);
+        }
+    }
+
 
 }
