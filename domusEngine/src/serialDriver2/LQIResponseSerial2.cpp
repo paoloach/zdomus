@@ -43,28 +43,34 @@ namespace zigbee {
 //   1 byte  -> LQI(21)
     void LQIResponseSerial2::operator()(zigbee::Packet &&packet) {
 
-        BOOST_LOG_TRIVIAL(info) << "LQI response arrived";
         NwkAddr nwkAddr = NwkAddr{packet.getUint16(1)};
+        BOOST_LOG_TRIVIAL(info) << "LQI response arrived for " << nwkAddr;
+        BOOST_LOG_TRIVIAL(info) << packet;
+
         uint totalTables = packet.getUint8(3);
         uint index = packet.getUint8(4);
         uint tablesSent = +packet.getUint8(5);
+
+        auto response = std::make_shared<LqiResponse>();
+        response->ownerNwkAddr = nwkAddr;
+        response->totalTables = totalTables;
         for (uint i = 0; i < tablesSent; i++) {
-            auto response = std::make_shared<LqiResponse>();
-            response->nwkAddr = nwkAddr;
-            response->totalTables = totalTables;
-            response->index = i + index;
+            LqiTable table;
+            table.index = i + index;
             uint offset = i * 22 + 6;
-            response->panAddr = packet.getExtAddress(offset);
-            response->ieeeAddr = packet.getExtAddress(offset + 8);
-            response->nwkAddr = NwkAddr{packet.getUint16(16)};
-            uint8_t flags = packet.getUint8(18);
-            response->logicalType = toLogicalType(flags & 0b11);
-            response->onWhenIdle = ((flags >> 2) & 0b11) == 1;
-            response->relationship = toRelationship((flags >> 4) & 0b111);
-            flags = packet.getUint8(19);
-            response->neighborAcceptJoin = (flags >> 0b11)  == 1;
-            response->depth = packet.getUint16(20);
-            response->lqi = packet.getUint16(21);
+            table.panAddr = packet.getExtAddress(offset);
+            table.ieeeAddr = packet.getExtAddress(offset + 8);
+            table.nwkAddr = NwkAddr{packet.getUint16(offset+16)};
+            uint8_t flags = packet.getUint8(offset+18);
+            table.logicalType = toLogicalType(flags & 0b11);
+            table.onWhenIdle = ((flags >> 2) & 0b11) == 1;
+            table.relationship = toRelationship((flags >> 4) & 0b111);
+            flags = packet.getUint8(offset+19);
+            table.neighborAcceptJoin = (flags >> 0b11)  == 1;
+            table.depth = packet.getUint8(offset+20);
+            table.lqi = packet.getUint8(offset+21);
+
+            response->tables.push_back(table);
 
             singletons->getZigbeeDevice()->setLQIResponse(response);
         }

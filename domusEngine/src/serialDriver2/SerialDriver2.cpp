@@ -21,7 +21,8 @@ namespace zigbee {
     using std::setw;
     using std::setfill;
     using std::uppercase;
-    const int SerialDriver2::BAUD_RATE = B115200;
+   // const int SerialDriver2::BAUD_RATE = B115200;
+   const int SerialDriver2::BAUD_RATE = B57600;
     static const boost::log::string_literal LOG_SCOPE("serial driver");
 
     static uint8_t SEND_HEADER[3] = {0x45,0x65,0x42};
@@ -85,6 +86,7 @@ namespace zigbee {
         attributeQueue.startDequeFiber();
         ieeeAddressResponseQueue.startDequeFiber();
         nodeDescriptorReponseQueue.startDequeFiber();
+        lqiResponseQueue.startDequeFiber();
         if (serialFd >= 0) {
             PacketSend data;
             data.push((uint8_t )13);
@@ -334,6 +336,7 @@ namespace zigbee {
             data.push((uint8_t)16);
             data.push(nwkAddr);
             data.push((uint8_t)index);
+            write(std::move(data));
         }
     }
 

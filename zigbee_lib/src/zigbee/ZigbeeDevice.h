@@ -163,7 +163,7 @@ namespace zigbee {
         }
 
         void setLQIResponse(std::shared_ptr<LqiResponse> lqiResponse) {
-            lqiResponseQueue.setData(lqiResponse->nwkAddr, lqiResponse);
+            lqiResponseQueue.setData(lqiResponse->ownerNwkAddr, lqiResponse);
         }
     protected:
         std::chrono::seconds timeout;

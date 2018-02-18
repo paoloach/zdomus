@@ -19,10 +19,7 @@ namespace zigbee {
         PreviousChild
     };
 
-    class LqiResponse {
-    public:
-        uint index;
-        uint totalTables;
+    struct LqiTable {
         ExtAddress panAddr;
         ExtAddress ieeeAddr;
         NwkAddr nwkAddr;
@@ -32,8 +29,18 @@ namespace zigbee {
         bool neighborAcceptJoin;
         uint depth;
         uint lqi;
-
+        uint index;
     };
+
+    class LqiResponse {
+    public:
+        NwkAddr ownerNwkAddr;
+
+        uint totalTables;
+        std::vector<LqiTable> tables;
+    };
+
+
 }
 
 

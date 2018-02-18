@@ -845,71 +845,82 @@ namespace zigbee {
     void DemoDevice::getLqiResponse(NwkAddr nwkAddr, uint ) {
         auto response = std::make_shared<LqiResponse>();
         if (nwkAddr == 0){
-            response->nwkAddr = NwkAddr(0);
-            response->logicalType = LogicalType::ZigbeeCordinator;
-            response->lqi=100;
-            response->onWhenIdle=true;
-            response->depth=1;
-            response->neighborAcceptJoin=true;
-            response->relationship = Relationship::NoRelation;
-            response->ieeeAddr = extAddress0;
-            response->panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
-            response->index=0;
+            LqiTable table;
+            table.nwkAddr = NwkAddr(0);
+            table.logicalType = LogicalType::ZigbeeCordinator;
+            table.lqi=100;
+            table.onWhenIdle=true;
+            table.depth=1;
+            table.neighborAcceptJoin=true;
+            table.relationship = Relationship::NoRelation;
+            table.ieeeAddr = extAddress0;
+            table.panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+            table.index=0;
             response->totalTables=1;
-
+            response->ownerNwkAddr = NwkAddr(0);
+            response->tables.push_back(table);
             posponedCallbacks.emplace_back(system_clock::now() + 100ms, [response,this ]() mutable {
-                lqiResponseQueue.setData(response->nwkAddr,response );
+                lqiResponseQueue.setData(response->ownerNwkAddr,response );
             });
         }
         if (nwkAddr == NWK_ADDR1){
-            response->nwkAddr =NWK_ADDR1;+
-            response->logicalType = LogicalType::ZigbeeEnddevice;
-            response->lqi=100;
-            response->onWhenIdle=false;
-            response->depth=1;
-            response->neighborAcceptJoin=true;
-            response->relationship = Relationship::NoRelation;
-            response->ieeeAddr = extAddress1;
-            response->panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
-            response->index=0;
+            LqiTable table;
+            table.nwkAddr =NWK_ADDR1;
+            table.logicalType = LogicalType::ZigbeeEnddevice;
+            table.lqi=100;
+            table.onWhenIdle=false;
+            table.depth=1;
+            table.neighborAcceptJoin=true;
+            table.relationship = Relationship::NoRelation;
+            table.ieeeAddr = extAddress1;
+            table.panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+            table.index=0;
+            response->ownerNwkAddr = NWK_ADDR1;
+            response->tables.push_back(table);
             response->totalTables=1;
 
             posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
-                lqiResponseQueue.setData(response->nwkAddr,response );
+                lqiResponseQueue.setData(response->ownerNwkAddr,response );
             });
         }
         if (nwkAddr == NWK_ADDR2){
-            response->nwkAddr = NWK_ADDR2;
-            response->logicalType = LogicalType::ZigbeeRouter;
-            response->lqi=70;
-            response->onWhenIdle=true;
-            response->depth=1;
-            response->neighborAcceptJoin=true;
-            response->relationship = Relationship::NoRelation;
-            response->ieeeAddr = extAddress2;
-            response->panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
-            response->index=0;
+            LqiTable table;
+            table.nwkAddr = NWK_ADDR2;
+            table.logicalType = LogicalType::ZigbeeRouter;
+            table.lqi=70;
+            table.onWhenIdle=true;
+            table.depth=1;
+            table.neighborAcceptJoin=true;
+            table.relationship = Relationship::NoRelation;
+            table.ieeeAddr = extAddress2;
+            table.panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+            table.index=0;
+            response->ownerNwkAddr = NWK_ADDR2;
+            response->tables.push_back(table);
             response->totalTables=1;
 
             posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
-                lqiResponseQueue.setData(response->nwkAddr,response );
+                lqiResponseQueue.setData(response->ownerNwkAddr,response );
             });
         }
         if (nwkAddr == NWK_ADDR3){
-            response->nwkAddr = NWK_ADDR3;
-            response->logicalType = LogicalType::ZigbeeEnddevice;
-            response->lqi=20;
-            response->onWhenIdle=false;
-            response->depth=1;
-            response->neighborAcceptJoin=true;
-            response->relationship = Relationship::NoRelation;
-            response->ieeeAddr = extAddress3;
-            response->panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
-            response->index=0;
+            LqiTable table;
+            table.nwkAddr = NWK_ADDR3;
+            table.logicalType = LogicalType::ZigbeeEnddevice;
+            table.lqi=20;
+            table.onWhenIdle=false;
+            table.depth=1;
+            table.neighborAcceptJoin=true;
+            table.relationship = Relationship::NoRelation;
+            table.ieeeAddr = extAddress3;
+            table.panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+            table.index=0;
+            response->ownerNwkAddr = NWK_ADDR3;
+            response->tables.push_back(table);
             response->totalTables=1;
 
             posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
-                lqiResponseQueue.setData(response->nwkAddr,response );
+                lqiResponseQueue.setData(response->ownerNwkAddr,response );
             });
         }
     }

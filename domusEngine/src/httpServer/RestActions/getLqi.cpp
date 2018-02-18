@@ -37,19 +37,28 @@ namespace zigbee {
 
     void GetLqiCallback::response(std::shared_ptr<LqiResponse> response) {
         BOOST_LOG_NAMED_SCOPE("HTTP");
-        BOOST_LOG_TRIVIAL(info) << "arrived NodeDescriptor for " << response->nwkAddr;
+        BOOST_LOG_TRIVIAL(info) << "arrived Lqi for " << response->ownerNwkAddr;
         Value root(objectValue);
-        root["index"] = response->index;
+
         root["totalTables"] = response->totalTables;
-        root["panAddr"] = boost::lexical_cast<std::string>(response->panAddr);
-        root["ieeeAddr"] = boost::lexical_cast<std::string>(response->ieeeAddr);
-        root["nwkId"] = boost::lexical_cast<std::string>(response->nwkAddr);
-        root["logicalType"] = toString(response->logicalType);
-        root["onWhenIdle"] = response->onWhenIdle;
-        root["relationship"] = toString(response->relationship);
-        root["neighborAcceptJoin"] = response->neighborAcceptJoin;
-        root["depth"] = response->depth;
-        root["lqi"] = response->lqi;
+        Value tables(arrayValue);
+
+        for (auto & table: response->tables) {
+            Value jsonTable(objectValue);
+            jsonTable["index"] = table.index;
+            jsonTable["panAddr"] = boost::lexical_cast<std::string>(table.panAddr);
+            jsonTable["ieeeAddr"] = boost::lexical_cast<std::string>(table.ieeeAddr);
+            jsonTable["nwkId"] = boost::lexical_cast<std::string>(table.nwkAddr);
+            jsonTable["logicalType"] = toString(table.logicalType);
+            jsonTable["onWhenIdle"] = table.onWhenIdle;
+            jsonTable["relationship"] = toString(table.relationship);
+            jsonTable["neighborAcceptJoin"] = table.neighborAcceptJoin;
+            jsonTable["depth"] = table.depth;
+            jsonTable["lqi"] = table.lqi;
+            tables.append(jsonTable);
+        }
+
+        root["tables"] = tables;
 
         std::stringstream stream;
 
@@ -61,7 +70,7 @@ namespace zigbee {
 
     void GetLqiCallback::timeout() {
         BOOST_LOG_NAMED_SCOPE("HTTP");
-        BOOST_LOG_TRIVIAL(info) << "NodeDescriptor timeout";
+        BOOST_LOG_TRIVIAL(info) << "LQI response timeout";
         responseWriter.send(Code::Internal_Server_Error);
     }
 

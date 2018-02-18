@@ -12,6 +12,6 @@ void zigbee::LQINotSupported2::operator()(zigbee::Packet &&packet) {
     BOOST_LOG_TRIVIAL(info) << "LQI Not supported response arrived";
 
     auto response = std::make_shared<LqiResponse>();
-    response->nwkAddr = NwkAddr{packet.getUint16(1)};
+    response->ownerNwkAddr = NwkAddr{packet.getUint16(1)};
     singletons->getZigbeeDevice()->setLQIResponse(response);
 }

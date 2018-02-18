@@ -37,6 +37,7 @@ namespace zigbee {
         void startDequeFiber() {
             dequeFiber = boost::fibers::fiber([this]() {
                 for (auto &&data: channel) {
+
                     auto key = std::get<K>(data);
                     callbacks.add(key, std::move(std::get<std::unique_ptr<ResponseCallback<T>>>(data)));
                 }

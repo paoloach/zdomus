@@ -48,13 +48,15 @@ namespace zigbee {
                         case Status::Header1:
                             if (c==HEADER1){
                                 status = Status::Header2;
+                            } else {
+                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " <<  (int)HEADER1 << " got " << (int)c;
                             }
                             break;
                         case Status::Header2:
                             if (c==HEADER2){
                                 status = Status::Header3;
                             } else {
-                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port ";
+                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " <<  (int)HEADER2 << " got " << (int)c;
                                 status = Status::Header1;
                             }
                             break;
@@ -63,7 +65,7 @@ namespace zigbee {
                                 status = Status::Size;
                             } else {
                                 status = Status::Header1;
-                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port ";
+                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " <<  (int)HEADER3 << " got " << (int)c;
                             }
                             break;
                         case Status::Size:
