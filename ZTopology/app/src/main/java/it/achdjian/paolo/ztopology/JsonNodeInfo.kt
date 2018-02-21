@@ -6,7 +6,7 @@ package it.achdjian.paolo.ztopology
 data class JsonNodeInfo(
     val nwkId: String,
     val logicalType: String,
-    val bandFrequency: String,
+    val bandFrequency: Int,
     val macCapability: Int,
     val manufactorerCode: Int,
     val maximumBufferSize: Int,
@@ -18,7 +18,7 @@ data class JsonNodeInfo(
     constructor() : this(
         "FF-FF-FF-FF-FF-FF-FF-FF",
         "end device",
-        "2400",
+        0x08,
         0, 0, 0, 0, 0, 0, 0
     ) {
     }
@@ -29,7 +29,7 @@ data class JsonNodeInfo(
 class NodeInfo (jsonValue: JsonNodeInfo){
     val nwkId = jsonValue.nwkId.toInt(16)
     val logicalType = toLogicalType(jsonValue.logicalType)
-    val bandFrequency = toBandFrequency(jsonValue.bandFrequency)
+    val bandFrequency = BandFrequency(jsonValue.bandFrequency)
     val macCapability = jsonValue.macCapability
     val manufactorerCode = jsonValue.manufactorerCode
     val maximumBufferSize = jsonValue.maximumBufferSize
@@ -51,14 +51,10 @@ fun toLogicalType(value: String) : LogicalType {
     return LogicalType.values().firstOrNull{it.jsonValue == value}!!
 }
 
-enum class BandFrequency(val jsonValue: String){
-    Mhz2400("2400"),
-    Mhz900("900"),
-    Mhz868("868")
+class BandFrequency(val value: Int){
 
+    fun has868Mhz() = value and 0x01;
+    fun has913Mhz() = value and 0x02;
+    fun has2400Mhz() = value and 0x08;
 
-}
-
-fun toBandFrequency(value: String) : BandFrequency {
-    return BandFrequency.values().firstOrNull{it.jsonValue == value}!!
 }

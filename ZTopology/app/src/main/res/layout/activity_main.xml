@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="it.achdjian.paolo.ztopology.MainActivity">
+    tools:context="it.achdjian.paolo.ztopology.activities.MainActivity">
 
 
     <it.achdjian.paolo.ztopology.view.TopologyView

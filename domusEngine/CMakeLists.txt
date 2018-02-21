@@ -98,7 +98,7 @@ set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
 set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -g3 -O3 -Wall -Wextra -Wpedantic  -fno-omit-frame-pointer ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -g3 -O3 -Wall -Wextra -Wpedantic  -fno-omit-frame-pointer -fsanitize=address -fsanitize-address-use-after-scope -fsanitize=leak")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O3  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
 

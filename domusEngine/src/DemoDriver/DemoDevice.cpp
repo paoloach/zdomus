@@ -870,23 +870,23 @@ namespace zigbee {
             table2.index=1;
 
 
-            LqiTable table3;
-            table3.nwkAddr = NWK_ADDR4;
-            table3.logicalType = LogicalType::ZigbeeEnddevice;
-            table3.lqi=80;
-            table3.onWhenIdle=true;
-            table3.depth=1;
-            table3.neighborAcceptJoin=true;
-            table3.relationship = Relationship::NeighborIsChild;
-            table3.ieeeAddr = extAddress4;
-            table3.panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
-            table3.index=2;
+//            LqiTable table3;
+//            table3.nwkAddr = NWK_ADDR4;
+//            table3.logicalType = LogicalType::ZigbeeEnddevice;
+//            table3.lqi=80;
+//            table3.onWhenIdle=true;
+//            table3.depth=1;
+//            table3.neighborAcceptJoin=true;
+//            table3.relationship = Relationship::NeighborIsChild;
+//            table3.ieeeAddr = extAddress4;
+//            table3.panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+//            table3.index=2;
 
-            response->totalTables=3;
+            response->totalTables=2;
             response->ownerNwkAddr = NwkAddr(0);
             response->tables.push_back(table1);
             response->tables.push_back(table2);
-            response->tables.push_back(table3);
+//            response->tables.push_back(table3);
             posponedCallbacks.emplace_back(system_clock::now() + 100ms, [response,this ]() mutable {
                 lqiResponseQueue.setData(response->ownerNwkAddr,response );
             });
@@ -924,10 +924,28 @@ namespace zigbee {
             table2.ieeeAddr = extAddress3;
             table2.panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
             table2.index=1;
+
+            LqiTable table3;
+            table3.nwkAddr = NWK_ADDR4;
+            table3.logicalType = LogicalType::ZigbeeEnddevice;
+            table3.lqi=80;
+            table3.onWhenIdle=true;
+            table3.depth=1;
+            table3.neighborAcceptJoin=true;
+            table3.relationship = Relationship::NeighborIsChild;
+            table3.ieeeAddr = extAddress4;
+            table3.panAddr = ExtAddress({0x18, 0x22, 0x33, 0x44, 0x5A, 0x6B, 0x7C, 0x1D});
+            table3.index=2;
+
+
             response->ownerNwkAddr = NWK_ADDR2;
             response->tables.push_back(table1);
             response->tables.push_back(table2);
-            response->totalTables=2;
+            response->tables.push_back(table3);
+
+            response->totalTables=3;
+
+
 
             posponedCallbacks.emplace_back(system_clock::now() + 500ms, [response,this ]() mutable {
                 lqiResponseQueue.setData(response->ownerNwkAddr,response );

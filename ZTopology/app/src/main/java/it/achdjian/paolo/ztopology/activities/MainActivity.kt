@@ -1,4 +1,4 @@
-package it.achdjian.paolo.ztopology
+package it.achdjian.paolo.ztopology.activities
 
 import android.content.Intent
 import android.graphics.Color
@@ -9,7 +9,7 @@ import android.preference.PreferenceManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import it.achdjian.paolo.ztopology.*
 import it.achdjian.paolo.ztopology.domusEngine.ConnectionObserver
 import it.achdjian.paolo.ztopology.domusEngine.ConnectionStatus
 import it.achdjian.paolo.ztopology.domusEngine.rest.DomusEngineRest
@@ -21,9 +21,7 @@ class MainActivity : AppCompatActivity(), ConnectionObserver {
     override fun connected() {
         Log.i("ZIGBEE COM", "connected")
         runOnUiThread({ supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.GREEN)) })
-        DomusEngine.addCallback(TopologyManager as ChildrenCallback)
-        DomusEngine.addCallback(TopologyManager as DeviceCallback)
-        DomusEngine.addCallback(TopologyManager as NodeInfoCallback)
+        DomusEngine.addCallback(TopologyManager as LqiInfoCallback)
         TopologyManager.start()
     }
 

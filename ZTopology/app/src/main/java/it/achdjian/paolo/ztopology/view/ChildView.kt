@@ -14,7 +14,7 @@ class ChildView(private val center: PointF, networkId: Int, private val status: 
         const val TAG = "TopologyView"
         const val COORDINATOR_RADIOUS = 70f
         const val ROUTER_RADIOUS = 50f
-        const val END_DEVICE_RADIOUS = 30f
+        const val END_DEVICE_RADIOUS = 40f
         val coordinatorPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         val routerPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         val endDevicePaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -62,6 +62,8 @@ class ChildView(private val center: PointF, networkId: Int, private val status: 
     private val leftText: Float
     private val topText: Float
     private var region: RectF
+    private val radius: Float
+    private val paint: Paint
 
     init {
         val rect = Rect()
@@ -69,12 +71,6 @@ class ChildView(private val center: PointF, networkId: Int, private val status: 
         leftText = center.x - rect.width() / 2
         topText = center.y + rect.height() / 2
         region = createRegion(END_DEVICE_RADIOUS)
-    }
-
-    fun paint(canvas: Canvas) {
-        val radius: Float
-        val paint: Paint
-
         when (status.logicalType) {
             LogicalType.ZigbeeEnddevice -> {
                 radius = END_DEVICE_RADIOUS
@@ -93,9 +89,12 @@ class ChildView(private val center: PointF, networkId: Int, private val status: 
                 paint = deviceWaitConnection
             }
         }
+    }
+
+    fun paint(canvas: Canvas) {
         Log.i(
             TAG,
-            "device ${status.shortAddress.toString(16)} has radius $radius and type ${status.logicalType}"
+            "device ${status.nwkAddress.toString(16)} has radius $radius and type ${status.logicalType}"
         )
         region = createRegion(radius)
 

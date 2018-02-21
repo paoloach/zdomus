@@ -1,10 +1,10 @@
 package it.achdjian.paolo.ztopology.zigbee
 
 import android.util.Log
-import it.achdjian.paolo.ztopology.*
-import it.achdjian.paolo.ztopology.domusEngine.rest.JsonDevice
-import it.achdjian.paolo.ztopology.rest.Children
-import it.achdjian.paolo.ztopology.view.TopologyView
+import it.achdjian.paolo.ztopology.DomusEngine
+import it.achdjian.paolo.ztopology.LogicalType
+import it.achdjian.paolo.ztopology.LqiInfoCallback
+import it.achdjian.paolo.ztopology.rest.LQI
 import it.achdjian.paolo.ztopology.zigbee.Topology.Companion.root
 
 /**
@@ -15,60 +15,47 @@ interface TopologyUpdate {
     fun update()
 }
 
-object TopologyManager : ChildrenCallback, DeviceCallback, NodeInfoCallback {
-    override fun newNodeInfo(response: NodeInfo) {
-        val node = Topology.root.findNode(response.nwkId)
-        if (node != null){
-            node.setInfo(response)
+object TopologyManager : LqiInfoCallback {
+    const val TAG = "topologyManager"
+    override fun lqiInfo(response: LQI) {
+        Log.i(TAG, "new LQI info: ${response.nwkAddrOwner}")
+        val node = Topology.root.findNode(response.nwkAddrOwner)
+        if (node != null) {
+            Log.i(TAG, "node found")
+            if (node.children.isEmpty()) {
+                IntRange(0, response.totTable-1).forEach { node.children.add(Topology()) }
+            }
+            response.tables
+                .forEach {
+                    if (it.logicalType != LogicalType.ZigbeeEnddevice && it.depth > node.depth) {
+                        DomusEngine.requestLQI(it.nwkAddr, 0)
+                    }
+                    val child = Topology(
+                        it.panAddr,
+                        it.extAddr,
+                        it.nwkAddr,
+                        it.logicalType,
+                        it.relationship,
+                        it.depth,
+                        it.lqi
+                    )
+                    node.children[it.index] = child
+                }
+            val missingTable = IntRange( 0, response.totTable-1)
+                .firstOrNull { node.children[it].logicalType == LogicalType.Invalid }
+            if (missingTable != null) {
+                DomusEngine.requestLQI(node.nwkAddress, missingTable)
+            }
+
             updateViews()
         }
     }
 
-    override fun nodeInfoTimeout(networkId: Int) {
+    override fun lqiInfoTimeout(networkId: Int) {
         DomusEngine.requestNode(networkId)
     }
 
     private val views = HashSet<TopologyUpdate>()
-
-
-    override fun deviceTimeout(networkId: Int) {
-        DomusEngine.getDevice(networkId)
-    }
-
-    override fun newDevice(response: JsonDevice) {
-        val node = Topology.root.findNode(response.short_address)
-        if (node != null){
-            node.capabilities = response.capability
-            updateViews()
-        }
-    }
-
-    override fun childrenTimeout(networkId: Int) {
-        val node = Topology.root.findNode(networkId)
-        if (node != null){
-            node.connectionStatus = DeviceConnectionStatus.DISCONNECTED
-        }
-        updateViews()
-    }
-
-    override fun newChildrenResult(response: Children) {
-        Log.i(TopologyView.TAG, "Response from " + response.nwkId)
-        val node = Topology.root.findNode(response.nwkId)
-        if (node != null) {
-            if (node.children.size != response.children.size) {
-                node.children.clear()
-                response.children.forEach {
-                    DomusEngine.requestChildren(it)
-                    node.children.add(Topology(it))
-                }
-            }
-            node.extendedAddr = response.extendAddr
-            Log.i(TopologyView.TAG, "change " + node.shortAddress.toString(16) + " at connected")
-            node.connectionStatus = DeviceConnectionStatus.CONNECTED
-            DomusEngine.requestNode(node.shortAddress)
-        }
-        updateViews()
-    }
 
     private fun updateViews() {
         views.forEach { it.update() }
@@ -86,8 +73,7 @@ object TopologyManager : ChildrenCallback, DeviceCallback, NodeInfoCallback {
     }
 
     fun start() {
-        DomusEngine.requestChildren(0)
-        DomusEngine.requestNode(0)
+        DomusEngine.requestLQI(0, 0)
     }
 
 }

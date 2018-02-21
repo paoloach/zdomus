@@ -39,6 +39,7 @@ namespace zigbee {
             timeout.tv_usec = 0;
 
             Packet packet;
+            status  =  Status::Header1;
             Packet::iterator iter;
             uint   packetSize;
             while (select(serialFd + 1, &readFd, NULL, NULL, &timeout) > 0) {

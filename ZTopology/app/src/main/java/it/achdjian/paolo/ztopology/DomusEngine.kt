@@ -24,6 +24,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     val deviceCallback = HashSet<DeviceCallback>()
     val deviceInfoCallback = HashSet<DeviceInfoCallback>()
     val nodeInfoCallback = HashSet<NodeInfoCallback>()
+    val lqiInfoCallback = HashSet<LqiInfoCallback>()
 
     private val mDecodeWorkQueue = LinkedBlockingQueue<Runnable>();
     private val threadPool =
@@ -51,30 +52,31 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
         threadPool.execute(ExecuteCommand(networkId, endpointId, clusterId, cmdId))
 
 
-    fun requestChildren(shortAddress: Int) {
+    fun requestChildren(shortAddress: Int) =
         threadPool.execute(RequestChildren(shortAddress))
-    }
 
-    fun requestNode(shortAddress: Int){
+    fun requestNode(shortAddress: Int) =
         threadPool.execute(RequestNodeInfo(shortAddress))
-    }
 
-    fun requestDeviceInfo(shortAddress: Int) {
+    fun requestDeviceInfo(shortAddress: Int) =
         threadPool.execute(RequestDeviceInfo(shortAddress))
-    }
 
     fun requestIdentify(shortAddress: Int, endpointId: Int) =
         threadPool.execute(RequestIdentify(shortAddress, endpointId))
 
-    fun requestPower(shortAddress: Int) =
-        threadPool.execute(RequestPowerNode(shortAddress))
+    fun requestPower(shortAddress: Int) = threadPool.execute(RequestPowerNode(shortAddress))
+
+    fun requestLQI(shortAddress: Int, index: Int) =
+        threadPool.execute(RequestLQI(shortAddress, index))
 
     fun addCallback(callback: ChildrenCallback) = childrenCallback.add(callback)
     fun addCallback(callback: DeviceCallback) = deviceCallback.add(callback)
     fun addCallback(callback: NodeInfoCallback) = nodeInfoCallback.add(callback)
+    fun addCallback(callback: LqiInfoCallback) = lqiInfoCallback.add(callback)
     fun addCallback(callback: DeviceInfoCallback) = deviceInfoCallback.add(callback)
     fun removeCallback(callback: ChildrenCallback) = childrenCallback.remove(callback)
     fun removeCallback(callback: NodeInfoCallback) = nodeInfoCallback.remove(callback)
+    fun removeCallback(callback: LqiInfoCallback) = lqiInfoCallback.remove(callback)
 
     fun sendMessage(messageType: Int, obj: Any) {
         handler.sendMessage(handler.obtainMessage(messageType, obj))
@@ -129,6 +131,17 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                     Log.i(TAG, "Timeout requesting node info for {networkId}")
                     nodeInfoCallback.forEach { it.nodeInfoTimeout(networkId) }
                 }
+
+                MessageType.LQI_INFO -> {
+                    val response = message.obj as LQI
+                    lqiInfoCallback.forEach { it.lqiInfo(response) }
+                }
+
+                MessageType.LQI_INFO_TIMEOUT -> {
+                    val response = message.obj as Int
+                    Log.i(TAG, "Timeout requesting LQI info for {networkId}")
+                    lqiInfoCallback.forEach { it.lqiInfoTimeout(response) }
+                }
             }
         }
         return true
@@ -155,4 +168,9 @@ interface DeviceInfoCallback {
 interface NodeInfoCallback {
     fun newNodeInfo(response: NodeInfo);
     fun nodeInfoTimeout(networkId: Int)
+}
+
+interface LqiInfoCallback {
+    fun lqiInfo(response: LQI);
+    fun lqiInfoTimeout(networkId: Int)
 }

@@ -13,6 +13,7 @@
 namespace zigbee {
     void AnnunceSerial2Executor::operator()(Packet &&packet)  {
         BOOST_LOG_NAMED_SCOPE("Annunce device");
+        BOOST_LOG_TRIVIAL(info) << packet;
         AnnunceMessage annunceMessage;
         annunceMessage.nwkAddr = packet.getUint16(1);
         std::copy(packet.begin()+3, packet.begin()+11, annunceMessage.extAddr);

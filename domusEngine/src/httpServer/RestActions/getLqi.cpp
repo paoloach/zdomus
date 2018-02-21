@@ -41,6 +41,7 @@ namespace zigbee {
         Value root(objectValue);
 
         root["totalTables"] = response->totalTables;
+        root["nwkAddrOwner"] = boost::lexical_cast<std::string>(response->ownerNwkAddr);
         Value tables(arrayValue);
 
         for (auto & table: response->tables) {
