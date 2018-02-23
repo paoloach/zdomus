@@ -24,10 +24,14 @@
             android:label="@string/title_activity_setting"
             android:theme="@style/AppTheme.NoActionBar"
             android:value="25.4.0"
-            tools:replace="android:value"></activity>
+            tools:replace="android:value" />
         <activity
             android:name=".activities.NodeActivity"
             android:label="@string/title_activity_node"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Main3Activity"
+            android:label="@string/title_activity_main3"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -22,6 +22,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     val getDevices = GetDevices()
     val childrenCallback = HashSet<ChildrenCallback>()
     val deviceCallback = HashSet<DeviceCallback>()
+    val endpointCallbacks = HashSet<EndpointCallback>()
     val deviceInfoCallback = HashSet<DeviceInfoCallback>()
     val nodeInfoCallback = HashSet<NodeInfoCallback>()
     val lqiInfoCallback = HashSet<LqiInfoCallback>()
@@ -46,6 +47,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     fun getDevices() = handler.post(getDevices)
 
     fun getDevice(device: Int) = handler.post(GetDevice(device))
+    fun getEndpoint(device: Int, endpointId: Int) = handler.post(GetEndpoint(device, endpointId))
 
 
     fun postCmd(networkId: Int, endpointId: Int, clusterId: Int, cmdId: Int) =
@@ -71,12 +73,15 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
 
     fun addCallback(callback: ChildrenCallback) = childrenCallback.add(callback)
     fun addCallback(callback: DeviceCallback) = deviceCallback.add(callback)
+    fun addCallback(callback: EndpointCallback) = endpointCallbacks.add(callback)
     fun addCallback(callback: NodeInfoCallback) = nodeInfoCallback.add(callback)
     fun addCallback(callback: LqiInfoCallback) = lqiInfoCallback.add(callback)
     fun addCallback(callback: DeviceInfoCallback) = deviceInfoCallback.add(callback)
     fun removeCallback(callback: ChildrenCallback) = childrenCallback.remove(callback)
     fun removeCallback(callback: NodeInfoCallback) = nodeInfoCallback.remove(callback)
     fun removeCallback(callback: LqiInfoCallback) = lqiInfoCallback.remove(callback)
+    fun removeCallback(callback: DeviceCallback) = deviceCallback.remove(callback)
+    fun removeCallback(callback: EndpointCallback) = endpointCallbacks.remove(callback)
 
     fun sendMessage(messageType: Int, obj: Any) {
         handler.sendMessage(handler.obtainMessage(messageType, obj))
@@ -90,8 +95,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                     Log.i(TAG, "Who are You")
                 }
                 MessageType.NEW_DEVICE -> {
-                    val device = message.obj as JsonDevice
-                    ZDevices.addDevice(device)
+                    val device = message.obj as Device
                     deviceCallback.forEach { it.newDevice(device) }
                 }
                 MessageType.DEVICE_TIMEOUT -> {
@@ -100,9 +104,9 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                     deviceCallback.forEach { it.deviceTimeout(networkId) }
                 }
                 MessageType.NEW_ENDPOINT -> {
-                    Log.i(TAG, "NEW endpoint_id")
+                    Log.i(TAG, "NEW endpointId")
                     val endpoint = message.obj as ZEndpoint
-                    ZDevices.addEndpoint(endpoint)
+                    endpointCallbacks.forEach { it.newEndpoint(endpoint) }
                 }
                 MessageType.NEW_CHILDREN -> {
                     val response = message.obj as Children
@@ -155,8 +159,12 @@ interface ChildrenCallback {
 }
 
 interface DeviceCallback {
-    fun newDevice(response: JsonDevice);
+    fun newDevice(response: Device);
     fun deviceTimeout(networkId: Int)
+}
+
+interface EndpointCallback {
+    fun newEndpoint(response: ZEndpoint);
 }
 
 interface DeviceInfoCallback {

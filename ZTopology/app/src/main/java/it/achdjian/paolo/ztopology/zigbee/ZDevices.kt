@@ -44,8 +44,8 @@ object ZDevices {
     }
 
     fun addEndpoint(endpoint: ZEndpoint) {
-        if (devices.containsKey(endpoint.short_address)) {
-            devices[endpoint.short_address]?.endpoints?.put(endpoint.endpoint_id, endpoint)
+        if (devices.containsKey(endpoint.networkAddress)) {
+            devices[endpoint.networkAddress]?.endpoints?.put(endpoint.endpointId, endpoint)
         }
     }
 

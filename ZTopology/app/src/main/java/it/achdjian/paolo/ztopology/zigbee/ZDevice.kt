@@ -11,7 +11,7 @@ class ZDevice(val shortAddress: Int, val extendedAddr: String, val capabilities:
 
     val endpoints: MutableMap<Int, ZEndpoint?> = HashMap()
 
-    constructor(json: JsonDevice) : this(json.short_address, json.extended_address, json.capability) {
+    constructor(json: JsonDevice) : this(json.short_address.toInt(16), json.extended_address, json.capability) {
         json.endpoints.values.forEach({ endpoints.put(Integer.parseInt(it, 16), null) })
     }
 

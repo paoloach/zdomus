@@ -1,18 +1,24 @@
 package it.achdjian.paolo.ztopology.view
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.PointF
+import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.GestureDetectorCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import it.achdjian.paolo.ztopology.activities.NodeActivity
+import it.achdjian.paolo.ztopology.activities.NodeActivity.Companion.NETWORK_ID
 import it.achdjian.paolo.ztopology.zigbee.Topology
 import it.achdjian.paolo.ztopology.zigbee.TopologyManager
 import it.achdjian.paolo.ztopology.zigbee.TopologyUpdate
 import it.achdjian.paolo.ztopology.rest.Relationship.NeighborIsParent
+import it.achdjian.paolo.ztopology.settings.SettingActivity
 
 
 class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector.OnGestureListener {
@@ -24,13 +30,18 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector
     companion object {
         const val TAG = "TopologyView"
     }
+
     constructor(context: Context) : super(context) {
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    ) {
     }
 
     override fun onAttachedToWindow() {
@@ -77,7 +88,14 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector
         devicesPos = newChildView
     }
 
-    private fun addDevicesNode(node: Topology, childiew: ChildView, center: PointF, deviceDistX: Float, deviceDistY: Float, startAngle: Double) {
+    private fun addDevicesNode(
+        node: Topology,
+        childiew: ChildView,
+        center: PointF,
+        deviceDistX: Float,
+        deviceDistY: Float,
+        startAngle: Double
+    ) {
 
         val children = node.children.filter { it.relationship != NeighborIsParent }
         if (children.isNotEmpty()) {
@@ -85,10 +103,13 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector
             if (node.nwkAddress == 0)
                 deltaAngle = 2 * Math.PI / children.size
             else
-                deltaAngle = 2 * Math.PI / (children.size+1)
-            var angle = startAngle+Math.PI+deltaAngle
+                deltaAngle = 2 * Math.PI / (children.size + 1)
+            var angle = startAngle + Math.PI + deltaAngle
             children.forEach({
-                val childPos = PointF((center.x + deviceDistX * Math.sin(angle)).toFloat(), (center.y + deviceDistY * Math.cos(angle)).toFloat())
+                val childPos = PointF(
+                    (center.x + deviceDistX * Math.sin(angle)).toFloat(),
+                    (center.y + deviceDistY * Math.cos(angle)).toFloat()
+                )
                 val child = ChildView(childPos, it.nwkAddress, it)
 
                 childiew.children.add(child)
@@ -118,7 +139,7 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector
      */
     override fun onSingleTapUp(event: MotionEvent?): Boolean {
         Log.i(TAG, "tap action: " + event?.actionMasked)
-        if (event != null ){
+        if (event != null) {
             val found = devicesPos?.find(event.x, event.y)
             if (found != null) {
                 if (event.actionMasked == MotionEvent.ACTION_UP) {
@@ -153,7 +174,8 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector
      * along the y axis.
      * @return true if the event is consumed, else false
      */
-    override fun onFling( e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float) = false
+    override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float) =
+        false
 
     /**
      * Notified when a scroll occurs with the initial on down [MotionEvent] and the
@@ -170,7 +192,8 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector
      * and `e2`.
      * @return true if the event is consumed, else false
      */
-    override fun onScroll( e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float) = false
+    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float) =
+        false
 
     /**
      * Notified when a long press occurs with the initial on down [MotionEvent]
@@ -180,12 +203,13 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector
      */
     override fun onLongPress(event: MotionEvent?) {
         Log.i(TAG, "long press action: " + event?.actionMasked)
-        if (event != null ){
+        if (event != null) {
             val found = devicesPos?.find(event.x, event.y)
             if (found != null) {
-                if (event.actionMasked == MotionEvent.ACTION_UP) {
-                    Log.i(TAG, "found long press " + found.id)
-                }
+                val intent = Intent(context, NodeActivity::class.java)
+                intent.putExtra(NETWORK_ID, found.id.toIntOrNull(16))
+                context.startActivity(intent)
+                Log.i(TAG, "found long press " + found.id)
             } else
                 Log.i(TAG, "not found at " + event.x + ", " + event.y)
         }

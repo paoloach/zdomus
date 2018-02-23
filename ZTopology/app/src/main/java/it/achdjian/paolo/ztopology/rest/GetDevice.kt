@@ -15,7 +15,7 @@ class GetDevice(val nwkAddress: Int) : ZigbeeRunnable() {
             try {
                 Log.i(TAG, body)
                 val zDevice = MAPPER.readValue(body, JsonDevice::class.java)
-                DomusEngine.handler.sendMessage(DomusEngine.handler.obtainMessage(MessageType.NEW_DEVICE, zDevice))
+                DomusEngine.handler.sendMessage(DomusEngine.handler.obtainMessage(MessageType.NEW_DEVICE, Device(zDevice)))
                 Log.i(TAG, zDevice.toString())
             } catch (e: IOException) {
                 Log.e(TAG, "Error parsing response for /devices/" + nwkAddress)
