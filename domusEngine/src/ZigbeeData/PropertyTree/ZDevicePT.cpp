@@ -19,7 +19,7 @@ namespace zigbee {
       ptree endpoints;
 
       add("extended_address", zDevice->getExtAddr());
-      add("short_address", zDevice->getNwkAddr().getId());
+      add("short_address", zDevice->getNwkAddr());
       add("capability", zDevice->getCapabilities());
       int index = 0;
       if (!zDevice->getEndpoints().empty()) {
