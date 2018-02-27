@@ -9,7 +9,7 @@ import it.achdjian.paolo.ztopology.zigbee.Topology
 /**
  * Created by Paolo Achdjian on 1/22/18.
  */
-class ChildView(private val center: PointF, networkId: Int, private val status: Topology) {
+class ChildView(private val center: PointF, networkId: Int, val status: Topology) {
     companion object {
         const val TAG = "TopologyView"
         const val COORDINATOR_RADIOUS = 70f

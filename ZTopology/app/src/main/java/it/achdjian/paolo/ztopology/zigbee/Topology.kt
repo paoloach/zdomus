@@ -3,6 +3,7 @@ package it.achdjian.paolo.ztopology.zigbee
 import android.util.Log
 import it.achdjian.paolo.ztopology.LogicalType
 import it.achdjian.paolo.ztopology.rest.Relationship
+import java.io.Serializable
 
 /**
  * Created by Paolo Achdjian on 1/18/18.
@@ -19,7 +20,7 @@ class Topology(val panAddress: String,
                val logicalType: LogicalType,
                val relationship: Relationship,
                val depth: Int,
-               val lqi: Int) {
+               val lqi: Int) : Serializable{
     constructor(nwkAddress: Int):this("","",nwkAddress,LogicalType.ZigbeeCordinator, Relationship.NoRelation, 0, 200)
     constructor():this("","",-1,LogicalType.Invalid, Relationship.NoRelation, 0, 200)
 

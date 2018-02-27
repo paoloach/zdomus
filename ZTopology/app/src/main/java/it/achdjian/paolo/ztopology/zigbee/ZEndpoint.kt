@@ -43,6 +43,7 @@ import it.achdjian.paolo.ztopology.zigbee.Constants.ZCL_HA_DEVICEID_THERMOSTAT
 import it.achdjian.paolo.ztopology.zigbee.Constants.ZCL_HA_DEVICEID_WHITE_GOODS
 import it.achdjian.paolo.ztopology.zigbee.Constants.ZCL_HA_DEVICEID_WINDOW_COVERING_CONTROLLER
 import it.achdjian.paolo.ztopology.zigbee.Constants.ZCL_HA_DEVICEID_WINDOW_COVERING_DEVICE
+import java.io.Serializable
 import java.util.HashMap
 import kotlin.collections.ArrayList
 import kotlin.collections.List
@@ -71,15 +72,15 @@ data class ZEndpoint(
     val profileId: Int,
     val deviceId: Int,
     val deviceVersion: Int
-) {
-    constructor(endpoint: ZEndpointJSon) : this(
-        endpoint.short_address.toInt(16),
-        endpoint.endpoint_id.toInt(16),
-        endpoint.profile_id, endpoint.device_id, endpoint.device_version
-    ) {
-        inCluster = endpoint.input_clusters.map { it.value.toInt(16) }
-        outCluster = endpoint.output_clusters.map { it.value.toInt(16) }
-    }
+        ) : Serializable {
+        constructor(endpoint: ZEndpointJSon) : this(
+            endpoint.short_address.toInt(16),
+            endpoint.endpoint_id.toInt(16),
+            endpoint.profile_id, endpoint.device_id, endpoint.device_version
+        ) {
+            inCluster = endpoint.input_clusters.map { it.value.toInt(16) }
+            outCluster = endpoint.output_clusters.map { it.value.toInt(16) }
+        }
 
 
     var inCluster: List<Int> = ArrayList()

@@ -25,6 +25,11 @@ class EndpointAdapter(context: Context, val networkId: Int) :
     private val mDropDownHelper: ThemedSpinnerAdapter.Helper =
         ThemedSpinnerAdapter.Helper(context)
     private val endpoints = ArrayList<ZEndpoint>()
+    private val handler = android.os.Handler()
+
+    operator fun get(endpointId: Int): ZEndpoint{
+        return endpoints[endpointId]
+    }
 
 
     override fun getDropDownViewTheme(): Resources.Theme? = mDropDownHelper.dropDownViewTheme
@@ -46,7 +51,9 @@ class EndpointAdapter(context: Context, val networkId: Int) :
 
     override fun newEndpoint(response: ZEndpoint) {
         endpoints.add(response)
-        add(deviceIdName(response.deviceId))
+        handler.post{
+            add(deviceIdName(response.deviceId))
+        }
     }
 
 

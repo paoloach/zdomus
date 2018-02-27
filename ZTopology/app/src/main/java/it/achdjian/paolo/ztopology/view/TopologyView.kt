@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.PointF
-import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.GestureDetectorCompat
 import android.util.AttributeSet
 import android.util.Log
@@ -13,12 +11,11 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import it.achdjian.paolo.ztopology.activities.NodeActivity
-import it.achdjian.paolo.ztopology.activities.NodeActivity.Companion.NETWORK_ID
+import it.achdjian.paolo.ztopology.activities.NodeActivity.Companion.TOPOLOGY
 import it.achdjian.paolo.ztopology.zigbee.Topology
 import it.achdjian.paolo.ztopology.zigbee.TopologyManager
 import it.achdjian.paolo.ztopology.zigbee.TopologyUpdate
 import it.achdjian.paolo.ztopology.rest.Relationship.NeighborIsParent
-import it.achdjian.paolo.ztopology.settings.SettingActivity
 
 
 class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector.OnGestureListener {
@@ -207,7 +204,7 @@ class TopologyView : View, View.OnTouchListener, TopologyUpdate, GestureDetector
             val found = devicesPos?.find(event.x, event.y)
             if (found != null) {
                 val intent = Intent(context, NodeActivity::class.java)
-                intent.putExtra(NETWORK_ID, found.id.toIntOrNull(16))
+                intent.putExtra(TOPOLOGY, found.status)
                 context.startActivity(intent)
                 Log.i(TAG, "found long press " + found.id)
             } else

@@ -1,29 +1,27 @@
 package it.achdjian.paolo.ztopology.activities
 
-import android.content.Context
-import android.content.res.Resources.Theme
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.ThemedSpinnerAdapter
-import android.view.*
-import android.widget.ArrayAdapter
+import android.view.Menu
+import android.view.MenuItem
 import it.achdjian.paolo.ztopology.DeviceCallback
 import it.achdjian.paolo.ztopology.DomusEngine
 import it.achdjian.paolo.ztopology.EndpointCallback
 import it.achdjian.paolo.ztopology.R
 import it.achdjian.paolo.ztopology.activities.node.EndpointAdapter
+import it.achdjian.paolo.ztopology.activities.node.SelectedEndpointListener
+import it.achdjian.paolo.ztopology.zigbee.Topology
 import kotlinx.android.synthetic.main.activity_node.*
-import kotlinx.android.synthetic.main.fragment_node.view.*
-import kotlinx.android.synthetic.main.list_item.view.*
 
 class NodeActivity : AppCompatActivity() {
     companion object {
-        val NETWORK_ID = "networkId"
+        val TOPOLOGY = "topology"
+        val ENDPOINT = "endpoint"
     }
-    private var networkId: Int = 0
+    private lateinit var topology: Topology
 
     lateinit var endpointAdapter: EndpointAdapter
+    lateinit var endpointListener: SelectedEndpointListener
 
     override fun onDestroy() {
         super.onDestroy()
@@ -35,41 +33,24 @@ class NodeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if (intent != null){
-            networkId = intent.getIntExtra(NETWORK_ID,0)
+            topology = intent.getSerializableExtra(TOPOLOGY) as Topology
         }
         setContentView(R.layout.activity_node)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        endpointAdapter = EndpointAdapter(toolbar.context, networkId)
+        endpointAdapter = EndpointAdapter(toolbar.context, topology.nwkAddress)
         DomusEngine.addCallback(endpointAdapter as DeviceCallback)
         DomusEngine.addCallback(endpointAdapter as EndpointCallback)
+        endpointListener = SelectedEndpointListener(supportFragmentManager, clusterTab)
 
         // Setup spinner
         spinner.adapter =endpointAdapter;
+        spinner.onItemSelectedListener = endpointListener
 
-//                MyAdapter(
-//            toolbar.context,
-//            arrayOf("Section 1", "Section 2", "Section 3"))
-
-//        spinner.onItemSelectedListener = object : OnItemSelectedListener {
-//            override fun onItemSelected( parent: AdapterView<*>, view: View, position: Int, id: Long
-//            ) {
-//                // When the given dropdown item is selected, show its contents in the
-//                // container view.
-//                supportFragmentManager.beginTransaction()
-//                    .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-//                    .commit()
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>) {}
-//        }
-//
-//                    fab . setOnClickListener { view ->
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//            }
-
+        nwkValue.text = topology.nwkAddress.toString(16)
+        lqiValue.text = topology.lqi.toString()
+        macValue.text = topology.extendedAddr
     }
 
 
@@ -91,42 +72,5 @@ class NodeActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    class PlaceholderFragment : Fragment() {
-
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            val rootView = inflater.inflate(R.layout.fragment_node, container, false)
-            rootView.section_label.text =
-                    getString(R.string.section_format, arguments.getInt(ARG_SECTION_NUMBER))
-            return rootView
-        }
-
-        companion object {
-            /**
-             * The fragment argument representing the section number for this
-             * fragment.
-             */
-            private val ARG_SECTION_NUMBER = "section_number"
-
-            /**
-             * Returns a new instance of this fragment for the given section
-             * number.
-             */
-            fun newInstance(sectionNumber: Int): PlaceholderFragment {
-                val fragment = PlaceholderFragment()
-                val args = Bundle()
-                args.putInt(ARG_SECTION_NUMBER, sectionNumber)
-                fragment.arguments = args
-                return fragment
-            }
-        }
-    }
-
 
 }
