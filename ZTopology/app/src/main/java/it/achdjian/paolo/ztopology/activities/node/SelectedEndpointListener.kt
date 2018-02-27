@@ -1,19 +1,17 @@
 package it.achdjian.paolo.ztopology.activities.node
 
 import android.support.design.widget.TabLayout
-import android.support.v4.app.FragmentManager
 import android.view.View
 import android.widget.AdapterView
-import it.achdjian.paolo.ztopology.R
-import it.achdjian.paolo.ztopology.activities.node.fragments.clusters.BasicClusterFragments
 import it.achdjian.paolo.ztopology.zigbee.clusterToString
 
 /**
  * Created by Paolo Achdjian on 2/23/18.
  */
 class SelectedEndpointListener(
-            val supportFragmentManager: FragmentManager,
-            val clusterTab: TabLayout
+            val clusterTab: TabLayout,
+            val clusterTabSelectedListener: ClusterTabSelectedListener
+
                 ) :
     AdapterView.OnItemSelectedListener {
     /**
@@ -45,13 +43,19 @@ class SelectedEndpointListener(
         if (parent != null) {
             val adapter = parent.adapter as EndpointAdapter
             val zEndpoint = adapter[position]
+            clusterTab.removeAllTabs()
+            var firstTab: TabLayout.Tab? = null
             zEndpoint.inCluster.forEach {
-                clusterTab.addTab(clusterTab.newTab().setText( clusterToString(it)));
+                val tab = clusterTab.newTab()
+                if (firstTab == null)
+                    firstTab = tab
+                tab.text = clusterToString(it)
+                tab.tag = it
+                clusterTab.addTab(tab)
             }
-
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, BasicClusterFragments.newInstance(zEndpoint))
-                .commit()
+            clusterTabSelectedListener.zEndpoint = zEndpoint
+            if (firstTab != null)
+                clusterTabSelectedListener.onTabSelected(firstTab)
         }
     }
 }
