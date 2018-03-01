@@ -19,7 +19,8 @@ namespace zigbee {
         Header1,
         Header2,
         Header3,
-        Size,
+        SizeLow,
+        SizeHigh,
         Data
     };
 
@@ -63,14 +64,19 @@ namespace zigbee {
                             break;
                         case Status::Header3:
                             if (c==HEADER3){
-                                status = Status::Size;
+                                status = Status::SizeLow;
                             } else {
                                 status = Status::Header1;
                                 BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " <<  (int)HEADER3 << " got " << (int)c;
                             }
                             break;
-                        case Status::Size:
+                        case Status::SizeLow:
                             packetSize = c;
+                            status = Status::SizeHigh;
+                            break;
+                        case Status::SizeHigh:
+                            packetSize = c*256+ packetSize;
+                            BOOST_LOG_TRIVIAL(info) << "Expected packet size of " << packetSize << " bytes"
                             packet.resize(packetSize+1);
                             status = Status::Data;
                             iter = packet.begin();
