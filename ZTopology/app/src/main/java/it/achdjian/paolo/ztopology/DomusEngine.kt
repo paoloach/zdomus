@@ -6,7 +6,6 @@ import android.os.Message
 import android.util.Log
 import it.achdjian.paolo.ztopology.domusEngine.rest.*
 import it.achdjian.paolo.ztopology.rest.*
-import it.achdjian.paolo.ztopology.zigbee.ZDevices
 import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
 import java.util.*
 import java.util.concurrent.LinkedBlockingQueue
@@ -22,6 +21,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     val getDevices = GetDevices()
     val childrenCallback = HashSet<ChildrenCallback>()
     val deviceCallback = HashSet<DeviceCallback>()
+    val attributesCallback = HashSet<AttributesCallback>()
     val endpointCallbacks = HashSet<EndpointCallback>()
     val deviceInfoCallback = HashSet<DeviceInfoCallback>()
     val nodeInfoCallback = HashSet<NodeInfoCallback>()
@@ -31,7 +31,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     private val threadPool =
         ThreadPoolExecutor(3, Int.MAX_VALUE, 60, TimeUnit.SECONDS, mDecodeWorkQueue)
 
-    val TAG = "ZIGBEE COM"
+    const val TAG = "ZIGBEE COM"
 
     init {
         start()
@@ -48,7 +48,8 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
 
     fun getDevice(device: Int) = handler.post(GetDevice(device))
     fun getEndpoint(device: Int, endpointId: Int) = handler.post(GetEndpoint(device, endpointId))
-
+    fun getAttributes(device: Int, endpointId: Int, clusterId: Int, attributes: List<Int>) =
+        handler.post(RequestAttributes(device, endpointId, clusterId, attributes))
 
     fun postCmd(networkId: Int, endpointId: Int, clusterId: Int, cmdId: Int) =
         threadPool.execute(ExecuteCommand(networkId, endpointId, clusterId, cmdId))
@@ -77,11 +78,13 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
     fun addCallback(callback: NodeInfoCallback) = nodeInfoCallback.add(callback)
     fun addCallback(callback: LqiInfoCallback) = lqiInfoCallback.add(callback)
     fun addCallback(callback: DeviceInfoCallback) = deviceInfoCallback.add(callback)
+    fun addCallback(callback: AttributesCallback) = attributesCallback.add(callback)
     fun removeCallback(callback: ChildrenCallback) = childrenCallback.remove(callback)
     fun removeCallback(callback: NodeInfoCallback) = nodeInfoCallback.remove(callback)
     fun removeCallback(callback: LqiInfoCallback) = lqiInfoCallback.remove(callback)
     fun removeCallback(callback: DeviceCallback) = deviceCallback.remove(callback)
     fun removeCallback(callback: EndpointCallback) = endpointCallbacks.remove(callback)
+    fun removeCallback(callback: AttributesCallback) = attributesCallback.remove(callback)
 
     fun sendMessage(messageType: Int, obj: Any) {
         handler.sendMessage(handler.obtainMessage(messageType, obj))
@@ -107,6 +110,11 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
                     Log.i(TAG, "NEW endpointId")
                     val endpoint = message.obj as ZEndpoint
                     endpointCallbacks.forEach { it.newEndpoint(endpoint) }
+                }
+                MessageType.NEW_ATTRIBUTES -> {
+                    Log.i(TAG, "NEW attributes")
+                    val attributes = message.obj as Attributes
+                    attributesCallback.forEach { it.newAttributes(attributes) }
                 }
                 MessageType.NEW_CHILDREN -> {
                     val response = message.obj as Children
@@ -154,31 +162,34 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
 }
 
 interface ChildrenCallback {
-    fun newChildrenResult(response: Children);
+    fun newChildrenResult(response: Children)
     fun childrenTimeout(networkId: Int)
 }
 
 interface DeviceCallback {
-    fun newDevice(response: Device);
+    fun newDevice(response: Device)
     fun deviceTimeout(networkId: Int)
 }
 
+interface AttributesCallback {
+    fun newAttributes(response: Attributes)
+}
+
 interface EndpointCallback {
-    fun newEndpoint(response: ZEndpoint);
+    fun newEndpoint(response: ZEndpoint)
 }
 
 interface DeviceInfoCallback {
-    fun newDeviceInfo(response: DeviceInfo);
+    fun newDeviceInfo(response: DeviceInfo)
     fun deviceInfoTimeout(networkId: Int)
 }
 
-
 interface NodeInfoCallback {
-    fun newNodeInfo(response: NodeInfo);
+    fun newNodeInfo(response: NodeInfo)
     fun nodeInfoTimeout(networkId: Int)
 }
 
 interface LqiInfoCallback {
-    fun lqiInfo(response: LQI);
+    fun lqiInfo(response: LQI)
     fun lqiInfoTimeout(networkId: Int)
 }
