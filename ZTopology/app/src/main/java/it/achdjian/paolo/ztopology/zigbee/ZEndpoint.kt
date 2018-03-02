@@ -46,9 +46,6 @@ import it.achdjian.paolo.ztopology.zigbee.Constants.ZCL_HA_DEVICEID_WINDOW_COVER
 import java.io.Serializable
 import java.util.HashMap
 import kotlin.collections.ArrayList
-import kotlin.collections.List
-import kotlin.collections.Map
-import kotlin.collections.map
 
 /**
  * Created by Paolo Achdjian on 7/9/17.
@@ -72,19 +69,19 @@ data class ZEndpoint(
     val profileId: Int,
     val deviceId: Int,
     val deviceVersion: Int
-        ) : Serializable {
-        constructor(endpoint: ZEndpointJSon) : this(
-            endpoint.short_address.toInt(16),
-            endpoint.endpoint_id.toInt(16),
-            endpoint.profile_id, endpoint.device_id, endpoint.device_version
-        ) {
-            inCluster = endpoint.input_clusters.map { it.value.toInt(16) }
-            outCluster = endpoint.output_clusters.map { it.value.toInt(16) }
-        }
+) : Serializable {
+    constructor(endpoint: ZEndpointJSon) : this(
+        endpoint.short_address.toInt(16),
+        endpoint.endpoint_id.toInt(16),
+        endpoint.profile_id, endpoint.device_id, endpoint.device_version
+    ) {
+        inCluster = endpoint.input_clusters.map { idToCluster(it.value.toInt(16)) }
+        outCluster = endpoint.output_clusters.map { idToCluster(it.value.toInt(16)) }
+    }
 
 
-    var inCluster: List<Int> = ArrayList()
-    var outCluster: List<Int> = ArrayList()
+    var inCluster: List<Cluster> = ArrayList()
+    var outCluster: List<Cluster> = ArrayList()
 }
 
 fun deviceIdName(deviceId: Int): String {

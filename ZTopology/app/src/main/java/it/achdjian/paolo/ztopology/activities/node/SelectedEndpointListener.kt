@@ -49,7 +49,7 @@ class SelectedEndpointListener(
                 val tab = clusterTab.newTab()
                 if (firstTab == null)
                     firstTab = tab
-                tab.text = clusterToString(it)
+                tab.text = it.name
                 tab.tag = it
                 clusterTab.addTab(tab)
             }
