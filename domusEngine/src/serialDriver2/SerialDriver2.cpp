@@ -14,6 +14,27 @@
 #include "ReadThread.h"
 
 namespace zigbee {
+
+    enum RequestType {
+        IEEEAddress=1,
+        REQUEST_ATTRIBUTE=2,
+        REQUEST_ATTRIBUTES=3,
+        RESET=4,
+        WRITE_ATTRIBUTE=5,
+        SEND_CMD=6,
+        REQUEST_ACTIVE_ENDPOINTS=7,
+        REQUEST_NODE_POWER=8,
+        REQUEST_BIND=9,
+        REQUEST_UNBIND=10,
+        REQUEST_DEVICE_INFO=11,
+        REQUEST_BIND_TABLE=12,
+        INIT=13,
+        REMOVE_DEVICE=14,
+        REQUEST_NODE_DESCRIPTOR=15,
+        REQUEST_LQI=16
+    };
+
+
     using namespace boost::asio;
     using namespace boost::system;
     using std::stringstream;
@@ -89,7 +110,7 @@ namespace zigbee {
         lqiResponseQueue.startDequeFiber();
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )13);
+            data.push((uint8_t )INIT);
             write(std::move(data));
         }
         while (!stop) {
@@ -123,7 +144,7 @@ namespace zigbee {
         BOOST_LOG_NAMED_SCOPE(LOG_SCOPE);
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )1);
+            data.push((uint8_t )IEEEAddress);
             data.push(nwkAddr);
             data.push(static_cast<uint8_t >(requestType));
             data.push(startIndex);
@@ -139,7 +160,7 @@ namespace zigbee {
     void SerialDriver2::requestAttribute(const AttributeKey &key) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )2);
+            data.push((uint8_t )REQUEST_ATTRIBUTE);
             data.push(key.networkAddress);
             data.push(key.endpoint);
             data.push(key.clusterId);
@@ -157,7 +178,7 @@ namespace zigbee {
     void SerialDriver2::requestAttributes(AttributesKey &key) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )3);
+            data.push((uint8_t )REQUEST_ATTRIBUTES);
             data.push(key.networkAddress);
             data.push(key.endpoint);
             data.push(key.clusterId);
@@ -172,7 +193,7 @@ namespace zigbee {
     void SerialDriver2::requestReset() {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )4);
+            data.push((uint8_t )RESET);
             write(std::move(data));
         }
     }
@@ -190,7 +211,7 @@ namespace zigbee {
                                       uint8_t *dataValue) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )5);
+            data.push((uint8_t )WRITE_ATTRIBUTE);
             data.push(nwkAddrs);
             data.push(endpoint);
             data.push(cluster);
@@ -215,7 +236,7 @@ namespace zigbee {
     void SerialDriver2::sendCmd(NwkAddr nwkAddrs, EndpointID endpoint, ClusterID cluster, ZigbeeClusterCmdId commandId, std::vector<uint8_t> values) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )6);
+            data.push((uint8_t )SEND_CMD);
             data.push(nwkAddrs);
             data.push(endpoint);
             data.push(cluster);
@@ -233,7 +254,7 @@ namespace zigbee {
     void SerialDriver2::requestActiveEndpoints(NwkAddr nwkAddr) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )7);
+            data.push((uint8_t )REQUEST_ACTIVE_ENDPOINTS);
             data.push(nwkAddr);
             write(std::move(data));
         }
@@ -244,7 +265,7 @@ namespace zigbee {
     void SerialDriver2::requestNodePower(NwkAddr nwkAddr) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )8);
+            data.push((uint8_t )REQUEST_NODE_POWER);
             data.push(nwkAddr);
             write(std::move(data));
         }
@@ -261,7 +282,7 @@ namespace zigbee {
                                    const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )9);
+            data.push((uint8_t )REQUEST_BIND);
             data.push(destAddr);
             data.push(ExtAddress(outClusterAddr));
             data.push(outClusterEP);
@@ -277,7 +298,7 @@ namespace zigbee {
                                      const uint8_t inClusterAddr[Z_EXTADDR_LEN], EndpointID inClusterEp) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )10);
+            data.push((uint8_t )REQUEST_UNBIND);
             data.push(destAddr);
             data.push(ExtAddress(outClusterAddr));
             data.push(outClusterEP);
@@ -294,7 +315,7 @@ namespace zigbee {
         BOOST_LOG_NAMED_SCOPE(LOG_SCOPE);
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )11);
+            data.push((uint8_t )REQUEST_DEVICE_INFO);
             data.push(networkId);
             write(std::move(data));
         }
@@ -305,7 +326,7 @@ namespace zigbee {
     void SerialDriver2::requestBindTable(NwkAddr networkId) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )12);
+            data.push((uint8_t )REQUEST_BIND_TABLE);
             data.push(networkId);
             write(std::move(data));
         }
@@ -314,7 +335,7 @@ namespace zigbee {
     void SerialDriver2::removeDevice(NwkAddr networkId) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )14);
+            data.push((uint8_t )REMOVE_DEVICE);
             data.push(networkId);
             write(std::move(data));
         }
@@ -324,7 +345,7 @@ namespace zigbee {
     void SerialDriver2::getNodeDescriptor(NwkAddr networkId) {
         if (serialFd >= 0) {
             PacketSend data;
-            data.push((uint8_t )15);
+            data.push((uint8_t )REQUEST_NODE_DESCRIPTOR);
             data.push(networkId);
             write(std::move(data));
         }
@@ -333,7 +354,7 @@ namespace zigbee {
     void SerialDriver2::getLqiResponse(NwkAddr nwkAddr, uint index) {
         if (serialFd >= 0){
             PacketSend data;
-            data.push((uint8_t)16);
+            data.push((uint8_t)REQUEST_LQI);
             data.push(nwkAddr);
             data.push((uint8_t)index);
             write(std::move(data));

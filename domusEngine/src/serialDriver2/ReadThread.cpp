@@ -76,7 +76,7 @@ namespace zigbee {
                             break;
                         case Status::SizeHigh:
                             packetSize = c*256+ packetSize;
-                            BOOST_LOG_TRIVIAL(info) << "Expected packet size of " << packetSize << " bytes"
+                            BOOST_LOG_TRIVIAL(info) << "Expected packet size of " << packetSize << " bytes";
                             packet.resize(packetSize+1);
                             status = Status::Data;
                             iter = packet.begin();
