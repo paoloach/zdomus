@@ -2,6 +2,7 @@ package it.achdjian.paolo.ztopology.domusEngine.rest
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import it.achdjian.paolo.ztopology.zigbee.Cluster
 
 /**
  * Created by Paolo Achdjian on 19/05/16.
@@ -20,4 +21,4 @@ data class Attribute @JsonCreator(mode = JsonCreator.Mode.PROPERTIES) constructo
 }
 
 
-data class Attributes(val networkId: Int, val endpointId: Int, val clusterId: Int, val  values: List<Attribute>)
+data class Attributes(val networkId: Int, val endpointId: Int, val clusterId: Cluster, val  values: List<Attribute>)

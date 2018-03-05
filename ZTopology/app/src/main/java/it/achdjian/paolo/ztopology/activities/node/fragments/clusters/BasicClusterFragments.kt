@@ -3,7 +3,7 @@ package it.achdjian.paolo.ztopology.activities.node.fragments.clusters
 import android.os.Bundle
 import it.achdjian.paolo.ztopology.R
 import it.achdjian.paolo.ztopology.activities.NodeActivity
-import it.achdjian.paolo.ztopology.zigbee.Constants
+import it.achdjian.paolo.ztopology.zigbee.Cluster
 import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
 
 /**
@@ -11,7 +11,7 @@ import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
  */
 class BasicClusterFragments: ClusterFragment()  {
     override fun layoutResource() : Int = R.layout.basic_cluster
-    override fun clusterId(): Int = Constants.BASIC_CLUSTER
+    override fun clusterId() = Cluster.BASIC_CLUSTER
 
     companion object {
         fun newInstance(endpoint: ZEndpoint): BasicClusterFragments {

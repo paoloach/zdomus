@@ -7,15 +7,15 @@ import it.achdjian.paolo.ztopology.zigbee.Cluster
 import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
 
 /**
- * Created by Paolo Achdjian on 2/27/18.
+ * Created by Paolo Achdjian on 2/26/18.
  */
-class IdentifyClusterFragment : ClusterFragment() {
-    override fun layoutResource(): Int = R.layout.identify_cluster
-    override fun clusterId() = Cluster.IDENTIFY_CLUSTER
+class ScenesClusterFragments: ClusterFragment()  {
+    override fun layoutResource() : Int = R.layout.scenes_cluster
+    override fun clusterId() = Cluster.SCENES_CLUSTER
 
     companion object {
-        fun newInstance(endpoint: ZEndpoint): IdentifyClusterFragment {
-            val fragment = IdentifyClusterFragment()
+        fun newInstance(endpoint: ZEndpoint): ScenesClusterFragments {
+            val fragment = ScenesClusterFragments()
             val args = Bundle()
             args.putSerializable(NodeActivity.ENDPOINT, endpoint)
             fragment.arguments = args

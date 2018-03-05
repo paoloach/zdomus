@@ -4,18 +4,15 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import it.achdjian.paolo.ztopology.R
-import it.achdjian.paolo.ztopology.activities.node.fragments.clusters.BasicClusterFragments
-import it.achdjian.paolo.ztopology.activities.node.fragments.clusters.IdentifyClusterFragment
-import it.achdjian.paolo.ztopology.activities.node.fragments.clusters.TemperatureClusterFragment
-import it.achdjian.paolo.ztopology.zigbee.Constants.BASIC_CLUSTER
-import it.achdjian.paolo.ztopology.zigbee.Constants.IDENTIFY_CLUSTER
-import it.achdjian.paolo.ztopology.zigbee.Constants.TEMPERATURE_MEASUREMENT
+import it.achdjian.paolo.ztopology.activities.node.fragments.clusters.*
+import it.achdjian.paolo.ztopology.zigbee.Cluster
 import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
+import it.achdjian.paolo.ztopology.zigbee.idToCluster
 
 /**
  * Created by Paolo Achdjian on 2/27/18.
  */
-class ClusterTabSelectedListener(val supportFragmentManager: FragmentManager ) : TabLayout.OnTabSelectedListener {
+class ClusterTabSelectedListener(private val supportFragmentManager: FragmentManager ) : TabLayout.OnTabSelectedListener {
     var zEndpoint: ZEndpoint? = null
     override fun onTabReselected(tab: TabLayout.Tab?) {
     }
@@ -26,18 +23,23 @@ class ClusterTabSelectedListener(val supportFragmentManager: FragmentManager ) :
     override fun onTabSelected(tab: TabLayout.Tab?) {
         val zEndpoint = this.zEndpoint
         if (zEndpoint != null && tab != null){
-            val clusterId = tab.tag as Int
+            val cluster = tab.tag as Cluster
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, fragmentFromCluster(clusterId, zEndpoint))
+                .replace(R.id.container, fragmentFromCluster(cluster, zEndpoint))
                 .commit()
         }
     }
 
-    private fun fragmentFromCluster(clusterId: Int, zEndpoint: ZEndpoint): Fragment {
+    private fun fragmentFromCluster(clusterId: Cluster, zEndpoint: ZEndpoint): Fragment {
         when (clusterId){
-            BASIC_CLUSTER -> return BasicClusterFragments.newInstance(zEndpoint)
-            IDENTIFY_CLUSTER -> return IdentifyClusterFragment.newInstance(zEndpoint)
-            TEMPERATURE_MEASUREMENT ->return TemperatureClusterFragment.newInstance(zEndpoint)
+            Cluster.BASIC_CLUSTER -> return BasicClusterFragments.newInstance(zEndpoint)
+            Cluster.POWER_CONFIGURATION_CLUSTER -> return PowerConfigurationClusterFragments.newInstance(zEndpoint)
+            Cluster.DEVICE_TEMPERATURE_CONFIGURATION_CLUSTER -> return DeviceTemperatureClusterFragments.newInstance(zEndpoint)
+            Cluster.IDENTIFY_CLUSTER -> return IdentifyClusterFragment.newInstance(zEndpoint)
+            Cluster.GROUPS_CLUSTER -> return GroupsClusterFragments.newInstance(zEndpoint)
+            Cluster.SCENES_CLUSTER -> return ScenesClusterFragments.newInstance(zEndpoint)
+            Cluster.ON_OFF_CLUSTER -> return OnOffClusterFragment.newInstance(zEndpoint)
+            Cluster.TEMPERATURE_MEASUREMENT ->return TemperatureClusterFragment.newInstance(zEndpoint)
         }
         return BasicClusterFragments.newInstance(zEndpoint)
     }

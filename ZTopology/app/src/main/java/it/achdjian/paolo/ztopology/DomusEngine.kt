@@ -6,6 +6,7 @@ import android.os.Message
 import android.util.Log
 import it.achdjian.paolo.ztopology.domusEngine.rest.*
 import it.achdjian.paolo.ztopology.rest.*
+import it.achdjian.paolo.ztopology.zigbee.Cluster
 import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
 import java.util.*
 import java.util.concurrent.LinkedBlockingQueue
@@ -48,7 +49,7 @@ object DomusEngine : HandlerThread("DomusEngtine"), Handler.Callback {
 
     fun getDevice(device: Int) = handler.post(GetDevice(device))
     fun getEndpoint(device: Int, endpointId: Int) = handler.post(GetEndpoint(device, endpointId))
-    fun getAttributes(device: Int, endpointId: Int, clusterId: Int, attributes: List<Int>) =
+    fun getAttributes(device: Int, endpointId: Int, clusterId: Cluster, attributes: List<Int>) =
         handler.post(RequestAttributes(device, endpointId, clusterId, attributes))
 
     fun postCmd(networkId: Int, endpointId: Int, clusterId: Int, cmdId: Int) =

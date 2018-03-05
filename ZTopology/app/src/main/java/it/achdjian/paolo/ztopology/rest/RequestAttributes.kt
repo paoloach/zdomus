@@ -8,8 +8,8 @@ import it.achdjian.paolo.ztopology.domusEngine.rest.Attribute
 import it.achdjian.paolo.ztopology.domusEngine.rest.Attributes
 import it.achdjian.paolo.ztopology.domusEngine.rest.DomusEngineRest
 import it.achdjian.paolo.ztopology.domusEngine.rest.ZigbeeRunnable
+import it.achdjian.paolo.ztopology.zigbee.Cluster
 import java.io.IOException
-import java.util.*
 
 /**
  * Created by Paolo Achdjian on 2/27/18.
@@ -19,7 +19,7 @@ import java.util.*
 class RequestAttributes(
     val nwkAddress: Int,
     val endpoint: Int,
-    val cluster: Int,
+    val cluster: Cluster,
     val attributes: List<Int>
 ) : ZigbeeRunnable() {
     override fun run() {
@@ -31,7 +31,7 @@ class RequestAttributes(
 
         val path = "/devices/${nwkAddress.toString(16)}" +
                 "/endpoint/${endpoint.toString(16)}" +
-                "/cluster/in/${cluster.toString(16)}" +
+                "/cluster/in/${cluster.id.toString(16)}" +
                 "/attributes?id=${buffer.toString()}"
 
         val body = DomusEngineRest.get(path)

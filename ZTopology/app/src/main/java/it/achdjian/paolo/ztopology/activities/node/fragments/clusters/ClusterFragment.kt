@@ -11,6 +11,7 @@ import it.achdjian.paolo.ztopology.AttributesCallback
 import it.achdjian.paolo.ztopology.DomusEngine
 import it.achdjian.paolo.ztopology.activities.NodeActivity
 import it.achdjian.paolo.ztopology.domusEngine.rest.Attributes
+import it.achdjian.paolo.ztopology.zigbee.Cluster
 import it.achdjian.paolo.ztopology.zigbee.ZEndpoint
 
 /**
@@ -21,7 +22,7 @@ abstract class ClusterFragment : Fragment() , AttributesCallback {
     private val mapView = HashMap<Int, TextView>()
 
     abstract fun layoutResource(): Int
-    abstract fun clusterId(): Int
+    abstract fun clusterId(): Cluster
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
