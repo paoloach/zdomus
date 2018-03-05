@@ -74,7 +74,8 @@ namespace zigbee {
 
         void ShowAttribute::response(std::vector<ZCLAttribute *> && attributes ){
             if (allTimeout(attributes)){
-                responseWriter.send(Code::Bad_Request, "data error\n\r");
+                responseWriter.send(Code::Bad_Request, ""
+                        "data error\n\r");
             } else {
                 Value root(arrayValue);
 

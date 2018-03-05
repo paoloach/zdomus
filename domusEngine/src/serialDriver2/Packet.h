@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <vector>
 #include <boost/endian/conversion.hpp>
+#include <boost/log/trivial.hpp>
 #include <zigbee/ExtAddress.h>
 
 namespace zigbee {
@@ -29,13 +30,26 @@ namespace zigbee {
         uint8_t operator[](uint32_t index){return data[index];}
 
         uint8_t getUint8(uint32_t index){
-            return data[index];
+            if (index > size_){
+                BOOST_LOG_TRIVIAL(error) << "Index out of bound: index: " << index << " but only " << size_ << " bytes";
+                return 0;
+            } else
+                return data[index];
         }
         ExtAddress getExtAddress(uint32_t index){
+            if(index > size_-8){
+                BOOST_LOG_TRIVIAL(error) << "Index out of bound: requested range: " << index  << "-" << (index+8)<< " but only " << size_ << " bytes";
+                return 0;
+            }
+
             return ExtAddress(data.get() + index);
         }
 
         uint16_t getUint16(uint32_t index){
+            if(index > size_-1){
+                BOOST_LOG_TRIVIAL(error) << "Index out of bound: indexes: " << index  << "," << (index+1)<< " but only " << size_ << " bytes";
+                return 0;
+            }
             return *(boost::endian::little_to_native((uint16_t *) &data[index]));
         }
         friend std::ostream &operator<<(std::ostream & out, const Packet & packet){

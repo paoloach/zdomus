@@ -9,6 +9,7 @@
 #include <boost/log/attributes/named_scope.hpp>
 #include <boost/log/utility/string_literal.hpp>
 #include <boost/asio.hpp>
+#include <boost/endian/conversion.hpp>
 
 #include "SerialDriver2.h"
 #include "ReadThread.h"
@@ -184,7 +185,7 @@ namespace zigbee {
             data.push(key.clusterId);
             data.push(static_cast<uint8_t>(key.attributesId.size()));
             for(auto & attribute: key.attributesId){
-                data.push(attribute);
+                data.push(boost::endian::native_to_little(attribute));
             }
             write(std::move(data));
         }

@@ -44,6 +44,9 @@ namespace zigbee {
             Packet::iterator iter;
             uint   packetSize;
             while (select(serialFd + 1, &readFd, NULL, NULL, &timeout) > 0) {
+                timeout.tv_sec = 1;
+                timeout.tv_usec = 0;
+
                 n = read(serialFd, &c, 1);
                 if (n > 0) {
                     switch (status){
@@ -77,7 +80,7 @@ namespace zigbee {
                         case Status::SizeHigh:
                             packetSize = c*256+ packetSize;
                             BOOST_LOG_TRIVIAL(info) << "Expected packet size of " << packetSize << " bytes";
-                            packet.resize(packetSize+1);
+                            packet.resize(packetSize);
                             status = Status::Data;
                             iter = packet.begin();
                             break;
@@ -91,6 +94,9 @@ namespace zigbee {
                             break;
                     }
                 }
+            }
+            if (status != Status::Header1){
+                BOOST_LOG_TRIVIAL(error) << "data timeout.Expected " << packet.size() << " but got only " << (iter-packet.begin());
             }
 
         }
