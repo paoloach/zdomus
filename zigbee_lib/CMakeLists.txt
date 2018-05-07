@@ -216,8 +216,8 @@ set(INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/zigbee)
 set(INSTALL_LIB_DIR ${INSTALL_PATH}/lib)
 set(INSTALL_INCLUDE_DIR ${INSTALL_PATH}/include)
 
-SET(INSTALL_INCLUDE_DIR "/opt/cross/x-tools/armv6-unknown-linux-gnueabihf/armv6-unknown-linux-gnueabihf/sysroot/usr/local/zigbee/include")
-SET(INSTALL_LIB_DIR "/opt/cross/x-tools/armv6-unknown-linux-gnueabihf/armv6-unknown-linux-gnueabihf/sysroot/usr/local/zigbee/lib")
+#SET(INSTALL_INCLUDE_DIR "/opt/cross/x-tools/armv6-unknown-linux-gnueabihf/armv6-unknown-linux-gnueabihf/sysroot/usr/local/zigbee/include")
+#SET(INSTALL_LIB_DIR "/opt/cross/x-tools/armv6-unknown-linux-gnueabihf/armv6-unknown-linux-gnueabihf/sysroot/usr/local/zigbee/lib")
 
 message("install path: ${INSTALL_PATH}")
 message("install lib dir: ${INSTALL_LIB_DIR}")

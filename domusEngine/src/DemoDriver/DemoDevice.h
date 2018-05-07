@@ -26,7 +26,11 @@ namespace zigbee {
         using PowerNodeSet = boost::fibers::unbuffered_channel<NwkAddr>;
     private:
         void init();
+        void initDB();
+
         bool isPresent() override;
+
+
 
         bool enableLog() override;
 

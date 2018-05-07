@@ -94,8 +94,11 @@ namespace zigbee {
 
     DemoDevice::DemoDevice(SingletonObjects * singletonObjects, std::chrono::seconds seconds) : ZigbeeDevice(seconds), singletonObjects(singletonObjects), stop(false), e1(rd()) {
         BOOST_LOG_TRIVIAL(info) << "-------------------------- DEMO MODE ------------------------";
+        initDB();
         demoThread = std::thread([this] { runDemoThread(); });
+    }
 
+    void DemoDevice::initDB() {
         DBTableFactory tableFactory;
 
         auto table = tableFactory.getTable("Temperatures");
@@ -121,7 +124,6 @@ namespace zigbee {
             date  = nextDate;
             value += 2.0833333;
         }
-
     }
 
     void DemoDevice::runDemoThread() {
@@ -311,26 +313,26 @@ namespace zigbee {
 
 
     void DemoDevice::init() {
-        auto zDevices = singletonObjects->getZDevices();
-        auto message = std::make_shared<IEEEAddressResponse>();
-        message->nwkAddr = NwkAddr(NWK_ADDR1);
-        message->ieeeAddr = extAddress1;
-        zDevices->addDeviceInfo(message.get());
-        boost::this_fiber::sleep_for(2s);
-        message->nwkAddr = NwkAddr(NWK_ADDR2);
-        message->ieeeAddr = extAddress2;
-        zDevices->addDeviceInfo(message.get());
-        boost::this_fiber::sleep_for(2s);
-        message->nwkAddr = NwkAddr(NWK_ADDR3);
-        message->ieeeAddr = extAddress3;
-        zDevices->addDeviceInfo(message.get());
-
-        requestActiveEndpoints(NWK_ADDR1);
-        boost::this_fiber::sleep_for(2s);
-        requestActiveEndpoints(NWK_ADDR2);
-        boost::this_fiber::sleep_for(2s);
-        requestActiveEndpoints(NWK_ADDR3);
-        boost::this_fiber::sleep_for(2s);
+//        auto zDevices = singletonObjects->getZDevices();
+//        auto message = std::make_shared<IEEEAddressResponse>();
+//        message->nwkAddr = NwkAddr(NWK_ADDR1);
+//        message->ieeeAddr = extAddress1;
+//        zDevices->addDeviceInfo(message.get());
+//        boost::this_fiber::sleep_for(2s);
+//        message->nwkAddr = NwkAddr(NWK_ADDR2);
+//        message->ieeeAddr = extAddress2;
+//        zDevices->addDeviceInfo(message.get());
+//        boost::this_fiber::sleep_for(2s);
+//        message->nwkAddr = NwkAddr(NWK_ADDR3);
+//        message->ieeeAddr = extAddress3;
+//        zDevices->addDeviceInfo(message.get());
+//
+//        requestActiveEndpoints(NWK_ADDR1);
+//        boost::this_fiber::sleep_for(2s);
+//        requestActiveEndpoints(NWK_ADDR2);
+//        boost::this_fiber::sleep_for(2s);
+//        requestActiveEndpoints(NWK_ADDR3);
+//        boost::this_fiber::sleep_for(2s);
     }
 
 
@@ -883,6 +885,7 @@ namespace zigbee {
 //            table3.index=2;
 
             response->totalTables=2;
+            response->totalTables=0;
             response->ownerNwkAddr = NwkAddr(0);
             response->tables.push_back(table1);
             response->tables.push_back(table2);

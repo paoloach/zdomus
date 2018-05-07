@@ -5,46 +5,37 @@
 #ifndef DOMUS_ENGINE_TOPOLOGY_CREATION_H
 #define DOMUS_ENGINE_TOPOLOGY_CREATION_H
 
-
-#include <set>
+#include <boost/fiber/mutex.hpp>
+#include <boost/fiber/unbuffered_channel.hpp>
+#include <boost/fiber/fiber.hpp>
 #include <thread>
 #include <mutex>
-#include <chrono>
-#include "../Utils/SingletonObjects.h"
+#include <vector>
+#include "TopologyParent.h"
 
 namespace zigbee {
     class ZDevice;
+    class TopologyParent;
+    class SingletonObjects;
 
     class TopologyCreation {
     private:
         SingletonObjects*singletonObjects;
-        std::set<NwkAddr> toDo;
-        std::map<NwkAddr, std::chrono::system_clock::time_point> doing;
-        std::set<NwkAddr> done;
-        std::vector<std::function<void()>> observers;
-        std::thread requestThread;
-        std::mutex mutex;
+        boost::fibers::fiber topologyFiber;
         bool stop;
-        std::function<void(ZDevice *)> observerCallback;
+    public:
+        std::map<ExtAddress, std::unique_ptr<TopologyParent> > devices;
+        boost::fibers::unbuffered_channel<TopologyParent *>  channel;
 
     public:
         TopologyCreation(SingletonObjects *singletonObjects) : singletonObjects(singletonObjects) {}
 
         ~TopologyCreation();
 
-        void create();
-
-        void addDevice(ZDevice *device);
-
-        void addObserver(const std::function<void()>& observer);
+        void start();
 
     private:
         void manageRequest();
-
-        void sleep(std::chrono::milliseconds duration) {
-            std::unique_lock<std::mutex>(mutex);
-            std::this_thread::sleep_for(duration);
-        }
 
     };
 }

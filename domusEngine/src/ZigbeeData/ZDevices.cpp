@@ -69,6 +69,16 @@ namespace zigbee {
         }
     }
 
+    void ZDevices::put( ExtAddress & extAddress, NwkAddr  nwkAddr) {
+        if (ieeeAddrDevices.count(extAddress) == 0) {
+            ieeeAddrDevices.insert(std::make_pair (extAddress,  make_unique<ZDevice>(extAddress, nwkAddr)));
+            tokenUpdate++;
+        }
+        if (nwkAddrDevices.count(nwkAddr) == 0) {
+            nwkAddrDevices.insert({nwkAddr, ieeeAddrDevices[extAddress].get()});
+        }
+    }
+
     void ZDevices::put(const SimpleDescMessage &message) {
         NwkAddr nwkAddr{message.nwkAddr};
         auto device = nwkAddrDevices.find(nwkAddr);

@@ -36,8 +36,10 @@ namespace zigbee {
         while (true) {
             FD_ZERO(&readFd);
             FD_SET(serialFd, &readFd);
-            timeout.tv_sec = 1;
+            timeout.tv_sec = 100;
             timeout.tv_usec = 0;
+
+
 
             Packet packet;
             status  =  Status::Header1;

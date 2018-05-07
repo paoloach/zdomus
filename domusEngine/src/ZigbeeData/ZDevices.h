@@ -35,6 +35,8 @@ namespace zigbee {
 
         virtual void put(const AnnunceMessage &message);
 
+        virtual void put( ExtAddress & extAddress, NwkAddr  nwkAdd);
+
         virtual void put(const SimpleDescMessage &message);
 
         virtual void put(const ZEndpoint &message);

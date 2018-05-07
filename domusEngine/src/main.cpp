@@ -109,7 +109,7 @@ int main(int argc, const char *argv[]) {
 
     zDevices->addObserver([&requestDevices](ZDevice *zDevice) { requestDevices.request(zDevice); });
 
-    //topologyCreation.create();
+    topologyCreation.start();
 
     singletons.getRestHandler()->start();
     while (true) boost::this_fiber::yield();

@@ -26,6 +26,7 @@ namespace zigbee {
     public:
         ZDevice();
 
+        ZDevice (const ExtAddress &extAddr, NwkAddr nwkAddr):extAddr{extAddr}, nwkAddr{nwkAddr}{}
         ZDevice(const AnnunceMessage &message);
 
         ZDevice(const ExtAddress &extAddr, NwkAddr nwkAddr, uint8_t capabilities,

@@ -26,6 +26,7 @@ namespace zigbee {
         BOOST_LOG_TRIVIAL(info) << "Arrived " << totalAttr << " attributes";
         int index=7;
         for (int attrIndex=0; attrIndex < totalAttr; attrIndex++) {
+            BOOST_LOG_TRIVIAL(info) << "packet index: " << index;
             ZigbeeAttributeId attributeId{ packet.getUint16(index)};
             AttributeKey key{nwkAddr, endpointID, clusterId, attributeId};
             index+=2;
@@ -52,7 +53,7 @@ namespace zigbee {
                     attribute->setValue(status, attributeType, data);
 
                     BOOST_LOG_TRIVIAL(info) << "arrived attribute from  network id=" << nwkAddr << ", endpoint=" << endpointID << ", cluster=" << clusterId << ", attribute="
-                                            << attributeId << " : " << ss.str();
+                                            << attributeId << ", len: " << (int)attributeLen << " : " << ss.str();
 
 
                     singletons->getZigbeeDevice()->setAttribute(key, attribute);

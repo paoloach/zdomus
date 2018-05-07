@@ -19,7 +19,7 @@ SET(SRC_ZIGBEE_DATA AttributeData.cpp AttributeData.h
         Exceptions/InvalidOutCluster.cpp
         Exceptions/InvalidZDevice.cpp
         Exceptions/InvalidZEndpointException.cpp
-        Exceptions/ZigbeeDeviceException.cpp)
+        Exceptions/ZigbeeDeviceException.cpp TopologyParent.cpp TopologyParent.h)
 
 message("COMMON_DIR = ${CMAKE_SOURCE_DIR}/include")
 
