@@ -112,7 +112,9 @@ int main(int argc, const char *argv[]) {
     topologyCreation.start();
 
     singletons.getRestHandler()->start();
-    while (true) boost::this_fiber::yield();
+    while (true) {
+        boost::this_fiber::sleep_for(1us);
+    }
 
     exitV8();
 }

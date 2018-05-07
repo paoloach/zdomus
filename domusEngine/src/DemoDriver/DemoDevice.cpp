@@ -885,7 +885,6 @@ namespace zigbee {
 //            table3.index=2;
 
             response->totalTables=2;
-            response->totalTables=0;
             response->ownerNwkAddr = NwkAddr(0);
             response->tables.push_back(table1);
             response->tables.push_back(table2);

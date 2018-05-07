@@ -54,7 +54,7 @@ namespace zigbee {
     }
 
     void TopologyParent::response(std::shared_ptr<LqiResponse> lqiResponse) {
-        BOOST_LOG_TRIVIAL(info) << "Arrive LQI response of the device " << lqiResponse->ownerNwkAddr;
+        BOOST_LOG_TRIVIAL(info) << "Arrive LQI response " << *(lqiResponse);
         if (responded.empty()) {
             responded.resize(lqiResponse->totalTables, 0);
         }
@@ -70,6 +70,7 @@ namespace zigbee {
                 if (table.logicalType == LogicalType::ZigbeeRouter)
                     routesChildren.push_back(owner->devices[table.ieeeAddr].get());
             }
+            BOOST_LOG_TRIVIAL(info) << "table.index=" << table.index;
             responded[table.index] = UINT32_MAX;
         }
         owner->channel.push(this);
