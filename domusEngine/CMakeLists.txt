@@ -149,7 +149,7 @@ else ()
 endif ()
 
 
-add_library(domus_engine_static_lib STATIC )
+add_library(domus_engine_static_lib STATIC  src/dummy.cpp)
 
 target_link_libraries(domus_engine_static_lib
         http_lib
