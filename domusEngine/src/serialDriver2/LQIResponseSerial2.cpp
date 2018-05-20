@@ -54,24 +54,28 @@ namespace zigbee {
         auto response = std::make_shared<LqiResponse>();
         response->ownerNwkAddr = nwkAddr;
         response->totalTables = totalTables;
-        for (uint i = 0; i < tablesSent; i++) {
-            LqiTable table;
-            table.index = i + index;
-            uint offset = i * 22 + 6;
-            table.panAddr = packet.getExtAddress(offset);
-            table.ieeeAddr = packet.getExtAddress(offset + 8);
-            table.nwkAddr = NwkAddr{packet.getUint16(offset+16)};
-            uint8_t flags = packet.getUint8(offset+18);
-            table.logicalType = toLogicalType(flags & 0b11);
-            table.onWhenIdle = ((flags >> 2) & 0b11) == 1;
-            table.relationship = toRelationship((flags >> 4) & 0b111);
-            flags = packet.getUint8(offset+19);
-            table.neighborAcceptJoin = (flags >> 0b11)  == 1;
-            table.depth = packet.getUint8(offset+20);
-            table.lqi = packet.getUint8(offset+21);
+        if (tablesSent > 0) {
+            for (uint i = 0; i < tablesSent; i++) {
+                LqiTable table;
+                table.index = i + index;
+                uint offset = i * 22 + 6;
+                table.panAddr = packet.getExtAddress(offset);
+                table.ieeeAddr = packet.getExtAddress(offset + 8);
+                table.nwkAddr = NwkAddr{packet.getUint16(offset + 16)};
+                uint8_t flags = packet.getUint8(offset + 18);
+                table.logicalType = toLogicalType(flags & 0b11);
+                table.onWhenIdle = ((flags >> 2) & 0b11) == 1;
+                table.relationship = toRelationship((flags >> 4) & 0b111);
+                flags = packet.getUint8(offset + 19);
+                table.neighborAcceptJoin = (flags >> 0b11) == 1;
+                table.depth = packet.getUint8(offset + 20);
+                table.lqi = packet.getUint8(offset + 21);
 
-            response->tables.push_back(table);
+                response->tables.push_back(table);
 
+                singletons->getZigbeeDevice()->setLQIResponse(response);
+            }
+        } else {
             singletons->getZigbeeDevice()->setLQIResponse(response);
         }
 

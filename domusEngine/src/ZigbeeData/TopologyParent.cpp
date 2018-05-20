@@ -78,7 +78,8 @@ namespace zigbee {
 
     void TopologyParent::timeout() {
         BOOST_LOG_TRIVIAL(info) << "Timeout LQI response of the device " << addr;
-        responded[pendingFor]++;
+        if (responded.size() > pendingFor)
+            responded[pendingFor]++;
         owner->channel.push(this);
     }
 }

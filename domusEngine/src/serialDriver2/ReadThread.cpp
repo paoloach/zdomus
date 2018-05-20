@@ -16,16 +16,11 @@ namespace zigbee {
     constexpr uint8_t HEADER3 = 0x42;
 
     enum class Status {
-        Header1,
-        Header2,
-        Header3,
-        SizeLow,
-        SizeHigh,
-        Data
+        Header1, Header2, Header3, SizeLow, SizeHigh, Data
     };
 
-    void readThread(SingletonObjects * singletonObjects, int serialFd) {
-        Status  status  =  Status::Header1;
+    void readThread(SingletonObjects *singletonObjects, int serialFd) {
+        Status status = Status::Header1;
         Serial2ResponseExecutor responseExecutor(singletonObjects);
         int n;
         fd_set readFd;
@@ -40,39 +35,38 @@ namespace zigbee {
             timeout.tv_usec = 0;
 
 
-
             Packet packet;
-            status  =  Status::Header1;
+            status = Status::Header1;
             Packet::iterator iter;
-            uint   packetSize;
+            uint packetSize;
             while (select(serialFd + 1, &readFd, NULL, NULL, &timeout) > 0) {
                 timeout.tv_sec = 1;
                 timeout.tv_usec = 0;
 
                 n = read(serialFd, &c, 1);
                 if (n > 0) {
-                    switch (status){
+                    switch (status) {
                         case Status::Header1:
-                            if (c==HEADER1){
+                            if (c == HEADER1) {
                                 status = Status::Header2;
                             } else {
-                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " <<  (int)HEADER1 << " got " << (int)c;
+                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " << (int) HEADER1 << " got " << (int) c;
                             }
                             break;
                         case Status::Header2:
-                            if (c==HEADER2){
+                            if (c == HEADER2) {
                                 status = Status::Header3;
                             } else {
-                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " <<  (int)HEADER2 << " got " << (int)c;
+                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " << (int) HEADER2 << " got " << (int) c;
                                 status = Status::Header1;
                             }
                             break;
                         case Status::Header3:
-                            if (c==HEADER3){
+                            if (c == HEADER3) {
                                 status = Status::SizeLow;
                             } else {
                                 status = Status::Header1;
-                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " <<  (int)HEADER3 << " got " << (int)c;
+                                BOOST_LOG_TRIVIAL(error) << "Out of sync reading from serial port. Expected " << (int) HEADER3 << " got " << (int) c;
                             }
                             break;
                         case Status::SizeLow:
@@ -80,7 +74,7 @@ namespace zigbee {
                             status = Status::SizeHigh;
                             break;
                         case Status::SizeHigh:
-                            packetSize = c*256+ packetSize;
+                            packetSize = c * 256 + packetSize;
                             BOOST_LOG_TRIVIAL(info) << "Expected packet size of " << packetSize << " bytes";
                             packet.resize(packetSize);
                             status = Status::Data;
@@ -89,7 +83,7 @@ namespace zigbee {
                         case Status::Data:
                             *iter = c;
                             iter++;
-                            if (iter == packet.end()){
+                            if (iter == packet.end()) {
                                 status = Status::Header1;
                                 responseExecutor.execute(std::move(packet));
                             }
@@ -97,8 +91,8 @@ namespace zigbee {
                     }
                 }
             }
-            if (status != Status::Header1){
-                BOOST_LOG_TRIVIAL(error) << "data timeout.Expected " << packet.size() << " but got only " << (iter-packet.begin());
+            if (status != Status::Header1) {
+                BOOST_LOG_TRIVIAL(error) << "data timeout.Expected " << packet.size() << " but got only " << (iter - packet.begin());
             }
 
         }
