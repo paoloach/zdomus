@@ -12,6 +12,7 @@ ExternalProject_Add(pistache_fork
         INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/libs
         UPDATE_COMMAND "" # Skip annoying updates for every build
         INSTALL_COMMAND ""
+        BUILD_COMMAND make pistache
         CMAKE_ARGS -DCMAKE_FIND_ROOT_PATH=${CMAKE_FIND_ROOT_PATH}
         -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
         -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
@@ -28,54 +29,37 @@ ExternalProject_Get_property(pistache_fork SOURCE_DIR)
 set(PISTACHE_INCLUDE_DIR ${SOURCE_DIR}/include )
 set(PISTACHE_LIB ${BINARY_DIR}/src/libpistache.a)
 
-
-#ExternalProject_Add(trompeloeil
-#        GIT_REPOSITORY https://github.com/rollbear/trompeloeil.git
-#        GIT_SUBMODULES
-#        PREFIX ${CMAKE_CURRENT_BINARY_DIR}/trompeloeil
-#        INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/libs
-#        UPDATE_COMMAND "" # Skip annoying updates for every build
-#        INSTALL_COMMAND ""
-#        CMAKE_ARGS -DCMAKE_FIND_ROOT_PATH=${CMAKE_FIND_ROOT_PATH}
-#        -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-#        -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-#        -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
-#        -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-#        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-#        ${USE_PROJECT_CMAKE_MODULE_PATH}
-#        )
-
-
-
 set(V8_DIR ${CMAKE_CURRENT_SOURCE_DIR}/v8)
 set(V8_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/v8/include ${PISTACHE_INCLUDE_DIR})
 
 message("processor ${CMAKE_SYSTEM_PROCESSOR}")
 message("V8_DIR ${V8_DIR}")
 
-if (CMAKE_BUILD_TYPE MATCHES "Debug")
-    set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)
-    message("V8_LIB_DIR ${V8_LIB_DIR}")
+
+if (BUILD_V8_VERSION MATCHES "arm")
+    message("Using v8 ARM version")
+    set(Boost_USE_STATIC_LIBS ON)
+    set(V8_LIB_DIR ${V8_DIR}/lib_arm.release)
     set(V8_LIBRARY
-            ${V8_LIB_DIR}/libv8_libplatform.so
-            ${V8_LIB_DIR}/libv8_libbase.so
-            ${V8_LIB_DIR}/libicui18n.so
-            ${V8_LIB_DIR}/libicuuc.so
-            ${V8_LIB_DIR}/libv8.so
+            ${V8_LIB_DIR}/libv8_base.a
+            ${V8_LIB_DIR}/libv8_external_snapshot.a
+            ${V8_LIB_DIR}/libv8_libplatform.a
+            ${V8_LIB_DIR}/libv8_libbase.a
+            ${V8_LIB_DIR}/libv8_libsampler.a
+            ${V8_LIB_DIR}/libicui18n.a
+            ${V8_LIB_DIR}/libicuuc.a
             )
-else ()
-    if (BUILD_V8_VERSION MATCHES "arm")
-        message("Using v8 ARM version")
-        set(Boost_USE_STATIC_LIBS ON)
-        set(V8_LIB_DIR ${V8_DIR}/lib_arm.release)
+else()
+    set( BOOST_FLAGS  "-DBOOST_ALL_DYN_LINK")
+    if (CMAKE_BUILD_TYPE MATCHES "Debug")
+        set(V8_LIB_DIR ${V8_DIR}/lib_x64.debug)
+        message("V8_LIB_DIR ${V8_LIB_DIR}")
         set(V8_LIBRARY
-                ${V8_LIB_DIR}/libv8_base.a
-                ${V8_LIB_DIR}/libv8_external_snapshot.a
-                ${V8_LIB_DIR}/libv8_libplatform.a
-                ${V8_LIB_DIR}/libv8_libbase.a
-                ${V8_LIB_DIR}/libv8_libsampler.a
-                ${V8_LIB_DIR}/libicui18n.a
-                ${V8_LIB_DIR}/libicuuc.a
+                ${V8_LIB_DIR}/libv8_libplatform.so
+                ${V8_LIB_DIR}/libv8_libbase.so
+                ${V8_LIB_DIR}/libicui18n.so
+                ${V8_LIB_DIR}/libicuuc.so
+                ${V8_LIB_DIR}/libv8.so
                 )
     else ()
         message("Using v8 x64 version")
@@ -98,14 +82,14 @@ set(ZIGBEELIB_LIB_DIR ${ZIGBEE_LIB_DIR}/lib)
 
 set(LIBUSB_INCLUDE_DIR ${CMAKE_FIND_ROOT_PATH}/usr/include/libusb-1.0)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -g3 -O3 -Wall -Wextra -Wpedantic  -fno-omit-frame-pointer -fsanitize=address -fsanitize-address-use-after-scope -fsanitize=leak")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pipe -g2 -O3  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK  -fno-omit-frame-pointer ")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pipe  -g2 -O0  -Wall -Wextra -Wpedantic -DBOOST_ALL_DYN_LINK    -fno-omit-frame-pointer  ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${BOOST_FLAGS} -pipe -Wall -Wextra -Wpedantic -fsanitize=address -fsanitize-address-use-after-scope -fsanitize=leak")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${BOOST_FLAGS}  -pipe -g2 -O3  -Wall -Wextra -Wpedantic   -fno-omit-frame-pointer ")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${BOOST_FLAGS}  -pipe  -g2 -O0  -Wall -Wextra -Wpedantic    -fno-omit-frame-pointer  ")
 
 add_custom_target(debug cmake -DCMAKE_BUILD_TYPE=Debug COMMAND make)
 add_custom_target(release cmake -DCMAKE_BUILD_TYPE=Release COMMAND make)
 
-find_package(Boost 1.63 COMPONENTS date_time fiber context system signals program_options filesystem log REQUIRED)
+find_package(Boost 1.63 COMPONENTS date_time fiber context system signals program_options filesystem log log_setup REQUIRED)
 
 link_directories(${ZIGBEELIB_LIB_DIR} ${V8_LIB_DIR})
 
@@ -129,8 +113,8 @@ add_subdirectory(src/json)
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
     if (CMAKE_C_COMPILER MATCHES "arm")
         set(V8_BLOB
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/native_blob.cpp
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-debug/snapshot_blob.cpp)
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/native_blob.cpp
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/arm-release/snapshot_blob.cpp)
     else ()
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-debug/native_blob.cpp
@@ -144,7 +128,7 @@ else ()
     else ()
         set(V8_BLOB
                 ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/native_blob.cpp
-                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp  src/usb/messages/zigbeeConfig.h)
+                ${CMAKE_SOURCE_DIR}/src/v8_blob/x64-release/snapshot_blob.cpp )
     endif ()
 endif ()
 
