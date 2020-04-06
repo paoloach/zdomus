@@ -1,0 +1,1 @@
+cmd='/opt/clion-173.4127.6/bin/cmake/bin/cmake;-DCMAKE_FIND_ROOT_PATH=;-DCMAKE_INSTALL_PREFIX=/usr/local;-DCMAKE_CXX_COMPILER=/usr/bin/c++;-DCMAKE_CXX_FLAGS=;-DCMAKE_C_FLAGS=;-DCMAKE_BUILD_TYPE=Debug;-GCodeBlocks - Unix Makefiles;<SOURCE_DIR><SOURCE_SUBDIR>'

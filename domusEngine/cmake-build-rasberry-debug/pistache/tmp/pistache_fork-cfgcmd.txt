@@ -1,0 +1,1 @@
+cmd='/opt/clion-2018.1.2/bin/cmake/linux/bin/cmake;-DCMAKE_FIND_ROOT_PATH=;-DCMAKE_INSTALL_PREFIX=/usr/local;-DCMAKE_CXX_COMPILER=/opt/cross/x-tools/armv6-unknown-linux-gnueabihf/bin/armv6-unknown-linux-gnueabihf-g++;-DCMAKE_CXX_FLAGS=;-DCMAKE_C_FLAGS=;-DCMAKE_BUILD_TYPE=Debug;-GCodeBlocks - Unix Makefiles;<SOURCE_DIR><SOURCE_SUBDIR>'

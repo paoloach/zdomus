@@ -36,7 +36,7 @@ class TemperatureModule(val app: Application) {
     fun provideSurface(render: TemperatureRender) = TemperatureSurface(app, render)
 
     @Provides @Singleton
-    fun provideSharedPreferences() = PreferenceManager.getDefaultSharedPreferences(app)
+        fun provideSharedPreferences() = PreferenceManager.getDefaultSharedPreferences(app)
 
     @Provides @Singleton
     fun provideDomusEngineRest(sharedPreferences: SharedPreferences, connectionStatus: ConnectionStatus) = DomusEngineRest(sharedPreferences, connectionStatus)

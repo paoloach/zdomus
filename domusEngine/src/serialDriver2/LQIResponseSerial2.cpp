@@ -51,6 +51,7 @@ namespace zigbee {
         uint index = packet.getUint8(4);
         uint tablesSent = +packet.getUint8(5);
 
+        BOOST_LOG_TRIVIAL(info) << "nwkAddr: " << nwkAddr << ", totalTables: " << totalTables << ", index: "<< index << ", tablesSent: " << tablesSent;
         auto response = std::make_shared<LqiResponse>();
         response->ownerNwkAddr = nwkAddr;
         response->totalTables = totalTables;
